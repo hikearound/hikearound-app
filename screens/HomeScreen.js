@@ -19,6 +19,7 @@ import {
     StatusBar,
 } from 'react-native';
 import SafeAreaView from 'react-native-safe-area-view';
+import HeaderLogo from '../components/HeaderLogo';
 
 const CardsQuery = gql`
     {
@@ -74,7 +75,13 @@ function mapDispatchToProps(dispatch) {
 
 class HomeScreen extends React.Component {
     static navigationOptions = {
-      header: null
+        headerStyle: {
+            backgroundColor: '#935DFF',
+            height: 60,
+        },
+        headerTintColor: '#FFF',
+        headerTitle: <HeaderLogo/>,
+        headerBackTitle: null,
     };
 
     state = {
@@ -83,7 +90,6 @@ class HomeScreen extends React.Component {
     };
 
     componentDidMount() {
-        StatusBar.setBarStyle('dark-content', true);
     }
 
     componentDidUpdate() {
@@ -101,8 +107,6 @@ class HomeScreen extends React.Component {
             Animated.spring(this.state.opacity, {
                 toValue: 0.5
             }).start();
-
-            StatusBar.setBarStyle('light-content', true);
         }
 
         if (this.props.action == 'closeMenu') {
@@ -115,8 +119,6 @@ class HomeScreen extends React.Component {
             Animated.spring(this.state.opacity, {
                 toValue: 1
             }).start();
-
-            StatusBar.setBarStyle('dark-content', true);
         }
     };
 
@@ -243,8 +245,6 @@ export default connect(
 const Container = styled.View`
     background: #f0f3f5;
     flex: 1;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
     overflow: hidden;
 `;
 

@@ -13,8 +13,15 @@ import {
 
 class SectionScreen extends React.Component {
     static navigationOptions = {
-        // title: 'Section'
-        header: null
+        headerStyle: {
+            backgroundColor: '#935DFF',
+            height: 55,
+        },
+        headerTintColor: '#FFF',
+        headerTitle: 'Hike',
+        headerTitleStyle: {
+            fontSize: 22,
+        },
     };
 
     componentDidMount() {
@@ -22,7 +29,6 @@ class SectionScreen extends React.Component {
     }
 
     componentWillUnmount() {
-        StatusBar.setBarStyle('dark-content', true);
     }
 
     render() {

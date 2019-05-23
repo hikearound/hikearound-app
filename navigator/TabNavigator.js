@@ -24,7 +24,7 @@ const HomeStack = createStackNavigator(
     {
         mode: 'card', // modal
         initialRouteName: 'Landing',
-    }
+    },
 );
 
 HomeStack.navigationOptions = ({ navigation }) => {
@@ -47,7 +47,6 @@ HomeStack.navigationOptions = ({ navigation }) => {
             />
         ),
         tabBarOnPress: ({ navigation, defaultHandler }) => {
-            console.log(navigation["state"]);
             defaultHandler();
         },
     };
@@ -94,10 +93,10 @@ const TabNavigator = createBottomTabNavigator(
             activeTintColor: activeColor,
             inactiveTintColor: inactiveColor,
             labelStyle: {
-                marginBottom: -6,
+                marginBottom: 0,
             },
             tabStyle: {
-                marginTop: 10,
+                marginTop: 6,
             },
         },
     },

@@ -2,6 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import { TouchableOpacity } from 'react-native';
 import { NavigationActions, StackActions } from 'react-navigation';
+import SafeAreaView from 'react-native-safe-area-view';
+import ActionButton from '../components/ActionButton';
+import colors from '../constants/Colors';
+import spacing from '../constants/Spacing';
+import fontSizes from '../constants/Fonts';
 
 const resetAction = StackActions.reset({
     index: 0,
@@ -9,28 +14,39 @@ const resetAction = StackActions.reset({
 });
 
 class SignInScreen extends React.Component {
-    static navigationOptions = {};
+    static navigationOptions = {
+        headerStyle: {
+            backgroundColor: colors.purple,
+            height: parseInt(spacing.header),
+        },
+        headerTintColor: colors.white,
+        headerTitle: 'Sign In',
+        headerTitleStyle: {
+            fontSize: parseInt(fontSizes.header),
+        },
+    };
 
     render() {
         return (
-            <Container>
-            <TouchableOpacity
-                onPress={() => {
-                    this.props.navigation.dispatch(resetAction);
-                }}>
-                <Text>Sign-In Screen</Text>
-            </TouchableOpacity>
-            </Container>
+            <RootView>
+                <SafeAreaView>
+                    <TouchableOpacity
+                        activeOpacity={0.4}
+                        onPress={() => {
+                            this.props.navigation.dispatch(resetAction);
+                        }}>
+                        <ActionButton
+                            primary
+                            text={'Sign In'}
+                        />
+                    </TouchableOpacity>
+                </SafeAreaView>
+            </RootView>
         );
     }
 }
 
 export default SignInScreen;
 
-const Container = styled.View`
-    flex: 1;
-    justify-content: center;
-    align-items: center;
+const RootView = styled.View`
 `;
-
-const Text = styled.Text``;

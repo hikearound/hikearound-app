@@ -3,7 +3,15 @@ import styled from 'styled-components';
 
 class NotificationScreen extends React.Component {
     static navigationOptions = {
-        header: null
+        headerStyle: {
+            backgroundColor: '#935DFF',
+            height: 60,
+        },
+        headerTintColor: '#FFF',
+        headerTitle: 'Notifications',
+        headerTitleStyle: {
+            fontSize: 22,
+        },
     };
 
     render() {
