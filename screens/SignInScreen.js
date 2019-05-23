@@ -150,6 +150,10 @@ class SignInScreen extends React.Component {
                             onChangeText={text => this.setValue(text, index)}
                         />
                     )}
+                    <TouchableOpacity
+                        activeOpacity={0.4}>
+                        <PasswordText>Forgot Password?</PasswordText>
+                    </TouchableOpacity>
                 </ScrollView>
                 <KeyboardAccessoryNavigation
                     avoidKeyboard={true}
@@ -188,4 +192,11 @@ const Text = styled.Text`
     font-size: 18px;
     color: ${colors.purple};
     font-weight: 600;
+`;
+
+const PasswordText = styled.Text`
+    font-weight: 500;
+    font-size: 18px;
+    margin-left: 20px;
+    color: ${colors.purple};
 `;
