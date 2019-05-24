@@ -24,7 +24,9 @@ class AuthLoadingScreen extends React.Component {
         // uid = false;
         this.props.navigation.dispatch(StackActions.reset({
             index: 0,
-            actions: [NavigationActions.navigate({ routeName: uid ? 'Home' : 'Landing' })],
+            actions: [NavigationActions.navigate({
+                routeName: uid ? 'Home' : 'Landing'
+            })],
         }));
     };
 
