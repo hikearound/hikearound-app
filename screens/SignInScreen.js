@@ -84,17 +84,6 @@ class SignInScreen extends React.Component {
         }
     }
 
-    componentDidMount() {
-        this.keyboardDidHideListener = Keyboard.addListener(
-            'keyboardDidHide',
-            this._keyboardDidHide,
-        );
-    }
-
-    _keyboardDidHide() {
-        return true
-    }
-
     handleLogin = () => {
         this.setState({ isLoading: true });
 
