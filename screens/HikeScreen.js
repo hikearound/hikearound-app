@@ -6,6 +6,7 @@ import {
     TouchableOpacity,
     ScrollView,
 } from 'react-native';
+import { MapView, Location, Permissions } from 'expo';
 
 class HikeScreen extends React.Component {
     static navigationOptions = ({ navigation, navigationOptions }) => {
@@ -24,6 +25,37 @@ class HikeScreen extends React.Component {
         };
     }
 
+    state = {
+        mapRegion: null,
+        hasLocationPermissions: false,
+        locationResult: null
+    };
+
+    componentDidMount() {
+        this._getLocationAsync();
+    }
+
+    _getLocationAsync = async () => {
+        let { status } = await Permissions.askAsync(Permissions.LOCATION);
+        if (status !== 'granted') {
+            this.setState({
+                locationResult: 'Permission denied.',
+            });
+        } else {
+            this.setState({ hasLocationPermissions: true });
+        }
+
+        let location = await Location.getCurrentPositionAsync({});
+        this.setState({ locationResult: JSON.stringify(location) });
+
+        this.setState({mapRegion: {
+            latitude: location.coords.latitude,
+            longitude: location.coords.longitude,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421 }
+        });
+    };
+
     render() {
         const { navigation } = this.props;
         const section = navigation.getParam('section');
@@ -31,29 +63,12 @@ class HikeScreen extends React.Component {
         return (
             <ScrollView>
                 <Container>
-                    <Cover>
-                        <Image source={section.image} />
-                        <Wrapper>
-                            <Subtitle>{section.subtitle}</Subtitle>
-                        </Wrapper>
-                        <Title>{section.title}</Title>
-                        <Caption>{section.caption}</Caption>
-                    </Cover>
-                    <TouchableOpacity
-                        onPress={() => {
-                            this.props.navigation.goBack();
-                        }}
-                        style={{ position: 'absolute', top: 20, right: 20 }}>
-                        <CloseView>
-                            <Icon.Ionicons
-                                name='ios-close'
-                                size={36}
-                                color='#4775f2'
-                                style={{ marginTop: -2 }}
-                            />
-                        </CloseView>
-                    </TouchableOpacity>
                     <Content>
+                        <MapView
+                            provider={MapView.PROVIDER_GOOGLE}
+                            style={{ alignSelf: 'stretch', height: 400 }}
+                            region={this.state.mapRegion}
+                        />
                         <Text>{section.content}</Text>
                     </Content>
                 </Container>
