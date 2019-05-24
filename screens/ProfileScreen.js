@@ -1,16 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
+import colors from '../constants/Colors';
+import spacing from '../constants/Spacing';
+import fontSizes from '../constants/Fonts';
 
 class ProfileScreen extends React.Component {
     static navigationOptions = {
         headerStyle: {
-            backgroundColor: '#935DFF',
-            height: 60,
+            backgroundColor: colors.purple,
+            height: parseInt(spacing.header),
         },
-        headerTintColor: '#FFF',
+        headerTintColor: colors.white,
         headerTitle: 'You',
         headerTitleStyle: {
-            fontSize: 22,
+            fontSize: parseInt(fontSizes.header),
         },
     };
 

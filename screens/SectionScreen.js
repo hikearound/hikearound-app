@@ -39,9 +39,8 @@ class SectionScreen extends React.Component {
             <ScrollView>
                 <Container>
                     <Cover>
-                        <Image source={{ uri: section.image.url }} />
+                        <Image source={section.image} />
                         <Wrapper>
-                            <Logo source={{ uri: section.logo.url }} />
                             <Subtitle>{section.subtitle}</Subtitle>
                         </Wrapper>
                         <Title>{section.title}</Title>

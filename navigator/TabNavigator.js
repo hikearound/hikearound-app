@@ -10,10 +10,14 @@ import SectionScreen from '../screens/SectionScreen';
 import NotificationScreen from '../screens/NotificationScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import AuthLoadingScreen from '../screens/AuthLoadingScreen';
+import colors from '../constants/Colors';
 import { Icon } from 'expo';
+import HomeIcon from '../icons/Home';
+import BellIcon from '../icons/Bell';
+import PersonIcon from '../icons/Person';
 
-const activeColor = '#4775f2';
-const inactiveColor = '#b8bece';
+const activeColor = colors.purple;
+const inactiveColor = '#8E8E93';
 
 const HomeStack = createStackNavigator(
     {
@@ -42,10 +46,9 @@ HomeStack.navigationOptions = ({ navigation }) => {
         animationEnabled: true,
         tabBarLabel: 'Home',
         tabBarIcon: ({ focused }) => (
-            <Icon.Ionicons
-                name='ios-home'
+            <HomeIcon
                 size={26}
-                color={focused ? activeColor : inactiveColor}
+                fill={focused ? activeColor : inactiveColor}
             />
         ),
         tabBarOnPress: ({ navigation, defaultHandler }) => {
@@ -61,10 +64,8 @@ const NotificationStack = createStackNavigator({
 NotificationStack.navigationOptions = {
     tabBarLabel: 'Notifications',
     tabBarIcon: ({ focused }) => (
-        <Icon.Ionicons
-            name='ios-albums'
-            size={26}
-            color={focused ? activeColor : inactiveColor}
+        <BellIcon
+            fill={focused ? activeColor : inactiveColor}
         />
     )
 };
@@ -76,10 +77,9 @@ const ProfileStack = createStackNavigator({
 ProfileStack.navigationOptions = {
     tabBarLabel: 'You',
     tabBarIcon: ({ focused }) => (
-        <Icon.Ionicons
-            name='ios-folder'
-            size={26}
-            color={focused ? activeColor : inactiveColor}
+        <PersonIcon
+            height={25}
+            fill={focused ? activeColor : inactiveColor}
         />
     )
 };

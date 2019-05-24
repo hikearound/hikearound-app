@@ -21,7 +21,7 @@ class AuthLoadingScreen extends React.Component {
 
     _bootstrapAsync = async () => {
         var uid = await AsyncStorage.getItem('uid');
-        uid = false;
+        // uid = false;
         this.props.navigation.dispatch(StackActions.reset({
             index: 0,
             actions: [NavigationActions.navigate({
