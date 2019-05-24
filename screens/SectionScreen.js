@@ -15,7 +15,7 @@ class SectionScreen extends React.Component {
     static navigationOptions = {
         headerStyle: {
             backgroundColor: '#935DFF',
-            height: 55,
+            height: 60,
         },
         headerTintColor: '#FFF',
         headerTitle: 'Hike',
@@ -38,7 +38,6 @@ class SectionScreen extends React.Component {
         return (
             <ScrollView>
                 <Container>
-                    <StatusBar hidden />
                     <Cover>
                         <Image source={{ uri: section.image.url }} />
                         <Wrapper>

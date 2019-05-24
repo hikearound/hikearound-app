@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import {
     TouchableOpacity,
     Image,
-    StatusBar,
 } from 'react-native';
 import HeaderLogo from '../components/HeaderLogo';
 import SafeAreaView from 'react-native-safe-area-view';
@@ -21,15 +20,6 @@ class LandingScreen extends React.Component {
         headerTitle: <HeaderLogo/>,
         headerBackTitle: null,
     };
-
-    constructor(props) {
-        super(props);
-        StatusBar.setBarStyle('light-content', true);
-    }
-
-    componentDidMount() {
-        // do something
-    }
 
     render() {
         return (

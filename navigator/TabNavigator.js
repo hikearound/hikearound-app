@@ -9,6 +9,7 @@ import HomeScreen from '../screens/HomeScreen';
 import SectionScreen from '../screens/SectionScreen';
 import NotificationScreen from '../screens/NotificationScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import AuthLoadingScreen from '../screens/AuthLoadingScreen';
 import { Icon } from 'expo';
 
 const activeColor = '#4775f2';
@@ -16,6 +17,7 @@ const inactiveColor = '#b8bece';
 
 const HomeStack = createStackNavigator(
     {
+        Auth: AuthLoadingScreen,
         Landing: LandingScreen,
         SignIn: SignInScreen,
         Home: HomeScreen,
@@ -23,7 +25,7 @@ const HomeStack = createStackNavigator(
     },
     {
         mode: 'card', // modal
-        initialRouteName: 'Landing',
+        initialRouteName: 'Auth',
     },
 );
 

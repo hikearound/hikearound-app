@@ -4,6 +4,7 @@ import {
     TouchableOpacity,
     ScrollView,
     Alert,
+    AsyncStorage,
 } from 'react-native';
 import { connect } from 'react-redux';
 import firebase from '../components/Firebase';
@@ -13,6 +14,7 @@ import ActionButton from '../components/ActionButton';
 import colors from '../constants/Colors';
 import spacing from '../constants/Spacing';
 import fontSizes from '../constants/Fonts';
+import { saveState } from "../components/AsyncStorage";
 
 const resetAction = StackActions.reset({
     index: 0,
@@ -89,11 +91,22 @@ class SignInScreen extends React.Component {
                 Alert.alert('Error', error.message);
             })
             .then(response => {
+                this.setState({ isLoading: false });
                 if (response) {
                     this.setState({ isSuccessful: true });
+                    var uid = response.user.uid;
+                    this.storeUid(uid);
                     this.handleContinue();
                 }
             });
+    };
+
+    storeUid = async uid => {
+        console.log('store');
+        try {
+            await AsyncStorage.setItem('uid', uid);
+            console.log('set');
+        } catch (error) {}
     };
 
     handleContinue = () => {

@@ -19,11 +19,11 @@ export default Card;
 
 const Container = styled.View`
     background-color: white;
-    width: 350px;
+    width: 100%;
     height: 280px;
     border-radius: 14px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
-    margin: 20px 0 0 20px;
+    margin-bottom: 20px;
 `;
 
 const Cover = styled.View`
