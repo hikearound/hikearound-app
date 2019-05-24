@@ -1,4 +1,3 @@
-app.json
 node_modules/**/*
 keys/keys.js
 .expo/*
@@ -7,3 +6,4 @@ npm-debug.*
 *.p12
 *.key
 *.mobileprovision
+app.json
