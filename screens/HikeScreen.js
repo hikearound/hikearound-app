@@ -1,34 +1,27 @@
 import React from 'react';
 import styled from 'styled-components';
-import Markdown from 'react-native-showdown';
 import { Icon } from 'expo';
 import {
     Button,
     TouchableOpacity,
-    StatusBar,
-    WebView,
-    Linking,
     ScrollView,
 } from 'react-native';
 
-class SectionScreen extends React.Component {
-    static navigationOptions = {
-        headerStyle: {
-            backgroundColor: '#935DFF',
-            height: 60,
-        },
-        headerTintColor: '#FFF',
-        headerTitle: 'Hike',
-        headerTitleStyle: {
-            fontSize: 22,
-        },
-    };
-
-    componentDidMount() {
-        StatusBar.setBarStyle('light-content', true);
-    }
-
-    componentWillUnmount() {
+class HikeScreen extends React.Component {
+    static navigationOptions = ({ navigation, navigationOptions }) => {
+        const { state: { params = {} } } = navigation;
+        const section = navigation.getParam('section')
+        return {
+            title: section.title || 'Hike',
+            headerStyle: {
+                backgroundColor: '#935DFF',
+                height: 60,
+            },
+            headerTintColor: '#FFF',
+            headerTitleStyle: {
+                fontSize: 22,
+            },
+        };
     }
 
     render() {
@@ -61,24 +54,7 @@ class SectionScreen extends React.Component {
                         </CloseView>
                     </TouchableOpacity>
                     <Content>
-                         {/* <WebView
-                            source={{ html: htmlContent + htmlStyles }}
-                            scalesPageToFit={false}
-                            scrollEnabled={false}
-                            ref='webview'
-                            onNavigationStateChange={event => {
-                                if (event.url != 'about:blank') {
-                                    this.refs.webview.stopLoading();
-                                    Linking.openURL(event.url);
-                                }
-                            }}
-                        /> */}
-                        <Markdown
-                            body={section.content}
-                            pureCSS={htmlStyles}
-                            scalesPageToFit={false}
-                            scrollEnabled={false}
-                        />
+                        <Text>{section.content}</Text>
                     </Content>
                 </Container>
             </ScrollView>
@@ -86,71 +62,11 @@ class SectionScreen extends React.Component {
     }
 }
 
-export default SectionScreen;
+export default HikeScreen;
 
-const htmlContent = `
-    <h2>This is a title</h2>
-    <p>This <strong>is</strong> a <a href='http://designcode.io'>link</a></p>
-    <img src='https://cl.ly/8861f359ed6d/download/Wave14.jpg' />
-`;
-
-const htmlStyles = `
-<style>
-    * {
-        font-family: -apple-system;
-        margin: 0;
-        padding: 0;
-        font-size: 17px;
-        font-weight: normal;
-        color: #3c4560;
-        line-height: 24px;
-    }
-
-    h2 {
-        font-size: 20px;
-        text-transform: uppercase;
-        color: #b8bece;
-        font-weight: 600;
-        margin-top: 50px;
-    }
-
-    p {
-        margin-top: 20px;
-    }
-
-    a {
-        color: #4775f2;
-        font-weight: 600;
-        text-decoration: none;
-    }
-
-    strong {
-        font-weight: 700;
-    }
-
-    img {
-        width: 100%;
-        margin-top: 20px;
-        border-radius: 10px;
-    }
-    pre {
-        padding: 20px;
-        background: #212C4F;
-        overflow: hidden;
-        word-wrap: break-word;
-        border-radius: 10px;
-        margin-top: 20px;
-    }
-
-    code {
-        color: white;
-    }
-</style>
-`;
-
+const Text = styled.Text``;
 
 const Content = styled.View`
-    height: 1000px;
     padding: 20px;
 `;
 

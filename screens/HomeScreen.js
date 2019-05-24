@@ -51,7 +51,7 @@ class HomeScreen extends React.Component {
                                     key={index}
                                     activeOpacity={0.4}
                                     onPress={() => {
-                                        this.props.navigation.push('Section', {
+                                        this.props.navigation.push('Hike', {
                                             section: card
                                         });
                                     }}>
@@ -83,7 +83,7 @@ const cards = [
         elevation: "1043",
         route: "Loop",
         caption: "1 of 12 sections",
-        content: 'This is content.',
+        content: 'This is content.\n\nAnd this is a new line.',
     },
     {
         title: "Marshall Beach Trail",

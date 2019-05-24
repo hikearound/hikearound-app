@@ -6,7 +6,7 @@ import {
 import LandingScreen from '../screens/LandingScreen';
 import SignInScreen from '../screens/SignInScreen';
 import HomeScreen from '../screens/HomeScreen';
-import SectionScreen from '../screens/SectionScreen';
+import HikeScreen from '../screens/HikeScreen';
 import NotificationScreen from '../screens/NotificationScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import AuthLoadingScreen from '../screens/AuthLoadingScreen';
@@ -25,7 +25,7 @@ const HomeStack = createStackNavigator(
         Landing: LandingScreen,
         SignIn: SignInScreen,
         Home: HomeScreen,
-        Section: SectionScreen,
+        Hike: HikeScreen,
     },
     {
         mode: 'card', // modal
@@ -37,7 +37,7 @@ HomeStack.navigationOptions = ({ navigation }) => {
     var tabBarVisible = false;
     const routeName = navigation.state.routes[navigation.state.index].routeName;
 
-    if (routeName == 'Home') {
+    if (routeName == 'Home' || 'Hike') {
         tabBarVisible = true;
     }
 
