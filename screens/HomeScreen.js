@@ -27,6 +27,7 @@ class HomeScreen extends React.Component {
         headerStyle: {
             backgroundColor: '#935DFF',
             height: 60,
+            borderBottomWidth: 0,
         },
         headerTintColor: '#FFF',
         headerTitle: <HeaderLogo/>,
@@ -52,7 +53,7 @@ class HomeScreen extends React.Component {
                                     activeOpacity={0.4}
                                     onPress={() => {
                                         this.props.navigation.push('Hike', {
-                                            section: card
+                                            hike: card
                                         });
                                     }}>
                                     <Card
@@ -83,7 +84,7 @@ const cards = [
         elevation: "1043",
         route: "Loop",
         caption: "1 of 12 sections",
-        content: 'This is content.\n\nAnd this is a new line.',
+        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum erat arcu, posuere ac varius vel, viverra et lorem. Maecenas fringilla dignissim lobortis. Ut pharetra scelerisque eros, vitae pulvinar nisi pharetra quis.\n\nAliquam suscipit nec purus sit amet eleifend. Quisque quis turpis eget elit varius iaculis. Vivamus fermentum in quam eget vulputate. Aenean faucibus, ante nec fringilla faucibus, nunc ligula varius erat, non consequat elit diam vitae erat. ',
     },
     {
         title: "Marshall Beach Trail",

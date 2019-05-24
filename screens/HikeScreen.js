@@ -1,26 +1,30 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Icon } from 'expo';
 import {
     Button,
     TouchableOpacity,
     ScrollView,
+    StyleSheet,
 } from 'react-native';
 import { MapView, Location, Permissions } from 'expo';
+import colors from '../constants/Colors';
+import spacing from '../constants/Spacing';
+import fontSizes from '../constants/Fonts';
 
 class HikeScreen extends React.Component {
     static navigationOptions = ({ navigation, navigationOptions }) => {
         const { state: { params = {} } } = navigation;
-        const section = navigation.getParam('section')
+        const hike = navigation.getParam('hike')
         return {
-            title: section.title || 'Hike',
+            title: hike.title || 'Hike',
             headerStyle: {
-                backgroundColor: '#935DFF',
-                height: 60,
+                backgroundColor: colors.purple,
+                height: parseInt(spacing.header),
+                borderBottomWidth: 0,
             },
-            headerTintColor: '#FFF',
+            headerTintColor: colors.white,
             headerTitleStyle: {
-                fontSize: 22,
+                fontSize: parseInt(fontSizes.header),
             },
         };
     }
@@ -58,18 +62,45 @@ class HikeScreen extends React.Component {
 
     render() {
         const { navigation } = this.props;
-        const section = navigation.getParam('section');
+        const hike = navigation.getParam('hike');
 
         return (
             <ScrollView>
                 <Container>
                     <Content>
-                        <MapView
-                            provider={MapView.PROVIDER_GOOGLE}
-                            style={{ alignSelf: 'stretch', height: 400 }}
-                            region={this.state.mapRegion}
-                        />
-                        <Text>{section.content}</Text>
+                        <MapViewWrapper>
+                            <InnerMapViewWrapper>
+                                <MapView
+                                    provider={MapView.PROVIDER_GOOGLE}
+                                    style = {styles.map}
+                                    region={this.state.mapRegion}
+                                    mapType='terrain'
+                                    showsUserLocation={true}
+                                    showsMyLocationButton={false}
+                                    showsPointsOfInterest={false}
+                                    showsCompass={false}
+                                />
+                                <CardContent>
+                                    <ContentItem>
+                                        <MetaDataType>Distance</MetaDataType>
+                                        <MetaData>{hike.distance}m</MetaData>
+                                    </ContentItem>
+                                    <ContentItem>
+                                        <MetaDataType>Elevation</MetaDataType>
+                                        <MetaData>{hike.elevation}ft</MetaData>
+                                    </ContentItem>
+                                    <ContentItem>
+                                        <MetaDataType>Route</MetaDataType>
+                                        <MetaData>{hike.route}</MetaData>
+                                    </ContentItem>
+                                </CardContent>
+                            </InnerMapViewWrapper>
+                            <GrayBlockView></GrayBlockView>
+                        </MapViewWrapper>
+                        <BodyContent>
+                            <TitleText>{hike.title}</TitleText>
+                            <DescriptionText>{hike.content}</DescriptionText>
+                        </BodyContent>
                     </Content>
                 </Container>
             </ScrollView>
@@ -79,18 +110,55 @@ class HikeScreen extends React.Component {
 
 export default HikeScreen;
 
-const Text = styled.Text``;
+const styles = StyleSheet.create ({
+   map: {
+      height: 200,
+      zIndex: 1,
+      overflow: 'hidden',
+      borderRadius: 6,
+   }
+})
 
-const Content = styled.View`
-    padding: 20px;
+const DescriptionText = styled.Text`
+    color: #333;
+    font-size: 14px;
 `;
+
+const TitleText = styled.Text`
+    color: #333;
+    font-weight: 600;
+    font-size: 20px;
+    margin-bottom: 10px;
+`;
+
+const Content = styled.View``;
 
 const Container = styled.View`
     flex: 1;
 `;
 
-const Cover = styled.View`
-    height: 375px;
+const MapViewWrapper = styled.View`
+    flex: 1;
+    height: 285px;
+    background-color: ${colors.purple};
+    padding: 5px 15px;
+`;
+
+const InnerMapViewWrapper = styled.View`
+    background-color: #FFF;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px ${colors.transparentGray};
+    z-index: 1;
+`;
+
+const GrayBlockView = styled.View`
+    flex: 1;
+    height: 165px;
+    background-color: #F6F6F6;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
 `;
 
 const Image = styled.Image`
@@ -149,4 +217,39 @@ const Subtitle = styled.Text`
     color: rgba(255, 255, 255, 0.8);
     margin-left: 5px;
     text-transform: uppercase;
+`;
+
+const CardContent = styled.View`
+    flex-direction: row;
+    align-items: center;
+    position: relative;
+    padding: 10px 15px;
+    margin-top: -4px;
+    z-index: 2;
+    background-color: #FFF;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+`;
+
+const ContentItem = styled.View`
+    flex-direction: column;
+    flex-grow: 1;
+`;
+
+const MetaDataType = styled.Text`
+    color: #9C9C9C;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+`;
+
+const MetaData = styled.Text`
+    padding-top: 1px;
+    color: #333;
+    font-size: 13px;
+    font-weight: 500;
+`;
+
+const BodyContent = styled.View`
+    padding: 20px 15px;
 `;
