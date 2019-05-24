@@ -17,7 +17,7 @@ HeaderLogo.defaultProps = {
     width: 241,
     height: 30,
     fill: '#FFF',
-    viewBox: '0 0 169 28'
+    viewBox: '0 0 169 28.5'
 }
 
 const Container = styled.View`

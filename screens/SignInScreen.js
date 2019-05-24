@@ -5,6 +5,7 @@ import {
     ScrollView,
     Alert,
     AsyncStorage,
+    Keyboard,
 } from 'react-native';
 import { connect } from 'react-redux';
 import firebase from '../components/Firebase';
@@ -15,6 +16,7 @@ import colors from '../constants/Colors';
 import spacing from '../constants/Spacing';
 import fontSizes from '../constants/Fonts';
 import { saveState } from "../components/AsyncStorage";
+import Loading from '../components/Loading';
 
 const resetAction = StackActions.reset({
     index: 0,
@@ -51,6 +53,10 @@ class SignInScreen extends React.Component {
         },
     };
 
+    state = {
+        isLoading: false,
+    };
+
     constructor(props) {
         super(props);
 
@@ -76,6 +82,17 @@ class SignInScreen extends React.Component {
         } else {
             this.setState({ password: text });
         }
+    }
+
+    componentDidMount() {
+        this.keyboardDidHideListener = Keyboard.addListener(
+            'keyboardDidHide',
+            this._keyboardDidHide,
+        );
+    }
+
+    _keyboardDidHide() {
+        return true
     }
 
     handleLogin = () => {
@@ -138,7 +155,7 @@ class SignInScreen extends React.Component {
     render() {
         return (
             <RootView>
-                <ScrollView keyboardShouldPersistTaps="always">
+                <ScrollView keyboardShouldPersistTaps='never'>
                     { inputs.map(({
                         placeholder,
                         keyboardType,
