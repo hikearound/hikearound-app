@@ -42,7 +42,7 @@ class LandingScreen extends React.Component {
                         }}>
                         <ActionButton
                             text={'Sign In'}
-                            margin={'20px'}
+                            margin={'10px 20px 0 20px'}
                         />
                     </TouchableOpacity>
                 </SafeAreaView>
@@ -55,7 +55,7 @@ export default LandingScreen;
 
 const RootView = styled.View`
     position: absolute;
-    bottom: 0;
+    bottom: 40px;
     left: 0;
     right: 0;
 `;

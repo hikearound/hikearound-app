@@ -102,10 +102,8 @@ class SignInScreen extends React.Component {
     };
 
     storeUid = async uid => {
-        console.log('store');
         try {
             await AsyncStorage.setItem('uid', uid);
-            console.log('set');
         } catch (error) {}
     };
 
@@ -198,18 +196,18 @@ const TextInput = styled.TextInput`
     margin: 0 20px 26px 20px;
     border-bottom-width: 1px;
     border-bottom-color: #D8D8D8;
-    font-size: 20px;
+    font-size: 16px;
 `;
 
 const Text = styled.Text`
-    font-size: 18px;
+    font-size: 15px;
     color: ${colors.purple};
     font-weight: 600;
 `;
 
 const PasswordText = styled.Text`
     font-weight: 500;
-    font-size: 18px;
+    font-size: 15px;
     margin-left: 20px;
     color: ${colors.purple};
 `;

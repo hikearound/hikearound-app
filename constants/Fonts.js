@@ -1,6 +1,6 @@
 const fontSizes = {
-    button: '20',
-    header: '22',
+    button: '18',
+    header: '20',
  };
 
 export default fontSizes;
