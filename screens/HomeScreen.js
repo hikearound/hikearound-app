@@ -112,7 +112,7 @@ export default connect(
 )(HomeScreen);
 
 const RootView = styled.View`
-    background: #F6F6F6;
+    background: #FFF;
     flex: 1;
     overflow: hidden;
 `;

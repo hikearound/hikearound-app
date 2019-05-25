@@ -37,7 +37,7 @@ HomeStack.navigationOptions = ({ navigation }) => {
     var tabBarVisible = false;
     const routeName = navigation.state.routes[navigation.state.index].routeName;
 
-    if (routeName == 'Home' || 'Hike') {
+    if ((routeName == 'Home') || (routeName == 'Hike')) {
         tabBarVisible = true;
     }
 

@@ -65,8 +65,9 @@ class HikeScreen extends React.Component {
         const hike = navigation.getParam('hike');
 
         return (
-            <ScrollView>
-                <Container>
+            <RootView>
+                <PurpleBlockView></PurpleBlockView>
+                <ScrollView>
                     <Content>
                         <MapViewWrapper>
                             <InnerMapViewWrapper>
@@ -102,8 +103,8 @@ class HikeScreen extends React.Component {
                             <DescriptionText>{hike.content}</DescriptionText>
                         </BodyContent>
                     </Content>
-                </Container>
-            </ScrollView>
+                </ScrollView>
+            </RootView>
         );
     }
 }
@@ -119,6 +120,10 @@ const styles = StyleSheet.create ({
    }
 })
 
+const RootView = styled.View`
+    background-color: #FFF;
+`;
+
 const DescriptionText = styled.Text`
     color: #333;
     font-size: 14px;
@@ -132,10 +137,6 @@ const TitleText = styled.Text`
 `;
 
 const Content = styled.View``;
-
-const Container = styled.View`
-    flex: 1;
-`;
 
 const MapViewWrapper = styled.View`
     flex: 1;
@@ -159,6 +160,15 @@ const GrayBlockView = styled.View`
     left: 0;
     right: 0;
     bottom: 0;
+`;
+
+const PurpleBlockView = styled.View`
+    height: 200px;
+    background-color: ${colors.purple};
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
 `;
 
 const Image = styled.Image`
@@ -252,4 +262,5 @@ const MetaData = styled.Text`
 
 const BodyContent = styled.View`
     padding: 20px 15px;
+    background-color: #fff;
 `;
