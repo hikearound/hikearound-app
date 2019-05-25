@@ -6,15 +6,7 @@ import fontSizes from '../constants/Fonts';
 
 class NotificationScreen extends React.Component {
     static navigationOptions = {
-        headerStyle: {
-            backgroundColor: colors.purple,
-            height: parseInt(spacing.header),
-        },
-        headerTintColor: colors.white,
         headerTitle: 'Notifications',
-        headerTitleStyle: {
-            fontSize: parseInt(fontSizes.header),
-        },
     };
 
     render() {

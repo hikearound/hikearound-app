@@ -17,15 +17,6 @@ class HikeScreen extends React.Component {
         const hike = navigation.getParam('hike')
         return {
             title: hike.title || 'Hike',
-            headerStyle: {
-                backgroundColor: colors.purple,
-                height: parseInt(spacing.header),
-                borderBottomWidth: 0,
-            },
-            headerTintColor: colors.white,
-            headerTitleStyle: {
-                fontSize: parseInt(fontSizes.header),
-            },
         };
     }
 

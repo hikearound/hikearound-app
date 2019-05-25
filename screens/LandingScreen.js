@@ -12,11 +12,6 @@ import spacing from '../constants/Spacing';
 
 class LandingScreen extends React.Component {
     static navigationOptions = {
-        headerStyle: {
-            backgroundColor: colors.purple,
-            height: parseInt(spacing.header),
-        },
-        headerTintColor: colors.white,
         headerTitle: <HeaderLogo/>,
         headerBackTitle: null,
     };

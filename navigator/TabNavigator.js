@@ -11,6 +11,8 @@ import NotificationScreen from '../screens/NotificationScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import AuthLoadingScreen from '../screens/AuthLoadingScreen';
 import colors from '../constants/Colors';
+import spacing from '../constants/Spacing';
+import fontSizes from '../constants/Fonts';
 import { Icon } from 'expo';
 import HomeIcon from '../icons/Home';
 import BellIcon from '../icons/Bell';
@@ -30,6 +32,17 @@ const HomeStack = createStackNavigator(
     {
         mode: 'card', // modal
         initialRouteName: 'Auth',
+        defaultNavigationOptions: {
+            headerStyle: {
+                backgroundColor: colors.purple,
+                height: parseInt(spacing.header),
+                borderBottomWidth: 0,
+            },
+            headerTintColor: colors.white,
+            headerTitleStyle: {
+                fontSize: parseInt(fontSizes.header),
+            },
+        },
     },
 );
 
@@ -57,9 +70,24 @@ HomeStack.navigationOptions = ({ navigation }) => {
     };
 };
 
-const NotificationStack = createStackNavigator({
-    Notification: NotificationScreen
-});
+const NotificationStack = createStackNavigator(
+    {
+        Notification: NotificationScreen
+    },
+    {
+        defaultNavigationOptions: {
+            headerStyle: {
+                backgroundColor: colors.purple,
+                height: parseInt(spacing.header),
+                borderBottomWidth: 0,
+            },
+            headerTintColor: colors.white,
+            headerTitleStyle: {
+                fontSize: parseInt(fontSizes.header),
+            },
+        },
+    },
+);
 
 NotificationStack.navigationOptions = {
     tabBarLabel: 'Notifications',
@@ -70,9 +98,24 @@ NotificationStack.navigationOptions = {
     )
 };
 
-const ProfileStack = createStackNavigator({
-    Profile: ProfileScreen
-});
+const ProfileStack = createStackNavigator(
+    {
+        Profile:ProfileScreen
+    },
+    {
+        defaultNavigationOptions: {
+            headerStyle: {
+                backgroundColor: colors.purple,
+                height: parseInt(spacing.header),
+                borderBottomWidth: 0,
+            },
+            headerTintColor: colors.white,
+            headerTitleStyle: {
+                fontSize: parseInt(fontSizes.header),
+            },
+        },
+    },
+);
 
 ProfileStack.navigationOptions = {
     tabBarLabel: 'You',

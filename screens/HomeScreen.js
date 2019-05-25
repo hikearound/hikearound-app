@@ -24,12 +24,6 @@ function mapDispatchToProps(dispatch) {
 
 class HomeScreen extends React.Component {
     static navigationOptions = {
-        headerStyle: {
-            backgroundColor: '#935DFF',
-            height: 60,
-            borderBottomWidth: 0,
-        },
-        headerTintColor: '#FFF',
         headerTitle: <HeaderLogo/>,
         headerBackTitle: null,
     };

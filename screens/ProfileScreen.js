@@ -6,15 +6,7 @@ import fontSizes from '../constants/Fonts';
 
 class ProfileScreen extends React.Component {
     static navigationOptions = {
-        headerStyle: {
-            backgroundColor: colors.purple,
-            height: parseInt(spacing.header),
-        },
-        headerTintColor: colors.white,
         headerTitle: 'You',
-        headerTitleStyle: {
-            fontSize: parseInt(fontSizes.header),
-        },
     };
 
     render() {
