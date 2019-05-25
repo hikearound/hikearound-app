@@ -5,6 +5,7 @@ import {
     TouchableOpacity,
     ScrollView,
     StyleSheet,
+    AsyncStorage,
 } from 'react-native';
 import { MapView, Location, Permissions } from 'expo';
 import colors from '../constants/Colors';
@@ -28,7 +29,24 @@ class HikeScreen extends React.Component {
 
     componentDidMount() {
         this._getLocationAsync();
+        this.getHikeXml();
     }
+
+    getHikeXml = async () => {
+        var hikeXml = await AsyncStorage.getItem('hikeXml');
+        if (!hikeXml) {
+            var hikeLink = 'https://firebasestorage.googleapis.com/v0/b/designcode-app-969d7.appspot.com/o/hike.gpx?alt=media&token=f658517c-6611-446e-92c2-2b266da4f128';
+            fetch(hikeLink)
+               .then(response => response.text())
+               .then((response) => {
+                   const parseString = require('react-native-xml2js').parseString;
+                   parseString(response, function (err, result) {
+                       AsyncStorage.setItem('hikeXml', JSON.stringify(result));
+                   });
+               })
+        }
+        // console.log(hikeXml);
+    };
 
     _getLocationAsync = async () => {
         let { status } = await Permissions.askAsync(Permissions.LOCATION);
