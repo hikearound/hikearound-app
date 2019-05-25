@@ -13,7 +13,6 @@ import AuthLoadingScreen from '../screens/AuthLoadingScreen';
 import colors from '../constants/Colors';
 import spacing from '../constants/Spacing';
 import fontSizes from '../constants/Fonts';
-import { Icon } from 'expo';
 import HomeIcon from '../icons/Home';
 import BellIcon from '../icons/Bell';
 import PersonIcon from '../icons/Person';
