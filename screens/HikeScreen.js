@@ -28,7 +28,7 @@ class HikeScreen extends React.Component {
     };
 
     componentDidMount() {
-        this._getLocationAsync();
+        this.getLocation();
         this.getHikeXml();
     }
 
@@ -48,7 +48,7 @@ class HikeScreen extends React.Component {
         // console.log(hikeXml);
     };
 
-    _getLocationAsync = async () => {
+    getLocation = async () => {
         let { status } = await Permissions.askAsync(Permissions.LOCATION);
         if (status !== 'granted') {
             this.setState({
