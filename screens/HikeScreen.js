@@ -28,7 +28,7 @@ class HikeScreen extends React.Component {
     };
 
     componentDidMount() {
-        this.getLocation();
+        // this.getLocation();
         this.getHikeXml();
     }
 
@@ -45,7 +45,34 @@ class HikeScreen extends React.Component {
                    });
                })
         }
-        // console.log(hikeXml);
+
+        hikeXml = JSON.parse(hikeXml)
+        var startingLat = (
+            parseFloat(hikeXml.gpx.metadata[0].bounds[0]["$"].maxlat) + parseFloat(hikeXml.gpx.metadata[0].bounds[0]["$"].minlat)
+        ) / 2
+        var startingLon = (
+            parseFloat(hikeXml.gpx.metadata[0].bounds[0]["$"].maxlon) + parseFloat(hikeXml.gpx.metadata[0].bounds[0]["$"].minlon)
+        ) / 2
+
+        this.setState({mapRegion: {
+            latitude: startingLat,
+            longitude: startingLon,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421 }
+        });
+
+        latLongArray = [];
+        arrayLength = hikeXml.gpx.rte[0].rtept.length;
+        for (var i = 0, len = arrayLength; i < len; ++i) {
+            latLongObject = hikeXml.gpx.rte[0].rtept[i]["$"];
+            latLongArray.push(
+                {
+                    latitude: parseFloat(latLongObject.lat),
+                    longitude: parseFloat(latLongObject.lon)
+                }
+            )
+        }
+        this.setState({ latLongArray });
     };
 
     getLocation = async () => {
@@ -72,7 +99,6 @@ class HikeScreen extends React.Component {
     render() {
         const { navigation } = this.props;
         const hike = navigation.getParam('hike');
-
         return (
             <RootView>
                 <PurpleBlockView></PurpleBlockView>
@@ -88,8 +114,13 @@ class HikeScreen extends React.Component {
                                     showsUserLocation={true}
                                     showsMyLocationButton={false}
                                     showsPointsOfInterest={false}
-                                    showsCompass={false}
-                                />
+                                    showsCompass={false}>
+                                    <MapView.Polyline
+                                        coordinates={this.state.latLongArray}
+                                        strokeColor={colors.purple}
+                                        strokeWidth={4}
+                                    />
+                                </MapView>
                                 <CardContent>
                                     <ContentItem>
                                         <MetaDataType>Distance</MetaDataType>
