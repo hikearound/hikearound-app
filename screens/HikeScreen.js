@@ -32,6 +32,44 @@ class HikeScreen extends React.Component {
         this.getHikeXml();
     }
 
+    setHikeMetaData(hikeXml) {
+        var hikeMetaData = hikeXml.gpx.metadata[0].bounds[0]["$"];
+        var startingLat = ((parseFloat(hikeMetaData.maxlat) + parseFloat(hikeMetaData.minlat)) / 2);
+        var startingLon = ((parseFloat(hikeMetaData.maxlon) + parseFloat(hikeMetaData.minlon)) / 2);
+        var latDelta = ((parseFloat(hikeMetaData.maxlat) - parseFloat(hikeMetaData.minlat)) + 0.02);
+        var lonDelta = (parseFloat(hikeMetaData.maxlon) - parseFloat(hikeMetaData.minlon));
+        this.setState({ startingLat });
+        this.setState({ startingLon });
+        this.setState({ latDelta });
+        this.setState({ lonDelta });
+    }
+
+    setMapRegion() {
+        this.setState({mapRegion:
+            {
+                latitude: this.state.startingLat,
+                longitude: this.state.startingLon,
+                latitudeDelta: this.state.latDelta,
+                longitudeDelta: this.state.lonDelta,
+            }
+        });
+    }
+
+    parseCoordinates(hikeXml) {
+        var coordinates = [];
+        var coordinateCount = hikeXml.gpx.rte[0].rtept.length;
+        for (var i = 0, len = coordinateCount; i < len; ++i) {
+            coordinate = hikeXml.gpx.rte[0].rtept[i]["$"];
+            coordinates.push(
+                {
+                    latitude: parseFloat(coordinate.lat),
+                    longitude: parseFloat(coordinate.lon)
+                }
+            )
+        }
+        this.setState({ coordinates });
+    }
+
     getHikeXml = async () => {
         var hikeXml = await AsyncStorage.getItem('hikeXml');
         if (!hikeXml) {
@@ -45,42 +83,10 @@ class HikeScreen extends React.Component {
                    });
                })
         }
-
-        hikeXml = JSON.parse(hikeXml)
-        var startingLat = (
-            parseFloat(hikeXml.gpx.metadata[0].bounds[0]["$"].maxlat) + parseFloat(hikeXml.gpx.metadata[0].bounds[0]["$"].minlat)
-        ) / 2
-        var startingLon = (
-            parseFloat(hikeXml.gpx.metadata[0].bounds[0]["$"].maxlon) + parseFloat(hikeXml.gpx.metadata[0].bounds[0]["$"].minlon)
-        ) / 2
-        var latDelta = (
-            parseFloat(hikeXml.gpx.metadata[0].bounds[0]["$"].maxlat) - parseFloat(hikeXml.gpx.metadata[0].bounds[0]["$"].minlat)
-        )
-        var lonDelta = (
-            parseFloat(hikeXml.gpx.metadata[0].bounds[0]["$"].maxlon) - parseFloat(hikeXml.gpx.metadata[0].bounds[0]["$"].minlon)
-        )
-
-        this.setState({mapRegion:
-            {
-                latitude: startingLat,
-                longitude: startingLon,
-                latitudeDelta: latDelta + .02,
-                longitudeDelta: lonDelta,
-            }
-        });
-
-        latLongArray = [];
-        arrayLength = hikeXml.gpx.rte[0].rtept.length;
-        for (var i = 0, len = arrayLength; i < len; ++i) {
-            latLongObject = hikeXml.gpx.rte[0].rtept[i]["$"];
-            latLongArray.push(
-                {
-                    latitude: parseFloat(latLongObject.lat),
-                    longitude: parseFloat(latLongObject.lon)
-                }
-            )
-        }
-        this.setState({ latLongArray });
+        hikeXml = JSON.parse(hikeXml);
+        this.setHikeMetaData(hikeXml);
+        this.parseCoordinates(hikeXml);
+        this.setMapRegion();
     };
 
     getLocation = async () => {
@@ -124,8 +130,8 @@ class HikeScreen extends React.Component {
                                     showsPointsOfInterest={false}
                                     showsCompass={false}>
                                     <MapView.Polyline
-                                        coordinates={this.state.latLongArray}
-                                        strokeColor={colors.purple}
+                                        coordinates={this.state.coordinates}
+                                        strokeColor='#444'
                                         strokeWidth={4}
                                     />
                                 </MapView>
