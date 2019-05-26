@@ -53,12 +53,20 @@ class HikeScreen extends React.Component {
         var startingLon = (
             parseFloat(hikeXml.gpx.metadata[0].bounds[0]["$"].maxlon) + parseFloat(hikeXml.gpx.metadata[0].bounds[0]["$"].minlon)
         ) / 2
+        var latDelta = (
+            parseFloat(hikeXml.gpx.metadata[0].bounds[0]["$"].maxlat) - parseFloat(hikeXml.gpx.metadata[0].bounds[0]["$"].minlat)
+        )
+        var lonDelta = (
+            parseFloat(hikeXml.gpx.metadata[0].bounds[0]["$"].maxlon) - parseFloat(hikeXml.gpx.metadata[0].bounds[0]["$"].minlon)
+        )
 
-        this.setState({mapRegion: {
-            latitude: startingLat,
-            longitude: startingLon,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421 }
+        this.setState({mapRegion:
+            {
+                latitude: startingLat,
+                longitude: startingLon,
+                latitudeDelta: latDelta + .02,
+                longitudeDelta: lonDelta,
+            }
         });
 
         latLongArray = [];
