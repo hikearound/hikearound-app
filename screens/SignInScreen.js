@@ -95,19 +95,19 @@ class SignInScreen extends React.Component {
             .then(response => {
                 this.setState({ isLoading: false });
                 if (response) {
-                    AsyncStorage.setItem('firebaseResponse', JSON.stringify(response));
+                    AsyncStorage.setItem('response', JSON.stringify(response));
                     this.setState({ isSuccessful: true });
                     this.storeUid(response.user.uid);
                     this.storeToken();
-                    this.handleContinue();
                 }
             });
     };
 
     storeToken = async () => {
-        var response = await AsyncStorage.getItem('firebaseResponse');
+        var response = await AsyncStorage.getItem('response');
         response = JSON.parse(response);
-        AsyncStorage.setItem('token', strresponse.user.stsTokenManager.accessToken);
+        AsyncStorage.setItem('token', response.user.stsTokenManager.accessToken);
+        this.handleContinue();
     };
 
     storeUid = async uid => {

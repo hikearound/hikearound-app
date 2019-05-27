@@ -8,6 +8,7 @@ import {
     TouchableOpacity,
     Easing,
     StatusBar,
+    AsyncStorage,
 } from 'react-native';
 import SafeAreaView from 'react-native-safe-area-view';
 import HeaderLogo from '../components/HeaderLogo';
@@ -26,6 +27,17 @@ class HomeScreen extends React.Component {
     static navigationOptions = {
         headerTitle: <HeaderLogo/>,
         headerBackTitle: null,
+    };
+
+    constructor(props) {
+        super(props);
+        this.getToken();
+    }
+
+    getToken = async () => {
+        var token = await AsyncStorage.getItem('token');
+        this.setState({ token });
+        console.log(this.state.token);
     };
 
     render() {
