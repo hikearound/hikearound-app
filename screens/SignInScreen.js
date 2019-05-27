@@ -8,16 +8,14 @@ import {
     Keyboard,
 } from 'react-native';
 import { connect } from 'react-redux';
-import firebase from 'firebase';
 import Fire from '../Fire';
+import firebase from 'firebase';
 import { NavigationActions, StackActions } from 'react-navigation';
 import { KeyboardAccessoryNavigation } from 'react-native-keyboard-accessory';
 import ActionButton from '../components/ActionButton';
 import colors from '../constants/Colors';
 import spacing from '../constants/Spacing';
 import fontSizes from '../constants/Fonts';
-import { saveState } from "../components/AsyncStorage";
-import Loading from '../components/Loading';
 
 const resetAction = StackActions.reset({
     index: 0,
