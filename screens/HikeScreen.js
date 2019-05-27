@@ -32,8 +32,8 @@ class HikeScreen extends React.Component {
         this.getHikeXml();
     }
 
-    setHikeMetaData(hikeXml) {
-        var hikeMetaData = hikeXml.gpx.metadata[0].bounds[0]["$"];
+    setHikeMetaData() {
+        var hikeMetaData = this.state.hikeXml.gpx.metadata[0].bounds[0]["$"];
         var startingLat = ((parseFloat(hikeMetaData.maxlat) + parseFloat(hikeMetaData.minlat)) / 2);
         var startingLon = ((parseFloat(hikeMetaData.maxlon) + parseFloat(hikeMetaData.minlon)) / 2);
         var latDelta = ((parseFloat(hikeMetaData.maxlat) - parseFloat(hikeMetaData.minlat)) + 0.02);
@@ -55,11 +55,11 @@ class HikeScreen extends React.Component {
         });
     }
 
-    parseCoordinates(hikeXml) {
+    parseCoordinates() {
         var coordinates = [];
-        var coordinateCount = hikeXml.gpx.rte[0].rtept.length;
+        var coordinateCount = this.state.hikeXml.gpx.rte[0].rtept.length;
         for (var i = 0, len = coordinateCount; i < len; ++i) {
-            coordinate = hikeXml.gpx.rte[0].rtept[i]["$"];
+            coordinate = this.state.hikeXml.gpx.rte[0].rtept[i]["$"];
             coordinates.push(
                 {
                     latitude: parseFloat(coordinate.lat),
@@ -84,8 +84,9 @@ class HikeScreen extends React.Component {
                })
         }
         hikeXml = JSON.parse(hikeXml);
-        this.setHikeMetaData(hikeXml);
-        this.parseCoordinates(hikeXml);
+        this.setState({ hikeXml });
+        this.setHikeMetaData();
+        this.parseCoordinates();
         this.setMapRegion();
     };
 
@@ -98,10 +99,8 @@ class HikeScreen extends React.Component {
         } else {
             this.setState({ hasLocationPermissions: true });
         }
-
         let location = await Location.getCurrentPositionAsync({});
         this.setState({ locationResult: JSON.stringify(location) });
-
         this.setState({mapRegion: {
             latitude: location.coords.latitude,
             longitude: location.coords.longitude,
@@ -117,46 +116,44 @@ class HikeScreen extends React.Component {
             <RootView>
                 <PurpleBlockView></PurpleBlockView>
                 <ScrollView>
-                    <Content>
-                        <MapViewWrapper>
-                            <InnerMapViewWrapper>
-                                <MapView
-                                    provider={MapView.PROVIDER_GOOGLE}
-                                    style = {styles.map}
-                                    region={this.state.mapRegion}
-                                    mapType='terrain'
-                                    showsUserLocation={true}
-                                    showsMyLocationButton={false}
-                                    showsPointsOfInterest={false}
-                                    showsCompass={false}>
-                                    <MapView.Polyline
-                                        coordinates={this.state.coordinates}
-                                        strokeColor='#444'
-                                        strokeWidth={4}
-                                    />
-                                </MapView>
-                                <CardContent>
-                                    <ContentItem>
-                                        <MetaDataType>Distance</MetaDataType>
-                                        <MetaData>{hike.distance}m</MetaData>
-                                    </ContentItem>
-                                    <ContentItem>
-                                        <MetaDataType>Elevation</MetaDataType>
-                                        <MetaData>{hike.elevation}ft</MetaData>
-                                    </ContentItem>
-                                    <ContentItem>
-                                        <MetaDataType>Route</MetaDataType>
-                                        <MetaData>{hike.route}</MetaData>
-                                    </ContentItem>
-                                </CardContent>
-                            </InnerMapViewWrapper>
-                            <GrayBlockView></GrayBlockView>
-                        </MapViewWrapper>
-                        <BodyContent>
-                            <TitleText>{hike.title}</TitleText>
-                            <DescriptionText>{hike.content}</DescriptionText>
-                        </BodyContent>
-                    </Content>
+                    <MapViewWrapper>
+                        <InnerMapViewWrapper>
+                            <MapView
+                                provider={MapView.PROVIDER_GOOGLE}
+                                style = {styles.map}
+                                region={this.state.mapRegion}
+                                mapType='terrain'
+                                showsUserLocation={true}
+                                showsMyLocationButton={false}
+                                showsPointsOfInterest={false}
+                                showsCompass={false}>
+                                <MapView.Polyline
+                                    coordinates={this.state.coordinates}
+                                    strokeColor={colors.purple}
+                                    strokeWidth={4}
+                                />
+                            </MapView>
+                            <CardContent>
+                                <ContentItem>
+                                    <MetaDataType>Distance</MetaDataType>
+                                    <MetaData>{hike.distance}m</MetaData>
+                                </ContentItem>
+                                <ContentItem>
+                                    <MetaDataType>Elevation</MetaDataType>
+                                    <MetaData>{hike.elevation}ft</MetaData>
+                                </ContentItem>
+                                <ContentItem>
+                                    <MetaDataType>Route</MetaDataType>
+                                    <MetaData>{hike.route}</MetaData>
+                                </ContentItem>
+                            </CardContent>
+                        </InnerMapViewWrapper>
+                        <GrayBlockView></GrayBlockView>
+                    </MapViewWrapper>
+                    <BodyContent>
+                        <TitleText>{hike.title}</TitleText>
+                        <DescriptionText>{hike.content}</DescriptionText>
+                    </BodyContent>
                 </ScrollView>
             </RootView>
         );
@@ -190,8 +187,6 @@ const TitleText = styled.Text`
     margin-bottom: 10px;
 `;
 
-const Content = styled.View``;
-
 const MapViewWrapper = styled.View`
     flex: 1;
     height: 285px;
@@ -223,64 +218,6 @@ const PurpleBlockView = styled.View`
     left: 0;
     right: 0;
     top: 0;
-`;
-
-const Image = styled.Image`
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    background: #3c4560;
-`;
-
-const Title = styled.Text`
-    font-size: 24px;
-    color: white;
-    font-weight: bold;
-    width: 170px;
-    position: absolute;
-    top: 78px;
-    left: 20px;
-`;
-
-const Caption = styled.Text`
-    color: white;
-    font-size: 17;
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
-    max-width: 300px;
-`;
-
-const CloseView = styled.View`
-    width: 32px;
-    height: 32px;
-    background: white;
-    border-radius: 22px;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
-    justify-content: center;
-    align-items: center;
-`;
-
-const Wrapper = styled.View`
-    flex-direction: row;
-    position: absolute;
-    top: 40px;
-    left: 20px;
-    align-items: center;
-`;
-
-const Logo = styled.Image`
-    width: 24px;
-    height: 24px;
-`;
-
-const Subtitle = styled.Text`
-    font-size: 15px;
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.8);
-    margin-left: 5px;
-    text-transform: uppercase;
 `;
 
 const CardContent = styled.View`
