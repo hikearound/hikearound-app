@@ -8,7 +8,8 @@ import {
     Keyboard,
 } from 'react-native';
 import { connect } from 'react-redux';
-import firebase from '../components/Firebase';
+import firebase from 'firebase';
+import Fire from '../Fire';
 import { NavigationActions, StackActions } from 'react-navigation';
 import { KeyboardAccessoryNavigation } from 'react-native-keyboard-accessory';
 import ActionButton from '../components/ActionButton';
@@ -98,16 +99,9 @@ class SignInScreen extends React.Component {
                     AsyncStorage.setItem('response', JSON.stringify(response));
                     this.setState({ isSuccessful: true });
                     this.storeUid(response.user.uid);
-                    this.storeToken();
+                    this.handleContinue();
                 }
             });
-    };
-
-    storeToken = async () => {
-        var response = await AsyncStorage.getItem('response');
-        response = JSON.parse(response);
-        AsyncStorage.setItem('token', response.user.stsTokenManager.accessToken);
-        this.handleContinue();
     };
 
     storeUid = async uid => {

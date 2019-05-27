@@ -29,17 +29,6 @@ class HomeScreen extends React.Component {
         headerBackTitle: null,
     };
 
-    constructor(props) {
-        super(props);
-        this.getToken();
-    }
-
-    getToken = async () => {
-        var token = await AsyncStorage.getItem('token');
-        this.setState({ token });
-        console.log(this.state.token);
-    };
-
     render() {
         return (
             <RootView>
