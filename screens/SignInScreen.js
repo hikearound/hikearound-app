@@ -84,27 +84,30 @@ class SignInScreen extends React.Component {
         }
     }
 
-    handleLogin = () => {
+    handleLogin = async () => {
         this.setState({ isLoading: true });
-
-        const email = this.state.email;
-        const password = this.state.password;
-
         firebase
             .auth()
-            .signInWithEmailAndPassword(email, password)
+            .signInWithEmailAndPassword(this.state.email, this.state.password)
             .catch(function(error) {
                 Alert.alert('Error', error.message);
             })
             .then(response => {
                 this.setState({ isLoading: false });
                 if (response) {
+                    AsyncStorage.setItem('firebaseResponse', JSON.stringify(response));
                     this.setState({ isSuccessful: true });
-                    var uid = response.user.uid;
-                    this.storeUid(uid);
+                    this.storeUid(response.user.uid);
+                    this.storeToken();
                     this.handleContinue();
                 }
             });
+    };
+
+    storeToken = async () => {
+        var response = await AsyncStorage.getItem('firebaseResponse');
+        response = JSON.parse(response);
+        AsyncStorage.setItem('token', strresponse.user.stsTokenManager.accessToken);
     };
 
     storeUid = async uid => {
