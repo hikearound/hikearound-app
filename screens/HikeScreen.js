@@ -112,7 +112,7 @@ class HikeScreen extends React.Component {
     render() {
         const { navigation } = this.props;
         const hike = navigation.getParam('hike');
-        console.log(hike.description)
+        var description = hike.description.replace('\\n\\n', '\n\n');
         return (
             <RootView>
                 <PurpleBlockView></PurpleBlockView>
@@ -153,7 +153,7 @@ class HikeScreen extends React.Component {
                     </MapViewWrapper>
                     <BodyContent>
                         <TitleText>{hike.name}</TitleText>
-                        <DescriptionText>{hike.description}</DescriptionText>
+                        <DescriptionText>{description}</DescriptionText>
                     </BodyContent>
                 </ScrollView>
             </RootView>
