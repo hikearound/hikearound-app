@@ -2,12 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 
 export default class Footer extends React.Component {
-    onPress = () => {
-        this.props.onPress && this.props.onPress();
-    };
-
     render() {
-        const { onPress, style, ...props } = this.props;
+        const { ...props } = this.props;
+        // console.log(this.props.refreshControl.props.refreshing);
         return (
             <Container>
                 <Text></Text>

@@ -9,13 +9,13 @@ class List extends React.Component {
     keyExtractor = item => item.key;
 
     render() {
-        const { onPressFooter, ...props } = this.props;
+        const { ...props } = this.props;
         return (
             <FlatList
                 keyExtractor={this.keyExtractor}
                 renderItem={this.renderItem}
                 ListFooterComponent={footerProps => (
-                    <Footer {...footerProps} onPress={onPressFooter} />
+                    <Footer {...props} />
                 )}
                 showsVerticalScrollIndicator={false}
                 {...props}

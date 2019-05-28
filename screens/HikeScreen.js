@@ -87,7 +87,7 @@ class HikeScreen extends React.Component {
             })
             fetch(this.state.hikeLink)
                .then(response => response.text())
-               .then((response) => {
+               .then(response => {
                    parseString(response, function (err, result) {
                        AsyncStorage.setItem(
                            'hikeData', JSON.stringify(result)
