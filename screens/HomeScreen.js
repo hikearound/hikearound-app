@@ -1,18 +1,7 @@
 import React from 'react';
-import Card from '../components/Card';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import {
-    ScrollView,
-    Animated,
-    TouchableOpacity,
-    Easing,
-    StatusBar,
-    AsyncStorage,
-    LayoutAnimation,
-    RefreshControl,
-} from 'react-native';
-import SafeAreaView from 'react-native-safe-area-view';
+import { LayoutAnimation, RefreshControl } from 'react-native';
 import HeaderLogo from '../components/HeaderLogo';
 import firebase from 'firebase'
 import Fire from '../Fire';
@@ -90,8 +79,13 @@ class HomeScreen extends React.Component {
         this.setState({ loading: false });
     };
 
-    _onRefresh = () => this.makeRemoteRequest();
-    onEndReached = () => this.makeRemoteRequest(this.lastKnownKey);
+    _onRefresh = () => {
+        this.makeRemoteRequest();
+    }
+
+    onEndReached = () => {
+        this.makeRemoteRequest(this.lastKnownKey);
+    }
 
     render() {
         LayoutAnimation.easeInEaseOut();

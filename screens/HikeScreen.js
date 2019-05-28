@@ -8,6 +8,8 @@ import {
     AsyncStorage,
 } from 'react-native';
 import { MapView, Location, Permissions } from 'expo';
+import InfoBar from '../components/InfoBar';
+import HikeBody from '../components/HikeBody';
 import colors from '../constants/Colors';
 import spacing from '../constants/Spacing';
 import fontSizes from '../constants/Fonts';
@@ -32,19 +34,6 @@ class HikeScreen extends React.Component {
 
     componentDidMount() {
         this.initializeMap();
-    }
-
-    setHikeData(hikeData) {
-        var hikeMetaData = hikeData.gpx.metadata[0].bounds[0].$;
-        var maxlat = parseFloat(hikeMetaData.maxlat);
-        var minlat = parseFloat(hikeMetaData.minlat);
-        var minlon =  parseFloat(hikeMetaData.minlon);
-        var maxlon =  parseFloat(hikeMetaData.maxlon);
-        this.setState({ startingLat: (maxlat + minlat) / 2 });
-        this.setState({ startingLon: (maxlon + minlon) / 2 });
-        this.setState({ latDelta: (maxlat - minlat) + 0.02 });
-        this.setState({ lonDelta: (maxlon - minlon) });
-        this.setState({ hikeData });
     }
 
     setMapRegion() {
@@ -111,6 +100,19 @@ class HikeScreen extends React.Component {
         this.setMapRegion();
     };
 
+    setHikeData(hikeData) {
+        var hikeMetaData = hikeData.gpx.metadata[0].bounds[0].$;
+        var maxlat = parseFloat(hikeMetaData.maxlat);
+        var minlat = parseFloat(hikeMetaData.minlat);
+        var minlon =  parseFloat(hikeMetaData.minlon);
+        var maxlon =  parseFloat(hikeMetaData.maxlon);
+        this.setState({ startingLat: (maxlat + minlat) / 2 });
+        this.setState({ startingLon: (maxlon + minlon) / 2 });
+        this.setState({ latDelta: (maxlat - minlat) + 0.02 });
+        this.setState({ lonDelta: (maxlon - minlon) });
+        this.setState({ hikeData });
+    }
+
     getLocation = async () => {
         let { status } = await Permissions.askAsync(Permissions.LOCATION);
         if (status !== 'granted') {
@@ -127,7 +129,6 @@ class HikeScreen extends React.Component {
     render() {
         const { navigation } = this.props;
         const hike = navigation.getParam('hike');
-        var description = hike.description.replace('\\n\\n', '\n\n');
         return (
             <RootView>
                 <PurpleBlockView></PurpleBlockView>
@@ -149,27 +150,18 @@ class HikeScreen extends React.Component {
                                     strokeWidth={4}
                                 />
                             </MapView>
-                            <CardContent>
-                                <ContentItem>
-                                    <MetaDataType>Distance</MetaDataType>
-                                    <MetaData>{hike.distance}m</MetaData>
-                                </ContentItem>
-                                <ContentItem>
-                                    <MetaDataType>Elevation</MetaDataType>
-                                    <MetaData>{hike.elevation}ft</MetaData>
-                                </ContentItem>
-                                <ContentItem>
-                                    <MetaDataType>Route</MetaDataType>
-                                    <MetaData>{hike.route}</MetaData>
-                                </ContentItem>
-                            </CardContent>
+                            <InfoBar
+                                distance={hike.distance}
+                                elevation={hike.elevation}
+                                route={hike.route}
+                            />
                         </InnerMapViewWrapper>
                         <GrayBlockView></GrayBlockView>
                     </MapViewWrapper>
-                    <BodyContent>
-                        <TitleText>{hike.name}</TitleText>
-                        <DescriptionText>{description}</DescriptionText>
-                    </BodyContent>
+                    <HikeBody
+                        name={hike.name}
+                        description={hike.description}
+                    />
                 </ScrollView>
             </RootView>
         );
@@ -189,18 +181,6 @@ const styles = StyleSheet.create ({
 
 const RootView = styled.View`
     background-color: #FFF;
-`;
-
-const DescriptionText = styled.Text`
-    color: #333;
-    font-size: 14px;
-`;
-
-const TitleText = styled.Text`
-    color: #333;
-    font-weight: 600;
-    font-size: 20px;
-    margin-bottom: 10px;
 `;
 
 const MapViewWrapper = styled.View`
@@ -234,40 +214,4 @@ const PurpleBlockView = styled.View`
     left: 0;
     right: 0;
     top: 0;
-`;
-
-const CardContent = styled.View`
-    flex-direction: row;
-    align-items: center;
-    position: relative;
-    padding: 10px 15px;
-    margin-top: -4px;
-    z-index: 2;
-    background-color: #FFF;
-    border-bottom-left-radius: 6px;
-    border-bottom-right-radius: 6px;
-`;
-
-const ContentItem = styled.View`
-    flex-direction: column;
-    flex-grow: 1;
-`;
-
-const MetaDataType = styled.Text`
-    color: #9C9C9C;
-    font-size: 12px;
-    font-weight: 500;
-    text-transform: uppercase;
-`;
-
-const MetaData = styled.Text`
-    padding-top: 1px;
-    color: #333;
-    font-size: 13px;
-    font-weight: 500;
-`;
-
-const BodyContent = styled.View`
-    padding: 20px 15px;
-    background-color: #fff;
 `;

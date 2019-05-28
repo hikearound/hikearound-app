@@ -7,7 +7,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 import styled from 'styled-components';
-import Card from '../components/Card';
+import FeedCard from '../components/FeedCard';
 import { withNavigation } from 'react-navigation';
 import firebase from 'firebase'
 
@@ -34,7 +34,7 @@ class Item extends React.Component {
                             hike: this.props
                         });
                     }}>
-                    <Card
+                    <FeedCard
                         title={this.props.name}
                         image={{ uri: this.state.imageUrl }}
                         distance={this.props.distance}

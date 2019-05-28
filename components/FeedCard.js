@@ -5,7 +5,7 @@ import colors from '../constants/Colors';
 import spacing from '../constants/Spacing';
 import fontSizes from '../constants/Fonts';
 
-const Card = props => (
+const FeedCard = props => (
     <Container>
         <Cover>
             <Image source={props.image} resizeMode='cover' />
@@ -39,7 +39,7 @@ const Card = props => (
     </Container>
 );
 
-export default Card;
+export default FeedCard;
 
 const Container = styled.View`
     background-color: #FFF;
