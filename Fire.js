@@ -1,6 +1,8 @@
 import * as keys from './keys/Keys';
 
-const firebaseKey = keys["default"]["firebaseKey"];
+const firebaseKey = keys['default']['firebaseKey'];
+const messagingSenderId = keys['default']['messagingSenderId'];
+const appId = keys['default']['appId'];
 const firebase = require('firebase');
 const collectionName = 'snack-SJucFknGX';
 
@@ -10,10 +12,12 @@ class Fire {
     constructor() {
         firebase.initializeApp({
             apiKey: firebaseKey,
-            authDomain: 'designcode-app.firebaseapp.com',
-            databaseURL: 'https://designcode-app.firebaseio.com',
-            projectId: ' designcode-app-969d7',
-            storageBucket: 'designcode-app.appspot.com'
+            authDomain: 'hikearound-14dad.firebaseapp.com',
+            databaseURL: 'https://hikearound-14dad.firebaseio.com',
+            projectId: ' hikearound-14dad',
+            storageBucket: 'hikearound-14dad.appspot.com',
+            messagingSenderId: messagingSenderId,
+            appId: appId,
         });
         firebase.auth().onAuthStateChanged(async user => {
             if (!user) {

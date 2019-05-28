@@ -12,7 +12,8 @@ import {
 } from 'react-native';
 import SafeAreaView from 'react-native-safe-area-view';
 import HeaderLogo from '../components/HeaderLogo';
-import firebase from 'firebase';
+import firebase from 'firebase'
+import Fire from '../Fire';
 
 function mapStateToProps(state) {
     return {
@@ -32,8 +33,12 @@ class HomeScreen extends React.Component {
 
     constructor(props) {
         super(props);
-        // var user = firebase.auth().currentUser;
+        var user = firebase.auth().currentUser;
         // console.log(user.uid);
+    }
+
+    componentDidMount() {
+        // console.log(Fire.shared.uid);
     }
 
     render() {
