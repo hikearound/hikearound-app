@@ -101,6 +101,8 @@ const Content = styled.View`
     align-items: center;
     position: relative;
     padding: 10px 15px;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
 `;
 
 const ContentItem = styled.View`
