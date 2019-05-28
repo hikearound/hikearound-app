@@ -1,13 +1,30 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Text, StyleSheet } from 'react-native';
 
 export default class Footer extends React.Component {
+    state = {
+        showFooter: styles.hiddenText,
+    };
+
+    componentDidMount() {
+        this.timeout = setTimeout(() => {
+            this.setState({
+                showFooter: styles.visibleText,
+            });
+        }, 5000);
+        this.timeout;
+    }
+
+    componentWillUnmount() {
+        clearTimeout(this.timeout);
+    }
+
     render() {
         const { ...props } = this.props;
-        // console.log(this.props.refreshControl.props.refreshing);
         return (
             <Container>
-                <Text></Text>
+                <Text style={this.state.showFooter}>Test</Text>
             </Container>
         );
     }
@@ -17,6 +34,11 @@ const Container = styled.View`
     padding-top: 15px;
 `;
 
-const Text = styled.Text`
-    display: none;
-`;
+const styles = StyleSheet.create({
+    visibleText: {
+        display: 'flex',
+    },
+    hiddenText: {
+        display: 'none',
+    },
+});
