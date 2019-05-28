@@ -63,7 +63,9 @@ class HomeScreen extends React.Component {
             };
             return {
                 data,
-                posts: Object.values(data).sort((a, b) => a.timestamp < b.timestamp),
+                posts: Object.values(data).sort(
+                    (a, b) => a.timestamp < b.timestamp
+                ),
             };
         });
     };

@@ -28,7 +28,6 @@ class Fire {
 
     getPaged = async ({ size, start }) => {
         let ref = this.collection.orderBy('timestamp', 'desc').limit(size);
-        // let ref = this.collection.limit(size);
         if (start) {
             ref = ref.startAfter(start);
         }
@@ -49,32 +48,6 @@ class Fire {
 
         const lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
         return { data, cursor: lastVisible };
-    };
-
-    uploadPhotoAsync = async uri => {
-        const path = `${collectionName}/${this.uid}/${uuid.v4()}.jpg`;
-        return uploadPhoto(uri, path);
-    };
-
-    post = async ({ text, image: localUri }) => {
-        try {
-            const { uri: reducedImage, width, height } = await shrinkImageAsync(
-                localUri,
-            );
-
-            const remoteUri = await this.uploadPhotoAsync(reducedImage);
-            this.collection.add({
-                text,
-                uid: this.uid,
-                timestamp: this.timestamp,
-                imageWidth: width,
-                imageHeight: height,
-                image: remoteUri,
-                user: getUserInfo(),
-            });
-        } catch ({ message }) {
-            alert(message);
-        }
     };
 
     get collection() {

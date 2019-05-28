@@ -11,6 +11,9 @@ import { MapView, Location, Permissions } from 'expo';
 import colors from '../constants/Colors';
 import spacing from '../constants/Spacing';
 import fontSizes from '../constants/Fonts';
+import firebase from 'firebase'
+
+const parseString = require('react-native-xml2js').parseString;
 
 class HikeScreen extends React.Component {
     static navigationOptions = ({ navigation, navigationOptions }) => {
@@ -29,19 +32,19 @@ class HikeScreen extends React.Component {
 
     componentDidMount() {
         // this.getLocation();
-        this.getHikeXml();
+        this.getHikeXmlLink();
     }
 
     setHikeMetaData() {
         var hikeMetaData = this.state.hikeXml.gpx.metadata[0].bounds[0]["$"];
-        var startingLat = ((parseFloat(hikeMetaData.maxlat) + parseFloat(hikeMetaData.minlat)) / 2);
-        var startingLon = ((parseFloat(hikeMetaData.maxlon) + parseFloat(hikeMetaData.minlon)) / 2);
-        var latDelta = ((parseFloat(hikeMetaData.maxlat) - parseFloat(hikeMetaData.minlat)) + 0.02);
-        var lonDelta = (parseFloat(hikeMetaData.maxlon) - parseFloat(hikeMetaData.minlon));
-        this.setState({ startingLat });
-        this.setState({ startingLon });
-        this.setState({ latDelta });
-        this.setState({ lonDelta });
+        var maxlat = parseFloat(hikeMetaData.maxlat);
+        var minlat = parseFloat(hikeMetaData.minlat);
+        var minlon =  parseFloat(hikeMetaData.minlon);
+        var maxlon =  parseFloat(hikeMetaData.maxlon);
+        this.setState({ startingLat: (maxlat + minlat) / 2 });
+        this.setState({ startingLon: (maxlon + minlon) / 2 });
+        this.setState({ latDelta: (maxlat - minlat) + 0.02 });
+        this.setState({ lonDelta: (maxlon - minlon) });
     }
 
     setMapRegion() {
@@ -70,16 +73,36 @@ class HikeScreen extends React.Component {
         this.setState({ coordinates });
     }
 
+    getHikeXmlLink = async () => {
+        const { navigation } = this.props;
+        const hike = navigation.getParam('hike');
+        var ref = firebase.storage().ref(hike.gpx);
+        ref.getDownloadURL().then(data => {
+            this.setState(
+                {
+                    hikeLink: data
+                },
+                this.getHikeXml,
+            );
+        })
+    };
+
     getHikeXml = async () => {
         var hikeXml = await AsyncStorage.getItem('hikeXml');
+        const { navigation } = this.props;
+        const hike = navigation.getParam('hike');
         if (!hikeXml) {
-            var hikeLink = 'https://firebasestorage.googleapis.com/v0/b/designcode-app-969d7.appspot.com/o/hike.gpx?alt=media&token=f658517c-6611-446e-92c2-2b266da4f128';
-            fetch(hikeLink)
+            var ref = firebase.storage().ref(hike.gpx);
+            ref.getDownloadURL().then(data => {
+                this.setState({ hikeLink: data });
+            })
+            fetch(this.state.hikeLink)
                .then(response => response.text())
                .then((response) => {
-                   const parseString = require('react-native-xml2js').parseString;
                    parseString(response, function (err, result) {
-                       AsyncStorage.setItem('hikeXml', JSON.stringify(result));
+                       AsyncStorage.setItem(
+                           'hikeXml', JSON.stringify(result)
+                       );
                    });
                })
         }

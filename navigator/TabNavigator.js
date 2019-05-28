@@ -47,12 +47,12 @@ const HomeStack = createStackNavigator(
 
 HomeStack.navigationOptions = ({ navigation }) => {
     var tabBarVisible = false;
-    const routeName = navigation.state.routes[navigation.state.index].routeName;
-
+    const routeName = (
+        navigation.state.routes[navigation.state.index].routeName
+    );
     if ((routeName == 'Home') || (routeName == 'Hike')) {
         tabBarVisible = true;
     }
-
     return {
         tabBarVisible,
         animationEnabled: true,

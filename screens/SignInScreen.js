@@ -87,14 +87,18 @@ class SignInScreen extends React.Component {
         this.setState({ isLoading: true });
         firebase
             .auth()
-            .signInWithEmailAndPassword(this.state.email, this.state.password)
+            .signInWithEmailAndPassword(
+                this.state.email, this.state.password
+            )
             .catch(function(error) {
                 Alert.alert('Error', error.message);
             })
             .then(response => {
                 this.setState({ isLoading: false });
                 if (response) {
-                    AsyncStorage.setItem('response', JSON.stringify(response));
+                    AsyncStorage.setItem(
+                        'response', JSON.stringify(response)
+                    );
                     this.setState({ isSuccessful: true });
                     this.storeUid(response.user.uid);
                     this.handleContinue();

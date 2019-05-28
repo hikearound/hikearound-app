@@ -10,7 +10,6 @@ import styled from 'styled-components';
 import Card from '../components/Card';
 import { withNavigation } from 'react-navigation';
 import firebase from 'firebase'
-import Fire from '../Fire';
 
 class Item extends React.Component {
     state = {};
