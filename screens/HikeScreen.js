@@ -31,12 +31,11 @@ class HikeScreen extends React.Component {
     };
 
     componentDidMount() {
-        // this.getLocation();
-        this.getHikeXmlLink();
+        this.initializeMap();
     }
 
-    setHikeMetaData() {
-        var hikeMetaData = this.state.hikeXml.gpx.metadata[0].bounds[0]["$"];
+    setHikeData(hikeData) {
+        var hikeMetaData = hikeData.gpx.metadata[0].bounds[0].$;
         var maxlat = parseFloat(hikeMetaData.maxlat);
         var minlat = parseFloat(hikeMetaData.minlat);
         var minlon =  parseFloat(hikeMetaData.minlon);
@@ -45,6 +44,7 @@ class HikeScreen extends React.Component {
         this.setState({ startingLon: (maxlon + minlon) / 2 });
         this.setState({ latDelta: (maxlat - minlat) + 0.02 });
         this.setState({ lonDelta: (maxlon - minlon) });
+        this.setState({ hikeData });
     }
 
     setMapRegion() {
@@ -60,9 +60,9 @@ class HikeScreen extends React.Component {
 
     parseCoordinates() {
         var coordinates = [];
-        var coordinateCount = this.state.hikeXml.gpx.rte[0].rtept.length;
+        var coordinateCount = this.state.hikeData.gpx.rte[0].rtept.length;
         for (var i = 0, len = coordinateCount; i < len; ++i) {
-            coordinate = this.state.hikeXml.gpx.rte[0].rtept[i]["$"];
+            coordinate = this.state.hikeData.gpx.rte[0].rtept[i].$;
             coordinates.push(
                 {
                     latitude: parseFloat(coordinate.lat),
@@ -73,7 +73,7 @@ class HikeScreen extends React.Component {
         this.setState({ coordinates });
     }
 
-    getHikeXmlLink = async () => {
+    initializeMap = async () => {
         const { navigation } = this.props;
         const hike = navigation.getParam('hike');
         var ref = firebase.storage().ref(hike.gpx);
@@ -82,16 +82,16 @@ class HikeScreen extends React.Component {
                 {
                     hikeLink: data
                 },
-                this.getHikeXml,
+                this.getHikeData,
             );
         })
     };
 
-    getHikeXml = async () => {
-        var hikeXml = await AsyncStorage.getItem('hikeXml');
+    getHikeData = async () => {
         const { navigation } = this.props;
         const hike = navigation.getParam('hike');
-        if (!hikeXml) {
+        var hikeData = await AsyncStorage.getItem('hikeData');
+        if (!hikeData) {
             var ref = firebase.storage().ref(hike.gpx);
             ref.getDownloadURL().then(data => {
                 this.setState({ hikeLink: data });
@@ -101,14 +101,12 @@ class HikeScreen extends React.Component {
                .then((response) => {
                    parseString(response, function (err, result) {
                        AsyncStorage.setItem(
-                           'hikeXml', JSON.stringify(result)
+                           'hikeData', JSON.stringify(result)
                        );
                    });
                })
         }
-        hikeXml = JSON.parse(hikeXml);
-        this.setState({ hikeXml });
-        this.setHikeMetaData();
+        this.setHikeData(JSON.parse(hikeData));
         this.parseCoordinates();
         this.setMapRegion();
     };
@@ -124,12 +122,6 @@ class HikeScreen extends React.Component {
         }
         let location = await Location.getCurrentPositionAsync({});
         this.setState({ locationResult: JSON.stringify(location) });
-        this.setState({mapRegion: {
-            latitude: location.coords.latitude,
-            longitude: location.coords.longitude,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421 }
-        });
     };
 
     render() {
