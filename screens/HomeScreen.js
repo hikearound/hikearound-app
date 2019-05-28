@@ -9,11 +9,17 @@ import {
     Easing,
     StatusBar,
     AsyncStorage,
+    LayoutAnimation,
+    RefreshControl,
 } from 'react-native';
 import SafeAreaView from 'react-native-safe-area-view';
 import HeaderLogo from '../components/HeaderLogo';
 import firebase from 'firebase'
 import Fire from '../Fire';
+import List from '../components/List';
+import colors from '../constants/Colors';
+
+const PAGE_SIZE = 5;
 
 function mapStateToProps(state) {
     return {
@@ -31,6 +37,12 @@ class HomeScreen extends React.Component {
         headerBackTitle: null,
     };
 
+    state = {
+        loading: false,
+        posts: [],
+        data: {},
+    };
+
     constructor(props) {
         super(props);
         var user = firebase.auth().currentUser;
@@ -38,80 +50,66 @@ class HomeScreen extends React.Component {
     }
 
     componentDidMount() {
-        // console.log(Fire.shared.uid);
+        if (Fire.shared.uid) {
+            this.makeRemoteRequest();
+        }
     }
 
+    addPosts = posts => {
+        this.setState(previousState => {
+            let data = {
+                ...previousState.data,
+                ...posts,
+            };
+            return {
+                data,
+                posts: Object.values(data).sort((a, b) => a.timestamp < b.timestamp),
+            };
+        });
+    };
+
+    makeRemoteRequest = async lastKey => {
+        if (this.state.loading) {
+            return;
+        }
+        this.setState({ loading: true });
+
+        const { data, cursor } = await Fire.shared.getPaged({
+            size: PAGE_SIZE,
+            start: lastKey,
+        });
+
+        this.lastKnownKey = cursor;
+        let posts = {};
+        for (let child of data) {
+            posts[child.key] = child;
+        }
+        this.addPosts(posts);
+        this.setState({ loading: false });
+    };
+
+    _onRefresh = () => this.makeRemoteRequest();
+    onEndReached = () => this.makeRemoteRequest(this.lastKnownKey);
+
     render() {
+        LayoutAnimation.easeInEaseOut();
         return (
             <RootView>
-                <SafeAreaView
-                    style={{ flex: 1 }}
-                    forceInset={{ bottom: 'never'}}>
-                    <ScrollView
-                        style={{ flex: 1}}
-                        showsVerticalScrollIndicator={false}>
-                        <SubtitleView>
-                            <Subtitle>Bay Area Hikes</Subtitle>
-                        </SubtitleView>
-                        <CardsContainer>
-                            {cards.map((card, index) => (
-                                <TouchableOpacity
-                                    key={index}
-                                    activeOpacity={0.4}
-                                    onPress={() => {
-                                        this.props.navigation.push('Hike', {
-                                            hike: card
-                                        });
-                                    }}>
-                                    <Card
-                                        key={index}
-                                        title={card.title}
-                                        image={card.image}
-                                        distance={card.distance}
-                                        elevation={card.elevation}
-                                        route={card.route}
-                                        caption={card.caption}
-                                        content={card.content}
-                                    />
-                                </TouchableOpacity>
-                            ))}
-                        </CardsContainer>
-                    </ScrollView>
-                </SafeAreaView>
+                <List
+                    refreshControl={
+                        <RefreshControl
+                            tintColor={'#E4E4E4'}
+                            refreshing={this.state.loading}
+                            onRefresh={this._onRefresh}
+                        />
+                    }
+                    onPressFooter={this.onEndReached}
+                    data={this.state.posts}
+                />
             </RootView>
         );
     }
 }
-
-const cards = [
-    {
-        title: "Kent Trail Loop",
-        image: require("../assets/hike1.jpg"),
-        distance: "4.2",
-        elevation: "1043",
-        route: "Loop",
-        caption: "1 of 12 sections",
-        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum erat arcu, posuere ac varius vel, viverra et lorem. Maecenas fringilla dignissim lobortis. Ut pharetra scelerisque eros, vitae pulvinar nisi pharetra quis.\n\nAliquam suscipit nec purus sit amet eleifend. Quisque quis turpis eget elit varius iaculis. Vivamus fermentum in quam eget vulputate. Aenean faucibus, ante nec fringilla faucibus, nunc ligula varius erat, non consequat elit diam vitae erat. ',
-    },
-    {
-        title: "Marshall Beach Trail",
-        image: require("../assets/hike2.jpg"),
-        distance: "6.9",
-        elevation: "954",
-        route: "Out & Back",
-        caption: "2 of 12 sections",
-        content: 'This is content.',
-    },
-    {
-        title: "Johnstone Trail",
-        image: require("../assets/hike3.jpg"),
-        distance: "3.2",
-        elevation: "434",
-        route: "Loop",
-        caption: "2 of 12 sections",
-        content: 'This is content.',
-    },
-];
 
 export default connect(
     mapStateToProps,
@@ -150,9 +148,4 @@ const Message = styled.Text`
     color: #b8bece;
     font-size: 15px;
     font-weight: 500;
-`;
-
-const CardsContainer = styled.View`
-    flex-direction: column;
-    padding: 15px;
 `;

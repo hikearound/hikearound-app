@@ -17,7 +17,7 @@ class HikeScreen extends React.Component {
         const { state: { params = {} } } = navigation;
         const hike = navigation.getParam('hike')
         return {
-            title: hike.title || 'Hike',
+            title: hike.name || 'Hike',
         };
     }
 
@@ -112,6 +112,7 @@ class HikeScreen extends React.Component {
     render() {
         const { navigation } = this.props;
         const hike = navigation.getParam('hike');
+        console.log(hike.description)
         return (
             <RootView>
                 <PurpleBlockView></PurpleBlockView>
@@ -151,8 +152,8 @@ class HikeScreen extends React.Component {
                         <GrayBlockView></GrayBlockView>
                     </MapViewWrapper>
                     <BodyContent>
-                        <TitleText>{hike.title}</TitleText>
-                        <DescriptionText>{hike.content}</DescriptionText>
+                        <TitleText>{hike.name}</TitleText>
+                        <DescriptionText>{hike.description}</DescriptionText>
                     </BodyContent>
                 </ScrollView>
             </RootView>

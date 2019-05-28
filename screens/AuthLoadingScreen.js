@@ -20,8 +20,11 @@ class AuthLoadingScreen extends React.Component {
 
     constructor(props) {
         super(props);
-        StatusBar.setBarStyle('light-content', true);
         this.getAuth();
+    }
+
+    componentDidMount() {
+        StatusBar.setBarStyle('light-content', true);
     }
 
     componentWillUnmount() {
@@ -37,7 +40,7 @@ class AuthLoadingScreen extends React.Component {
                         loading: false,
                         user,
                     },
-                    this.dispatchNav
+                    this.dispatchNav,
                 );
         });
     };
@@ -55,7 +58,7 @@ class AuthLoadingScreen extends React.Component {
         return (
             <RootView>
                 <ActivityIndicator />
-                <StatusBar barStyle="default" />
+                <StatusBar hidden={true}/>
             </RootView>
         );
     }
