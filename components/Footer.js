@@ -12,7 +12,7 @@ export default class Footer extends React.Component {
             this.setState({
                 showFooter: styles.visibleText,
             });
-        }, 5000);
+        }, 2500);
         this.timeout;
     }
 
@@ -24,7 +24,7 @@ export default class Footer extends React.Component {
         const { ...props } = this.props;
         return (
             <Container>
-                <Text style={this.state.showFooter}>Test</Text>
+                <Text style={this.state.showFooter}></Text>
             </Container>
         );
     }
