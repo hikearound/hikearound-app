@@ -54,6 +54,7 @@ class SignInScreen extends React.Component {
 
     state = {
         isLoading: false,
+
     };
 
     constructor(props) {
@@ -143,7 +144,7 @@ class SignInScreen extends React.Component {
     render() {
         return (
             <RootView>
-                <ScrollView keyboardShouldPersistTaps='never'>
+                <ScrollView keyboardShouldPersistTaps='always'>
                     { inputs.map(({
                         placeholder,
                         keyboardType,
@@ -160,12 +161,22 @@ class SignInScreen extends React.Component {
                             secureTextEntry={secureTextEntry}
                             autoCorrect={autoCorrect}
                             autoCapitalize={autoCapitalize}
-                            blurOnSubmit={false}
+                            blurOnSubmit={true}
                             onFocus={this.handleFocus(index)}
                             autoFocus={index === 0}
                             onChangeText={text => this.setValue(text, index)}
                         />
                     )}
+                    <TouchableOpacity
+                        activeOpacity={0.4}
+                        onPress={this.handleLogin}
+                        >
+                        <ActionButton
+                            primary
+                            text={'Continue'}
+                            margin={'0 20px 0 20px'}
+                        />
+                    </TouchableOpacity>
                     <TouchableOpacity
                         activeOpacity={0.4}>
                         <PasswordText>Forgot Password?</PasswordText>
@@ -213,6 +224,6 @@ const Text = styled.Text`
 const PasswordText = styled.Text`
     font-weight: 500;
     font-size: 15px;
-    margin-left: 20px;
+    margin: 20px;
     color: ${colors.purple};
 `;

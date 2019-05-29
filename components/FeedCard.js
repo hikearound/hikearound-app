@@ -9,9 +9,9 @@ import fontSizes from '../constants/Fonts';
 class FeedCard extends React.Component {
     render() {
         var CustomLayoutAnimation = {
-            duration: 50,
+            duration: 100,
             create: {
-                type: LayoutAnimation.Types.easeInEaseOut,
+                type: LayoutAnimation.Types.linear,
                 property: LayoutAnimation.Properties.opacity,
             },
             update: {
