@@ -35,14 +35,14 @@ export default class Footer extends React.Component {
 
 const Circle = styled.View`
     background-color: #E6E6E6;
-    border-radius: 8px;
-    height: 8px;
-    width: 8px;
-    margin: 7px auto 0;
+    border-radius: 7px;
+    height: 7px;
+    width: 7px;
+    margin: 6px auto -4px;
 `;
 
 const Container = styled.View`
-    padding: 20px 0;
+    padding: 25px 0;
 `;
 
 const Text = styled.Text`
