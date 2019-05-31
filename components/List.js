@@ -1,7 +1,7 @@
 import React from 'react';
 import { FlatList } from 'react-navigation';
-import Item from './Item';
 import styled from 'styled-components';
+import Item from './Item';
 import Footer from './Footer';
 
 class List extends React.Component {

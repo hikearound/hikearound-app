@@ -1,14 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import {
-    TouchableOpacity,
-    Image,
-} from 'react-native';
-import Logo from '../components/Logo';
+import { TouchableOpacity, Image } from 'react-native';
 import SafeAreaView from 'react-native-safe-area-view';
-import ActionButton from '../components/Button';
-import colors from '../constants/Colors';
-import spacing from '../constants/Spacing';
+import { ActionButton, Logo } from '../components/Index'
+import { colors } from '../constants/Index'
+
 
 class LandingScreen extends React.Component {
     static navigationOptions = {

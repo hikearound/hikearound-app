@@ -2,9 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { LinearGradient } from 'expo';
 import { LayoutAnimation, Animated } from 'react-native';
-import colors from '../constants/Colors';
-import spacing from '../constants/Spacing';
-import {fontSizes, fontWeights} from '../constants/Fonts';
+import { colors, fontSizes, fontWeights } from '../constants/Index'
 
 class FeedCard extends React.Component {
     render() {

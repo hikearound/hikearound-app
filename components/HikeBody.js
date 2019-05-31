@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import colors from '../constants/Colors';
-import spacing from '../constants/Spacing';
+import { colors, fontSizes, fontWeights } from '../constants/Index'
 
 class HikeBody extends React.Component {
     render() {

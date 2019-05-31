@@ -12,10 +12,8 @@ import Fire from '../Fire';
 import firebase from 'firebase';
 import { NavigationActions, StackActions } from 'react-navigation';
 import { KeyboardAccessoryNavigation } from 'react-native-keyboard-accessory';
-import ActionButton from '../components/Button';
-import colors from '../constants/Colors';
-import spacing from '../constants/Spacing';
-import {fontSizes, fontWeights} from '../constants/Fonts';
+import { colors, fontSizes, fontWeights } from '../constants/Index'
+import { ActionButton, HikeBody } from '../components/Index'
 
 const resetAction = StackActions.reset({
     index: 0,
@@ -43,7 +41,7 @@ class SignInScreen extends React.Component {
     static navigationOptions = {
         headerStyle: {
             backgroundColor: colors.purple,
-            height: parseInt(spacing.header),
+            height: 60,
         },
         headerTintColor: colors.white,
         headerTitle: 'Sign In',

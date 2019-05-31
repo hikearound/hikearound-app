@@ -8,12 +8,9 @@ import {
     AsyncStorage,
 } from 'react-native';
 import { MapView, Location, Permissions } from 'expo';
-import InfoBar from '../components/InfoBar';
-import HikeBody from '../components/HikeBody';
-import colors from '../constants/Colors';
-import spacing from '../constants/Spacing';
-import fontSizes from '../constants/Fonts';
 import firebase from 'firebase'
+import { InfoBar, HikeBody } from '../components/Index'
+import { colors, fontSizes, fontWeights } from '../constants/Index'
 
 const parseString = require('react-native-xml2js').parseString;
 

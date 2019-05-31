@@ -3,19 +3,26 @@ import {
     createBottomTabNavigator,
     createStackNavigator,
 } from 'react-navigation';
-import LandingScreen from '../screens/LandingScreen';
-import SignInScreen from '../screens/SignInScreen';
-import HomeScreen from '../screens/HomeScreen';
-import HikeScreen from '../screens/HikeScreen';
-import NotificationScreen from '../screens/NotificationScreen';
-import ProfileScreen from '../screens/ProfileScreen';
-import AuthScreen from '../screens/AuthScreen';
-import colors from '../constants/Colors';
-import spacing from '../constants/Spacing';
-import {fontSizes, fontWeights} from '../constants/Fonts';
-import HomeIcon from '../icons/Home';
-import BellIcon from '../icons/Bell';
-import PersonIcon from '../icons/Person';
+import {
+    colors,
+    spacing,
+    fontSizes,
+    fontWeights
+} from '../constants/Index'
+import {
+    HomeIcon,
+    BellIcon,
+    PersonIcon,
+} from '../icons/Index'
+import {
+    LandingScreen,
+    SignInScreen,
+    HomeScreen,
+    HikeScreen,
+    NotificationScreen,
+    ProfileScreen,
+    AuthScreen
+} from '../screens/Index'
 
 const activeColor = colors.purple;
 const inactiveColor = '#8E8E93';

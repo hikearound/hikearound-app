@@ -2,12 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { LayoutAnimation, RefreshControl } from 'react-native';
-import Logo from '../components/Logo';
 import firebase from 'firebase'
 import Fire from '../Fire';
-import List from '../components/List';
-import colors from '../constants/Colors';
-import {fontSizes, fontWeights} from '../constants/Fonts';
+import { Logo, List } from '../components/Index'
+import { colors, fontSizes, fontWeights } from '../constants/Index'
 
 const PAGE_SIZE = 5;
 

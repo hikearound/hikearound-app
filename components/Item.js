@@ -7,7 +7,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 import styled from 'styled-components';
-import FeedCard from '../components/FeedCard';
+import FeedCard from '../components/FeedCard'
 import { withNavigation } from 'react-navigation';
 import firebase from 'firebase'
 
