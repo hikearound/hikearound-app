@@ -6,7 +6,7 @@ import AppNavigator from './navigator/AppNavigator';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 
-console.disableYellowBox = true;
+// console.disableYellowBox = true;
 
 const client = new ApolloClient({
     uri: 'https://graphql.contentful.com/content/v1/spaces/ldcl3ayg0mhx',

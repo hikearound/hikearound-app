@@ -1,5 +1,6 @@
 import React from 'react';
-import { FlatList } from 'react-navigation';
+// import { FlatList } from 'react-navigation';
+import { FlatList } from 'react-native';
 import Item from './Item';
 import styled from 'styled-components';
 import Footer from './Footer';

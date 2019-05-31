@@ -39,12 +39,6 @@ class HomeScreen extends React.Component {
         // console.log(user.uid);
     }
 
-    componentWillMount() {
-        this.props.navigation.setParams({
-            scrollToTop: this.scrollToTop,
-        });
-    }
-
     componentDidMount() {
         if (Fire.shared.uid) {
             this.makeRemoteRequest();
