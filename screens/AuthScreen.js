@@ -8,7 +8,7 @@ import { NavigationActions, StackActions } from 'react-navigation';
 import styled from 'styled-components';
 import firebase from 'firebase';
 
-class AuthLoadingScreen extends React.Component {
+class AuthScreen extends React.Component {
     static navigationOptions = {
         header: null,
         headerBackTitle: null,
@@ -64,7 +64,7 @@ class AuthLoadingScreen extends React.Component {
     }
 }
 
-export default AuthLoadingScreen;
+export default AuthScreen;
 
 const RootView = styled.View`
     flex: 1;

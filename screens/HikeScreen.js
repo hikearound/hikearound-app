@@ -106,11 +106,13 @@ class HikeScreen extends React.Component {
         var minlat = parseFloat(hikeMetaData.minlat);
         var minlon =  parseFloat(hikeMetaData.minlon);
         var maxlon =  parseFloat(hikeMetaData.maxlon);
-        this.setState({ startingLat: (maxlat + minlat) / 2 });
-        this.setState({ startingLon: (maxlon + minlon) / 2 });
-        this.setState({ latDelta: (maxlat - minlat) + 0.02 });
-        this.setState({ lonDelta: (maxlon - minlon) });
-        this.setState({ hikeData });
+        this.setState({
+            startingLat: ((maxlat + minlat) / 2),
+            startingLon: ((maxlon + minlon) / 2),
+            latDelta: ((maxlat - minlat) + 0.02),
+            lonDelta: (maxlon - minlon),
+            hikeData,
+        });
     }
 
     getLocation = async () => {
@@ -180,7 +182,7 @@ const styles = StyleSheet.create ({
 })
 
 const RootView = styled.View`
-    background-color: #FFF;
+    background-color: ${colors.white};
 `;
 
 const MapViewWrapper = styled.View`
@@ -191,7 +193,7 @@ const MapViewWrapper = styled.View`
 `;
 
 const InnerMapViewWrapper = styled.View`
-    background-color: #FFF;
+    background-color: ${colors.white};
     border-radius: 6px;
     box-shadow: 0 4px 12px ${colors.transparentGray};
     z-index: 1;

@@ -4,15 +4,15 @@ import {
     TouchableOpacity,
     Image,
 } from 'react-native';
-import HeaderLogo from '../components/HeaderLogo';
+import Logo from '../components/Logo';
 import SafeAreaView from 'react-native-safe-area-view';
-import ActionButton from '../components/ActionButton';
+import ActionButton from '../components/Button';
 import colors from '../constants/Colors';
 import spacing from '../constants/Spacing';
 
 class LandingScreen extends React.Component {
     static navigationOptions = {
-        headerTitle: <HeaderLogo/>,
+        headerTitle: <Logo/>,
         headerBackTitle: null,
     };
 

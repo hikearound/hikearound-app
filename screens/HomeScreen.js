@@ -2,11 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { LayoutAnimation, RefreshControl } from 'react-native';
-import HeaderLogo from '../components/HeaderLogo';
+import Logo from '../components/Logo';
 import firebase from 'firebase'
 import Fire from '../Fire';
 import List from '../components/List';
 import colors from '../constants/Colors';
+import {fontSizes, fontWeights} from '../constants/Fonts';
 
 const PAGE_SIZE = 5;
 
@@ -22,7 +23,7 @@ function mapDispatchToProps(dispatch) {
 
 class HomeScreen extends React.Component {
     static navigationOptions = {
-        headerTitle: <HeaderLogo/>,
+        headerTitle: <Logo/>,
         headerBackTitle: null,
     };
 
@@ -38,10 +39,20 @@ class HomeScreen extends React.Component {
         // console.log(user.uid);
     }
 
+    componentWillMount() {
+        this.props.navigation.setParams({
+            scrollToTop: this.scrollToTop,
+        });
+    }
+
     componentDidMount() {
         if (Fire.shared.uid) {
             this.makeRemoteRequest();
         }
+    }
+
+    scrollToTop = () => {
+        this.setState({ scrollToTop: true });
     }
 
     addPosts = posts => {
@@ -100,6 +111,7 @@ class HomeScreen extends React.Component {
                         />
                     }
                     onPressFooter={this.onEndReached}
+                    scrollToTop={this.state.scrollToTop}
                     data={this.state.posts}
                 />
             </RootView>
@@ -113,7 +125,7 @@ export default connect(
 )(HomeScreen);
 
 const RootView = styled.View`
-    background: #FFF;
+    background: ${colors.white};
     flex: 1;
     overflow: hidden;
 `;
@@ -121,7 +133,7 @@ const RootView = styled.View`
 const Title = styled.Text`
     font-size: 16px;
     color: #b8bece;
-    font-weight: 500;
+    font-weight: ${fontWeights.medium};
     margin-left: 55px;
 `;
 
@@ -143,5 +155,5 @@ const Message = styled.Text`
     margin: 20px;
     color: #b8bece;
     font-size: 15px;
-    font-weight: 500;
+    font-weight: ${fontWeights.medium};
 `;

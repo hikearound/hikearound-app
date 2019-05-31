@@ -9,10 +9,10 @@ import HomeScreen from '../screens/HomeScreen';
 import HikeScreen from '../screens/HikeScreen';
 import NotificationScreen from '../screens/NotificationScreen';
 import ProfileScreen from '../screens/ProfileScreen';
-import AuthLoadingScreen from '../screens/AuthLoadingScreen';
+import AuthScreen from '../screens/AuthScreen';
 import colors from '../constants/Colors';
 import spacing from '../constants/Spacing';
-import fontSizes from '../constants/Fonts';
+import {fontSizes, fontWeights} from '../constants/Fonts';
 import HomeIcon from '../icons/Home';
 import BellIcon from '../icons/Bell';
 import PersonIcon from '../icons/Person';
@@ -22,7 +22,7 @@ const inactiveColor = '#8E8E93';
 
 const HomeStack = createStackNavigator(
     {
-        Auth: AuthLoadingScreen,
+        Auth: AuthScreen,
         Landing: LandingScreen,
         SignIn: SignInScreen,
         Home: HomeScreen,
@@ -64,6 +64,9 @@ HomeStack.navigationOptions = ({ navigation }) => {
             />
         ),
         tabBarOnPress: ({ navigation, defaultHandler }) => {
+            if (navigation.state.index == 0) {
+                navigation.state.routes[0].params.scrollToTop();
+            }
             defaultHandler();
         },
     };

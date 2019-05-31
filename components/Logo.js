@@ -2,8 +2,9 @@ import React from 'react'
 import View from 'react-native'
 import Svg, { G, Path } from 'react-native-svg'
 import styled from 'styled-components';
+import colors from '../constants/Colors';
 
-const HeaderLogo = ({width, height, fill, stroke, viewBox, style}) => (
+const Logo = ({width, height, fill, stroke, viewBox, style}) => (
     <Container>
         <Svg width={width} height={height} viewBox={viewBox} style={style}>
             <G fill={fill} fillRule="nonzero">
@@ -13,10 +14,10 @@ const HeaderLogo = ({width, height, fill, stroke, viewBox, style}) => (
     </Container>
 );
 
-HeaderLogo.defaultProps = {
+Logo.defaultProps = {
     width: 241,
     height: 30,
-    fill: '#FFF',
+    fill: colors.white,
     viewBox: '0 0 169 28.5'
 }
 
@@ -25,4 +26,4 @@ const Container = styled.View`
     top: 16;
 `;
 
-export default HeaderLogo;
+export default Logo;

@@ -12,10 +12,10 @@ import Fire from '../Fire';
 import firebase from 'firebase';
 import { NavigationActions, StackActions } from 'react-navigation';
 import { KeyboardAccessoryNavigation } from 'react-native-keyboard-accessory';
-import ActionButton from '../components/ActionButton';
+import ActionButton from '../components/Button';
 import colors from '../constants/Colors';
 import spacing from '../constants/Spacing';
-import fontSizes from '../constants/Fonts';
+import {fontSizes, fontWeights} from '../constants/Fonts';
 
 const resetAction = StackActions.reset({
     index: 0,
@@ -222,7 +222,7 @@ const Text = styled.Text`
 `;
 
 const PasswordText = styled.Text`
-    font-weight: 500;
+    font-weight: ${fontWeights.medium};
     font-size: 15px;
     margin: 20px;
     color: ${colors.purple};

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import colors from '../constants/Colors';
 import spacing from '../constants/Spacing';
-import fontSizes from '../constants/Fonts';
+import {fontSizes, fontWeights} from '../constants/Fonts';
 
 const ActionButton = props => (
     <Button primary={props.primary} buttonMargin={props.margin}>

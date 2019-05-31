@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import colors from '../constants/Colors';
 import spacing from '../constants/Spacing';
-import fontSizes from '../constants/Fonts';
 
 class HikeBody extends React.Component {
     render() {
@@ -22,7 +21,7 @@ export default HikeBody;
 
 const BodyContent = styled.View`
     padding: 20px 15px;
-    background-color: #fff;
+    background-color: ${colors.white};
 `;
 
 const DescriptionText = styled.Text`

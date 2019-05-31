@@ -8,10 +8,19 @@ class List extends React.Component {
     renderItem = ({ item }) => <Item {...item} />;
     keyExtractor = item => item.key;
 
+    componentDidUpdate() {
+        if (this.props.scrollToTop) {
+            this.listRef.scrollToOffset({
+                offset: 0, animated: true }
+            );
+        }
+    }
+
     render() {
         const { ...props } = this.props;
         return (
             <FlatList
+                ref={(ref) => { this.listRef = ref; }}
                 keyExtractor={this.keyExtractor}
                 renderItem={this.renderItem}
                 ListFooterComponent={footerProps => (

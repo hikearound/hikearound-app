@@ -4,7 +4,7 @@ import { LinearGradient } from 'expo';
 import { LayoutAnimation, Animated } from 'react-native';
 import colors from '../constants/Colors';
 import spacing from '../constants/Spacing';
-import fontSizes from '../constants/Fonts';
+import {fontSizes, fontWeights} from '../constants/Fonts';
 
 class FeedCard extends React.Component {
     render() {
@@ -96,7 +96,7 @@ const Title = styled.Text`
 `;
 
 const Content = styled.View`
-    background-color: #FFF;
+    background-color: ${colors.white};
     flex-direction: row;
     align-items: center;
     position: relative;
@@ -113,7 +113,7 @@ const ContentItem = styled.View`
 const MetaDataType = styled.Text`
     color: #9C9C9C;
     font-size: 12px;
-    font-weight: 500;
+    font-weight: ${fontWeights.medium};
     text-transform: uppercase;
 `;
 
@@ -121,5 +121,5 @@ const MetaData = styled.Text`
     padding-top: 1px;
     color: #333;
     font-size: 13px;
-    font-weight: 500;
+    font-weight: ${fontWeights.medium};
 `;

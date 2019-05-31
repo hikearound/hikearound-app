@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import colors from '../constants/Colors';
 import spacing from '../constants/Spacing';
-import fontSizes from '../constants/Fonts';
+import {fontSizes, fontWeights} from '../constants/Fonts';
 
 const InfoBar = props => (
     <CardContent>
@@ -30,7 +30,7 @@ const CardContent = styled.View`
     padding: 10px 15px;
     margin-top: -4px;
     z-index: 2;
-    background-color: #FFF;
+    background-color: ${colors.white};
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
 `;
@@ -43,7 +43,7 @@ const ContentItem = styled.View`
 const MetaDataType = styled.Text`
     color: #9C9C9C;
     font-size: 12px;
-    font-weight: 500;
+    font-weight: ${fontWeights.medium};
     text-transform: uppercase;
 `;
 
@@ -51,5 +51,5 @@ const MetaData = styled.Text`
     padding-top: 1px;
     color: #333;
     font-size: 13px;
-    font-weight: 500;
+    font-weight: ${fontWeights.medium};
 `;
