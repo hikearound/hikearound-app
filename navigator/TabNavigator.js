@@ -64,9 +64,6 @@ HomeStack.navigationOptions = ({ navigation }) => {
             />
         ),
         tabBarOnPress: ({ navigation, defaultHandler }) => {
-            if (navigation.state.index == 0) {
-                navigation.state.routes[0].params.scrollToTop();
-            }
             defaultHandler();
         },
     };

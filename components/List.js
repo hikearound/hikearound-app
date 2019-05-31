@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList } from 'react-native';
+import { FlatList } from 'react-navigation';
 import Item from './Item';
 import styled from 'styled-components';
 import Footer from './Footer';
@@ -7,14 +7,6 @@ import Footer from './Footer';
 class List extends React.Component {
     renderItem = ({ item }) => <Item {...item} />;
     keyExtractor = item => item.key;
-
-    componentDidUpdate() {
-        if (this.props.scrollToTop) {
-            this.listRef.scrollToOffset({
-                offset: 0, animated: true }
-            );
-        }
-    }
 
     render() {
         const { ...props } = this.props;

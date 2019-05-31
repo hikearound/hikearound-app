@@ -51,10 +51,6 @@ class HomeScreen extends React.Component {
         }
     }
 
-    scrollToTop = () => {
-        this.setState({ scrollToTop: true });
-    }
-
     addPosts = posts => {
         this.setState(previousState => {
             let data = {
@@ -111,7 +107,6 @@ class HomeScreen extends React.Component {
                         />
                     }
                     onPressFooter={this.onEndReached}
-                    scrollToTop={this.state.scrollToTop}
                     data={this.state.posts}
                 />
             </RootView>
