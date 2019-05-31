@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { View, StyleSheet } from 'react-native';
+import {fontSizes, fontWeights} from '../constants/Fonts';
 
 export default class Footer extends React.Component {
     state = {
@@ -48,7 +49,7 @@ const Container = styled.View`
 const Text = styled.Text`
     color: #DADADA;
     font-size: 13px;
-    font-weight: 500;
+    font-weight: ${fontWeights.medium};
     text-transform: uppercase;
     text-align: center;
 `;
