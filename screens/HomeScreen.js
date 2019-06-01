@@ -5,7 +5,7 @@ import { LayoutAnimation, RefreshControl } from 'react-native';
 import firebase from 'firebase'
 import Fire from '../Fire';
 import { Logo, List } from '../components/Index'
-import { colors, fontSizes, fontWeights } from '../constants/Index'
+import { spacing, colors, fontSizes, fontWeights } from '../constants/Index'
 
 const PAGE_SIZE = 5;
 
@@ -127,14 +127,14 @@ const Title = styled.Text`
 const SubtitleView = styled.View`
     border-bottom-width: 1px;
     border-bottom-color: #D8D8D8;
-    margin: 30px 15px 0 15px;
+    margin: 30px ${spacing.small}px 0 ${spacing.small}xpx;
 `;
 
 const Subtitle = styled.Text`
     color: #9C9C9C;
-    font-weight: 600;
+    font-weight: ${fontWeights.bold};
     font-size: 13px;
-    margin-bottom: 5px;
+    margin-bottom: ${spacing.micro}px;
     text-transform: uppercase;
 `;
 

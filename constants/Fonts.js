@@ -8,8 +8,7 @@ export const fontSizes = {
 
 export const fontWeights = {
     medium: '500',
+    bold: '600',
 };
-
-// console.log(PixelRatio.get());
 
 export default { fontSizes, fontWeights };

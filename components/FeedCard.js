@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { LinearGradient } from 'expo';
 import { LayoutAnimation, Animated } from 'react-native';
-import { colors, fontSizes, fontWeights } from '../constants/Index'
+import { spacing, colors, fontSizes, fontWeights } from '../constants/Index'
 
 class FeedCard extends React.Component {
     render() {
@@ -88,8 +88,8 @@ const Title = styled.Text`
     font-weight: bold;
     width: 65%;
     position: absolute;
-    left: 15px;
-    bottom: 15px;
+    left: ${spacing.small}px;
+    bottom: ${spacing.small}px;
     z-index: 1;
 `;
 
@@ -98,7 +98,7 @@ const Content = styled.View`
     flex-direction: row;
     align-items: center;
     position: relative;
-    padding: 10px 15px;
+    padding: ${spacing.tiny}px ${spacing.small}px;
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
 `;

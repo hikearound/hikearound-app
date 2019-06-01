@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { View, StyleSheet } from 'react-native';
-import { colors, fontSizes, fontWeights } from '../constants/Index'
+import { spacing, colors, fontSizes, fontWeights } from '../constants/Index'
 
 export default class Footer extends React.Component {
     state = {

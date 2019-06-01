@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { colors, fontSizes, fontWeights } from '../constants/Index'
+import { spacing, colors, fontSizes, fontWeights } from '../constants/Index'
 
 class ProfileScreen extends React.Component {
     static navigationOptions = {

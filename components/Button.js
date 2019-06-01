@@ -22,7 +22,7 @@ const Button = styled.View`
 
 const ButtonText = styled.Text`
     color: ${props => props.primary ? colors.white : colors.black};
-    font-weight: 600;
+    font-weight: ${fontWeights.bold};
     font-size: ${fontSizes.button}px;
     text-align: center;
     padding: ${spacing.small}px 0;

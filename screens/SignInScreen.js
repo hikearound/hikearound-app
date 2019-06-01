@@ -12,7 +12,7 @@ import Fire from '../Fire';
 import firebase from 'firebase';
 import { NavigationActions, StackActions } from 'react-navigation';
 import { KeyboardAccessoryNavigation } from 'react-native-keyboard-accessory';
-import { colors, fontSizes, fontWeights } from '../constants/Index'
+import { spacing, colors, fontSizes, fontWeights } from '../constants/Index'
 import { ActionButton, HikeBody } from '../components/Index'
 
 const resetAction = StackActions.reset({
@@ -216,7 +216,7 @@ const TextInput = styled.TextInput`
 const Text = styled.Text`
     font-size: 15px;
     color: ${colors.purple};
-    font-weight: 600;
+    font-weight: ${fontWeights.bold};
 `;
 
 const PasswordText = styled.Text`

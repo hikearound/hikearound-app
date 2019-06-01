@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { colors, fontSizes, fontWeights } from '../constants/Index'
+import { spacing, colors, fontSizes, fontWeights } from '../constants/Index'
 
 const InfoBar = props => (
     <CardContent>
@@ -25,7 +25,7 @@ const CardContent = styled.View`
     flex-direction: row;
     align-items: center;
     position: relative;
-    padding: 10px 15px;
+    padding: ${spacing.tiny}px ${spacing.small}px;
     margin-top: -4px;
     z-index: 2;
     background-color: ${colors.white};

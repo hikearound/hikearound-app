@@ -3,8 +3,7 @@ import styled from 'styled-components';
 import { TouchableOpacity, Image } from 'react-native';
 import SafeAreaView from 'react-native-safe-area-view';
 import { ActionButton, Logo } from '../components/Index'
-import { colors } from '../constants/Index'
-
+import { spacing, colors } from '../constants/Index'
 
 class LandingScreen extends React.Component {
     static navigationOptions = {
@@ -33,7 +32,7 @@ class LandingScreen extends React.Component {
                         }}>
                         <ActionButton
                             text={'Sign In'}
-                            margin={'10px 20px 0 20px'}
+                            margin={spacing.small + 'px 20px 0 20px'}
                         />
                     </TouchableOpacity>
                 </SafeAreaView>

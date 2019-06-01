@@ -10,7 +10,7 @@ import {
 import { MapView, Location, Permissions } from 'expo';
 import firebase from 'firebase'
 import { InfoBar, HikeBody } from '../components/Index'
-import { colors, fontSizes, fontWeights } from '../constants/Index'
+import { spacing, colors, fontSizes, fontWeights } from '../constants/Index'
 
 const parseString = require('react-native-xml2js').parseString;
 
@@ -186,7 +186,7 @@ const MapViewWrapper = styled.View`
     flex: 1;
     height: 285px;
     background-color: ${colors.purple};
-    padding: 5px 15px;
+    padding: ${spacing.micro}px ${spacing.small}px;
 `;
 
 const InnerMapViewWrapper = styled.View`

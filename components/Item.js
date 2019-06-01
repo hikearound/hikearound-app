@@ -10,6 +10,7 @@ import styled from 'styled-components';
 import FeedCard from '../components/FeedCard'
 import { withNavigation } from 'react-navigation';
 import firebase from 'firebase'
+import { spacing, colors, fontSizes, fontWeights } from '../constants/Index'
 
 class Item extends React.Component {
     state = {};
@@ -52,5 +53,6 @@ export default withNavigation(Item);
 
 const CardsContainer = styled.View`
     flex-direction: column;
-    padding: 15px 15px 0 15px;
+    padding: ${spacing.small}px;
+    padding-bottom: 0;
 `;
