@@ -127,7 +127,7 @@ const Title = styled.Text`
 const SubtitleView = styled.View`
     border-bottom-width: 1px;
     border-bottom-color: #D8D8D8;
-    margin: 30px ${spacing.small}px 0 ${spacing.small}xpx;
+    margin: 30px ${spacing.small}px 0 ${spacing.small}px;
 `;
 
 const Subtitle = styled.Text`
