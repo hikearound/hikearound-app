@@ -35,16 +35,12 @@ class HikeScreen extends React.Component {
         const hike = navigation.getParam('hike')
         return {
             title: hike.name || 'Hike',
-            headerStyle: {
-                backgroundColor: colors.purple,
-                height: parseInt(spacing.header),
-                borderBottomWidth: 0,
-                marginLeft: 5,
-                marginRight: 15,
-            },
             headerRight: (
                 <TouchableOpacity
                     activeOpacity={0.4}
+                    style={{
+                        marginRight: 10,
+                    }}
                     onPress={navigation.getParam('showActionSheet')}>
                     <Ionicons
                         name="ios-more"
