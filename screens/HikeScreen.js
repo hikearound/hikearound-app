@@ -13,6 +13,8 @@ import { InfoBar, HikeBody } from '../components/Index'
 import { spacing, colors, fontSizes, fontWeights } from '../constants/Index'
 
 const parseString = require('react-native-xml2js').parseString;
+const initialLatDelta = 0.0922;
+const initialLongDelta = 0.0421;
 
 class HikeScreen extends React.Component {
     static navigationOptions = ({ navigation, navigationOptions }) => {
@@ -64,26 +66,30 @@ class HikeScreen extends React.Component {
     }
 
     initializeMap = async () => {
-        const { navigation } = this.props;
-        const hike = navigation.getParam('hike');
-        var ref = firebase.storage().ref(hike.gpx);
         this.setCurrentRegion();
-        let hikeXmlUrl = await ref.getDownloadURL()
-        this.getHikeData(hikeXmlUrl)
+        this.getHikeData()
     };
 
     setCurrentRegion = async () => {
-        let location = await Location.getCurrentPositionAsync({});
+        let location = await Location.getCurrentPositionAsync();
         let hikeRegion = {
             latitude: location.coords.latitude,
             longitude: location.coords.longitude,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
+            latitudeDelta: initialLatDelta,
+            longitudeDelta: initialLongDelta,
         };
-        this.mapView.animateToRegion(hikeRegion);
+        this.mapView.animateToRegion(hikeRegion, 10);
     }
 
-    getHikeData = async (hikeXmlUrl) => {
+    getHikeXmlUrl = async () => {
+        const { navigation } = this.props;
+        const hike = navigation.getParam('hike');
+        var ref = firebase.storage().ref(hike.gpx);
+        return ref.getDownloadURL()
+    }
+
+    getHikeData = async () => {
+        let hikeXmlUrl = await this.getHikeXmlUrl()
         await fetch(hikeXmlUrl)
             .then(response => response.text())
             .then(response => {

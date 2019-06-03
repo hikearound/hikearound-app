@@ -6,6 +6,7 @@ import InfoBar from './InfoBar';
 import Item from './Item';
 import List from './List';
 import Logo from './Logo';
+import Subtitle from './Subtitle';
 
 export {
     ActionButton,
@@ -16,4 +17,5 @@ export {
     Item,
     List,
     Logo,
+    Subtitle,
 }

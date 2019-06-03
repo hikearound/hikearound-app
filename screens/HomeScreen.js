@@ -124,20 +124,6 @@ const Title = styled.Text`
     margin-left: 55px;
 `;
 
-const SubtitleView = styled.View`
-    border-bottom-width: 1px;
-    border-bottom-color: #D8D8D8;
-    margin: 30px ${spacing.small}px 0 ${spacing.small}px;
-`;
-
-const Subtitle = styled.Text`
-    color: #9C9C9C;
-    font-weight: ${fontWeights.bold};
-    font-size: 13px;
-    margin-bottom: ${spacing.micro}px;
-    text-transform: uppercase;
-`;
-
 const Message = styled.Text`
     margin: 20px;
     color: #b8bece;

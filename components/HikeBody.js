@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { spacing, colors, fontSizes, fontWeights } from '../constants/Index'
+import Subtitle from '../components/Subtitle'
 
 class HikeBody extends React.Component {
     render() {
@@ -10,6 +11,7 @@ class HikeBody extends React.Component {
         return (
             <BodyContent>
                 <TitleText>{this.props.name}</TitleText>
+                <Subtitle text={'Description'}/>
                 <DescriptionText>{description}</DescriptionText>
             </BodyContent>
         );
