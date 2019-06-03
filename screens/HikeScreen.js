@@ -34,18 +34,18 @@ class HikeScreen extends React.Component {
     };
 
     componentDidMount() {
+        this.getLocation()
         this.initializeMap();
     }
 
     setMapRegion() {
-        this.setState({mapRegion:
-            {
-                latitude: this.state.startingLat,
-                longitude: this.state.startingLon,
-                latitudeDelta: this.state.latDelta,
-                longitudeDelta: this.state.lonDelta,
-            }
-        });
+        let hikeRegion = {
+            latitude: this.state.startingLat,
+            longitude: this.state.startingLon,
+            latitudeDelta: this.state.latDelta,
+            longitudeDelta: this.state.lonDelta,
+        };
+        this.mapView.animateToRegion(hikeRegion, 250);
     }
 
     parseCoordinates() {
@@ -67,9 +67,21 @@ class HikeScreen extends React.Component {
         const { navigation } = this.props;
         const hike = navigation.getParam('hike');
         var ref = firebase.storage().ref(hike.gpx);
+        this.setCurrentRegion();
         let hikeXmlUrl = await ref.getDownloadURL()
         this.getHikeData(hikeXmlUrl)
     };
+
+    setCurrentRegion = async () => {
+        let location = await Location.getCurrentPositionAsync({});
+        let hikeRegion = {
+            latitude: location.coords.latitude,
+            longitude: location.coords.longitude,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+        };
+        this.mapView.animateToRegion(hikeRegion);
+    }
 
     getHikeData = async (hikeXmlUrl) => {
         await fetch(hikeXmlUrl)
@@ -125,9 +137,9 @@ class HikeScreen extends React.Component {
                     <MapViewWrapper>
                         <InnerMapViewWrapper>
                             <MapView
+                                ref = {(ref) => this.mapView=ref}
                                 provider={MapView.PROVIDER_GOOGLE}
                                 style = {styles.map}
-                                region={this.state.mapRegion}
                                 mapType='terrain'
                                 showsUserLocation={true}
                                 showsMyLocationButton={false}
