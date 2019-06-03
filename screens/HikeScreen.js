@@ -12,6 +12,8 @@ import firebase from 'firebase'
 import { InfoBar, HikeBody } from '../components/Index'
 import { spacing, colors, fontSizes, fontWeights } from '../constants/Index'
 
+const parseString = require('react-native-xml2js').parseString;
+
 class HikeScreen extends React.Component {
     static navigationOptions = ({ navigation, navigationOptions }) => {
         const { state: { params = {} } } = navigation;
@@ -70,9 +72,6 @@ class HikeScreen extends React.Component {
     };
 
     getHikeData = async (hikeXmlUrl) => {
-        const parseString = require('react-native-xml2js').parseString;
-        const { navigation } = this.props;
-        const hike = navigation.getParam('hike');
         await fetch(hikeXmlUrl)
             .then(response => response.text())
             .then(response => {
