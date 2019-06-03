@@ -71,8 +71,9 @@ class HikeScreen extends React.Component {
 
     navigationToHike() {
         openMap({
-            latitude: this.state.startingLat,
-            longitude: this.state.startingLon
+            provider: 'apple',
+            travelType: 'drive',
+            end: this.state.startingLat + ", " + this.state.startingLon
         });
     }
 
