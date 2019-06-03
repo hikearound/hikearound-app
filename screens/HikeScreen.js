@@ -6,15 +6,28 @@ import {
     ScrollView,
     StyleSheet,
     AsyncStorage,
+    ActionSheetIOS,
 } from 'react-native';
-import { MapView, Location, Permissions } from 'expo';
+import {
+    MapView,
+    Location,
+    Permissions,
+} from 'expo';
+import { Ionicons } from '@expo/vector-icons';
 import firebase from 'firebase'
 import { InfoBar, HikeBody } from '../components/Index'
 import { spacing, colors, fontSizes, fontWeights } from '../constants/Index'
+import openMap from 'react-native-open-maps';
 
 const parseString = require('react-native-xml2js').parseString;
 const initialLatDelta = 0.0922;
 const initialLongDelta = 0.0421;
+
+var BUTTONS = [
+    'Get Directions',
+    'Cancel',
+];
+var CANCEL_INDEX = 1;
 
 class HikeScreen extends React.Component {
     static navigationOptions = ({ navigation, navigationOptions }) => {
@@ -22,17 +35,58 @@ class HikeScreen extends React.Component {
         const hike = navigation.getParam('hike')
         return {
             title: hike.name || 'Hike',
+            headerStyle: {
+                backgroundColor: colors.purple,
+                height: parseInt(spacing.header),
+                borderBottomWidth: 0,
+                marginLeft: 5,
+                marginRight: 15,
+            },
+            headerRight: (
+                <TouchableOpacity
+                    activeOpacity={0.4}
+                    onPress={navigation.getParam('showActionSheet')}>
+                    <Ionicons
+                        name="ios-more"
+                        size={32}
+                        color="#FFF"
+                    />
+                </TouchableOpacity>
+            ),
         };
     }
 
     constructor(props, context) {
         super(props, context);
+        this.props.navigation.setParams({
+            showActionSheet: this.showActionSheet
+        });
     }
 
     state = {
         mapRegion: null,
         hasLocationPermissions: false,
         locationResult: null
+    };
+
+    navigationToHike() {
+        openMap({
+            latitude: this.state.startingLat,
+            longitude: this.state.startingLon
+        });
+    }
+
+    showActionSheet = () => {
+        ActionSheetIOS.showActionSheetWithOptions({
+            options: BUTTONS,
+            cancelButtonIndex: CANCEL_INDEX,
+        },
+        (buttonIndex) => {
+            console.log(buttonIndex);
+            if (buttonIndex == 0) {
+                this.navigationToHike();
+            }
+        });
     };
 
     componentDidMount() {
@@ -167,6 +221,7 @@ class HikeScreen extends React.Component {
                     </MapViewWrapper>
                     <HikeBody
                         name={hike.name}
+                        city={hike.city}
                         description={hike.description}
                     />
                 </ScrollView>

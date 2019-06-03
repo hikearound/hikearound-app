@@ -11,6 +11,7 @@ class HikeBody extends React.Component {
         return (
             <BodyContent>
                 <TitleText>{this.props.name}</TitleText>
+                <LocationText>{this.props.city}</LocationText>
                 <Subtitle text={'Description'}/>
                 <DescriptionText>{description}</DescriptionText>
             </BodyContent>
@@ -35,4 +36,9 @@ const TitleText = styled.Text`
     font-weight: ${fontWeights.bold};
     font-size: 20px;
     margin-bottom: ${spacing.micro}px;
+`;
+
+const LocationText = styled.Text`
+    color: #ABABAB;
+    font-size: 16px;
 `;

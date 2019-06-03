@@ -13,7 +13,7 @@ export default Subtitle;
 const SubtitleView = styled.View`
     border-bottom-width: 1px;
     border-bottom-color: #D8D8D8;
-    margin: 25px 0 10px 0;
+    margin: 20px 0 10px 0;
 `;
 
 const SubtitleText = styled.Text`
