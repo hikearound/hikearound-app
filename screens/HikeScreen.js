@@ -12,8 +12,6 @@ import firebase from 'firebase'
 import { InfoBar, HikeBody } from '../components/Index'
 import { spacing, colors, fontSizes, fontWeights } from '../constants/Index'
 
-const parseString = require('react-native-xml2js').parseString;
-
 class HikeScreen extends React.Component {
     static navigationOptions = ({ navigation, navigationOptions }) => {
         const { state: { params = {} } } = navigation;
@@ -21,6 +19,10 @@ class HikeScreen extends React.Component {
         return {
             title: hike.name || 'Hike',
         };
+    }
+
+    constructor(props, context) {
+        super(props, context);
     }
 
     state = {
@@ -63,35 +65,24 @@ class HikeScreen extends React.Component {
         const { navigation } = this.props;
         const hike = navigation.getParam('hike');
         var ref = firebase.storage().ref(hike.gpx);
-        ref.getDownloadURL().then(data => {
-            this.setState(
-                {
-                    hikeLink: data
-                },
-                this.getHikeData,
-            );
-        })
+        let hikeXmlUrl = await ref.getDownloadURL()
+        this.getHikeData(hikeXmlUrl)
     };
 
-    getHikeData = async () => {
+    getHikeData = async (hikeXmlUrl) => {
+        const parseString = require('react-native-xml2js').parseString;
         const { navigation } = this.props;
         const hike = navigation.getParam('hike');
-        var hikeData = await AsyncStorage.getItem('hikeData');
-        if (!hikeData) {
-            var ref = firebase.storage().ref(hike.gpx);
-            ref.getDownloadURL().then(data => {
-                this.setState({ hikeLink: data });
+        await fetch(hikeXmlUrl)
+            .then(response => response.text())
+            .then(response => {
+                parseString(response, function (err, result) {
+                    AsyncStorage.setItem(
+                        'hikeData', JSON.stringify(result)
+                    );
+                });
             })
-            fetch(this.state.hikeLink)
-               .then(response => response.text())
-               .then(response => {
-                   parseString(response, function (err, result) {
-                       AsyncStorage.setItem(
-                           'hikeData', JSON.stringify(result)
-                       );
-                   });
-               })
-        }
+        var hikeData = await AsyncStorage.getItem('hikeData');
         this.setHikeData(JSON.parse(hikeData));
         this.parseCoordinates();
         this.setMapRegion();
