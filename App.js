@@ -14,18 +14,8 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'OPEN_MENU':
-            return { ...state, action: 'openMenu' };
-        case 'CLOSE_MENU':
-            return { ...state, action: 'closeMenu' };
-        case 'UPDATE_NAME':
-            return { ...state, name: action.name };
-        case 'UPDATE_AVATAR':
-            return { ...state, avatar: action.avatar };
-        case 'OPEN_LOGIN':
-            return { ...state, action: 'openLogin' };
-        case 'CLOSE_LOGIN':
-            return { ...state, action: 'closeLogin' };
+        case 'FAVORITE_HIKE':
+            return { ...state, action: 'favoriteHike' };
         default:
             return state;
     }

@@ -8,6 +8,7 @@ import List from './List';
 import Logo from './Logo';
 import Subtitle from './Subtitle';
 import HeaderOverflow from './HeaderOverflow';
+import FavoriteButton from './FavoriteButton';
 
 export {
     ActionButton,
@@ -19,4 +20,5 @@ export {
     List,
     Logo,
     HeaderOverflow,
+    FavoriteButton,
 }

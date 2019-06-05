@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { spacing, colors, fontSizes, fontWeights } from '../constants/Index'
 import Subtitle from '../components/Subtitle'
+import FavoriteButton from '../components/FavoriteButton'
 
 class HikeBody extends React.Component {
     render() {
@@ -12,6 +13,9 @@ class HikeBody extends React.Component {
             <BodyContent>
                 <TitleText>{this.props.name}</TitleText>
                 <LocationText>{this.props.city}</LocationText>
+                <FavoriteButton
+                    name={this.props.name}
+                />
                 <Subtitle text={'Description'}/>
                 <DescriptionText>{description}</DescriptionText>
             </BodyContent>

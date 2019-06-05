@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import firebase from 'firebase'
 import {
     Button,
-    TouchableOpacity,
     ScrollView,
     StyleSheet,
     AsyncStorage,
@@ -13,15 +13,38 @@ import {
     Location,
     Permissions,
 } from 'expo';
-import firebase from 'firebase'
-import { InfoBar, HikeBody, HeaderOverflow } from '../components/Index'
-import { spacing, colors, fontSizes, fontWeights } from '../constants/Index'
+import {
+    InfoBar,
+    HikeBody,
+    HeaderOverflow,
+} from '../components/Index'
+import {
+    spacing,
+    colors,
+    fontSizes,
+    fontWeights
+} from '../constants/Index'
 import openMap from 'react-native-open-maps';
+import { connect } from 'react-redux';
 
 const INITIAL_LAT_DELTA = 0.0922;
 const INITIAL_LONG_DELTA = 0.0421;
 const SHEET_ITEMS = ['Get Directions', 'Cancel'];
 const SHEET_CANCEL_INDEX = 1;
+
+function mapStateToProps(state) {
+    return {
+        action: state.action,
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        favoriteHike: () => dispatch({
+            type: 'FAVORITE_HIKE'
+        }),
+    };
+}
 
 class HikeScreen extends React.Component {
     static navigationOptions = ({ navigation, navigationOptions }) => {
@@ -72,6 +95,16 @@ class HikeScreen extends React.Component {
         this.getLocation()
         this.initializeMap();
     }
+
+    componentDidUpdate() {
+        this.favoriteHike();
+    }
+
+    favoriteHike = () => {
+        if (this.props.action == 'favoriteHike') {
+            // show message
+        }
+    };
 
     setMapRegion() {
         let hikeRegion = {
@@ -210,7 +243,10 @@ class HikeScreen extends React.Component {
     }
 }
 
-export default HikeScreen;
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(HikeScreen);
 
 const styles = StyleSheet.create ({
    map: {
