@@ -62,7 +62,6 @@ class HikeScreen extends React.Component {
             cancelButtonIndex: SHEET_CANCEL_INDEX,
         },
         (buttonIndex) => {
-            console.log(buttonIndex);
             if (buttonIndex == 0) {
                 this.navigationToHike();
             }
