@@ -13,21 +13,15 @@ import {
     Location,
     Permissions,
 } from 'expo';
-import { Ionicons } from '@expo/vector-icons';
 import firebase from 'firebase'
-import { InfoBar, HikeBody } from '../components/Index'
+import { InfoBar, HikeBody, HeaderOverflow } from '../components/Index'
 import { spacing, colors, fontSizes, fontWeights } from '../constants/Index'
 import openMap from 'react-native-open-maps';
 
-const parseString = require('react-native-xml2js').parseString;
-const initialLatDelta = 0.0922;
-const initialLongDelta = 0.0421;
-
-var BUTTONS = [
-    'Get Directions',
-    'Cancel',
-];
-var CANCEL_INDEX = 1;
+const INITIAL_LAT_DELTA = 0.0922;
+const INITIAL_LONG_DELTA = 0.0421;
+const SHEET_ITEMS = ['Get Directions', 'Cancel'];
+const SHEET_CANCEL_INDEX = 1;
 
 class HikeScreen extends React.Component {
     static navigationOptions = ({ navigation, navigationOptions }) => {
@@ -36,18 +30,7 @@ class HikeScreen extends React.Component {
         return {
             title: hike.name || 'Hike',
             headerRight: (
-                <TouchableOpacity
-                    activeOpacity={0.4}
-                    style={{
-                        marginRight: 10,
-                    }}
-                    onPress={navigation.getParam('showActionSheet')}>
-                    <Ionicons
-                        name="ios-more"
-                        size={32}
-                        color="#FFF"
-                    />
-                </TouchableOpacity>
+                <HeaderOverflow navigation={navigation}/>
             ),
         };
     }
@@ -69,14 +52,14 @@ class HikeScreen extends React.Component {
         openMap({
             provider: 'apple',
             travelType: 'drive',
-            end: this.state.startingLat + ", " + this.state.startingLon
+            query: this.state.startingLat + ', ' + this.state.startingLon
         });
     }
 
     showActionSheet = () => {
         ActionSheetIOS.showActionSheetWithOptions({
-            options: BUTTONS,
-            cancelButtonIndex: CANCEL_INDEX,
+            options: SHEET_ITEMS,
+            cancelButtonIndex: SHEET_CANCEL_INDEX,
         },
         (buttonIndex) => {
             console.log(buttonIndex);
@@ -126,8 +109,8 @@ class HikeScreen extends React.Component {
         let hikeRegion = {
             latitude: location.coords.latitude,
             longitude: location.coords.longitude,
-            latitudeDelta: initialLatDelta,
-            longitudeDelta: initialLongDelta,
+            latitudeDelta: INITIAL_LAT_DELTA,
+            longitudeDelta: INITIAL_LONG_DELTA,
         };
         this.mapView.animateToRegion(hikeRegion, 10);
     }
@@ -140,6 +123,7 @@ class HikeScreen extends React.Component {
     }
 
     getHikeData = async () => {
+        const parseString = require('react-native-xml2js').parseString;
         let hikeXmlUrl = await this.getHikeXmlUrl()
         await fetch(hikeXmlUrl)
             .then(response => response.text())
@@ -194,7 +178,7 @@ class HikeScreen extends React.Component {
                     <MapViewWrapper>
                         <InnerMapViewWrapper>
                             <MapView
-                                ref = {(ref) => this.mapView=ref}
+                                ref = {(ref) => this.mapView = ref}
                                 provider={MapView.PROVIDER_GOOGLE}
                                 style = {styles.map}
                                 mapType='terrain'

@@ -7,6 +7,7 @@ import Item from './Item';
 import List from './List';
 import Logo from './Logo';
 import Subtitle from './Subtitle';
+import HeaderOverflow from './HeaderOverflow';
 
 export {
     ActionButton,
@@ -17,5 +18,5 @@ export {
     Item,
     List,
     Logo,
-    Subtitle,
+    HeaderOverflow,
 }

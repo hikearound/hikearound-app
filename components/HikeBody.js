@@ -35,7 +35,6 @@ const TitleText = styled.Text`
     color: #333;
     font-weight: ${fontWeights.bold};
     font-size: 20px;
-    margin-bottom: ${spacing.micro}px;
 `;
 
 const LocationText = styled.Text`
