@@ -17,6 +17,7 @@ import {
     InfoBar,
     HikeBody,
     HeaderOverflow,
+    Toast,
 } from '../components/Index'
 import {
     spacing,
@@ -205,6 +206,7 @@ class HikeScreen extends React.Component {
         const hike = navigation.getParam('hike');
         return (
             <RootView>
+                <Toast name={hike.name} />
                 <PurpleBlockView></PurpleBlockView>
                 <ScrollView>
                     <MapViewWrapper>

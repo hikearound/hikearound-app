@@ -9,6 +9,7 @@ import Logo from './Logo';
 import Subtitle from './Subtitle';
 import HeaderOverflow from './HeaderOverflow';
 import FavoriteButton from './FavoriteButton';
+import Toast from './Toast';
 
 export {
     ActionButton,
@@ -21,4 +22,5 @@ export {
     Logo,
     HeaderOverflow,
     FavoriteButton,
+    Toast,
 }

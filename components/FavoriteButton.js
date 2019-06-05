@@ -15,6 +15,9 @@ function mapDispatchToProps(dispatch) {
         favoriteHike: () => dispatch({
             type: 'FAVORITE_HIKE'
         }),
+        unfavoriteHike: () => dispatch({
+            type: 'UNFAVORITE_HIKE'
+        }),
     };
 }
 
@@ -26,8 +29,8 @@ class FavoriteButton extends React.Component {
     };
 
     buttonPress = () => {
+        console.log('click');
         this.updateButtonStyle();
-        this.props.favoriteHike();
         Haptic.selection();
     }
 
@@ -37,11 +40,13 @@ class FavoriteButton extends React.Component {
                 iconColor: '#935DFF',
                 iconName: 'ios-heart',
             });
+            this.props.favoriteHike();
         } else {
             this.setState({
                 iconColor: '#CDCDCD',
                 iconName: 'ios-heart-empty',
             });
+            this.props.unfavoriteHike();
         }
     }
 
