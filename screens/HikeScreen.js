@@ -39,14 +39,6 @@ function mapStateToProps(state) {
     };
 }
 
-function mapDispatchToProps(dispatch) {
-    return {
-        favoriteHike: () => dispatch({
-            type: 'FAVORITE_HIKE'
-        }),
-    };
-}
-
 class HikeScreen extends React.Component {
     static navigationOptions = ({ navigation, navigationOptions }) => {
         const { state: { params = {} } } = navigation;
@@ -96,16 +88,6 @@ class HikeScreen extends React.Component {
         this.getLocation()
         this.initializeMap();
     }
-
-    componentDidUpdate() {
-        this.favoriteHike();
-    }
-
-    favoriteHike = () => {
-        if (this.props.action == 'favoriteHike') {
-            // show message
-        }
-    };
 
     setMapRegion() {
         let hikeRegion = {
@@ -248,7 +230,6 @@ class HikeScreen extends React.Component {
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps
 )(HikeScreen);
 
 const styles = StyleSheet.create ({

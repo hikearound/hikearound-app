@@ -29,7 +29,6 @@ class FavoriteButton extends React.Component {
     };
 
     buttonPress = () => {
-        console.log('click');
         this.updateButtonStyle();
         Haptic.selection();
     }
@@ -52,7 +51,6 @@ class FavoriteButton extends React.Component {
 
     render() {
         const { ...props } = this.props;
-        // {this.props.name}
         return (
             <TouchableOpacity
                 activeOpacity={0.4}

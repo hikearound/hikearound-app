@@ -11,14 +11,6 @@ function mapStateToProps(state) {
     }
 }
 
-function mapDispatchToProps(dispatch) {
-    return {
-        favoriteHike: () => dispatch({
-            type: 'FAVORITE_HIKE'
-        }),
-    };
-}
-
 const screenHeight = Dimensions.get('window').height;
 
 class Toast extends React.Component {
@@ -44,6 +36,7 @@ class Toast extends React.Component {
     };
 
     hideToast = () => {
+        clearTimeout(this.timeout);
         Animated.timing(this.state.top, {
             toValue: screenHeight,
             duration: 500,
@@ -74,8 +67,7 @@ class Toast extends React.Component {
 }
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+    mapStateToProps
 )(Toast);
 
 const Container = styled.View`
