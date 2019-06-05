@@ -208,7 +208,8 @@ class HikeScreen extends React.Component {
             <RootView>
                 <Toast name={hike.name} />
                 <PurpleBlockView></PurpleBlockView>
-                <ScrollView>
+                <ScrollView
+                    showsVerticalScrollIndicator={false}>
                     <MapViewWrapper>
                         <InnerMapViewWrapper>
                             <MapView
