@@ -14,9 +14,9 @@ class List extends React.Component {
         )
     }
 
-    renderFooter() {
+    renderFooter({item}) {
         return (
-            <Footer />
+            <Footer {...item} />
         )
     }
 
@@ -26,9 +26,9 @@ class List extends React.Component {
             <FlatList
                 ref={(ref) => { this.listRef = ref; }}
                 renderItem={this.renderItem}
-                ListFooterComponent={this.renderFooter}
                 showsVerticalScrollIndicator={false}
                 keyExtractor={item => item.key}
+                ListFooterComponent={this.renderFooter}
                 {...props}
             />
         );

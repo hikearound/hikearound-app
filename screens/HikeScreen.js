@@ -228,6 +228,7 @@ class HikeScreen extends React.Component {
                         name={hike.name}
                         city={hike.city}
                         description={hike.description}
+                        _key={hike._key}
                     />
                 </ScrollView>
             </RootView>

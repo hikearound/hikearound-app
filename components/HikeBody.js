@@ -15,6 +15,7 @@ class HikeBody extends React.Component {
                 <LocationText>{this.props.city}</LocationText>
                 <FavoriteButton
                     name={this.props.name}
+                    _key={this.props._key}
                 />
                 <Subtitle text={'Description'}/>
                 <DescriptionText>{description}</DescriptionText>
