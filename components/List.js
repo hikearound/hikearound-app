@@ -5,20 +5,30 @@ import Item from './Item';
 import Footer from './Footer';
 
 class List extends React.Component {
-    renderItem = ({ item }) => <Item {...item} />;
-    keyExtractor = item => item.key;
+    renderItem({item}) {
+        return (
+            <Item
+                _key={item.key}
+                {...item}
+            />
+        )
+    }
+
+    renderFooter() {
+        return (
+            <Footer />
+        )
+    }
 
     render() {
         const { ...props } = this.props;
         return (
             <FlatList
                 ref={(ref) => { this.listRef = ref; }}
-                keyExtractor={this.keyExtractor}
                 renderItem={this.renderItem}
-                ListFooterComponent={footerProps => (
-                    <Footer {...props} />
-                )}
+                ListFooterComponent={this.renderFooter}
                 showsVerticalScrollIndicator={false}
+                keyExtractor={item => item.key}
                 {...props}
             />
         );

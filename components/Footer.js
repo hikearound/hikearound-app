@@ -22,7 +22,6 @@ export default class Footer extends React.Component {
     }
 
     render() {
-        const { ...props } = this.props;
         return (
             <Container>
                 <View style={this.state.footerVisibility}>

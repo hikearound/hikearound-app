@@ -85,8 +85,15 @@ class HikeScreen extends React.Component {
     };
 
     componentDidMount() {
+        this.setKey()
         this.getLocation()
         this.initializeMap();
+    }
+
+    setKey() {
+        const { navigation } = this.props;
+        const hike = navigation.getParam('hike');
+        this.setState({ key: hike._key });
     }
 
     setMapRegion() {

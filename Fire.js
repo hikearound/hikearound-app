@@ -39,7 +39,6 @@ class Fire {
                 const post = doc.data() || {};
                 const reduced = {
                     key: doc.id,
-                    name: post.distance,
                     ...post,
                 };
                 data.push(reduced);
