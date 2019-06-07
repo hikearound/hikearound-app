@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { LayoutAnimation, RefreshControl } from 'react-native';
 import firebase from 'firebase'
 import Fire from '../Fire';
-import { Logo, List } from '../components/Index'
+import { Logo, List, HeaderSort } from '../components/Index'
 import { spacing, colors, fontSizes, fontWeights } from '../constants/Index'
 
 const PAGE_SIZE = 5;
@@ -20,12 +20,17 @@ function mapDispatchToProps(dispatch) {
 }
 
 class HomeScreen extends React.Component {
-    static navigationOptions = {
-        headerTitle: <Logo/>,
-        headerBackTitle: null,
-    };
+    static navigationOptions = ({ navigation }) => {
+        const { params = {} } = navigation.state
+        return {
+            headerTitle: <Logo/>,
+            headerBackTitle: null,
+            headerRight: <HeaderSort sortType={params.sortType}/>,
+        };
+    }
 
     state = {
+        sortType: 'desc',
         loading: false,
         posts: [],
         data: {},
@@ -41,6 +46,9 @@ class HomeScreen extends React.Component {
         if (Fire.shared.uid) {
             this.makeRemoteRequest();
         }
+        this.props.navigation.setParams({
+            sortType: this.state.sortType,
+        });
     }
 
     addPosts = posts => {

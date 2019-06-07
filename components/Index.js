@@ -10,6 +10,7 @@ import Subtitle from './Subtitle';
 import HeaderOverflow from './HeaderOverflow';
 import FavoriteButton from './FavoriteButton';
 import Toast from './Toast';
+import HeaderSort from './HeaderSort';
 
 export {
     ActionButton,
@@ -23,4 +24,5 @@ export {
     HeaderOverflow,
     FavoriteButton,
     Toast,
+    HeaderSort,
 }
