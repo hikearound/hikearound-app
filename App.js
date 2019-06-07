@@ -8,7 +8,7 @@ import AppNavigator from './navigator/AppNavigator';
 
 const initialState = {
     action: '',
-    name: 'Stranger',
+    name: 'Patrick Dugan',
     avatar: 'https://cl.ly/55da82beb939/download/avatar-default.jpg'
 };
 
@@ -18,6 +18,10 @@ const reducer = (state = initialState, action) => {
             return { ...state, action: 'favoriteHike' };
         case 'UNFAVORITE_HIKE':
             return { ...state, action: 'unfavoriteHike' };
+        case "UPDATE_NAME":
+            return { ...state, name: action.name };
+        case "UPDATE_AVATAR":
+            return { ...state, avatar: action.avatar };
         default:
             return state;
     }

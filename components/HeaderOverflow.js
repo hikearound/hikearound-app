@@ -9,7 +9,7 @@ class HeaderOverflow extends React.Component {
             <TouchableOpacity
                 activeOpacity={0.4}
                 style={{
-                    marginRight: 10,
+                    marginRight: 12,
                 }}
                 onPress={this.props.navigation.getParam('showActionSheet')}>
                 <Ionicons
