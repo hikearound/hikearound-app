@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { TouchableOpacity, ScrollView } from 'react-native';
-import { Avatar } from '../components/Index'
+import { Avatar, HeaderSettings } from '../components/Index'
 import { connect } from 'react-redux';
 import { spacing, colors, fontSizes, fontWeights } from '../constants/Index'
 
@@ -13,21 +13,39 @@ function mapStateToProps(state) {
 }
 
 class ProfileScreen extends React.Component {
-    static navigationOptions = {
-        headerTitle: 'You',
-    };
+    static navigationOptions = ({ navigation }) => {
+        const { params = {} } = navigation.state
+        return {
+            headerTitle: 'You',
+            headerBackTitle: null,
+            headerRight: <HeaderSettings sortType={params.sortType}/>,
+        };
+    }
 
     render() {
         return (
             <RootView>
                 <ScrollView
                     showsVerticalScrollIndicator={false}>
-                    <ProfileHeader>
-                        <TouchableOpacity>
-                            <Avatar />
+                    <ProfileHeader
+                        source={require('../assets/profile-bg.png')} >
+                        <AvatarWrapper>
+                            <TouchableOpacity activeOpacity={0.4}>
+                                <Avatar />
+                            </TouchableOpacity>
+                        </AvatarWrapper>
+                        <NameText>{this.props.name}</NameText>
+                        <LocationText>Seattle, WA</LocationText>
+
+                        <TouchableOpacity
+                            activeOpacity={0.4}
+                            style={{
+                                position: 'absolute',
+                                right: 15,
+                                bottom: 20,
+                            }}>
+                            <EditProfileLink>Edit Profile</EditProfileLink>
                         </TouchableOpacity>
-                        <Name>{this.props.name}</Name>
-                        <Location>Seattle, WA</Location>
                     </ProfileHeader>
                 </ScrollView>
             </RootView>
@@ -45,15 +63,35 @@ const RootView = styled.View`
     overflow: hidden;
 `;
 
-const ProfileHeader = styled.View`
+const AvatarWrapper = styled.View`
+    border: 0px solid #FFF;
+    width: 66px;
+    border-radius: 33px;
+`;
+
+const ProfileHeader = styled.ImageBackground`
     background: #F6F6F6;
-    height: 150px;
-    border-bottom-width: 1px;
-    border-bottom-color: #F0F0F0;
+    flex-direction: column;
+    padding-left: 15px;
+    padding-top: 40px;
+    padding-bottom: 20px;
 `;
 
-const Name = styled.Text`
+const NameText = styled.Text`
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+    margin-top: 10px;
 `;
 
-const Location = styled.Text`
+const LocationText = styled.Text`
+    font-size: 15px;
+    font-weight: 500;
+    color: #333;
+`;
+
+const EditProfileLink = styled.Text`
+    font-size: 15px;
+    font-weight: 500;
+    color: #935DFF;
 `;

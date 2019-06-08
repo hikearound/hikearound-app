@@ -11,6 +11,7 @@ import HeaderOverflow from './HeaderOverflow';
 import FavoriteButton from './FavoriteButton';
 import Toast from './Toast';
 import HeaderSort from './HeaderSort';
+import HeaderSettings from './HeaderSettings';
 import Avatar from './Avatar';
 
 export {
@@ -27,4 +28,5 @@ export {
     Toast,
     HeaderSort,
     Avatar,
+    HeaderSettings,
 }

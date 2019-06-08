@@ -49,7 +49,7 @@ export default connect(
 )(Avatar);
 
 const Image = styled.Image`
-    width: 44px;
-    height: 44px;
-    border-radius: 22px;
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
 `;
