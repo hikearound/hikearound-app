@@ -89,6 +89,8 @@ const NotificationStack = createStackNavigator(
                 backgroundColor: colors.purple,
                 height: parseInt(spacing.header),
                 borderBottomWidth: 0,
+                marginLeft: 5,
+                marginRight: 5,
             },
             headerTintColor: colors.white,
             headerTitleStyle: {
@@ -118,6 +120,8 @@ const ProfileStack = createStackNavigator(
                 backgroundColor: colors.purple,
                 height: parseInt(spacing.header),
                 borderBottomWidth: 0,
+                marginLeft: 5,
+                marginRight: 5,
             },
             headerTintColor: colors.white,
             headerTitleStyle: {
