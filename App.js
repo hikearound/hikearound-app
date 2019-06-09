@@ -22,6 +22,8 @@ const reducer = (state = initialState, action) => {
             return { ...state, name: action.name };
         case "UPDATE_AVATAR":
             return { ...state, avatar: action.avatar };
+        case "SET_MAP_PREFERENCE":
+            return { ...state, mapPreference: action.mapPreference };
         default:
             return state;
     }

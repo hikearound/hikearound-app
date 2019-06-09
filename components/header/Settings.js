@@ -12,7 +12,7 @@ class Settings extends React.Component {
                     this.props.navigation.push('Settings');
                 }}
                 style={{
-                    marginRight: 15,
+                    marginRight: 10,
                     marginTop: 6,
                 }}>
                 <Ionicons

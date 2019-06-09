@@ -13,6 +13,7 @@ import Toast from './Toast';
 import Sort from './header/Sort';
 import Settings from './header/Settings';
 import Avatar from './Avatar';
+import SettingsItem from './SettingsItem';
 
 export {
     ActionButton,
@@ -29,4 +30,5 @@ export {
     Sort,
     Avatar,
     Settings,
+    SettingsItem,
 }
