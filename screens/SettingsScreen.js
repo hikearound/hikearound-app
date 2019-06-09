@@ -5,6 +5,8 @@ import {
     TouchableOpacity,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { Updates } from 'expo';
+import firebase from 'firebase';
 import { spacing, colors, fontSizes, fontWeights } from '../constants/Index'
 
 const SETTING_ITEMS = [
@@ -30,16 +32,26 @@ class SettingsScreen extends React.Component {
     constructor(props) {
         super(props);
         this.renderItem = this.renderItem.bind(this);
+        this.handleLogout = this.handleLogout.bind(this);
     }
 
+    handleLogout = async () => {
+        firebase
+            .auth()
+            .signOut()
+            .then(response => {
+                Updates.reload()
+            });
+    };
+
     renderItem({item, index, section}) {
-        const {navigate} = this.props.navigation;
         var textColor = '#333';
         var checkDisplay = 'none';
 
-        _onPress = () => {
+        onItemPress = () => {
             if (item == 'Logout') {
-                navigate('Landing');
+                Updates.reload()
+                this.handleLogout()
             }
         };
 
@@ -49,7 +61,7 @@ class SettingsScreen extends React.Component {
         }
 
         return (
-            <TouchableOpacity onPress={_onPress}>
+            <TouchableOpacity onPress={onItemPress}>
                 <ItemContainer>
                     <ItemText
                         key={item.key}
