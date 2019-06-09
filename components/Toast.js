@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { Ionicons } from '@expo/vector-icons';
 import { Animated, TouchableOpacity, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { spacing, colors, fontSizes, fontWeights } from '../constants/Index'
@@ -55,7 +55,7 @@ class Toast extends React.Component {
                         right: 12,
                         top: 5,
                     }}>
-                    <Icon
+                    <Ionicons
                         name='ios-close'
                         color='#FFF'
                         size={30}

@@ -70,8 +70,6 @@ const AvatarWrapper = styled.View`
 `;
 
 const ProfileHeader = styled.ImageBackground`
-    background: #F6F6F6;
-    flex-direction: column;
     padding-left: 15px;
     padding-top: 40px;
     padding-bottom: 20px;

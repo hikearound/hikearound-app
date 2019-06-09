@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, View, AsyncStorage } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { Ionicons } from '@expo/vector-icons';
 import { Haptic } from 'expo';
 import { connect } from 'react-redux';
 
@@ -109,7 +109,7 @@ class FavoriteButton extends React.Component {
                     right: 20,
                     top: 30,
                 }}>
-                <Icon
+                <Ionicons
                     name={this.state.iconName}
                     color={this.state.iconColor}
                     size={this.state.iconSize}
