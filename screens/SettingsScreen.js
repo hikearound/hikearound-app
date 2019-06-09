@@ -50,7 +50,6 @@ class SettingsScreen extends React.Component {
 
         onItemPress = () => {
             if (item == 'Logout') {
-                Updates.reload()
                 this.handleLogout()
             }
         };
