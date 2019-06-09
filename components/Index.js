@@ -7,11 +7,11 @@ import Item from './Item';
 import List from './List';
 import Logo from './Logo';
 import Subtitle from './Subtitle';
-import HeaderOverflow from './HeaderOverflow';
+import Overflow from './header/Overflow';
 import FavoriteButton from './FavoriteButton';
 import Toast from './Toast';
-import HeaderSort from './HeaderSort';
-import HeaderSettings from './HeaderSettings';
+import Sort from './header/Sort';
+import Settings from './header/Settings';
 import Avatar from './Avatar';
 
 export {
@@ -23,10 +23,10 @@ export {
     Item,
     List,
     Logo,
-    HeaderOverflow,
+    Overflow,
     FavoriteButton,
     Toast,
-    HeaderSort,
+    Sort,
     Avatar,
-    HeaderSettings,
+    Settings,
 }

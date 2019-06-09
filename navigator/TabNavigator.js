@@ -21,7 +21,8 @@ import {
     HikeScreen,
     NotificationScreen,
     ProfileScreen,
-    AuthScreen
+    AuthScreen,
+    SettingsScreen,
 } from '../screens/Index'
 
 const activeColor = colors.purple;
@@ -80,7 +81,7 @@ HomeStack.navigationOptions = ({ navigation }) => {
 
 const NotificationStack = createStackNavigator(
     {
-        Notification: NotificationScreen
+        Notification: NotificationScreen,
     },
     {
         defaultNavigationOptions: {
@@ -108,7 +109,8 @@ NotificationStack.navigationOptions = {
 
 const ProfileStack = createStackNavigator(
     {
-        Profile:ProfileScreen
+        Profile: ProfileScreen,
+        Settings: SettingsScreen,
     },
     {
         defaultNavigationOptions: {

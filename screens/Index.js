@@ -5,6 +5,7 @@ import HikeScreen from '../screens/HikeScreen';
 import NotificationScreen from '../screens/NotificationScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import AuthScreen from '../screens/AuthScreen';
+import SettingsScreen from '../screens/SettingsScreen';
 
 export {
     LandingScreen,
@@ -14,4 +15,5 @@ export {
     NotificationScreen,
     ProfileScreen,
     AuthScreen,
+    SettingsScreen,
 }

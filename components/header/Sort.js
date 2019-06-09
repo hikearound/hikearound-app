@@ -2,7 +2,7 @@ import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 
-class HeaderOverflow extends React.Component {
+class Sort extends React.Component {
     render() {
         const { ...props } = this.props;
         return (
@@ -22,4 +22,4 @@ class HeaderOverflow extends React.Component {
     }
 }
 
-export default HeaderOverflow;
+export default Sort;

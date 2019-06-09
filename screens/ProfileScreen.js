@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { TouchableOpacity, ScrollView } from 'react-native';
-import { Avatar, HeaderSettings } from '../components/Index'
+import { Avatar, Settings } from '../components/Index'
 import { connect } from 'react-redux';
 import { spacing, colors, fontSizes, fontWeights } from '../constants/Index'
 
@@ -18,7 +18,7 @@ class ProfileScreen extends React.Component {
         return {
             headerTitle: 'You',
             headerBackTitle: null,
-            headerRight: <HeaderSettings sortType={params.sortType}/>,
+            headerRight: <Settings navigation={navigation} />,
         };
     }
 
@@ -36,7 +36,6 @@ class ProfileScreen extends React.Component {
                         </AvatarWrapper>
                         <NameText>{this.props.name}</NameText>
                         <LocationText>Seattle, WA</LocationText>
-
                         <TouchableOpacity
                             activeOpacity={0.4}
                             style={{

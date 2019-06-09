@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { LayoutAnimation, RefreshControl } from 'react-native';
 import firebase from 'firebase'
 import Fire from '../Fire';
-import { Logo, List, HeaderSort } from '../components/Index'
+import { Logo, List, Sort } from '../components/Index'
 import { spacing, colors, fontSizes, fontWeights } from '../constants/Index'
 
 const PAGE_SIZE = 5;
@@ -25,7 +25,7 @@ class HomeScreen extends React.Component {
         return {
             headerTitle: <Logo/>,
             headerBackTitle: null,
-            headerRight: <HeaderSort sortType={params.sortType}/>,
+            headerRight: <Sort sortType={params.sortType}/>,
         };
     }
 

@@ -16,7 +16,7 @@ import {
 import {
     InfoBar,
     HikeBody,
-    HeaderOverflow,
+    Overflow,
     Toast,
 } from '../components/Index'
 import {
@@ -46,7 +46,7 @@ class HikeScreen extends React.Component {
         return {
             title: hike.name || 'Hike',
             headerRight: (
-                <HeaderOverflow navigation={navigation}/>
+                <Overflow navigation={navigation}/>
             ),
         };
     }
