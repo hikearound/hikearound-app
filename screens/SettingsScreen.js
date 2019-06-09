@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import {
     SectionList,
+    TouchableOpacity,
 } from 'react-native';
 import { spacing, colors, fontSizes, fontWeights } from '../constants/Index'
 
@@ -22,12 +23,18 @@ class SettingsScreen extends React.Component {
     };
 
     renderItem({item, index, section}) {
+        _onPress = () => {
+            console.log(index)
+        };
+
         return (
-            <ItemContainer>
-                <ItemText key={item.key}>
-                    {item}
-                </ItemText>
-            </ItemContainer>
+            <TouchableOpacity onPress={_onPress}>
+                <ItemContainer>
+                    <ItemText key={item.key}>
+                        {item}
+                    </ItemText>
+                </ItemContainer>
+            </TouchableOpacity>
         )
     }
 
@@ -46,6 +53,7 @@ class SettingsScreen extends React.Component {
             <RootView>
                 <SectionList
                     renderItem={this.renderItem}
+                    stickySectionHeadersEnabled={false}
                     renderSectionHeader={this.renderSectionHeader}
                     sections={SETTING_ITEMS}
                     keyExtractor={
@@ -67,7 +75,8 @@ const RootView = styled.View`
 `;
 
 const HeaderContainer = styled.View`
-
+    padding-bottom: 4px;
+    margin-top: 15px;
 `;
 
 const HeaderText = styled.Text`
@@ -75,8 +84,6 @@ const HeaderText = styled.Text`
     font-size: 13px;
     font-weight: 500;
     text-transform: uppercase;
-    padding-bottom: 4px;
-    margin-top: 15px;
 `;
 
 const ItemContainer = styled.View`
