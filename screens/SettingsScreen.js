@@ -4,11 +4,12 @@ import {
     SectionList,
     TouchableOpacity,
 } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { spacing, colors, fontSizes, fontWeights } from '../constants/Index'
 
 const SETTING_ITEMS = [
     {
-        title: 'Map',
+        title: 'Default Map',
         data: ['Apple', 'Google Maps']
     },
     {
@@ -22,17 +23,50 @@ class SettingsScreen extends React.Component {
         headerTitle: 'Settings',
     };
 
+    state = {
+        defaultMap: 'Apple',
+    };
+
+    constructor(props) {
+        super(props);
+        this.renderItem = this.renderItem.bind(this);
+    }
+
     renderItem({item, index, section}) {
+        const {navigate} = this.props.navigation;
+        var textColor = '#333';
+        var checkDisplay = 'none';
+
         _onPress = () => {
-            console.log(index)
+            if (item == 'Logout') {
+                navigate('Landing');
+            }
         };
+
+        if (item == this.state.defaultMap) {
+            textColor = '#935DFF';
+            checkDisplay = 'flex';
+        }
 
         return (
             <TouchableOpacity onPress={_onPress}>
                 <ItemContainer>
-                    <ItemText key={item.key}>
+                    <ItemText
+                        key={item.key}
+                        textColor={textColor}>
                         {item}
                     </ItemText>
+                    <Ionicons
+                        name='ios-checkmark'
+                        size={35}
+                        color='#935DFF'
+                        style={{
+                            display: checkDisplay,
+                            right: 15,
+                            top: 5,
+                            position: 'absolute',
+                        }}
+                    />
                 </ItemContainer>
             </TouchableOpacity>
         )
@@ -93,6 +127,6 @@ const ItemContainer = styled.View`
 `;
 
 const ItemText = styled.Text`
-    color: #333;
+    color: ${props => props.textColor || '#333'};
     font-size: 16px;
 `;
