@@ -155,7 +155,7 @@ class CreateAccountScreen extends React.Component {
                         >
                         <ActionButton
                             primary
-                            text={'Create Account'}
+                            text={'Continue'}
                             margin={'0 20px 0 20px'}
                         />
                     </TouchableOpacity>
@@ -168,7 +168,7 @@ class CreateAccountScreen extends React.Component {
                     previousHidden={this.state.buttonsHidden}
                     onNext={this.handleFocusNext}
                     onPrevious={this.handleFocusPrevious}
-                    doneButton={<Text>Create Account</Text>}
+                    doneButton={<Text>Continue</Text>}
                     tintColor={colors.purple}
                     onDone={this.handleLogin}
                 />

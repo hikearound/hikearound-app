@@ -41,30 +41,21 @@ class LandingScreen extends React.Component {
             <RootView>
                 <AnimatedBackgroundWrapper style={{left: this.state.left}}>
                     <LandingBackground
-                        source={require('../assets/landing-bg.png')}>
-                    </LandingBackground>
+                        source={require('../assets/landing-bg.png')}/>
                 </AnimatedBackgroundWrapper>
                 <ButtonWrapper>
-                    <TouchableOpacity
-                        activeOpacity={0.4}
-                        onPress={() => {
+                    <ActionButton
+                        primary
+                        text={'Create Account'}
+                        action={() => {
                             this.props.navigation.push('CreateAccount');
-                        }}>
-                        <ActionButton
-                            primary
-                            text={'Create Account'}
-                        />
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        activeOpacity={0.4}
-                        onPress={() => {
+                        }}/>
+                    <ActionButton
+                        text={'Sign In'}
+                        margin={spacing.small + 'px 20px 0 20px'}
+                        action={() => {
                             this.props.navigation.push('SignIn');
-                        }}>
-                        <ActionButton
-                            text={'Sign In'}
-                            margin={spacing.small + 'px 20px 0 20px'}
-                        />
-                    </TouchableOpacity>
+                        }}/>
                 </ButtonWrapper>
             </RootView>
         );

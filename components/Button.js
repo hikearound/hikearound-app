@@ -1,11 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
+import { TouchableOpacity } from 'react-native';
 import { spacing, colors, fontSizes, fontWeights } from '../constants/Index'
 
 const ActionButton = props => (
-    <Button primary={props.primary} buttonMargin={props.margin}>
-        <ButtonText primary={props.primary}>{props.text}</ButtonText>
-    </Button>
+    <TouchableOpacity
+        activeOpacity={0.4}
+        onPress={props.action}>
+        <Button primary={props.primary} buttonMargin={props.margin}>
+            <ButtonText primary={props.primary}>{props.text}</ButtonText>
+        </Button>
+    </TouchableOpacity>
 );
 
 export default ActionButton;
