@@ -1,6 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { TouchableOpacity, Image, Animated, Dimensions } from 'react-native';
+import {
+    TouchableOpacity,
+    Image,
+    Animated,
+    Dimensions,
+    Easing
+} from 'react-native';
 import SafeAreaView from 'react-native-safe-area-view';
 import { ActionButton, Logo } from '../components/Index'
 import { spacing, colors } from '../constants/Index'
@@ -19,10 +25,15 @@ class LandingScreen extends React.Component {
     }
 
     componentDidMount() {
-        Animated.timing(this.state.left, {
-            toValue: -500,
-            duration: 60000,
-        }).start();
+        Animated.loop(
+            Animated.sequence([
+                Animated.timing(this.state.left, {
+                    toValue: -500,
+                    duration: 60000,
+                    easing: Easing.linear,
+                })
+            ]),
+        ).start()
     }
 
     render() {
