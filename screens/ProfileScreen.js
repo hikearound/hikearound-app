@@ -28,7 +28,7 @@ class ProfileScreen extends React.Component {
                 <ScrollView
                     showsVerticalScrollIndicator={false}>
                     <ProfileHeader
-                        source={require('../assets/profile-bg.png')} >
+                        source={require('../assets/profile-bg.png')}>
                         <AvatarWrapper>
                             <TouchableOpacity activeOpacity={0.4}>
                                 <Avatar />

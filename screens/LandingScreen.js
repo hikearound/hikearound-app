@@ -20,7 +20,7 @@ class LandingScreen extends React.Component {
 
     componentDidMount() {
         Animated.timing(this.state.left, {
-            toValue: -800,
+            toValue: -500,
             duration: 60000,
         }).start();
     }
@@ -69,6 +69,7 @@ const RootView = styled.View`
 const BackgroundWrapper = styled.View`
     height: 100%;
     width: 500%;
+    opacity: 0.5;
 `;
 
 const LandingBackground = styled.ImageBackground`
