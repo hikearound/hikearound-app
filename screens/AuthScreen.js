@@ -1,7 +1,5 @@
 import React from 'react';
-import { StatusBar } from 'react-native';
 import { NavigationActions, StackActions } from 'react-navigation';
-import styled from 'styled-components';
 import firebase from 'firebase';
 
 class AuthScreen extends React.Component {
@@ -10,51 +8,34 @@ class AuthScreen extends React.Component {
         headerBackTitle: null,
     };
 
-    constructor(props) {
-        super(props);
-        this.getAuth();
-    }
-
     componentDidMount() {
-        StatusBar.setBarStyle('light-content', true);
+        this.getAuth();
     }
 
     componentWillUnmount() {
         this.authSubscription();
     }
 
-    getAuth() {
+    getAuth = async () => {
         this.authSubscription = firebase
             .auth()
             .onAuthStateChanged((user) => {
-                this.setState(
-                    {
-                        loading: false,
-                        user,
-                    },
-                    this.dispatchNav,
-                );
+                this.dispatchNav(user);
         });
     };
 
-    dispatchNav() {
+    dispatchNav(user) {
         this.props.navigation.dispatch(StackActions.reset({
             index: 0,
             actions: [NavigationActions.navigate({
-                routeName: this.state.user ? 'Home' : 'Landing'
+                routeName: user ? 'Home' : 'Landing'
             })],
         }));
     };
 
     render() {
-        return (
-            <RootView/>
-        );
+        return null;
     }
 }
 
 export default AuthScreen;
-
-const RootView = styled.View`
-    flex: 1;
-`;
