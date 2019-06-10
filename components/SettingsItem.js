@@ -9,14 +9,15 @@ import firebase from 'firebase';
 
 function mapStateToProps(state) {
     return {
-        action: state.action,
+        mapPreference: state.mapPreference,
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        setMapPreference: () => dispatch({
-            type: 'SET_MAP_PREFERENCE'
+        setMapPreference: mapPreference => dispatch({
+            type: 'SET_MAP_PREFERENCE',
+            mapPreference: mapPreference,
         }),
     };
 }
@@ -31,6 +32,11 @@ class SettingsItem extends React.Component {
     constructor(props) {
         super(props);
         this.handleLogout = this.handleLogout.bind(this);
+    }
+
+    componentDidUpdate() {
+        // console.log(this.props.mapPreference)
+        // console.log(this.props.index)
     }
 
     componentWillMount = async () => {
@@ -51,7 +57,12 @@ class SettingsItem extends React.Component {
     };
 
     itemPress = () => {
-        this.updateSettings();
+        if (this.props.item == 'Logout') {
+            this.handleLogout();
+        } else {
+            this.props.setMapPreference(this.props.item);
+        }
+        this.selectItem();
     }
 
     getMapSetting = async () => {
@@ -72,17 +83,6 @@ class SettingsItem extends React.Component {
             checkDisplay: 'none',
             selected: false,
         });
-    }
-
-    updateSettings() {
-        if (this.props.item == 'Logout') {
-            this.handleLogout();
-        } else if (this.state.selected) {
-            this.selectItem();
-            this.props.setMapPreference();
-        } else {
-            this.unselectItem();
-        }
     }
 
     render() {
