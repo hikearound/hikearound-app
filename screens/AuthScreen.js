@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-    ActivityIndicator,
-    AsyncStorage,
-    StatusBar,
-} from 'react-native';
+import { StatusBar } from 'react-native';
 import { NavigationActions, StackActions } from 'react-navigation';
 import styled from 'styled-components';
 import firebase from 'firebase';
@@ -12,10 +8,6 @@ class AuthScreen extends React.Component {
     static navigationOptions = {
         header: null,
         headerBackTitle: null,
-    };
-
-    state = {
-        loading: true,
     };
 
     constructor(props) {
@@ -56,10 +48,7 @@ class AuthScreen extends React.Component {
 
     render() {
         return (
-            <RootView>
-                <ActivityIndicator />
-                <StatusBar hidden={true}/>
-            </RootView>
+            <RootView/>
         );
     }
 }

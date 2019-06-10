@@ -38,6 +38,8 @@ const HomeStack = createStackNavigator(
     },
     {
         mode: 'card', // modal
+        headerMode: 'float',
+        headerTransitionPreset: 'uikit',
         initialRouteName: 'Auth',
         defaultNavigationOptions: {
             headerStyle: {
@@ -128,6 +130,7 @@ const ProfileStack = createStackNavigator(
                 fontSize: parseInt(fontSizes.header),
             },
         },
+        headerTransitionPreset: 'uikit',
     },
 );
 

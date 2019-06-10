@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import HomeScreen from './screens/HomeScreen';
 import AppNavigator from './navigator/AppNavigator';
 
-// console.disableYellowBox = true;
+console.disableYellowBox = true;
 
 const initialState = {
     action: '',

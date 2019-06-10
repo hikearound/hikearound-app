@@ -38,7 +38,7 @@ class HomeScreen extends React.Component {
 
     constructor(props) {
         super(props);
-        var user = firebase.auth().currentUser;
+        // var user = firebase.auth().currentUser;
         // console.log(user.uid);
     }
 

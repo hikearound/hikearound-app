@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { TouchableOpacity, Image } from 'react-native';
+import { TouchableOpacity, Image, Animated, Dimensions } from 'react-native';
 import SafeAreaView from 'react-native-safe-area-view';
 import { ActionButton, Logo } from '../components/Index'
 import { spacing, colors } from '../constants/Index'
@@ -11,10 +11,29 @@ class LandingScreen extends React.Component {
         headerBackTitle: null,
     };
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            left: new Animated.Value(0),
+        };
+    }
+
+    componentDidMount() {
+        Animated.timing(this.state.left, {
+            toValue: -800,
+            duration: 60000,
+        }).start();
+    }
+
     render() {
         return (
             <RootView>
-                <SafeAreaView>
+                <AnimatedBackgroundWrapper style={{left: this.state.left}}>
+                    <LandingBackground
+                        source={require('../assets/landing-bg.png')}>
+                    </LandingBackground>
+                </AnimatedBackgroundWrapper>
+                <ButtonWrapper>
                     <TouchableOpacity
                         activeOpacity={0.4}
                         onPress={() => {
@@ -35,7 +54,7 @@ class LandingScreen extends React.Component {
                             margin={spacing.small + 'px 20px 0 20px'}
                         />
                     </TouchableOpacity>
-                </SafeAreaView>
+                </ButtonWrapper>
             </RootView>
         );
     }
@@ -44,8 +63,25 @@ class LandingScreen extends React.Component {
 export default LandingScreen;
 
 const RootView = styled.View`
+    flex: 1;
+`;
+
+const BackgroundWrapper = styled.View`
+    height: 100%;
+    width: 500%;
+`;
+
+const LandingBackground = styled.ImageBackground`
+    height: 100%;
+`;
+
+const AnimatedBackgroundWrapper = Animated.createAnimatedComponent(
+    BackgroundWrapper
+);
+
+const ButtonWrapper = styled.View`
     position: absolute;
-    bottom: 40px;
     left: 0;
     right: 0;
+    bottom: 40px;
 `;

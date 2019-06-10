@@ -39,15 +39,8 @@ function mapStateToProps(state) {
 
 class SignInScreen extends React.Component {
     static navigationOptions = {
-        headerStyle: {
-            backgroundColor: colors.purple,
-            height: 60,
-        },
-        headerTintColor: colors.white,
         headerTitle: 'Sign In',
-        headerTitleStyle: {
-            fontSize: parseInt(fontSizes.header),
-        },
+        headerBackTitle: null,
     };
 
     state = {
@@ -95,20 +88,9 @@ class SignInScreen extends React.Component {
             .then(response => {
                 this.setState({ isLoading: false });
                 if (response) {
-                    AsyncStorage.setItem(
-                        'response', JSON.stringify(response)
-                    );
-                    this.setState({ isSuccessful: true });
-                    this.storeUid(response.user.uid);
                     this.handleContinue();
                 }
             });
-    };
-
-    storeUid = async uid => {
-        try {
-            await AsyncStorage.setItem('uid', uid);
-        } catch (error) {}
     };
 
     handleContinue = () => {
