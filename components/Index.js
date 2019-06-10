@@ -14,6 +14,7 @@ import Sort from './header/Sort';
 import Settings from './header/Settings';
 import Avatar from './Avatar';
 import SettingsItem from './SettingsItem';
+import InputGroup from './InputGroup';
 
 export {
     ActionButton,
@@ -31,4 +32,5 @@ export {
     Avatar,
     Settings,
     SettingsItem,
+    InputGroup,
 }
