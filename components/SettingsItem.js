@@ -35,14 +35,24 @@ class SettingsItem extends React.Component {
     }
 
     componentDidUpdate() {
-        // console.log(this.props.mapPreference)
-        // console.log(this.props.index)
+        if (this.props.mapPreference == this.props.item) {
+            if (!this.state.selected) {
+                this.selectItem();
+                AsyncStorage.setItem(
+                    'mapSetting', this.props.item,
+                );
+            }
+        } else {
+            if (this.state.selected) {
+                this.unselectItem();
+            }
+        }
     }
 
     componentWillMount = async () => {
         const { ...props } = this.props;
         let mapSetting = await this.getMapSetting()
-        if (this.props.item == 'Apple') {
+        if (this.props.item == mapSetting || 'Apple') {
             this.selectItem();
         }
     }
@@ -62,7 +72,6 @@ class SettingsItem extends React.Component {
         } else {
             this.props.setMapPreference(this.props.item);
         }
-        this.selectItem();
     }
 
     getMapSetting = async () => {
