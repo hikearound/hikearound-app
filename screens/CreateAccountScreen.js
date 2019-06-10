@@ -22,6 +22,11 @@ const resetAction = StackActions.reset({
 
 let inputs = [
     {
+        keyboardType: 'text',
+        placeholder: 'Name',
+        autoCorrect: false,
+    },
+    {
         keyboardType: 'email-address',
         placeholder: 'Email',
         autoCorrect: false,
@@ -31,15 +36,19 @@ let inputs = [
         placeholder: 'Password',
         secureTextEntry: true,
     },
+    {
+        placeholder: 'Repeat Password',
+        secureTextEntry: true,
+    },
 ];
 
 function mapStateToProps(state) {
     return { action: state.action };
 }
 
-class SignInScreen extends React.Component {
+class CreateAccountScreen extends React.Component {
     static navigationOptions = {
-        headerTitle: 'Sign In',
+        headerTitle: 'Create Account',
         headerBackTitle: null,
     };
 
@@ -146,13 +155,9 @@ class SignInScreen extends React.Component {
                         >
                         <ActionButton
                             primary
-                            text={'Continue'}
+                            text={'Create Account'}
                             margin={'0 20px 0 20px'}
                         />
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        activeOpacity={0.4}>
-                        <PasswordText>Forgot Password?</PasswordText>
                     </TouchableOpacity>
                 </ScrollView>
                 <KeyboardAccessoryNavigation
@@ -163,7 +168,7 @@ class SignInScreen extends React.Component {
                     previousHidden={this.state.buttonsHidden}
                     onNext={this.handleFocusNext}
                     onPrevious={this.handleFocusPrevious}
-                    doneButton={<Text>Continue</Text>}
+                    doneButton={<Text>Create Account</Text>}
                     tintColor={colors.purple}
                     onDone={this.handleLogin}
                 />
@@ -174,7 +179,7 @@ class SignInScreen extends React.Component {
 
 export default connect(
     mapStateToProps,
-)(SignInScreen);
+)(CreateAccountScreen);
 
 const RootView = styled.View`
     flex: 1;

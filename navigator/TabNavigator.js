@@ -23,6 +23,7 @@ import {
     ProfileScreen,
     AuthScreen,
     SettingsScreen,
+    CreateAccountScreen,
 } from '../screens/Index'
 
 const activeColor = colors.purple;
@@ -35,6 +36,7 @@ const HomeStack = createStackNavigator(
         SignIn: SignInScreen,
         Home: HomeScreen,
         Hike: HikeScreen,
+        CreateAccount: CreateAccountScreen,
     },
     {
         mode: 'card', // modal

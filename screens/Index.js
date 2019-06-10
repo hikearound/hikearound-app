@@ -6,6 +6,7 @@ import NotificationScreen from '../screens/NotificationScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import AuthScreen from '../screens/AuthScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import CreateAccountScreen from '../screens/CreateAccountScreen';
 
 export {
     LandingScreen,
@@ -16,4 +17,5 @@ export {
     ProfileScreen,
     AuthScreen,
     SettingsScreen,
+    CreateAccountScreen,
 }
