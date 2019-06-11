@@ -10,7 +10,7 @@ import {
 import { connect } from 'react-redux';
 import { NavigationActions, StackActions } from 'react-navigation';
 import { spacing, colors, fontSizes, fontWeights } from '../constants/Index'
-import { InputGroup } from '../components/Index'
+import { CreateAccountInputGroup } from '../components/Index'
 
 const resetAction = StackActions.reset({
     index: 0,
@@ -61,7 +61,7 @@ class CreateAccountScreen extends React.Component {
     render() {
         return (
             <RootView>
-                <InputGroup
+                <CreateAccountInputGroup
                     inputs={inputs}
                     resetAction={resetAction}
                     passwordLinkDisplay={'none'}

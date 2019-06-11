@@ -3,21 +3,27 @@ import { Alert } from 'react-native';
 import InputGroup from '../components/InputGroup'
 import firebase from 'firebase';
 
-class SignInInputGroup extends InputGroup {
+class CreateAccountInputGroup extends InputGroup {
     constructor(props) {
         super(props);
 
         this.state = {
+            name: '',
             email: '',
             password: '',
+            passwordCopy: '',
         };
     }
 
     setValue(text, index) {
         if (index == 0) {
+            this.setState({name: text});
+        } else if (index == 1) {
             this.setState({email: text});
-        } else {
+        } else if (index == 2) {
             this.setState({password: text});
+        } else {
+            this.setState({passwordCopy: text});
         }
     }
 
@@ -38,4 +44,4 @@ class SignInInputGroup extends InputGroup {
     };
 }
 
-export default SignInInputGroup;
+export default CreateAccountInputGroup;

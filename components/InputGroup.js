@@ -28,20 +28,8 @@ class InputGroup extends React.Component {
             previousFocusDisabled: false,
             buttonsDisabled: false,
             buttonsHidden: false,
-            email: '',
-            password: '',
         };
     }
-
-    setValue(text, index) {
-        if (index === 0) {
-            this.setState({ email: text });
-        } else {
-            this.setState({ password: text });
-        }
-    }
-
-    handleLogin = async () => {};
 
     handleContinue = () => {
         this.props.navigation.dispatch(this.props.resetAction);
