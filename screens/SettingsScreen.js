@@ -7,7 +7,7 @@ import { spacing, colors, fontSizes, fontWeights } from '../constants/Index'
 const SETTING_ITEMS = [
     {
         title: 'Default Map',
-        data: ['Apple', 'Google Maps']
+        data: ['Apple Maps', 'Google Maps']
     },
     {
         title: 'Account',

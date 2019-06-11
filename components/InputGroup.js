@@ -121,7 +121,7 @@ class InputGroup extends React.Component {
                 previousHidden={this.state.buttonsHidden}
                 onNext={this.handleFocusNext}
                 onPrevious={this.handleFocusPrevious}
-                doneButton={<Text>Continue</Text>}
+                doneButton={<Text></Text>}
                 tintColor={colors.purple}
                 onDone={this.handleLogin}
             />
@@ -138,9 +138,11 @@ const RootView = styled.View`
 
 const TextInput = styled.TextInput`
     margin: 0 20px 26px 20px;
+    padding-bottom: 3px;
     border-bottom-width: 1px;
     border-bottom-color: #D8D8D8;
     font-size: 16px;
+    color: #333;
 `;
 
 const PasswordText = styled.Text`

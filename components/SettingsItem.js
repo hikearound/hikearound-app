@@ -52,7 +52,7 @@ class SettingsItem extends React.Component {
     componentWillMount = async () => {
         const { ...props } = this.props;
         let mapSetting = await this.getMapSetting()
-        if (this.props.item == mapSetting || 'Apple') {
+        if (this.props.item == mapSetting || 'Apple Maps') {
             this.selectItem();
         }
     }

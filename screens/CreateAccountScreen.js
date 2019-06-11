@@ -19,7 +19,7 @@ const resetAction = StackActions.reset({
 
 let inputs = [
     {
-        keyboardType: 'text',
+        keyboardType: 'default',
         placeholder: 'Name',
         autoCorrect: false,
     },

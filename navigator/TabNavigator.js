@@ -41,7 +41,7 @@ const HomeStack = createStackNavigator(
     {
         mode: 'card', // modal
         headerMode: 'float',
-        headerTransitionPreset: 'uikit',
+        headerTransitionPreset: 'fade-in-place', // uikit is buggy
         initialRouteName: 'Auth',
         defaultNavigationOptions: {
             headerStyle: {
@@ -132,7 +132,7 @@ const ProfileStack = createStackNavigator(
                 fontSize: parseInt(fontSizes.header),
             },
         },
-        headerTransitionPreset: 'uikit',
+        headerTransitionPreset: 'fade-in-place',
     },
 );
 

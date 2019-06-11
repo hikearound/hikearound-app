@@ -64,9 +64,14 @@ class HikeScreen extends React.Component {
         locationResult: null
     };
 
-    navigationToHike() {
+    navigationToHike = async () => {
+        let mapSetting = await AsyncStorage.getItem('mapSetting');
+        var provider = 'apple'
+        if (mapSetting == 'Google Maps') {
+            provider = 'google'
+        }
         openMap({
-            provider: 'apple',
+            provider: provider,
             travelType: 'drive',
             query: this.state.startingLat + ', ' + this.state.startingLon
         });
