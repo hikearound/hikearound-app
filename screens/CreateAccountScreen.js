@@ -63,7 +63,9 @@ class CreateAccountScreen extends React.Component {
             <RootView>
                 <InputGroup
                     inputs={inputs}
-                    resetAction={resetAction}/>
+                    resetAction={resetAction}
+                    passwordLinkDisplay={'none'}
+                    continueText={'Continue'}/>
             </RootView>
         );
     }

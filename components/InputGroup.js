@@ -41,21 +41,7 @@ class InputGroup extends React.Component {
         }
     }
 
-    handleLogin = async () => {
-        firebase
-            .auth()
-            .signInWithEmailAndPassword(
-                this.state.email, this.state.password
-            )
-            .catch(function(error) {
-                Alert.alert('Error', error.message);
-            })
-            .then(response => {
-                if (response) {
-                    this.handleContinue();
-                }
-            });
-    };
+    handleLogin = async () => {};
 
     handleContinue = () => {
         this.props.navigation.dispatch(this.props.resetAction);
@@ -120,7 +106,10 @@ class InputGroup extends React.Component {
                     />
                 <View>{this.props.secondaryInputs}</View>
                 <TouchableOpacity
-                    activeOpacity={0.4}>
+                    activeOpacity={0.4}
+                    style={{
+                        display: this.props.passwordLinkDisplay,
+                    }}>
                     <PasswordText>Forgot Password?</PasswordText>
                 </TouchableOpacity>
             </ScrollView>

@@ -9,7 +9,7 @@ import {
 import { connect } from 'react-redux';
 import { NavigationActions, StackActions } from 'react-navigation';
 import { spacing, colors, fontSizes, fontWeights } from '../constants/Index'
-import { InputGroup } from '../components/Index'
+import { SignInInputGroup } from '../components/Index'
 
 const resetAction = StackActions.reset({
     index: 0,
@@ -51,9 +51,12 @@ class SignInScreen extends React.Component {
     render() {
         return (
             <RootView>
-                <InputGroup
+                <SignInInputGroup
                     inputs={inputs}
-                    resetAction={resetAction}/>
+                    resetAction={resetAction}
+                    passwordLinkDisplay={'flex'}
+                    continueText={'Continue'}
+                    navigation={this.props.navigation}/>
             </RootView>
         );
     }

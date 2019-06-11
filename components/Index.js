@@ -15,6 +15,7 @@ import Settings from './header/Settings';
 import Avatar from './Avatar';
 import SettingsItem from './SettingsItem';
 import InputGroup from './InputGroup';
+import SignInInputGroup from './SignInInputGroup';
 
 export {
     ActionButton,
@@ -33,4 +34,5 @@ export {
     Settings,
     SettingsItem,
     InputGroup,
+    SignInInputGroup,
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavigationActions, StackActions } from 'react-navigation';
+import { StatusBar } from 'react-native';
 import firebase from 'firebase';
 
 class AuthScreen extends React.Component {
@@ -9,6 +10,9 @@ class AuthScreen extends React.Component {
     };
 
     componentDidMount() {
+        StatusBar.setBarStyle(
+            'light-content', true,
+        );
         this.getAuth();
     }
 
