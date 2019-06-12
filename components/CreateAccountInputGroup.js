@@ -15,18 +15,6 @@ class CreateAccountInputGroup extends InputGroup {
         };
     }
 
-    setValue(text, index) {
-        if (index == 0) {
-            this.setState({name: text});
-        } else if (index == 1) {
-            this.setState({email: text});
-        } else if (index == 2) {
-            this.setState({password: text});
-        } else {
-            this.setState({passwordCopy: text});
-        }
-    }
-
     handleLogin = async () => {
         firebase
             .auth()

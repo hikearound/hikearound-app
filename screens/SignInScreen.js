@@ -20,11 +20,13 @@ let inputs = [
     {
         keyboardType: 'email-address',
         placeholder: 'Email',
+        name: 'email',
         autoCorrect: false,
         autoCapitalize: 'none',
     },
     {
         placeholder: 'Password',
+        name: 'password',
         secureTextEntry: true,
     },
 ];

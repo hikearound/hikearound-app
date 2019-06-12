@@ -13,14 +13,6 @@ class SignInInputGroup extends InputGroup {
         };
     }
 
-    setValue(text, index) {
-        if (index == 0) {
-            this.setState({email: text});
-        } else {
-            this.setState({password: text});
-        }
-    }
-
     handleLogin = async () => {
         firebase
             .auth()

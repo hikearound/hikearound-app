@@ -21,20 +21,24 @@ let inputs = [
     {
         keyboardType: 'default',
         placeholder: 'Name',
+        name: 'name',
         autoCorrect: false,
     },
     {
         keyboardType: 'email-address',
         placeholder: 'Email',
+        name: 'email',
         autoCorrect: false,
         autoCapitalize: 'none',
     },
     {
         placeholder: 'Password',
+        name: 'password',
         secureTextEntry: true,
     },
     {
         placeholder: 'Repeat Password',
+        name: 'passwordCopy',
         secureTextEntry: true,
     },
 ];

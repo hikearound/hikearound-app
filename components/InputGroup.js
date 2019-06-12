@@ -35,6 +35,10 @@ class InputGroup extends React.Component {
         this.props.navigation.dispatch(this.props.resetAction);
     }
 
+    setValue(name, text, index) {
+        this.setState({[name]: text});
+    }
+
     handleFocus = index => () => {
         this.setState({
             nextFocusDisabled: index === inputs.length - 1,
@@ -65,6 +69,7 @@ class InputGroup extends React.Component {
             <RootView>
                 <ScrollView keyboardShouldPersistTaps='always'>
                     { this.props.inputs.map(({
+                        name,
                         placeholder,
                         keyboardType,
                         secureTextEntry,
@@ -83,7 +88,9 @@ class InputGroup extends React.Component {
                             blurOnSubmit={true}
                             onFocus={this.handleFocus(index)}
                             autoFocus={index === 0}
-                            onChangeText={text => this.setValue(text, index)}
+                            onChangeText={text => this.setValue(
+                                name, text, index
+                            )}
                         />
                     )}
                     <ActionButton
