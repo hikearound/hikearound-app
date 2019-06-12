@@ -14,9 +14,9 @@ import Sort from './header/Sort';
 import Settings from './header/Settings';
 import Avatar from './Avatar';
 import SettingsItem from './SettingsItem';
-import InputGroup from './InputGroup';
-import SignInInputGroup from './SignInInputGroup';
-import CreateAccountInputGroup from './CreateAccountInputGroup';
+import InputGroup from './input_groups/InputGroup';
+import SignInInputGroup from './input_groups/SignInInputGroup';
+import CreateAccountInputGroup from './input_groups/CreateAccountInputGroup';
 
 export {
     ActionButton,

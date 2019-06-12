@@ -8,10 +8,17 @@ import {
     Keyboard,
     View,
 } from 'react-native';
-import { spacing, colors, fontSizes, fontWeights } from '../constants/Index'
-import ActionButton from '../components/Button'
+import {
+    spacing,
+    colors,
+    fontSizes,
+    fontWeights
+} from '../../constants/Index'
+import ActionButton from '../../components/Button'
 import firebase from 'firebase';
-import { KeyboardAccessoryNavigation } from 'react-native-keyboard-accessory';
+import {
+    KeyboardAccessoryNavigation
+} from 'react-native-keyboard-accessory';
 
 class InputGroup extends React.Component {
     constructor(props) {

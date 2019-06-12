@@ -1,15 +1,17 @@
 import React from 'react';
 import { Alert } from 'react-native';
-import InputGroup from '../components/InputGroup'
+import InputGroup from './InputGroup'
 import firebase from 'firebase';
 
-class SignInInputGroup extends InputGroup {
+class CreateAccountInputGroup extends InputGroup {
     constructor(props) {
         super(props);
 
         this.state = {
+            name: '',
             email: '',
             password: '',
+            passwordCopy: '',
         };
     }
 
@@ -30,4 +32,4 @@ class SignInInputGroup extends InputGroup {
     };
 }
 
-export default SignInInputGroup;
+export default CreateAccountInputGroup;
