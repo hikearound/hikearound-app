@@ -1,20 +1,28 @@
 import React from 'react';
 import styled from 'styled-components';
-import { spacing, colors, fontSizes, fontWeights } from '../constants/Index'
+import {
+    spacing, colors, fontWeights
+} from '../constants/Index';
 
-const InfoBar = props => (
+const InfoBar = ({ distance, elevation, route }) => (
     <CardContent>
         <ContentItem>
             <MetaDataType>Distance</MetaDataType>
-            <MetaData>{props.distance}m</MetaData>
+            <MetaData>
+                {distance}
+                m
+            </MetaData>
         </ContentItem>
         <ContentItem>
             <MetaDataType>Elevation</MetaDataType>
-            <MetaData>{props.elevation}ft</MetaData>
+            <MetaData>
+                {elevation}
+                ft
+            </MetaData>
         </ContentItem>
         <ContentItem>
             <MetaDataType>Route</MetaDataType>
-            <MetaData>{props.route}</MetaData>
+            <MetaData>{route}</MetaData>
         </ContentItem>
     </CardContent>
 );

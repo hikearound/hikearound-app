@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { View, StyleSheet } from 'react-native';
-import { spacing, colors, fontSizes, fontWeights } from '../constants/Index'
+import {
+    fontWeights
+} from '../constants/Index';
 
 export default class Footer extends React.Component {
     state = {
@@ -14,7 +16,6 @@ export default class Footer extends React.Component {
                 footerVisibility: styles.visibleText,
             });
         }, 1000);
-        this.timeout;
     }
 
     componentWillUnmount() {
@@ -22,11 +23,12 @@ export default class Footer extends React.Component {
     }
 
     render() {
+        const { footerVisibility } = this.state;
         return (
             <Container>
-                <View style={this.state.footerVisibility}>
+                <View style={footerVisibility}>
                     <Text>New Hikes Every Week</Text>
-                    <Circle/>
+                    <Circle />
                 </View>
             </Container>
         );

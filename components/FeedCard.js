@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { LinearGradient } from 'expo';
+import FeedCardGradient from '../components/FeedCardGradient'
 import { LayoutAnimation, Animated } from 'react-native';
 import { spacing, colors, fontSizes, fontWeights } from '../constants/Index'
 
@@ -20,22 +20,9 @@ class FeedCard extends React.Component {
         return (
             <Container>
                 <Cover>
-                    <Image source={this.props.image} resizeMode='cover' />
+                    <Image source={this.props.image} resizeMode='cover'/>
                     <Title>{this.props.title}</Title>
-                    <LinearGradient
-                        colors={[
-                            'rgba(0,0,0,0.6)',
-                            'transparent'
-                        ]}
-                        start={{ x: 1, y: 1 }}
-                        end={{ x: 1, y: 0 }}
-                        style={{
-                          position: 'absolute',
-                          left: 0,
-                          right: 0,
-                          bottom: 0,
-                          height: this.props.image.uri ? 75 : 0,
-                      }}></LinearGradient>
+                    <FeedCardGradient imageDidLoad={this.props.image.uri}/>
                 </Cover>
                 <Content>
                     <ContentItem>

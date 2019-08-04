@@ -1,15 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import {
-    TouchableOpacity,
-    ScrollView,
-    AsyncStorage,
-    Keyboard,
-} from 'react-native';
 import { connect } from 'react-redux';
 import { NavigationActions, StackActions } from 'react-navigation';
-import { spacing, colors, fontSizes, fontWeights } from '../constants/Index'
-import { SignInInputGroup } from '../components/Index'
+import { SignInInputGroup } from '../components/Index';
 
 const resetAction = StackActions.reset({
     index: 0,
@@ -51,19 +44,20 @@ class SignInScreen extends React.Component {
     }
 
     render() {
+        const { navigation } = this.props;
         return (
             <RootView>
                 <SignInInputGroup
                     inputs={inputs}
                     resetAction={resetAction}
-                    passwordLinkDisplay={'flex'}
-                    continueText={'Continue'}
-                    navigation={this.props.navigation}/>
+                    passwordLinkDisplay='flex'
+                    continueText='Continue'
+                    navigation={navigation}
+                />
             </RootView>
         );
     }
 }
-
 export default connect(
     mapStateToProps,
 )(SignInScreen);

@@ -1,8 +1,9 @@
 import React from 'react';
-import { TouchableOpacity, View, AsyncStorage } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { TouchableOpacity, AsyncStorage } from 'react-native';
 import { Haptic } from 'expo';
 import { connect } from 'react-redux';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { Ionicons } from '@expo/vector-icons';
 
 function mapStateToProps(state) {
     return {
@@ -29,47 +30,32 @@ class FavoriteButton extends React.Component {
     };
 
     componentWillMount = async () => {
-        let hikeArray = await this.getFavoritedHikes()
-        if (hikeArray.includes(this.props._key)) {
+        const { _key } = this.props;
+        const hikeArray = await this.getFavoritedHikes();
+        if (hikeArray.includes(_key)) {
             this.setHeartFilled();
         }
     }
 
-    buttonPress = () => {
-        this.updateButtonStyle();
-        Haptic.selection();
-    }
-
-    getFavoritedHikes = async () => {
-        return AsyncStorage.getItem('favoritedHikes');
-    }
+    getFavoritedHikes = async () => AsyncStorage.getItem('favoritedHikes');
 
     setFavoriteHike = async () => {
-        let hikeArray = await this.getFavoritedHikes()
+        const { _key } = this.props;
+        let hikeArray = await this.getFavoritedHikes();
         if (hikeArray) {
-            hikeArray = JSON.parse(hikeArray)
-            if (!hikeArray.includes(this.props._key)) {
-                hikeArray.push(this.props._key)
+            hikeArray = JSON.parse(hikeArray);
+            if (!hikeArray.includes(_key)) {
+                hikeArray.push(_key);
                 AsyncStorage.setItem(
                     'favoritedHikes', JSON.stringify(hikeArray)
                 );
             }
         } else {
-            var newHikeArray = [this.props._key]
+            const newHikeArray = [_key];
             AsyncStorage.setItem(
                 'favoritedHikes', JSON.stringify(newHikeArray)
             );
         }
-    }
-
-    removeFavoriteHike = async () => {
-        let hikeArray = await this.getFavoritedHikes()
-        hikeArray = JSON.parse(hikeArray)
-        var index = hikeArray.indexOf(this.props._key);
-        delete hikeArray[index];
-        AsyncStorage.setItem(
-            'favoritedHikes', JSON.stringify(hikeArray)
-        );
     }
 
     setHeartFilled() {
@@ -86,20 +72,38 @@ class FavoriteButton extends React.Component {
         });
     }
 
+    removeFavoriteHike = async () => {
+        const { _key } = this.props;
+        let hikeArray = await this.getFavoritedHikes();
+        hikeArray = JSON.parse(hikeArray);
+        const index = hikeArray.indexOf(_key);
+        delete hikeArray[index];
+        AsyncStorage.setItem(
+            'favoritedHikes', JSON.stringify(hikeArray)
+        );
+    }
+
+    buttonPress = () => {
+        this.updateButtonStyle();
+        Haptic.selection();
+    }
+
     updateButtonStyle() {
-        if (this.state.iconName == 'ios-heart-empty') {
+        const { iconName } = this.state;
+        const { favoriteHike, unfavoriteHike } = this.props;
+        if (iconName === 'ios-heart-empty') {
             this.setHeartFilled();
             this.setFavoriteHike();
-            this.props.favoriteHike();
+            favoriteHike();
         } else {
             this.setHeartEmpty();
             this.removeFavoriteHike();
-            this.props.unfavoriteHike();
+            unfavoriteHike();
         }
     }
 
     render() {
-        const { ...props } = this.props;
+        const { iconName, iconColor, iconSize } = this.state;
         return (
             <TouchableOpacity
                 activeOpacity={0.4}
@@ -108,11 +112,12 @@ class FavoriteButton extends React.Component {
                     position: 'absolute',
                     right: 20,
                     top: 30,
-                }}>
+                }}
+            >
                 <Ionicons
-                    name={this.state.iconName}
-                    color={this.state.iconColor}
-                    size={this.state.iconSize}
+                    name={iconName}
+                    color={iconColor}
+                    size={iconSize}
                 />
             </TouchableOpacity>
         );

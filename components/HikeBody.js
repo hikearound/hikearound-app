@@ -1,24 +1,30 @@
 import React from 'react';
 import styled from 'styled-components';
-import { spacing, colors, fontSizes, fontWeights } from '../constants/Index'
-import Subtitle from '../components/Subtitle'
-import FavoriteButton from '../components/FavoriteButton'
+import {
+    spacing, colors, fontWeights
+} from '../constants/Index';
+import Subtitle from './Subtitle';
+import FavoriteButton from './FavoriteButton';
 
+// eslint-disable-next-line react/prefer-stateless-function
 class HikeBody extends React.Component {
     render() {
-        var description = this.props.description.replace(
+        const {
+            name, description, city, _key,
+        } = this.props;
+        const newlineDescription = description.replace(
             '\\n\\n', '\n\n'
         );
         return (
             <BodyContent>
-                <TitleText>{this.props.name}</TitleText>
-                <LocationText>{this.props.city}</LocationText>
+                <TitleText>{name}</TitleText>
+                <LocationText>{city}</LocationText>
                 <FavoriteButton
-                    name={this.props.name}
-                    _key={this.props._key}
+                    name={name}
+                    _key={_key}
                 />
-                <Subtitle text={'Description'}/>
-                <DescriptionText>{description}</DescriptionText>
+                <Subtitle text='Description' />
+                <DescriptionText>{newlineDescription}</DescriptionText>
             </BodyContent>
         );
     }

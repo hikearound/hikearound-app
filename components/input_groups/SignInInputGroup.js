@@ -1,7 +1,6 @@
-import React from 'react';
 import { Alert } from 'react-native';
-import InputGroup from './InputGroup'
 import firebase from 'firebase';
+import InputGroup from './InputGroup';
 
 class SignInInputGroup extends InputGroup {
     constructor(props) {
@@ -19,10 +18,10 @@ class SignInInputGroup extends InputGroup {
             .signInWithEmailAndPassword(
                 this.state.email, this.state.password
             )
-            .catch(function(error) {
+            .catch((error) => {
                 Alert.alert('Error', error.message);
             })
-            .then(response => {
+            .then((response) => {
                 if (response) {
                     this.handleContinue();
                 }

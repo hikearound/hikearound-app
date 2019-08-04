@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import firebase from 'firebase'
+import firebase from 'firebase';
 import {
-    Button,
     ScrollView,
     StyleSheet,
     AsyncStorage,
@@ -18,13 +17,11 @@ import {
     HikeBody,
     Overflow,
     Toast,
-} from '../components/Index'
+} from '../components/Index';
 import {
     spacing,
     colors,
-    fontSizes,
-    fontWeights
-} from '../constants/Index'
+} from '../constants/Index';
 import openMap from 'react-native-open-maps';
 import { connect } from 'react-redux';
 

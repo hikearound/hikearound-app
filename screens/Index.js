@@ -1,12 +1,12 @@
-import LandingScreen from '../screens/LandingScreen';
-import SignInScreen from '../screens/SignInScreen';
-import HomeScreen from '../screens/HomeScreen';
-import HikeScreen from '../screens/HikeScreen';
-import NotificationScreen from '../screens/NotificationScreen';
-import ProfileScreen from '../screens/ProfileScreen';
-import AuthScreen from '../screens/AuthScreen';
-import SettingsScreen from '../screens/SettingsScreen';
-import CreateAccountScreen from '../screens/CreateAccountScreen';
+import LandingScreen from './LandingScreen';
+import SignInScreen from './SignInScreen';
+import HomeScreen from './HomeScreen';
+import HikeScreen from './HikeScreen';
+import NotificationScreen from './NotificationScreen';
+import ProfileScreen from './ProfileScreen';
+import AuthScreen from './AuthScreen';
+import SettingsScreen from './SettingsScreen';
+import CreateAccountScreen from './CreateAccountScreen';
 
 export {
     LandingScreen,
@@ -18,4 +18,4 @@ export {
     AuthScreen,
     SettingsScreen,
     CreateAccountScreen,
-}
+};

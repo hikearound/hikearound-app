@@ -1,5 +1,6 @@
 import ActionButton from './Button';
 import FeedCard from './FeedCard';
+import FeedCardGradient from './FeedCardGradient';
 import Footer from './Footer';
 import HikeBody from './HikeBody';
 import InfoBar from './InfoBar';
@@ -21,6 +22,7 @@ import CreateAccountInputGroup from './input_groups/CreateAccountInputGroup';
 export {
     ActionButton,
     FeedCard,
+    FeedCardGradient,
     Footer,
     HikeBody,
     InfoBar,

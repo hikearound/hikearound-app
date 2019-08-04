@@ -1,14 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
 import { TouchableOpacity } from 'react-native';
-import { spacing, colors, fontSizes, fontWeights } from '../constants/Index'
+import {
+    spacing, colors, fontSizes, fontWeights
+} from '../constants/Index';
 
-const ActionButton = props => (
+const ActionButton = ({
+    action, primary, margin, text,
+}) => (
     <TouchableOpacity
         activeOpacity={0.4}
-        onPress={props.action}>
-        <Button primary={props.primary} buttonMargin={props.margin}>
-            <ButtonText primary={props.primary}>{props.text}</ButtonText>
+        onPress={action}
+    >
+        <Button primary={primary} buttonMargin={margin}>
+            <ButtonText primary={primary}>{text}</ButtonText>
         </Button>
     </TouchableOpacity>
 );
@@ -16,7 +21,7 @@ const ActionButton = props => (
 export default ActionButton;
 
 const Button = styled.View`
-    background-color: ${props => props.primary ? colors.purple : colors.white};
+    background-color: ${props => (props.primary ? colors.purple : colors.white)};
     border-radius: 6px;
     margin: ${props => props.buttonMargin || '0 20px'};
     border: 1px solid ${colors.lightGray};
@@ -24,7 +29,7 @@ const Button = styled.View`
 `;
 
 const ButtonText = styled.Text`
-    color: ${props => props.primary ? colors.white : colors.black};
+    color: ${props => (props.primary ? colors.white : colors.black)};
     font-weight: ${fontWeights.bold};
     font-size: ${fontSizes.button}px;
     text-align: center;

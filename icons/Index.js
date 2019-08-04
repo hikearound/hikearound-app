@@ -6,4 +6,4 @@ export {
     HomeIcon,
     BellIcon,
     PersonIcon,
-}
+};

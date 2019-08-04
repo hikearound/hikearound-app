@@ -14,11 +14,11 @@ function mapDispatchToProps(dispatch) {
     return {
         updateName: name => dispatch({
             type: 'UPDATE_NAME',
-            name: name,
+            name,
         }),
         updateAvatar: avatar => dispatch({
             type: 'UPDATE_AVATAR',
-            avatar
+            avatar,
         }),
     };
 }
@@ -29,17 +29,19 @@ class Avatar extends React.Component {
     }
 
     loadState = () => {
-        AsyncStorage.getItem('state').then(serializedState => {
+        const { updateName, updateAvatar } = this.props;
+        AsyncStorage.getItem('state').then((serializedState) => {
             const state = JSON.parse(serializedState);
             if (state) {
-                this.props.updateName(state.name);
-                this.props.updateAvatar(state.avatar);
+                updateName(state.name);
+                updateAvatar(state.avatar);
             }
         });
     };
 
     render() {
-        return <Image source={{ uri: this.props.avatar }} />;
+        const { avatar } = this.props;
+        return <Image source={{ uri: avatar }} />;
     }
 }
 

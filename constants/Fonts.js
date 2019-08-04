@@ -1,6 +1,3 @@
-import React from 'react';
-import { PixelRatio } from 'react-native';
-
 export const fontSizes = {
     button: '18',
     header: '20',

@@ -3,22 +3,16 @@ import styled from 'styled-components';
 import {
     TouchableOpacity,
     ScrollView,
-    Alert,
-    AsyncStorage,
-    Keyboard,
     View,
 } from 'react-native';
 import {
-    spacing,
-    colors,
-    fontSizes,
-    fontWeights
-} from '../../constants/Index'
-import ActionButton from '../../components/Button'
-import firebase from 'firebase';
-import {
     KeyboardAccessoryNavigation
 } from 'react-native-keyboard-accessory';
+import ActionButton from '../Button';
+import {
+    colors,
+    fontWeights
+} from '../../constants/Index';
 
 class InputGroup extends React.Component {
     constructor(props) {
