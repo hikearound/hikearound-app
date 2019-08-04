@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "expo": "^32.0.6",
-    "firebase": "6.0.2",
+    "firebase": "^6.3.4",
     "fsevents": "^2.0.7",
     "lottie-react-native": "^2.6.1",
     "react": "16.5.0",
@@ -16,16 +16,16 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
     "react-native-keyboard-accessory": "^0.1.9",
     "react-native-open-maps": "^0.3.3",
-    "react-native-safe-area-view": "^0.14.4",
+    "react-native-safe-area-view": "^0.14.6",
     "react-native-xml2js": "^1.0.3",
-    "react-navigation": "^3.11.0",
+    "react-navigation": "^3.11.1",
     "react-redux": "^6.0.1",
-    "redux": "^4.0.1",
-    "styled-components": "^4.2.1",
-    "webpack": "^4.32.2"
+    "redux": "^4.0.4",
+    "styled-components": "^4.3.2",
+    "webpack": "^4.39.1"
   },
   "devDependencies": {
-    "babel-preset-expo": "^5.1.1"
+    "babel-preset-expo": "^5.2.0"
   },
   "private": true
 }
