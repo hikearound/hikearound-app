@@ -16,9 +16,7 @@ const ActionButton = props => (
 export default ActionButton;
 
 const Button = styled.View`
-    background-color: ${colors.white};
     background-color: ${props => props.primary ? colors.purple : colors.white};
-    color: ${colors.black};
     border-radius: 6px;
     margin: ${props => props.buttonMargin || '0 20px'};
     border: 1px solid ${colors.lightGray};
