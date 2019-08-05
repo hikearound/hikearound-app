@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { TouchableOpacity, AsyncStorage } from 'react-native';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { Ionicons } from '@expo/vector-icons';
 import { Updates } from 'expo';
 import { connect } from 'react-redux';

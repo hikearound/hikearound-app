@@ -188,6 +188,7 @@ class HikeScreen extends React.Component {
     render() {
         const { navigation } = this.props;
         const hike = navigation.getParam('hike');
+        console.log(this.props._key);
         return (
             <RootView>
                 <Toast name={hike.name} />
@@ -235,14 +236,14 @@ export default connect(
     mapStateToProps,
 )(HikeScreen);
 
-const styles = StyleSheet.create ({
-   map: {
-      height: 200,
-      zIndex: 1,
-      overflow: 'hidden',
-      borderRadius: 6,
-   }
-})
+const styles = StyleSheet.create({
+    map: {
+        height: 200,
+        zIndex: 1,
+        overflow: 'hidden',
+        borderRadius: 6,
+    }
+});
 
 const RootView = styled.View`
     background-color: ${colors.white};

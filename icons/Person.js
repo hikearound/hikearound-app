@@ -1,5 +1,4 @@
 import React from 'react';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import Svg, { Path } from 'react-native-svg';
 
 const PersonIcon = ({

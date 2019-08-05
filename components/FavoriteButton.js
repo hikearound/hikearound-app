@@ -2,7 +2,6 @@ import React from 'react';
 import { TouchableOpacity, AsyncStorage } from 'react-native';
 import { Haptic } from 'expo';
 import { connect } from 'react-redux';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { Ionicons } from '@expo/vector-icons';
 
 function mapStateToProps(state) {

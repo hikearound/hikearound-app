@@ -1,62 +1,39 @@
 import React from 'react';
 import styled from 'styled-components';
-import { LayoutAnimation } from 'react-native';
 import FeedCardGradient from './FeedCardGradient';
 import { spacing, colors, fontWeights } from '../constants/Index';
 
-// eslint-disable-next-line react/prefer-stateless-function
-class FeedCard extends React.Component {
-    render() {
-        const {
-            image,
-            title,
-            distance,
-            elevation,
-            route,
-        } = this.props;
-        // eslint-disable-next-line no-unused-vars
-        const CustomLayoutAnimation = {
-            duration: 100,
-            create: {
-                type: LayoutAnimation.Types.linear,
-                property: LayoutAnimation.Properties.opacity,
-            },
-            update: {
-                type: LayoutAnimation.Types.easeInEaseOut,
-            },
-        };
-        // LayoutAnimation.configureNext(CustomLayoutAnimation);
-        return (
-            <Container>
-                <Cover>
-                    <Image source={image} resizeMode='cover' />
-                    <Title>{title}</Title>
-                    <FeedCardGradient imageDidLoad={image.uri} />
-                </Cover>
-                <Content>
-                    <ContentItem>
-                        <MetaDataType>Distance</MetaDataType>
-                        <MetaData>
-                            {distance}
-                            m
-                        </MetaData>
-                    </ContentItem>
-                    <ContentItem>
-                        <MetaDataType>Elevation</MetaDataType>
-                        <MetaData>
-                            {elevation}
-                            ft
-                        </MetaData>
-                    </ContentItem>
-                    <ContentItem>
-                        <MetaDataType>Route</MetaDataType>
-                        <MetaData>{route}</MetaData>
-                    </ContentItem>
-                </Content>
-            </Container>
-        );
-    }
-}
+const FeedCard = ({
+    image, title, distance, elevation, route,
+}) => (
+    <Container>
+        <Cover>
+            <Image source={image} resizeMode='cover' />
+            <Title>{title}</Title>
+            <FeedCardGradient imageDidLoad={image.uri} />
+        </Cover>
+        <Content>
+            <ContentItem>
+                <MetaDataType>Distance</MetaDataType>
+                <MetaData>
+                    {distance}
+                    {'m'}
+                </MetaData>
+            </ContentItem>
+            <ContentItem>
+                <MetaDataType>Elevation</MetaDataType>
+                <MetaData>
+                    {elevation}
+                    {'ft'}
+                </MetaData>
+            </ContentItem>
+            <ContentItem>
+                <MetaDataType>Route</MetaDataType>
+                <MetaData>{route}</MetaData>
+            </ContentItem>
+        </Content>
+    </Container>
+);
 
 export default FeedCard;
 

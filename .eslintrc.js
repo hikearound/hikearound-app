@@ -5,14 +5,15 @@ module.exports = {
         'jest': true,
     },
     'rules': {
-        "indent": ["error", 4],
-        "react/jsx-indent": ["error", 4],
-        "react/jsx-indent-props": ["error", 4],
+        'indent': ['error', 4],
+        'react/jsx-indent': ['error', 4],
+        'react/jsx-indent-props': ['error', 4],
+        'import/no-extraneous-dependencies': 'off',
         'no-use-before-define': 'off',
         'react/jsx-filename-extension': 'off',
         'react/prop-types': 'off',
         'comma-dangle': 'off',
-        'jsx-quotes': ["error", "prefer-single"],
+        'jsx-quotes': ['error', 'prefer-single'],
     },
     'globals': {
         'fetch': false

@@ -1,15 +1,10 @@
 import React from 'react';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import Svg, { G, Path } from 'react-native-svg';
 import styled from 'styled-components';
 import { colors } from '../constants/Index';
 
 const Logo = ({
-    width,
-    height,
-    fill,
-    viewBox,
-    style,
+    width, height, fill, viewBox, style,
 }) => (
     <Container>
         <Svg width={width} height={height} viewBox={viewBox} style={style}>

@@ -4,14 +4,18 @@ import Item from './Item';
 import Footer from './Footer';
 
 class List extends React.Component {
+    renderItem = ({ item }) => <Item _key={item.key} {...item} />;
+
+    keyExtractor = item => item.key;
+
     render() {
         const { ...props } = this.props;
         return (
             <FlatList
                 ref={(ref) => { this.listRef = ref; }}
                 showsVerticalScrollIndicator={false}
-                keyExtractor={item => item.key}
-                renderItem={({ item }) => <Item key={item.key} {...item} />}
+                keyExtractor={this.keyExtractor}
+                renderItem={this.renderItem}
                 ListFooterComponent={({ item }) => <Footer {...item} />}
                 {...props}
             />
@@ -30,4 +34,5 @@ class List extends React.Component {
     //     );
     // }
 }
+
 export default List;

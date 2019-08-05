@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { Ionicons } from '@expo/vector-icons';
 import { Animated, TouchableOpacity, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
@@ -49,13 +48,12 @@ class Toast extends React.Component {
     render() {
         const { name } = this.props;
         const { top } = this.state;
-
         return (
             <AnimatedContainer style={{ top }}>
                 <ToastText>
-                    You favorited,
+                    {'You favorited, '}
                     {name}
-                    .
+                    {'.'}
                 </ToastText>
                 <TouchableOpacity
                     activeOpacity={0.4}

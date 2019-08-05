@@ -3,16 +3,9 @@ import { LinearGradient } from 'expo';
 
 const FeedCardGradient = ({ imageDidLoad }) => (
     <LinearGradient
-        colors={[
-            'rgba(0,0,0,0.6)',
-            'transparent',
-        ]}
-        start={{
-            x: 1, y: 1,
-        }}
-        end={{
-            x: 1, y: 0,
-        }}
+        colors={['rgba(0,0,0,0.6)', 'transparent']}
+        start={{ x: 1, y: 1 }}
+        end={{ x: 1, y: 0 }}
         style={{
             position: 'absolute',
             left: 0,

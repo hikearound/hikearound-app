@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {
-    spacing, colors, fontWeights
-} from '../constants/Index';
+import { spacing, colors, fontWeights } from '../constants/Index';
 import Subtitle from './Subtitle';
 import FavoriteButton from './FavoriteButton';
 
