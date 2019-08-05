@@ -1,34 +1,18 @@
 import React from 'react';
 import { FlatList } from 'react-navigation';
-import styled from 'styled-components';
 import Item from './Item';
 import Footer from './Footer';
 
 class List extends React.Component {
-    renderItem({item}) {
-        return (
-            <Item
-                _key={item.key}
-                {...item}
-            />
-        )
-    }
-
-    renderFooter({item}) {
-        return (
-            <Footer {...item} />
-        )
-    }
-
     render() {
         const { ...props } = this.props;
         return (
             <FlatList
                 ref={(ref) => { this.listRef = ref; }}
-                renderItem={this.renderItem}
                 showsVerticalScrollIndicator={false}
                 keyExtractor={item => item.key}
-                ListFooterComponent={this.renderFooter}
+                renderItem={({ item }) => <Item key={item.key} {...item} />}
+                ListFooterComponent={({ item }) => <Footer {...item} />}
                 {...props}
             />
         );

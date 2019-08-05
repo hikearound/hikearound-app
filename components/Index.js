@@ -33,10 +33,11 @@ export {
     FavoriteButton,
     Toast,
     Sort,
+    Subtitle,
     Avatar,
     Settings,
     SettingsItem,
     InputGroup,
     CreateAccountInputGroup,
     SignInInputGroup,
-}
+};

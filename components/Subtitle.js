@@ -1,10 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { spacing, colors, fontSizes, fontWeights } from '../constants/Index'
 
-const Subtitle = props => (
+const Subtitle = ({ text }) => (
     <SubtitleView>
-        <SubtitleText>{props.text}</SubtitleText>
+        <SubtitleText>{text}</SubtitleText>
     </SubtitleView>
 );
 

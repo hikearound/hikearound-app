@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { TouchableOpacity, View, AsyncStorage } from 'react-native';
+import { TouchableOpacity, AsyncStorage } from 'react-native';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { Ionicons } from '@expo/vector-icons';
-import { Haptic } from 'expo';
-import { connect } from 'react-redux';
 import { Updates } from 'expo';
+import { connect } from 'react-redux';
 import firebase from 'firebase';
 
 function mapStateToProps(state) {
@@ -17,7 +17,7 @@ function mapDispatchToProps(dispatch) {
     return {
         setMapPreference: mapPreference => dispatch({
             type: 'SET_MAP_PREFERENCE',
-            mapPreference: mapPreference,
+            mapPreference,
         }),
     };
 }
@@ -35,24 +35,25 @@ class SettingsItem extends React.Component {
     }
 
     componentDidUpdate() {
-        if (this.props.mapPreference == this.props.item) {
-            if (!this.state.selected) {
+        const { item, mapPreference } = this.props;
+        const { selected } = this.state;
+        if (mapPreference === item) {
+            if (!selected) {
                 this.selectItem();
                 AsyncStorage.setItem(
-                    'mapSetting', this.props.item,
+                    'mapSetting', item,
                 );
             }
-        } else {
-            if (this.state.selected) {
-                this.unselectItem();
-            }
+        } else if (selected) {
+            this.unselectItem();
         }
     }
 
     componentWillMount = async () => {
-        const { ...props } = this.props;
-        let mapSetting = await this.getMapSetting()
-        if (this.props.item == mapSetting || 'Apple Maps') {
+        const { item } = this.props;
+        const mapSetting = await this.getMapSetting();
+        // eslint-disable-next-line no-constant-condition
+        if (item === mapSetting || 'Apple Maps') {
             this.selectItem();
         }
     }
@@ -61,22 +62,22 @@ class SettingsItem extends React.Component {
         firebase
             .auth()
             .signOut()
-            .then(response => {
-                Updates.reload()
+            // eslint-disable-next-line no-unused-vars
+            .then((response) => {
+                Updates.reload();
             });
     };
 
     itemPress = () => {
-        if (this.props.item == 'Logout') {
+        const { item, setMapPreference } = this.props;
+        if (item === 'Logout') {
             this.handleLogout();
         } else {
-            this.props.setMapPreference(this.props.item);
+            setMapPreference(item);
         }
     }
 
-    getMapSetting = async () => {
-        return AsyncStorage.getItem('mapSetting');
-    }
+    getMapSetting = async () => AsyncStorage.getItem('mapSetting')
 
     selectItem() {
         this.setState({
@@ -95,21 +96,23 @@ class SettingsItem extends React.Component {
     }
 
     render() {
-        const { ...props } = this.props;
+        const { item } = this.props;
+        const { checkDisplay, textColor } = this.state;
         return (
             <TouchableOpacity onPress={this.itemPress}>
                 <ItemContainer>
                     <ItemText
-                        key={this.props.item.key}
-                        textColor={this.state.textColor}>
-                        {this.props.item}
+                        key={item.key}
+                        textColor={textColor}
+                    >
+                        {item}
                     </ItemText>
                     <Ionicons
                         name='ios-checkmark'
                         size={35}
                         color='#935DFF'
                         style={{
-                            display: this.state.checkDisplay,
+                            display: checkDisplay,
                             right: 15,
                             top: 5,
                             position: 'absolute',

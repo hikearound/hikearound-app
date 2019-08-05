@@ -1,14 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { Ionicons } from '@expo/vector-icons';
 import { Animated, TouchableOpacity, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
-import { spacing, colors, fontSizes, fontWeights } from '../constants/Index'
+import { colors } from '../constants/Index';
 
 function mapStateToProps(state) {
     return {
         action: state.action
-    }
+    };
 }
 
 const screenHeight = Dimensions.get('window').height;
@@ -23,8 +24,10 @@ class Toast extends React.Component {
     }
 
     showToast = () => {
-        if (this.props.action == 'favoriteHike') {
-            Animated.timing(this.state.top, {
+        const { action } = this.props;
+        const { top } = this.state;
+        if (action === 'favoriteHike') {
+            Animated.timing(top, {
                 toValue: screenHeight - 250,
                 duration: 500,
             }).start();
@@ -32,21 +35,28 @@ class Toast extends React.Component {
         this.timeout = setTimeout(() => {
             this.hideToast();
         }, 3500);
-        this.timeout;
     };
 
     hideToast = () => {
+        const { top } = this.state;
         clearTimeout(this.timeout);
-        Animated.timing(this.state.top, {
+        Animated.timing(top, {
             toValue: screenHeight,
             duration: 500,
         }).start();
     };
 
     render() {
+        const { name } = this.props;
+        const { top } = this.state;
+
         return (
-            <AnimatedContainer style={{ top: this.state.top }}>
-                <ToastText>You favorited, {this.props.name}.</ToastText>
+            <AnimatedContainer style={{ top }}>
+                <ToastText>
+                    You favorited,
+                    {name}
+                    .
+                </ToastText>
                 <TouchableOpacity
                     activeOpacity={0.4}
                     onPress={this.buttonPress}
@@ -54,7 +64,8 @@ class Toast extends React.Component {
                         position: 'absolute',
                         right: 12,
                         top: 5,
-                    }}>
+                    }}
+                >
                     <Ionicons
                         name='ios-close'
                         color='#FFF'

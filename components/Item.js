@@ -1,47 +1,52 @@
 import React from 'react';
-import {
-    Image,
-    StyleSheet,
-    Text,
-    View,
-    TouchableOpacity
-} from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import styled from 'styled-components';
-import FeedCard from '../components/FeedCard'
 import { withNavigation } from 'react-navigation';
-import firebase from 'firebase'
-import { spacing, colors, fontSizes, fontWeights } from '../constants/Index'
+import firebase from 'firebase';
+import FeedCard from './FeedCard';
+import { spacing } from '../constants/Index';
 
 class Item extends React.Component {
     state = {};
 
     constructor(props) {
         super(props);
-        if (this.props.images) {
-            var ref = firebase.storage().ref(this.props.images[0]);
-            ref.getDownloadURL().then(data => {
+        const { images } = this.props;
+        if (images) {
+            const ref = firebase.storage().ref(images[0]);
+            ref.getDownloadURL().then((data) => {
                 this.setState({ imageUrl: data });
-            })
+            });
         }
     }
 
     render() {
+        const {
+            navigation,
+            name,
+            distance,
+            elevation,
+            route,
+            description,
+        } = this.props;
+        const { imageUrl } = this.state;
         return (
             <CardsContainer>
                 <TouchableOpacity
                     activeOpacity={0.4}
                     onPress={() => {
-                        this.props.navigation.push('Hike', {
+                        navigation.push('Hike', {
                             hike: this.props
                         });
-                    }}>
+                    }}
+                >
                     <FeedCard
-                        title={this.props.name}
-                        image={{ uri: this.state.imageUrl }}
-                        distance={this.props.distance}
-                        elevation={this.props.elevation}
-                        route={this.props.route}
-                        description={this.props.description}
+                        title={name}
+                        image={{ uri: imageUrl }}
+                        distance={distance}
+                        elevation={elevation}
+                        route={route}
+                        description={description}
                     />
                 </TouchableOpacity>
             </CardsContainer>

@@ -1,12 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
-import FeedCardGradient from '../components/FeedCardGradient'
-import { LayoutAnimation, Animated } from 'react-native';
-import { spacing, colors, fontSizes, fontWeights } from '../constants/Index'
+import { LayoutAnimation } from 'react-native';
+import FeedCardGradient from './FeedCardGradient';
+import { spacing, colors, fontWeights } from '../constants/Index';
 
+// eslint-disable-next-line react/prefer-stateless-function
 class FeedCard extends React.Component {
     render() {
-        var CustomLayoutAnimation = {
+        const {
+            image,
+            title,
+            distance,
+            elevation,
+            route,
+        } = this.props;
+        // eslint-disable-next-line no-unused-vars
+        const CustomLayoutAnimation = {
             duration: 100,
             create: {
                 type: LayoutAnimation.Types.linear,
@@ -20,22 +29,28 @@ class FeedCard extends React.Component {
         return (
             <Container>
                 <Cover>
-                    <Image source={this.props.image} resizeMode='cover'/>
-                    <Title>{this.props.title}</Title>
-                    <FeedCardGradient imageDidLoad={this.props.image.uri}/>
+                    <Image source={image} resizeMode='cover' />
+                    <Title>{title}</Title>
+                    <FeedCardGradient imageDidLoad={image.uri} />
                 </Cover>
                 <Content>
                     <ContentItem>
                         <MetaDataType>Distance</MetaDataType>
-                        <MetaData>{this.props.distance}m</MetaData>
+                        <MetaData>
+                            {distance}
+                            m
+                        </MetaData>
                     </ContentItem>
                     <ContentItem>
                         <MetaDataType>Elevation</MetaDataType>
-                        <MetaData>{this.props.elevation}ft</MetaData>
+                        <MetaData>
+                            {elevation}
+                            ft
+                        </MetaData>
                     </ContentItem>
                     <ContentItem>
                         <MetaDataType>Route</MetaDataType>
-                        <MetaData>{this.props.route}</MetaData>
+                        <MetaData>{route}</MetaData>
                     </ContentItem>
                 </Content>
             </Container>

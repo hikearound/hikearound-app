@@ -17,8 +17,9 @@ import {
 class InputGroup extends React.Component {
     constructor(props) {
         super(props);
+        const { inputs } = this.props;
 
-        inputs = this.props.inputs.map(input => ({
+        mappedInputs = inputs.map(input => ({
             ref: React.createRef(),
             ...input,
         }));
@@ -27,22 +28,22 @@ class InputGroup extends React.Component {
             activeInputIndex: 0,
             nextFocusDisabled: false,
             previousFocusDisabled: false,
-            buttonsDisabled: false,
             buttonsHidden: false,
         };
     }
 
-    handleContinue = () => {
-        this.props.navigation.dispatch(this.props.resetAction);
+    setValue(name, text) {
+        this.setState({ [name]: text });
     }
 
-    setValue(name, text, index) {
-        this.setState({[name]: text});
+    handleContinue = () => {
+        const { resetAction, navigation } = this.props;
+        navigation.dispatch(resetAction);
     }
 
     handleFocus = index => () => {
         this.setState({
-            nextFocusDisabled: index === inputs.length - 1,
+            nextFocusDisabled: index === mappedInputs.length - 1,
             previousFocusDisabled: index === 0,
             activeInputIndex: index,
         });
@@ -53,7 +54,7 @@ class InputGroup extends React.Component {
         if (nextFocusDisabled) {
             return;
         }
-        inputs[activeInputIndex + 1].ref.current.focus();
+        mappedInputs[activeInputIndex + 1].ref.current.focus();
     }
 
     handleFocusPrevious = () => {
@@ -61,15 +62,24 @@ class InputGroup extends React.Component {
         if (previousFocusDisabled) {
             return;
         }
-        inputs[activeInputIndex - 1].ref.current.focus();
+        mappedInputs[activeInputIndex - 1].ref.current.focus();
     }
 
     render() {
-        const { ...props } = this.props;
+        const {
+            inputs,
+            secondaryInputs,
+            passwordLinkDisplay,
+        } = this.props;
+        const {
+            nextFocusDisabled,
+            previousFocusDisabled,
+            buttonsHidden,
+        } = this.state;
         return (
             <RootView>
                 <ScrollView keyboardShouldPersistTaps='always'>
-                    { this.props.inputs.map(({
+                    { inputs.map(({
                         name,
                         placeholder,
                         keyboardType,
@@ -77,7 +87,7 @@ class InputGroup extends React.Component {
                         autoCorrect,
                         autoCapitalize,
                         ref,
-                    }, index) =>
+                    }, index) => (
                         <TextInput
                             key={`input_${index}`}
                             ref={ref}
@@ -86,42 +96,42 @@ class InputGroup extends React.Component {
                             secureTextEntry={secureTextEntry}
                             autoCorrect={autoCorrect}
                             autoCapitalize={autoCapitalize}
-                            blurOnSubmit={true}
                             onFocus={this.handleFocus(index)}
                             autoFocus={index === 0}
                             onChangeText={text => this.setValue(
                                 name, text, index
                             )}
                         />
-                    )}
+                    ))}
                     <ActionButton
                         primary
-                        text={'Continue'}
-                        margin={'0 20px 0 20px'}
+                        text='Continue'
+                        margin='0 20px 0 20px'
                         action={this.handleLogin}
                     />
-                <View>{this.props.secondaryInputs}</View>
-                <TouchableOpacity
-                    activeOpacity={0.4}
-                    style={{
-                        display: this.props.passwordLinkDisplay,
-                    }}>
-                    <PasswordText>Forgot Password?</PasswordText>
-                </TouchableOpacity>
-            </ScrollView>
-            <KeyboardAccessoryNavigation
-                avoidKeyboard={true}
-                nextDisabled={this.state.nextFocusDisabled}
-                previousDisabled={this.state.previousFocusDisabled}
-                nextHidden={this.state.buttonsHidden}
-                previousHidden={this.state.buttonsHidden}
-                onNext={this.handleFocusNext}
-                onPrevious={this.handleFocusPrevious}
-                doneButton={<Text></Text>}
-                tintColor={colors.purple}
-                onDone={this.handleLogin}
-            />
-        </RootView>
+                    <View>{secondaryInputs}</View>
+                    <TouchableOpacity
+                        activeOpacity={0.4}
+                        style={{
+                            display: passwordLinkDisplay,
+                        }}
+                    >
+                        <PasswordText>Forgot Password?</PasswordText>
+                    </TouchableOpacity>
+                </ScrollView>
+                <KeyboardAccessoryNavigation
+                    avoidKeyboard
+                    nextDisabled={nextFocusDisabled}
+                    previousDisabled={previousFocusDisabled}
+                    nextHidden={buttonsHidden}
+                    previousHidden={buttonsHidden}
+                    onNext={this.handleFocusNext}
+                    onPrevious={this.handleFocusPrevious}
+                    doneButton={<Text />}
+                    tintColor={colors.purple}
+                    onDone={this.handleLogin}
+                />
+            </RootView>
         );
     }
 }
