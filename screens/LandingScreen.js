@@ -4,7 +4,7 @@ import { Animated, Easing } from 'react-native';
 import { ActionButton, Logo } from '../components/Index';
 import { spacing } from '../constants/Index';
 
-/* eslint-disable global-require */
+const backgroundImg = require('../assets/landing-bg.png');
 
 class LandingScreen extends React.Component {
     static navigationOptions = {
@@ -39,7 +39,7 @@ class LandingScreen extends React.Component {
             <RootView>
                 <AnimatedBackgroundWrapper style={{ left }}>
                     <LandingBackground
-                        source={require('../assets/landing-bg.png')}
+                        source={backgroundImg}
                     />
                 </AnimatedBackgroundWrapper>
                 <ButtonWrapper>

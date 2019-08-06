@@ -23,12 +23,13 @@ import {
 import { spacing, colors } from '../constants/Index';
 
 /* eslint-disable react/no-unused-state */
-/* eslint-disable global-require */
 
 const INITIAL_LAT_DELTA = 0.0922;
 const INITIAL_LONG_DELTA = 0.0421;
 const SHEET_ITEMS = ['Get Directions', 'Cancel'];
 const SHEET_CANCEL_INDEX = 1;
+
+const { parseString } = require('react-native-xml2js');
 
 function mapStateToProps(state) {
     return {
@@ -100,7 +101,6 @@ class HikeScreen extends React.Component {
     }
 
     getHikeData = async () => {
-        const { parseString } = require('react-native-xml2js');
         const hikeXmlUrl = await this.getHikeXmlUrl();
 
         await fetch(hikeXmlUrl)

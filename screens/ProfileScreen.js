@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Avatar, Settings } from '../components/Index';
 import { colors } from '../constants/Index';
 
-/* eslint-disable global-require */
+const backgroundImg = require('../assets/profile-bg.png');
 
 function mapStateToProps(state) {
     return {
@@ -29,7 +29,7 @@ class ProfileScreen extends React.Component {
                     showsVerticalScrollIndicator={false}
                 >
                     <ProfileHeader
-                        source={require('../assets/profile-bg.png')}
+                        source={backgroundImg}
                     >
                         <AvatarWrapper>
                             <TouchableOpacity activeOpacity={0.4}>
