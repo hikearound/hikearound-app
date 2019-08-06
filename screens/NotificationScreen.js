@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { spacing, colors, fontSizes, fontWeights } from '../constants/Index'
 
 class NotificationScreen extends React.Component {
     static navigationOptions = {

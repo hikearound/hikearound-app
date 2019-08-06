@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { TouchableOpacity } from 'react-native';
 import {
-    spacing, colors, fontSizes, fontWeights
+    spacing, colors, fontSizes, fontWeights,
 } from '../constants/Index';
 
 const ActionButton = ({

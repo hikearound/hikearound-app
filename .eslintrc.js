@@ -1,9 +1,19 @@
 module.exports = {
     'extends': 'airbnb',
     'parser': 'babel-eslint',
+    'parserOptions': {
+        'ecmaFeatures': {
+            'jsx': true,
+        }
+    },
     'env': {
         'jest': true,
+        'react-native/react-native': true,
     },
+    'plugins': [
+        'react',
+        'react-native',
+    ],
     'rules': {
         'indent': ['error', 4],
         'react/jsx-indent': ['error', 4],

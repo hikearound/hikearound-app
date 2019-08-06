@@ -4,7 +4,8 @@ import { spacing, colors, fontWeights } from '../constants/Index';
 import Subtitle from './Subtitle';
 import FavoriteButton from './FavoriteButton';
 
-// eslint-disable-next-line react/prefer-stateless-function
+/* eslint-disable react/prefer-stateless-function */
+
 class HikeBody extends React.Component {
     render() {
         const {

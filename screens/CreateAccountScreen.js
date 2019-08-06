@@ -1,16 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import {
-    TouchableOpacity,
-    ScrollView,
-    Alert,
-    AsyncStorage,
-    Keyboard,
-} from 'react-native';
 import { connect } from 'react-redux';
 import { NavigationActions, StackActions } from 'react-navigation';
-import { spacing, colors, fontSizes, fontWeights } from '../constants/Index'
-import { CreateAccountInputGroup } from '../components/Index'
+import { CreateAccountInputGroup } from '../components/Index';
 
 const resetAction = StackActions.reset({
     index: 0,
@@ -68,8 +60,9 @@ class CreateAccountScreen extends React.Component {
                 <CreateAccountInputGroup
                     inputs={inputs}
                     resetAction={resetAction}
-                    passwordLinkDisplay={'none'}
-                    continueText={'Continue'}/>
+                    passwordLinkDisplay='none'
+                    continueText='Continue'
+                />
             </RootView>
         );
     }

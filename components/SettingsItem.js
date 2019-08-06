@@ -6,6 +6,9 @@ import { Updates } from 'expo';
 import { connect } from 'react-redux';
 import firebase from 'firebase';
 
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-constant-condition */
+
 function mapStateToProps(state) {
     return {
         mapPreference: state.mapPreference,
@@ -51,7 +54,6 @@ class SettingsItem extends React.Component {
     componentWillMount = async () => {
         const { item } = this.props;
         const mapSetting = await this.getMapSetting();
-        // eslint-disable-next-line no-constant-condition
         if (item === mapSetting || 'Apple Maps') {
             this.selectItem();
         }
@@ -61,7 +63,6 @@ class SettingsItem extends React.Component {
         firebase
             .auth()
             .signOut()
-            // eslint-disable-next-line no-unused-vars
             .then((response) => {
                 Updates.reload();
             });

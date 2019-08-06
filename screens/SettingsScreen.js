@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { SectionList } from 'react-native';
-import { SettingsItem } from '../components/Index'
-import { spacing, colors, fontSizes, fontWeights } from '../constants/Index'
+import { SettingsItem } from '../components/Index';
+import { colors } from '../constants/Index';
 
 const SETTING_ITEMS = [
     {
@@ -20,19 +20,15 @@ class SettingsScreen extends React.Component {
         headerTitle: 'Settings',
     };
 
-    renderItem({item, index, section}) {
-        return (
-            <SettingsItem item={item} index={index}/>
-        )
-    }
+    renderItem = ({ item, index }) => (
+        <SettingsItem item={item} index={index} />
+    );
 
-    renderSectionHeader({section}) {
-        return (
-            <HeaderContainer>
-                <HeaderText>{section.title}</HeaderText>
-            </HeaderContainer>
-        )
-    }
+    renderSectionHeader = ({ section }) => (
+        <HeaderContainer>
+            <HeaderText>{section.title}</HeaderText>
+        </HeaderContainer>
+    );
 
     render() {
         return (

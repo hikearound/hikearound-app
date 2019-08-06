@@ -1,9 +1,6 @@
 import colors from './Colors';
 import spacing from './Spacing';
-import {
-    fontSizes,
-    fontWeights
-} from './Fonts';
+import { fontSizes, fontWeights } from './Fonts';
 
 export {
     colors,

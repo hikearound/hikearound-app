@@ -2,10 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { LayoutAnimation, RefreshControl } from 'react-native';
-import firebase from 'firebase'
 import Fire from '../Fire';
-import { Logo, List, Sort } from '../components/Index'
-import { spacing, colors, fontSizes, fontWeights } from '../constants/Index'
+import { Logo, List, Sort } from '../components/Index';
+import { colors } from '../constants/Index';
+
+/* eslint-disable no-restricted-syntax */
 
 const PAGE_SIZE = 5;
 
@@ -15,17 +16,13 @@ function mapStateToProps(state) {
     };
 }
 
-function mapDispatchToProps(dispatch) {
-    return {};
-}
-
 class HomeScreen extends React.Component {
     static navigationOptions = ({ navigation }) => {
-        const { params = {} } = navigation.state
+        const { params = {} } = navigation.state;
         return {
-            headerTitle: <Logo/>,
+            headerTitle: <Logo />,
             headerBackTitle: null,
-            headerRight: <Sort sortType={params.sortType}/>,
+            headerRight: <Sort sortType={params.sortType} />,
         };
     }
 
@@ -36,24 +33,20 @@ class HomeScreen extends React.Component {
         data: {},
     };
 
-    constructor(props) {
-        super(props);
-        // var user = firebase.auth().currentUser;
-        // console.log(user.uid);
-    }
-
     componentDidMount() {
+        const { navigation } = this.props;
+        const { sortType } = this.state;
         if (Fire.shared.uid) {
             this.makeRemoteRequest();
         }
-        this.props.navigation.setParams({
-            sortType: this.state.sortType,
+        navigation.setParams({
+            sortType,
         });
     }
 
-    addPosts = posts => {
-        this.setState(previousState => {
-            let data = {
+    addPosts = (posts) => {
+        this.setState((previousState) => {
+            const data = {
                 ...previousState.data,
                 ...posts,
             };
@@ -66,8 +59,9 @@ class HomeScreen extends React.Component {
         });
     };
 
-    makeRemoteRequest = async lastKey => {
-        if (this.state.loading) {
+    makeRemoteRequest = async (lastKey) => {
+        const { loading } = this.state;
+        if (loading) {
             return;
         }
         this.setState({ loading: true });
@@ -78,15 +72,15 @@ class HomeScreen extends React.Component {
         });
 
         this.lastKnownKey = cursor;
-        let posts = {};
-        for (let child of data) {
+        const posts = {};
+        for (const child of data) {
             posts[child.key] = child;
         }
         this.addPosts(posts);
         this.setState({ loading: false });
     };
 
-    _onRefresh = () => {
+    onRefresh = () => {
         this.makeRemoteRequest();
     }
 
@@ -96,18 +90,19 @@ class HomeScreen extends React.Component {
 
     render() {
         LayoutAnimation.easeInEaseOut();
+        const { loading, posts } = this.state;
         return (
             <RootView>
                 <List
-                    refreshControl={
+                    refreshControl={(
                         <RefreshControl
-                            tintColor={'#E4E4E4'}
-                            refreshing={this.state.loading}
-                            onRefresh={this._onRefresh}
+                            tintColor='#E4E4E4'
+                            refreshing={loading}
+                            onRefresh={this.onRefresh}
                         />
-                    }
+                    )}
                     onPressFooter={this.onEndReached}
-                    data={this.state.posts}
+                    data={posts}
                 />
             </RootView>
         );
@@ -116,25 +111,10 @@ class HomeScreen extends React.Component {
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps
 )(HomeScreen);
 
 const RootView = styled.View`
     background: ${colors.white};
     flex: 1;
     overflow: hidden;
-`;
-
-const Title = styled.Text`
-    font-size: 16px;
-    color: #b8bece;
-    font-weight: ${fontWeights.medium};
-    margin-left: 55px;
-`;
-
-const Message = styled.Text`
-    margin: 20px;
-    color: #b8bece;
-    font-size: 15px;
-    font-weight: ${fontWeights.medium};
 `;

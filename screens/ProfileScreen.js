@@ -1,9 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import { TouchableOpacity, ScrollView } from 'react-native';
-import { Avatar, Settings } from '../components/Index'
 import { connect } from 'react-redux';
-import { spacing, colors, fontSizes, fontWeights } from '../constants/Index'
+import { Avatar, Settings } from '../components/Index';
+import { colors } from '../constants/Index';
+
+/* eslint-disable global-require */
 
 function mapStateToProps(state) {
     return {
@@ -13,28 +15,28 @@ function mapStateToProps(state) {
 }
 
 class ProfileScreen extends React.Component {
-    static navigationOptions = ({ navigation }) => {
-        const { params = {} } = navigation.state
-        return {
-            headerTitle: 'You',
-            headerBackTitle: null,
-            headerRight: <Settings navigation={navigation} />,
-        };
-    }
+    static navigationOptions = ({ navigation }) => ({
+        headerTitle: 'You',
+        headerBackTitle: null,
+        headerRight: <Settings navigation={navigation} />,
+    })
 
     render() {
+        const { name } = this.props;
         return (
             <RootView>
                 <ScrollView
-                    showsVerticalScrollIndicator={false}>
+                    showsVerticalScrollIndicator={false}
+                >
                     <ProfileHeader
-                        source={require('../assets/profile-bg.png')}>
+                        source={require('../assets/profile-bg.png')}
+                    >
                         <AvatarWrapper>
                             <TouchableOpacity activeOpacity={0.4}>
                                 <Avatar />
                             </TouchableOpacity>
                         </AvatarWrapper>
-                        <NameText>{this.props.name}</NameText>
+                        <NameText>{name}</NameText>
                         <LocationText>Seattle, WA</LocationText>
                         <TouchableOpacity
                             activeOpacity={0.4}
@@ -42,7 +44,8 @@ class ProfileScreen extends React.Component {
                                 position: 'absolute',
                                 right: 15,
                                 bottom: 20,
-                            }}>
+                            }}
+                        >
                             <EditProfileLink>Edit Profile</EditProfileLink>
                         </TouchableOpacity>
                     </ProfileHeader>

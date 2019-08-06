@@ -1,18 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import {
-    TouchableOpacity,
-    ScrollView,
-    View,
-} from 'react-native';
-import {
-    KeyboardAccessoryNavigation
-} from 'react-native-keyboard-accessory';
+import { TouchableOpacity, ScrollView, View } from 'react-native';
+import { KeyboardAccessoryNavigation } from 'react-native-keyboard-accessory';
 import ActionButton from '../Button';
-import {
-    colors,
-    fontWeights
-} from '../../constants/Index';
+import { colors, fontWeights } from '../../constants/Index';
+
+/* eslint-disable no-undef */
+/* eslint-disable react/no-array-index-key */
 
 class InputGroup extends React.Component {
     constructor(props) {

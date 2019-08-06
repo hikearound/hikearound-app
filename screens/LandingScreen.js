@@ -1,19 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import {
-    TouchableOpacity,
-    Image,
-    Animated,
-    Dimensions,
-    Easing
-} from 'react-native';
-import SafeAreaView from 'react-native-safe-area-view';
-import { ActionButton, Logo } from '../components/Index'
-import { spacing, colors } from '../constants/Index'
+import { Animated, Easing } from 'react-native';
+import { ActionButton, Logo } from '../components/Index';
+import { spacing } from '../constants/Index';
+
+/* eslint-disable global-require */
 
 class LandingScreen extends React.Component {
     static navigationOptions = {
-        headerTitle: <Logo/>,
+        headerTitle: <Logo />,
         headerBackTitle: null,
     };
 
@@ -25,37 +20,43 @@ class LandingScreen extends React.Component {
     }
 
     componentDidMount() {
+        const { left } = this.state;
         Animated.loop(
             Animated.sequence([
-                Animated.timing(this.state.left, {
+                Animated.timing(left, {
                     toValue: -500,
                     duration: 60000,
                     easing: Easing.linear,
                 })
             ]),
-        ).start()
+        ).start();
     }
 
     render() {
+        const { left } = this.state;
+        const { navigation } = this.props;
         return (
             <RootView>
-                <AnimatedBackgroundWrapper style={{left: this.state.left}}>
+                <AnimatedBackgroundWrapper style={{ left }}>
                     <LandingBackground
-                        source={require('../assets/landing-bg.png')}/>
+                        source={require('../assets/landing-bg.png')}
+                    />
                 </AnimatedBackgroundWrapper>
                 <ButtonWrapper>
                     <ActionButton
                         primary
-                        text={'Create Account'}
+                        text='Create Account'
                         action={() => {
-                            this.props.navigation.push('CreateAccount');
-                        }}/>
+                            navigation.push('CreateAccount');
+                        }}
+                    />
                     <ActionButton
-                        text={'Sign In'}
-                        margin={spacing.small + 'px 20px 0 20px'}
+                        text='Sign In'
+                        margin={`${spacing.small}px 20px 0 20px`}
                         action={() => {
-                            this.props.navigation.push('SignIn');
-                        }}/>
+                            navigation.push('SignIn');
+                        }}
+                    />
                 </ButtonWrapper>
             </RootView>
         );

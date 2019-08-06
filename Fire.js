@@ -1,25 +1,26 @@
 import * as keys from './keys/Keys';
 
-const firebaseKey = keys['default']['firebaseKey'];
-const messagingSenderId = keys['default']['messagingSenderId'];
-const appId = keys['default']['appId'];
-const firebase = require('firebase');
+const { firebaseKey, messagingSenderId, appId } = keys.default;
 const collectionName = 'hikes';
+const firebase = require('firebase');
 
 require('firebase/firestore');
+
+/* eslint-disable class-methods-use-this */
 
 class Fire {
     constructor() {
         firebase.initializeApp({
             apiKey: firebaseKey,
-            authDomain: "hikearound-14dad.firebaseapp.com",
-            databaseURL: "https://hikearound-14dad.firebaseio.com",
-            projectId: "hikearound-14dad",
-            storageBucket: "hikearound-14dad.appspot.com",
-            messagingSenderId: messagingSenderId,
-            appId: appId,
+            authDomain: 'hikearound-14dad.firebaseapp.com',
+            databaseURL: 'https://hikearound-14dad.firebaseio.com',
+            projectId: 'hikearound-14dad',
+            storageBucket: 'hikearound-14dad.appspot.com',
+            messagingSenderId,
+            appId,
         });
-        firebase.auth().onAuthStateChanged(async user => {
+
+        firebase.auth().onAuthStateChanged(async (user) => {
             if (!user) {
                 await firebase.auth().signInAnonymously();
             }
@@ -28,13 +29,15 @@ class Fire {
 
     getPaged = async ({ size, start }) => {
         let ref = this.collection.orderBy('timestamp', 'desc').limit(size);
+
         if (start) {
             ref = ref.startAfter(start);
         }
 
         const querySnapshot = await ref.get();
         const data = [];
-        querySnapshot.forEach(function(doc) {
+
+        querySnapshot.forEach((doc) => {
             if (doc.exists) {
                 const post = doc.data() || {};
                 const reduced = {

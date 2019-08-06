@@ -3,17 +3,12 @@ import {
     createBottomTabNavigator,
     createStackNavigator,
 } from 'react-navigation';
-import {
-    colors,
-    spacing,
-    fontSizes,
-    fontWeights
-} from '../constants/Index'
+import { colors, spacing, fontSizes } from '../constants/Index';
 import {
     HomeIcon,
     BellIcon,
     PersonIcon,
-} from '../icons/Index'
+} from '../icons/Index';
 import {
     LandingScreen,
     SignInScreen,
@@ -24,7 +19,7 @@ import {
     AuthScreen,
     SettingsScreen,
     CreateAccountScreen,
-} from '../screens/Index'
+} from '../screens/Index';
 
 const activeColor = colors.purple;
 const inactiveColor = '#8E8E93';
@@ -46,25 +41,23 @@ const HomeStack = createStackNavigator(
         defaultNavigationOptions: {
             headerStyle: {
                 backgroundColor: colors.purple,
-                height: parseInt(spacing.header),
+                height: parseInt(spacing.header, 10),
                 borderBottomWidth: 0,
                 marginLeft: 5,
                 marginRight: 5,
             },
             headerTintColor: colors.white,
             headerTitleStyle: {
-                fontSize: parseInt(fontSizes.header),
+                fontSize: parseInt(fontSizes.header, 10),
             },
         },
     },
 );
 
 HomeStack.navigationOptions = ({ navigation }) => {
-    var tabBarVisible = false;
-    const routeName = (
-        navigation.state.routes[navigation.state.index].routeName
-    );
-    if ((routeName == 'Home') || (routeName == 'Hike')) {
+    let tabBarVisible = false;
+    const { routeName } = navigation.state.routes[navigation.state.index];
+    if ((routeName === 'Home') || (routeName === 'Hike')) {
         tabBarVisible = true;
     }
     return {
@@ -77,9 +70,6 @@ HomeStack.navigationOptions = ({ navigation }) => {
                 fill={focused ? activeColor : inactiveColor}
             />
         ),
-        tabBarOnPress: ({ navigation, defaultHandler }) => {
-            defaultHandler();
-        },
     };
 };
 
@@ -91,14 +81,14 @@ const NotificationStack = createStackNavigator(
         defaultNavigationOptions: {
             headerStyle: {
                 backgroundColor: colors.purple,
-                height: parseInt(spacing.header),
+                height: parseInt(spacing.header, 10),
                 borderBottomWidth: 0,
                 marginLeft: 5,
                 marginRight: 5,
             },
             headerTintColor: colors.white,
             headerTitleStyle: {
-                fontSize: parseInt(fontSizes.header),
+                fontSize: parseInt(fontSizes.header, 10),
             },
         },
     },
@@ -122,14 +112,14 @@ const ProfileStack = createStackNavigator(
         defaultNavigationOptions: {
             headerStyle: {
                 backgroundColor: colors.purple,
-                height: parseInt(spacing.header),
+                height: parseInt(spacing.header, 10),
                 borderBottomWidth: 0,
                 marginLeft: 5,
                 marginRight: 5,
             },
             headerTintColor: colors.white,
             headerTitleStyle: {
-                fontSize: parseInt(fontSizes.header),
+                fontSize: parseInt(fontSizes.header, 10),
             },
         },
         headerTransitionPreset: 'fade-in-place',
