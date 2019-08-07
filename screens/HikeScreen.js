@@ -20,7 +20,12 @@ import {
     Overflow,
     Toast,
 } from '../components/Index';
-import { spacing, colors, transparentColors } from '../constants/Index';
+import {
+    spacing,
+    colors,
+    transparentColors,
+    borderRadius,
+} from '../constants/Index';
 
 /* eslint-disable react/no-unused-state */
 
@@ -271,7 +276,7 @@ const styles = StyleSheet.create({
         height: 200,
         zIndex: 1,
         overflow: 'hidden',
-        borderRadius: 6,
+        borderRadius: parseInt(borderRadius.medium, 10),
     },
 });
 
@@ -288,7 +293,7 @@ const MapViewWrapper = styled.View`
 
 const InnerMapViewWrapper = styled.View`
     background-color: ${colors.white};
-    border-radius: 6px;
+    border-radius: ${borderRadius.medium}px;
     box-shadow: 0 4px 12px ${transparentColors.gray};
     z-index: 1;
 `;

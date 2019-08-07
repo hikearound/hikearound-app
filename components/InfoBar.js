@@ -5,6 +5,7 @@ import {
     colors,
     fontWeights,
     fontSizes,
+    borderRadius,
 } from '../constants/Index';
 
 const InfoBar = ({ distance, elevation, route }) => (
@@ -40,8 +41,8 @@ const CardContent = styled.View`
     margin-top: -4px;
     z-index: 2;
     background-color: ${colors.white};
-    border-bottom-left-radius: 6px;
-    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: ${borderRadius.medium}px;
+    border-bottom-right-radius: ${borderRadius.medium}px;
 `;
 
 const ContentItem = styled.View`

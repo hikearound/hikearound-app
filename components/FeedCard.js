@@ -7,6 +7,7 @@ import {
     transparentColors,
     fontWeights,
     fontSizes,
+    borderRadius,
 } from '../constants/Index';
 
 const FeedCard = ({
@@ -46,15 +47,15 @@ export default FeedCard;
 const Container = styled.View`
     background-color: #DEDEDE;
     width: 100%;
-    border-radius: 6px;
+    border-radius: ${borderRadius.medium}px;
     box-shadow: 0 4px 12px ${transparentColors.gray};
 `;
 
 const Cover = styled.View`
     width: 100%;
     height: 175px;
-    border-top-left-radius: 6px;
-    border-top-right-radius: 6px;
+    border-top-left-radius: ${borderRadius.medium}px;
+    border-top-right-radius: ${borderRadius.medium}px;
     overflow: hidden;
 `;
 
@@ -83,8 +84,8 @@ const Content = styled.View`
     align-items: center;
     position: relative;
     padding: ${spacing.tiny}px ${spacing.small}px;
-    border-bottom-left-radius: 6px;
-    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: ${borderRadius.medium}px;
+    border-bottom-right-radius: ${borderRadius.medium}px;
 `;
 
 const ContentItem = styled.View`

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Ionicons } from '@expo/vector-icons';
 import { Animated, TouchableOpacity, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
-import { colors, transparentColors } from '../constants/Index';
+import { colors, transparentColors, borderRadius } from '../constants/Index';
 
 function mapStateToProps(state) {
     return {
@@ -85,7 +85,7 @@ const Container = styled.View`
     right: 15px;
     background: rgba(147,93,255,0.95);
     box-shadow: 0 4px 12px ${transparentColors.gray};
-    border-radius: 6px;
+    border-radius: ${borderRadius.medium}px;
     z-index: 1;
 `;
 
