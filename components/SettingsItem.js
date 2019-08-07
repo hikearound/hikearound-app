@@ -5,7 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Updates } from 'expo';
 import { connect } from 'react-redux';
 import firebase from 'firebase';
-import { colors, spacing } from '../constants/Index';
+import { colors, spacing, fontSizes } from '../constants/Index';
 
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-constant-condition */
@@ -138,5 +138,5 @@ const ItemContainer = styled.View`
 
 const ItemText = styled.Text`
     color: ${props => props.textColor || colors.black};
-    font-size: 16px;
+    font-size: ${fontSizes.large}px;
 `;

@@ -1,6 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import { spacing, colors, fontWeights } from '../constants/Index';
+import {
+    spacing,
+    colors,
+    fontWeights,
+    fontSizes,
+} from '../constants/Index';
 import Subtitle from './Subtitle';
 import FavoriteButton from './FavoriteButton';
 
@@ -38,16 +43,16 @@ const BodyContent = styled.View`
 
 const DescriptionText = styled.Text`
     color: ${colors.black};
-    font-size: 14px;
+    font-size: ${fontSizes.regular}px;
 `;
 
 const TitleText = styled.Text`
     color: ${colors.black};
     font-weight: ${fontWeights.bold};
-    font-size: 20px;
+    font-size: ${fontSizes.header}px;
 `;
 
 const LocationText = styled.Text`
     color: #ABABAB;
-    font-size: 16px;
+    font-size: ${fontSizes.large}px;
 `;

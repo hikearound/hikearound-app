@@ -2,7 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { SectionList } from 'react-native';
 import { SettingsItem } from '../components/Index';
-import { colors, fontSizes, spacing } from '../constants/Index';
+import {
+    colors,
+    fontSizes,
+    spacing,
+    fontWeights,
+} from '../constants/Index';
 
 const SETTING_ITEMS = [
     {
@@ -64,6 +69,6 @@ const HeaderContainer = styled.View`
 const HeaderText = styled.Text`
     color: ${colors.mediumGray};
     font-size: ${fontSizes.small}px;
-    font-weight: 500;
+    font-weight: ${fontWeights.medium};
     text-transform: uppercase;
 `;

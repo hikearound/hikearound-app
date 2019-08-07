@@ -1,6 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import { colors, fontSizes, spacing } from '../constants/Index';
+import {
+    colors,
+    fontSizes,
+    spacing,
+    fontWeights,
+} from '../constants/Index';
 
 const Subtitle = ({ text }) => (
     <SubtitleView>
@@ -18,7 +23,7 @@ const SubtitleView = styled.View`
 
 const SubtitleText = styled.Text`
     color: ${colors.mediumGray};
-    font-weight: 500;
+    font-weight: ${fontWeights.medium};
     font-size: ${fontSizes.small}px;
     margin-bottom: 3px;
     text-transform: uppercase;

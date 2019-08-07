@@ -22,11 +22,10 @@ module.exports = {
         'no-use-before-define': 'off',
         'react/jsx-filename-extension': 'off',
         'react/prop-types': 'off',
-        'comma-dangle': 'off',
         'jsx-quotes': ['error', 'prefer-single'],
         'comma-dangle': ['error', 'always-multiline'],
     },
     'globals': {
-        'fetch': false
+        'fetch': false,
     },
-}
+};

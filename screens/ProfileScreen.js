@@ -3,7 +3,12 @@ import styled from 'styled-components';
 import { TouchableOpacity, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { Avatar, Settings } from '../components/Index';
-import { colors, spacing, fontSizes } from '../constants/Index';
+import {
+    colors,
+    spacing,
+    fontSizes,
+    fontWeights,
+} from '../constants/Index';
 
 const backgroundImg = require('../assets/profile-bg.png');
 
@@ -77,20 +82,20 @@ const ProfileHeader = styled.ImageBackground`
 `;
 
 const NameText = styled.Text`
-    font-size: 20px;
-    font-weight: 600;
-    color: #333;
+    font-size: ${fontSizes.header}px;
+    font-weight: ${fontWeights.bold};
+    color:${colors.black};
     margin-top: ${spacing.tiny}px;
 `;
 
 const LocationText = styled.Text`
     font-size: ${fontSizes.medium}px;
-    font-weight: 500;
-    color: #333;
+    font-weight: ${fontWeights.medium};
+    color: ${colors.black};
 `;
 
 const EditProfileLink = styled.Text`
     font-size: ${fontSizes.medium}px;
-    font-weight: 500;
+    font-weight: ${fontWeights.medium};
     color: #935DFF;
 `;

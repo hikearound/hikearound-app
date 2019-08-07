@@ -9,6 +9,7 @@ import {
     borderRadius,
     spacing,
     fontSizes,
+    fontWeights,
 } from '../constants/Index';
 
 function mapStateToProps(state) {
@@ -100,6 +101,6 @@ const AnimatedContainer = Animated.createAnimatedComponent(Container);
 const ToastText = styled.Text`
     font-size: ${fontSizes.medium}px;
     color: ${colors.white};
-    font-weight: 500;
+    font-weight: ${fontWeights.medium};
     padding: 12px;
 `;
