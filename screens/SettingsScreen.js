@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { SectionList } from 'react-native';
 import { SettingsItem } from '../components/Index';
-import { colors, fontSizes } from '../constants/Index';
+import { colors, fontSizes, spacing } from '../constants/Index';
 
 const SETTING_ITEMS = [
     {
@@ -53,12 +53,12 @@ const RootView = styled.View`
     background: ${colors.white};
     flex: 1;
     overflow: hidden;
-    margin-left: 15px;
+    margin-left: ${spacing.small}px;
 `;
 
 const HeaderContainer = styled.View`
     padding-bottom: 4px;
-    margin-top: 15px;
+    margin-top: ${spacing.small}px;
 `;
 
 const HeaderText = styled.Text`

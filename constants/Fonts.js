@@ -1,5 +1,6 @@
 export const fontSizes = {
     small: '13',
+    medium: '15',
     button: '18',
     header: '20',
 };

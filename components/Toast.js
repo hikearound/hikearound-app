@@ -3,7 +3,13 @@ import styled from 'styled-components';
 import { Ionicons } from '@expo/vector-icons';
 import { Animated, TouchableOpacity, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
-import { colors, transparentColors, borderRadius } from '../constants/Index';
+import {
+    colors,
+    transparentColors,
+    borderRadius,
+    spacing,
+    fontSizes,
+} from '../constants/Index';
 
 function mapStateToProps(state) {
     return {
@@ -81,8 +87,8 @@ export default connect(
 
 const Container = styled.View`
     position: absolute;
-    left: 15px;
-    right: 15px;
+    left: ${spacing.small}px;
+    right: ${spacing.small}px;
     background: rgba(147,93,255,0.95);
     box-shadow: 0 4px 12px ${transparentColors.gray};
     border-radius: ${borderRadius.medium}px;
@@ -92,7 +98,7 @@ const Container = styled.View`
 const AnimatedContainer = Animated.createAnimatedComponent(Container);
 
 const ToastText = styled.Text`
-    font-size: 15px;
+    font-size: ${fontSizes.medium}px;
     color: ${colors.white};
     font-weight: 500;
     padding: 12px;

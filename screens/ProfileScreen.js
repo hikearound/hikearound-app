@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { TouchableOpacity, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { Avatar, Settings } from '../components/Index';
-import { colors } from '../constants/Index';
+import { colors, spacing, fontSizes } from '../constants/Index';
 
 const backgroundImg = require('../assets/profile-bg.png');
 
@@ -42,7 +42,7 @@ class ProfileScreen extends React.Component {
                             activeOpacity={0.4}
                             style={{
                                 position: 'absolute',
-                                right: 15,
+                                right: parseInt(spacing.small, 10),
                                 bottom: 20,
                             }}
                         >
@@ -71,7 +71,7 @@ const AvatarWrapper = styled.View`
 `;
 
 const ProfileHeader = styled.ImageBackground`
-    padding-left: 15px;
+    padding-left: ${spacing.small}px;
     padding-top: 40px;
     padding-bottom: 20px;
 `;
@@ -84,13 +84,13 @@ const NameText = styled.Text`
 `;
 
 const LocationText = styled.Text`
-    font-size: 15px;
+    font-size: ${fontSizes.medium}px;
     font-weight: 500;
     color: #333;
 `;
 
 const EditProfileLink = styled.Text`
-    font-size: 15px;
+    font-size: ${fontSizes.medium}px;
     font-weight: 500;
     color: #935DFF;
 `;

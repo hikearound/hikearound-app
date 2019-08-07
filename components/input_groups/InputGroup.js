@@ -3,7 +3,12 @@ import styled from 'styled-components';
 import { TouchableOpacity, ScrollView, View } from 'react-native';
 import { KeyboardAccessoryNavigation } from 'react-native-keyboard-accessory';
 import ActionButton from '../Button';
-import { colors, fontWeights } from '../../constants/Index';
+import {
+    colors,
+    fontWeights,
+    spacing,
+    fontSizes,
+} from '../../constants/Index';
 
 /* eslint-disable no-undef */
 /* eslint-disable react/no-array-index-key */
@@ -147,13 +152,13 @@ const TextInput = styled.TextInput`
 
 const PasswordText = styled.Text`
     font-weight: ${fontWeights.medium};
-    font-size: 15px;
+    font-size: ${spacing.small}px;
     margin: 20px;
     color: ${colors.purple};
 `;
 
 const Text = styled.Text`
-    font-size: 15px;
+    font-size: ${fontSizes.medium}px;
     color: ${colors.purple};
     font-weight: ${fontWeights.bold};
 `;

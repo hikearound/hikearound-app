@@ -5,7 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Updates } from 'expo';
 import { connect } from 'react-redux';
 import firebase from 'firebase';
-import { colors } from '../constants/Index';
+import { colors, spacing } from '../constants/Index';
 
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-constant-condition */
@@ -114,7 +114,7 @@ class SettingsItem extends React.Component {
                         color='#935DFF'
                         style={{
                             display: checkDisplay,
-                            right: 15,
+                            right: parseInt(spacing.small, 10),
                             top: 5,
                             position: 'absolute',
                         }}
@@ -133,7 +133,7 @@ export default connect(
 const ItemContainer = styled.View`
     border-color: #F0F0F0;
     border-top-width: 1px;
-    padding: 15px 0;
+    padding: ${spacing.small}px 0;
 `;
 
 const ItemText = styled.Text`
