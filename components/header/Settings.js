@@ -1,7 +1,7 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { colors } from '../../constants/Index';
+import { colors, spacing } from '../../constants/Index';
 
 const Settings = ({ navigation }) => (
     <TouchableOpacity
@@ -10,7 +10,7 @@ const Settings = ({ navigation }) => (
             navigation.push('Settings');
         }}
         style={{
-            marginRight: 10,
+            marginRight: parseInt(spacing.tiny, 10),
             marginTop: 6,
         }}
     >

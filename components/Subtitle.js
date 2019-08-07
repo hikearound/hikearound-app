@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { colors, fontSizes } from '../constants/Index';
+import { colors, fontSizes, spacing } from '../constants/Index';
 
 const Subtitle = ({ text }) => (
     <SubtitleView>
@@ -13,7 +13,7 @@ export default Subtitle;
 const SubtitleView = styled.View`
     border-bottom-width: 1px;
     border-bottom-color: #D8D8D8;
-    margin: 20px 0 10px 0;
+    margin: ${spacing.medium}px 0 ${spacing.tiny}px 0;
 `;
 
 const SubtitleText = styled.Text`

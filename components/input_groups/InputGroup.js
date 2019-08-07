@@ -105,7 +105,7 @@ class InputGroup extends React.Component {
                     <ActionButton
                         primary
                         text='Continue'
-                        margin='0 20px 0 20px'
+                        margin={`0 ${spacing.medium}px`}
                         action={this.handleLogin}
                     />
                     <View>{secondaryInputs}</View>
@@ -142,7 +142,7 @@ const RootView = styled.View`
 `;
 
 const TextInput = styled.TextInput`
-    margin: 0 20px 26px 20px;
+    margin: 0 ${spacing.medium}px 26px ${spacing.medium}px;
     padding-bottom: 3px;
     border-bottom-width: 1px;
     border-bottom-color: #D8D8D8;
@@ -153,7 +153,7 @@ const TextInput = styled.TextInput`
 const PasswordText = styled.Text`
     font-weight: ${fontWeights.medium};
     font-size: ${spacing.small}px;
-    margin: 20px;
+    margin: ${spacing.medium}px;
     color: ${colors.purple};
 `;
 

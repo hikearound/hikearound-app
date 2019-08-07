@@ -1,13 +1,13 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
-import { colors } from '../../constants/Index';
+import { colors, spacing } from '../../constants/Index';
 
 const Sort = () => (
     <TouchableOpacity
         activeOpacity={0.4}
         style={{
-            marginRight: 10,
+            marginRight: parseInt(spacing.tiny, 10),
             marginBottom: 2,
         }}
     >

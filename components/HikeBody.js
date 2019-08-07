@@ -32,7 +32,7 @@ class HikeBody extends React.Component {
 export default HikeBody;
 
 const BodyContent = styled.View`
-    padding: 20px ${spacing.small}px;
+    padding: ${spacing.medium}px ${spacing.small}px;
     background-color: ${colors.white};
 `;
 

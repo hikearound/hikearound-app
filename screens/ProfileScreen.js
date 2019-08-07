@@ -73,14 +73,14 @@ const AvatarWrapper = styled.View`
 const ProfileHeader = styled.ImageBackground`
     padding-left: ${spacing.small}px;
     padding-top: 40px;
-    padding-bottom: 20px;
+    padding-bottom: ${spacing.medium}px;
 `;
 
 const NameText = styled.Text`
     font-size: 20px;
     font-weight: 600;
     color: #333;
-    margin-top: 10px;
+    margin-top: ${spacing.tiny}px;
 `;
 
 const LocationText = styled.Text`
