@@ -142,7 +142,7 @@ const TextInput = styled.TextInput`
     border-bottom-width: 1px;
     border-bottom-color: #D8D8D8;
     font-size: 16px;
-    color: #333;
+    color: ${colors.black};
 `;
 
 const PasswordText = styled.Text`

@@ -100,7 +100,7 @@ NotificationStack.navigationOptions = {
         <BellIcon
             fill={focused ? activeColor : inactiveColor}
         />
-    )
+    ),
 };
 
 const ProfileStack = createStackNavigator(
@@ -133,7 +133,7 @@ ProfileStack.navigationOptions = {
             height={25}
             fill={focused ? activeColor : inactiveColor}
         />
-    )
+    ),
 };
 
 const TabNavigator = createBottomTabNavigator(

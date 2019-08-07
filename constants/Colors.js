@@ -1,9 +1,13 @@
-const colors = {
+export const colors = {
     purple: '#935DFF',
-    white: '#FFF',
-    black: '#333',
-    transparentGray: 'rgba(0,0,0,0.11)',
+    white: '#FFFFFF',
+    black: '#333333',
     lightGray: '#F0F0F0',
+    mediumGray: '#9C9C9C',
 };
 
-export default colors;
+export const transparentColors = {
+    gray: 'rgba(0,0,0,0.11)',
+};
+
+export default { colors, transparentColors };

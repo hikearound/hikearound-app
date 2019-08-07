@@ -1,7 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import FeedCardGradient from './FeedCardGradient';
-import { spacing, colors, fontWeights } from '../constants/Index';
+import {
+    spacing,
+    colors,
+    transparentColors,
+    fontWeights,
+    fontSizes,
+} from '../constants/Index';
 
 const FeedCard = ({
     image, title, distance, elevation, route,
@@ -41,8 +47,7 @@ const Container = styled.View`
     background-color: #DEDEDE;
     width: 100%;
     border-radius: 6px;
-    box-shadow: 0 4px 12px ${colors.transparentGray};
-    border: 1px solid #E6E6E6;
+    box-shadow: 0 4px 12px ${transparentColors.gray};
 `;
 
 const Cover = styled.View`
@@ -62,7 +67,7 @@ const Image = styled.Image`
 `;
 
 const Title = styled.Text`
-    color: white;
+    color: ${colors.white};
     font-size: 20px;
     font-weight: bold;
     width: 65%;
@@ -96,7 +101,7 @@ const MetaDataType = styled.Text`
 
 const MetaData = styled.Text`
     padding-top: 1px;
-    color: #333;
-    font-size: 13px;
+    color: ${colors.black};
+    font-size: ${fontSizes.small};
     font-weight: ${fontWeights.medium};
 `;

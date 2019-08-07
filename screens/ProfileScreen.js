@@ -10,7 +10,7 @@ const backgroundImg = require('../assets/profile-bg.png');
 function mapStateToProps(state) {
     return {
         action: state.action,
-        name: state.name
+        name: state.name,
     };
 }
 
@@ -66,7 +66,6 @@ const RootView = styled.View`
 `;
 
 const AvatarWrapper = styled.View`
-    border: 0px solid #FFF;
     width: 66px;
     border-radius: 33px;
 `;

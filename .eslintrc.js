@@ -24,6 +24,7 @@ module.exports = {
         'react/prop-types': 'off',
         'comma-dangle': 'off',
         'jsx-quotes': ['error', 'prefer-single'],
+        'comma-dangle': ['error', 'always-multiline'],
     },
     'globals': {
         'fetch': false

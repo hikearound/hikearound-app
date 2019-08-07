@@ -13,10 +13,10 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         favoriteHike: () => dispatch({
-            type: 'FAVORITE_HIKE'
+            type: 'FAVORITE_HIKE',
         }),
         unfavoriteHike: () => dispatch({
-            type: 'UNFAVORITE_HIKE'
+            type: 'UNFAVORITE_HIKE',
         }),
     };
 }

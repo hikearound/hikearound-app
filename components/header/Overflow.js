@@ -1,6 +1,7 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { colors } from '../../constants/Index';
 
 const Overflow = ({ navigation }) => (
     <TouchableOpacity
@@ -13,7 +14,7 @@ const Overflow = ({ navigation }) => (
         <Ionicons
             name='ios-more'
             size={32}
-            color='#FFF'
+            color={colors.white}
         />
     </TouchableOpacity>
 );

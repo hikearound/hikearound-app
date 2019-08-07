@@ -2,16 +2,16 @@ import React from 'react';
 import styled from 'styled-components';
 import { SectionList } from 'react-native';
 import { SettingsItem } from '../components/Index';
-import { colors } from '../constants/Index';
+import { colors, fontSizes } from '../constants/Index';
 
 const SETTING_ITEMS = [
     {
         title: 'Default Map',
-        data: ['Apple Maps', 'Google Maps']
+        data: ['Apple Maps', 'Google Maps'],
     },
     {
         title: 'Account',
-        data: ['Logout']
+        data: ['Logout'],
     },
 ];
 
@@ -62,8 +62,8 @@ const HeaderContainer = styled.View`
 `;
 
 const HeaderText = styled.Text`
-    color: #9C9C9C;
-    font-size: 13px;
+    color: ${colors.mediumGray};
+    font-size: ${fontSizes.small}px;
     font-weight: 500;
     text-transform: uppercase;
 `;

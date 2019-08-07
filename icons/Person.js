@@ -2,7 +2,7 @@ import React from 'react';
 import Svg, { Path } from 'react-native-svg';
 
 const PersonIcon = ({
-    width, height, fill, viewBox
+    width, height, fill, viewBox,
 }) => (
     <Svg width={width} height={height} viewBox={viewBox}>
         <Path

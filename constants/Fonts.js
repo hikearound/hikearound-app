@@ -1,4 +1,5 @@
 export const fontSizes = {
+    small: '13',
     button: '18',
     header: '20',
 };

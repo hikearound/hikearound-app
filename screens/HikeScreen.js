@@ -20,7 +20,7 @@ import {
     Overflow,
     Toast,
 } from '../components/Index';
-import { spacing, colors } from '../constants/Index';
+import { spacing, colors, transparentColors } from '../constants/Index';
 
 /* eslint-disable react/no-unused-state */
 
@@ -52,14 +52,14 @@ class HikeScreen extends React.Component {
         super(props, context);
         const { navigation } = this.props;
         navigation.setParams({
-            showActionSheet: this.showActionSheet
+            showActionSheet: this.showActionSheet,
         });
     }
 
     state = {
         mapRegion: null,
         hasLocationPermissions: false,
-        locationResult: null
+        locationResult: null,
     };
 
     componentDidMount() {
@@ -148,7 +148,7 @@ class HikeScreen extends React.Component {
         openMap({
             provider,
             travelType: 'drive',
-            query: `${startingLat}, ${startingLon}`
+            query: `${startingLat}, ${startingLon}`,
         });
     }
 
@@ -272,7 +272,7 @@ const styles = StyleSheet.create({
         zIndex: 1,
         overflow: 'hidden',
         borderRadius: 6,
-    }
+    },
 });
 
 const RootView = styled.View`
@@ -289,7 +289,7 @@ const MapViewWrapper = styled.View`
 const InnerMapViewWrapper = styled.View`
     background-color: ${colors.white};
     border-radius: 6px;
-    box-shadow: 0 4px 12px ${colors.transparentGray};
+    box-shadow: 0 4px 12px ${transparentColors.gray};
     z-index: 1;
 `;
 

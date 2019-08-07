@@ -3,11 +3,11 @@ import styled from 'styled-components';
 import { Ionicons } from '@expo/vector-icons';
 import { Animated, TouchableOpacity, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
-import { colors } from '../constants/Index';
+import { colors, transparentColors } from '../constants/Index';
 
 function mapStateToProps(state) {
     return {
-        action: state.action
+        action: state.action,
     };
 }
 
@@ -15,7 +15,7 @@ const screenHeight = Dimensions.get('window').height;
 
 class Toast extends React.Component {
     state = {
-        top: new Animated.Value(screenHeight)
+        top: new Animated.Value(screenHeight),
     };
 
     componentDidUpdate() {
@@ -66,7 +66,7 @@ class Toast extends React.Component {
                 >
                     <Ionicons
                         name='ios-close'
-                        color='#FFF'
+                        color={colors.white}
                         size={30}
                     />
                 </TouchableOpacity>
@@ -84,7 +84,7 @@ const Container = styled.View`
     left: 15px;
     right: 15px;
     background: rgba(147,93,255,0.95);
-    box-shadow: 0 4px 12px ${colors.transparentGray};
+    box-shadow: 0 4px 12px ${transparentColors.gray};
     border-radius: 6px;
     z-index: 1;
 `;
@@ -93,7 +93,7 @@ const AnimatedContainer = Animated.createAnimatedComponent(Container);
 
 const ToastText = styled.Text`
     font-size: 15px;
-    color: #FFF;
+    color: ${colors.white};
     font-weight: 500;
     padding: 12px;
 `;

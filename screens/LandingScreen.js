@@ -27,7 +27,7 @@ class LandingScreen extends React.Component {
                     toValue: -500,
                     duration: 60000,
                     easing: Easing.linear,
-                })
+                }),
             ]),
         ).start();
     }

@@ -33,7 +33,7 @@ class AuthScreen extends React.Component {
         navigation.dispatch(StackActions.reset({
             index: 0,
             actions: [NavigationActions.navigate({
-                routeName: user ? 'Home' : 'Landing'
+                routeName: user ? 'Home' : 'Landing',
             })],
         }));
     }

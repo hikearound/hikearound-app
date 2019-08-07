@@ -37,12 +37,12 @@ const BodyContent = styled.View`
 `;
 
 const DescriptionText = styled.Text`
-    color: #333;
+    color: ${colors.black};
     font-size: 14px;
 `;
 
 const TitleText = styled.Text`
-    color: #333;
+    color: ${colors.black};
     font-weight: ${fontWeights.bold};
     font-size: 20px;
 `;

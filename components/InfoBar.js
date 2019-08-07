@@ -1,6 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import { spacing, colors, fontWeights } from '../constants/Index';
+import {
+    spacing,
+    colors,
+    fontWeights,
+    fontSizes,
+} from '../constants/Index';
 
 const InfoBar = ({ distance, elevation, route }) => (
     <CardContent>
@@ -45,7 +50,7 @@ const ContentItem = styled.View`
 `;
 
 const MetaDataType = styled.Text`
-    color: #9C9C9C;
+    color: ${colors.mediumGray};
     font-size: 12px;
     font-weight: ${fontWeights.medium};
     text-transform: uppercase;
@@ -53,7 +58,7 @@ const MetaDataType = styled.Text`
 
 const MetaData = styled.Text`
     padding-top: 1px;
-    color: #333;
-    font-size: 13px;
+    color: ${colors.black};
+    font-size: ${fontSizes.small}px;
     font-weight: ${fontWeights.medium};
 `;

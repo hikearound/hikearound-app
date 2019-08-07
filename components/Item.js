@@ -36,7 +36,7 @@ class Item extends React.Component {
                     activeOpacity={0.4}
                     onPress={() => {
                         navigation.push('Hike', {
-                            hike: this.props
+                            hike: this.props,
                         });
                     }}
                 >

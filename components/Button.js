@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { TouchableOpacity } from 'react-native';
 import {
-    spacing, colors, fontSizes, fontWeights,
+    spacing, colors, transparentColors, fontSizes, fontWeights,
 } from '../constants/Index';
 
 const ActionButton = ({
@@ -25,7 +25,7 @@ const Button = styled.View`
     border-radius: 6px;
     margin: ${props => props.buttonMargin || '0 20px'};
     border: 1px solid ${colors.lightGray};
-    box-shadow: 0 2px 8px ${colors.transparentGray};
+    box-shadow: 0 2px 8px ${transparentColors.gray};
 `;
 
 const ButtonText = styled.Text`

@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Updates } from 'expo';
 import { connect } from 'react-redux';
 import firebase from 'firebase';
+import { colors } from '../constants/Index';
 
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-constant-condition */
@@ -26,7 +27,7 @@ function mapDispatchToProps(dispatch) {
 
 class SettingsItem extends React.Component {
     state = {
-        textColor: '#333',
+        textColor: colors.black,
         checkDisplay: 'none',
         selected: false,
     };
@@ -89,7 +90,7 @@ class SettingsItem extends React.Component {
 
     unselectItem() {
         this.setState({
-            textColor: '#333',
+            textColor: colors.black,
             checkDisplay: 'none',
             selected: false,
         });
@@ -136,6 +137,6 @@ const ItemContainer = styled.View`
 `;
 
 const ItemText = styled.Text`
-    color: ${props => props.textColor || '#333'};
+    color: ${props => props.textColor || colors.black};
     font-size: 16px;
 `;
