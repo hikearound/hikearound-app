@@ -10,7 +10,7 @@ const initialState = {
     action: '',
     name: 'Patrick Dugan',
     mapPreference: 'Apple Maps',
-    avatar: 'https://cl.ly/55da82beb939/download/avatar-default.jpg'
+    avatar: 'https://cl.ly/55da82beb939/download/avatar-default.jpg',
 };
 
 const reducer = (state = initialState, action) => {
