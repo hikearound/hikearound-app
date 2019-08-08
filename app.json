@@ -1,0 +1,31 @@
+{
+  "expo": {
+    "name": "Hike Around",
+    "slug": "hikearound-app",
+    "privacy": "public",
+    "sdkVersion": "34.0.0",
+    "platforms": [
+      "ios"
+    ],
+    "version": "1.0.0",
+    "orientation": "default",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#FFF"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": false,
+      "config": {
+        "googleMapsApiKey": "AIzaSyDNvaSlj_yrjkhClop5dPBDPSNUjOUS_a8"
+      }
+    }
+  }
+}

@@ -7,11 +7,9 @@ import {
     AsyncStorage,
     ActionSheetIOS,
 } from 'react-native';
-import {
-    MapView,
-    Location,
-    Permissions,
-} from 'expo';
+import * as Location from 'expo-location';
+import * as Permissions from 'expo-permissions';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { connect } from 'react-redux';
 import openMap from 'react-native-open-maps';
 import {
@@ -233,7 +231,7 @@ class HikeScreen extends React.Component {
                         <InnerMapViewWrapper>
                             <MapView
                                 ref={(ref) => { this.mapView = ref; }}
-                                provider={MapView.PROVIDER_GOOGLE}
+                                provider={PROVIDER_GOOGLE}
                                 style={styles.map}
                                 mapType='terrain'
                                 showsUserLocation

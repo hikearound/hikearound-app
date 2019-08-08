@@ -1,8 +1,9 @@
 import React from 'react';
 import { TouchableOpacity, AsyncStorage } from 'react-native';
-import { Haptic } from 'expo';
+import * as Haptics from 'expo-haptics';
 import { connect } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
+import { opacities } from '../constants/Index';
 
 function mapStateToProps(state) {
     return {
@@ -84,7 +85,7 @@ class FavoriteButton extends React.Component {
 
     buttonPress = () => {
         this.updateButtonStyle();
-        Haptic.selection();
+        Haptics.selection();
     }
 
     updateButtonStyle() {
@@ -105,7 +106,7 @@ class FavoriteButton extends React.Component {
         const { iconName, iconColor, iconSize } = this.state;
         return (
             <TouchableOpacity
-                activeOpacity={0.4}
+                activeOpacity={opacities.regular}
                 onPress={this.buttonPress}
                 style={{
                     position: 'absolute',
