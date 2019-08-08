@@ -91,7 +91,7 @@ const Container = styled.View`
     position: absolute;
     left: ${spacing.small}px;
     right: ${spacing.small}px;
-    background: rgba(147,93,255,0.95);
+    background: ${transparentColors.purple};
     box-shadow: 0 4px 12px ${transparentColors.gray};
     border-radius: ${borderRadius.medium}px;
     z-index: 1;

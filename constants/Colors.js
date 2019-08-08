@@ -9,6 +9,7 @@ export const colors = {
 
 export const transparentColors = {
     gray: 'rgba(0,0,0,0.11)',
+    purple: 'rgba(147,93,255,0.95)',
 };
 
 export default { colors, transparentColors };
