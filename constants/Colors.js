@@ -4,6 +4,7 @@ export const colors = {
     black: '#333333',
     lightGray: '#F0F0F0',
     mediumGray: '#9C9C9C',
+    gray: '#DADADA',
 };
 
 export const transparentColors = {

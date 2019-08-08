@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { View, StyleSheet } from 'react-native';
-import { fontWeights, fontSizes } from '../constants/Index';
+import { fontWeights, fontSizes, colors } from '../constants/Index';
 
 export default class Footer extends React.Component {
     state = {
@@ -34,7 +34,8 @@ export default class Footer extends React.Component {
 }
 
 const Circle = styled.View`
-    background-color: #E6E6E6;
+    background-color: ${colors.gray};
+    opacity: 0.8;
     border-radius: 7px;
     height: 7px;
     width: 7px;
@@ -46,7 +47,7 @@ const Container = styled.View`
 `;
 
 const Text = styled.Text`
-    color: #DADADA;
+    color: ${colors.gray};
     font-size: ${fontSizes.small}px;
     font-weight: ${fontWeights.medium};
     text-transform: uppercase;

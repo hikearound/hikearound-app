@@ -53,6 +53,6 @@ const TitleText = styled.Text`
 `;
 
 const LocationText = styled.Text`
-    color: #ABABAB;
+    color: ${colors.mediumGray};
     font-size: ${fontSizes.large}px;
 `;
