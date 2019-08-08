@@ -43,13 +43,13 @@ const BodyContent = styled.View`
 
 const DescriptionText = styled.Text`
     color: ${colors.black};
-    font-size: ${fontSizes.regular}px;
+    font-size: ${fontSizes.medium}px;
 `;
 
 const TitleText = styled.Text`
     color: ${colors.black};
     font-weight: ${fontWeights.bold};
-    font-size: ${fontSizes.header}px;
+    font-size: ${fontSizes.big}px;
 `;
 
 const LocationText = styled.Text`

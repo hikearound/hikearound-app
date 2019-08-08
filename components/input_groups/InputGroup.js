@@ -8,6 +8,7 @@ import {
     fontWeights,
     spacing,
     fontSizes,
+    opacities,
 } from '../../constants/Index';
 
 /* eslint-disable no-undef */
@@ -110,7 +111,7 @@ class InputGroup extends React.Component {
                     />
                     <View>{secondaryInputs}</View>
                     <TouchableOpacity
-                        activeOpacity={0.4}
+                        activeOpacity={opacities.regular}
                         style={{
                             display: passwordLinkDisplay,
                         }}

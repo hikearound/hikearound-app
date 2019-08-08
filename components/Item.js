@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { withNavigation } from 'react-navigation';
 import firebase from 'firebase';
 import FeedCard from './FeedCard';
-import { spacing } from '../constants/Index';
+import { spacing, opacities } from '../constants/Index';
 
 class Item extends React.Component {
     state = {};
@@ -33,7 +33,7 @@ class Item extends React.Component {
         return (
             <CardsContainer>
                 <TouchableOpacity
-                    activeOpacity={0.4}
+                    activeOpacity={opacities.regular}
                     onPress={() => {
                         navigation.push('Hike', {
                             hike: this.props,

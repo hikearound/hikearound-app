@@ -10,6 +10,7 @@ import {
     spacing,
     fontSizes,
     fontWeights,
+    opacities,
 } from '../constants/Index';
 
 function mapStateToProps(state) {
@@ -63,7 +64,7 @@ class Toast extends React.Component {
                     {'.'}
                 </ToastText>
                 <TouchableOpacity
-                    activeOpacity={0.4}
+                    activeOpacity={opacities.regular}
                     onPress={this.buttonPress}
                     style={{
                         position: 'absolute',

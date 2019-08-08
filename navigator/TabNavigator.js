@@ -48,7 +48,7 @@ const HomeStack = createStackNavigator(
             },
             headerTintColor: colors.white,
             headerTitleStyle: {
-                fontSize: parseInt(fontSizes.header, 10),
+                fontSize: parseInt(fontSizes.big, 10),
             },
         },
     },
@@ -88,7 +88,7 @@ const NotificationStack = createStackNavigator(
             },
             headerTintColor: colors.white,
             headerTitleStyle: {
-                fontSize: parseInt(fontSizes.header, 10),
+                fontSize: parseInt(fontSizes.big, 10),
             },
         },
     },
@@ -119,7 +119,7 @@ const ProfileStack = createStackNavigator(
             },
             headerTintColor: colors.white,
             headerTitleStyle: {
-                fontSize: parseInt(fontSizes.header, 10),
+                fontSize: parseInt(fontSizes.big, 10),
             },
         },
         headerTransitionPreset: 'fade-in-place',

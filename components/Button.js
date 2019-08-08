@@ -8,13 +8,14 @@ import {
     fontSizes,
     fontWeights,
     borderRadius,
+    opacities,
 } from '../constants/Index';
 
 const ActionButton = ({
     action, primary, margin, text,
 }) => (
     <TouchableOpacity
-        activeOpacity={0.4}
+        activeOpacity={opacities.regular}
         onPress={action}
     >
         <Button primary={primary} buttonMargin={margin}>
@@ -36,7 +37,7 @@ const Button = styled.View`
 const ButtonText = styled.Text`
     color: ${props => (props.primary ? colors.white : colors.black)};
     font-weight: ${fontWeights.bold};
-    font-size: ${fontSizes.button}px;
+    font-size: ${fontSizes.extraLarge}px;
     text-align: center;
     padding: ${spacing.small}px 0;
 `;

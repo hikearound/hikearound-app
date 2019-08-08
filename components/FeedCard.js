@@ -69,7 +69,7 @@ const Image = styled.Image`
 
 const Title = styled.Text`
     color: ${colors.white};
-    font-size: ${fontSizes.header}px;
+    font-size: ${fontSizes.big}px;
     font-weight: bold;
     width: 65%;
     position: absolute;
@@ -95,7 +95,7 @@ const ContentItem = styled.View`
 
 const MetaDataType = styled.Text`
     color: #9C9C9C;
-    font-size: ${fontSizes.tiny}px;
+    font-size: ${fontSizes.small}px;
     font-weight: ${fontWeights.medium};
     text-transform: uppercase;
 `;

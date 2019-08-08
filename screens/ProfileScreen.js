@@ -8,6 +8,7 @@ import {
     spacing,
     fontSizes,
     fontWeights,
+    opacities,
 } from '../constants/Index';
 
 const backgroundImg = require('../assets/profile-bg.png');
@@ -37,14 +38,14 @@ class ProfileScreen extends React.Component {
                         source={backgroundImg}
                     >
                         <AvatarWrapper>
-                            <TouchableOpacity activeOpacity={0.4}>
+                            <TouchableOpacity activeOpacity={opacities.regular}>
                                 <Avatar />
                             </TouchableOpacity>
                         </AvatarWrapper>
                         <NameText>{name}</NameText>
                         <LocationText>Seattle, WA</LocationText>
                         <TouchableOpacity
-                            activeOpacity={0.4}
+                            activeOpacity={opacities.regular}
                             style={{
                                 position: 'absolute',
                                 right: parseInt(spacing.small, 10),
@@ -82,7 +83,7 @@ const ProfileHeader = styled.ImageBackground`
 `;
 
 const NameText = styled.Text`
-    font-size: ${fontSizes.header}px;
+    font-size: ${fontSizes.big}px;
     font-weight: ${fontWeights.bold};
     color:${colors.black};
     margin-top: ${spacing.tiny}px;

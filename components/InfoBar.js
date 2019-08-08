@@ -52,7 +52,7 @@ const ContentItem = styled.View`
 
 const MetaDataType = styled.Text`
     color: ${colors.mediumGray};
-    font-size: ${fontSizes.tiny}px;
+    font-size: ${fontSizes.small}px;
     font-weight: ${fontWeights.medium};
     text-transform: uppercase;
 `;

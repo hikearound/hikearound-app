@@ -1,11 +1,11 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { colors, spacing } from '../../constants/Index';
+import { colors, spacing, opacities } from '../../constants/Index';
 
 const Settings = ({ navigation }) => (
     <TouchableOpacity
-        activeOpacity={0.4}
+        activeOpacity={opacities.regular}
         onPress={() => {
             navigation.push('Settings');
         }}

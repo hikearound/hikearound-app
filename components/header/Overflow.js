@@ -1,11 +1,11 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { colors } from '../../constants/Index';
+import { colors, opacities } from '../../constants/Index';
 
 const Overflow = ({ navigation }) => (
     <TouchableOpacity
-        activeOpacity={0.4}
+        activeOpacity={opacities.regular}
         style={{
             marginRight: 12,
         }}
