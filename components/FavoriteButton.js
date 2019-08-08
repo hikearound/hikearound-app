@@ -85,7 +85,7 @@ class FavoriteButton extends React.Component {
 
     buttonPress = () => {
         this.updateButtonStyle();
-        Haptics.selection();
+        Haptics.selectionAsync();
     }
 
     updateButtonStyle() {
