@@ -81,7 +81,7 @@ class SettingsItem extends React.Component {
 
     selectItem() {
         this.setState({
-            textColor: '#935DFF',
+            textColor: `${colors.purple}`,
             checkDisplay: 'flex',
             selected: true,
         });
@@ -110,7 +110,7 @@ class SettingsItem extends React.Component {
                     <Ionicons
                         name='ios-checkmark'
                         size={35}
-                        color='#935DFF'
+                        color={colors.purple}
                         style={{
                             display: checkDisplay,
                             right: parseInt(spacing.small, 10),

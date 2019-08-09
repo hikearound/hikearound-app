@@ -127,5 +127,5 @@ const LocationText = styled.Text`
 const EditProfileLink = styled.Text`
     font-size: ${fontSizes.medium}px;
     font-weight: ${fontWeights.medium};
-    color: #935DFF;
+    color: ${colors.purple};
 `;

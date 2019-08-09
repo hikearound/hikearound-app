@@ -3,7 +3,7 @@ import { TouchableOpacity, AsyncStorage } from 'react-native';
 import * as Haptics from 'expo-haptics';
 import { connect } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
-import { opacities } from '../constants/Index';
+import { opacities, colors } from '../constants/Index';
 
 function mapStateToProps(state) {
     return {
@@ -60,7 +60,7 @@ class FavoriteButton extends React.Component {
 
     setHeartFilled() {
         this.setState({
-            iconColor: '#935DFF',
+            iconColor: `${colors.purple}`,
             iconName: 'ios-heart',
         });
     }
