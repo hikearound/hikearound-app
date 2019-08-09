@@ -1,5 +1,6 @@
 import React from 'react';
 import Svg, { Path } from 'react-native-svg';
+import { colors } from '../constants/Index';
 
 const HomeIcon = ({
     width, height, fill, viewBox,
@@ -16,7 +17,7 @@ const HomeIcon = ({
 HomeIcon.defaultProps = {
     width: 25,
     height: 25,
-    fill: '#8E8E93',
+    fill: `${colors.darkGray}`,
 };
 
 export default HomeIcon;

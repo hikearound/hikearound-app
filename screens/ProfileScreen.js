@@ -63,7 +63,9 @@ class ProfileScreen extends React.Component {
                         source={backgroundImg}
                     >
                         <AvatarWrapper>
-                            <TouchableOpacity activeOpacity={opacities.regular}>
+                            <TouchableOpacity
+                                activeOpacity={opacities.regular}
+                            >
                                 <Avatar />
                             </TouchableOpacity>
                         </AvatarWrapper>
@@ -77,7 +79,9 @@ class ProfileScreen extends React.Component {
                                 bottom: 20,
                             }}
                         >
-                            <EditProfileLink>Edit Profile</EditProfileLink>
+                            <EditProfileLink>
+                                Edit Profile
+                            </EditProfileLink>
                         </TouchableOpacity>
                     </ProfileHeader>
                 </ScrollView>

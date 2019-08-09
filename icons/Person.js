@@ -1,5 +1,6 @@
 import React from 'react';
 import Svg, { Path } from 'react-native-svg';
+import { colors } from '../constants/Index';
 
 const PersonIcon = ({
     width, height, fill, viewBox,
@@ -16,7 +17,7 @@ const PersonIcon = ({
 PersonIcon.defaultProps = {
     width: 21,
     height: 24,
-    fill: '#8E8E93',
+    fill: `${colors.darkGray}`,
 };
 
 export default PersonIcon;

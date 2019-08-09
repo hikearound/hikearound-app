@@ -53,7 +53,8 @@ class LandingScreen extends React.Component {
                     <ActionButton
                         text='Sign In'
                         margin={
-                            `${spacing.small}px ${spacing.medium}px 0 ${spacing.medium}px`
+                            `${spacing.small}px ${spacing.medium}px `
+                            + `0 ${spacing.medium}px`
                         }
                         action={() => {
                             navigation.push('SignIn');

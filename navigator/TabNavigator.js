@@ -22,7 +22,7 @@ import {
 } from '../screens/Index';
 
 const activeColor = colors.purple;
-const inactiveColor = '#8E8E93';
+const inactiveColor = colors.darkGray;
 
 const HomeStack = createStackNavigator(
     {
