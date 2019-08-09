@@ -17,7 +17,7 @@ const HomeIcon = ({
 HomeIcon.defaultProps = {
     width: 25,
     height: 25,
-    fill: `${colors.darkGray}`,
+    fill: colors.darkGray,
 };
 
 export default HomeIcon;

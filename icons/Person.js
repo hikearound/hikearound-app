@@ -17,7 +17,7 @@ const PersonIcon = ({
 PersonIcon.defaultProps = {
     width: 21,
     height: 24,
-    fill: `${colors.darkGray}`,
+    fill: colors.darkGray,
 };
 
 export default PersonIcon;

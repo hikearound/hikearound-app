@@ -17,7 +17,7 @@ const BellIcon = ({
 BellIcon.defaultProps = {
     width: 22,
     height: 26,
-    fill: `${colors.darkGray}`,
+    fill: colors.darkGray,
 };
 
 export default BellIcon;
