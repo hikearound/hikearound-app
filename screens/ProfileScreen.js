@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { TouchableOpacity, ScrollView } from 'react-native';
+import { TouchableOpacity, ScrollView, AsyncStorage } from 'react-native';
 import { connect } from 'react-redux';
+import * as firebase from 'firebase';
+import 'firebase/firestore';
 import { Avatar, Settings } from '../components/Index';
 import {
     colors,
@@ -26,6 +28,29 @@ class ProfileScreen extends React.Component {
         headerBackTitle: null,
         headerRight: <Settings navigation={navigation} />,
     })
+
+    async componentDidMount() {
+        // TODO: map this to a real collection
+        // const hikeData = await this.queryHikeData();
+    }
+
+    getHikeArray = async () => AsyncStorage.getItem('favoritedHikes');
+
+    getHikesRef = async () => {
+        const firestore = firebase.firestore();
+        return firestore.collection('hikes');
+    }
+
+    queryHikeData = async () => {
+        const hikesRef = await this.getHikesRef();
+        let hikeArray = await this.getHikeArray();
+
+        if (hikeArray) {
+            hikeArray = JSON.parse(hikeArray);
+            return hikesRef.doc(hikeArray[0]).get();
+        }
+        return [];
+    }
 
     render() {
         const { name } = this.props;
