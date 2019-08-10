@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { NavigationActions, StackActions } from 'react-navigation';
+import { StatusBar } from 'react-native';
 import { SignInInputGroup } from '../components/Index';
 
 const resetAction = StackActions.reset({
@@ -41,6 +42,12 @@ class SignInScreen extends React.Component {
             ref: React.createRef(),
             ...input,
         }));
+    }
+
+    componentDidMount() {
+        StatusBar.setBarStyle(
+            'light-content', true,
+        );
     }
 
     render() {

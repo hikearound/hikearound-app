@@ -298,20 +298,21 @@ const InnerMapViewWrapper = styled.View`
     z-index: 1;
 `;
 
-const BlockView = styled.View`
+const GrayBlockView = styled.View`
     flex: 1;
+    height: 165px;
+    background-color: #F6F6F6;
     position: absolute;
     left: 0;
     right: 0;
     bottom: 0;
 `;
 
-const GrayBlockView = styled(BlockView)`
-    height: 165px;
-    background-color: #F6F6F6;
-`;
-
-const PurpleBlockView = styled(BlockView)`
+const PurpleBlockView = styled.View`
     height: 200px;
     background-color: ${colors.purple};
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
 `;
