@@ -57,7 +57,7 @@ class HomeScreen extends React.Component {
                 ),
             };
         });
-    };
+    }
 
     makeRemoteRequest = async (lastKey) => {
         const { loading } = this.state;
@@ -78,7 +78,7 @@ class HomeScreen extends React.Component {
         }
         this.addPosts(posts);
         this.setState({ loading: false });
-    };
+    }
 
     onRefresh = () => {
         this.makeRemoteRequest();

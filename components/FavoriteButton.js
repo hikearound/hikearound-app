@@ -37,7 +37,7 @@ class FavoriteButton extends React.Component {
         }
     }
 
-    getFavoritedHikes = async () => AsyncStorage.getItem('favoritedHikes');
+    getFavoritedHikes = async () => AsyncStorage.getItem('favoritedHikes')
 
     setFavoriteHike = async () => {
         const { _key } = this.props;

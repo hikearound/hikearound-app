@@ -46,7 +46,7 @@ class Fire {
 
         const lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
         return { data, cursor: lastVisible };
-    };
+    }
 
     collection = () => firebase.firestore().collection(collectionName)
 

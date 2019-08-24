@@ -26,7 +26,7 @@ class SignInInputGroup extends InputGroup {
                     this.handleContinue();
                 }
             });
-    };
+    }
 }
 
 export default SignInInputGroup;

@@ -29,7 +29,9 @@ class Item extends React.Component {
             route,
             description,
         } = this.props;
+
         const { imageUrl } = this.state;
+
         return (
             <CardsContainer>
                 <TouchableOpacity

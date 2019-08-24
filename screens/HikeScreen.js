@@ -121,7 +121,7 @@ class HikeScreen extends React.Component {
         this.setHikeData(JSON.parse(hikeData));
         this.parseCoordinates();
         this.setMapRegion();
-    };
+    }
 
     setHikeData(hikeData) {
         const hikeMetaData = hikeData.gpx.metadata[0].bounds[0].$;
@@ -171,7 +171,7 @@ class HikeScreen extends React.Component {
     initializeMap = async () => {
         this.setCurrentRegion();
         this.getHikeData();
-    };
+    }
 
     getLocation = async () => {
         const { status } = await Permissions.askAsync(
@@ -188,7 +188,7 @@ class HikeScreen extends React.Component {
 
         const location = await Location.getCurrentPositionAsync({});
         this.setState({ locationResult: JSON.stringify(location) });
-    };
+    }
 
     parseCoordinates() {
         const { hikeData } = this.state;

@@ -42,7 +42,7 @@ class Toast extends React.Component {
         this.timeout = setTimeout(() => {
             this.hideToast();
         }, 3500);
-    };
+    }
 
     hideToast = () => {
         const { top } = this.state;
@@ -51,7 +51,7 @@ class Toast extends React.Component {
             toValue: screenHeight,
             duration: 500,
         }).start();
-    };
+    }
 
     render() {
         const { name } = this.props;

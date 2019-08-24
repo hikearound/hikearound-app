@@ -66,7 +66,7 @@ class SettingsItem extends React.Component {
             .then(() => {
                 Updates.reload();
             });
-    };
+    }
 
     itemPress = () => {
         const { item, setMapPreference } = this.props;

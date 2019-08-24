@@ -16,9 +16,11 @@ class HikeBody extends React.Component {
         const {
             name, description, city, _key,
         } = this.props;
+
         const newlineDescription = description.replace(
             '\\n\\n', '\n\n'
         );
+
         return (
             <BodyContent>
                 <TitleText>{name}</TitleText>

@@ -27,13 +27,13 @@ class SettingsScreen extends React.Component {
 
     renderItem = ({ item, index }) => (
         <SettingsItem item={item} index={index} />
-    );
+    )
 
     renderSectionHeader = ({ section }) => (
         <HeaderContainer>
             <HeaderText>{section.title}</HeaderText>
         </HeaderContainer>
-    );
+    )
 
     render() {
         return (

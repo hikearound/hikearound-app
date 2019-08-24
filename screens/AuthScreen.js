@@ -26,7 +26,7 @@ class AuthScreen extends React.Component {
             .onAuthStateChanged((user) => {
                 this.dispatchNav(user);
             });
-    };
+    }
 
     dispatchNav(user) {
         const { navigation } = this.props;

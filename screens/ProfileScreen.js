@@ -34,7 +34,7 @@ class ProfileScreen extends React.Component {
         // const hikeData = await this.queryHikeData();
     }
 
-    getHikeArray = async () => AsyncStorage.getItem('favoritedHikes');
+    getHikeArray = async () => AsyncStorage.getItem('favoritedHikes')
 
     getHikesRef = async () => {
         const firestore = firebase.firestore();

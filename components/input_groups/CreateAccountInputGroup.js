@@ -28,7 +28,7 @@ class CreateAccountInputGroup extends InputGroup {
                     this.handleContinue();
                 }
             });
-    };
+    }
 }
 
 export default CreateAccountInputGroup;
