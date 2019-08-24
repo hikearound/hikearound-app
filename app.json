@@ -26,6 +26,8 @@
       "config": {
         "googleMapsApiKey": "AIzaSyDNvaSlj_yrjkhClop5dPBDPSNUjOUS_a8"
       }
-    }
+    },
+    "description": "An iOS app that offers curated and personalized hikes.",
+    "githubUrl": "https://github.com/pdugan20/hikearound-app"
   }
 }
