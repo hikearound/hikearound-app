@@ -8,7 +8,6 @@ import {
     ActionSheetIOS,
 } from 'react-native';
 import * as Location from 'expo-location';
-import * as Permissions from 'expo-permissions';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { connect } from 'react-redux';
 import openMap from 'react-native-open-maps';
@@ -25,7 +24,6 @@ import {
     borderRadius,
 } from '../constants/Index';
 
-/* eslint-disable react/no-unused-state */
 
 const INITIAL_LAT_DELTA = 0.0922;
 const INITIAL_LONG_DELTA = 0.0421;
@@ -59,15 +57,10 @@ class HikeScreen extends React.Component {
             showActionSheet: this.showActionSheet,
         });
 
-        this.state = {
-            mapRegion: null,
-            hasLocationPermissions: false,
-            locationResult: null,
-        };
+        this.state = {};
     }
 
     componentDidMount() {
-        this.getLocation();
         this.initializeMap();
     }
 
@@ -172,23 +165,6 @@ class HikeScreen extends React.Component {
     initializeMap = async () => {
         this.setCurrentRegion();
         this.getHikeData();
-    }
-
-    getLocation = async () => {
-        const { status } = await Permissions.askAsync(
-            Permissions.LOCATION
-        );
-
-        if (status !== 'granted') {
-            this.setState({
-                locationResult: 'Permission denied.',
-            });
-        } else {
-            this.setState({ hasLocationPermissions: true });
-        }
-
-        const location = await Location.getCurrentPositionAsync({});
-        this.setState({ locationResult: JSON.stringify(location) });
     }
 
     parseCoordinates() {
