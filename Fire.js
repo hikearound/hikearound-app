@@ -6,8 +6,6 @@ const firebase = require('firebase');
 
 require('firebase/firestore');
 
-/* eslint-disable class-methods-use-this */
-
 class Fire {
     constructor() {
         firebase.initializeApp({
@@ -28,12 +26,10 @@ class Fire {
     }
 
     getPaged = async ({ size, start }) => {
-        let ref = this.collection.orderBy('timestamp', 'desc').limit(size);
-
+        let ref = this.collection().orderBy('timestamp', 'desc').limit(size);
         if (start) {
             ref = ref.startAfter(start);
         }
-
         const querySnapshot = await ref.get();
         const data = [];
 
@@ -52,17 +48,11 @@ class Fire {
         return { data, cursor: lastVisible };
     };
 
-    get collection() {
-        return firebase.firestore().collection(collectionName);
-    }
+    collection = () => firebase.firestore().collection(collectionName)
 
-    get uid() {
-        return (firebase.auth().currentUser || {}).uid;
-    }
+    uid = () => (firebase.auth().currentUser || {}).uid
 
-    get timestamp() {
-        return Date.now();
-    }
+    timestamp = () => Date.now()
 }
 
 Fire.shared = new Fire();
