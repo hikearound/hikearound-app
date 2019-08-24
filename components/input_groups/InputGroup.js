@@ -19,7 +19,7 @@ class InputGroup extends React.Component {
         super(props);
         const { inputs } = this.props;
 
-        mappedInputs = inputs.map(input => ({
+        mappedInputs = inputs.map((input) => ({
             ref: React.createRef(),
             ...input,
         }));
@@ -41,7 +41,7 @@ class InputGroup extends React.Component {
         navigation.dispatch(resetAction);
     }
 
-    handleFocus = index => () => {
+    handleFocus = (index) => () => {
         this.setState({
             nextFocusDisabled: index === mappedInputs.length - 1,
             previousFocusDisabled: index === 0,
@@ -98,7 +98,7 @@ class InputGroup extends React.Component {
                             autoCapitalize={autoCapitalize}
                             onFocus={this.handleFocus(index)}
                             autoFocus={index === 0}
-                            onChangeText={text => this.setValue(
+                            onChangeText={(text) => this.setValue(
                                 name, text, index
                             )}
                         />

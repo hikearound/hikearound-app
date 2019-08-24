@@ -3,10 +3,12 @@ import { FlatList } from 'react-navigation';
 import Item from './Item';
 import Footer from './Footer';
 
+/* eslint-disable react/jsx-props-no-spreading */
+
 class List extends React.Component {
     renderItem = ({ item }) => <Item _key={item.key} {...item} />;
 
-    keyExtractor = item => item.key;
+    keyExtractor = (item) => item.key;
 
     render() {
         const { ...props } = this.props;

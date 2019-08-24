@@ -23,11 +23,15 @@ function mapDispatchToProps(dispatch) {
 }
 
 class FavoriteButton extends React.Component {
-    state = {
-        iconColor: '#CDCDCD',
-        iconName: 'ios-heart-empty',
-        iconSize: 30,
-    };
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            iconColor: '#CDCDCD',
+            iconName: 'ios-heart-empty',
+            iconSize: 30,
+        };
+    }
 
     componentWillMount = async () => {
         const { _key } = this.props;

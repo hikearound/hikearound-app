@@ -27,15 +27,15 @@ const ActionButton = ({
 export default ActionButton;
 
 const Button = styled.View`
-    background-color: ${props => (props.primary ? colors.purple : colors.white)};
+    background-color: ${(props) => (props.primary ? colors.purple : colors.white)};
     border-radius: ${borderRadius.medium}px;
-    margin: ${props => props.buttonMargin || `0 ${spacing.medium}px`};
+    margin: ${(props) => props.buttonMargin || `0 ${spacing.medium}px`};
     border: 1px solid ${colors.lightGray};
     box-shadow: 0 2px 8px ${transparentColors.gray};
 `;
 
 const ButtonText = styled.Text`
-    color: ${props => (props.primary ? colors.white : colors.black)};
+    color: ${(props) => (props.primary ? colors.white : colors.black)};
     font-weight: ${fontWeights.bold};
     font-size: ${fontSizes.extraLarge}px;
     text-align: center;

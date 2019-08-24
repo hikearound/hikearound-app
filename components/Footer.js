@@ -4,9 +4,13 @@ import { View, StyleSheet } from 'react-native';
 import { fontWeights, fontSizes, colors } from '../constants/Index';
 
 export default class Footer extends React.Component {
-    state = {
-        footerVisibility: styles.hiddenText,
-    };
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            footerVisibility: styles.hiddenText,
+        };
+    }
 
     componentDidMount() {
         this.timeout = setTimeout(() => {

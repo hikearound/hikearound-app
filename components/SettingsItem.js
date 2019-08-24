@@ -17,7 +17,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        setMapPreference: mapPreference => dispatch({
+        setMapPreference: (mapPreference) => dispatch({
             type: 'SET_MAP_PREFERENCE',
             mapPreference,
         }),
@@ -25,15 +25,15 @@ function mapDispatchToProps(dispatch) {
 }
 
 class SettingsItem extends React.Component {
-    state = {
-        textColor: colors.black,
-        checkDisplay: 'none',
-        selected: false,
-    };
-
     constructor(props) {
         super(props);
         this.handleLogout = this.handleLogout.bind(this);
+
+        this.state = {
+            textColor: colors.black,
+            checkDisplay: 'none',
+            selected: false,
+        };
     }
 
     componentDidUpdate() {
@@ -136,6 +136,6 @@ const ItemContainer = styled.View`
 `;
 
 const ItemText = styled.Text`
-    color: ${props => props.textColor || colors.black};
+    color: ${(props) => props.textColor || colors.black};
     font-size: ${fontSizes.large}px;
 `;

@@ -54,16 +54,17 @@ class HikeScreen extends React.Component {
     constructor(props, context) {
         super(props, context);
         const { navigation } = this.props;
+
         navigation.setParams({
             showActionSheet: this.showActionSheet,
         });
-    }
 
-    state = {
-        mapRegion: null,
-        hasLocationPermissions: false,
-        locationResult: null,
-    };
+        this.state = {
+            mapRegion: null,
+            hasLocationPermissions: false,
+            locationResult: null,
+        };
+    }
 
     componentDidMount() {
         this.getLocation();
@@ -107,7 +108,7 @@ class HikeScreen extends React.Component {
         const hikeXmlUrl = await this.getHikeXmlUrl();
 
         await fetch(hikeXmlUrl)
-            .then(response => response.text())
+            .then((response) => response.text())
             .then((response) => {
                 parseString(response, (err, result) => {
                     AsyncStorage.setItem(

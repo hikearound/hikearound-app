@@ -7,11 +7,12 @@ import FeedCard from './FeedCard';
 import { spacing, opacities } from '../constants/Index';
 
 class Item extends React.Component {
-    state = {};
-
     constructor(props) {
         super(props);
         const { images } = this.props;
+
+        this.state = {};
+
         if (images) {
             const ref = firebase.storage().ref(images[0]);
             ref.getDownloadURL().then((data) => {

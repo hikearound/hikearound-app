@@ -48,7 +48,7 @@ class CreateAccountScreen extends React.Component {
     constructor(props) {
         super(props);
 
-        inputs = inputs.map(input => ({
+        inputs = inputs.map((input) => ({
             ref: React.createRef(),
             ...input,
         }));

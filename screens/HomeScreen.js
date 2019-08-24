@@ -7,6 +7,7 @@ import { Logo, List, Sort } from '../components/Index';
 import { colors } from '../constants/Index';
 
 /* eslint-disable no-restricted-syntax */
+/* eslint-disable no-unused-vars */
 
 const PAGE_SIZE = 5;
 
@@ -26,12 +27,16 @@ class HomeScreen extends React.Component {
         };
     }
 
-    state = {
-        sortType: 'desc',
-        loading: false,
-        posts: [],
-        data: {},
-    };
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            sortType: 'desc',
+            loading: false,
+            posts: [],
+            data: {},
+        };
+    }
 
     componentDidMount() {
         const { navigation } = this.props;

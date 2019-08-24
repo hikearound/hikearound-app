@@ -22,9 +22,13 @@ function mapStateToProps(state) {
 const screenHeight = Dimensions.get('window').height;
 
 class Toast extends React.Component {
-    state = {
-        top: new Animated.Value(screenHeight),
-    };
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            top: new Animated.Value(screenHeight),
+        };
+    }
 
     componentDidUpdate() {
         this.showToast();

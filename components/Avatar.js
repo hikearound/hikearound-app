@@ -12,11 +12,11 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        updateName: name => dispatch({
+        updateName: (name) => dispatch({
             type: 'UPDATE_NAME',
             name,
         }),
-        updateAvatar: avatar => dispatch({
+        updateAvatar: (avatar) => dispatch({
             type: 'UPDATE_AVATAR',
             avatar,
         }),
