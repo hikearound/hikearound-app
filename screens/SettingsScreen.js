@@ -43,9 +43,7 @@ class SettingsScreen extends React.Component {
                     stickySectionHeadersEnabled={false}
                     renderSectionHeader={this.renderSectionHeader}
                     sections={SETTING_ITEMS}
-                    keyExtractor={
-                        (item, index) => item + index
-                    }
+                    keyExtractor={(item, index) => item + index}
                 />
             </RootView>
         );

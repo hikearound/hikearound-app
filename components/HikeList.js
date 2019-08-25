@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { FlatList } from 'react-native';
 import HikeListItem from './HikeListItem';
 import {
     colors,
@@ -9,31 +10,42 @@ import {
 } from '../constants/Index';
 
 class HikeList extends React.PureComponent {
+    renderListHeader = () => (
+        <HeaderContainer>
+            <HeaderText>Your Hikes</HeaderText>
+        </HeaderContainer>
+    )
+
+    renderItem = ({ item }) => (
+        <HikeListItem
+            key={item.id}
+            name={item.name}
+            description={item.description}
+            location={item.location}
+            distance={item.distance}
+        />
+    )
+
     render() {
         const { hikes } = this.props;
+        const extractKey = ({ id }) => id;
 
         return (
-            <ListWrapper>
-                <HeaderContainer>
-                    <HeaderText>Your Hikes</HeaderText>
-                </HeaderContainer>
-                {hikes.map((hike) => (
-                    <HikeListItem
-                        key={hike.id}
-                        name={hike.name}
-                        description={hike.description}
-                        location={hike.location}
-                        distance={hike.distance}
-                    />
-                ))}
-            </ListWrapper>
+            <RootView>
+                <FlatList
+                    renderItem={this.renderItem}
+                    ListHeaderComponent={this.renderListHeader}
+                    data={hikes}
+                    keyExtractor={extractKey}
+                />
+            </RootView>
         );
     }
 }
 
 export default HikeList;
 
-const ListWrapper = styled.View`
+const RootView = styled.View`
     margin-left: ${spacing.small}px;
 `;
 
