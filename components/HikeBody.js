@@ -9,9 +9,7 @@ import {
 import Subtitle from './Subtitle';
 import FavoriteButton from './FavoriteButton';
 
-/* eslint-disable react/prefer-stateless-function */
-
-class HikeBody extends React.Component {
+class HikeBody extends React.PureComponent {
     render() {
         const {
             name, description, city, _key,

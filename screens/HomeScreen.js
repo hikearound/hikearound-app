@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { LayoutAnimation, RefreshControl } from 'react-native';
 import Fire from '../Fire';
-import { Logo, List, Sort } from '../components/Index';
+import { Logo, FeedList, Sort } from '../components/Index';
 import { colors } from '../constants/Index';
 
 /* eslint-disable no-restricted-syntax */
@@ -98,7 +98,7 @@ class HomeScreen extends React.Component {
         const { loading, posts } = this.state;
         return (
             <RootView>
-                <List
+                <FeedList
                     refreshControl={(
                         <RefreshControl
                             tintColor='#E4E4E4'

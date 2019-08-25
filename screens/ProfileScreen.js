@@ -1,19 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
-import { TouchableOpacity, ScrollView, AsyncStorage } from 'react-native';
+import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
-import { Avatar, Settings } from '../components/Index';
+import { colors } from '../constants/Index';
 import {
-    colors,
-    spacing,
-    fontSizes,
-    fontWeights,
-    opacities,
-} from '../constants/Index';
-
-const backgroundImg = require('../assets/profile-bg.png');
+    Settings,
+    ProfileHeader,
+    ProfileBody,
+} from '../components/Index';
 
 function mapStateToProps(state) {
     return {
@@ -30,60 +26,29 @@ class ProfileScreen extends React.Component {
     })
 
     async componentDidMount() {
-        // TODO: map this to a real collection
         // const hikeData = await this.queryHikeData();
     }
 
-    getHikeArray = async () => AsyncStorage.getItem('favoritedHikes')
-
     getHikesRef = async () => {
         const firestore = firebase.firestore();
-        return firestore.collection('hikes');
+        return firestore.collection('favoritedHikes');
     }
 
-    queryHikeData = async () => {
-        const hikesRef = await this.getHikesRef();
-        let hikeArray = await this.getHikeArray();
+    getUid = async () => firebase.auth().currentUser.uid
 
-        if (hikeArray) {
-            hikeArray = JSON.parse(hikeArray);
-            return hikesRef.doc(hikeArray[0]).get();
-        }
-        return [];
+    queryHikeData = async () => {
+        const uid = await this.getUid();
+        const favoritedHikesRef = await this.getHikesRef();
+        return favoritedHikesRef.doc(uid).get();
     }
 
     render() {
         const { name } = this.props;
         return (
             <RootView>
-                <ScrollView
-                    showsVerticalScrollIndicator={false}
-                >
-                    <ProfileHeader
-                        source={backgroundImg}
-                    >
-                        <AvatarWrapper>
-                            <TouchableOpacity
-                                activeOpacity={opacities.regular}
-                            >
-                                <Avatar />
-                            </TouchableOpacity>
-                        </AvatarWrapper>
-                        <NameText>{name}</NameText>
-                        <LocationText>Seattle, WA</LocationText>
-                        <TouchableOpacity
-                            activeOpacity={opacities.regular}
-                            style={{
-                                position: 'absolute',
-                                right: parseInt(spacing.small, 10),
-                                bottom: 20,
-                            }}
-                        >
-                            <EditProfileLink>
-                                Edit Profile
-                            </EditProfileLink>
-                        </TouchableOpacity>
-                    </ProfileHeader>
+                <ScrollView showsVerticalScrollIndicator={false}>
+                    <ProfileHeader name={name} />
+                    <ProfileBody hikes={hikes} />
                 </ScrollView>
             </RootView>
         );
@@ -100,32 +65,15 @@ const RootView = styled.View`
     overflow: hidden;
 `;
 
-const AvatarWrapper = styled.View`
-    width: 66px;
-    border-radius: 33px;
-`;
-
-const ProfileHeader = styled.ImageBackground`
-    padding-left: ${spacing.small}px;
-    padding-top: 40px;
-    padding-bottom: ${spacing.medium}px;
-`;
-
-const NameText = styled.Text`
-    font-size: ${fontSizes.big}px;
-    font-weight: ${fontWeights.bold};
-    color:${colors.black};
-    margin-top: ${spacing.tiny}px;
-`;
-
-const LocationText = styled.Text`
-    font-size: ${fontSizes.medium}px;
-    font-weight: ${fontWeights.medium};
-    color: ${colors.black};
-`;
-
-const EditProfileLink = styled.Text`
-    font-size: ${fontSizes.medium}px;
-    font-weight: ${fontWeights.medium};
-    color: ${colors.purple};
-`;
+const hikes = [
+    {
+        id: 'zvXj5WRBdxrlRTLm65SD',
+        name: 'Hike 1',
+        description: 'Hello',
+    },
+    {
+        id: 'zvXj5WRBdxrlRTLm65SD',
+        name: 'Hike 2',
+        description: 'Hello again',
+    },
+];

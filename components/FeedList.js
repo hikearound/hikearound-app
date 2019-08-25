@@ -1,12 +1,12 @@
 import React from 'react';
 import { FlatList } from 'react-navigation';
-import Item from './Item';
-import Footer from './Footer';
+import FeedItem from './FeedItem';
+import FeedFooter from './FeedFooter';
 
 /* eslint-disable react/jsx-props-no-spreading */
 
-class List extends React.Component {
-    renderItem = ({ item }) => <Item _key={item.key} {...item} />;
+class FeedList extends React.Component {
+    renderItem = ({ item }) => <FeedItem _key={item.key} {...item} />;
 
     keyExtractor = (item) => item.key;
 
@@ -18,7 +18,7 @@ class List extends React.Component {
                 showsVerticalScrollIndicator={false}
                 keyExtractor={this.keyExtractor}
                 renderItem={this.renderItem}
-                ListFooterComponent={({ item }) => <Footer {...item} />}
+                ListFooterComponent={({ item }) => <FeedFooter {...item} />}
                 {...props}
             />
         );
@@ -37,4 +37,4 @@ class List extends React.Component {
     // }
 }
 
-export default List;
+export default FeedList;

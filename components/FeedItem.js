@@ -6,7 +6,7 @@ import firebase from 'firebase';
 import FeedCard from './FeedCard';
 import { spacing, opacities } from '../constants/Index';
 
-class Item extends React.Component {
+class FeedItem extends React.Component {
     constructor(props) {
         super(props);
         const { images } = this.props;
@@ -57,7 +57,7 @@ class Item extends React.Component {
     }
 }
 
-export default withNavigation(Item);
+export default withNavigation(FeedItem);
 
 const CardsContainer = styled.View`
     flex-direction: column;
