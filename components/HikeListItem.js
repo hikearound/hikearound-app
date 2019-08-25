@@ -1,31 +1,45 @@
 import React from 'react';
 import styled from 'styled-components';
+import { TouchableOpacity } from 'react-native';
 import {
     colors,
     fontSizes,
+    fontWeights,
+    spacing,
+    opacities,
 } from '../constants/Index';
 
 const ProfileHikeRow = ({
-    name, description,
+    name, location, distance,
 }) => (
-    <Container>
-        <Name>{name}</Name>
-        <Description>{description}</Description>
-    </Container>
+    <TouchableOpacity activeOpacity={opacities.regular}>
+        <Container>
+            <Name>{name}</Name>
+            <MetaData>
+                {location}
+                {' · '}
+                {distance}
+                {'m'}
+            </MetaData>
+        </Container>
+    </TouchableOpacity>
 );
 
 export default ProfileHikeRow;
 
 const Container = styled.View`
-    width: 100%;
+    border-color: ${colors.lightGray};
+    border-top-width: 1px;
+    padding: ${spacing.small}px 0;
 `;
 
 const Name = styled.Text`
     color: ${colors.black};
-    font-size: ${fontSizes.big}px;
+    font-size: ${fontSizes.large}px;
+    font-weight: ${fontWeights.bold};
 `;
 
-const Description = styled.Text`
-    color: ${colors.black};
-    font-size: ${fontSizes.big}px;
+const MetaData = styled.Text`
+    color: ${colors.mediumGray};
+    font-size: ${fontSizes.medium}px;
 `;

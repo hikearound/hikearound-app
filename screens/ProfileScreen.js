@@ -68,12 +68,16 @@ const RootView = styled.View`
 const hikes = [
     {
         id: 'zvXj5WRBdxrlRTLm65SD',
-        name: 'Hike 1',
-        description: 'Hello',
+        name: 'Meyers Lane',
+        location: 'Marin, CA',
+        distance: '4.2',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum erat arcu, posuere ac varius vel, viverra et lorem. Maecenas fringilla dignissim lobortis. Ut pharetra scelerisque eros',
     },
     {
-        id: 'zvXj5WRBdxrlRTLm65SD',
-        name: 'Hike 2',
-        description: 'Hello again',
+        id: 'wYabArE4DI12LHrzcjo8',
+        name: 'Johnstone Trail',
+        location: 'San Francisco, CA',
+        distance: '5.4',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum erat arcu, posuere ac varius vel, viverra et lorem. Maecenas fringilla dignissim lobortis. Ut pharetra scelerisque eros',
     },
 ];

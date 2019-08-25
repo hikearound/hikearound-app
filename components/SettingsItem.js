@@ -130,7 +130,7 @@ export default connect(
 )(SettingsItem);
 
 const ItemContainer = styled.View`
-    border-color: #F0F0F0;
+    border-color: ${colors.lightGray};
     border-top-width: 1px;
     padding: ${spacing.small}px 0;
 `;
