@@ -3,12 +3,10 @@ import styled from 'styled-components';
 import firebase from 'firebase';
 import {
     ScrollView,
-    StyleSheet,
     AsyncStorage,
     ActionSheetIOS,
 } from 'react-native';
 import * as Location from 'expo-location';
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { connect } from 'react-redux';
 import openMap from 'react-native-open-maps';
 import {
@@ -16,6 +14,7 @@ import {
     HikeBody,
     Overflow,
     Toast,
+    HikeMap,
 } from '../components/Index';
 import {
     spacing,
@@ -23,7 +22,6 @@ import {
     transparentColors,
     borderRadius,
 } from '../constants/Index';
-
 
 const INITIAL_LAT_DELTA = 0.0922;
 const INITIAL_LONG_DELTA = 0.0421;
@@ -203,27 +201,13 @@ class HikeScreen extends React.Component {
             <RootView>
                 <Toast name={hike.name} />
                 <PurpleBlockView />
-                <ScrollView
-                    showsVerticalScrollIndicator={false}
-                >
+                <ScrollView showsVerticalScrollIndicator={false}>
                     <MapViewWrapper>
                         <InnerMapViewWrapper>
-                            <MapView
-                                ref={(ref) => { this.mapView = ref; }}
-                                provider={PROVIDER_GOOGLE}
-                                style={styles.map}
-                                mapType='terrain'
-                                showsUserLocation
-                                showsMyLocationButton={false}
-                                showsPointsOfInterest={false}
-                                showsCompass={false}
-                            >
-                                <MapView.Polyline
-                                    coordinates={coordinates}
-                                    strokeColor={colors.purple}
-                                    strokeWidth={4}
-                                />
-                            </MapView>
+                            <HikeMap
+                                mapRef={(ref) => { this.mapView = ref; }}
+                                coordinates={coordinates}
+                            />
                             <InfoBar
                                 distance={distance}
                                 elevation={elevation}
@@ -247,15 +231,6 @@ class HikeScreen extends React.Component {
 export default connect(
     mapStateToProps,
 )(HikeScreen);
-
-const styles = StyleSheet.create({
-    map: {
-        height: 200,
-        zIndex: 1,
-        overflow: 'hidden',
-        borderRadius: parseInt(borderRadius.medium, 10),
-    },
-});
 
 const RootView = styled.View`
     background-color: ${colors.white};

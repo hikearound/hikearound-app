@@ -1,6 +1,7 @@
 // Hike
 import InfoBar from './InfoBar';
 import HikeBody from './HikeBody';
+import HikeMap from './HikeMap';
 
 // Components
 import Avatar from './Avatar';
@@ -63,4 +64,5 @@ export {
     HikeListItem,
     ProfileHeader,
     ProfileBody,
+    HikeMap,
 };
