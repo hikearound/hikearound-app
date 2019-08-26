@@ -16,6 +16,14 @@ class HikeList extends React.PureComponent {
         </HeaderContainer>
     )
 
+    renderEmptyList = () => (
+        <EmptyContainer>
+            <EmptyContainerText>
+                {'Hikes that you favorite will appear here.'}
+            </EmptyContainerText>
+        </EmptyContainer>
+    )
+
     renderItem = ({ item }) => (
         <HikeListItem
             key={item.id}
@@ -35,6 +43,7 @@ class HikeList extends React.PureComponent {
                 <FlatList
                     renderItem={this.renderItem}
                     ListHeaderComponent={this.renderListHeader}
+                    ListEmptyComponent={this.renderEmptyList}
                     data={hikes}
                     keyExtractor={extractKey}
                 />
@@ -59,4 +68,15 @@ const HeaderText = styled.Text`
     font-size: ${fontSizes.small}px;
     font-weight: ${fontWeights.medium};
     text-transform: uppercase;
+`;
+
+const EmptyContainer = styled.View`
+    border-color: ${colors.lightGray};
+    border-top-width: 1px;
+    padding: ${spacing.small}px 0;
+`;
+
+const EmptyContainerText = styled.Text`
+    color: ${colors.black};
+    font-size: ${fontSizes.medium}px;
 `;
