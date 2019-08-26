@@ -11,7 +11,7 @@ import Subtitle from './Subtitle';
 import Toast from './Toast';
 
 // Header
-import Logo from './Logo';
+import Logo from './header/Logo';
 import Overflow from './header/Overflow';
 import Sort from './header/Sort';
 import Settings from './header/Settings';
