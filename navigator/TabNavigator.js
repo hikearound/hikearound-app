@@ -145,6 +145,9 @@ const TabNavigator = createBottomTabNavigator(
     {
         tabBarOptions: {
             activeTintColor: activeColor,
+            style: {
+                borderTopColor: colors.lightGray,
+            },
             inactiveTintColor: inactiveColor,
             labelStyle: {
                 marginBottom: 0,
