@@ -30,7 +30,9 @@ class ProfileScreen extends React.Component {
 
         this.state = {
             hikes: [],
-            loading: true,
+            loading: false,
+            maybeShowEmptyState: false,
+
         };
     }
 
@@ -61,6 +63,7 @@ class ProfileScreen extends React.Component {
         this.setState({
             hikes,
             loading: false,
+            maybeShowEmptyState: true,
         });
     }
 
@@ -68,12 +71,16 @@ class ProfileScreen extends React.Component {
 
     render() {
         const { name } = this.props;
-        const { hikes, loading } = this.state;
+        const { hikes, loading, maybeShowEmptyState } = this.state;
         return (
             <RootView>
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <ProfileHeader name={name} />
-                    <ProfileBody hikes={hikes} loading={loading} />
+                    <ProfileBody
+                        hikes={hikes}
+                        loading={loading}
+                        maybeShowEmptyState={maybeShowEmptyState}
+                    />
                 </ScrollView>
             </RootView>
         );

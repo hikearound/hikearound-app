@@ -4,11 +4,15 @@ import HikeList from './HikeList';
 
 class ProfileBody extends React.PureComponent {
     render() {
-        const { hikes, loading } = this.props;
+        const { hikes, loading, maybeShowEmptyState } = this.props;
 
         return (
             <BodyWrapper>
-                <HikeList hikes={hikes} loading={loading} />
+                <HikeList
+                    hikes={hikes}
+                    loading={loading}
+                    maybeShowEmptyState={maybeShowEmptyState}
+                />
             </BodyWrapper>
         );
     }

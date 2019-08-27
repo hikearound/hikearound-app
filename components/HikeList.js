@@ -17,8 +17,8 @@ class HikeList extends React.PureComponent {
     )
 
     renderEmptyList = () => {
-        const { loading } = this.props;
-        if (!loading) {
+        const { maybeShowEmptyState } = this.props;
+        if (!maybeShowEmptyState) {
             return (
                 <EmptyContainer>
                     <EmptyContainerText>
