@@ -34,7 +34,6 @@ class HikeList extends React.PureComponent {
         <HikeListItem
             key={item.id}
             name={item.name}
-            description={item.description}
             location={item.location}
             distance={item.distance}
         />
