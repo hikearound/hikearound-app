@@ -25,25 +25,44 @@ class ProfileScreen extends React.Component {
         headerRight: <Settings navigation={navigation} />,
     })
 
-    async componentDidMount() {
-        // const hikeData = await this.queryHikeData();
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            hikes: [],
+        };
     }
 
-    getHikesRef = async () => {
+    async componentDidMount() {
+        this.getHikeData();
+    }
+
+    getHikeSnapshot = async () => {
         const firestore = firebase.firestore();
-        return firestore.collection('favoritedHikes');
+        const uid = await this.getUid();
+        return firestore.collection('favoritedHikes').doc(uid)
+            .collection('hikes').get();
+    }
+
+    getHikeData = async () => {
+        const hikeSnapshot = await this.getHikeSnapshot();
+        const hikes = [];
+
+        hikeSnapshot.forEach((hike) => {
+            if (hike.exists) {
+                const hikeData = hike.data() || {};
+                hikes.push(hikeData);
+            }
+        });
+
+        this.setState({ hikes });
     }
 
     getUid = async () => firebase.auth().currentUser.uid
 
-    queryHikeData = async () => {
-        const uid = await this.getUid();
-        const favoritedHikesRef = await this.getHikesRef();
-        return favoritedHikesRef.doc(uid).get();
-    }
-
     render() {
         const { name } = this.props;
+        const { hikes } = this.state;
         return (
             <RootView>
                 <ScrollView showsVerticalScrollIndicator={false}>
@@ -64,20 +83,3 @@ const RootView = styled.View`
     flex: 1;
     overflow: hidden;
 `;
-
-const hikes = [
-    {
-        id: 'zvXj5WRBdxrlRTLm65SD',
-        name: 'Meyers Lane',
-        location: 'Marin, CA',
-        distance: '4.2',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum erat arcu, posuere ac varius vel, viverra et lorem. Maecenas fringilla dignissim lobortis. Ut pharetra scelerisque eros',
-    },
-    {
-        id: 'wYabArE4DI12LHrzcjo8',
-        name: 'Johnstone Trail',
-        location: 'San Francisco, CA',
-        distance: '5.4',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum erat arcu, posuere ac varius vel, viverra et lorem. Maecenas fringilla dignissim lobortis. Ut pharetra scelerisque eros',
-    },
-];

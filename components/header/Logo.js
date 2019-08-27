@@ -1,7 +1,7 @@
 import React from 'react';
 import Svg, { G, Path } from 'react-native-svg';
 import styled from 'styled-components';
-import { colors } from '../constants/Index';
+import { colors } from '../../constants/Index';
 
 const Logo = ({
     width, height, fill, viewBox, style,
