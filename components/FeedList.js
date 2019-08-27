@@ -6,7 +6,7 @@ import FeedFooter from './FeedFooter';
 /* eslint-disable react/jsx-props-no-spreading */
 
 class FeedList extends React.Component {
-    renderItem = ({ item }) => <FeedItem _key={item.key} {...item} />;
+    renderItem = ({ item }) => <FeedItem {...item} />;
 
     keyExtractor = (item) => item.key;
 

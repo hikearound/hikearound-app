@@ -12,7 +12,7 @@ import FavoriteButton from './FavoriteButton';
 class HikeBody extends React.PureComponent {
     render() {
         const {
-            name, description, city, _key,
+            name, description, city, id,
         } = this.props;
 
         const newlineDescription = description.replace(
@@ -25,7 +25,7 @@ class HikeBody extends React.PureComponent {
                 <LocationText>{city}</LocationText>
                 <FavoriteButton
                     name={name}
-                    _key={_key}
+                    id={id}
                 />
                 <Subtitle text='Description' />
                 <DescriptionText>{newlineDescription}</DescriptionText>

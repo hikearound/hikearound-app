@@ -33,12 +33,13 @@ class Fire {
         const querySnapshot = await ref.get();
         const data = [];
 
-        querySnapshot.forEach((doc) => {
-            if (doc.exists) {
-                const post = doc.data() || {};
+        querySnapshot.forEach((hike) => {
+            if (hike.exists) {
+                const hikeData = hike.data() || {};
+                hikeData.id = hike.id;
                 const reduced = {
-                    key: doc.id,
-                    ...post,
+                    key: hike.id,
+                    ...hikeData,
                 };
                 data.push(reduced);
             }

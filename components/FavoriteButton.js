@@ -34,9 +34,9 @@ class FavoriteButton extends React.Component {
     }
 
     componentWillMount = async () => {
-        const { _key } = this.props;
+        const { id } = this.props;
         const hikeArray = await this.getFavoritedHikes();
-        if (hikeArray.includes(_key)) {
+        if (hikeArray.includes(id)) {
             this.setHeartFilled();
         }
     }
@@ -44,18 +44,18 @@ class FavoriteButton extends React.Component {
     getFavoritedHikes = async () => AsyncStorage.getItem('favoritedHikes')
 
     setFavoriteHike = async () => {
-        const { _key } = this.props;
+        const { id } = this.props;
         let hikeArray = await this.getFavoritedHikes();
         if (hikeArray) {
             hikeArray = JSON.parse(hikeArray);
-            if (!hikeArray.includes(_key)) {
-                hikeArray.push(_key);
+            if (!hikeArray.includes(id)) {
+                hikeArray.push(id);
                 AsyncStorage.setItem(
                     'favoritedHikes', JSON.stringify(hikeArray)
                 );
             }
         } else {
-            const newHikeArray = [_key];
+            const newHikeArray = [id];
             AsyncStorage.setItem(
                 'favoritedHikes', JSON.stringify(newHikeArray)
             );
@@ -77,10 +77,10 @@ class FavoriteButton extends React.Component {
     }
 
     removeFavoriteHike = async () => {
-        const { _key } = this.props;
+        const { id } = this.props;
         let hikeArray = await this.getFavoritedHikes();
         hikeArray = JSON.parse(hikeArray);
-        const index = hikeArray.indexOf(_key);
+        const index = hikeArray.indexOf(id);
         delete hikeArray[index];
         AsyncStorage.setItem(
             'favoritedHikes', JSON.stringify(hikeArray)

@@ -194,7 +194,7 @@ class HikeScreen extends React.Component {
             name,
             city,
             description,
-            _key,
+            id,
         } = hike;
 
         return (
@@ -220,7 +220,7 @@ class HikeScreen extends React.Component {
                         name={name}
                         city={city}
                         description={description}
-                        _key={_key}
+                        id={id}
                     />
                 </ScrollView>
             </RootView>
