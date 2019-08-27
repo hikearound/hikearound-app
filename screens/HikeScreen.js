@@ -6,7 +6,6 @@ import {
     AsyncStorage,
     ActionSheetIOS,
 } from 'react-native';
-import * as Location from 'expo-location';
 import { connect } from 'react-redux';
 import openMap from 'react-native-open-maps';
 import {
@@ -23,8 +22,6 @@ import {
     borderRadius,
 } from '../constants/Index';
 
-const INITIAL_LAT_DELTA = 0.0922;
-const INITIAL_LONG_DELTA = 0.0421;
 const SHEET_ITEMS = ['Get Directions', 'Cancel'];
 const SHEET_CANCEL_INDEX = 1;
 
@@ -67,25 +64,16 @@ class HikeScreen extends React.Component {
             startingLat, startingLon, latDelta, lonDelta,
         } = this.state;
 
-        const hikeRegion = {
+        const region = {
             latitude: startingLat,
             longitude: startingLon,
             latitudeDelta: latDelta,
             longitudeDelta: lonDelta,
         };
 
-        this.mapView.animateToRegion(hikeRegion, 250);
-    }
-
-    setCurrentRegion = async () => {
-        const location = await Location.getCurrentPositionAsync();
-        const hikeRegion = {
-            latitude: location.coords.latitude,
-            longitude: location.coords.longitude,
-            latitudeDelta: INITIAL_LAT_DELTA,
-            longitudeDelta: INITIAL_LONG_DELTA,
-        };
-        this.mapView.animateToRegion(hikeRegion, 10);
+        if (region) {
+            this.setState({ region });
+        }
     }
 
     getHikeXmlUrl = async () => {
@@ -161,7 +149,7 @@ class HikeScreen extends React.Component {
     };
 
     initializeMap = async () => {
-        this.setCurrentRegion();
+        // this.setCurrentRegion();
         this.getHikeData();
     }
 
@@ -185,7 +173,7 @@ class HikeScreen extends React.Component {
 
     render() {
         const { navigation } = this.props;
-        const { coordinates } = this.state;
+        const { coordinates, region } = this.state;
         const hike = navigation.getParam('hike');
         const {
             distance,
@@ -207,6 +195,7 @@ class HikeScreen extends React.Component {
                             <HikeMap
                                 mapRef={(ref) => { this.mapView = ref; }}
                                 coordinates={coordinates}
+                                region={region}
                             />
                             <InfoBar
                                 distance={distance}
