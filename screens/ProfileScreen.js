@@ -30,6 +30,7 @@ class ProfileScreen extends React.Component {
 
         this.state = {
             hikes: [],
+            loading: false,
         };
     }
 
@@ -38,6 +39,7 @@ class ProfileScreen extends React.Component {
     }
 
     getHikeSnapshot = async () => {
+        this.setState({ loading: true });
         const firestore = firebase.firestore();
         const uid = await this.getUid();
         return firestore.collection('favoritedHikes').doc(uid)
@@ -51,23 +53,27 @@ class ProfileScreen extends React.Component {
         hikeSnapshot.forEach((hike) => {
             if (hike.exists) {
                 const hikeData = hike.data() || {};
+                hikeData.id = hike.id;
                 hikes.push(hikeData);
             }
         });
 
-        this.setState({ hikes });
+        this.setState({
+            hikes,
+            loading: false,
+        });
     }
 
     getUid = async () => firebase.auth().currentUser.uid
 
     render() {
         const { name } = this.props;
-        const { hikes } = this.state;
+        const { hikes, loading } = this.state;
         return (
             <RootView>
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <ProfileHeader name={name} />
-                    <ProfileBody hikes={hikes} />
+                    <ProfileBody hikes={hikes} loading={loading} />
                 </ScrollView>
             </RootView>
         );

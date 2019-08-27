@@ -4,11 +4,11 @@ import HikeList from './HikeList';
 
 class ProfileBody extends React.PureComponent {
     render() {
-        const { hikes } = this.props;
+        const { hikes, loading } = this.props;
 
         return (
             <BodyWrapper>
-                <HikeList hikes={hikes} />
+                <HikeList hikes={hikes} loading={loading} />
             </BodyWrapper>
         );
     }

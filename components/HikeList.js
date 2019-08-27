@@ -16,13 +16,19 @@ class HikeList extends React.PureComponent {
         </HeaderContainer>
     )
 
-    renderEmptyList = () => (
-        <EmptyContainer>
-            <EmptyContainerText>
-                {'Hikes that you favorite will appear here.'}
-            </EmptyContainerText>
-        </EmptyContainer>
-    )
+    renderEmptyList = () => {
+        const { loading } = this.props;
+        if (!loading) {
+            return (
+                <EmptyContainer>
+                    <EmptyContainerText>
+                        {'Hikes that you favorite will appear here.'}
+                    </EmptyContainerText>
+                </EmptyContainer>
+            );
+        }
+        return null;
+    }
 
     renderItem = ({ item }) => (
         <HikeListItem
