@@ -94,8 +94,10 @@ class HomeScreen extends React.Component {
     }
 
     render() {
-        LayoutAnimation.easeInEaseOut();
         const { loading, posts } = this.state;
+
+        LayoutAnimation.easeInEaseOut();
+
         return (
             <RootView>
                 <FeedList

@@ -72,6 +72,7 @@ class ProfileScreen extends React.Component {
     render() {
         const { name } = this.props;
         const { hikes, loading, maybeShowEmptyState } = this.state;
+
         return (
             <RootView>
                 <ScrollView showsVerticalScrollIndicator={false}>

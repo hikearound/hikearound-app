@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-    StyleSheet,
+    StyleSheet, LayoutAnimation,
 } from 'react-native';
 import styled from 'styled-components';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
@@ -18,6 +18,8 @@ class HikeMap extends React.Component {
             mapRef,
             region,
         } = this.props;
+
+        LayoutAnimation.easeInEaseOut();
 
         if (region) {
             return (
