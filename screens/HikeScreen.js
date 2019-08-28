@@ -149,7 +149,6 @@ class HikeScreen extends React.Component {
     };
 
     initializeMap = async () => {
-        // this.setCurrentRegion();
         this.getHikeData();
     }
 
