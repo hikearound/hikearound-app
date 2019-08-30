@@ -14,7 +14,7 @@ const backgroundImg = require('../assets/profile-bg.png');
 
 class ProfileHeader extends React.PureComponent {
     render() {
-        const { name } = this.props;
+        const { name, location } = this.props;
 
         return (
             <HeaderWrapper source={backgroundImg}>
@@ -24,7 +24,7 @@ class ProfileHeader extends React.PureComponent {
                     </TouchableOpacity>
                 </AvatarWrapper>
                 <NameText>{name}</NameText>
-                <LocationText>Seattle, WA</LocationText>
+                <LocationText>{location}</LocationText>
                 <TouchableOpacity
                     activeOpacity={opacities.regular}
                     style={{

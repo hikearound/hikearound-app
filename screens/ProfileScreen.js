@@ -13,8 +13,8 @@ import {
 
 function mapStateToProps(state) {
     return {
-        action: state.action,
         name: state.name,
+        location: state.location,
     };
 }
 
@@ -70,13 +70,13 @@ class ProfileScreen extends React.Component {
     getUid = async () => firebase.auth().currentUser.uid
 
     render() {
-        const { name } = this.props;
+        const { name, location } = this.props;
         const { hikes, loading, maybeShowEmptyState } = this.state;
 
         return (
             <RootView>
                 <ScrollView showsVerticalScrollIndicator={false}>
-                    <ProfileHeader name={name} />
+                    <ProfileHeader name={name} location={location} />
                     <ProfileBody
                         hikes={hikes}
                         loading={loading}
