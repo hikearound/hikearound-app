@@ -107,6 +107,7 @@ const ProfileStack = createStackNavigator(
     {
         Profile: ProfileScreen,
         Settings: SettingsScreen,
+        Hike: HikeScreen,
     },
     {
         defaultNavigationOptions: {
