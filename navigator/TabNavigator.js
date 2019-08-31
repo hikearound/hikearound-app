@@ -34,7 +34,7 @@ const HomeStack = createStackNavigator(
         CreateAccount: CreateAccountScreen,
     },
     {
-        mode: 'card', // modal
+        mode: 'card',
         headerMode: 'float',
         headerTransitionPreset: 'fade-in-place', // uikit is buggy
         initialRouteName: 'Auth',
@@ -110,6 +110,9 @@ const ProfileStack = createStackNavigator(
         Hike: HikeScreen,
     },
     {
+        mode: 'card',
+        headerMode: 'float',
+        headerTransitionPreset: 'fade-in-place',
         defaultNavigationOptions: {
             headerStyle: {
                 backgroundColor: colors.purple,
@@ -123,7 +126,6 @@ const ProfileStack = createStackNavigator(
                 fontSize: parseInt(fontSizes.big, 10),
             },
         },
-        headerTransitionPreset: 'fade-in-place',
     },
 );
 
