@@ -47,11 +47,9 @@ class HikeScreen extends React.Component {
     constructor(props, context) {
         super(props, context);
         const { navigation } = this.props;
-
         navigation.setParams({
             showActionSheet: this.showActionSheet,
         });
-
         this.state = {};
     }
 
