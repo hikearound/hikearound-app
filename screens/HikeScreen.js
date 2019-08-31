@@ -77,10 +77,17 @@ class HikeScreen extends React.Component {
     }
 
     getHikeXmlUrl = async () => {
+        const xmlRef = await this.getXmlRef();
+        const ref = firebase.storage().ref(xmlRef);
+        return ref.getDownloadURL();
+    }
+
+    getXmlRef = async () => {
         const { navigation } = this.props;
         const hike = navigation.getParam('hike');
-        const ref = firebase.storage().ref(hike.gpx);
-        return ref.getDownloadURL();
+        const { id } = hike;
+        const xmlUrl = `hikes/${id}/hike.gpx`;
+        return xmlUrl;
     }
 
     getHikeData = async () => {
