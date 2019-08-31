@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { TouchableOpacity } from 'react-native';
+import { withNavigation } from 'react-navigation';
 import {
     colors,
     fontSizes,
@@ -9,23 +10,39 @@ import {
     opacities,
 } from '../constants/Index';
 
-const ProfileHikeRow = ({
-    name, location, distance,
-}) => (
-    <TouchableOpacity activeOpacity={opacities.regular}>
-        <Container>
-            <Name>{name}</Name>
-            <MetaData>
-                {location}
-                {' · '}
-                {distance}
-                {'m'}
-            </MetaData>
-        </Container>
-    </TouchableOpacity>
-);
+class ProfileHikeRow extends React.PureComponent {
+    render() {
+        const {
+            name,
+            location,
+            distance,
+            navigation,
+        } = this.props;
 
-export default ProfileHikeRow;
+        return (
+            <TouchableOpacity
+                activeOpacity={opacities.regular}
+                onPress={() => {
+                    navigation.push('Hike', {
+                        hike: this.props,
+                    });
+                }}
+            >
+                <Container>
+                    <Name>{name}</Name>
+                    <MetaData>
+                        {location}
+                        {' · '}
+                        {distance}
+                        {'m'}
+                    </MetaData>
+                </Container>
+            </TouchableOpacity>
+        );
+    }
+}
+
+export default withNavigation(ProfileHikeRow);
 
 const Container = styled.View`
     border-color: ${colors.lightGray};

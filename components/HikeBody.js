@@ -10,14 +10,29 @@ import Subtitle from './Subtitle';
 import FavoriteButton from './FavoriteButton';
 
 class HikeBody extends React.PureComponent {
-    render() {
-        const {
-            name, description, city, id,
-        } = this.props;
+    constructor(props, context) {
+        super(props, context);
+        this.state = {};
+    }
 
-        const newlineDescription = description.replace(
-            '\\n\\n', '\n\n'
-        );
+    componentDidMount() {
+        this.updateDescription();
+    }
+
+    updateDescription() {
+        const { description } = this.props;
+        if (description) {
+            this.setState({
+                description: description.replace(
+                    '\\n\\n', '\n\n'
+                ),
+            });
+        }
+    }
+
+    render() {
+        const { name, city, id } = this.props;
+        const { description } = this.state;
 
         return (
             <BodyContent>
@@ -28,7 +43,7 @@ class HikeBody extends React.PureComponent {
                     id={id}
                 />
                 <Subtitle text='Description' />
-                <DescriptionText>{newlineDescription}</DescriptionText>
+                <DescriptionText>{description}</DescriptionText>
             </BodyContent>
         );
     }

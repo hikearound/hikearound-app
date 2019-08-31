@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FlatList } from 'react-native';
+import { FlatList } from 'react-navigation';
 import HikeListItem from './HikeListItem';
 import {
     colors,
@@ -32,7 +32,7 @@ class HikeList extends React.PureComponent {
 
     renderItem = ({ item }) => (
         <HikeListItem
-            key={item.id}
+            id={item.id}
             name={item.name}
             location={item.location}
             distance={item.distance}
