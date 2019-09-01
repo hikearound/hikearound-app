@@ -32,7 +32,6 @@ class ProfileScreen extends React.Component {
             hikes: [],
             loading: false,
             maybeShowEmptyState: false,
-
         };
     }
 

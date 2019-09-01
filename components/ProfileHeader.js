@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { TouchableOpacity } from 'react-native';
+import * as firebase from 'firebase';
+import 'firebase/firestore';
 import Avatar from './Avatar';
 import {
     spacing,
@@ -13,32 +15,67 @@ import {
 const backgroundImg = require('../assets/profile-bg.png');
 
 class ProfileHeader extends React.PureComponent {
-    render() {
-        const { name, location } = this.props;
+    constructor(props) {
+        super(props);
 
-        return (
-            <HeaderWrapper source={backgroundImg}>
-                <AvatarWrapper>
-                    <TouchableOpacity activeOpacity={opacities.regular}>
-                        <Avatar />
+        this.state = {
+            loading: false,
+        };
+    }
+
+    async componentDidMount() {
+        this.getUserData();
+    }
+
+    getUid = async () => firebase.auth().currentUser.uid
+
+    getUserSnapshot = async () => {
+        this.setState({ loading: true });
+        const firestore = firebase.firestore();
+        const uid = await this.getUid();
+        return firestore.collection('users').doc(uid).get();
+    }
+
+    getUserData = async () => {
+        const userSnapshot = await this.getUserSnapshot();
+        const user = userSnapshot.data();
+
+        this.setState({
+            name: user.name,
+            location: user.location,
+            loading: false,
+        });
+    }
+
+    render() {
+        const { loading, name, location } = this.state;
+
+        if (!loading) {
+            return (
+                <HeaderWrapper source={backgroundImg}>
+                    <AvatarWrapper>
+                        <TouchableOpacity activeOpacity={opacities.regular}>
+                            <Avatar />
+                        </TouchableOpacity>
+                    </AvatarWrapper>
+                    <NameText>{name}</NameText>
+                    <LocationText>{location}</LocationText>
+                    <TouchableOpacity
+                        activeOpacity={opacities.regular}
+                        style={{
+                            position: 'absolute',
+                            right: parseInt(spacing.small, 10),
+                            bottom: 20,
+                        }}
+                    >
+                        <EditProfileLink>
+                            Edit Profile
+                        </EditProfileLink>
                     </TouchableOpacity>
-                </AvatarWrapper>
-                <NameText>{name}</NameText>
-                <LocationText>{location}</LocationText>
-                <TouchableOpacity
-                    activeOpacity={opacities.regular}
-                    style={{
-                        position: 'absolute',
-                        right: parseInt(spacing.small, 10),
-                        bottom: 20,
-                    }}
-                >
-                    <EditProfileLink>
-                        Edit Profile
-                    </EditProfileLink>
-                </TouchableOpacity>
-            </HeaderWrapper>
-        );
+                </HeaderWrapper>
+            );
+        }
+        return (null);
     }
 }
 

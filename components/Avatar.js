@@ -12,10 +12,6 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        updateName: (name) => dispatch({
-            type: 'UPDATE_NAME',
-            name,
-        }),
         updateAvatar: (avatar) => dispatch({
             type: 'UPDATE_AVATAR',
             avatar,
@@ -29,11 +25,10 @@ class Avatar extends React.Component {
     }
 
     loadState = () => {
-        const { updateName, updateAvatar } = this.props;
+        const { updateAvatar } = this.props;
         AsyncStorage.getItem('state').then((serializedState) => {
             const state = JSON.parse(serializedState);
             if (state) {
-                updateName(state.name);
                 updateAvatar(state.avatar);
             }
         });
