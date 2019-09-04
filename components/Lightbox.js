@@ -117,5 +117,5 @@ const ModalRoot = styled.View`
 
 const LightboxImage = styled.Image`
     height: 100%;
-    margin-top: -${DISMISS_ICON_OFFSET}px;
+    margin-top: -${DISMISS_ICON_SIZE}px;
 `;
