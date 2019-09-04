@@ -8,8 +8,8 @@ console.disableYellowBox = true;
 
 const initialState = {
     action: '',
-    name: 'Patrick Dugan',
-    location: 'Seattle, WA',
+    name: '',
+    location: '',
     mapPreference: 'Apple Maps',
     avatar: 'https://patdugan.me/images/me.jpg',
     imageIndex: 0,
