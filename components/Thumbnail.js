@@ -37,7 +37,6 @@ class Thumbnail extends React.PureComponent {
 
         return (
             <TouchableOpacity
-                key={image.title}
                 onPress={this.thumbnailPress}
             >
                 <ThumbnailImage

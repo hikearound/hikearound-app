@@ -11,8 +11,6 @@ import FavoriteButton from './FavoriteButton';
 import Thumbnail from './Thumbnail';
 import Lightbox from './Lightbox';
 
-/* eslint-disable react/no-array-index-key */
-
 const HIKE_IMAGES = [
     {
         source: {
@@ -58,7 +56,7 @@ class HikeBody extends React.PureComponent {
                     <Thumbnail
                         image={image}
                         imageIndex={index}
-                        key={index}
+                        key={image.title}
                     />
                 ))}
                 <Lightbox images={HIKE_IMAGES} />
