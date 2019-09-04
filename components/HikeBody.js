@@ -2,7 +2,6 @@ import React from 'react';
 import {
     Modal,
     TouchableOpacity,
-    Image,
     StatusBar,
     Dimensions,
     SafeAreaView,
@@ -15,6 +14,7 @@ import {
     fontWeights,
     fontSizes,
     opacities,
+    borderRadius,
 } from '../constants/Index';
 import Subtitle from './Subtitle';
 import FavoriteButton from './FavoriteButton';
@@ -87,8 +87,7 @@ class HikeBody extends React.PureComponent {
                             );
                         }}
                     >
-                        <Image
-                            style={{ width: 100, height: 100 }}
+                        <ThumbnailImage
                             source={image.source}
                             resizeMode='cover'
                         />
@@ -147,6 +146,13 @@ const ModalRoot = styled.View`
     display: flex;
     height: 100%;
     background-color: ${colors.trueBlack};
+`;
+
+const ThumbnailImage = styled.Image`
+    width: 100px;
+    height: 100px;
+    border-radius: ${borderRadius.small}px;
+    margin: 0 ${spacing.micro}px ${spacing.micro}px 0;
 `;
 
 const LightboxImage = styled.Image`
