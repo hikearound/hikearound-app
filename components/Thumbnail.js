@@ -51,7 +51,7 @@ class Thumbnail extends React.PureComponent {
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps
+    mapDispatchToProps,
 )(Thumbnail);
 
 const ThumbnailImage = styled.Image`
