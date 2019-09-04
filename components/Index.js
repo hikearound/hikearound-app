@@ -9,6 +9,7 @@ import ActionButton from './Button';
 import FavoriteButton from './FavoriteButton';
 import Subtitle from './Subtitle';
 import Toast from './Toast';
+import Thumbnail from './Thumbnail';
 
 // Header
 import Logo from './header/Logo';
@@ -65,4 +66,5 @@ export {
     ProfileHeader,
     ProfileBody,
     HikeMap,
+    Thumbnail,
 };

@@ -28,6 +28,12 @@ const reducer = (state = initialState, action) => {
         return { ...state, avatar: action.location };
     case 'SET_MAP_PREFERENCE':
         return { ...state, mapPreference: action.mapPreference };
+    case 'SHOW_LIGHTBOX':
+        return { ...state, action: 'showLightbox' };
+    case 'CLOSE_LIGHTBOX':
+        return { ...state, action: 'closeLightbox' };
+    case 'SET_LIGHTBOX_PHOTO':
+        return { ...state, imageIndex: action.imageIndex };
     default:
         return state;
     }

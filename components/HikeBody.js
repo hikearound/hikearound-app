@@ -1,23 +1,17 @@
 import React from 'react';
-import {
-    Modal,
-    TouchableOpacity,
-    StatusBar,
-    Dimensions,
-    SafeAreaView,
-} from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 import styled from 'styled-components';
 import {
     spacing,
     colors,
     fontWeights,
     fontSizes,
-    opacities,
-    borderRadius,
 } from '../constants/Index';
 import Subtitle from './Subtitle';
 import FavoriteButton from './FavoriteButton';
+import Thumbnail from './Thumbnail';
+import Lightbox from './Lightbox';
+
+/* eslint-disable react/no-array-index-key */
 
 const HIKE_IMAGES = [
     {
@@ -29,27 +23,9 @@ const HIKE_IMAGES = [
     },
 ];
 
-const { VIEWPORT_WIDTH } = Dimensions.get('window');
-
 class HikeBody extends React.PureComponent {
-    constructor(props, context) {
-        super(props, context);
-        this.state = {
-            modalVisible: false,
-            imageIndex: 0,
-        };
-    }
-
-    componentDidMount() {
+    componentWillMount() {
         this.updateDescription();
-    }
-
-    toggleLightbox(visible, index) {
-        this.setState({
-            modalVisible: visible,
-            imageIndex: index,
-        });
-        StatusBar.setHidden(visible);
     }
 
     updateDescription() {
@@ -65,7 +41,7 @@ class HikeBody extends React.PureComponent {
 
     render() {
         const { name, city, id } = this.props;
-        const { description, modalVisible, imageIndex } = this.state;
+        const { description } = this.state;
 
         return (
             <BodyContent>
@@ -79,57 +55,13 @@ class HikeBody extends React.PureComponent {
                 <DescriptionText>{description}</DescriptionText>
                 <Subtitle text='Images' />
                 {HIKE_IMAGES.map((image, index) => (
-                    <TouchableOpacity
-                        key={image.title}
-                        onPress={() => {
-                            this.toggleLightbox(
-                                !modalVisible, index
-                            );
-                        }}
-                    >
-                        <ThumbnailImage
-                            source={image.source}
-                            resizeMode='cover'
-                        />
-                    </TouchableOpacity>
+                    <Thumbnail
+                        image={image}
+                        imageIndex={index}
+                        key={index}
+                    />
                 ))}
-                <Modal
-                    animationType='fade'
-                    transparent={false}
-                    visible={modalVisible}
-                    onRequestClose={() => {}}
-                >
-                    <ModalRoot>
-                        <SafeAreaView style={{ flex: 1 }}>
-                            <TouchableOpacity
-                                onPress={() => {
-                                    this.toggleLightbox(
-                                        !modalVisible,
-                                        imageIndex,
-                                    );
-                                }}
-                                activeOpacity={opacities.regular}
-                                style={{
-                                    display: 'flex',
-                                    alignItems: 'flex-end',
-                                    marginRight: 20,
-                                    marginTop: -20,
-                                }}
-                            >
-                                <Ionicons
-                                    name='ios-close'
-                                    color={colors.white}
-                                    size={45}
-                                />
-                            </TouchableOpacity>
-                            <LightboxImage
-                                style={{ VIEWPORT_WIDTH }}
-                                source={HIKE_IMAGES[imageIndex].source}
-                                resizeMode='contain'
-                            />
-                        </SafeAreaView>
-                    </ModalRoot>
-                </Modal>
+                <Lightbox images={HIKE_IMAGES} />
             </BodyContent>
         );
     }
@@ -140,23 +72,6 @@ export default HikeBody;
 const BodyContent = styled.View`
     padding: ${spacing.medium}px ${spacing.small}px;
     background-color: ${colors.white};
-`;
-
-const ModalRoot = styled.View`
-    display: flex;
-    height: 100%;
-    background-color: ${colors.trueBlack};
-`;
-
-const ThumbnailImage = styled.Image`
-    width: 100px;
-    height: 100px;
-    border-radius: ${borderRadius.small}px;
-    margin: 0 ${spacing.micro}px ${spacing.micro}px 0;
-`;
-
-const LightboxImage = styled.Image`
-    height: 100%;
 `;
 
 const DescriptionText = styled.Text`
