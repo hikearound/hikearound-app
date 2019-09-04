@@ -8,10 +8,10 @@ import {
     SafeAreaView,
 } from 'react-native';
 import { connect } from 'react-redux';
-import {
-    colors,
-    opacities,
-} from '../constants/Index';
+import { colors, opacities } from '../constants/Index';
+
+const DISMISS_ICON_OFFSET = 20;
+const DISMISS_ICON_SIZE = 45;
 
 function mapStateToProps(state) {
     return {
@@ -81,14 +81,14 @@ class Lightbox extends React.PureComponent {
                             style={{
                                 display: 'flex',
                                 alignItems: 'flex-end',
-                                marginRight: 20,
-                                marginTop: -20,
+                                marginRight: DISMISS_ICON_OFFSET,
+                                marginTop: -DISMISS_ICON_OFFSET,
                             }}
                         >
                             <Ionicons
                                 name='ios-close'
                                 color={colors.white}
-                                size={45}
+                                size={DISMISS_ICON_SIZE}
                             />
                         </TouchableOpacity>
                         <LightboxImage

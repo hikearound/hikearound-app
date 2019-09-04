@@ -2,16 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-import {
-    spacing,
-    borderRadius,
-} from '../constants/Index';
-
-function mapStateToProps(state) {
-    return {
-        imageIndex: state.imageIndex,
-    };
-}
+import { spacing, borderRadius } from '../constants/Index';
 
 function mapDispatchToProps(dispatch) {
     return {
@@ -36,9 +27,7 @@ class Thumbnail extends React.PureComponent {
         const { image } = this.props;
 
         return (
-            <TouchableOpacity
-                onPress={this.thumbnailPress}
-            >
+            <TouchableOpacity onPress={this.thumbnailPress}>
                 <ThumbnailImage
                     source={image.source}
                     resizeMode='cover'
@@ -49,7 +38,6 @@ class Thumbnail extends React.PureComponent {
 }
 
 export default connect(
-    mapStateToProps,
     mapDispatchToProps,
 )(Thumbnail);
 
