@@ -63,7 +63,7 @@ class HikeBody extends React.PureComponent {
                     {HIKE_IMAGES.map((image, index) => (
                         <Thumbnail
                             image={image}
-                            thumbnailIndex={index}
+                            imageIndex={index}
                             key={index}
                         />
                     ))}

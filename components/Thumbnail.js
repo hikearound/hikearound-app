@@ -6,14 +6,14 @@ import { spacing, borderRadius } from '../constants/Index';
 
 function mapStateToProps(state) {
     return {
-        imageIndex: state.imageIndex,
+        action: state.action,
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         setLightboxPhoto: (imageIndex) => dispatch({
-            type: 'SET_LIGHTBOX_PHOTO',
+            type: 'SET_LIGHTBOX_IMAGE_INDEX',
             imageIndex,
         }),
         showLightbox: () => dispatch({
@@ -27,10 +27,10 @@ class Thumbnail extends React.PureComponent {
         const {
             setLightboxPhoto,
             showLightbox,
-            thumbnailIndex,
+            imageIndex,
         } = this.props;
 
-        setLightboxPhoto(thumbnailIndex);
+        setLightboxPhoto(imageIndex);
         showLightbox();
     }
 

@@ -66,8 +66,6 @@ class Lightbox extends React.PureComponent {
         const { images, imageIndex } = this.props;
         const { modalVisible } = this.state;
 
-        console.log(imageIndex);
-
         return (
             <Modal
                 animationType='fade'
