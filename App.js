@@ -12,6 +12,7 @@ const initialState = {
     location: 'Seattle, WA',
     mapPreference: 'Apple Maps',
     avatar: 'https://patdugan.me/images/me.jpg',
+    imageIndex: 0,
 };
 
 const reducer = (state = initialState, action) => {

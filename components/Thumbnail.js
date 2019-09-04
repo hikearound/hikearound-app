@@ -4,6 +4,12 @@ import { TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { spacing, borderRadius } from '../constants/Index';
 
+function mapStateToProps(state) {
+    return {
+        imageIndex: state.imageIndex,
+    };
+}
+
 function mapDispatchToProps(dispatch) {
     return {
         setLightboxPhoto: (imageIndex) => dispatch({
@@ -18,8 +24,13 @@ function mapDispatchToProps(dispatch) {
 
 class Thumbnail extends React.PureComponent {
     thumbnailPress = () => {
-        const { setLightboxPhoto, showLightbox, imageIndex } = this.props;
-        setLightboxPhoto(imageIndex);
+        const {
+            setLightboxPhoto,
+            showLightbox,
+            thumbnailIndex,
+        } = this.props;
+
+        setLightboxPhoto(thumbnailIndex);
         showLightbox();
     }
 
@@ -38,12 +49,14 @@ class Thumbnail extends React.PureComponent {
 }
 
 export default connect(
+    mapStateToProps,
     mapDispatchToProps,
 )(Thumbnail);
 
 const ThumbnailImage = styled.Image`
+    display: flex;
     width: 100px;
     height: 100px;
     border-radius: ${borderRadius.small}px;
-    margin: 0 ${spacing.micro}px ${spacing.micro}px 0;
+    margin: 0 ${spacing.micro}px 30px 0;
 `;

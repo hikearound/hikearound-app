@@ -12,7 +12,6 @@ import {
 } from '../../constants/Index';
 
 /* eslint-disable no-undef */
-/* eslint-disable react/no-array-index-key */
 
 class InputGroup extends React.Component {
     constructor(props) {

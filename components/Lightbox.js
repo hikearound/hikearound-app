@@ -34,7 +34,6 @@ class Lightbox extends React.PureComponent {
 
         this.state = {
             modalVisible: false,
-            imageIndex: 0,
         };
     }
 
@@ -64,8 +63,10 @@ class Lightbox extends React.PureComponent {
     }
 
     render() {
-        const { images } = this.props;
-        const { modalVisible, imageIndex } = this.state;
+        const { images, imageIndex } = this.props;
+        const { modalVisible } = this.state;
+
+        console.log(imageIndex);
 
         return (
             <Modal

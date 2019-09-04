@@ -21,6 +21,7 @@ module.exports = {
         'import/no-extraneous-dependencies': 'off',
         'no-use-before-define': 'off',
         'react/jsx-filename-extension': 'off',
+        'react/no-array-index-key': 'off',
         'react/prop-types': 'off',
         'jsx-quotes': ['error', 'prefer-single'],
         'comma-dangle': ['error', 'always-multiline'],
