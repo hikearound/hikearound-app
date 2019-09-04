@@ -39,27 +39,27 @@ class Lightbox extends React.PureComponent {
     }
 
     componentDidUpdate() {
-        this.maybeShowLightbox();
+        this.toggleLightbox();
     }
 
-    maybeShowLightbox = () => {
+    toggleLightbox = () => {
         const { action } = this.props;
         if (action === 'showLightbox') {
-            this.setState({
-                modalVisible: true,
-            });
-            StatusBar.setHidden(true);
+            this.showLightbox();
         } else if (action === 'closeLightbox') {
             this.closeLightbox();
         }
     }
 
+    showLightbox = () => {
+        this.setState({ modalVisible: true });
+        StatusBar.setHidden(true);
+    }
+
     closeLightbox = () => {
         const { closeLightbox } = this.props;
         StatusBar.setHidden(false);
-        this.setState({
-            modalVisible: false,
-        });
+        this.setState({ modalVisible: false });
         closeLightbox();
     }
 
@@ -72,14 +72,11 @@ class Lightbox extends React.PureComponent {
                 animationType='fade'
                 transparent={false}
                 visible={modalVisible}
-                onRequestClose={() => {}}
             >
                 <ModalRoot>
                     <SafeAreaView style={{ flex: 1 }}>
                         <TouchableOpacity
-                            onPress={() => {
-                                this.closeLightbox();
-                            }}
+                            onPress={() => { this.closeLightbox(); }}
                             activeOpacity={opacities.regular}
                             style={{
                                 display: 'flex',
