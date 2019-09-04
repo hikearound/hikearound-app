@@ -101,9 +101,7 @@ class HikeBody extends React.PureComponent {
                     onRequestClose={() => {}}
                 >
                     <ModalRoot>
-                        <SafeAreaView
-                            style={{ flex: 1 }}
-                        >
+                        <SafeAreaView style={{ flex: 1 }}>
                             <TouchableOpacity
                                 onPress={() => {
                                     this.toggleLightbox(
