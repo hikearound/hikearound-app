@@ -27,7 +27,7 @@ class FavoriteButton extends React.Component {
         super(props);
 
         this.state = {
-            iconColor: '#CDCDCD',
+            iconColor: colors.gray,
             iconName: 'ios-heart-empty',
             iconSize: 30,
         };
@@ -64,14 +64,14 @@ class FavoriteButton extends React.Component {
 
     setHeartFilled() {
         this.setState({
-            iconColor: `${colors.purple}`,
+            iconColor: colors.purple,
             iconName: 'ios-heart',
         });
     }
 
     setHeartEmpty() {
         this.setState({
-            iconColor: '#CDCDCD',
+            iconColor: colors.gray,
             iconName: 'ios-heart-empty',
         });
     }

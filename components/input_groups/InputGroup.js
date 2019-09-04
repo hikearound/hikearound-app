@@ -145,7 +145,7 @@ const TextInput = styled.TextInput`
     margin: 0 ${spacing.medium}px 26px ${spacing.medium}px;
     padding-bottom: 3px;
     border-bottom-width: 1px;
-    border-bottom-color: #D8D8D8;
+    border-bottom-color: ${colors.borderGray};
     font-size: ${fontSizes.large}px;
     color: ${colors.black};
 `;

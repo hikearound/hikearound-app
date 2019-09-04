@@ -246,7 +246,7 @@ const InnerMapViewWrapper = styled.View`
 const GrayBlockView = styled.View`
     flex: 1;
     height: 165px;
-    background-color: #F6F6F6;
+    background-color: ${colors.ultraLightGray};
     position: absolute;
     left: 0;
     right: 0;

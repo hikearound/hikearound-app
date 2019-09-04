@@ -13,6 +13,14 @@ import { colors, opacities } from '../constants/Index';
 const DISMISS_ICON_OFFSET = 20;
 const DISMISS_ICON_SIZE = 45;
 
+const DISMISS_ICON_STYLE = {
+    display: 'flex',
+    alignItems: 'flex-end',
+    marginRight: DISMISS_ICON_OFFSET,
+    marginTop: -DISMISS_ICON_OFFSET,
+    zIndex: 1,
+};
+
 function mapStateToProps(state) {
     return {
         imageIndex: state.imageIndex,
@@ -77,12 +85,7 @@ class Lightbox extends React.PureComponent {
                         <TouchableOpacity
                             onPress={() => { this.closeLightbox(); }}
                             activeOpacity={opacities.regular}
-                            style={{
-                                display: 'flex',
-                                alignItems: 'flex-end',
-                                marginRight: DISMISS_ICON_OFFSET,
-                                marginTop: -DISMISS_ICON_OFFSET,
-                            }}
+                            style={DISMISS_ICON_STYLE}
                         >
                             <Ionicons
                                 name='ios-close'
@@ -114,4 +117,5 @@ const ModalRoot = styled.View`
 
 const LightboxImage = styled.Image`
     height: 100%;
+    margin-top: -${DISMISS_ICON_OFFSET}px;
 `;

@@ -14,17 +14,18 @@ import Lightbox from './Lightbox';
 const HIKE_IMAGES = [
     {
         source: {
-            uri:
-                'https://firebasestorage.googleapis.com/v0/b/hikearound-14dad.appspot.com/o/images%2Fhike1.jpg?alt=media&token=2113e260-6bb5-4e75-959f-f0cfc3c8d8e3',
+            uri: 'https://image.redbull.com/rbcom/052/2018-03-05/acaf2999-8c5a-477f-81bd-4095d708afb9/0012/0/0/0/1667/2500/1050/1/hike-mental-fitness.jpg',
         },
-        title: 'Meyers Lane #1',
     },
     {
         source: {
-            uri:
-                'https://firebasestorage.googleapis.com/v0/b/hikearound-14dad.appspot.com/o/images%2Fhike1.jpg?alt=media&token=2113e260-6bb5-4e75-959f-f0cfc3c8d8e3',
+            uri: 'https://www.sundanceresort.com/wp-content/uploads/2016/08/Hike_Sundance_0143-2000x1000-c-center.jpg',
         },
-        title: 'Meyers Lane #2',
+    },
+    {
+        source: {
+            uri: 'https://www.outsideonline.com/sites/default/files/styles/img_600x600/public/2019/01/18/active-volcano-hike_s.jpg',
+        },
     },
 ];
 
@@ -84,6 +85,7 @@ const BodyContent = styled.View`
 const PhotoGroup = styled.View`
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
 `;
 
 const DescriptionText = styled.Text`

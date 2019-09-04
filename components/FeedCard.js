@@ -45,7 +45,7 @@ const FeedCard = ({
 export default FeedCard;
 
 const Container = styled.View`
-    background-color: #DEDEDE;
+    background-color: ${colors.gray};
     width: 100%;
     border-radius: ${borderRadius.medium}px;
     box-shadow: 0 4px 12px ${transparentColors.gray};
@@ -94,7 +94,7 @@ const ContentItem = styled.View`
 `;
 
 const MetaDataType = styled.Text`
-    color: #9C9C9C;
+    color: ${colors.darkGray};
     font-size: ${fontSizes.small}px;
     font-weight: ${fontWeights.medium};
     text-transform: uppercase;

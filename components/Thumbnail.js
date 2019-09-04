@@ -2,7 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-import { spacing, borderRadius } from '../constants/Index';
+import { spacing, borderRadius, colors } from '../constants/Index';
+
+const THUMBNAIL_DIMENSION = 100;
 
 function mapStateToProps(state) {
     return {
@@ -55,8 +57,9 @@ export default connect(
 
 const ThumbnailImage = styled.Image`
     display: flex;
-    width: 100px;
-    height: 100px;
+    background-color: ${colors.lightGray};
+    width: ${THUMBNAIL_DIMENSION}px;
+    height: ${THUMBNAIL_DIMENSION}px;
     border-radius: ${borderRadius.small}px;
-    margin: 0 ${spacing.micro}px 30px 0;
+    margin: 0 ${spacing.tiny}px ${spacing.micro}px 0;
 `;
