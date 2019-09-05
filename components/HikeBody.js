@@ -30,6 +30,14 @@ const HIKE_IMAGES = [
 ];
 
 class HikeBody extends React.PureComponent {
+    constructor(props, context) {
+        super(props, context);
+
+        this.state = {
+            description: '',
+        };
+    }
+
     componentWillMount() {
         this.updateDescription();
     }
