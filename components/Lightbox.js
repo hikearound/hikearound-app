@@ -6,20 +6,25 @@ import {
     Modal,
     StatusBar,
     SafeAreaView,
+    Dimensions,
+    Image,
 } from 'react-native';
+import ImageZoom from 'react-native-image-pan-zoom';
 import { connect } from 'react-redux';
 import { colors, opacities } from '../constants/Index';
 
-const DISMISS_ICON_OFFSET = 20;
+const DISMISS_ICON_OFFSET = 25;
 const DISMISS_ICON_SIZE = 45;
 
 const DISMISS_ICON_STYLE = {
-    display: 'flex',
-    alignItems: 'flex-end',
-    marginRight: DISMISS_ICON_OFFSET,
-    marginTop: -DISMISS_ICON_OFFSET,
+    position: 'absolute',
+    right: DISMISS_ICON_OFFSET,
+    top: DISMISS_ICON_OFFSET,
     zIndex: 1,
 };
+
+const IMAGE_HEIGHT = Dimensions.get('window').height;
+const IMAGE_WIDTH = Dimensions.get('window').width;
 
 function mapStateToProps(state) {
     return {
@@ -93,10 +98,23 @@ class Lightbox extends React.PureComponent {
                                 size={DISMISS_ICON_SIZE}
                             />
                         </TouchableOpacity>
-                        <LightboxImage
-                            source={images[imageIndex].source}
-                            resizeMode='contain'
-                        />
+                        <ImageZoom
+                            enableSwipeDown
+                            onSwipeDown={() => { this.closeLightbox(); }}
+                            cropWidth={IMAGE_WIDTH}
+                            cropHeight={IMAGE_HEIGHT}
+                            imageWidth={IMAGE_WIDTH}
+                            imageHeight={IMAGE_HEIGHT}
+                        >
+                            <Image
+                                source={images[imageIndex].source}
+                                resizeMode='contain'
+                                style={{
+                                    width: IMAGE_WIDTH,
+                                    height: IMAGE_HEIGHT,
+                                }}
+                            />
+                        </ImageZoom>
                     </SafeAreaView>
                 </ModalRoot>
             </Modal>
@@ -113,9 +131,4 @@ const ModalRoot = styled.View`
     display: flex;
     height: 100%;
     background-color: ${colors.trueBlack};
-`;
-
-const LightboxImage = styled.Image`
-    height: 100%;
-    margin-top: -${DISMISS_ICON_SIZE}px;
 `;
