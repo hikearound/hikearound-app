@@ -1,32 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
-import {
-    Modal,
-    SafeAreaView,
-    Dimensions,
-    Image,
-    StatusBar,
-} from 'react-native';
-import ImageZoom from 'react-native-image-pan-zoom';
+import { Modal, SafeAreaView, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import { colors } from '../../constants/Index';
 import ModalDismiss from '../ModalDismiss';
-
-const IMAGE_HEIGHT = Dimensions.get('window').height;
-const IMAGE_WIDTH = Dimensions.get('window').width;
+import LightboxImage from '../LightboxImage';
 
 function mapStateToProps(state) {
     return {
         imageIndex: state.imageIndex,
         action: state.action,
-    };
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-        hideModal: () => dispatch({
-            type: 'HIDE_MODAL',
-        }),
     };
 }
 
@@ -58,10 +41,8 @@ class LightboxModal extends React.PureComponent {
     }
 
     hideModal = () => {
-        const { hideModal } = this.props;
         StatusBar.setHidden(false);
         this.setState({ modalVisible: false });
-        hideModal();
     }
 
     render() {
@@ -77,23 +58,10 @@ class LightboxModal extends React.PureComponent {
                 <ModalRoot>
                     <SafeAreaView style={{ flex: 1 }}>
                         <ModalDismiss />
-                        <ImageZoom
-                            enableSwipeDown
-                            onSwipeDown={() => { this.hideModal(); }}
-                            cropWidth={IMAGE_WIDTH}
-                            cropHeight={IMAGE_HEIGHT}
-                            imageWidth={IMAGE_WIDTH}
-                            imageHeight={IMAGE_HEIGHT}
-                        >
-                            <Image
-                                source={images[imageIndex].source}
-                                resizeMode='contain'
-                                style={{
-                                    width: IMAGE_WIDTH,
-                                    height: IMAGE_HEIGHT,
-                                }}
-                            />
-                        </ImageZoom>
+                        <LightboxImage
+                            images={images}
+                            imageIndex={imageIndex}
+                        />
                     </SafeAreaView>
                 </ModalRoot>
             </Modal>
@@ -103,7 +71,6 @@ class LightboxModal extends React.PureComponent {
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps,
 )(LightboxModal);
 
 const ModalRoot = styled.View`

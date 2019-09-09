@@ -15,14 +15,6 @@ function mapStateToProps(state) {
     };
 }
 
-function mapDispatchToProps(dispatch) {
-    return {
-        hideModal: () => dispatch({
-            type: 'HIDE_MODAL',
-        }),
-    };
-}
-
 class MapModal extends React.PureComponent {
     constructor(props, context) {
         super(props, context);
@@ -51,10 +43,8 @@ class MapModal extends React.PureComponent {
     }
 
     hideModal = () => {
-        const { hideModal } = this.props;
         StatusBar.setHidden(false);
         this.setState({ modalVisible: false });
-        hideModal();
     }
 
     render() {
@@ -88,7 +78,6 @@ class MapModal extends React.PureComponent {
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps,
 )(MapModal);
 
 const ModalRoot = styled.View`

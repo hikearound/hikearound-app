@@ -11,6 +11,7 @@ import Subtitle from './Subtitle';
 import Toast from './Toast';
 import Thumbnail from './Thumbnail';
 import ModalDismiss from './ModalDismiss';
+import LightboxImage from './LightboxImage';
 
 // Modals
 import MapModal from './modals/MapModal';
@@ -75,4 +76,5 @@ export {
     MapModal,
     LightboxModal,
     ModalDismiss,
+    LightboxImage,
 };
