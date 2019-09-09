@@ -38,7 +38,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         showMapModal: () => dispatch({
-            type: 'SHOW_MAP_MODAL',
+            type: 'SHOW_MAP',
         }),
     };
 }
@@ -244,7 +244,11 @@ class HikeScreen extends React.Component {
                         id={id}
                     />
                 </ScrollView>
-                <MapModal />
+                <MapModal
+                    mapRef={(ref) => { this.mapView = ref; }}
+                    coordinates={coordinates}
+                    region={region}
+                />
             </RootView>
         );
     }

@@ -6,10 +6,20 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { colors } from '../../constants/Index';
+import ModalDismiss from '../ModalDismiss';
+import HikeMap from '../HikeMap';
 
 function mapStateToProps(state) {
     return {
         action: state.action,
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        hideModal: () => dispatch({
+            type: 'HIDE_MODAL',
+        }),
     };
 }
 
@@ -23,24 +33,33 @@ class MapModal extends React.PureComponent {
     }
 
     componentDidUpdate() {
-        this.toggleMapModal();
+        this.toggleModal();
     }
 
-    toggleMapModal = () => {
+    toggleModal = () => {
         const { action } = this.props;
-
-        if (action === 'showMapModal') {
-            this.showMapModal();
+        if (action === 'showMap') {
+            this.showModal();
+        } else if (action === 'hideModal') {
+            this.hideModal();
         }
     }
 
-    showMapModal = () => {
+    showModal = () => {
         this.setState({ modalVisible: true });
         StatusBar.setHidden(true);
     }
 
+    hideModal = () => {
+        const { hideModal } = this.props;
+        StatusBar.setHidden(false);
+        this.setState({ modalVisible: false });
+        hideModal();
+    }
+
     render() {
         const { modalVisible } = this.state;
+        const { mapRef, coordinates, region } = this.props;
 
         return (
             <Modal
@@ -48,7 +67,15 @@ class MapModal extends React.PureComponent {
                 transparent={false}
                 visible={modalVisible}
             >
-                <ModalRoot />
+                <ModalRoot>
+                    <HikeMap
+                        fullHeight
+                        mapRef={mapRef}
+                        coordinates={coordinates}
+                        region={region}
+                    />
+                    <ModalDismiss />
+                </ModalRoot>
             </Modal>
         );
     }
@@ -56,6 +83,7 @@ class MapModal extends React.PureComponent {
 
 export default connect(
     mapStateToProps,
+    mapDispatchToProps,
 )(MapModal);
 
 const ModalRoot = styled.View`

@@ -6,23 +6,11 @@ import {
     Dimensions,
     Image,
     StatusBar,
-    TouchableOpacity,
 } from 'react-native';
 import ImageZoom from 'react-native-image-pan-zoom';
 import { connect } from 'react-redux';
-import { Ionicons } from '@expo/vector-icons';
-import { colors, opacities } from '../../constants/Index';
-import ModalDismiss from '../ModalDismiss'
-
-const DISMISS_ICON_OFFSET = 25;
-const DISMISS_ICON_SIZE = 45;
-
-const DISMISS_ICON_STYLE = {
-    position: 'absolute',
-    right: DISMISS_ICON_OFFSET,
-    top: DISMISS_ICON_OFFSET,
-    zIndex: 1,
-};
+import { colors } from '../../constants/Index';
+import ModalDismiss from '../ModalDismiss';
 
 const IMAGE_HEIGHT = Dimensions.get('window').height;
 const IMAGE_WIDTH = Dimensions.get('window').width;
@@ -57,7 +45,7 @@ class LightboxModal extends React.PureComponent {
 
     toggleModal = () => {
         const { action } = this.props;
-        if (action === 'showLightboxModal') {
+        if (action === 'showLightbox') {
             this.showModal();
         } else if (action === 'hideModal') {
             this.hideModal();

@@ -19,7 +19,7 @@ function mapDispatchToProps(dispatch) {
             imageIndex,
         }),
         showLightbox: () => dispatch({
-            type: 'SHOW_LIGHTBOX_MODAL',
+            type: 'SHOW_LIGHTBOX',
         }),
     };
 }

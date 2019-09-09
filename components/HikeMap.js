@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-    StyleSheet, LayoutAnimation,
-} from 'react-native';
+import { LayoutAnimation } from 'react-native';
 import styled from 'styled-components';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import {
@@ -9,15 +7,33 @@ import {
     borderRadius,
 } from '../constants/Index';
 
-const MAP_HEIGHT = 200;
+const DEFAULT_MAP_HEIGHT = 200;
 
 class HikeMap extends React.Component {
+    constructor(props, context) {
+        super(props, context);
+
+        this.state = {
+            mapHeight: DEFAULT_MAP_HEIGHT,
+        };
+    }
+
+    componentWillMount = async () => {
+        const { fullHeight } = this.props;
+        if (fullHeight) {
+            this.setState({
+                mapHeight: '100%',
+            });
+        }
+    }
+
     render() {
         const {
             coordinates,
             mapRef,
             region,
         } = this.props;
+        const { mapHeight } = this.state;
 
         LayoutAnimation.easeInEaseOut();
 
@@ -26,7 +42,12 @@ class HikeMap extends React.Component {
                 <MapView
                     ref={mapRef}
                     provider={PROVIDER_GOOGLE}
-                    style={styles.map}
+                    style={{
+                        height: mapHeight,
+                        zIndex: 1,
+                        overflow: 'hidden',
+                        borderRadius: parseInt(borderRadius.medium, 10),
+                    }}
                     mapType='terrain'
                     showsUserLocation
                     loadingEnabled
@@ -51,16 +72,7 @@ class HikeMap extends React.Component {
 
 export default HikeMap;
 
-const styles = StyleSheet.create({
-    map: {
-        height: MAP_HEIGHT,
-        zIndex: 1,
-        overflow: 'hidden',
-        borderRadius: parseInt(borderRadius.medium, 10),
-    },
-});
-
 const EmptyMapView = styled.View`
     border-color: ${colors.mediumGray};
-    height: ${MAP_HEIGHT}px;
+    height: ${(props) => (props.fullHeight ? '100%' : `${DEFAULT_MAP_HEIGHT}px`)};
 `;
