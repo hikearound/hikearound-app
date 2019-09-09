@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { Modal, SafeAreaView } from 'react-native';
 import ModalDismiss from '../ModalDismiss';
+import ModalBase from './ModalBase';
 import LightboxImage from '../LightboxImage';
 import { colors } from '../../constants/Index';
-import { showModal, hideModal, toggleModal } from '../../utils/Modal';
 
 function mapStateToProps(state) {
     return {
@@ -14,24 +14,7 @@ function mapStateToProps(state) {
     };
 }
 
-class LightboxModal extends React.PureComponent {
-    constructor(props, context) {
-        super(props, context);
-
-        this.state = {
-            modalVisible: false,
-        };
-
-        this.showModal = showModal.bind(this);
-        this.hideModal = hideModal.bind(this);
-        this.toggleModal = toggleModal.bind(this);
-    }
-
-    componentDidUpdate() {
-        const { action, modalAction } = this.props;
-        this.toggleModal(action, modalAction);
-    }
-
+class LightboxModal extends ModalBase {
     render() {
         const { animationType, images, imageIndex } = this.props;
         const { modalVisible } = this.state;
