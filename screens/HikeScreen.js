@@ -249,6 +249,7 @@ class HikeScreen extends React.Component {
                     coordinates={coordinates}
                     region={region}
                     animationType='push'
+                    modalAction='showMap'
                 />
             </RootView>
         );

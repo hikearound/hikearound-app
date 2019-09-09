@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Modal, SafeAreaView, StatusBar } from 'react-native';
+import { Modal, SafeAreaView } from 'react-native';
 import { connect } from 'react-redux';
 import { colors } from '../../constants/Index';
+import { showModal, hideModal, toggleModal } from '../../utils/Modal';
 import ModalDismiss from '../ModalDismiss';
 import LightboxImage from '../LightboxImage';
 
@@ -20,29 +21,15 @@ class LightboxModal extends React.PureComponent {
         this.state = {
             modalVisible: false,
         };
+
+        this.showModal = showModal.bind(this);
+        this.hideModal = hideModal.bind(this);
+        this.toggleModal = toggleModal.bind(this);
     }
 
     componentDidUpdate() {
-        this.toggleModal();
-    }
-
-    toggleModal = () => {
-        const { action } = this.props;
-        if (action === 'showLightbox') {
-            this.showModal();
-        } else if (action === 'hideModal') {
-            this.hideModal();
-        }
-    }
-
-    showModal = () => {
-        this.setState({ modalVisible: true });
-        StatusBar.setHidden(true);
-    }
-
-    hideModal = () => {
-        StatusBar.setHidden(false);
-        this.setState({ modalVisible: false });
+        const { action, modalAction } = this.props;
+        this.toggleModal(action, modalAction);
     }
 
     render() {
