@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Modal, SafeAreaView } from 'react-native';
 import { connect } from 'react-redux';
-import { colors } from '../../constants/Index';
-import { showModal, hideModal, toggleModal } from '../../utils/Modal';
+import { Modal, SafeAreaView } from 'react-native';
 import ModalDismiss from '../ModalDismiss';
 import LightboxImage from '../LightboxImage';
+import { colors } from '../../constants/Index';
+import { showModal, hideModal, toggleModal } from '../../utils/Modal';
 
 function mapStateToProps(state) {
     return {

@@ -1,12 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import {
-    Modal,
-} from 'react-native';
+import { Modal } from 'react-native';
 import { connect } from 'react-redux';
-import { showModal, hideModal, toggleModal } from '../../utils/Modal';
 import ModalDismiss from '../ModalDismiss';
 import HikeMap from '../HikeMap';
+import { showModal, hideModal, toggleModal } from '../../utils/Modal';
 
 function mapStateToProps(state) {
     return {
