@@ -11,6 +11,10 @@ import Subtitle from './Subtitle';
 import Toast from './Toast';
 import Thumbnail from './Thumbnail';
 
+// Modals
+import MapModal from './modals/MapModal';
+import LightboxModal from './modals/LightboxModal';
+
 // Header
 import Logo from './header/Logo';
 import Overflow from './header/Overflow';
@@ -67,4 +71,6 @@ export {
     ProfileBody,
     HikeMap,
     Thumbnail,
+    MapModal,
+    LightboxModal,
 };

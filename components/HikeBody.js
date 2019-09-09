@@ -9,7 +9,7 @@ import {
 import Subtitle from './Subtitle';
 import FavoriteButton from './FavoriteButton';
 import Thumbnail from './Thumbnail';
-import Lightbox from './Lightbox';
+import LightboxModal from './modals/LightboxModal';
 
 const HIKE_IMAGES = [
     {
@@ -77,7 +77,11 @@ class HikeBody extends React.PureComponent {
                         />
                     ))}
                 </PhotoGroup>
-                <Lightbox images={HIKE_IMAGES} />
+                <LightboxModal
+                    images={HIKE_IMAGES}
+                    modalType='Lightbox'
+                    animationType='fade'
+                />
             </BodyContent>
         );
     }

@@ -1,17 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Ionicons } from '@expo/vector-icons';
 import {
-    TouchableOpacity,
     Modal,
-    StatusBar,
     SafeAreaView,
     Dimensions,
     Image,
+    StatusBar,
+    TouchableOpacity,
 } from 'react-native';
 import ImageZoom from 'react-native-image-pan-zoom';
 import { connect } from 'react-redux';
-import { colors, opacities } from '../constants/Index';
+import { Ionicons } from '@expo/vector-icons';
+import { colors, opacities } from '../../constants/Index';
 
 const DISMISS_ICON_OFFSET = 25;
 const DISMISS_ICON_SIZE = 45;
@@ -22,7 +22,6 @@ const DISMISS_ICON_STYLE = {
     top: DISMISS_ICON_OFFSET,
     zIndex: 1,
 };
-
 const IMAGE_HEIGHT = Dimensions.get('window').height;
 const IMAGE_WIDTH = Dimensions.get('window').width;
 
@@ -35,13 +34,13 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        closeLightbox: () => dispatch({
-            type: 'CLOSE_LIGHTBOX',
+        hideModal: () => dispatch({
+            type: 'HIDE_LIGHTBOX',
         }),
     };
 }
 
-class Lightbox extends React.PureComponent {
+class LightboxModal extends React.PureComponent {
     constructor(props, context) {
         super(props, context);
 
@@ -51,44 +50,44 @@ class Lightbox extends React.PureComponent {
     }
 
     componentDidUpdate() {
-        this.toggleLightbox();
+        this.toggleModal();
     }
 
-    toggleLightbox = () => {
-        const { action } = this.props;
-        if (action === 'showLightbox') {
-            this.showLightbox();
-        } else if (action === 'closeLightbox') {
-            this.closeLightbox();
+    toggleModal = () => {
+        const { action, modalType } = this.props;
+        if (action === `show${modalType}`) {
+            this.showModal();
+        } else if (action === `close${modalType}`) {
+            this.hideModal();
         }
     }
 
-    showLightbox = () => {
+    showModal = () => {
         this.setState({ modalVisible: true });
         StatusBar.setHidden(true);
     }
 
-    closeLightbox = () => {
-        const { closeLightbox } = this.props;
+    hideModal = () => {
+        const { hideModal } = this.props;
         StatusBar.setHidden(false);
         this.setState({ modalVisible: false });
-        closeLightbox();
+        hideModal();
     }
 
     render() {
-        const { images, imageIndex } = this.props;
+        const { animationType, images, imageIndex } = this.props;
         const { modalVisible } = this.state;
 
         return (
             <Modal
-                animationType='fade'
+                animationType={animationType}
                 transparent={false}
                 visible={modalVisible}
             >
                 <ModalRoot>
                     <SafeAreaView style={{ flex: 1 }}>
                         <TouchableOpacity
-                            onPress={() => { this.closeLightbox(); }}
+                            onPress={() => { this.hideModal(); }}
                             activeOpacity={opacities.regular}
                             style={DISMISS_ICON_STYLE}
                         >
@@ -100,7 +99,7 @@ class Lightbox extends React.PureComponent {
                         </TouchableOpacity>
                         <ImageZoom
                             enableSwipeDown
-                            onSwipeDown={() => { this.closeLightbox(); }}
+                            onSwipeDown={() => { this.hideModal(); }}
                             cropWidth={IMAGE_WIDTH}
                             cropHeight={IMAGE_HEIGHT}
                             imageWidth={IMAGE_WIDTH}
@@ -125,7 +124,7 @@ class Lightbox extends React.PureComponent {
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(Lightbox);
+)(LightboxModal);
 
 const ModalRoot = styled.View`
     display: flex;

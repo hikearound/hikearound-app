@@ -4,7 +4,7 @@ import { TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { spacing, borderRadius, colors } from '../constants/Index';
 
-const THUMBNAIL_DIMENSION = 100;
+const THUMBNAIL_DIMENSION = 75;
 
 function mapStateToProps(state) {
     return {
