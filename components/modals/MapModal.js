@@ -59,11 +59,16 @@ class MapModal extends React.PureComponent {
 
     render() {
         const { modalVisible } = this.state;
-        const { mapRef, coordinates, region } = this.props;
+        const {
+            animationType,
+            mapRef,
+            coordinates,
+            region,
+        } = this.props;
 
         return (
             <Modal
-                animationType='fade'
+                animationType={animationType}
                 transparent={false}
                 visible={modalVisible}
             >

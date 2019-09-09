@@ -248,6 +248,7 @@ class HikeScreen extends React.Component {
                     mapRef={(ref) => { this.mapView = ref; }}
                     coordinates={coordinates}
                     region={region}
+                    animationType='fade'
                 />
             </RootView>
         );
