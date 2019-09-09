@@ -10,30 +10,13 @@ import {
 const DEFAULT_MAP_HEIGHT = 200;
 
 class HikeMap extends React.Component {
-    constructor(props, context) {
-        super(props, context);
-
-        this.state = {
-            mapHeight: DEFAULT_MAP_HEIGHT,
-        };
-    }
-
-    componentWillMount = async () => {
-        const { fullHeight } = this.props;
-        if (fullHeight) {
-            this.setState({
-                mapHeight: '100%',
-            });
-        }
-    }
-
     render() {
         const {
             coordinates,
             mapRef,
             region,
+            mapHeight,
         } = this.props;
-        const { mapHeight } = this.state;
 
         LayoutAnimation.easeInEaseOut();
 
@@ -55,6 +38,7 @@ class HikeMap extends React.Component {
                     showsMyLocationButton={false}
                     showsPointsOfInterest={false}
                     showsCompass={false}
+                    maxZoomLevel={12.5}
                 >
                     <MapView.Polyline
                         coordinates={coordinates}
@@ -71,6 +55,11 @@ class HikeMap extends React.Component {
 }
 
 export default HikeMap;
+
+HikeMap.defaultProps = {
+    maxZoom: 20,
+    mapHeight: DEFAULT_MAP_HEIGHT,
+};
 
 const EmptyMapView = styled.View`
     border-color: ${colors.mediumGray};

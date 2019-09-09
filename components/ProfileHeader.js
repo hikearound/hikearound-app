@@ -95,7 +95,7 @@ const HeaderWrapper = styled.ImageBackground`
 const NameText = styled.Text`
     font-size: ${fontSizes.big}px;
     font-weight: ${fontWeights.bold};
-    color:${colors.black};
+    color: ${colors.black};
     margin-top: ${spacing.tiny}px;
 `;
 
