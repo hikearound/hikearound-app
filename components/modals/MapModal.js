@@ -5,7 +5,6 @@ import {
     StatusBar,
 } from 'react-native';
 import { connect } from 'react-redux';
-import { colors } from '../../constants/Index';
 import ModalDismiss from '../ModalDismiss';
 import HikeMap from '../HikeMap';
 
@@ -83,5 +82,4 @@ export default connect(
 const ModalRoot = styled.View`
     display: flex;
     height: 100%;
-    background-color: ${colors.trueBlack};
 `;
