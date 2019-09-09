@@ -79,7 +79,6 @@ class HikeBody extends React.PureComponent {
                 </PhotoGroup>
                 <LightboxModal
                     images={HIKE_IMAGES}
-                    modalType='Lightbox'
                     animationType='fade'
                 />
             </BodyContent>

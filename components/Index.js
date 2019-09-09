@@ -10,6 +10,7 @@ import FavoriteButton from './FavoriteButton';
 import Subtitle from './Subtitle';
 import Toast from './Toast';
 import Thumbnail from './Thumbnail';
+import ModalDismiss from './ModalDismiss';
 
 // Modals
 import MapModal from './modals/MapModal';
@@ -73,4 +74,5 @@ export {
     Thumbnail,
     MapModal,
     LightboxModal,
+    ModalDismiss,
 };

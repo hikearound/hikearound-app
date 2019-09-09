@@ -32,14 +32,12 @@ const reducer = (state = initialState, action) => {
             ...state,
             mapPreference: action.mapPreference,
         };
-    case 'SHOW_LIGHTBOX':
-        return { ...state, action: 'showLightbox' };
-    case 'HIDE_LIGHTBOX':
-        return { ...state, action: 'closeLightbox' };
+    case 'SHOW_LIGHTBOX_MODAL':
+        return { ...state, action: 'showLightboxModal' };
     case 'SHOW_MAP_MODAL':
         return { ...state, action: 'showMapModal' };
-    case 'HIDE_MAP_MODAL':
-        return { ...state, action: 'closeMapModal' };
+    case 'HIDE_MODAL':
+        return { ...state, action: 'hideModal' };
     case 'SET_LIGHTBOX_IMAGE_INDEX':
         return {
             ...state,

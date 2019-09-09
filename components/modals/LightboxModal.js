@@ -12,6 +12,7 @@ import ImageZoom from 'react-native-image-pan-zoom';
 import { connect } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
 import { colors, opacities } from '../../constants/Index';
+import ModalDismiss from '../ModalDismiss'
 
 const DISMISS_ICON_OFFSET = 25;
 const DISMISS_ICON_SIZE = 45;
@@ -22,6 +23,7 @@ const DISMISS_ICON_STYLE = {
     top: DISMISS_ICON_OFFSET,
     zIndex: 1,
 };
+
 const IMAGE_HEIGHT = Dimensions.get('window').height;
 const IMAGE_WIDTH = Dimensions.get('window').width;
 
@@ -35,7 +37,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         hideModal: () => dispatch({
-            type: 'HIDE_LIGHTBOX',
+            type: 'HIDE_MODAL',
         }),
     };
 }
@@ -54,10 +56,10 @@ class LightboxModal extends React.PureComponent {
     }
 
     toggleModal = () => {
-        const { action, modalType } = this.props;
-        if (action === `show${modalType}`) {
+        const { action } = this.props;
+        if (action === 'showLightboxModal') {
             this.showModal();
-        } else if (action === `close${modalType}`) {
+        } else if (action === 'hideModal') {
             this.hideModal();
         }
     }
@@ -86,17 +88,7 @@ class LightboxModal extends React.PureComponent {
             >
                 <ModalRoot>
                     <SafeAreaView style={{ flex: 1 }}>
-                        <TouchableOpacity
-                            onPress={() => { this.hideModal(); }}
-                            activeOpacity={opacities.regular}
-                            style={DISMISS_ICON_STYLE}
-                        >
-                            <Ionicons
-                                name='ios-close'
-                                color={colors.white}
-                                size={DISMISS_ICON_SIZE}
-                            />
-                        </TouchableOpacity>
+                        <ModalDismiss />
                         <ImageZoom
                             enableSwipeDown
                             onSwipeDown={() => { this.hideModal(); }}
