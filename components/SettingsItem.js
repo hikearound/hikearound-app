@@ -5,7 +5,12 @@ import { Ionicons } from '@expo/vector-icons';
 import { Updates } from 'expo';
 import { connect } from 'react-redux';
 import firebase from 'firebase';
-import { colors, spacing, fontSizes } from '../constants/Index';
+import {
+    colors,
+    spacing,
+    fontSizes,
+    opacities,
+} from '../constants/Index';
 
 /* eslint-disable no-constant-condition */
 
@@ -99,7 +104,10 @@ class SettingsItem extends React.Component {
         const { item } = this.props;
         const { checkDisplay, textColor } = this.state;
         return (
-            <TouchableOpacity onPress={this.itemPress}>
+            <TouchableOpacity
+                activeOpacity={opacities.regular}
+                onPress={this.itemPress}
+            >
                 <ItemContainer>
                     <ItemText
                         key={item.key}

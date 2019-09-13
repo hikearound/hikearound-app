@@ -9,6 +9,7 @@ import {
     colors,
     transparentColors,
     borderRadius,
+    opacities,
 } from '../constants/Index';
 
 function mapStateToProps(state) {
@@ -54,6 +55,7 @@ class MapWrapper extends React.Component {
                         route={route}
                     />
                     <TouchableOpacity
+                        activeOpacity={opacities.regular}
                         onPress={this.mapPress}
                         style={{
                             position: 'absolute',

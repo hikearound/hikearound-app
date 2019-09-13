@@ -2,7 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-import { spacing, borderRadius, colors } from '../constants/Index';
+import {
+    spacing,
+    borderRadius,
+    colors,
+    opacities,
+} from '../constants/Index';
 
 const THUMBNAIL_DIMENSION = 75;
 
@@ -40,7 +45,10 @@ class Thumbnail extends React.PureComponent {
         const { image } = this.props;
 
         return (
-            <TouchableOpacity onPress={this.thumbnailPress}>
+            <TouchableOpacity
+                activeOpacity={opacities.regular}
+                onPress={this.thumbnailPress}
+            >
                 <ThumbnailImage
                     source={image.source}
                     resizeMode='cover'
