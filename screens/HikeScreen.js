@@ -4,7 +4,6 @@ import firebase from 'firebase';
 import {
     ScrollView,
     AsyncStorage,
-    ActionSheetIOS,
 } from 'react-native';
 import { connect } from 'react-redux';
 import openMap from 'react-native-open-maps';
@@ -15,10 +14,8 @@ import {
     MapModal,
     HikeMapWrapper,
 } from '../components/Index';
+import { hikeActionSheet } from '../components/action_sheets/Overflow';
 import { colors } from '../constants/Index';
-
-const SHEET_ITEMS = ['Get Directions', 'Cancel'];
-const SHEET_CANCEL_INDEX = 1;
 
 const { parseString } = require('react-native-xml2js');
 
@@ -42,10 +39,13 @@ class HikeScreen extends React.Component {
     constructor(props, context) {
         super(props, context);
         const { navigation } = this.props;
-        navigation.setParams({
-            showActionSheet: this.showActionSheet,
-        });
+
         this.state = {};
+        this.hikeActionSheet = hikeActionSheet.bind(this);
+
+        navigation.setParams({
+            showActionSheet: this.hikeActionSheet,
+        });
     }
 
     componentDidMount() {
@@ -134,19 +134,6 @@ class HikeScreen extends React.Component {
             query: `${startingLat}, ${startingLon}`,
         });
     }
-
-    showActionSheet = () => {
-        ActionSheetIOS.showActionSheetWithOptions({
-            options: SHEET_ITEMS,
-            cancelButtonIndex: SHEET_CANCEL_INDEX,
-        },
-
-        (buttonIndex) => {
-            if (buttonIndex === 0) {
-                this.navigationToHike();
-            }
-        });
-    };
 
     initializeMap = async () => {
         this.getHikeData();
