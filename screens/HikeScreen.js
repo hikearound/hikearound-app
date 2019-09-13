@@ -5,24 +5,17 @@ import {
     ScrollView,
     AsyncStorage,
     ActionSheetIOS,
-    TouchableOpacity,
 } from 'react-native';
 import { connect } from 'react-redux';
 import openMap from 'react-native-open-maps';
 import {
-    InfoBar,
     HikeBody,
     Overflow,
     Toast,
-    HikeMap,
     MapModal,
+    MapWrapper,
 } from '../components/Index';
-import {
-    spacing,
-    colors,
-    transparentColors,
-    borderRadius,
-} from '../constants/Index';
+import { colors } from '../constants/Index';
 
 const SHEET_ITEMS = ['Get Directions', 'Cancel'];
 const SHEET_CANCEL_INDEX = 1;
@@ -32,14 +25,6 @@ const { parseString } = require('react-native-xml2js');
 function mapStateToProps(state) {
     return {
         action: state.action,
-    };
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-        showMapModal: () => dispatch({
-            type: 'SHOW_MAP',
-        }),
     };
 }
 
@@ -134,11 +119,6 @@ class HikeScreen extends React.Component {
         });
     }
 
-    mapPress = () => {
-        const { showMapModal } = this.props;
-        showMapModal();
-    }
-
     navigationToHike = async () => {
         const { startingLat, startingLon } = this.state;
         const mapSetting = await AsyncStorage.getItem('mapSetting');
@@ -209,34 +189,13 @@ class HikeScreen extends React.Component {
                 <Toast name={hike.name} />
                 <PurpleBlockView />
                 <ScrollView showsVerticalScrollIndicator={false}>
-                    <MapViewWrapper>
-                        <InnerMapViewWrapper>
-                            <HikeMap
-                                mapRef={(ref) => { this.mapView = ref; }}
-                                coordinates={coordinates}
-                                region={region}
-                            />
-                            <InfoBar
-                                distance={distance}
-                                elevation={elevation}
-                                route={route}
-                            />
-                            <TouchableOpacity
-                                onPress={this.mapPress}
-                                style={{
-                                    position: 'absolute',
-                                    top: 0,
-                                    right: 0,
-                                    bottom: 0,
-                                    left: 0,
-                                    zIndex: 1,
-                                }}
-                            >
-                                <MapOverlay />
-                            </TouchableOpacity>
-                        </InnerMapViewWrapper>
-                        <GrayBlockView />
-                    </MapViewWrapper>
+                    <MapWrapper
+                        coordinates={coordinates}
+                        region={region}
+                        distance={distance}
+                        elevation={elevation}
+                        route={route}
+                    />
                     <HikeBody
                         name={name}
                         city={city}
@@ -258,36 +217,10 @@ class HikeScreen extends React.Component {
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps,
 )(HikeScreen);
 
 const RootView = styled.View`
     background-color: ${colors.white};
-`;
-
-const MapViewWrapper = styled.View`
-    flex: 1;
-    height: 285px;
-    background-color: ${colors.purple};
-    padding: ${spacing.micro}px ${spacing.small}px;
-`;
-
-const InnerMapViewWrapper = styled.View`
-    position: relative;
-    background-color: ${colors.white};
-    border-radius: ${borderRadius.medium}px;
-    box-shadow: 0 4px 12px ${transparentColors.gray};
-    z-index: 1;
-`;
-
-const GrayBlockView = styled.View`
-    flex: 1;
-    height: 165px;
-    background-color: ${colors.ultraLightGray};
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
 `;
 
 const PurpleBlockView = styled.View`
@@ -297,8 +230,4 @@ const PurpleBlockView = styled.View`
     left: 0;
     right: 0;
     top: 0;
-`;
-
-const MapOverlay = styled.View`
-    opacity: 0;
 `;

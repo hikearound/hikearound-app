@@ -2,6 +2,7 @@
 import InfoBar from './InfoBar';
 import HikeBody from './HikeBody';
 import HikeMap from './HikeMap';
+import MapWrapper from './MapWrapper';
 
 // Components
 import Avatar from './Avatar';
@@ -77,4 +78,5 @@ export {
     LightboxModal,
     ModalDismiss,
     LightboxImage,
+    MapWrapper,
 };
