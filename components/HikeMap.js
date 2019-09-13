@@ -7,7 +7,9 @@ import {
     borderRadius,
 } from '../constants/Index';
 
+const DEFAULT_MAX_ZOOM = 20;
 const DEFAULT_MAP_HEIGHT = 200;
+const DEFAULT_MAP_TYPE = 'terrain';
 
 class HikeMap extends React.Component {
     render() {
@@ -16,6 +18,8 @@ class HikeMap extends React.Component {
             mapRef,
             region,
             mapHeight,
+            mapType,
+            maxZoom,
         } = this.props;
 
         LayoutAnimation.easeInEaseOut();
@@ -31,14 +35,14 @@ class HikeMap extends React.Component {
                         overflow: 'hidden',
                         borderRadius: parseInt(borderRadius.medium, 10),
                     }}
-                    mapType='terrain'
+                    mapType={mapType}
                     showsUserLocation
                     loadingEnabled
                     initialRegion={region}
                     showsMyLocationButton={false}
                     showsPointsOfInterest={false}
                     showsCompass={false}
-                    maxZoomLevel={12.5}
+                    maxZoomLevel={maxZoom}
                 >
                     <MapView.Polyline
                         coordinates={coordinates}
@@ -57,8 +61,9 @@ class HikeMap extends React.Component {
 export default HikeMap;
 
 HikeMap.defaultProps = {
-    maxZoom: 20,
+    maxZoom: DEFAULT_MAX_ZOOM,
     mapHeight: DEFAULT_MAP_HEIGHT,
+    mapType: DEFAULT_MAP_TYPE,
 };
 
 const EmptyMapView = styled.View`
