@@ -12,7 +12,10 @@ import {
     opacities,
 } from '../constants/Index';
 
-const backgroundImg = require('../assets/profile-bg.png');
+const AVATAR_SIZE = 66;
+const AVATAR_BORDER_RADIUS = AVATAR_SIZE / 2;
+
+const BACKGROUND_IMG = require('../assets/profile-bg.png');
 
 class ProfileHeader extends React.PureComponent {
     constructor(props) {
@@ -52,7 +55,7 @@ class ProfileHeader extends React.PureComponent {
 
         if (!loading) {
             return (
-                <HeaderWrapper source={backgroundImg}>
+                <HeaderWrapper source={BACKGROUND_IMG}>
                     <AvatarWrapper>
                         <TouchableOpacity activeOpacity={opacities.regular}>
                             <Avatar />
@@ -82,8 +85,8 @@ class ProfileHeader extends React.PureComponent {
 export default ProfileHeader;
 
 const AvatarWrapper = styled.View`
-    width: 66px;
-    border-radius: 33px;
+    width: ${AVATAR_SIZE}px;
+    border-radius: ${AVATAR_BORDER_RADIUS}px;
 `;
 
 const HeaderWrapper = styled.ImageBackground`
