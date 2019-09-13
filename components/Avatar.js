@@ -1,7 +1,9 @@
 import React from 'react';
-import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { AsyncStorage } from 'react-native';
+import { AsyncStorage, TouchableOpacity, Image } from 'react-native';
+import { opacities } from '../constants/Index';
+
+const DEFAULT_AVATAR_SIZE = 60;
 
 function mapStateToProps(state) {
     return {
@@ -35,8 +37,19 @@ class Avatar extends React.Component {
     };
 
     render() {
-        const { avatar } = this.props;
-        return <Image source={{ uri: avatar }} />;
+        const { avatar, size } = this.props;
+        return (
+            <TouchableOpacity activeOpacity={opacities.regular}>
+                <Image
+                    source={{ uri: avatar }}
+                    style={{
+                        height: size,
+                        width: size,
+                        borderRadius: size / 2,
+                    }}
+                />
+            </TouchableOpacity>
+        );
     }
 }
 
@@ -45,8 +58,6 @@ export default connect(
     mapDispatchToProps
 )(Avatar);
 
-const Image = styled.Image`
-    width: 60px;
-    height: 60px;
-    border-radius: 30px;
-`;
+Avatar.defaultProps = {
+    size: DEFAULT_AVATAR_SIZE,
+};
