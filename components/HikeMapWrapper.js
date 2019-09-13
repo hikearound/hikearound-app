@@ -26,7 +26,7 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-class MapWrapper extends React.Component {
+class HikeMapWrapper extends React.Component {
     mapPress = () => {
         const { showMapModal } = this.props;
         showMapModal();
@@ -78,7 +78,7 @@ class MapWrapper extends React.Component {
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(MapWrapper);
+)(HikeMapWrapper);
 
 const MapViewWrapper = styled.View`
     flex: 1;

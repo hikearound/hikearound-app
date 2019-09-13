@@ -13,7 +13,7 @@ import {
     Overflow,
     Toast,
     MapModal,
-    MapWrapper,
+    HikeMapWrapper,
 } from '../components/Index';
 import { colors } from '../constants/Index';
 
@@ -189,7 +189,7 @@ class HikeScreen extends React.Component {
                 <Toast name={hike.name} />
                 <PurpleBlockView />
                 <ScrollView showsVerticalScrollIndicator={false}>
-                    <MapWrapper
+                    <HikeMapWrapper
                         coordinates={coordinates}
                         region={region}
                         distance={distance}
