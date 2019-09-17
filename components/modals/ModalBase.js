@@ -1,5 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Modal, StatusBar } from 'react-native';
+
+const propTypes = {
+    action: PropTypes.func.isRequired,
+    modalAction: PropTypes.string.isRequired,
+};
 
 class ModalBase extends React.PureComponent {
     constructor(props, context) {
@@ -38,5 +44,7 @@ class ModalBase extends React.PureComponent {
         return <Modal visible={modalVisible} />;
     }
 }
+
+ModalBase.propTypes = propTypes;
 
 export default ModalBase;
