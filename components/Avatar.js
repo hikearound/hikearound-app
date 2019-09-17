@@ -1,9 +1,18 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { AsyncStorage, TouchableOpacity, Image } from 'react-native';
 import { opacities } from '../constants/Index';
 
-const DEFAULT_AVATAR_SIZE = 60;
+const propTypes = {
+    updateAvatar: PropTypes.func.isRequired,
+    avatar: PropTypes.string.isRequired,
+    size: PropTypes.number,
+};
+
+const defaultProps = {
+    size: 60,
+};
 
 function mapStateToProps(state) {
     return {
@@ -53,11 +62,10 @@ class Avatar extends React.Component {
     }
 }
 
+Avatar.propTypes = propTypes;
+Avatar.defaultProps = defaultProps;
+
 export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(Avatar);
-
-Avatar.defaultProps = {
-    size: DEFAULT_AVATAR_SIZE,
-};

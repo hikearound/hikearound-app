@@ -12,7 +12,7 @@ import {
     opacities,
 } from '../constants/Index';
 
-const BACKGROUND_IMG = require('../assets/profile-bg.png');
+const BACKGROUND_IMAGE = require('../assets/profile-bg.png');
 
 class ProfileHeader extends React.PureComponent {
     constructor(props) {
@@ -52,7 +52,7 @@ class ProfileHeader extends React.PureComponent {
 
         if (!loading) {
             return (
-                <HeaderWrapper source={BACKGROUND_IMG}>
+                <HeaderWrapper source={BACKGROUND_IMAGE}>
                     <Avatar />
                     <NameText>{name}</NameText>
                     <LocationText>{location}</LocationText>

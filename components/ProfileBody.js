@@ -1,24 +1,27 @@
 import React from 'react';
-import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import HikeList from './HikeList';
+
+const propTypes = {
+    hikes: PropTypes.array.isRequired,
+    loading: PropTypes.bool.isRequired,
+    maybeShowEmptyState: PropTypes.bool.isRequired,
+};
 
 class ProfileBody extends React.PureComponent {
     render() {
         const { hikes, loading, maybeShowEmptyState } = this.props;
 
         return (
-            <BodyWrapper>
-                <HikeList
-                    hikes={hikes}
-                    loading={loading}
-                    maybeShowEmptyState={maybeShowEmptyState}
-                />
-            </BodyWrapper>
+            <HikeList
+                hikes={hikes}
+                loading={loading}
+                maybeShowEmptyState={maybeShowEmptyState}
+            />
         );
     }
 }
 
-export default ProfileBody;
+ProfileBody.propTypes = propTypes;
 
-const BodyWrapper = styled.View`
-`;
+export default ProfileBody;

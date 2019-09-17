@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
@@ -10,6 +11,11 @@ import {
     ProfileHeader,
     ProfileBody,
 } from '../components/Index';
+
+const propTypes = {
+    name: PropTypes.string.isRequired,
+    location: PropTypes.string.isRequired,
+};
 
 function mapStateToProps(state) {
     return {
@@ -86,6 +92,8 @@ class ProfileScreen extends React.Component {
         );
     }
 }
+
+ProfileScreen.propTypes = propTypes;
 
 export default connect(
     mapStateToProps,

@@ -1,9 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { TouchableOpacity, AsyncStorage } from 'react-native';
 import * as Haptics from 'expo-haptics';
 import { connect } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
 import { opacities, colors } from '../constants/Index';
+
+const propTypes = {
+    id: PropTypes.string.isRequired,
+    favoriteHike: PropTypes.func.isRequired,
+    unfavoriteHike: PropTypes.func.isRequired,
+};
 
 function mapStateToProps(state) {
     return {
@@ -127,6 +134,8 @@ class FavoriteButton extends React.Component {
         );
     }
 }
+
+FavoriteButton.propTypes = propTypes;
 
 export default connect(
     mapStateToProps,

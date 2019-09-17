@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
@@ -11,6 +12,20 @@ import {
     borderRadius,
     opacities,
 } from '../constants/Index';
+
+const propTypes = {
+    showMapModal: PropTypes.func.isRequired,
+    distance: PropTypes.number.isRequired,
+    elevation: PropTypes.number.isRequired,
+    route: PropTypes.string.isRequired,
+    coordinates: PropTypes.array,
+    region: PropTypes.object,
+};
+
+const defaultProps = {
+    region: undefined,
+    coordinates: [],
+};
 
 function mapStateToProps(state) {
     return {
@@ -74,6 +89,9 @@ class HikeMapWrapper extends React.Component {
         );
     }
 }
+
+HikeMapWrapper.propTypes = propTypes;
+HikeMapWrapper.defaultProps = defaultProps;
 
 export default connect(
     mapStateToProps,

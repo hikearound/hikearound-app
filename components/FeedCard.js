@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import FeedCardGradient from './FeedCardGradient';
 import {
@@ -10,13 +11,21 @@ import {
     borderRadius,
 } from '../constants/Index';
 
+const propTypes = {
+    image: PropTypes.object.isRequired,
+    name: PropTypes.string.isRequired,
+    distance: PropTypes.number.isRequired,
+    elevation: PropTypes.number.isRequired,
+    route: PropTypes.string.isRequired,
+};
+
 const FeedCard = ({
-    image, title, distance, elevation, route,
+    image, name, distance, elevation, route,
 }) => (
     <Container>
         <Cover>
             <Image source={image} resizeMode='cover' />
-            <Title>{title}</Title>
+            <HikeName>{name}</HikeName>
             <FeedCardGradient imageDidLoad={image.uri} />
         </Cover>
         <Content>
@@ -41,6 +50,8 @@ const FeedCard = ({
         </Content>
     </Container>
 );
+
+FeedCard.propTypes = propTypes;
 
 export default FeedCard;
 
@@ -67,7 +78,7 @@ const Image = styled.Image`
     height: 100%;
 `;
 
-const Title = styled.Text`
+const HikeName = styled.Text`
     color: ${colors.white};
     font-size: ${fontSizes.big}px;
     font-weight: bold;

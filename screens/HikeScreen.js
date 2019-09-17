@@ -1,10 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import firebase from 'firebase';
-import {
-    ScrollView,
-    AsyncStorage,
-} from 'react-native';
+import { ScrollView, AsyncStorage } from 'react-native';
 import { connect } from 'react-redux';
 import openMap from 'react-native-open-maps';
 import {

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Ionicons } from '@expo/vector-icons';
 import { Animated, TouchableOpacity, Dimensions } from 'react-native';
@@ -13,20 +14,25 @@ import {
     opacities,
 } from '../constants/Index';
 
+const SCREEN_HEIGHT = Dimensions.get('window').height;
+
+const propTypes = {
+    name: PropTypes.string.isRequired,
+    action: PropTypes.string.isRequired,
+};
+
 function mapStateToProps(state) {
     return {
         action: state.action,
     };
 }
 
-const screenHeight = Dimensions.get('window').height;
-
 class Toast extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            top: new Animated.Value(screenHeight),
+            top: new Animated.Value(SCREEN_HEIGHT),
         };
     }
 
@@ -37,12 +43,14 @@ class Toast extends React.Component {
     showToast = () => {
         const { action } = this.props;
         const { top } = this.state;
+
         if (action === 'favoriteHike') {
             Animated.timing(top, {
-                toValue: screenHeight - 250,
+                toValue: SCREEN_HEIGHT - 250,
                 duration: 500,
             }).start();
         }
+
         this.timeout = setTimeout(() => {
             this.hideToast();
         }, 3500);
@@ -51,8 +59,9 @@ class Toast extends React.Component {
     hideToast = () => {
         const { top } = this.state;
         clearTimeout(this.timeout);
+
         Animated.timing(top, {
-            toValue: screenHeight,
+            toValue: SCREEN_HEIGHT,
             duration: 500,
         }).start();
     }
@@ -60,6 +69,7 @@ class Toast extends React.Component {
     render() {
         const { name } = this.props;
         const { top } = this.state;
+
         return (
             <AnimatedContainer style={{ top }}>
                 <ToastText>
@@ -86,6 +96,8 @@ class Toast extends React.Component {
         );
     }
 }
+
+Toast.propTypes = propTypes;
 
 export default connect(
     mapStateToProps

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
@@ -14,6 +15,15 @@ const DISMISS_ICON_STYLE = {
     right: DISMISS_ICON_OFFSET,
     top: DISMISS_ICON_OFFSET,
     zIndex: 1,
+};
+
+const propTypes = {
+    hideModal: PropTypes.func.isRequired,
+    includeBackground: PropTypes.bool,
+};
+
+const defaultProps = {
+    includeBackground: false,
 };
 
 function mapStateToProps(state) {
@@ -72,6 +82,9 @@ class ModalDismiss extends React.PureComponent {
         );
     }
 }
+
+ModalDismiss.propTypes = propTypes;
+ModalDismiss.defaultProps = defaultProps;
 
 export default connect(
     mapStateToProps,

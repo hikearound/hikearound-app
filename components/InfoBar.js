@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import {
     spacing,
@@ -7,6 +8,12 @@ import {
     fontSizes,
     borderRadius,
 } from '../constants/Index';
+
+const propTypes = {
+    distance: PropTypes.number.isRequired,
+    elevation: PropTypes.number.isRequired,
+    route: PropTypes.string.isRequired,
+};
 
 const InfoBar = ({ distance, elevation, route }) => (
     <CardContent>
@@ -30,6 +37,8 @@ const InfoBar = ({ distance, elevation, route }) => (
         </ContentItem>
     </CardContent>
 );
+
+InfoBar.propTypes = propTypes;
 
 export default InfoBar;
 

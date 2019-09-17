@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { TouchableOpacity, ScrollView, View } from 'react-native';
 import { KeyboardAccessoryNavigation } from 'react-native-keyboard-accessory';
@@ -12,6 +13,13 @@ import {
 } from '../../constants/Index';
 
 /* eslint-disable no-undef */
+
+const propTypes = {
+    resetAction: PropTypes.func.isRequired,
+    inputs: PropTypes.object.isRequired,
+    secondaryInputs: PropTypes.object.isRequired,
+    passwordLinkDisplay: PropTypes.string.isRequired,
+};
 
 class InputGroup extends React.Component {
     constructor(props) {
@@ -70,11 +78,13 @@ class InputGroup extends React.Component {
             secondaryInputs,
             passwordLinkDisplay,
         } = this.props;
+
         const {
             nextFocusDisabled,
             previousFocusDisabled,
             buttonsHidden,
         } = this.state;
+
         return (
             <RootView>
                 <ScrollView keyboardShouldPersistTaps='always'>
@@ -134,6 +144,8 @@ class InputGroup extends React.Component {
         );
     }
 }
+
+InputGroup.propTypes = propTypes;
 
 export default InputGroup;
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { TouchableOpacity } from 'react-native';
 import {
@@ -10,6 +11,13 @@ import {
     borderRadius,
     opacities,
 } from '../constants/Index';
+
+const propTypes = {
+    action: PropTypes.func.isRequired,
+    primary: PropTypes.bool.isRequired,
+    text: PropTypes.string.isRequired,
+    margin: PropTypes.string.isRequired,
+};
 
 const ActionButton = ({
     action, primary, margin, text,
@@ -23,6 +31,8 @@ const ActionButton = ({
         </Button>
     </TouchableOpacity>
 );
+
+ActionButton.propTypes = propTypes;
 
 export default ActionButton;
 

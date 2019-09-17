@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import {
     spacing,
@@ -28,6 +29,19 @@ const HIKE_IMAGES = [
         },
     },
 ];
+
+const propTypes = {
+    description: PropTypes.string,
+    name: PropTypes.string,
+    city: PropTypes.string,
+    id: PropTypes.string.isRequired,
+};
+
+const defaultProps = {
+    description: '',
+    name: '',
+    city: '',
+};
 
 class HikeBody extends React.PureComponent {
     constructor(props, context) {
@@ -86,6 +100,9 @@ class HikeBody extends React.PureComponent {
         );
     }
 }
+
+HikeBody.propTypes = propTypes;
+HikeBody.defaultProps = defaultProps;
 
 export default HikeBody;
 

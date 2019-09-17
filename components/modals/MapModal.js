@@ -32,7 +32,6 @@ class MapModal extends ModalBase {
                     <HikeMap
                         fullHeight
                         mapRef={mapRef}
-                        mapHeight='100%'
                         coordinates={coordinates}
                         region={region}
                         maxZoom={12.5}

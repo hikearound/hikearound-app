@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { TouchableOpacity, AsyncStorage } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
@@ -12,7 +13,15 @@ import {
     opacities,
 } from '../constants/Index';
 
-/* eslint-disable no-constant-condition */
+const propTypes = {
+    item: PropTypes.string.isRequired,
+    setMapPreference: PropTypes.func.isRequired,
+    mapPreference: PropTypes.string,
+};
+
+const defaultProps = {
+    mapPreference: 'Apple Maps',
+};
 
 function mapStateToProps(state) {
     return {
@@ -59,7 +68,7 @@ class SettingsItem extends React.Component {
     componentWillMount = async () => {
         const { item } = this.props;
         const mapSetting = await this.getMapSetting();
-        if (item === mapSetting || 'Apple Maps') {
+        if (item === mapSetting) {
             this.selectItem();
         }
     }
@@ -132,9 +141,12 @@ class SettingsItem extends React.Component {
     }
 }
 
+SettingsItem.propTypes = propTypes;
+SettingsItem.defaultProps = defaultProps;
+
 export default connect(
     mapStateToProps,
-    mapDispatchToProps
+    mapDispatchToProps,
 )(SettingsItem);
 
 const ItemContainer = styled.View`

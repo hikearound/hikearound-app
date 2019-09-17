@@ -3,19 +3,28 @@ import styled from 'styled-components';
 import { View, StyleSheet } from 'react-native';
 import { fontWeights, fontSizes, colors } from '../constants/Index';
 
+const FOOTER_STYLE = StyleSheet.create({
+    visibleText: {
+        display: 'flex',
+    },
+    hiddenText: {
+        display: 'none',
+    },
+});
+
 export default class FeedFooter extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            footerVisibility: styles.hiddenText,
+            footerVisibility: FOOTER_STYLE.hiddenText,
         };
     }
 
     componentDidMount() {
         this.timeout = setTimeout(() => {
             this.setState({
-                footerVisibility: styles.visibleText,
+                footerVisibility: FOOTER_STYLE.visibleText,
             });
         }, 1000);
     }
@@ -57,10 +66,3 @@ const Text = styled.Text`
     text-transform: uppercase;
     text-align: center;
 `;
-
-const styles = StyleSheet.create({
-    visibleText: {},
-    hiddenText: {
-        display: 'none',
-    },
-});

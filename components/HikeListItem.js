@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { TouchableOpacity } from 'react-native';
 import { withNavigation } from 'react-navigation';
@@ -9,6 +10,12 @@ import {
     spacing,
     opacities,
 } from '../constants/Index';
+
+const propTypes = {
+    name: PropTypes.string.isRequired,
+    location: PropTypes.string.isRequired,
+    distance: PropTypes.number.isRequired,
+};
 
 class ProfileHikeRow extends React.PureComponent {
     render() {
@@ -41,6 +48,8 @@ class ProfileHikeRow extends React.PureComponent {
         );
     }
 }
+
+ProfileHikeRow.propTypes = propTypes;
 
 export default withNavigation(ProfileHikeRow);
 

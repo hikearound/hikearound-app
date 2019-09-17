@@ -57,13 +57,16 @@ const HomeStack = createStackNavigator(
 HomeStack.navigationOptions = ({ navigation }) => {
     let tabBarVisible = false;
     const { routeName } = navigation.state.routes[navigation.state.index];
+
     if ((routeName === 'Home') || (routeName === 'Hike')) {
         tabBarVisible = true;
     }
+
     return {
         tabBarVisible,
         animationEnabled: true,
         tabBarLabel: 'Home',
+
         tabBarIcon: ({ focused }) => (
             <HomeIcon
                 size={26}

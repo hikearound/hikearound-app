@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
@@ -10,6 +11,13 @@ import {
 } from '../constants/Index';
 
 const THUMBNAIL_DIMENSION = 75;
+
+const propTypes = {
+    setLightboxPhoto: PropTypes.func.isRequired,
+    showLightbox: PropTypes.func.isRequired,
+    imageIndex: PropTypes.number.isRequired,
+    image: PropTypes.object.isRequired,
+};
 
 function mapStateToProps(state) {
     return {
@@ -57,6 +65,8 @@ class Thumbnail extends React.PureComponent {
         );
     }
 }
+
+Thumbnail.propTypes = propTypes;
 
 export default connect(
     mapStateToProps,

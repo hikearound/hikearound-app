@@ -1,10 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Dimensions, Image } from 'react-native';
 import { connect } from 'react-redux';
 import ImageZoom from 'react-native-image-pan-zoom';
 
 const IMAGE_HEIGHT = Dimensions.get('window').height;
 const IMAGE_WIDTH = Dimensions.get('window').width;
+
+const propTypes = {
+    images: PropTypes.array.isRequired,
+    hideModal: PropTypes.func.isRequired,
+    imageIndex: PropTypes.number.isRequired,
+};
 
 function mapStateToProps(state) {
     return {
@@ -50,6 +57,8 @@ class LightboxImage extends React.Component {
         );
     }
 }
+
+LightboxImage.propTypes = propTypes;
 
 export default connect(
     mapStateToProps,

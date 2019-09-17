@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FlatList } from 'react-navigation';
 import HikeListItem from './HikeListItem';
@@ -8,6 +9,11 @@ import {
     fontWeights,
     spacing,
 } from '../constants/Index';
+
+const propTypes = {
+    maybeShowEmptyState: PropTypes.bool.isRequired,
+    hikes: PropTypes.array.isRequired,
+};
 
 class HikeList extends React.PureComponent {
     renderListHeader = () => (
@@ -56,6 +62,8 @@ class HikeList extends React.PureComponent {
         );
     }
 }
+
+HikeList.propTypes = propTypes;
 
 export default HikeList;
 

@@ -7,7 +7,6 @@ import { Logo, FeedList, Sort } from '../components/Index';
 import { colors } from '../constants/Index';
 
 /* eslint-disable no-restricted-syntax */
-/* eslint-disable no-unused-vars */
 
 const PAGE_SIZE = 5;
 

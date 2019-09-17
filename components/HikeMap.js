@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { LayoutAnimation } from 'react-native';
 import styled from 'styled-components';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
@@ -7,9 +8,24 @@ import {
     borderRadius,
 } from '../constants/Index';
 
-const DEFAULT_MAX_ZOOM = 20;
 const DEFAULT_MAP_HEIGHT = 200;
-const DEFAULT_MAP_TYPE = 'terrain';
+
+const propTypes = {
+    mapRef: PropTypes.func.isRequired,
+    coordinates: PropTypes.array,
+    region: PropTypes.object,
+    maxZoom: PropTypes.number,
+    mapType: PropTypes.string,
+    fullHeight: PropTypes.bool,
+};
+
+const defaultProps = {
+    maxZoom: 20,
+    mapType: 'terrain',
+    fullHeight: false,
+    region: undefined,
+    coordinates: [],
+};
 
 class HikeMap extends React.Component {
     render() {
@@ -17,9 +33,9 @@ class HikeMap extends React.Component {
             coordinates,
             mapRef,
             region,
-            mapHeight,
             mapType,
             maxZoom,
+            fullHeight,
         } = this.props;
 
         LayoutAnimation.easeInEaseOut();
@@ -30,7 +46,7 @@ class HikeMap extends React.Component {
                     ref={mapRef}
                     provider={PROVIDER_GOOGLE}
                     style={{
-                        height: mapHeight,
+                        height: (fullHeight ? '100%' : DEFAULT_MAP_HEIGHT),
                         zIndex: 1,
                         overflow: 'hidden',
                         borderRadius: parseInt(borderRadius.medium, 10),
@@ -58,13 +74,10 @@ class HikeMap extends React.Component {
     }
 }
 
-export default HikeMap;
+HikeMap.propTypes = propTypes;
+HikeMap.defaultProps = defaultProps;
 
-HikeMap.defaultProps = {
-    maxZoom: DEFAULT_MAX_ZOOM,
-    mapHeight: DEFAULT_MAP_HEIGHT,
-    mapType: DEFAULT_MAP_TYPE,
-};
+export default HikeMap;
 
 const EmptyMapView = styled.View`
     border-color: ${colors.mediumGray};

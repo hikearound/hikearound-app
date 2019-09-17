@@ -1,10 +1,29 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { TouchableOpacity } from 'react-native';
 import styled from 'styled-components';
 import { withNavigation } from 'react-navigation';
 import firebase from 'firebase';
 import FeedCard from './FeedCard';
 import { spacing, opacities } from '../constants/Index';
+
+const propTypes = {
+    images: PropTypes.array,
+    name: PropTypes.string,
+    distance: PropTypes.number,
+    elevation: PropTypes.number,
+    route: PropTypes.string,
+    description: PropTypes.string,
+};
+
+const defaultProps = {
+    images: [],
+    name: '',
+    distance: 0,
+    elevation: 0,
+    route: '',
+    description: '',
+};
 
 class FeedItem extends React.Component {
     constructor(props) {
@@ -13,7 +32,7 @@ class FeedItem extends React.Component {
 
         this.state = {};
 
-        if (images) {
+        if (images.length >= 1) {
             const ref = firebase.storage().ref(images[0]);
             ref.getDownloadURL().then((data) => {
                 this.setState({ imageUrl: data });
@@ -44,7 +63,7 @@ class FeedItem extends React.Component {
                     }}
                 >
                     <FeedCard
-                        title={name}
+                        name={name}
                         image={{ uri: imageUrl }}
                         distance={distance}
                         elevation={elevation}
@@ -56,6 +75,9 @@ class FeedItem extends React.Component {
         );
     }
 }
+
+FeedItem.propTypes = propTypes;
+FeedItem.defaultProps = defaultProps;
 
 export default withNavigation(FeedItem);
 

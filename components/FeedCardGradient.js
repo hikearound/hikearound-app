@@ -1,5 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { LinearGradient } from 'expo-linear-gradient';
+
+const propTypes = {
+    imageDidLoad: PropTypes.string,
+};
+
+const defaultProps = {
+    imageDidLoad: undefined,
+};
 
 const FeedCardGradient = ({ imageDidLoad }) => (
     <LinearGradient
@@ -15,5 +24,8 @@ const FeedCardGradient = ({ imageDidLoad }) => (
         }}
     />
 );
+
+FeedCardGradient.propTypes = propTypes;
+FeedCardGradient.defaultProps = defaultProps;
 
 export default FeedCardGradient;
