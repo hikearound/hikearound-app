@@ -43,7 +43,9 @@ class HikeBody extends React.PureComponent {
     }
 
     getHikeImageUrl = async (id, imageIndex) => {
-        const ref = firebase.storage().ref(`hikes/${id}/images/${imageIndex}.jpg`);
+        const ref = firebase.storage().ref(
+            `hikes/${id}/images/${imageIndex}.jpg`
+        );
         return ref.getDownloadURL();
     }
 
