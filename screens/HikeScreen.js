@@ -166,6 +166,7 @@ class HikeScreen extends React.Component {
             city,
             description,
             id,
+            images,
         } = hike;
 
         return (
@@ -185,6 +186,7 @@ class HikeScreen extends React.Component {
                         city={city}
                         description={description}
                         id={id}
+                        images={images}
                     />
                 </ScrollView>
                 <MapModal

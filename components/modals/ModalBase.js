@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Modal, StatusBar } from 'react-native';
 
 const propTypes = {
-    action: PropTypes.func.isRequired,
+    action: PropTypes.string.isRequired,
     modalAction: PropTypes.string.isRequired,
 };
 

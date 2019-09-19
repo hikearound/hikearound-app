@@ -58,7 +58,7 @@ class Thumbnail extends React.PureComponent {
                 onPress={this.thumbnailPress}
             >
                 <ThumbnailImage
-                    source={image.source}
+                    source={image}
                     resizeMode='cover'
                 />
             </TouchableOpacity>

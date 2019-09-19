@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import firebase from 'firebase';
 import styled from 'styled-components';
 import {
     spacing,
@@ -12,48 +13,54 @@ import FavoriteButton from './FavoriteButton';
 import Thumbnail from './Thumbnail';
 import LightboxModal from './modals/LightboxModal';
 
-const HIKE_IMAGES = [
-    {
-        source: {
-            uri: 'https://image.redbull.com/rbcom/052/2018-03-05/acaf2999-8c5a-477f-81bd-4095d708afb9/0012/0/0/0/1667/2500/1050/1/hike-mental-fitness.jpg',
-        },
-    },
-    {
-        source: {
-            uri: 'https://www.sundanceresort.com/wp-content/uploads/2016/08/Hike_Sundance_0143-2000x1000-c-center.jpg',
-        },
-    },
-    {
-        source: {
-            uri: 'https://www.outsideonline.com/sites/default/files/styles/img_600x600/public/2019/01/18/active-volcano-hike_s.jpg',
-        },
-    },
-];
-
 const propTypes = {
     description: PropTypes.string,
     name: PropTypes.string,
     city: PropTypes.string,
     id: PropTypes.string.isRequired,
+    images: PropTypes.array,
 };
 
 const defaultProps = {
     description: '',
     name: '',
     city: '',
+    images: [],
 };
 
 class HikeBody extends React.PureComponent {
     constructor(props, context) {
         super(props, context);
-
         this.state = {
             description: '',
+            imageArray: [],
         };
     }
 
     componentWillMount() {
         this.updateDescription();
+        this.getHikeImages();
+    }
+
+    getHikeImageUrl = async (id, imageIndex) => {
+        const ref = firebase.storage().ref(`hikes/${id}/images/${imageIndex}.jpg`);
+        return ref.getDownloadURL();
+    }
+
+    getHikeImages = async () => {
+        const { id, images } = this.props;
+        const imageArray = [];
+
+        /* eslint-disable no-await-in-loop */
+        for (let i = 0; i < images.length; i += 1) {
+            const imageUrl = await this.getHikeImageUrl(id, i);
+            imageArray.push({
+                url: imageUrl,
+                credit: images[i],
+            });
+        }
+
+        this.setState({ imageArray });
     }
 
     updateDescription() {
@@ -69,7 +76,7 @@ class HikeBody extends React.PureComponent {
 
     render() {
         const { name, city, id } = this.props;
-        const { description } = this.state;
+        const { description, imageArray } = this.state;
 
         return (
             <BodyContent>
@@ -83,7 +90,7 @@ class HikeBody extends React.PureComponent {
                 <DescriptionText>{description}</DescriptionText>
                 <Subtitle text='Images' />
                 <PhotoGroup>
-                    {HIKE_IMAGES.map((image, index) => (
+                    {imageArray.map((image, index) => (
                         <Thumbnail
                             image={image}
                             imageIndex={index}
@@ -92,7 +99,7 @@ class HikeBody extends React.PureComponent {
                     ))}
                 </PhotoGroup>
                 <LightboxModal
-                    images={HIKE_IMAGES}
+                    images={imageArray}
                     animationType='fade'
                     modalAction='showLightbox'
                 />

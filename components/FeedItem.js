@@ -8,6 +8,7 @@ import FeedCard from './FeedCard';
 import { spacing, opacities } from '../constants/Index';
 
 const propTypes = {
+    id: PropTypes.string.isRequired,
     images: PropTypes.array,
     name: PropTypes.string,
     distance: PropTypes.number,
@@ -28,12 +29,12 @@ const defaultProps = {
 class FeedItem extends React.Component {
     constructor(props) {
         super(props);
-        const { images } = this.props;
+        const { images, id } = this.props;
 
         this.state = {};
 
         if (images.length >= 1) {
-            const ref = firebase.storage().ref(images[0]);
+            const ref = firebase.storage().ref(`hikes/${id}/images/0.jpg`);
             ref.getDownloadURL().then((data) => {
                 this.setState({ imageUrl: data });
             });

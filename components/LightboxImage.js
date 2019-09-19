@@ -46,7 +46,7 @@ class LightboxImage extends React.Component {
                 imageHeight={IMAGE_HEIGHT}
             >
                 <Image
-                    source={images[imageIndex].source}
+                    source={images[imageIndex]}
                     resizeMode='contain'
                     style={{
                         width: IMAGE_WIDTH,
