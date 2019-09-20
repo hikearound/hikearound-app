@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { TouchableOpacity, ScrollView, View } from 'react-native';
+import { TouchableOpacity, ScrollView } from 'react-native';
 import { KeyboardAccessoryNavigation } from 'react-native-keyboard-accessory';
 import ActionButton from '../Button';
 import {
@@ -15,9 +15,8 @@ import {
 /* eslint-disable no-undef */
 
 const propTypes = {
-    resetAction: PropTypes.func.isRequired,
-    inputs: PropTypes.object.isRequired,
-    secondaryInputs: PropTypes.object.isRequired,
+    resetAction: PropTypes.object.isRequired,
+    inputs: PropTypes.array.isRequired,
     passwordLinkDisplay: PropTypes.string.isRequired,
 };
 
@@ -75,7 +74,6 @@ class InputGroup extends React.Component {
     render() {
         const {
             inputs,
-            secondaryInputs,
             passwordLinkDisplay,
         } = this.props;
 
@@ -118,7 +116,6 @@ class InputGroup extends React.Component {
                         margin={`0 ${spacing.medium}px`}
                         action={this.handleLogin}
                     />
-                    <View>{secondaryInputs}</View>
                     <TouchableOpacity
                         activeOpacity={opacities.regular}
                         style={{

@@ -14,9 +14,14 @@ import {
 
 const propTypes = {
     action: PropTypes.func.isRequired,
-    primary: PropTypes.bool.isRequired,
+    primary: PropTypes.bool,
     text: PropTypes.string.isRequired,
-    margin: PropTypes.string.isRequired,
+    margin: PropTypes.string,
+};
+
+const defaultProps = {
+    primary: false,
+    margin: '',
 };
 
 const ActionButton = ({
@@ -33,6 +38,7 @@ const ActionButton = ({
 );
 
 ActionButton.propTypes = propTypes;
+ActionButton.defaultProps = defaultProps;
 
 export default ActionButton;
 
