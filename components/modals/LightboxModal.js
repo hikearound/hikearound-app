@@ -15,9 +15,29 @@ function mapStateToProps(state) {
 }
 
 class LightboxModal extends ModalBase {
+    constructor(props, context) {
+        super(props, context);
+        this.state = {
+            modalVisible: false,
+            imageAttribution: '',
+        };
+    }
+
+    componentDidUpdate() {
+        const { action, modalAction } = this.props;
+        this.toggleModal(action, modalAction);
+        this.setImageAttribution();
+    }
+
+    setImageAttribution = async () => {
+        const { images, imageIndex } = this.props;
+        const imageAttribution = images[imageIndex].attribution;
+        this.setState({ imageAttribution });
+    }
+
     render() {
         const { animationType, images, imageIndex } = this.props;
-        const { modalVisible } = this.state;
+        const { modalVisible, imageAttribution } = this.state;
 
         return (
             <Modal
@@ -32,6 +52,10 @@ class LightboxModal extends ModalBase {
                             images={images}
                             imageIndex={imageIndex}
                         />
+                        <ImageAttributionText>
+                            {'Photo by: '}
+                            {imageAttribution}
+                        </ImageAttributionText>
                     </SafeAreaView>
                 </ModalRoot>
             </Modal>
@@ -45,6 +69,11 @@ export default connect(
 
 const ModalRoot = styled.View`
     display: flex;
+    flex-direction: column;
     height: 100%;
     background-color: ${colors.trueBlack};
+`;
+
+const ImageAttributionText = styled.Text`
+    display: none;
 `;

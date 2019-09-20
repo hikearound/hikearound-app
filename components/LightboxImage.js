@@ -68,6 +68,7 @@ class LightboxImage extends React.Component {
                         opacity: fadeAnim,
                         width: IMAGE_WIDTH,
                         height: IMAGE_HEIGHT,
+                        marginTop: -25,
                     }}
                 />
             </ImageZoom>

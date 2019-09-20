@@ -57,8 +57,8 @@ class HikeBody extends React.PureComponent {
         for (let i = 0; i < images.length; i += 1) {
             const imageUrl = await this.getHikeImageUrl(id, i);
             imageArray.push({
-                url: imageUrl,
-                credit: images[i],
+                uri: imageUrl,
+                attribution: images[i],
             });
         }
 
