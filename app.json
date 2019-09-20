@@ -3,7 +3,7 @@
     "name": "Hike Around",
     "slug": "hikearound-app",
     "privacy": "public",
-    "sdkVersion": "34.0.0",
+    "sdkVersion": "35.0.0",
     "platforms": [
       "ios"
     ],
