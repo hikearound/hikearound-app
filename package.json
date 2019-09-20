@@ -4,7 +4,12 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "test": "node_modules/.bin/jest",
+    "test:debug": "node --inspect-brk node_modules/jest/bin/jest.js --runInBand"
+  },
+  "jest": {
+    "preset": "jest-expo"
   },
   "dependencies": {
     "expo": "^35.0.0",
@@ -27,6 +32,7 @@
     "react-native-reanimated": "^1.2.0",
     "react-native-safe-area-view": "^0.14.8",
     "react-native-svg": "9.9.2",
+    "react-native-web": "^0.11.7",
     "react-native-xml2js": "^1.0.3",
     "react-navigation": "^4.0.6",
     "react-navigation-stack": "^1.8.0",
@@ -45,7 +51,8 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.14.3",
     "eslint-plugin-react-hooks": "^1.7.0",
-    "eslint-plugin-react-native": "^3.7.0"
+    "eslint-plugin-react-native": "^3.7.0",
+    "jest-expo": "^35.0.0"
   },
   "lint": "eslint *.js **/*.js",
   "private": true
