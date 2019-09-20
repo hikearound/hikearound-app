@@ -11,7 +11,7 @@ import {
     MapModal,
     HikeMapWrapper,
 } from '../components/Index';
-import { hikeActionSheet } from '../components/action_sheets/Overflow';
+import { hikeActionSheet } from '../components/action_sheets/Hike';
 import { colors } from '../constants/Index';
 
 const { parseString } = require('react-native-xml2js');

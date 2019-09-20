@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { Modal, SafeAreaView } from 'react-native';
+import ModalOverflow from '../ModalOverflow';
 import ModalDismiss from '../ModalDismiss';
 import ModalBase from './ModalBase';
 import LightboxImage from '../LightboxImage';
@@ -15,29 +16,13 @@ function mapStateToProps(state) {
 }
 
 class LightboxModal extends ModalBase {
-    constructor(props, context) {
-        super(props, context);
-        this.state = {
-            modalVisible: false,
-            imageAttribution: '',
-        };
-    }
-
-    componentDidUpdate() {
-        const { action, modalAction } = this.props;
-        this.toggleModal(action, modalAction);
-        this.setImageAttribution();
-    }
-
-    setImageAttribution = async () => {
-        const { images, imageIndex } = this.props;
-        const imageAttribution = images[imageIndex].attribution;
-        this.setState({ imageAttribution });
-    }
-
     render() {
-        const { animationType, images, imageIndex } = this.props;
-        const { modalVisible, imageAttribution } = this.state;
+        const { modalVisible } = this.state;
+        const {
+            animationType,
+            images,
+            imageIndex,
+        } = this.props;
 
         return (
             <Modal
@@ -47,15 +32,15 @@ class LightboxModal extends ModalBase {
             >
                 <ModalRoot>
                     <SafeAreaView style={{ flex: 1 }}>
+                        <ModalOverflow
+                            images={images}
+                            imageIndex={imageIndex}
+                        />
                         <ModalDismiss />
                         <LightboxImage
                             images={images}
                             imageIndex={imageIndex}
                         />
-                        <ImageAttributionText>
-                            {'Photo by: '}
-                            {imageAttribution}
-                        </ImageAttributionText>
                     </SafeAreaView>
                 </ModalRoot>
             </Modal>
@@ -72,8 +57,4 @@ const ModalRoot = styled.View`
     flex-direction: column;
     height: 100%;
     background-color: ${colors.trueBlack};
-`;
-
-const ImageAttributionText = styled.Text`
-    display: none;
 `;
