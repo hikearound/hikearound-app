@@ -39,7 +39,7 @@ class HikeBody extends React.PureComponent {
 
     componentWillMount() {
         this.updateDescription();
-        this.getHikeImages();
+        this.buildHikeImageArray();
     }
 
     getHikeImageUrl = async (id, imageIndex) => {
@@ -49,7 +49,7 @@ class HikeBody extends React.PureComponent {
         return ref.getDownloadURL();
     }
 
-    getHikeImages = async () => {
+    buildHikeImageArray = async () => {
         const { id, images } = this.props;
         const imageArray = [];
 
