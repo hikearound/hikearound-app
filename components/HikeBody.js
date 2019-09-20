@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import firebase from 'firebase';
 import styled from 'styled-components';
 import {
     spacing,
@@ -10,8 +9,7 @@ import {
 } from '../constants/Index';
 import Subtitle from './Subtitle';
 import FavoriteButton from './FavoriteButton';
-import Thumbnail from './Thumbnail';
-import LightboxModal from './modals/LightboxModal';
+import PhotoLightboxGroup from './PhotoLightboxGroup';
 
 const propTypes = {
     description: PropTypes.string,
@@ -33,36 +31,11 @@ class HikeBody extends React.PureComponent {
         super(props, context);
         this.state = {
             description: '',
-            imageArray: [],
         };
     }
 
     componentWillMount() {
         this.updateDescription();
-        this.buildHikeImageArray();
-    }
-
-    getHikeImageUrl = async (id, imageIndex) => {
-        const ref = firebase.storage().ref(
-            `hikes/${id}/images/${imageIndex}.jpg`
-        );
-        return ref.getDownloadURL();
-    }
-
-    buildHikeImageArray = async () => {
-        const { id, images } = this.props;
-        const imageArray = [];
-
-        /* eslint-disable no-await-in-loop */
-        for (let i = 0; i < images.length; i += 1) {
-            const imageUrl = await this.getHikeImageUrl(id, i);
-            imageArray.push({
-                uri: imageUrl,
-                attribution: images[i],
-            });
-        }
-
-        this.setState({ imageArray });
     }
 
     updateDescription() {
@@ -77,8 +50,13 @@ class HikeBody extends React.PureComponent {
     }
 
     render() {
-        const { name, city, id } = this.props;
-        const { description, imageArray } = this.state;
+        const {
+            name,
+            city,
+            id,
+            images,
+        } = this.props;
+        const { description } = this.state;
 
         return (
             <BodyContent>
@@ -91,19 +69,9 @@ class HikeBody extends React.PureComponent {
                 <Subtitle text='Description' />
                 <DescriptionText>{description}</DescriptionText>
                 <Subtitle text='Images' />
-                <PhotoGroup>
-                    {imageArray.map((image, index) => (
-                        <Thumbnail
-                            image={image}
-                            imageIndex={index}
-                            key={index}
-                        />
-                    ))}
-                </PhotoGroup>
-                <LightboxModal
-                    images={imageArray}
-                    animationType='fade'
-                    modalAction='showLightbox'
+                <PhotoLightboxGroup
+                    id={id}
+                    images={images}
                 />
             </BodyContent>
         );
@@ -118,12 +86,6 @@ export default HikeBody;
 const BodyContent = styled.View`
     padding: ${spacing.medium}px ${spacing.small}px;
     background-color: ${colors.white};
-`;
-
-const PhotoGroup = styled.View`
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
 `;
 
 const DescriptionText = styled.Text`
