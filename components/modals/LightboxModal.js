@@ -10,8 +10,8 @@ import { colors } from '../../constants/Index';
 
 function mapStateToProps(state) {
     return {
-        imageIndex: state.imageIndex,
-        action: state.action,
+        imageIndex: state.Modal.imageIndex,
+        action: state.Modal.action,
     };
 }
 

@@ -16,8 +16,8 @@ const defaultProps = {
 
 function mapStateToProps(state) {
     return {
-        name: state.name,
-        avatar: state.avatar,
+        name: state.User.name,
+        avatar: state.User.avatar,
     };
 }
 

@@ -29,7 +29,7 @@ const defaultProps = {
 
 function mapStateToProps(state) {
     return {
-        action: state.action,
+        action: state.Hike.action,
     };
 }
 

@@ -3,8 +3,12 @@ import PropTypes from 'prop-types';
 import { Modal, StatusBar } from 'react-native';
 
 const propTypes = {
-    action: PropTypes.string.isRequired,
+    action: PropTypes.string,
     modalAction: PropTypes.string.isRequired,
+};
+
+const defaultProps = {
+    action: '',
 };
 
 class ModalBase extends React.PureComponent {
@@ -46,5 +50,6 @@ class ModalBase extends React.PureComponent {
 }
 
 ModalBase.propTypes = propTypes;
+ModalBase.defaultProps = defaultProps;
 
 export default ModalBase;
