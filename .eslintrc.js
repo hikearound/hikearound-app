@@ -35,6 +35,15 @@ module.exports = {
             }
         ],
     },
+    'overrides': [{
+        'files': ['*.snap'],
+        'rules': {
+            'quotes': [
+                'error', 'single',
+                { 'allowTemplateLiterals': true }
+            ]
+        }
+    }],
     'globals': {
         'fetch': false,
     },
