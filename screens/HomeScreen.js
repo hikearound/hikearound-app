@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { connect } from 'react-redux';
 import { LayoutAnimation, RefreshControl } from 'react-native';
 import Fire from '../Fire';
 import { Logo, FeedList, Sort } from '../components/Index';
@@ -9,12 +8,6 @@ import { colors } from '../constants/Index';
 /* eslint-disable no-restricted-syntax */
 
 const PAGE_SIZE = 5;
-
-function mapStateToProps(state) {
-    return {
-        action: state.action,
-    };
-}
 
 class HomeScreen extends React.Component {
     static navigationOptions = ({ navigation }) => {
@@ -113,9 +106,7 @@ class HomeScreen extends React.Component {
     }
 }
 
-export default connect(
-    mapStateToProps,
-)(HomeScreen);
+export default HomeScreen;
 
 const RootView = styled.View`
     background: ${colors.white};

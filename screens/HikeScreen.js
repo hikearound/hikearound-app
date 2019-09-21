@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import firebase from 'firebase';
 import { ScrollView, AsyncStorage } from 'react-native';
-import { connect } from 'react-redux';
 import openMap from 'react-native-open-maps';
 import {
     HikeBody,
@@ -15,12 +14,6 @@ import { hikeActionSheet } from '../components/action_sheets/Hike';
 import { colors } from '../constants/Index';
 
 const { parseString } = require('react-native-xml2js');
-
-function mapStateToProps(state) {
-    return {
-        action: state.action,
-    };
-}
 
 class HikeScreen extends React.Component {
     static navigationOptions = ({ navigation }) => {
@@ -201,9 +194,7 @@ class HikeScreen extends React.Component {
     }
 }
 
-export default connect(
-    mapStateToProps,
-)(HikeScreen);
+export default HikeScreen;
 
 const RootView = styled.View`
     background-color: ${colors.white};
