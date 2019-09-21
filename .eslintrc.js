@@ -20,7 +20,9 @@ module.exports = {
     'rules': {
         'indent': [
             'error', 4,
-            {'SwitchCase': 1 },
+            {
+                'SwitchCase': 1
+            },
         ],
         'react/jsx-indent': ['error', 4],
         'react/jsx-indent-props': ['error', 4],
