@@ -27,7 +27,7 @@ const defaultProps = {
 
 function mapStateToProps(state) {
     return {
-        action: state.Hike.action,
+        action: state.hikeReducer.action,
     };
 }
 

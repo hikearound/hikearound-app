@@ -2,7 +2,7 @@ const initialState = {
     imageIndex: 0,
 };
 
-export default function Modal(state = initialState, action) {
+export default function modalReducer(state = initialState, action) {
     switch (action.type) {
         case 'SHOW_LIGHTBOX':
             return { ...state, action: 'showLightbox' };

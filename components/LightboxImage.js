@@ -15,7 +15,7 @@ const propTypes = {
 
 function mapStateToProps(state) {
     return {
-        action: state.Modal.action,
+        action: state.modalReducer.action,
     };
 }
 

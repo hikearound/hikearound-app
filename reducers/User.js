@@ -5,7 +5,7 @@ const initialState = {
     mapPreference: 'Apple Maps',
 };
 
-export default function User(state = initialState, action) {
+export default function userReducer(state = initialState, action) {
     switch (action.type) {
         case 'UPDATE_NAME':
             return { ...state, name: action.name };

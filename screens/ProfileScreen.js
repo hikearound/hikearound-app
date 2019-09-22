@@ -19,8 +19,8 @@ const propTypes = {
 
 function mapStateToProps(state) {
     return {
-        name: state.User.name,
-        location: state.User.location,
+        name: state.userReducer.name,
+        location: state.userReducer.location,
     };
 }
 

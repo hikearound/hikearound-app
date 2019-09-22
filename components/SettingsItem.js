@@ -25,7 +25,7 @@ const defaultProps = {
 
 function mapStateToProps(state) {
     return {
-        mapPreference: state.User.mapPreference,
+        mapPreference: state.userReducer.mapPreference,
     };
 }
 
