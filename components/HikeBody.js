@@ -26,7 +26,7 @@ const defaultProps = {
     images: [],
 };
 
-class HikeBody extends React.PureComponent {
+class HikeBody extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
@@ -36,6 +36,13 @@ class HikeBody extends React.PureComponent {
 
     componentWillMount() {
         this.updateDescription();
+    }
+
+    componentDidUpdate() {
+        const { description } = this.state;
+        if (description === '') {
+            this.updateDescription();
+        }
     }
 
     updateDescription() {
