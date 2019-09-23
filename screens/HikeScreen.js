@@ -28,9 +28,11 @@ class HikeScreen extends React.Component {
 
     constructor(props, context) {
         super(props, context);
-        const { navigation } = this.props;
 
-        this.state = {};
+        const { navigation } = this.props;
+        const hike = navigation.getParam('hike');
+
+        this.state = hike;
         this.hikeActionSheet = hikeActionSheet.bind(this);
 
         navigation.setParams({
@@ -66,15 +68,13 @@ class HikeScreen extends React.Component {
     }
 
     getXmlRef = async () => {
-        const { navigation } = this.props;
-        const hike = navigation.getParam('hike');
-        const { id } = hike;
-        const xmlUrl = `hikes/${id}/hike.gpx`;
-        return xmlUrl;
+        const { id } = this.state;
+        return `hikes/${id}/hike.gpx`;
     }
 
     getHikeData = async () => {
         const hikeXmlUrl = await this.getHikeXmlUrl();
+        const hikeData = await AsyncStorage.getItem('hikeData');
 
         await fetch(hikeXmlUrl)
             .then((response) => response.text())
@@ -85,8 +85,6 @@ class HikeScreen extends React.Component {
                     );
                 });
             });
-
-        const hikeData = await AsyncStorage.getItem('hikeData');
 
         this.setHikeData(JSON.parse(hikeData));
         this.parseCoordinates();
@@ -143,15 +141,13 @@ class HikeScreen extends React.Component {
                 }
             );
         }
-
         this.setState({ coordinates });
     }
 
     render() {
-        const { navigation } = this.props;
-        const { coordinates, region } = this.state;
-        const hike = navigation.getParam('hike');
         const {
+            coordinates,
+            region,
             distance,
             elevation,
             route,
@@ -160,11 +156,11 @@ class HikeScreen extends React.Component {
             description,
             id,
             images,
-        } = hike;
+        } = this.state;
 
         return (
             <RootView>
-                <Toast name={hike.name} />
+                <Toast name={name} />
                 <PurpleBlockView />
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <HikeMapWrapper
