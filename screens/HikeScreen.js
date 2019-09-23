@@ -42,17 +42,7 @@ class HikeScreen extends React.Component {
     }
 
     componentDidMount() {
-        const { description } = this.state;
-        if (!description) {
-            this.getAdditionalHikeData();
-        }
         this.initializeMap();
-    }
-
-    getHikeSnapshot = async () => {
-        const { id } = this.state;
-        const firestore = firebase.firestore();
-        return firestore.collection('hikes').doc(id).get();
     }
 
     setMapRegion() {
@@ -101,29 +91,6 @@ class HikeScreen extends React.Component {
         this.parseCoordinates();
         this.setMapRegion();
     }
-
-    getAdditionalHikeData = async () => {
-        const hikeSnapshot = await this.getHikeSnapshot();
-        this.setAdditionalHikeData(hikeSnapshot);
-    }
-
-    setAdditionalHikeData = async (hikeSnapshot) => {
-        const {
-            city,
-            description,
-            images,
-            elevation,
-            route,
-        } = hikeSnapshot.data();
-
-        this.setState({
-            city,
-            description,
-            images,
-            elevation,
-            route,
-        });
-    };
 
     setHikeData(hikeData) {
         const hikeMetaData = hikeData.gpx.metadata[0].bounds[0].$;

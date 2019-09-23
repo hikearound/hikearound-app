@@ -17,6 +17,7 @@ import {
     AuthScreen,
     SettingsScreen,
     CreateAccountScreen,
+    ProfileHikeScreen,
 } from '../screens/Index';
 
 const activeColor = colors.purple;
@@ -108,7 +109,7 @@ const ProfileStack = createStackNavigator(
     {
         Profile: ProfileScreen,
         Settings: SettingsScreen,
-        Hike: HikeScreen,
+        Hike: ProfileHikeScreen,
     },
     {
         mode: 'card',
