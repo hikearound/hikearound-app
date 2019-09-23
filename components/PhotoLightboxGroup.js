@@ -23,6 +23,10 @@ class PhotoLightboxGroup extends React.PureComponent {
         };
     }
 
+    componentWillMount() {
+        this.buildHikeImageArray();
+    }
+
     componentDidUpdate() {
         this.buildHikeImageArray();
     }
