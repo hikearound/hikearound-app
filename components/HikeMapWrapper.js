@@ -16,8 +16,8 @@ import {
 const propTypes = {
     showMapModal: PropTypes.func.isRequired,
     distance: PropTypes.number.isRequired,
-    elevation: PropTypes.number.isRequired,
-    route: PropTypes.string.isRequired,
+    elevation: PropTypes.number,
+    route: PropTypes.string,
     coordinates: PropTypes.array,
     region: PropTypes.object,
 };
@@ -25,6 +25,8 @@ const propTypes = {
 const defaultProps = {
     region: undefined,
     coordinates: [],
+    elevation: 0,
+    route: '',
 };
 
 function mapStateToProps(state) {

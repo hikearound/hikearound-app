@@ -26,7 +26,7 @@ const defaultProps = {
     images: [],
 };
 
-class HikeBody extends React.Component {
+class HikeBody extends React.PureComponent {
     constructor(props, context) {
         super(props, context);
         this.state = {

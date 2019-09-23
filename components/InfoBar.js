@@ -10,9 +10,15 @@ import {
 } from '../constants/Index';
 
 const propTypes = {
-    distance: PropTypes.number.isRequired,
-    elevation: PropTypes.number.isRequired,
-    route: PropTypes.string.isRequired,
+    distance: PropTypes.number,
+    elevation: PropTypes.number,
+    route: PropTypes.string,
+};
+
+const defaultProps = {
+    distance: 0,
+    elevation: 0,
+    route: '',
 };
 
 const InfoBar = ({ distance, elevation, route }) => (
@@ -39,6 +45,7 @@ const InfoBar = ({ distance, elevation, route }) => (
 );
 
 InfoBar.propTypes = propTypes;
+InfoBar.defaultProps = defaultProps;
 
 export default InfoBar;
 
