@@ -20,15 +20,15 @@ const propTypes = {
 };
 
 class ProfileHikeRow extends React.PureComponent {
+    getHikeData = async () => {
+        const hikeSnapshot = await this.getHikeSnapshot();
+        this.setHikeData(hikeSnapshot);
+    }
+
     getHikeSnapshot = async () => {
         const { id } = this.props;
         const firestore = firebase.firestore();
         return firestore.collection('hikes').doc(id).get();
-    }
-
-    getHikeData = async () => {
-        const hikeSnapshot = await this.getHikeSnapshot();
-        this.setHikeData(hikeSnapshot);
     }
 
     setHikeData = async (hikeSnapshot) => {
