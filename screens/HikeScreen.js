@@ -11,6 +11,7 @@ import {
     HikeMapWrapper,
 } from '../components/Index';
 import { hikeActionSheet } from '../components/action_sheets/Hike';
+import { getMapSetting } from '../utils/Settings';
 import { colors } from '../constants/Index';
 
 const { parseString } = require('react-native-xml2js');
@@ -109,15 +110,10 @@ class HikeScreen extends React.Component {
 
     navigationToHike = async () => {
         const { startingLat, startingLon } = this.state;
-        const mapSetting = await AsyncStorage.getItem('mapSetting');
-        let provider = 'apple';
-
-        if (mapSetting === 'Google Maps') {
-            provider = 'google';
-        }
+        const mapProvider = await getMapSetting();
 
         openMap({
-            provider,
+            mapProvider,
             travelType: 'drive',
             query: `${startingLat}, ${startingLon}`,
         });
@@ -141,6 +137,7 @@ class HikeScreen extends React.Component {
                 }
             );
         }
+
         this.setState({ coordinates });
     }
 
