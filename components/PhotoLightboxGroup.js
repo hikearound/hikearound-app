@@ -27,10 +27,6 @@ class PhotoLightboxGroup extends React.PureComponent {
         this.buildHikeImageArray();
     }
 
-    componentDidUpdate() {
-        this.buildHikeImageArray();
-    }
-
     getHikeImageUrl = async (id, imageIndex) => {
         const ref = firebase.storage().ref(
             `hikes/${id}/images/${imageIndex}.jpg`

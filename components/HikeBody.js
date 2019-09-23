@@ -38,13 +38,6 @@ class HikeBody extends React.PureComponent {
         this.updateDescription();
     }
 
-    componentDidUpdate() {
-        const { description } = this.state;
-        if (description === '') {
-            this.updateDescription();
-        }
-    }
-
     updateDescription() {
         const { description } = this.props;
         if (description) {
