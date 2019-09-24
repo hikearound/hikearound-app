@@ -113,7 +113,7 @@ class HikeScreen extends React.Component {
         const mapProvider = await getMapSetting();
 
         openMap({
-            mapProvider,
+            provider: mapProvider,
             travelType: 'drive',
             query: `${startingLat}, ${startingLon}`,
         });
