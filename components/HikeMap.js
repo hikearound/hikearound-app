@@ -38,7 +38,9 @@ class HikeMap extends React.Component {
             fullHeight,
         } = this.props;
 
-        LayoutAnimation.easeInEaseOut();
+        if (!fullHeight) {
+            LayoutAnimation.easeInEaseOut();
+        }
 
         if (region) {
             return (
