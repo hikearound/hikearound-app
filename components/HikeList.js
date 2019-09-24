@@ -72,7 +72,7 @@ const RootView = styled.View`
 `;
 
 const HeaderContainer = styled.View`
-    padding-bottom: ${spacing.tiny}px;
+    padding-bottom: 4px;
     margin-top: ${spacing.tiny}px;
 `;
 
