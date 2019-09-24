@@ -46,26 +46,28 @@ class SettingsItem extends React.Component {
         this.state = {
             textColor: colors.black,
             checkDisplay: 'none',
-            selected: false,
         };
+    }
+
+    componentWillMount() {
+        this.setDefaultMap();
     }
 
     componentDidUpdate() {
         const { item, defaultMap } = this.props;
         const { selected } = this.state;
+
         if (defaultMap === item) {
             if (!selected) {
                 this.selectItem();
-                AsyncStorage.setItem(
-                    'mapSetting', item,
-                );
+                AsyncStorage.setItem('mapSetting', item);
             }
         } else if (selected) {
-            this.unselectItem();
+            // this.unselectItem();
         }
     }
 
-    componentWillMount = async () => {
+    setDefaultMap = async () => {
         const { item } = this.props;
         const mapSetting = await this.getMapSetting();
         if (item === mapSetting) {
