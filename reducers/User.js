@@ -1,8 +1,8 @@
 const initialState = {
-    name: 'Patrick Dugan',
+    name: '',
     avatar: 'https://patdugan.me/images/me.jpg',
-    location: 'Seattle, WA',
-    mapPreference: 'Apple Maps',
+    location: '',
+    defaultMap: '',
 };
 
 export default function userReducer(state = initialState, action) {
@@ -13,7 +13,7 @@ export default function userReducer(state = initialState, action) {
             return { ...state, avatar: action.avatar };
         case 'UPDATE_LOCATION':
             return { ...state, avatar: action.location };
-        case 'SET_MAP_PREFERENCE':
+        case 'SET_DEFAULT_MAP':
             return {
                 ...state,
                 mapPreference: action.mapPreference,

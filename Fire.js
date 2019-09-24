@@ -17,12 +17,6 @@ class Fire {
             messagingSenderId,
             appId,
         });
-
-        firebase.auth().onAuthStateChanged(async (user) => {
-            if (!user) {
-                await firebase.auth().signInAnonymously();
-            }
-        });
     }
 
     getPaged = async ({ size, start }) => {
