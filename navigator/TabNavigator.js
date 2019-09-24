@@ -1,4 +1,5 @@
 import React from 'react';
+import * as Haptics from 'expo-haptics';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { colors, spacing, fontSizes } from '../constants/Index';
@@ -147,6 +148,12 @@ const TabNavigator = createBottomTabNavigator(
         ProfileStack,
     },
     {
+        defaultNavigationOptions: {
+            tabBarOnPress: ({ defaultHandler }) => {
+                Haptics.selectionAsync();
+                defaultHandler();
+            },
+        },
         tabBarOptions: {
             activeTintColor: activeColor,
             style: {
