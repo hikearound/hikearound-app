@@ -16,7 +16,7 @@ export default function userReducer(state = initialState, action) {
         case 'SET_DEFAULT_MAP':
             return {
                 ...state,
-                mapPreference: action.mapPreference,
+                defaultMap: action.defaultMap,
             };
         default:
             return state;

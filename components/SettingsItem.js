@@ -15,25 +15,25 @@ import {
 
 const propTypes = {
     item: PropTypes.string.isRequired,
-    setMapPreference: PropTypes.func.isRequired,
-    mapPreference: PropTypes.string,
+    setdefaultMap: PropTypes.func.isRequired,
+    defaultMap: PropTypes.string,
 };
 
 const defaultProps = {
-    mapPreference: 'Apple Maps',
+    defaultMap: 'Apple Maps',
 };
 
 function mapStateToProps(state) {
     return {
-        mapPreference: state.userReducer.mapPreference,
+        defaultMap: state.userReducer.defaultMap,
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        setMapPreference: (mapPreference) => dispatch({
-            type: 'SET_MAP_PREFERENCE',
-            mapPreference,
+        setdefaultMap: (defaultMap) => dispatch({
+            type: 'SET_DEFAULT_MAP',
+            defaultMap,
         }),
     };
 }
@@ -51,9 +51,9 @@ class SettingsItem extends React.Component {
     }
 
     componentDidUpdate() {
-        const { item, mapPreference } = this.props;
+        const { item, defaultMap } = this.props;
         const { selected } = this.state;
-        if (mapPreference === item) {
+        if (defaultMap === item) {
             if (!selected) {
                 this.selectItem();
                 AsyncStorage.setItem(
@@ -83,11 +83,11 @@ class SettingsItem extends React.Component {
     }
 
     itemPress = () => {
-        const { item, setMapPreference } = this.props;
+        const { item, setdefaultMap } = this.props;
         if (item === 'Logout') {
             this.handleLogout();
         } else {
-            setMapPreference(item);
+            setdefaultMap(item);
         }
     }
 
