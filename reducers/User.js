@@ -2,7 +2,7 @@ const initialState = {
     name: '',
     avatar: 'https://patdugan.me/images/me.jpg',
     location: '',
-    defaultMap: '',
+    defaultMap: 'Apple Maps',
 };
 
 export default function userReducer(state = initialState, action) {

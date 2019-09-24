@@ -16,11 +16,7 @@ import {
 const propTypes = {
     item: PropTypes.string.isRequired,
     setdefaultMap: PropTypes.func.isRequired,
-    defaultMap: PropTypes.string,
-};
-
-const defaultProps = {
-    defaultMap: 'Apple Maps',
+    defaultMap: PropTypes.string.isRequired,
 };
 
 function mapStateToProps(state) {
@@ -38,7 +34,7 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-class SettingsItem extends React.Component {
+class SettingsItem extends React.PureComponent {
     constructor(props) {
         super(props);
         this.handleLogout = this.handleLogout.bind(this);
@@ -63,14 +59,13 @@ class SettingsItem extends React.Component {
                 AsyncStorage.setItem('mapSetting', item);
             }
         } else if (selected) {
-            // this.unselectItem();
+            this.unselectItem();
         }
     }
 
     setDefaultMap = async () => {
-        const { item } = this.props;
-        const mapSetting = await this.getMapSetting();
-        if (item === mapSetting) {
+        const { item, defaultMap } = this.props;
+        if (item === defaultMap) {
             this.selectItem();
         }
     }
@@ -92,8 +87,6 @@ class SettingsItem extends React.Component {
             setdefaultMap(item);
         }
     }
-
-    getMapSetting = async () => AsyncStorage.getItem('mapSetting')
 
     selectItem() {
         this.setState({
@@ -144,7 +137,6 @@ class SettingsItem extends React.Component {
 }
 
 SettingsItem.propTypes = propTypes;
-SettingsItem.defaultProps = defaultProps;
 
 export default connect(
     mapStateToProps,
