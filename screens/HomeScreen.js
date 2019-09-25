@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { LayoutAnimation, RefreshControl } from 'react-native';
+import firebase from 'firebase';
 import Fire from '../Fire';
 import { Logo, FeedList, Sort } from '../components/Index';
 import { colors } from '../constants/Index';
@@ -23,9 +24,10 @@ class HomeScreen extends React.Component {
         super(props);
 
         this.state = {
+            feedHikeCount: 0,
             sortType: 'desc',
             loading: false,
-            posts: [],
+            hikes: [],
             data: {},
         };
     }
@@ -33,23 +35,32 @@ class HomeScreen extends React.Component {
     componentDidMount() {
         const { navigation } = this.props;
         const { sortType } = this.state;
+
         if (Fire.shared.uid) {
             this.makeRemoteRequest();
+            this.setFeedHikeCount();
         }
+
         navigation.setParams({
             sortType,
         });
     }
 
-    addPosts = (posts) => {
+    setFeedHikeCount = () => {
+        firebase.firestore().collection('hikes').get().then((snap) => {
+            this.setState({ feedHikeCount: snap.size });
+        });
+    }
+
+    addhikes = (hikes) => {
         this.setState((previousState) => {
             const data = {
                 ...previousState.data,
-                ...posts,
+                ...hikes,
             };
             return {
                 data,
-                posts: Object.values(data).sort(
+                hikes: Object.values(data).sort(
                     (a, b) => a.timestamp < b.timestamp
                 ),
             };
@@ -58,35 +69,44 @@ class HomeScreen extends React.Component {
 
     makeRemoteRequest = async (lastKey) => {
         const { loading } = this.state;
+        const hikes = {};
         if (loading) {
             return;
         }
-        this.setState({ loading: true });
 
-        const { data, cursor } = await Fire.shared.getPaged({
+        const {
+            data,
+            cursor,
+        } = await Fire.shared.getPaged({
             size: PAGE_SIZE,
             start: lastKey,
         });
 
         this.lastKnownKey = cursor;
-        const posts = {};
-        for (const child of data) {
-            posts[child.key] = child;
+        for (const hike of data) {
+            hikes[hike.key] = hike;
         }
-        this.addPosts(posts);
+
+        this.addhikes(hikes);
         this.setState({ loading: false });
     }
 
     onRefresh = () => {
-        this.makeRemoteRequest();
+        this.setState({ hikes: [] });
+        this.timeout = setTimeout(() => {
+            this.makeRemoteRequest();
+        }, 500);
     }
 
     onEndReached = () => {
-        this.makeRemoteRequest(this.lastKnownKey);
+        const { hikes, feedHikeCount } = this.state;
+        if (hikes.length < feedHikeCount) {
+            this.makeRemoteRequest(this.lastKnownKey);
+        }
     }
 
     render() {
-        const { loading, posts } = this.state;
+        const { loading, hikes } = this.state;
         LayoutAnimation.easeInEaseOut();
         return (
             <RootView>
@@ -98,8 +118,8 @@ class HomeScreen extends React.Component {
                             onRefresh={this.onRefresh}
                         />
                     )}
-                    onPressFooter={this.onEndReached}
-                    data={posts}
+                    onEndReached={this.onEndReached}
+                    hikes={hikes}
                 />
             </RootView>
         );
