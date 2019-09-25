@@ -26,7 +26,7 @@ class HomeScreen extends React.Component {
         this.state = {
             feedHikeCount: 0,
             sortType: 'desc',
-            loading: false,
+            loading: true,
             hikes: [],
             data: {},
         };
@@ -68,12 +68,7 @@ class HomeScreen extends React.Component {
     }
 
     makeRemoteRequest = async (lastKey) => {
-        const { loading } = this.state;
         const hikes = {};
-        if (loading) {
-            return;
-        }
-
         const {
             data,
             cursor,
@@ -91,11 +86,11 @@ class HomeScreen extends React.Component {
         this.setState({ loading: false });
     }
 
-    onRefresh = () => {
-        this.setState({ hikes: [] });
+    onRefresh = async () => {
+        await this.setState({ loading: true });
         this.timeout = setTimeout(() => {
             this.makeRemoteRequest();
-        }, 500);
+        }, 1000);
     }
 
     onEndReached = () => {

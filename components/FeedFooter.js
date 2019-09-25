@@ -26,7 +26,7 @@ export default class FeedFooter extends React.Component {
             this.setState({
                 footerVisibility: FOOTER_STYLE.visibleText,
             });
-        }, 1000);
+        }, 500);
     }
 
     componentWillUnmount() {
