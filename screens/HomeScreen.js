@@ -102,7 +102,10 @@ class HomeScreen extends React.Component {
 
     render() {
         const { loading, hikes } = this.state;
+        const feedRef = React.createRef();
+
         LayoutAnimation.easeInEaseOut();
+
         return (
             <RootView>
                 <FeedList
@@ -113,6 +116,7 @@ class HomeScreen extends React.Component {
                             onRefresh={this.onRefresh}
                         />
                     )}
+                    feedRef={feedRef}
                     onEndReached={this.onEndReached}
                     hikes={hikes}
                 />

@@ -8,6 +8,7 @@ const propTypes = {
     onEndReached: PropTypes.func.isRequired,
     refreshControl: PropTypes.object.isRequired,
     hikes: PropTypes.array.isRequired,
+    feedRef: PropTypes.object.isRequired,
 };
 
 class FeedList extends React.Component {
@@ -23,14 +24,23 @@ class FeedList extends React.Component {
         />
     )
 
+    renderFooter = () => (
+        <FeedFooter />
+    )
+
     keyExtractor = (item) => item.key;
 
     render() {
-        const { onEndReached, refreshControl, hikes } = this.props;
+        const {
+            onEndReached,
+            refreshControl,
+            hikes,
+            feedRef,
+        } = this.props;
 
         return (
             <FlatList
-                ref={(ref) => { this.listRef = ref; }}
+                ref={feedRef}
                 data={hikes}
                 showsVerticalScrollIndicator={false}
                 keyExtractor={this.keyExtractor}
@@ -38,7 +48,7 @@ class FeedList extends React.Component {
                 refreshControl={refreshControl}
                 onEndReached={onEndReached}
                 onEndReachedThreshold={0.75}
-                ListFooterComponent={() => <FeedFooter />}
+                ListFooterComponent={this.renderFooter}
             />
         );
     }
