@@ -1,5 +1,5 @@
 const initialState = {
-    name: '',
+    name: 'Patrick Dugan',
     avatar: 'https://patdugan.me/images/me.jpg',
     location: '',
     defaultMap: 'Apple Maps',

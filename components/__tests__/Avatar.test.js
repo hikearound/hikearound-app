@@ -6,7 +6,9 @@ import Avatar from '../Avatar';
 
 const mockStore = configureMockStore();
 const store = mockStore({
-    avatar: 'https://patdugan.me/images/me.jpg',
+    userReducer: {
+        avatar: 'https://patdugan.me/images/me.jpg',
+    },
 });
 
 test('Avatar renders correctly', () => {
