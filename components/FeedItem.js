@@ -15,6 +15,7 @@ const propTypes = {
     elevation: PropTypes.number,
     route: PropTypes.string,
     description: PropTypes.string,
+    city: PropTypes.string,
 };
 
 const defaultProps = {
@@ -24,6 +25,7 @@ const defaultProps = {
     elevation: 0,
     route: '',
     description: '',
+    city: '',
 };
 
 class FeedItem extends React.Component {
@@ -48,6 +50,7 @@ class FeedItem extends React.Component {
             distance,
             elevation,
             route,
+            city,
             description,
         } = this.props;
 
@@ -69,6 +72,7 @@ class FeedItem extends React.Component {
                         distance={distance}
                         elevation={elevation}
                         route={route}
+                        city={city}
                         description={description}
                     />
                 </TouchableOpacity>
