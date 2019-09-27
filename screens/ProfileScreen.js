@@ -41,7 +41,7 @@ class ProfileScreen extends React.Component {
         };
     }
 
-    async componentDidMount() {
+    async componentWillMount() {
         this.getHikeData();
     }
 
@@ -65,10 +65,15 @@ class ProfileScreen extends React.Component {
             }
         });
 
+        if (hikes.length === 0) {
+            this.setState({
+                maybeShowEmptyState: true,
+            });
+        }
+
         this.setState({
             hikes,
             loading: false,
-            maybeShowEmptyState: true,
         });
     }
 
@@ -78,18 +83,21 @@ class ProfileScreen extends React.Component {
         const { name, location } = this.props;
         const { hikes, loading, maybeShowEmptyState } = this.state;
 
-        return (
-            <RootView>
-                <ScrollView showsVerticalScrollIndicator={false}>
-                    <ProfileHeader name={name} location={location} />
-                    <ProfileBody
-                        hikes={hikes}
-                        loading={loading}
-                        maybeShowEmptyState={maybeShowEmptyState}
-                    />
-                </ScrollView>
-            </RootView>
-        );
+        if (!loading) {
+            return (
+                <RootView>
+                    <ScrollView showsVerticalScrollIndicator={false}>
+                        <ProfileHeader name={name} location={location} />
+                        <ProfileBody
+                            hikes={hikes}
+                            loading={loading}
+                            maybeShowEmptyState={maybeShowEmptyState}
+                        />
+                    </ScrollView>
+                </RootView>
+            );
+        }
+        return null;
     }
 }
 

@@ -19,7 +19,7 @@ class ProfileHeader extends React.PureComponent {
         super(props);
 
         this.state = {
-            loading: false,
+            name: '',
         };
     }
 
@@ -30,7 +30,6 @@ class ProfileHeader extends React.PureComponent {
     getUid = async () => firebase.auth().currentUser.uid
 
     getUserSnapshot = async () => {
-        this.setState({ loading: true });
         const firestore = firebase.firestore();
         const uid = await this.getUid();
         return firestore.collection('users').doc(uid).get();
@@ -43,35 +42,30 @@ class ProfileHeader extends React.PureComponent {
         this.setState({
             name: user.name,
             location: user.location,
-            loading: false,
         });
     }
 
     render() {
-        const { loading, name, location } = this.state;
-
-        if (!loading) {
-            return (
-                <HeaderWrapper source={BACKGROUND_IMAGE}>
-                    <Avatar />
-                    <NameText>{name}</NameText>
-                    <LocationText>{location}</LocationText>
-                    <TouchableOpacity
-                        activeOpacity={opacities.regular}
-                        style={{
-                            position: 'absolute',
-                            right: parseInt(spacing.small, 10),
-                            bottom: 20,
-                        }}
-                    >
-                        <EditProfileLink>
-                            Edit Profile
-                        </EditProfileLink>
-                    </TouchableOpacity>
-                </HeaderWrapper>
-            );
-        }
-        return (null);
+        const { name, location } = this.state;
+        return (
+            <HeaderWrapper source={BACKGROUND_IMAGE}>
+                <Avatar />
+                <NameText>{name}</NameText>
+                <LocationText>{location}</LocationText>
+                <TouchableOpacity
+                    activeOpacity={opacities.regular}
+                    style={{
+                        position: 'absolute',
+                        right: parseInt(spacing.small, 10),
+                        bottom: 20,
+                    }}
+                >
+                    <EditProfileLink>
+                        Edit Profile
+                    </EditProfileLink>
+                </TouchableOpacity>
+            </HeaderWrapper>
+        );
     }
 }
 
@@ -81,6 +75,7 @@ const HeaderWrapper = styled.ImageBackground`
     padding-left: ${spacing.small}px;
     padding-top: 40px;
     padding-bottom: ${spacing.medium}px;
+    min-height: 175px;
 `;
 
 const NameText = styled.Text`
