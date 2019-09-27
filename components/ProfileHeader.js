@@ -17,10 +17,7 @@ const BACKGROUND_IMAGE = require('../assets/profile-bg.png');
 class ProfileHeader extends React.PureComponent {
     constructor(props) {
         super(props);
-
-        this.state = {
-            name: '',
-        };
+        this.state = {};
     }
 
     async componentDidMount() {
