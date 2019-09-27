@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { LayoutAnimation, RefreshControl } from 'react-native';
+import { RefreshControl } from 'react-native';
 import firebase from 'firebase';
 import Fire from '../Fire';
 import { Logo, FeedList, Sort } from '../components/Index';
@@ -103,8 +103,6 @@ class HomeScreen extends React.Component {
     render() {
         const { loading, hikes } = this.state;
         const feedRef = React.createRef();
-
-        LayoutAnimation.easeInEaseOut();
 
         return (
             <RootView>
