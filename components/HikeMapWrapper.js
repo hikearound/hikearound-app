@@ -37,9 +37,10 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        showMapModal: () => dispatch({
-            type: 'SHOW_MAP',
-        }),
+        showMapModal: () =>
+            dispatch({
+                type: 'SHOW_MAP',
+            }),
     };
 }
 
@@ -47,22 +48,18 @@ class HikeMapWrapper extends React.Component {
     mapPress = () => {
         const { showMapModal } = this.props;
         showMapModal();
-    }
+    };
 
     render() {
-        const {
-            coordinates,
-            region,
-            distance,
-            elevation,
-            route,
-        } = this.props;
+        const { coordinates, region, distance, elevation, route } = this.props;
 
         return (
             <MapViewWrapper>
                 <InnerMapViewWrapper>
                     <HikeMap
-                        mapRef={(ref) => { this.mapView = ref; }}
+                        mapRef={(ref) => {
+                            this.mapView = ref;
+                        }}
                         coordinates={coordinates}
                         region={region}
                     />
@@ -81,8 +78,7 @@ class HikeMapWrapper extends React.Component {
                             bottom: 0,
                             left: 0,
                             zIndex: 1,
-                        }}
-                    >
+                        }}>
                         <MapOverlay />
                     </TouchableOpacity>
                 </InnerMapViewWrapper>

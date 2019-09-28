@@ -17,9 +17,7 @@ class CreateAccountInputGroup extends InputGroup {
     handleLogin = async () => {
         firebase
             .auth()
-            .signInWithEmailAndPassword(
-                this.state.email, this.state.password
-            )
+            .signInWithEmailAndPassword(this.state.email, this.state.password)
             .catch((error) => {
                 Alert.alert('Error', error.message);
             })
@@ -28,7 +26,7 @@ class CreateAccountInputGroup extends InputGroup {
                     this.handleContinue();
                 }
             });
-    }
+    };
 }
 
 export default CreateAccountInputGroup;

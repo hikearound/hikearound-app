@@ -20,7 +20,9 @@ class Fire {
     }
 
     getPaged = async ({ size, start }) => {
-        let ref = this.collection().orderBy('timestamp', 'desc').limit(size);
+        let ref = this.collection()
+            .orderBy('timestamp', 'desc')
+            .limit(size);
         if (start) {
             ref = ref.startAfter(start);
         }
@@ -41,13 +43,13 @@ class Fire {
 
         const lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
         return { data, cursor: lastVisible };
-    }
+    };
 
-    collection = () => firebase.firestore().collection(collectionName)
+    collection = () => firebase.firestore().collection(collectionName);
 
-    uid = () => (firebase.auth().currentUser || {}).uid
+    uid = () => (firebase.auth().currentUser || {}).uid;
 
-    timestamp = () => Date.now()
+    timestamp = () => Date.now();
 }
 
 Fire.shared = new Fire();

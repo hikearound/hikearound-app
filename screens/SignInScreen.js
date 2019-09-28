@@ -45,9 +45,7 @@ class SignInScreen extends React.Component {
     }
 
     componentDidMount() {
-        StatusBar.setBarStyle(
-            'light-content', true,
-        );
+        StatusBar.setBarStyle('light-content', true);
     }
 
     render() {
@@ -66,9 +64,7 @@ class SignInScreen extends React.Component {
     }
 }
 
-export default connect(
-    mapStateToProps,
-)(SignInScreen);
+export default connect(mapStateToProps)(SignInScreen);
 
 const RootView = styled.View`
     flex: 1;

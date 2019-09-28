@@ -38,9 +38,7 @@ class LandingScreen extends React.Component {
         return (
             <RootView>
                 <AnimatedBackgroundWrapper style={{ left }}>
-                    <LandingBackground
-                        source={backgroundImg}
-                    />
+                    <LandingBackground source={backgroundImg} />
                 </AnimatedBackgroundWrapper>
                 <ButtonWrapper>
                     <ActionButton
@@ -53,8 +51,8 @@ class LandingScreen extends React.Component {
                     <ActionButton
                         text='Sign In'
                         margin={
-                            `${spacing.small}px ${spacing.medium}px `
-                            + `0 ${spacing.medium}px`
+                            `${spacing.small}px ${spacing.medium}px ` +
+                            `0 ${spacing.medium}px`
                         }
                         action={() => {
                             navigation.push('SignIn');
@@ -83,7 +81,7 @@ const LandingBackground = styled.ImageBackground`
 `;
 
 const AnimatedBackgroundWrapper = Animated.createAnimatedComponent(
-    BackgroundWrapper
+    BackgroundWrapper,
 );
 
 const ButtonWrapper = styled.View`

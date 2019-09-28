@@ -45,7 +45,7 @@ class InputGroup extends React.Component {
     handleContinue = () => {
         const { resetAction, navigation } = this.props;
         navigation.dispatch(resetAction);
-    }
+    };
 
     handleFocus = (index) => () => {
         this.setState({
@@ -53,7 +53,7 @@ class InputGroup extends React.Component {
             previousFocusDisabled: index === 0,
             activeInputIndex: index,
         });
-    }
+    };
 
     handleFocusNext = () => {
         const { nextFocusDisabled, activeInputIndex } = this.state;
@@ -61,7 +61,7 @@ class InputGroup extends React.Component {
             return;
         }
         mappedInputs[activeInputIndex + 1].ref.current.focus();
-    }
+    };
 
     handleFocusPrevious = () => {
         const { previousFocusDisabled, activeInputIndex } = this.state;
@@ -69,13 +69,10 @@ class InputGroup extends React.Component {
             return;
         }
         mappedInputs[activeInputIndex - 1].ref.current.focus();
-    }
+    };
 
     render() {
-        const {
-            inputs,
-            passwordLinkDisplay,
-        } = this.props;
+        const { inputs, passwordLinkDisplay } = this.props;
 
         const {
             nextFocusDisabled,
@@ -86,30 +83,35 @@ class InputGroup extends React.Component {
         return (
             <RootView>
                 <ScrollView keyboardShouldPersistTaps='always'>
-                    { inputs.map(({
-                        name,
-                        placeholder,
-                        keyboardType,
-                        secureTextEntry,
-                        autoCorrect,
-                        autoCapitalize,
-                        ref,
-                    }, index) => (
-                        <TextInput
-                            key={`input_${index}`}
-                            ref={ref}
-                            placeholder={placeholder}
-                            keyboardType={keyboardType}
-                            secureTextEntry={secureTextEntry}
-                            autoCorrect={autoCorrect}
-                            autoCapitalize={autoCapitalize}
-                            onFocus={this.handleFocus(index)}
-                            autoFocus={index === 0}
-                            onChangeText={(text) => this.setValue(
-                                name, text, index
-                            )}
-                        />
-                    ))}
+                    {inputs.map(
+                        (
+                            {
+                                name,
+                                placeholder,
+                                keyboardType,
+                                secureTextEntry,
+                                autoCorrect,
+                                autoCapitalize,
+                                ref,
+                            },
+                            index,
+                        ) => (
+                            <TextInput
+                                key={`input_${index}`}
+                                ref={ref}
+                                placeholder={placeholder}
+                                keyboardType={keyboardType}
+                                secureTextEntry={secureTextEntry}
+                                autoCorrect={autoCorrect}
+                                autoCapitalize={autoCapitalize}
+                                onFocus={this.handleFocus(index)}
+                                autoFocus={index === 0}
+                                onChangeText={(text) =>
+                                    this.setValue(name, text, index)
+                                }
+                            />
+                        ),
+                    )}
                     <ActionButton
                         primary
                         text='Continue'
@@ -120,8 +122,7 @@ class InputGroup extends React.Component {
                         activeOpacity={opacities.regular}
                         style={{
                             display: passwordLinkDisplay,
-                        }}
-                    >
+                        }}>
                         <PasswordText>Forgot Password?</PasswordText>
                     </TouchableOpacity>
                 </ScrollView>

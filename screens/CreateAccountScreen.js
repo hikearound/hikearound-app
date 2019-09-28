@@ -68,9 +68,7 @@ class CreateAccountScreen extends React.Component {
     }
 }
 
-export default connect(
-    mapStateToProps,
-)(CreateAccountScreen);
+export default connect(mapStateToProps)(CreateAccountScreen);
 
 const RootView = styled.View`
     flex: 1;

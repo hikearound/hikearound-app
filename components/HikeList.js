@@ -3,12 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FlatList } from 'react-navigation';
 import HikeListItem from './HikeListItem';
-import {
-    colors,
-    fontSizes,
-    fontWeights,
-    spacing,
-} from '../constants/Index';
+import { colors, fontSizes, fontWeights, spacing } from '../constants/Index';
 
 const propTypes = {
     maybeShowEmptyState: PropTypes.bool.isRequired,
@@ -20,7 +15,7 @@ class HikeList extends React.PureComponent {
         <HeaderContainer>
             <HeaderText>Your Hikes</HeaderText>
         </HeaderContainer>
-    )
+    );
 
     renderEmptyList = () => {
         const { maybeShowEmptyState } = this.props;
@@ -34,7 +29,7 @@ class HikeList extends React.PureComponent {
             );
         }
         return null;
-    }
+    };
 
     renderItem = ({ item }) => (
         <HikeListItem
@@ -43,7 +38,7 @@ class HikeList extends React.PureComponent {
             location={item.location}
             distance={item.distance}
         />
-    )
+    );
 
     render() {
         const { hikes } = this.props;

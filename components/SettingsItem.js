@@ -6,12 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Updates } from 'expo';
 import { connect } from 'react-redux';
 import firebase from 'firebase';
-import {
-    colors,
-    spacing,
-    fontSizes,
-    opacities,
-} from '../constants/Index';
+import { colors, spacing, fontSizes, opacities } from '../constants/Index';
 
 const propTypes = {
     item: PropTypes.string.isRequired,
@@ -27,10 +22,11 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        setdefaultMap: (defaultMap) => dispatch({
-            type: 'SET_DEFAULT_MAP',
-            defaultMap,
-        }),
+        setdefaultMap: (defaultMap) =>
+            dispatch({
+                type: 'SET_DEFAULT_MAP',
+                defaultMap,
+            }),
     };
 }
 
@@ -68,7 +64,7 @@ class SettingsItem extends React.PureComponent {
         if (item === defaultMap) {
             this.selectItem();
         }
-    }
+    };
 
     handleLogout = async () => {
         firebase
@@ -77,7 +73,7 @@ class SettingsItem extends React.PureComponent {
             .then(() => {
                 Updates.reload();
             });
-    }
+    };
 
     itemPress = () => {
         const { item, setdefaultMap } = this.props;
@@ -86,7 +82,7 @@ class SettingsItem extends React.PureComponent {
         } else {
             setdefaultMap(item);
         }
-    }
+    };
 
     selectItem() {
         this.setState({
@@ -110,13 +106,9 @@ class SettingsItem extends React.PureComponent {
         return (
             <TouchableOpacity
                 activeOpacity={opacities.regular}
-                onPress={this.itemPress}
-            >
+                onPress={this.itemPress}>
                 <ItemContainer>
-                    <ItemText
-                        key={item.key}
-                        textColor={textColor}
-                    >
+                    <ItemText key={item.key} textColor={textColor}>
                         {item}
                     </ItemText>
                     <Ionicons

@@ -18,18 +18,13 @@ function mapStateToProps(state) {
 class LightboxModal extends ModalBase {
     render() {
         const { modalVisible } = this.state;
-        const {
-            animationType,
-            images,
-            imageIndex,
-        } = this.props;
+        const { animationType, images, imageIndex } = this.props;
 
         return (
             <Modal
                 animationType={animationType}
                 transparent={false}
-                visible={modalVisible}
-            >
+                visible={modalVisible}>
                 <ModalRoot>
                     <SafeAreaView style={{ flex: 1 }}>
                         <ModalOverflow
@@ -48,9 +43,7 @@ class LightboxModal extends ModalBase {
     }
 }
 
-export default connect(
-    mapStateToProps,
-)(LightboxModal);
+export default connect(mapStateToProps)(LightboxModal);
 
 const ModalRoot = styled.View`
     display: flex;

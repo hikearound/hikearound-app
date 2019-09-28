@@ -58,7 +58,7 @@ class Toast extends React.Component {
         this.timeout = setTimeout(() => {
             this.hideToast();
         }, 3500);
-    }
+    };
 
     hideToast = () => {
         const { top } = this.state;
@@ -68,7 +68,7 @@ class Toast extends React.Component {
             toValue: SCREEN_HEIGHT,
             duration: 500,
         }).start();
-    }
+    };
 
     render() {
         const { name } = this.props;
@@ -88,13 +88,8 @@ class Toast extends React.Component {
                         position: 'absolute',
                         right: 12,
                         top: 5,
-                    }}
-                >
-                    <Ionicons
-                        name='ios-close'
-                        color={colors.white}
-                        size={30}
-                    />
+                    }}>
+                    <Ionicons name='ios-close' color={colors.white} size={30} />
                 </TouchableOpacity>
             </AnimatedContainer>
         );
@@ -104,9 +99,7 @@ class Toast extends React.Component {
 Toast.propTypes = propTypes;
 Toast.defaultProps = defaultProps;
 
-export default connect(
-    mapStateToProps
-)(Toast);
+export default connect(mapStateToProps)(Toast);
 
 const Container = styled.View`
     position: absolute;

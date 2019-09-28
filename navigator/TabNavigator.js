@@ -3,11 +3,7 @@ import * as Haptics from 'expo-haptics';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { colors, spacing, fontSizes } from '../constants/Index';
-import {
-    HomeIcon,
-    BellIcon,
-    PersonIcon,
-} from '../icons/Index';
+import { HomeIcon, BellIcon, PersonIcon } from '../icons/Index';
 import {
     LandingScreen,
     SignInScreen,
@@ -57,7 +53,7 @@ HomeStack.navigationOptions = ({ navigation }) => {
     let tabBarVisible = false;
     const { routeName } = navigation.state.routes[navigation.state.index];
 
-    if ((routeName === 'Home') || (routeName === 'Hike')) {
+    if (routeName === 'Home' || routeName === 'Hike') {
         tabBarVisible = true;
     }
 
@@ -67,10 +63,7 @@ HomeStack.navigationOptions = ({ navigation }) => {
         tabBarLabel: 'Home',
 
         tabBarIcon: ({ focused }) => (
-            <HomeIcon
-                size={26}
-                fill={focused ? activeColor : inactiveColor}
-            />
+            <HomeIcon size={26} fill={focused ? activeColor : inactiveColor} />
         ),
     };
 };
@@ -99,9 +92,7 @@ const NotificationStack = createStackNavigator(
 NotificationStack.navigationOptions = {
     tabBarLabel: 'Notifications',
     tabBarIcon: ({ focused }) => (
-        <BellIcon
-            fill={focused ? activeColor : inactiveColor}
-        />
+        <BellIcon fill={focused ? activeColor : inactiveColor} />
     ),
 };
 
@@ -134,10 +125,7 @@ const ProfileStack = createStackNavigator(
 ProfileStack.navigationOptions = {
     tabBarLabel: 'You',
     tabBarIcon: ({ focused }) => (
-        <PersonIcon
-            height={25}
-            fill={focused ? activeColor : inactiveColor}
-        />
+        <PersonIcon height={25} fill={focused ? activeColor : inactiveColor} />
     ),
 };
 

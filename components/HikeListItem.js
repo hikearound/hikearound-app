@@ -23,13 +23,16 @@ class ProfileHikeRow extends React.PureComponent {
     getHikeData = async () => {
         const hikeSnapshot = await this.getHikeSnapshot();
         this.setHikeData(hikeSnapshot);
-    }
+    };
 
     getHikeSnapshot = async () => {
         const { id } = this.props;
         const firestore = firebase.firestore();
-        return firestore.collection('hikes').doc(id).get();
-    }
+        return firestore
+            .collection('hikes')
+            .doc(id)
+            .get();
+    };
 
     setHikeData = async (hikeSnapshot) => {
         const { navigation, id } = this.props;
@@ -41,17 +44,14 @@ class ProfileHikeRow extends React.PureComponent {
     };
 
     render() {
-        const {
-            name,
-            location,
-            distance,
-        } = this.props;
+        const { name, location, distance } = this.props;
 
         return (
             <TouchableOpacity
                 activeOpacity={opacities.regular}
-                onPress={() => { this.getHikeData(); }}
-            >
+                onPress={() => {
+                    this.getHikeData();
+                }}>
                 <Container>
                     <Name>{name}</Name>
                     <MetaData>

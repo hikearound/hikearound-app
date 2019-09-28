@@ -21,9 +21,10 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        hideModal: () => dispatch({
-            type: 'HIDE_MODAL',
-        }),
+        hideModal: () =>
+            dispatch({
+                type: 'HIDE_MODAL',
+            }),
     };
 }
 
@@ -46,7 +47,7 @@ class LightboxImage extends React.Component {
     hideModal = () => {
         const { hideModal } = this.props;
         hideModal();
-    }
+    };
 
     render() {
         const { images, imageIndex } = this.props;
@@ -55,12 +56,13 @@ class LightboxImage extends React.Component {
         return (
             <ImageZoom
                 enableSwipeDown
-                onSwipeDown={() => { this.hideModal(); }}
+                onSwipeDown={() => {
+                    this.hideModal();
+                }}
                 cropWidth={IMAGE_WIDTH}
                 cropHeight={IMAGE_HEIGHT}
                 imageWidth={IMAGE_WIDTH}
-                imageHeight={IMAGE_HEIGHT}
-            >
+                imageHeight={IMAGE_HEIGHT}>
                 <AnimatedImage
                     source={images[imageIndex]}
                     resizeMode='contain'

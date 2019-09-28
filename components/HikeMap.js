@@ -3,10 +3,7 @@ import PropTypes from 'prop-types';
 import { LayoutAnimation } from 'react-native';
 import styled from 'styled-components';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
-import {
-    colors,
-    borderRadius,
-} from '../constants/Index';
+import { colors, borderRadius } from '../constants/Index';
 
 const DEFAULT_MAP_HEIGHT = 200;
 
@@ -48,7 +45,7 @@ class HikeMap extends React.Component {
                     ref={mapRef}
                     provider={PROVIDER_GOOGLE}
                     style={{
-                        height: (fullHeight ? '100%' : DEFAULT_MAP_HEIGHT),
+                        height: fullHeight ? '100%' : DEFAULT_MAP_HEIGHT,
                         zIndex: 1,
                         overflow: 'hidden',
                         borderRadius: parseInt(borderRadius.medium, 10),
@@ -60,8 +57,7 @@ class HikeMap extends React.Component {
                     showsMyLocationButton={false}
                     showsPointsOfInterest={false}
                     showsCompass={false}
-                    maxZoomLevel={maxZoom}
-                >
+                    maxZoomLevel={maxZoom}>
                     <MapView.Polyline
                         coordinates={coordinates}
                         strokeColor={colors.purple}
@@ -70,9 +66,7 @@ class HikeMap extends React.Component {
                 </MapView>
             );
         }
-        return (
-            <EmptyMapView />
-        );
+        return <EmptyMapView />;
     }
 }
 
@@ -83,5 +77,6 @@ export default HikeMap;
 
 const EmptyMapView = styled.View`
     border-color: ${colors.mediumGray};
-    height: ${(props) => (props.fullHeight ? '100%' : `${DEFAULT_MAP_HEIGHT}px`)};
+    height: ${(props) =>
+        props.fullHeight ? '100%' : `${DEFAULT_MAP_HEIGHT}px`};
 `;

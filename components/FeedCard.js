@@ -19,9 +19,7 @@ const propTypes = {
     route: PropTypes.string.isRequired,
 };
 
-const FeedCard = ({
-    image, name, distance, elevation, route,
-}) => (
+const FeedCard = ({ image, name, distance, elevation, route }) => (
     <Container>
         <Cover>
             <Image source={image} resizeMode='cover' />

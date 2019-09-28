@@ -34,9 +34,10 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        hideModal: () => dispatch({
-            type: 'HIDE_MODAL',
-        }),
+        hideModal: () =>
+            dispatch({
+                type: 'HIDE_MODAL',
+            }),
     };
 }
 
@@ -44,7 +45,7 @@ class ModalDismiss extends React.PureComponent {
     hideModal = () => {
         const { hideModal } = this.props;
         hideModal();
-    }
+    };
 
     render() {
         const { includeBackground } = this.props;
@@ -52,10 +53,11 @@ class ModalDismiss extends React.PureComponent {
         if (includeBackground) {
             return (
                 <TouchableOpacity
-                    onPress={() => { this.hideModal(); }}
+                    onPress={() => {
+                        this.hideModal();
+                    }}
                     activeOpacity={opacities.regular}
-                    style={DISMISS_ICON_STYLE}
-                >
+                    style={DISMISS_ICON_STYLE}>
                     <DismissIconWrapper>
                         <Ionicons
                             name='ios-close'
@@ -69,10 +71,11 @@ class ModalDismiss extends React.PureComponent {
 
         return (
             <TouchableOpacity
-                onPress={() => { this.hideModal(); }}
+                onPress={() => {
+                    this.hideModal();
+                }}
                 activeOpacity={opacities.regular}
-                style={DISMISS_ICON_STYLE}
-            >
+                style={DISMISS_ICON_STYLE}>
                 <Ionicons
                     name='ios-close'
                     color={colors.white}

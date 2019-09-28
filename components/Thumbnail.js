@@ -3,12 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-import {
-    spacing,
-    borderRadius,
-    colors,
-    opacities,
-} from '../constants/Index';
+import { spacing, borderRadius, colors, opacities } from '../constants/Index';
 
 const THUMBNAIL_DIMENSION = 75;
 
@@ -27,27 +22,25 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        setLightboxPhoto: (imageIndex) => dispatch({
-            type: 'SET_LIGHTBOX_IMAGE_INDEX',
-            imageIndex,
-        }),
-        showLightbox: () => dispatch({
-            type: 'SHOW_LIGHTBOX',
-        }),
+        setLightboxPhoto: (imageIndex) =>
+            dispatch({
+                type: 'SET_LIGHTBOX_IMAGE_INDEX',
+                imageIndex,
+            }),
+        showLightbox: () =>
+            dispatch({
+                type: 'SHOW_LIGHTBOX',
+            }),
     };
 }
 
 class Thumbnail extends React.PureComponent {
     thumbnailPress = () => {
-        const {
-            setLightboxPhoto,
-            showLightbox,
-            imageIndex,
-        } = this.props;
+        const { setLightboxPhoto, showLightbox, imageIndex } = this.props;
 
         setLightboxPhoto(imageIndex);
         showLightbox();
-    }
+    };
 
     render() {
         const { image } = this.props;
@@ -55,12 +48,8 @@ class Thumbnail extends React.PureComponent {
         return (
             <TouchableOpacity
                 activeOpacity={opacities.regular}
-                onPress={this.thumbnailPress}
-            >
-                <ThumbnailImage
-                    source={image}
-                    resizeMode='cover'
-                />
+                onPress={this.thumbnailPress}>
+                <ThumbnailImage source={image} resizeMode='cover' />
             </TouchableOpacity>
         );
     }

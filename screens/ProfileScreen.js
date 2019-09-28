@@ -6,11 +6,7 @@ import { connect } from 'react-redux';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
 import { colors } from '../constants/Index';
-import {
-    Settings,
-    ProfileHeader,
-    ProfileBody,
-} from '../components/Index';
+import { Settings, ProfileHeader, ProfileBody } from '../components/Index';
 
 const propTypes = {
     name: PropTypes.string.isRequired,
@@ -29,7 +25,7 @@ class ProfileScreen extends React.Component {
         headerTitle: 'You',
         headerBackTitle: null,
         headerRight: <Settings navigation={navigation} />,
-    })
+    });
 
     constructor(props) {
         super(props);
@@ -49,9 +45,12 @@ class ProfileScreen extends React.Component {
         this.setState({ loading: true });
         const firestore = firebase.firestore();
         const uid = await this.getUid();
-        return firestore.collection('favoritedHikes').doc(uid)
-            .collection('hikes').get();
-    }
+        return firestore
+            .collection('favoritedHikes')
+            .doc(uid)
+            .collection('hikes')
+            .get();
+    };
 
     getHikeData = async () => {
         const hikeSnapshot = await this.getHikeSnapshot();
@@ -75,9 +74,9 @@ class ProfileScreen extends React.Component {
             hikes,
             loading: false,
         });
-    }
+    };
 
-    getUid = async () => firebase.auth().currentUser.uid
+    getUid = async () => firebase.auth().currentUser.uid;
 
     render() {
         const { name, location } = this.props;
@@ -103,9 +102,7 @@ class ProfileScreen extends React.Component {
 
 ProfileScreen.propTypes = propTypes;
 
-export default connect(
-    mapStateToProps,
-)(ProfileScreen);
+export default connect(mapStateToProps)(ProfileScreen);
 
 const RootView = styled.View`
     background: ${colors.white};

@@ -10,9 +10,7 @@ class AuthScreen extends React.Component {
     };
 
     componentDidMount() {
-        StatusBar.setBarStyle(
-            'light-content', true,
-        );
+        StatusBar.setBarStyle('light-content', true);
         this.getAuth();
     }
 
@@ -21,21 +19,23 @@ class AuthScreen extends React.Component {
     }
 
     getAuth = async () => {
-        this.authSubscription = firebase
-            .auth()
-            .onAuthStateChanged((user) => {
-                this.dispatchNav(user);
-            });
-    }
+        this.authSubscription = firebase.auth().onAuthStateChanged((user) => {
+            this.dispatchNav(user);
+        });
+    };
 
     dispatchNav(user) {
         const { navigation } = this.props;
-        navigation.dispatch(StackActions.reset({
-            index: 0,
-            actions: [NavigationActions.navigate({
-                routeName: user ? 'Home' : 'Landing',
-            })],
-        }));
+        navigation.dispatch(
+            StackActions.reset({
+                index: 0,
+                actions: [
+                    NavigationActions.navigate({
+                        routeName: user ? 'Home' : 'Landing',
+                    }),
+                ],
+            }),
+        );
     }
 
     render() {

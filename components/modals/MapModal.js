@@ -15,19 +15,13 @@ function mapStateToProps(state) {
 class MapModal extends ModalBase {
     render() {
         const { modalVisible } = this.state;
-        const {
-            animationType,
-            mapRef,
-            coordinates,
-            region,
-        } = this.props;
+        const { animationType, mapRef, coordinates, region } = this.props;
 
         return (
             <Modal
                 animationType={animationType}
                 transparent={false}
-                visible={modalVisible}
-            >
+                visible={modalVisible}>
                 <ModalRoot>
                     <HikeMap
                         fullHeight
@@ -43,9 +37,7 @@ class MapModal extends ModalBase {
     }
 }
 
-export default connect(
-    mapStateToProps,
-)(MapModal);
+export default connect(mapStateToProps)(MapModal);
 
 const ModalRoot = styled.View`
     display: flex;

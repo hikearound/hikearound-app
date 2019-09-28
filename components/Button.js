@@ -24,13 +24,8 @@ const defaultProps = {
     margin: '',
 };
 
-const ActionButton = ({
-    action, primary, margin, text,
-}) => (
-    <TouchableOpacity
-        activeOpacity={opacities.regular}
-        onPress={action}
-    >
+const ActionButton = ({ action, primary, margin, text }) => (
+    <TouchableOpacity activeOpacity={opacities.regular} onPress={action}>
         <Button primary={primary} buttonMargin={margin}>
             <ButtonText primary={primary}>{text}</ButtonText>
         </Button>
@@ -43,7 +38,8 @@ ActionButton.defaultProps = defaultProps;
 export default ActionButton;
 
 const Button = styled.View`
-    background-color: ${(props) => (props.primary ? colors.purple : colors.white)};
+    background-color: ${(props) =>
+        props.primary ? colors.purple : colors.white};
     border-radius: ${borderRadius.medium}px;
     margin: ${(props) => props.buttonMargin || `0 ${spacing.medium}px`};
     border: 1px solid ${colors.lightGray};

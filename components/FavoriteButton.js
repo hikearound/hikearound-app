@@ -20,12 +20,14 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        favoriteHike: () => dispatch({
-            type: 'FAVORITE_HIKE',
-        }),
-        unfavoriteHike: () => dispatch({
-            type: 'UNFAVORITE_HIKE',
-        }),
+        favoriteHike: () =>
+            dispatch({
+                type: 'FAVORITE_HIKE',
+            }),
+        unfavoriteHike: () =>
+            dispatch({
+                type: 'UNFAVORITE_HIKE',
+            }),
     };
 }
 
@@ -46,9 +48,9 @@ class FavoriteButton extends React.Component {
         if (hikeArray.includes(id)) {
             this.setHeartFilled();
         }
-    }
+    };
 
-    getFavoritedHikes = async () => AsyncStorage.getItem('favoritedHikes')
+    getFavoritedHikes = async () => AsyncStorage.getItem('favoritedHikes');
 
     setFavoriteHike = async () => {
         const { id } = this.props;
@@ -58,16 +60,18 @@ class FavoriteButton extends React.Component {
             if (!hikeArray.includes(id)) {
                 hikeArray.push(id);
                 AsyncStorage.setItem(
-                    'favoritedHikes', JSON.stringify(hikeArray)
+                    'favoritedHikes',
+                    JSON.stringify(hikeArray),
                 );
             }
         } else {
             const newHikeArray = [id];
             AsyncStorage.setItem(
-                'favoritedHikes', JSON.stringify(newHikeArray)
+                'favoritedHikes',
+                JSON.stringify(newHikeArray),
             );
         }
-    }
+    };
 
     setHeartFilled() {
         this.setState({
@@ -89,15 +93,13 @@ class FavoriteButton extends React.Component {
         hikeArray = JSON.parse(hikeArray);
         const index = hikeArray.indexOf(id);
         delete hikeArray[index];
-        AsyncStorage.setItem(
-            'favoritedHikes', JSON.stringify(hikeArray)
-        );
-    }
+        AsyncStorage.setItem('favoritedHikes', JSON.stringify(hikeArray));
+    };
 
     buttonPress = () => {
         this.updateButtonStyle();
         Haptics.selectionAsync();
-    }
+    };
 
     updateButtonStyle() {
         const { iconName } = this.state;
@@ -123,13 +125,8 @@ class FavoriteButton extends React.Component {
                     position: 'absolute',
                     right: 20,
                     top: 30,
-                }}
-            >
-                <Ionicons
-                    name={iconName}
-                    color={iconColor}
-                    size={iconSize}
-                />
+                }}>
+                <Ionicons name={iconName} color={iconColor} size={iconSize} />
             </TouchableOpacity>
         );
     }
@@ -139,5 +136,5 @@ FavoriteButton.propTypes = propTypes;
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps
+    mapDispatchToProps,
 )(FavoriteButton);

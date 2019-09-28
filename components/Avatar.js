@@ -22,10 +22,11 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        updateAvatar: (avatar) => dispatch({
-            type: 'UPDATE_AVATAR',
-            avatar,
-        }),
+        updateAvatar: (avatar) =>
+            dispatch({
+                type: 'UPDATE_AVATAR',
+                avatar,
+            }),
     };
 }
 
@@ -66,5 +67,5 @@ Avatar.defaultProps = defaultProps;
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps
+    mapDispatchToProps,
 )(Avatar);

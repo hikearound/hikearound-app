@@ -23,21 +23,14 @@ class FeedList extends React.Component {
             description={item.description}
             city={item.city}
         />
-    )
+    );
 
-    renderFooter = () => (
-        <FeedFooter />
-    )
+    renderFooter = () => <FeedFooter />;
 
     keyExtractor = (item) => item.key;
 
     render() {
-        const {
-            onEndReached,
-            refreshControl,
-            hikes,
-            feedRef,
-        } = this.props;
+        const { onEndReached, refreshControl, hikes, feedRef } = this.props;
 
         return (
             <FlatList

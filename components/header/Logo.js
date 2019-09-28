@@ -18,9 +18,7 @@ const defaultProps = {
     viewBox: '0 0 169 28.5',
 };
 
-const Logo = ({
-    width, height, fill, viewBox,
-}) => (
+const Logo = ({ width, height, fill, viewBox }) => (
     <Container>
         <Svg width={width} height={height} viewBox={viewBox}>
             <G fill={fill} fillRule='nonzero'>

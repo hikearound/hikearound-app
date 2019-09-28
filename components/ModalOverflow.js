@@ -38,23 +38,21 @@ class ModalOverflow extends React.PureComponent {
         const { images, imageIndex } = this.props;
         const imageAttribution = images[imageIndex].attribution;
         this.setState({ imageAttribution });
-    }
+    };
 
     showAttributionAlert = () => {
         const { imageAttribution } = this.state;
-        Alert.alert(
-            'Attribution',
-            `Photo by ${imageAttribution}`,
-        );
-    }
+        Alert.alert('Attribution', `Photo by ${imageAttribution}`);
+    };
 
     render() {
         return (
             <TouchableOpacity
-                onPress={() => { this.showLightboxActionSheet(); }}
+                onPress={() => {
+                    this.showLightboxActionSheet();
+                }}
                 activeOpacity={opacities.regular}
-                style={DISMISS_ICON_STYLE}
-            >
+                style={DISMISS_ICON_STYLE}>
                 <Ionicons
                     name='ios-more'
                     color={colors.white}

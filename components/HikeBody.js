@@ -1,12 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import {
-    spacing,
-    colors,
-    fontWeights,
-    fontSizes,
-} from '../constants/Index';
+import { spacing, colors, fontWeights, fontSizes } from '../constants/Index';
 import Subtitle from './Subtitle';
 import FavoriteButton from './FavoriteButton';
 import PhotoLightboxGroup from './PhotoLightboxGroup';
@@ -42,37 +37,24 @@ class HikeBody extends React.PureComponent {
         const { description } = this.props;
         if (description) {
             this.setState({
-                description: description.replace(
-                    '\\n\\n', '\n\n'
-                ),
+                description: description.replace('\\n\\n', '\n\n'),
             });
         }
     }
 
     render() {
-        const {
-            name,
-            city,
-            id,
-            images,
-        } = this.props;
+        const { name, city, id, images } = this.props;
         const { description } = this.state;
 
         return (
             <BodyContent>
                 <TitleText>{name}</TitleText>
                 <LocationText>{city}</LocationText>
-                <FavoriteButton
-                    name={name}
-                    id={id}
-                />
+                <FavoriteButton name={name} id={id} />
                 <Subtitle text='Description' />
                 <DescriptionText>{description}</DescriptionText>
                 <Subtitle text='Images' />
-                <PhotoLightboxGroup
-                    id={id}
-                    images={images}
-                />
+                <PhotoLightboxGroup id={id} images={images} />
             </BodyContent>
         );
     }

@@ -28,11 +28,11 @@ class PhotoLightboxGroup extends React.PureComponent {
     }
 
     getHikeImageUrl = async (id, imageIndex) => {
-        const ref = firebase.storage().ref(
-            `hikes/${id}/images/${imageIndex}.jpg`
-        );
+        const ref = firebase
+            .storage()
+            .ref(`hikes/${id}/images/${imageIndex}.jpg`);
         return ref.getDownloadURL();
-    }
+    };
 
     buildHikeImageArray = async () => {
         const { id, images } = this.props;
@@ -48,7 +48,7 @@ class PhotoLightboxGroup extends React.PureComponent {
         }
 
         this.setState({ imageArray });
-    }
+    };
 
     render() {
         const { imageArray } = this.state;

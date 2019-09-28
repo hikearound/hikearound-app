@@ -9,13 +9,8 @@ const Sort = () => (
         style={{
             marginRight: parseInt(spacing.tiny, 10),
             marginBottom: 2,
-        }}
-    >
-        <MaterialIcons
-            name='sort'
-            size={30}
-            color={colors.white}
-        />
+        }}>
+        <MaterialIcons name='sort' size={30} color={colors.white} />
     </TouchableOpacity>
 );
 

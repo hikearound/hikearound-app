@@ -24,13 +24,16 @@ class ProfileHeader extends React.PureComponent {
         this.getUserData();
     }
 
-    getUid = async () => firebase.auth().currentUser.uid
+    getUid = async () => firebase.auth().currentUser.uid;
 
     getUserSnapshot = async () => {
         const firestore = firebase.firestore();
         const uid = await this.getUid();
-        return firestore.collection('users').doc(uid).get();
-    }
+        return firestore
+            .collection('users')
+            .doc(uid)
+            .get();
+    };
 
     getUserData = async () => {
         const userSnapshot = await this.getUserSnapshot();
@@ -40,7 +43,7 @@ class ProfileHeader extends React.PureComponent {
             name: user.name,
             location: user.location,
         });
-    }
+    };
 
     render() {
         const { name, location } = this.state;
@@ -55,11 +58,8 @@ class ProfileHeader extends React.PureComponent {
                         position: 'absolute',
                         right: parseInt(spacing.small, 10),
                         bottom: 20,
-                    }}
-                >
-                    <EditProfileLink>
-                        Edit Profile
-                    </EditProfileLink>
+                    }}>
+                    <EditProfileLink>Edit Profile</EditProfileLink>
                 </TouchableOpacity>
             </HeaderWrapper>
         );

@@ -2,12 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { SectionList } from 'react-native';
 import { SettingsItem } from '../components/Index';
-import {
-    colors,
-    fontSizes,
-    spacing,
-    fontWeights,
-} from '../constants/Index';
+import { colors, fontSizes, spacing, fontWeights } from '../constants/Index';
 
 const SETTING_ITEMS = [
     {
@@ -27,13 +22,13 @@ class SettingsScreen extends React.Component {
 
     renderItem = ({ item, index }) => (
         <SettingsItem item={item} index={index} />
-    )
+    );
 
     renderSectionHeader = ({ section }) => (
         <HeaderContainer>
             <HeaderText>{section.title}</HeaderText>
         </HeaderContainer>
-    )
+    );
 
     render() {
         return (

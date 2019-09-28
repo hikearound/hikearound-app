@@ -12,10 +12,12 @@ const store = mockStore({
 });
 
 test('Avatar renders correctly', () => {
-    const tree = renderer.create(
-        <Provider store={store}>
-            <Avatar />
-        </Provider>
-    ).toJSON();
+    const tree = renderer
+        .create(
+            <Provider store={store}>
+                <Avatar />
+            </Provider>,
+        )
+        .toJSON();
     expect(tree).toMatchSnapshot();
 });
