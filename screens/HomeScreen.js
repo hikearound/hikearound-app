@@ -18,7 +18,7 @@ class HomeScreen extends React.Component {
             headerBackTitle: null,
             headerRight: <Sort sortType={params.sortType} />,
         };
-    }
+    };
 
     constructor(props) {
         super(props);
@@ -47,10 +47,14 @@ class HomeScreen extends React.Component {
     }
 
     setFeedHikeCount = () => {
-        firebase.firestore().collection('hikes').get().then((snap) => {
-            this.setState({ feedHikeCount: snap.size });
-        });
-    }
+        firebase
+            .firestore()
+            .collection('hikes')
+            .get()
+            .then((snap) => {
+                this.setState({ feedHikeCount: snap.size });
+            });
+    };
 
     addhikes = (hikes) => {
         this.setState((previousState) => {
@@ -61,18 +65,15 @@ class HomeScreen extends React.Component {
             return {
                 data,
                 hikes: Object.values(data).sort(
-                    (a, b) => a.timestamp < b.timestamp
+                    (a, b) => a.timestamp < b.timestamp,
                 ),
             };
         });
-    }
+    };
 
     makeRemoteRequest = async (lastKey) => {
         const hikes = {};
-        const {
-            data,
-            cursor,
-        } = await Fire.shared.getPaged({
+        const { data, cursor } = await Fire.shared.getPaged({
             size: PAGE_SIZE,
             start: lastKey,
         });
@@ -84,21 +85,21 @@ class HomeScreen extends React.Component {
 
         this.addhikes(hikes);
         this.setState({ loading: false });
-    }
+    };
 
     onRefresh = async () => {
         await this.setState({ loading: true });
         this.timeout = setTimeout(() => {
             this.makeRemoteRequest();
         }, 1000);
-    }
+    };
 
     onEndReached = () => {
         const { hikes, feedHikeCount } = this.state;
         if (hikes.length < feedHikeCount) {
             this.makeRemoteRequest(this.lastKnownKey);
         }
-    }
+    };
 
     render() {
         const { loading, hikes } = this.state;
@@ -107,13 +108,13 @@ class HomeScreen extends React.Component {
         return (
             <RootView>
                 <FeedList
-                    refreshControl={(
+                    refreshControl={
                         <RefreshControl
                             tintColor='#E4E4E4'
                             refreshing={loading}
                             onRefresh={this.onRefresh}
                         />
-                    )}
+                    }
                     feedRef={feedRef}
                     onEndReached={this.onEndReached}
                     hikes={hikes}

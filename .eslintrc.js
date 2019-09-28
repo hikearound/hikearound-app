@@ -2,6 +2,8 @@ module.exports = {
     'extends': [
         'airbnb',
         'airbnb/hooks',
+        'prettier',
+        'prettier/react',
     ],
     'parser': 'babel-eslint',
     'parserOptions': {
@@ -16,6 +18,7 @@ module.exports = {
     'plugins': [
         'react',
         'react-native',
+        'prettier',
     ],
     'rules': {
         'indent': [
@@ -37,6 +40,20 @@ module.exports = {
                 'ignore': [
                     'navigation', 'focused',
                 ],
+            }
+        ],
+        'semi': ['error', 'always'],
+        'prettier/prettier': [
+            'error',
+            {
+                'trailingComma': 'all',
+                'singleQuote': true,
+                'jsxSingleQuote': true,
+                'printWidth': 80,
+                'semi': true,
+                'jsxBracketSameLine': true,
+                'tabWidth': 4,
+                'arrowParens': 'always',
             }
         ],
     },

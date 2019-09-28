@@ -21,11 +21,9 @@ class HikeScreen extends React.Component {
         const hike = navigation.getParam('hike');
         return {
             title: hike.name || 'Hike',
-            headerRight: (
-                <Overflow navigation={navigation} />
-            ),
+            headerRight: <Overflow navigation={navigation} />,
         };
-    }
+    };
 
     constructor(props, context) {
         super(props, context);
@@ -46,9 +44,7 @@ class HikeScreen extends React.Component {
     }
 
     setMapRegion() {
-        const {
-            startingLat, startingLon, latDelta, lonDelta,
-        } = this.state;
+        const { startingLat, startingLon, latDelta, lonDelta } = this.state;
 
         const region = {
             latitude: startingLat,
@@ -66,12 +62,12 @@ class HikeScreen extends React.Component {
         const xmlRef = await this.getXmlRef();
         const ref = firebase.storage().ref(xmlRef);
         return ref.getDownloadURL();
-    }
+    };
 
     getXmlRef = async () => {
         const { id } = this.state;
         return `hikes/${id}/hike.gpx`;
-    }
+    };
 
     getHikeData = async () => {
         const hikeXmlUrl = await this.getHikeXmlUrl();
@@ -81,16 +77,14 @@ class HikeScreen extends React.Component {
             .then((response) => response.text())
             .then((response) => {
                 parseString(response, (err, result) => {
-                    AsyncStorage.setItem(
-                        'hikeData', JSON.stringify(result)
-                    );
+                    AsyncStorage.setItem('hikeData', JSON.stringify(result));
                 });
             });
 
         this.setHikeData(JSON.parse(hikeData));
         this.parseCoordinates();
         this.setMapRegion();
-    }
+    };
 
     setHikeData(hikeData) {
         const hikeMetaData = hikeData.gpx.metadata[0].bounds[0].$;
@@ -100,10 +94,10 @@ class HikeScreen extends React.Component {
         const maxlon = parseFloat(hikeMetaData.maxlon);
 
         this.setState({
-            startingLat: ((maxlat + minlat) / 2),
-            startingLon: ((maxlon + minlon) / 2),
-            latDelta: ((maxlat - minlat) + 0.02),
-            lonDelta: (maxlon - minlon),
+            startingLat: (maxlat + minlat) / 2,
+            startingLon: (maxlon + minlon) / 2,
+            latDelta: maxlat - minlat + 0.02,
+            lonDelta: maxlon - minlon,
             hikeData,
         });
     }
@@ -117,11 +111,11 @@ class HikeScreen extends React.Component {
             travelType: 'drive',
             query: `${startingLat}, ${startingLon}`,
         });
-    }
+    };
 
     initializeMap = async () => {
         this.getHikeData();
-    }
+    };
 
     parseCoordinates() {
         const { hikeData } = this.state;
@@ -130,12 +124,10 @@ class HikeScreen extends React.Component {
 
         for (let i = 0, len = coordinateCount; i < len; i += 1) {
             const coordinate = hikeData.gpx.rte[0].rtept[i].$;
-            coordinates.push(
-                {
-                    latitude: parseFloat(coordinate.lat),
-                    longitude: parseFloat(coordinate.lon),
-                }
-            );
+            coordinates.push({
+                latitude: parseFloat(coordinate.lat),
+                longitude: parseFloat(coordinate.lon),
+            });
         }
 
         this.setState({ coordinates });
@@ -176,7 +168,9 @@ class HikeScreen extends React.Component {
                     />
                 </ScrollView>
                 <MapModal
-                    mapRef={(ref) => { this.mapView = ref; }}
+                    mapRef={(ref) => {
+                        this.mapView = ref;
+                    }}
                     coordinates={coordinates}
                     region={region}
                     animationType='push'
