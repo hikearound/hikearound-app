@@ -88,6 +88,6 @@ export default withNavigation(FeedItem);
 
 const CardsContainer = styled.View`
     flex-direction: column;
-    padding: ${spacing.small}px;
+    padding: ${spacing.tiny}px;
     padding-bottom: 0;
 `;

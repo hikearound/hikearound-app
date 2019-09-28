@@ -66,7 +66,7 @@ HikeBody.defaultProps = defaultProps;
 export default HikeBody;
 
 const BodyContent = styled.View`
-    padding: ${spacing.medium}px ${spacing.small}px;
+    padding: ${spacing.small}px ${spacing.small}px;
     background-color: ${colors.white};
 `;
 

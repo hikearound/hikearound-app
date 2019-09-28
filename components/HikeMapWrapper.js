@@ -99,7 +99,7 @@ export default connect(
 
 const MapViewWrapper = styled.View`
     flex: 1;
-    height: 285px;
+    height: 275px;
     background-color: ${colors.purple};
     padding: ${spacing.micro}px ${spacing.small}px;
 `;

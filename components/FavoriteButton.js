@@ -124,7 +124,7 @@ class FavoriteButton extends React.Component {
                 style={{
                     position: 'absolute',
                     right: 20,
-                    top: 30,
+                    top: 20,
                 }}
             >
                 <Ionicons name={iconName} color={iconColor} size={iconSize} />
