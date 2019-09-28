@@ -106,7 +106,8 @@ class SettingsItem extends React.PureComponent {
         return (
             <TouchableOpacity
                 activeOpacity={opacities.regular}
-                onPress={this.itemPress}>
+                onPress={this.itemPress}
+            >
                 <ItemContainer>
                     <ItemText key={item.key} textColor={textColor}>
                         {item}

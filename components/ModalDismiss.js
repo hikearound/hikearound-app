@@ -57,7 +57,8 @@ class ModalDismiss extends React.PureComponent {
                         this.hideModal();
                     }}
                     activeOpacity={opacities.regular}
-                    style={DISMISS_ICON_STYLE}>
+                    style={DISMISS_ICON_STYLE}
+                >
                     <DismissIconWrapper>
                         <Ionicons
                             name='ios-close'
@@ -75,7 +76,8 @@ class ModalDismiss extends React.PureComponent {
                     this.hideModal();
                 }}
                 activeOpacity={opacities.regular}
-                style={DISMISS_ICON_STYLE}>
+                style={DISMISS_ICON_STYLE}
+            >
                 <Ionicons
                     name='ios-close'
                     color={colors.white}

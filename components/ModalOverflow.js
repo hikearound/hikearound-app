@@ -52,7 +52,8 @@ class ModalOverflow extends React.PureComponent {
                     this.showLightboxActionSheet();
                 }}
                 activeOpacity={opacities.regular}
-                style={DISMISS_ICON_STYLE}>
+                style={DISMISS_ICON_STYLE}
+            >
                 <Ionicons
                     name='ios-more'
                     color={colors.white}

@@ -88,7 +88,8 @@ class Toast extends React.Component {
                         position: 'absolute',
                         right: 12,
                         top: 5,
-                    }}>
+                    }}
+                >
                     <Ionicons name='ios-close' color={colors.white} size={30} />
                 </TouchableOpacity>
             </AnimatedContainer>

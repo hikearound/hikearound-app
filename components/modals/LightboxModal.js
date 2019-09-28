@@ -24,7 +24,8 @@ class LightboxModal extends ModalBase {
             <Modal
                 animationType={animationType}
                 transparent={false}
-                visible={modalVisible}>
+                visible={modalVisible}
+            >
                 <ModalRoot>
                     <SafeAreaView style={{ flex: 1 }}>
                         <ModalOverflow

@@ -62,7 +62,8 @@ class LightboxImage extends React.Component {
                 cropWidth={IMAGE_WIDTH}
                 cropHeight={IMAGE_HEIGHT}
                 imageWidth={IMAGE_WIDTH}
-                imageHeight={IMAGE_HEIGHT}>
+                imageHeight={IMAGE_HEIGHT}
+            >
                 <AnimatedImage
                     source={images[imageIndex]}
                     resizeMode='contain'

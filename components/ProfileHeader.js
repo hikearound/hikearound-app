@@ -58,7 +58,8 @@ class ProfileHeader extends React.PureComponent {
                         position: 'absolute',
                         right: parseInt(spacing.small, 10),
                         bottom: 20,
-                    }}>
+                    }}
+                >
                     <EditProfileLink>Edit Profile</EditProfileLink>
                 </TouchableOpacity>
             </HeaderWrapper>

@@ -125,7 +125,8 @@ class FavoriteButton extends React.Component {
                     position: 'absolute',
                     right: 20,
                     top: 30,
-                }}>
+                }}
+            >
                 <Ionicons name={iconName} color={iconColor} size={iconSize} />
             </TouchableOpacity>
         );

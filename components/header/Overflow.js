@@ -9,7 +9,8 @@ const Overflow = ({ navigation }) => (
         style={{
             marginRight: 12,
         }}
-        onPress={navigation.getParam('showActionSheet')}>
+        onPress={navigation.getParam('showActionSheet')}
+    >
         <Ionicons name='ios-more' size={32} color={colors.white} />
     </TouchableOpacity>
 );

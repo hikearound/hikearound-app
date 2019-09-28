@@ -64,7 +64,8 @@ class FeedItem extends React.Component {
                         navigation.push('Hike', {
                             hike: this.props,
                         });
-                    }}>
+                    }}
+                >
                     <FeedCard
                         name={name}
                         image={{ uri: imageUrl }}

@@ -12,7 +12,8 @@ const Settings = ({ navigation }) => (
         style={{
             marginRight: parseInt(spacing.tiny, 10),
             marginTop: 6,
-        }}>
+        }}
+    >
         <Ionicons name='ios-settings' size={28} color={colors.white} />
     </TouchableOpacity>
 );

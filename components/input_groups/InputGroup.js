@@ -122,7 +122,8 @@ class InputGroup extends React.Component {
                         activeOpacity={opacities.regular}
                         style={{
                             display: passwordLinkDisplay,
-                        }}>
+                        }}
+                    >
                         <PasswordText>Forgot Password?</PasswordText>
                     </TouchableOpacity>
                 </ScrollView>

@@ -21,7 +21,8 @@ class MapModal extends ModalBase {
             <Modal
                 animationType={animationType}
                 transparent={false}
-                visible={modalVisible}>
+                visible={modalVisible}
+            >
                 <ModalRoot>
                     <HikeMap
                         fullHeight

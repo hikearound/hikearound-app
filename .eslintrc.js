@@ -51,7 +51,7 @@ module.exports = {
                 'jsxSingleQuote': true,
                 'printWidth': 80,
                 'semi': true,
-                'jsxBracketSameLine': true,
+                'jsxBracketSameLine': false,
                 'tabWidth': 4,
                 'arrowParens': 'always',
             }

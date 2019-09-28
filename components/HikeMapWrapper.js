@@ -78,7 +78,8 @@ class HikeMapWrapper extends React.Component {
                             bottom: 0,
                             left: 0,
                             zIndex: 1,
-                        }}>
+                        }}
+                    >
                         <MapOverlay />
                     </TouchableOpacity>
                 </InnerMapViewWrapper>

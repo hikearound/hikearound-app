@@ -51,7 +51,8 @@ class ProfileHikeRow extends React.PureComponent {
                 activeOpacity={opacities.regular}
                 onPress={() => {
                     this.getHikeData();
-                }}>
+                }}
+            >
                 <Container>
                     <Name>{name}</Name>
                     <MetaData>

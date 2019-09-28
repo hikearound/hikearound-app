@@ -57,7 +57,8 @@ class HikeMap extends React.Component {
                     showsMyLocationButton={false}
                     showsPointsOfInterest={false}
                     showsCompass={false}
-                    maxZoomLevel={maxZoom}>
+                    maxZoomLevel={maxZoom}
+                >
                     <MapView.Polyline
                         coordinates={coordinates}
                         strokeColor={colors.purple}
