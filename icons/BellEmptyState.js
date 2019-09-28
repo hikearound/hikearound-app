@@ -12,7 +12,7 @@ const propTypes = {
 const defaultProps = {
     width: 51,
     height: 60,
-    fill: colors.gray,
+    fill: colors.mediumGray,
 };
 
 const BellEmptyState = ({

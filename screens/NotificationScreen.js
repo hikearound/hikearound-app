@@ -10,23 +10,29 @@ class NotificationScreen extends React.Component {
 
     render() {
         return (
-            <Container>
-                <BellEmptyState />
-                <Text>No new notifications</Text>
-            </Container>
+            <RootView>
+                <BellWrapper>
+                    <BellEmptyState />
+                </BellWrapper>
+                <EmptyStateText>No new notifications</EmptyStateText>
+            </RootView>
         );
     }
 }
 
 export default NotificationScreen;
 
-const Container = styled.View`
+const RootView = styled.View`
     flex: 1;
     justify-content: center;
     align-items: center;
 `;
 
-const Text = styled.Text`
+const BellWrapper = styled.View`
+    opacity: 0.8;
+`;
+
+const EmptyStateText = styled.Text`
     margin-top: ${spacing.micro}px;
     color: ${colors.mediumGray};
     font-size: ${fontSizes.medium}px;
