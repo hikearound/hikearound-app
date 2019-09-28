@@ -13,6 +13,7 @@ import Toast from './Toast';
 import Thumbnail from './Thumbnail';
 import ModalDismiss from './ModalDismiss';
 import LightboxImage from './LightboxImage';
+import NotificationEmptyState from './NotificationEmptyState';
 
 // Modals
 import MapModal from './modals/MapModal';
@@ -79,4 +80,5 @@ export {
     ModalDismiss,
     LightboxImage,
     HikeMapWrapper,
+    NotificationEmptyState,
 };
