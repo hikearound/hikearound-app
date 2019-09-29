@@ -1,8 +1,8 @@
 const initialState = {
-    name: 'Patrick Dugan',
+    name: '',
     avatar: 'https://patdugan.me/images/me.jpg',
     location: '',
-    map: 'Apple Maps',
+    map: '',
 };
 
 export default function userReducer(state = initialState, action) {

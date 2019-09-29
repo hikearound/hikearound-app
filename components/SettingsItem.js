@@ -11,7 +11,6 @@ import { setMap } from '../actions/User';
 
 const propTypes = {
     item: PropTypes.string.isRequired,
-    index: PropTypes.number.isRequired,
     setdefaultMap: PropTypes.func.isRequired,
     defaultMap: PropTypes.string.isRequired,
 };
@@ -40,16 +39,20 @@ class SettingsItem extends React.PureComponent {
     }
 
     componentWillMount = async () => {
-        const { item } = this.props;
-        const mapSetting = await AsyncStorage.getItem('mapSetting');
-        if (item === mapSetting) {
+        const { item, setdefaultMap } = this.props;
+        const map = await AsyncStorage.getItem('mapSetting');
+        setdefaultMap(map);
+        if (item === map) {
             this.selectItem();
         }
     };
 
-    setDefaultMap = async () => {
+    componentDidUpdate = async () => {
         const { item, defaultMap } = this.props;
-        if (item === defaultMap) {
+        console.log(defaultMap)
+        if (item === 'Logout' || item !== defaultMap) {
+            this.unselectItem();
+        } else {
             this.selectItem();
         }
     };
@@ -64,11 +67,11 @@ class SettingsItem extends React.PureComponent {
     };
 
     itemPress = () => {
-        const { item, setdefaultMap, index } = this.props;
+        const { item, setdefaultMap } = this.props;
         if (item === 'Logout') {
             this.handleLogout();
         } else {
-            setdefaultMap(item, index);
+            setdefaultMap(item);
         }
     };
 
