@@ -11,14 +11,10 @@ export const setLightboxImage = (imageIndex) => {
 
 export const showModal = (modalType) => {
     if (modalType === 'lightbox') {
-        return {
-            type: 'SHOW_LIGHTBOX',
-        };
+        return { type: 'SHOW_LIGHTBOX' };
     }
     if (modalType === 'map') {
-        return {
-            type: 'SHOW_MAP',
-        };
+        return { type: 'SHOW_MAP' };
     }
     return {};
 };
