@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { spacing, borderRadius, colors, opacities } from '../constants/Index';
+import { showModal, setLightboxImage } from '../actions/Modals';
 
 const THUMBNAIL_DIMENSION = 75;
 
@@ -23,23 +24,18 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         setLightboxPhoto: (imageIndex) =>
-            dispatch({
-                type: 'SET_LIGHTBOX_IMAGE_INDEX',
-                imageIndex,
-            }),
-        showLightbox: () =>
-            dispatch({
-                type: 'SHOW_LIGHTBOX',
-            }),
+            dispatch(setLightboxImage(imageIndex)),
+        showLightbox: (modalType) => dispatch(showModal(modalType)),
     };
 }
 
 class Thumbnail extends React.PureComponent {
     thumbnailPress = () => {
         const { setLightboxPhoto, showLightbox, imageIndex } = this.props;
+        const modalType = 'lightbox';
 
         setLightboxPhoto(imageIndex);
-        showLightbox();
+        showLightbox(modalType);
     };
 
     render() {

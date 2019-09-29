@@ -5,6 +5,7 @@ import { TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { connect } from 'react-redux';
 import { colors, opacities } from '../constants/Index';
+import { closeModal } from '../actions/Modals';
 
 const DISMISS_ICON_OFFSET = 25;
 const DISMISS_ICON_SIZE = 45;
@@ -18,7 +19,7 @@ const DISMISS_ICON_STYLE = {
 };
 
 const propTypes = {
-    hideModal: PropTypes.func.isRequired,
+    close: PropTypes.func.isRequired,
     includeBackground: PropTypes.bool,
 };
 
@@ -34,17 +35,14 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        hideModal: () =>
-            dispatch({
-                type: 'HIDE_MODAL',
-            }),
+        close: () => dispatch(closeModal()),
     };
 }
 
 class ModalDismiss extends React.PureComponent {
-    hideModal = () => {
-        const { hideModal } = this.props;
-        hideModal();
+    close = () => {
+        const { close } = this.props;
+        close();
     };
 
     render() {
@@ -54,7 +52,7 @@ class ModalDismiss extends React.PureComponent {
             return (
                 <TouchableOpacity
                     onPress={() => {
-                        this.hideModal();
+                        this.close();
                     }}
                     activeOpacity={opacities.regular}
                     style={DISMISS_ICON_STYLE}
@@ -73,7 +71,7 @@ class ModalDismiss extends React.PureComponent {
         return (
             <TouchableOpacity
                 onPress={() => {
-                    this.hideModal();
+                    this.close();
                 }}
                 activeOpacity={opacities.regular}
                 style={DISMISS_ICON_STYLE}

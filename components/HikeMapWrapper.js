@@ -12,6 +12,7 @@ import {
     borderRadius,
     opacities,
 } from '../constants/Index';
+import { showModal } from '../actions/Modals';
 
 const propTypes = {
     showMapModal: PropTypes.func.isRequired,
@@ -37,17 +38,15 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        showMapModal: () =>
-            dispatch({
-                type: 'SHOW_MAP',
-            }),
+        showMapModal: (modalType) => dispatch(showModal(modalType)),
     };
 }
 
 class HikeMapWrapper extends React.Component {
     mapPress = () => {
         const { showMapModal } = this.props;
-        showMapModal();
+        const modalType = 'map';
+        showMapModal(modalType);
     };
 
     render() {
