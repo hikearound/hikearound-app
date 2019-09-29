@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { AsyncStorage, TouchableOpacity, Image } from 'react-native';
 import { opacities } from '../constants/Index';
+import { updateAvatar } from '../actions/User';
 
 const propTypes = {
-    updateAvatar: PropTypes.func.isRequired,
+    update: PropTypes.func.isRequired,
     avatar: PropTypes.string.isRequired,
     size: PropTypes.number,
 };
@@ -22,11 +23,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        updateAvatar: (avatar) =>
-            dispatch({
-                type: 'UPDATE_AVATAR',
-                avatar,
-            }),
+        update: (avatar) => dispatch(updateAvatar(avatar)),
     };
 }
 
@@ -36,11 +33,11 @@ class Avatar extends React.Component {
     }
 
     loadState = () => {
-        const { updateAvatar } = this.props;
+        const { update } = this.props;
         AsyncStorage.getItem('state').then((serializedState) => {
             const state = JSON.parse(serializedState);
             if (state) {
-                updateAvatar(state.avatar);
+                update(state.avatar);
             }
         });
     };

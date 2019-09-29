@@ -7,6 +7,7 @@ import { Updates } from 'expo';
 import { connect } from 'react-redux';
 import firebase from 'firebase';
 import { colors, spacing, fontSizes, opacities } from '../constants/Index';
+import { setMap } from '../actions/User';
 
 const propTypes = {
     item: PropTypes.string.isRequired,
@@ -16,17 +17,13 @@ const propTypes = {
 
 function mapStateToProps(state) {
     return {
-        defaultMap: state.userReducer.defaultMap,
+        defaultMap: state.userReducer.map,
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        setdefaultMap: (defaultMap) =>
-            dispatch({
-                type: 'SET_DEFAULT_MAP',
-                defaultMap,
-            }),
+        setdefaultMap: (map) => dispatch(setMap(map)),
     };
 }
 
