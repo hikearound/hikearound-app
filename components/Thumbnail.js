@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { spacing, borderRadius, colors, opacities } from '../constants/Index';
-import { showModal, setLightboxImage } from '../actions/Modals';
+import { showModal, setLightboxImage } from '../actions/Modal';
 
 const THUMBNAIL_DIMENSION = 75;
 

@@ -12,7 +12,7 @@ import {
     borderRadius,
     opacities,
 } from '../constants/Index';
-import { showModal } from '../actions/Modals';
+import { showModal } from '../actions/Modal';
 
 const propTypes = {
     showMapModal: PropTypes.func.isRequired,

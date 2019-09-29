@@ -5,7 +5,7 @@ import { TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { connect } from 'react-redux';
 import { colors, opacities } from '../constants/Index';
-import { closeModal } from '../actions/Modals';
+import { closeModal } from '../actions/Modal';
 
 const DISMISS_ICON_OFFSET = 25;
 const DISMISS_ICON_SIZE = 45;
