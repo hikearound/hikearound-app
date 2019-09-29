@@ -11,10 +11,7 @@ export default function modalReducer(state = initialState, action) {
         case 'HIDE_MODAL':
             return { ...state, action: 'hideModal' };
         case 'SET_LIGHTBOX_IMAGE_INDEX':
-            return {
-                ...state,
-                imageIndex: action.imageIndex,
-            };
+            return { ...state, imageIndex: action.imageIndex };
         default:
             return state;
     }

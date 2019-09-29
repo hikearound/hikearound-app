@@ -5,11 +5,12 @@ import * as Haptics from 'expo-haptics';
 import { connect } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
 import { opacities, colors } from '../constants/Index';
+import { favoriteHike, unfavoriteHike } from '../actions/Hike';
 
 const propTypes = {
     id: PropTypes.string.isRequired,
-    favoriteHike: PropTypes.func.isRequired,
-    unfavoriteHike: PropTypes.func.isRequired,
+    favorite: PropTypes.func.isRequired,
+    unfavorite: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
@@ -20,14 +21,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        favoriteHike: () =>
-            dispatch({
-                type: 'FAVORITE_HIKE',
-            }),
-        unfavoriteHike: () =>
-            dispatch({
-                type: 'UNFAVORITE_HIKE',
-            }),
+        favorite: () => dispatch(favoriteHike()),
+        unfavorite: () => dispatch(unfavoriteHike()),
     };
 }
 
@@ -103,15 +98,15 @@ class FavoriteButton extends React.Component {
 
     updateButtonStyle() {
         const { iconName } = this.state;
-        const { favoriteHike, unfavoriteHike } = this.props;
+        const { favorite, unfavorite } = this.props;
         if (iconName === 'ios-heart-empty') {
             this.setHeartFilled();
             this.setFavoriteHike();
-            favoriteHike();
+            favorite();
         } else {
             this.setHeartEmpty();
             this.removeFavoriteHike();
-            unfavoriteHike();
+            unfavorite();
         }
     }
 

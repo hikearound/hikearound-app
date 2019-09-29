@@ -1,12 +1,9 @@
-export const closeModal = () => ({
-    type: 'HIDE_MODAL',
-});
+export const closeModal = () => {
+    return { type: 'HIDE_MODAL' };
+};
 
 export const setLightboxImage = (imageIndex) => {
-    return {
-        type: 'SET_LIGHTBOX_IMAGE_INDEX',
-        imageIndex,
-    };
+    return { type: 'SET_LIGHTBOX_IMAGE_INDEX', imageIndex };
 };
 
 export const showModal = (modalType) => {
