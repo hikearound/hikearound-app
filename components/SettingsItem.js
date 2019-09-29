@@ -41,6 +41,7 @@ class SettingsItem extends React.PureComponent {
     componentWillMount = async () => {
         const { item, setdefaultMap } = this.props;
         const map = await AsyncStorage.getItem('mapSetting');
+
         setdefaultMap(map);
         if (item === map) {
             this.selectItem();
@@ -49,7 +50,7 @@ class SettingsItem extends React.PureComponent {
 
     componentDidUpdate = async () => {
         const { item, defaultMap } = this.props;
-        console.log(defaultMap)
+
         if (item === 'Logout' || item !== defaultMap) {
             this.unselectItem();
         } else {
@@ -68,6 +69,7 @@ class SettingsItem extends React.PureComponent {
 
     itemPress = () => {
         const { item, setdefaultMap } = this.props;
+
         if (item === 'Logout') {
             this.handleLogout();
         } else {
@@ -92,6 +94,7 @@ class SettingsItem extends React.PureComponent {
     render() {
         const { item } = this.props;
         const { checkDisplay, textColor } = this.state;
+
         return (
             <TouchableOpacity
                 activeOpacity={opacities.regular}
