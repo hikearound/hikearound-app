@@ -13,6 +13,11 @@ const propTypes = {
     showLightbox: PropTypes.func.isRequired,
     imageIndex: PropTypes.number.isRequired,
     image: PropTypes.object.isRequired,
+    modalType: PropTypes.string,
+};
+
+const defaultProps = {
+    modalType: 'lightbox',
 };
 
 function mapStateToProps(state) {
@@ -31,8 +36,12 @@ function mapDispatchToProps(dispatch) {
 
 class Thumbnail extends React.PureComponent {
     thumbnailPress = () => {
-        const { setLightboxPhoto, showLightbox, imageIndex } = this.props;
-        const modalType = 'lightbox';
+        const {
+            setLightboxPhoto,
+            showLightbox,
+            imageIndex,
+            modalType,
+        } = this.props;
 
         setLightboxPhoto(imageIndex);
         showLightbox(modalType);
@@ -53,6 +62,7 @@ class Thumbnail extends React.PureComponent {
 }
 
 Thumbnail.propTypes = propTypes;
+Thumbnail.defaultProps = defaultProps;
 
 export default connect(
     mapStateToProps,

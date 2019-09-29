@@ -21,6 +21,7 @@ const propTypes = {
     route: PropTypes.string,
     coordinates: PropTypes.array,
     region: PropTypes.object,
+    modalType: PropTypes.string,
 };
 
 const defaultProps = {
@@ -28,6 +29,7 @@ const defaultProps = {
     coordinates: [],
     elevation: 0,
     route: '',
+    modalType: 'map',
 };
 
 function mapStateToProps(state) {
@@ -44,8 +46,7 @@ function mapDispatchToProps(dispatch) {
 
 class HikeMapWrapper extends React.Component {
     mapPress = () => {
-        const { showMapModal } = this.props;
-        const modalType = 'map';
+        const { showMapModal, modalType } = this.props;
         showMapModal(modalType);
     };
 
