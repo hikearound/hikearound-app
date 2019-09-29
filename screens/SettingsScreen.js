@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
 import { SectionList } from 'react-native';
 import { SettingsItem } from '../components/Index';
 import { colors, fontSizes, spacing, fontWeights } from '../constants/Index';
@@ -15,10 +16,21 @@ const SETTING_ITEMS = [
     },
 ];
 
+function mapStateToProps(state) {
+    return {
+        map: state.userReducer.map,
+    };
+}
+
 class SettingsScreen extends React.Component {
     static navigationOptions = {
         headerTitle: 'Settings',
     };
+
+    componentDidUpdate() {
+        // const { map } = this.props;
+        // console.log(map);
+    }
 
     renderItem = ({ item, index }) => (
         <SettingsItem item={item} index={index} />
@@ -34,6 +46,7 @@ class SettingsScreen extends React.Component {
         return (
             <RootView>
                 <SectionList
+                    extraData={this.state}
                     renderItem={this.renderItem}
                     stickySectionHeadersEnabled={false}
                     renderSectionHeader={this.renderSectionHeader}
@@ -45,7 +58,7 @@ class SettingsScreen extends React.Component {
     }
 }
 
-export default SettingsScreen;
+export default connect(mapStateToProps)(SettingsScreen);
 
 const RootView = styled.View`
     background: ${colors.white};

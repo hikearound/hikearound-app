@@ -1,3 +1,5 @@
+import { AsyncStorage } from 'react-native';
+
 export const updateName = () => {
     return { type: 'UPDATE_NAME' };
 };
@@ -11,5 +13,6 @@ export const updateLocation = () => {
 };
 
 export const setMap = (map) => {
+    AsyncStorage.setItem('mapSetting', map);
     return { type: 'SET_DEFAULT_MAP', map };
 };

@@ -11,6 +11,7 @@ import { setMap } from '../actions/User';
 
 const propTypes = {
     item: PropTypes.string.isRequired,
+    index: PropTypes.number.isRequired,
     setdefaultMap: PropTypes.func.isRequired,
     defaultMap: PropTypes.string.isRequired,
 };
@@ -38,23 +39,13 @@ class SettingsItem extends React.PureComponent {
         };
     }
 
-    componentWillMount() {
-        this.setDefaultMap();
-    }
-
-    componentDidUpdate() {
-        const { item, defaultMap } = this.props;
-        const { selected } = this.state;
-
-        if (defaultMap === item) {
-            if (!selected) {
-                this.selectItem();
-                AsyncStorage.setItem('mapSetting', item);
-            }
-        } else if (selected) {
-            this.unselectItem();
+    componentWillMount = async () => {
+        const { item } = this.props;
+        const mapSetting = await AsyncStorage.getItem('mapSetting');
+        if (item === mapSetting) {
+            this.selectItem();
         }
-    }
+    };
 
     setDefaultMap = async () => {
         const { item, defaultMap } = this.props;
@@ -73,11 +64,11 @@ class SettingsItem extends React.PureComponent {
     };
 
     itemPress = () => {
-        const { item, setdefaultMap } = this.props;
+        const { item, setdefaultMap, index } = this.props;
         if (item === 'Logout') {
             this.handleLogout();
         } else {
-            setdefaultMap(item);
+            setdefaultMap(item, index);
         }
     };
 
@@ -85,7 +76,6 @@ class SettingsItem extends React.PureComponent {
         this.setState({
             textColor: `${colors.purple}`,
             checkDisplay: 'flex',
-            selected: true,
         });
     }
 
@@ -93,7 +83,6 @@ class SettingsItem extends React.PureComponent {
         this.setState({
             textColor: colors.black,
             checkDisplay: 'none',
-            selected: false,
         });
     }
 
