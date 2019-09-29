@@ -7,11 +7,13 @@ export const setLightboxImage = (imageIndex) => {
 };
 
 export const showModal = (modalType) => {
+    let modalAction;
+
     if (modalType === 'lightbox') {
-        return { type: 'SHOW_LIGHTBOX' };
+        modalAction = 'SHOW_LIGHTBOX';
+    } else if (modalType === 'map') {
+        modalAction = 'SHOW_MAP';
     }
-    if (modalType === 'map') {
-        return { type: 'SHOW_MAP' };
-    }
-    return {};
+
+    return { type: modalAction };
 };
