@@ -6,8 +6,6 @@ import Fire from '../Fire';
 import { Logo, FeedList, Sort } from '../components/Index';
 import { colors } from '../constants/Index';
 
-/* eslint-disable no-restricted-syntax */
-
 const PAGE_SIZE = 5;
 
 class HomeScreen extends React.Component {
@@ -78,6 +76,7 @@ class HomeScreen extends React.Component {
             start: lastKey,
         });
 
+        /* eslint-disable no-restricted-syntax */
         this.lastKnownKey = cursor;
         for (const hike of data) {
             hikes[hike.key] = hike;
