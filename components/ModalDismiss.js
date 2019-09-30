@@ -4,12 +4,11 @@ import styled from 'styled-components';
 import { TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { connect } from 'react-redux';
-import { colors, opacities } from '../constants/Index';
+import { colors, transparentColors, opacities } from '../constants/Index';
 import { closeModal } from '../actions/Modal';
 
 const DISMISS_ICON_OFFSET = 25;
-const DISMISS_ICON_SIZE = 45;
-const DISMISS_ICON_WRAPPER_SIZE = DISMISS_ICON_SIZE - 2;
+const DISMISS_ICON_SIZE = 35;
 
 const DISMISS_ICON_STYLE = {
     position: 'absolute',
@@ -79,7 +78,7 @@ class ModalDismiss extends React.PureComponent {
                 <Ionicons
                     name='ios-close'
                     color={colors.white}
-                    size={DISMISS_ICON_SIZE}
+                    size={DISMISS_ICON_SIZE + 5}
                 />
             </TouchableOpacity>
         );
@@ -95,9 +94,10 @@ export default connect(
 )(ModalDismiss);
 
 const DismissIconWrapper = styled.View`
-    border-radius: ${DISMISS_ICON_WRAPPER_SIZE}px;
-    height: ${DISMISS_ICON_WRAPPER_SIZE}px;
-    width: ${DISMISS_ICON_WRAPPER_SIZE}px;
+    border-radius: ${DISMISS_ICON_SIZE}px;
+    height: ${DISMISS_ICON_SIZE}px;
+    width: ${DISMISS_ICON_SIZE}px;
+    box-shadow: 0 4px 4px ${transparentColors.grayDark};
     background-color: ${colors.white};
-    padding-left: 13px;
+    padding-left: 11px;
 `;

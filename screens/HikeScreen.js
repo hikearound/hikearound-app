@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import firebase from 'firebase';
 import { ScrollView, AsyncStorage } from 'react-native';
 import openMap from 'react-native-open-maps';
+import { parseString } from 'react-native-xml2js';
 import {
     HikeBody,
     Overflow,
@@ -13,8 +14,6 @@ import {
 import { hikeActionSheet } from '../components/action_sheets/Hike';
 import { getMapSetting } from '../utils/Settings';
 import { colors } from '../constants/Index';
-
-const { parseString } = require('react-native-xml2js');
 
 class HikeScreen extends React.Component {
     static navigationOptions = ({ navigation }) => {
