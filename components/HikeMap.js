@@ -29,26 +29,26 @@ const defaultProps = {
 class HikeMap extends React.Component {
     constructor(props) {
         super(props);
-        const { maxZoom } = this.props;
-        this.state = { maxZoom };
+        const { maxZoom, fullHeight } = this.props;
+        this.state = {
+            mapDidLoad: false,
+            maxZoom,
+            fullHeight,
+        };
     }
 
-    setMaxZoom = () => {
-        this.setState({ maxZoom: 20 });
+    onMapReady = () => {
+        this.setState({
+            maxZoom: 20,
+            mapDidLoad: true,
+        });
     };
 
     render() {
-        const {
-            coordinates,
-            mapRef,
-            region,
-            mapType,
-            fullHeight,
-            mapPadding,
-        } = this.props;
-        const { maxZoom } = this.state;
+        const { coordinates, mapRef, region, mapType, mapPadding } = this.props;
+        const { maxZoom, fadeAnim, fullHeight, mapDidLoad } = this.state;
 
-        if (!fullHeight) {
+        if (!fullHeight && !mapDidLoad) {
             LayoutAnimation.easeInEaseOut();
         }
 
@@ -62,6 +62,7 @@ class HikeMap extends React.Component {
                         zIndex: 1,
                         overflow: 'hidden',
                         borderRadius: parseInt(borderRadius.medium, 10),
+                        opacity: fadeAnim,
                     }}
                     mapType={mapType}
                     showsUserLocation
@@ -71,7 +72,7 @@ class HikeMap extends React.Component {
                     showsPointsOfInterest={false}
                     showsCompass={false}
                     maxZoomLevel={maxZoom}
-                    onMapReady={this.setMaxZoom}
+                    onMapReady={this.onMapReady}
                     mapPadding={mapPadding}
                 >
                     <MapView.Polyline
