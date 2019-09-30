@@ -31,7 +31,6 @@ class SettingsItem extends React.PureComponent {
     constructor(props) {
         super(props);
         this.handleLogout = this.handleLogout.bind(this);
-
         this.state = {
             textColor: colors.black,
             checkDisplay: 'none',
