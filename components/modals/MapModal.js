@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import ModalDismiss from '../ModalDismiss';
 import ModalBase from './ModalBase';
 import HikeMap from '../HikeMap';
+import { spacing } from '../../constants/Index';
 
 function mapStateToProps(state) {
     return {
@@ -30,6 +31,10 @@ class MapModal extends ModalBase {
                         coordinates={coordinates}
                         region={region}
                         maxZoom={12.5}
+                        mapPadding={{
+                            left: parseInt(spacing.tiny, 10),
+                            bottom: parseInt(spacing.medium, 10),
+                        }}
                     />
                     <ModalDismiss includeBackground />
                 </ModalRoot>

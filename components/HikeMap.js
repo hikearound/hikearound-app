@@ -14,6 +14,7 @@ const propTypes = {
     maxZoom: PropTypes.number,
     mapType: PropTypes.string,
     fullHeight: PropTypes.bool,
+    mapPadding: PropTypes.object,
 };
 
 const defaultProps = {
@@ -22,6 +23,7 @@ const defaultProps = {
     fullHeight: false,
     region: undefined,
     coordinates: [],
+    mapPadding: {},
 };
 
 class HikeMap extends React.Component {
@@ -36,7 +38,14 @@ class HikeMap extends React.Component {
     };
 
     render() {
-        const { coordinates, mapRef, region, mapType, fullHeight } = this.props;
+        const {
+            coordinates,
+            mapRef,
+            region,
+            mapType,
+            fullHeight,
+            mapPadding,
+        } = this.props;
         const { maxZoom } = this.state;
 
         if (!fullHeight) {
@@ -63,6 +72,7 @@ class HikeMap extends React.Component {
                     showsCompass={false}
                     maxZoomLevel={maxZoom}
                     onMapReady={this.setMaxZoom}
+                    mapPadding={mapPadding}
                 >
                     <MapView.Polyline
                         coordinates={coordinates}
