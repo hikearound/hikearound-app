@@ -12,8 +12,6 @@ import {
     opacities,
 } from '../../constants/Index';
 
-/* eslint-disable no-undef */
-
 const propTypes = {
     resetAction: PropTypes.object.isRequired,
     inputs: PropTypes.array.isRequired,
@@ -25,7 +23,7 @@ class InputGroup extends React.Component {
         super(props);
         const { inputs } = this.props;
 
-        mappedInputs = inputs.map((input) => ({
+        this.mappedInputs = inputs.map((input) => ({
             ref: React.createRef(),
             ...input,
         }));
@@ -49,7 +47,7 @@ class InputGroup extends React.Component {
 
     handleFocus = (index) => () => {
         this.setState({
-            nextFocusDisabled: index === mappedInputs.length - 1,
+            nextFocusDisabled: index === this.mappedInputs.length - 1,
             previousFocusDisabled: index === 0,
             activeInputIndex: index,
         });
@@ -60,7 +58,7 @@ class InputGroup extends React.Component {
         if (nextFocusDisabled) {
             return;
         }
-        mappedInputs[activeInputIndex + 1].ref.current.focus();
+        this.mappedInputs[activeInputIndex + 1].ref.current.focus();
     };
 
     handleFocusPrevious = () => {
@@ -68,7 +66,7 @@ class InputGroup extends React.Component {
         if (previousFocusDisabled) {
             return;
         }
-        mappedInputs[activeInputIndex - 1].ref.current.focus();
+        this.mappedInputs[activeInputIndex - 1].ref.current.focus();
     };
 
     render() {
