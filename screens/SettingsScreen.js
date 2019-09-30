@@ -27,11 +27,6 @@ class SettingsScreen extends React.Component {
         headerTitle: 'Settings',
     };
 
-    componentDidUpdate() {
-        // const { map } = this.props;
-        // console.log(map);
-    }
-
     renderItem = ({ item, index }) => (
         <SettingsItem item={item} index={index} />
     );
