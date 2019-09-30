@@ -8,6 +8,8 @@ export default function modalReducer(state = initialState, action) {
             return { ...state, action: 'showLightbox' };
         case 'SHOW_MAP':
             return { ...state, action: 'showMap' };
+        case 'SHOW_EDIT_PROFILE':
+            return { ...state, action: 'showEditProfile' };
         case 'HIDE_MODAL':
             return { ...state, action: 'hideModal' };
         case 'SET_LIGHTBOX_IMAGE_INDEX':

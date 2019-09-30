@@ -7,6 +7,7 @@ import * as firebase from 'firebase';
 import 'firebase/firestore';
 import { colors } from '../constants/Index';
 import { Settings, ProfileHeader, ProfileBody } from '../components/Index';
+import EditProfileModal from '../components/modals/EditProfileModal';
 
 const propTypes = {
     name: PropTypes.string.isRequired,
@@ -93,6 +94,10 @@ class ProfileScreen extends React.Component {
                             maybeShowEmptyState={maybeShowEmptyState}
                         />
                     </ScrollView>
+                    <EditProfileModal
+                        animationType='push'
+                        modalAction='showEditProfile'
+                    />
                 </RootView>
             );
         }

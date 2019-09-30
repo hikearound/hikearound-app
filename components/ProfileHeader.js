@@ -1,6 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { TouchableOpacity } from 'react-native';
+import { connect } from 'react-redux';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
 import Avatar from './Avatar';
@@ -11,8 +13,30 @@ import {
     fontSizes,
     opacities,
 } from '../constants/Index';
+import { showModal } from '../actions/Modal';
 
 const BACKGROUND_IMAGE = require('../assets/profile-bg.png');
+
+const propTypes = {
+    showEditProfileModal: PropTypes.func.isRequired,
+    modalType: PropTypes.string,
+};
+
+const defaultProps = {
+    modalType: 'editProfile',
+};
+
+function mapStateToProps(state) {
+    return {
+        action: state.modalReducer.action,
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        showEditProfileModal: (modalType) => dispatch(showModal(modalType)),
+    };
+}
 
 class ProfileHeader extends React.PureComponent {
     constructor(props) {
@@ -23,6 +47,11 @@ class ProfileHeader extends React.PureComponent {
     async componentDidMount() {
         this.getUserData();
     }
+
+    editProfile = () => {
+        const { showEditProfileModal, modalType } = this.props;
+        showEditProfileModal(modalType);
+    };
 
     getUid = async () => firebase.auth().currentUser.uid;
 
@@ -54,6 +83,7 @@ class ProfileHeader extends React.PureComponent {
                 <LocationText>{location}</LocationText>
                 <TouchableOpacity
                     activeOpacity={opacities.regular}
+                    onPress={this.editProfile}
                     style={{
                         position: 'absolute',
                         right: parseInt(spacing.small, 10),
@@ -67,7 +97,13 @@ class ProfileHeader extends React.PureComponent {
     }
 }
 
-export default ProfileHeader;
+ProfileHeader.propTypes = propTypes;
+ProfileHeader.defaultProps = defaultProps;
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(ProfileHeader);
 
 const HeaderWrapper = styled.ImageBackground`
     padding-left: ${spacing.small}px;

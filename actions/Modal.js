@@ -13,6 +13,8 @@ export const showModal = (modalType) => {
         modalAction = 'SHOW_LIGHTBOX';
     } else if (modalType === 'map') {
         modalAction = 'SHOW_MAP';
+    } else if (modalType === 'editProfile') {
+        modalAction = 'SHOW_EDIT_PROFILE';
     }
 
     return { type: modalAction };
