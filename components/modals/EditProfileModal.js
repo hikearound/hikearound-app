@@ -19,14 +19,14 @@ class EditProfileModal extends ModalBase {
 
     render() {
         const { modalVisible } = this.state;
-        const { animationType } = this.props;
+        const { animationType, transparent, fullScreen } = this.props;
 
         return (
             <Modal
                 animationType={animationType}
-                transparent
+                transparent={transparent}
                 visible={modalVisible}
-                fullScreen={false}
+                fullScreen={fullScreen}
             >
                 <ModalRoot>
                     <SafeAreaView style={{ flex: 1 }}>

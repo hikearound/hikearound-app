@@ -97,6 +97,8 @@ class ProfileScreen extends React.Component {
                     <EditProfileModal
                         animationType='push'
                         modalAction='showEditProfile'
+                        transparent
+                        fullScreen={false}
                     />
                 </RootView>
             );
