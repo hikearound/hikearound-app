@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Modal, SafeAreaView, StatusBar } from 'react-native';
+import { Modal, SafeAreaView } from 'react-native';
 import { connect } from 'react-redux';
 import ModalDismiss from '../ModalDismiss';
 import ModalBase from './ModalBase';
@@ -15,7 +15,6 @@ function mapStateToProps(state) {
 class EditProfileModal extends ModalBase {
     showModal() {
         this.setState({ modalVisible: true });
-        StatusBar.setBarStyle('dark-content', true);
     }
 
     render() {
@@ -25,16 +24,20 @@ class EditProfileModal extends ModalBase {
         return (
             <Modal
                 animationType={animationType}
-                transparent={false}
+                transparent
                 visible={modalVisible}
-                presentationStyle='pageSheet'
+                fullScreen={false}
             >
                 <ModalRoot>
-                    <ModalHeader>
-                        <ModalDismiss textDismiss />
-                        <ModalTitleText>Edit Profile</ModalTitleText>
-                    </ModalHeader>
-                    <SafeAreaView style={{ flex: 1 }} />
+                    <SafeAreaView style={{ flex: 1 }}>
+                        <ModalHeader>
+                            <ModalDismiss textDismiss />
+                            <ModalTitleText>Edit Profile</ModalTitleText>
+                        </ModalHeader>
+                        <ModalBody>
+                            <ModalBodyText>Hello</ModalBodyText>
+                        </ModalBody>
+                    </SafeAreaView>
                 </ModalRoot>
             </Modal>
         );
@@ -50,19 +53,31 @@ const ModalRoot = styled.View`
 
 const ModalHeader = styled.View`
     background-color: ${colors.purple};
-    border-bottom-width: 1px;
     border-bottom-color: ${colors.borderGray};
-    height: 75px;
+    height: 60px;
     position: relative;
 `;
 
 const ModalTitleText = styled.Text`
     text-align: center;
     color: ${colors.white};
-    font-size: ${fontSizes.extraLarge};
+    font-size: ${fontSizes.extraLarge}px;
     position: absolute;
     left: 50%;
     margin-left: -50px;
-    bottom: ${spacing.small};
+    bottom: ${spacing.small}px;
     font-weight: ${fontWeights.bold};
+`;
+
+const ModalBody = styled.View`
+    background-color: ${colors.white};
+    display: flex;
+    flex: 1;
+    padding: ${spacing.medium}px;
+`;
+
+const ModalBodyText = styled.Text`
+    text-align: left;
+    color: ${colors.black};
+    font-size: ${fontSizes.medium}px;
 `;
