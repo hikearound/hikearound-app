@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Modal, SafeAreaView } from 'react-native';
+import { Modal, SafeAreaView, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import ModalDismiss from '../ModalDismiss';
 import ModalBase from './ModalBase';
@@ -15,6 +15,7 @@ function mapStateToProps(state) {
 class EditProfileModal extends ModalBase {
     showModal() {
         this.setState({ modalVisible: true });
+        StatusBar.setBarStyle('dark-content', true);
     }
 
     render() {
@@ -26,6 +27,7 @@ class EditProfileModal extends ModalBase {
                 animationType={animationType}
                 transparent={false}
                 visible={modalVisible}
+                presentationStyle='pageSheet'
             >
                 <ModalRoot>
                     <ModalHeader>
@@ -50,7 +52,7 @@ const ModalHeader = styled.View`
     background-color: ${colors.purple};
     border-bottom-width: 1px;
     border-bottom-color: ${colors.borderGray};
-    height: 103px;
+    height: 75px;
     position: relative;
 `;
 

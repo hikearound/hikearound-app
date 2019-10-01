@@ -47,7 +47,14 @@ class ModalDismiss extends React.PureComponent {
 
     render() {
         const { includeBackground, textDismiss } = this.props;
-        let iconStyle;
+
+        let iconStyle = (
+            <Ionicons
+                name='ios-close'
+                color={colors.white}
+                size={DISMISS_ICON_SIZE + 5}
+            />
+        );
 
         if (includeBackground) {
             iconStyle = (
@@ -58,14 +65,6 @@ class ModalDismiss extends React.PureComponent {
                         size={DISMISS_ICON_SIZE}
                     />
                 </DismissIconWrapper>
-            );
-        } else {
-            iconStyle = (
-                <Ionicons
-                    name='ios-close'
-                    color={colors.white}
-                    size={DISMISS_ICON_SIZE + 5}
-                />
             );
         }
 
