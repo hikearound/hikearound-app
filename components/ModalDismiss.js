@@ -124,6 +124,6 @@ const DismissIconWrapper = styled.View`
 `;
 
 const DismissText = styled.Text`
-    color: ${colors.black};
+    color: ${colors.white};
     font-size: ${fontSizes.extraLarge};
 `;

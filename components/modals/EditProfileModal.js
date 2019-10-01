@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Modal, SafeAreaView, StatusBar } from 'react-native';
+import { Modal, SafeAreaView } from 'react-native';
 import { connect } from 'react-redux';
 import ModalDismiss from '../ModalDismiss';
 import ModalBase from './ModalBase';
@@ -15,7 +15,6 @@ function mapStateToProps(state) {
 class EditProfileModal extends ModalBase {
     showModal() {
         this.setState({ modalVisible: true });
-        StatusBar.setBarStyle('dark-content', true);
     }
 
     render() {
@@ -48,7 +47,7 @@ const ModalRoot = styled.View`
 `;
 
 const ModalHeader = styled.View`
-    background-color: ${colors.white};
+    background-color: ${colors.purple};
     border-bottom-width: 1px;
     border-bottom-color: ${colors.borderGray};
     height: 103px;
@@ -57,11 +56,11 @@ const ModalHeader = styled.View`
 
 const ModalTitleText = styled.Text`
     text-align: center;
-    color: ${colors.black};
+    color: ${colors.white};
     font-size: ${fontSizes.extraLarge};
     position: absolute;
     left: 50%;
     margin-left: -50px;
     bottom: ${spacing.small};
-    font-weight: ${fontWeights.medium};
+    font-weight: ${fontWeights.bold};
 `;

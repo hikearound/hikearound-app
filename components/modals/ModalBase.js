@@ -31,7 +31,6 @@ class ModalBase extends React.PureComponent {
     }
 
     hideModal() {
-        StatusBar.setBarStyle('light-content', true);
         this.setState({ modalVisible: false });
         StatusBar.setHidden(false);
     }
