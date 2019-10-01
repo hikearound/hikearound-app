@@ -4,26 +4,27 @@ import styled from 'styled-components';
 import { TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { connect } from 'react-redux';
-import { colors, transparentColors, opacities } from '../constants/Index';
+import {
+    colors,
+    transparentColors,
+    opacities,
+    spacing,
+    fontSizes,
+} from '../constants/Index';
 import { closeModal } from '../actions/Modal';
 
 const DISMISS_ICON_OFFSET = 25;
 const DISMISS_ICON_SIZE = 35;
 
-const DISMISS_ICON_STYLE = {
-    position: 'absolute',
-    right: DISMISS_ICON_OFFSET,
-    top: DISMISS_ICON_OFFSET,
-    zIndex: 1,
-};
-
 const propTypes = {
     close: PropTypes.func.isRequired,
     includeBackground: PropTypes.bool,
+    textDismiss: PropTypes.bool,
 };
 
 const defaultProps = {
     includeBackground: false,
+    textDismiss: false,
 };
 
 function mapStateToProps(state) {
@@ -45,24 +46,43 @@ class ModalDismiss extends React.PureComponent {
     };
 
     render() {
-        const { includeBackground } = this.props;
+        const { includeBackground, textDismiss } = this.props;
+        let iconStyle;
 
         if (includeBackground) {
+            iconStyle = (
+                <DismissIconWrapper>
+                    <Ionicons
+                        name='ios-close'
+                        color={colors.purple}
+                        size={DISMISS_ICON_SIZE}
+                    />
+                </DismissIconWrapper>
+            );
+        } else {
+            iconStyle = (
+                <Ionicons
+                    name='ios-close'
+                    color={colors.white}
+                    size={DISMISS_ICON_SIZE + 5}
+                />
+            );
+        }
+
+        if (textDismiss) {
             return (
                 <TouchableOpacity
                     onPress={() => {
                         this.close();
                     }}
                     activeOpacity={opacities.regular}
-                    style={DISMISS_ICON_STYLE}
+                    style={{
+                        position: 'absolute',
+                        left: parseInt(spacing.medium, 10),
+                        bottom: parseInt(spacing.small, 10),
+                    }}
                 >
-                    <DismissIconWrapper>
-                        <Ionicons
-                            name='ios-close'
-                            color={colors.purple}
-                            size={DISMISS_ICON_SIZE}
-                        />
-                    </DismissIconWrapper>
+                    <DismissText>Close</DismissText>
                 </TouchableOpacity>
             );
         }
@@ -73,13 +93,14 @@ class ModalDismiss extends React.PureComponent {
                     this.close();
                 }}
                 activeOpacity={opacities.regular}
-                style={DISMISS_ICON_STYLE}
+                style={{
+                    position: 'absolute',
+                    right: DISMISS_ICON_OFFSET,
+                    top: DISMISS_ICON_OFFSET,
+                    zIndex: 1,
+                }}
             >
-                <Ionicons
-                    name='ios-close'
-                    color={colors.white}
-                    size={DISMISS_ICON_SIZE + 5}
-                />
+                {iconStyle}
             </TouchableOpacity>
         );
     }
@@ -100,4 +121,9 @@ const DismissIconWrapper = styled.View`
     box-shadow: 0 4px 4px ${transparentColors.grayDark};
     background-color: ${colors.white};
     padding-left: 11px;
+`;
+
+const DismissText = styled.Text`
+    color: ${colors.black};
+    font-size: ${fontSizes.extraLarge};
 `;
