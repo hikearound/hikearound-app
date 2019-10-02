@@ -6,9 +6,8 @@ import ModalDismiss from '../ModalDismiss';
 import ModalContinue from '../ModalContinue';
 import ModalBase from './ModalBase';
 import Avatar from '../Avatar';
+import InputLabelGroup from '../InputLabelGroup';
 import { colors, fontSizes, spacing, fontWeights } from '../../constants/Index';
-
-const INPUT_MAX_LENGTH = 100;
 
 function mapStateToProps(state) {
     return {
@@ -20,6 +19,29 @@ function mapStateToProps(state) {
 }
 
 class EditProfileModal extends ModalBase {
+    constructor(props, context) {
+        super(props, context);
+
+        this.state = {
+            modalVisible: false,
+        };
+
+        this.updateLocation = this.updateLocation.bind(this);
+        this.updateName = this.updateName.bind(this);
+    }
+
+    updateLocation(location) {
+        this.setState({
+            updatedLocation: location,
+        });
+    }
+
+    updateName(name) {
+        this.setState({
+            updatedName: name,
+        });
+    }
+
     showModal() {
         const { name, location } = this.props;
         const { updatedName } = this.state;
@@ -49,32 +71,19 @@ class EditProfileModal extends ModalBase {
             <AvatarWrapper>
                 <Avatar avatar={avatar} size={60} />
             </AvatarWrapper>
-            {this.renderLabelInputGroup(
-                'Name',
-                'updatedName',
-                'name',
-                updatedName,
-            )}
-            {this.renderLabelInputGroup(
-                'Location',
-                'updatedLocation',
-                'addressCityAndState',
-                updatedLocation,
-            )}
-        </ModalBody>
-    );
-
-    renderLabelInputGroup = (labelName, key, textContentType, value) => (
-        <LabelInputGroup>
-            <InputLabel>{labelName}</InputLabel>
-            <ModalInput
-                placeholder={labelName}
-                value={value}
-                textContentType={textContentType}
-                maxLength={INPUT_MAX_LENGTH}
-                onChangeText={(text) => this.setState({ [key]: text })}
+            <InputLabelGroup
+                labelName='Name'
+                textContentType='name'
+                setValue={this.updateName}
+                value={updatedName}
             />
-        </LabelInputGroup>
+            <InputLabelGroup
+                labelName='Location'
+                textContentType='addressCityAndState'
+                setValue={this.updateLocation}
+                value={updatedLocation}
+            />
+        </ModalBody>
     );
 
     render() {
@@ -124,31 +133,6 @@ const AvatarWrapper = styled.View`
     justify-content: flex-start;
     padding: ${spacing.medium}px;
     padding-left: ${spacing.small}px;
-`;
-
-const LabelInputGroup = styled.View`
-    width: 100%;
-    flex-direction: row;
-    border-color: ${colors.gray};
-    border-top-width: 1px;
-    border-bottom-width: 1px;
-    padding: ${spacing.small}px;
-    margin-top: -1px;
-`;
-
-const InputLabel = styled.Text`
-    color: ${colors.black};
-    font-size: ${fontSizes.medium}px;
-    font-weight: ${fontWeights.bold};
-    display: flex;
-    width: 85px;
-`;
-
-const ModalInput = styled.TextInput`
-    color: ${colors.darkGray};
-    font-size: ${fontSizes.medium}px;
-    display: flex;
-    flex: 1;
 `;
 
 const ModalTitleText = styled.Text`
