@@ -50,7 +50,7 @@ class EditProfileModal extends ModalBase {
             {this.renderLabelInputGroup('Name', 'updatedName', updatedName)}
             {this.renderLabelInputGroup(
                 'Location',
-                'updateLocation',
+                'updatedLocation',
                 updatedLocation,
             )}
         </ModalBody>
@@ -58,7 +58,7 @@ class EditProfileModal extends ModalBase {
 
     renderLabelInputGroup = (labelName, key, value) => (
         <LabelInputGroup>
-            <InputLabel>Name</InputLabel>
+            <InputLabel>{labelName}</InputLabel>
             <ModalInput
                 placeholder={labelName}
                 value={value}
