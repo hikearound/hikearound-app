@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { connect } from 'react-redux';
 import { NavigationActions, StackActions } from 'react-navigation';
 import { CreateAccountInputGroup } from '../components/Index';
 
@@ -35,10 +34,6 @@ let inputs = [
     },
 ];
 
-function mapStateToProps(state) {
-    return { action: state.action };
-}
-
 class CreateAccountScreen extends React.Component {
     static navigationOptions = {
         headerTitle: 'Create Account',
@@ -68,7 +63,7 @@ class CreateAccountScreen extends React.Component {
     }
 }
 
-export default connect(mapStateToProps)(CreateAccountScreen);
+export default CreateAccountScreen;
 
 const RootView = styled.View`
     flex: 1;

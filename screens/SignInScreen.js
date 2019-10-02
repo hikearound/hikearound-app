@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { connect } from 'react-redux';
 import { NavigationActions, StackActions } from 'react-navigation';
 import { StatusBar } from 'react-native';
 import { SignInInputGroup } from '../components/Index';
@@ -24,10 +23,6 @@ let inputs = [
         secureTextEntry: true,
     },
 ];
-
-function mapStateToProps(state) {
-    return { action: state.action };
-}
 
 class SignInScreen extends React.Component {
     static navigationOptions = {
@@ -64,7 +59,7 @@ class SignInScreen extends React.Component {
     }
 }
 
-export default connect(mapStateToProps)(SignInScreen);
+export default SignInScreen;
 
 const RootView = styled.View`
     flex: 1;

@@ -9,20 +9,14 @@ import { favoriteHike, unfavoriteHike } from '../actions/Hike';
 
 const propTypes = {
     id: PropTypes.string.isRequired,
-    favorite: PropTypes.func.isRequired,
-    unfavorite: PropTypes.func.isRequired,
+    dispatchFavorite: PropTypes.func.isRequired,
+    dispatchUnfavorite: PropTypes.func.isRequired,
 };
-
-function mapStateToProps(state) {
-    return {
-        action: state.hikeReducer.action,
-    };
-}
 
 function mapDispatchToProps(dispatch) {
     return {
-        favorite: () => dispatch(favoriteHike()),
-        unfavorite: () => dispatch(unfavoriteHike()),
+        dispatchFavorite: () => dispatch(favoriteHike()),
+        dispatchUnfavorite: () => dispatch(unfavoriteHike()),
     };
 }
 
@@ -98,15 +92,15 @@ class FavoriteButton extends React.Component {
 
     updateButtonStyle() {
         const { iconName } = this.state;
-        const { favorite, unfavorite } = this.props;
+        const { dispatchFavorite, dispatchUnfavorite } = this.props;
         if (iconName === 'ios-heart-empty') {
             this.setHeartFilled();
             this.setFavoriteHike();
-            favorite();
+            dispatchFavorite();
         } else {
             this.setHeartEmpty();
             this.removeFavoriteHike();
-            unfavorite();
+            dispatchUnfavorite();
         }
     }
 
@@ -131,6 +125,6 @@ class FavoriteButton extends React.Component {
 FavoriteButton.propTypes = propTypes;
 
 export default connect(
-    mapStateToProps,
+    null,
     mapDispatchToProps,
 )(FavoriteButton);

@@ -3,28 +3,20 @@ import PropTypes from 'prop-types';
 import { Dimensions, Image, Animated } from 'react-native';
 import { connect } from 'react-redux';
 import ImageZoom from 'react-native-image-pan-zoom';
+import { closeModal } from '../actions/Modal';
 
 const IMAGE_HEIGHT = Dimensions.get('window').height;
 const IMAGE_WIDTH = Dimensions.get('window').width;
 
 const propTypes = {
     images: PropTypes.array.isRequired,
-    hideModal: PropTypes.func.isRequired,
+    dispatchModalFlag: PropTypes.func.isRequired,
     imageIndex: PropTypes.number.isRequired,
 };
 
-function mapStateToProps(state) {
-    return {
-        action: state.modalReducer.action,
-    };
-}
-
 function mapDispatchToProps(dispatch) {
     return {
-        hideModal: () =>
-            dispatch({
-                type: 'HIDE_MODAL',
-            }),
+        dispatchModalFlag: () => dispatch(closeModal()),
     };
 }
 
@@ -45,8 +37,8 @@ class LightboxImage extends React.Component {
     }
 
     hideModal = () => {
-        const { hideModal } = this.props;
-        hideModal();
+        const { dispatchModalFlag } = this.props;
+        dispatchModalFlag();
     };
 
     render() {
@@ -82,7 +74,7 @@ class LightboxImage extends React.Component {
 LightboxImage.propTypes = propTypes;
 
 export default connect(
-    mapStateToProps,
+    null,
     mapDispatchToProps,
 )(LightboxImage);
 

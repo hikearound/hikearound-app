@@ -17,7 +17,7 @@ const DISMISS_ICON_OFFSET = 25;
 const DISMISS_ICON_SIZE = 35;
 
 const propTypes = {
-    close: PropTypes.func.isRequired,
+    dispatchModalFlag: PropTypes.func.isRequired,
     includeBackground: PropTypes.bool,
     textDismiss: PropTypes.bool,
 };
@@ -27,22 +27,16 @@ const defaultProps = {
     textDismiss: false,
 };
 
-function mapStateToProps(state) {
-    return {
-        action: state.modalReducer.action,
-    };
-}
-
 function mapDispatchToProps(dispatch) {
     return {
-        close: () => dispatch(closeModal()),
+        dispatchModalFlag: () => dispatch(closeModal()),
     };
 }
 
 class ModalDismiss extends React.PureComponent {
     close = () => {
-        const { close } = this.props;
-        close();
+        const { dispatchModalFlag } = this.props;
+        dispatchModalFlag();
     };
 
     render() {
@@ -109,7 +103,7 @@ ModalDismiss.propTypes = propTypes;
 ModalDismiss.defaultProps = defaultProps;
 
 export default connect(
-    mapStateToProps,
+    null,
     mapDispatchToProps,
 )(ModalDismiss);
 

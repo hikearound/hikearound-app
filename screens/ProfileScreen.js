@@ -8,16 +8,21 @@ import 'firebase/firestore';
 import { colors } from '../constants/Index';
 import { Settings, ProfileHeader, ProfileBody } from '../components/Index';
 import EditProfileModal from '../components/modals/EditProfileModal';
+import { updateName, updateLocation } from '../actions/User';
 
 const propTypes = {
-    name: PropTypes.string.isRequired,
-    location: PropTypes.string.isRequired,
+    dispatchName: PropTypes.func.isRequired,
+    dispatchLocation: PropTypes.func.isRequired,
 };
 
-function mapStateToProps(state) {
+function mapStateToProps() {
+    return {};
+}
+
+function mapDispatchToProps(dispatch) {
     return {
-        name: state.userReducer.name,
-        location: state.userReducer.location,
+        dispatchName: (name) => dispatch(updateName(name)),
+        dispatchLocation: (location) => dispatch(updateLocation(location)),
     };
 }
 
@@ -40,12 +45,15 @@ class ProfileScreen extends React.Component {
 
     async componentWillMount() {
         this.getHikeData();
+        this.getUserData();
     }
 
     getHikeSnapshot = async () => {
         this.setState({ loading: true });
+
         const firestore = firebase.firestore();
         const uid = await this.getUid();
+
         return firestore
             .collection('favoritedHikes')
             .doc(uid)
@@ -79,15 +87,33 @@ class ProfileScreen extends React.Component {
 
     getUid = async () => firebase.auth().currentUser.uid;
 
+    getUserSnapshot = async () => {
+        const firestore = firebase.firestore();
+        const uid = await this.getUid();
+
+        return firestore
+            .collection('users')
+            .doc(uid)
+            .get();
+    };
+
+    getUserData = async () => {
+        const { dispatchName, dispatchLocation } = this.props;
+        const userSnapshot = await this.getUserSnapshot();
+        const user = await userSnapshot.data();
+
+        dispatchName(user.name);
+        dispatchLocation(user.location);
+    };
+
     render() {
-        const { name, location } = this.props;
         const { hikes, loading, maybeShowEmptyState } = this.state;
 
         if (!loading) {
             return (
                 <RootView>
                     <ScrollView showsVerticalScrollIndicator={false}>
-                        <ProfileHeader name={name} location={location} />
+                        <ProfileHeader />
                         <ProfileBody
                             hikes={hikes}
                             loading={loading}
@@ -109,7 +135,10 @@ class ProfileScreen extends React.Component {
 
 ProfileScreen.propTypes = propTypes;
 
-export default connect(mapStateToProps)(ProfileScreen);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(ProfileScreen);
 
 const RootView = styled.View`
     background: ${colors.white};

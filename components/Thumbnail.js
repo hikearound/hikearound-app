@@ -9,8 +9,8 @@ import { showModal, setLightboxImage } from '../actions/Modal';
 const THUMBNAIL_DIMENSION = 75;
 
 const propTypes = {
-    setLightboxPhoto: PropTypes.func.isRequired,
-    showLightbox: PropTypes.func.isRequired,
+    dispatchImage: PropTypes.func.isRequired,
+    dispatchModalFlag: PropTypes.func.isRequired,
     imageIndex: PropTypes.number.isRequired,
     image: PropTypes.object.isRequired,
     modalType: PropTypes.string,
@@ -20,31 +20,24 @@ const defaultProps = {
     modalType: 'lightbox',
 };
 
-function mapStateToProps(state) {
-    return {
-        action: state.modalReducer.action,
-    };
-}
-
 function mapDispatchToProps(dispatch) {
     return {
-        setLightboxPhoto: (imageIndex) =>
-            dispatch(setLightboxImage(imageIndex)),
-        showLightbox: (modalType) => dispatch(showModal(modalType)),
+        dispatchImage: (imageIndex) => dispatch(setLightboxImage(imageIndex)),
+        dispatchModalFlag: (modalType) => dispatch(showModal(modalType)),
     };
 }
 
 class Thumbnail extends React.PureComponent {
     thumbnailPress = () => {
         const {
-            setLightboxPhoto,
-            showLightbox,
+            dispatchImage,
+            dispatchModalFlag,
             imageIndex,
             modalType,
         } = this.props;
 
-        setLightboxPhoto(imageIndex);
-        showLightbox(modalType);
+        dispatchImage(imageIndex);
+        dispatchModalFlag(modalType);
     };
 
     render() {
@@ -65,7 +58,7 @@ Thumbnail.propTypes = propTypes;
 Thumbnail.defaultProps = defaultProps;
 
 export default connect(
-    mapStateToProps,
+    null,
     mapDispatchToProps,
 )(Thumbnail);
 

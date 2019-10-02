@@ -12,12 +12,9 @@ export default function userReducer(state = initialState, action) {
         case 'UPDATE_AVATAR':
             return { ...state, avatar: action.avatar };
         case 'UPDATE_LOCATION':
-            return { ...state, avatar: action.location };
+            return { ...state, location: action.location };
         case 'SET_DEFAULT_MAP':
-            return {
-                ...state,
-                map: action.map,
-            };
+            return { ...state, map: action.map };
         default:
             return state;
     }

@@ -3,23 +3,73 @@ import styled from 'styled-components';
 import { Modal, SafeAreaView } from 'react-native';
 import { connect } from 'react-redux';
 import ModalDismiss from '../ModalDismiss';
+import ModalContinue from '../ModalContinue';
 import ModalBase from './ModalBase';
+import Avatar from '../Avatar';
 import { colors, fontSizes, spacing, fontWeights } from '../../constants/Index';
 
 function mapStateToProps(state) {
     return {
         action: state.modalReducer.action,
+        name: state.userReducer.name,
+        location: state.userReducer.location,
+        avatar: state.userReducer.avatar,
     };
 }
 
 class EditProfileModal extends ModalBase {
     showModal() {
-        this.setState({ modalVisible: true });
+        const { name, location } = this.props;
+        const { updatedName } = this.state;
+
+        if (updatedName === undefined) {
+            this.setState({
+                updatedName: name,
+                updatedLocation: location,
+            });
+        }
+
+        this.setState({
+            modalVisible: true,
+        });
     }
 
+    renderModalHeader = (headerText) => (
+        <ModalHeader>
+            <ModalTitleText>{headerText}</ModalTitleText>
+            <ModalDismiss textDismiss />
+            <ModalContinue continueText='Save' />
+        </ModalHeader>
+    );
+
+    renderModalBody = (avatar, updatedName, updatedLocation) => (
+        <ModalBody>
+            <AvatarWrapper>
+                <Avatar avatar={avatar} size={60} />
+            </AvatarWrapper>
+            {this.renderLabelInputGroup('Name', 'updatedName', updatedName)}
+            {this.renderLabelInputGroup(
+                'Location',
+                'updateLocation',
+                updatedLocation,
+            )}
+        </ModalBody>
+    );
+
+    renderLabelInputGroup = (labelName, key, value) => (
+        <LabelInputGroup>
+            <InputLabel>Name</InputLabel>
+            <ModalInput
+                placeholder={labelName}
+                value={value}
+                onChangeText={(text) => this.setState({ [key]: text })}
+            />
+        </LabelInputGroup>
+    );
+
     render() {
-        const { modalVisible } = this.state;
-        const { animationType, transparent, fullScreen } = this.props;
+        const { modalVisible, updatedName, updatedLocation } = this.state;
+        const { animationType, transparent, fullScreen, avatar } = this.props;
 
         return (
             <Modal
@@ -30,13 +80,12 @@ class EditProfileModal extends ModalBase {
             >
                 <ModalRoot>
                     <SafeAreaView style={{ flex: 1 }}>
-                        <ModalHeader>
-                            <ModalDismiss textDismiss />
-                            <ModalTitleText>Edit Profile</ModalTitleText>
-                        </ModalHeader>
-                        <ModalBody>
-                            <ModalBodyText>Hello</ModalBodyText>
-                        </ModalBody>
+                        {this.renderModalHeader('Edit Profile')}
+                        {this.renderModalBody(
+                            avatar,
+                            updatedName,
+                            updatedLocation,
+                        )}
                     </SafeAreaView>
                 </ModalRoot>
             </Modal>
@@ -54,8 +103,42 @@ const ModalRoot = styled.View`
 const ModalHeader = styled.View`
     background-color: ${colors.purple};
     border-bottom-color: ${colors.borderGray};
-    height: 60px;
+    height: ${spacing.header}px;
+    width: 100%;
     position: relative;
+`;
+
+const AvatarWrapper = styled.View`
+    width: 100%;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: ${spacing.medium}px;
+    padding-left: ${spacing.small}px;
+`;
+
+const LabelInputGroup = styled.View`
+    width: 100%;
+    flex-direction: row;
+    border-color: ${colors.gray};
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    padding: ${spacing.small}px;
+    margin-top: -1px;
+`;
+
+const InputLabel = styled.Text`
+    color: ${colors.black};
+    font-size: ${fontSizes.medium}px;
+    font-weight: ${fontWeights.bold};
+    display: flex;
+    width: 85px;
+`;
+
+const ModalInput = styled.TextInput`
+    color: ${colors.darkGray};
+    font-size: ${fontSizes.medium}px;
+    display: flex;
+    flex: 1;
 `;
 
 const ModalTitleText = styled.Text`
@@ -63,8 +146,8 @@ const ModalTitleText = styled.Text`
     color: ${colors.white};
     font-size: ${fontSizes.extraLarge}px;
     position: absolute;
-    left: 50%;
-    margin-left: -50px;
+    width: 100%
+    text-align: center;
     bottom: ${spacing.small}px;
     font-weight: ${fontWeights.bold};
 `;
@@ -72,12 +155,6 @@ const ModalTitleText = styled.Text`
 const ModalBody = styled.View`
     background-color: ${colors.white};
     display: flex;
-    flex: 1;
-    padding: ${spacing.medium}px;
-`;
-
-const ModalBodyText = styled.Text`
-    text-align: left;
-    color: ${colors.black};
-    font-size: ${fontSizes.medium}px;
+    flex-direction: column;
+    height: 100%;
 `;

@@ -1,15 +1,15 @@
 import { AsyncStorage } from 'react-native';
 
-export const updateName = () => {
-    return { type: 'UPDATE_NAME' };
+export const updateName = (name) => {
+    return { type: 'UPDATE_NAME', name };
 };
 
 export const updateAvatar = (avatar) => {
     return { type: 'UPDATE_AVATAR', avatar };
 };
 
-export const updateLocation = () => {
-    return { type: 'UPDATE_LOCATION' };
+export const updateLocation = (location) => {
+    return { type: 'UPDATE_LOCATION', location };
 };
 
 export const setMap = (map) => {

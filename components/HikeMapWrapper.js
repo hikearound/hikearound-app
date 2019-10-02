@@ -15,7 +15,7 @@ import {
 import { showModal } from '../actions/Modal';
 
 const propTypes = {
-    showMapModal: PropTypes.func.isRequired,
+    dispatchModalFlag: PropTypes.func.isRequired,
     distance: PropTypes.number.isRequired,
     elevation: PropTypes.number,
     route: PropTypes.string,
@@ -32,22 +32,16 @@ const defaultProps = {
     modalType: 'map',
 };
 
-function mapStateToProps(state) {
-    return {
-        action: state.hikeReducer.action,
-    };
-}
-
 function mapDispatchToProps(dispatch) {
     return {
-        showMapModal: (modalType) => dispatch(showModal(modalType)),
+        dispatchModalFlag: (modalType) => dispatch(showModal(modalType)),
     };
 }
 
 class HikeMapWrapper extends React.Component {
     mapPress = () => {
-        const { showMapModal, modalType } = this.props;
-        showMapModal(modalType);
+        const { dispatchModalFlag, modalType } = this.props;
+        dispatchModalFlag(modalType);
     };
 
     render() {
@@ -93,7 +87,7 @@ HikeMapWrapper.propTypes = propTypes;
 HikeMapWrapper.defaultProps = defaultProps;
 
 export default connect(
-    mapStateToProps,
+    null,
     mapDispatchToProps,
 )(HikeMapWrapper);
 

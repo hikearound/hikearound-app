@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-import * as firebase from 'firebase';
 import 'firebase/firestore';
 import Avatar from './Avatar';
 import {
@@ -18,8 +17,10 @@ import { showModal } from '../actions/Modal';
 const BACKGROUND_IMAGE = require('../assets/profile-bg.png');
 
 const propTypes = {
-    showEditProfileModal: PropTypes.func.isRequired,
+    dispatchModalFlag: PropTypes.func.isRequired,
     modalType: PropTypes.string,
+    name: PropTypes.string.isRequired,
+    location: PropTypes.string.isRequired,
 };
 
 const defaultProps = {
@@ -28,13 +29,14 @@ const defaultProps = {
 
 function mapStateToProps(state) {
     return {
-        action: state.modalReducer.action,
+        name: state.userReducer.name,
+        location: state.userReducer.location,
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        showEditProfileModal: (modalType) => dispatch(showModal(modalType)),
+        dispatchModalFlag: (modalType) => dispatch(showModal(modalType)),
     };
 }
 
@@ -44,38 +46,13 @@ class ProfileHeader extends React.PureComponent {
         this.state = {};
     }
 
-    async componentDidMount() {
-        this.getUserData();
-    }
-
     editProfile = () => {
-        const { showEditProfileModal, modalType } = this.props;
-        showEditProfileModal(modalType);
-    };
-
-    getUid = async () => firebase.auth().currentUser.uid;
-
-    getUserSnapshot = async () => {
-        const firestore = firebase.firestore();
-        const uid = await this.getUid();
-        return firestore
-            .collection('users')
-            .doc(uid)
-            .get();
-    };
-
-    getUserData = async () => {
-        const userSnapshot = await this.getUserSnapshot();
-        const user = userSnapshot.data();
-
-        this.setState({
-            name: user.name,
-            location: user.location,
-        });
+        const { dispatchModalFlag, modalType } = this.props;
+        dispatchModalFlag(modalType);
     };
 
     render() {
-        const { name, location } = this.state;
+        const { name, location } = this.props;
         return (
             <HeaderWrapper source={BACKGROUND_IMAGE}>
                 <Avatar />

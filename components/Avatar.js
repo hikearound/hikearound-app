@@ -6,7 +6,7 @@ import { opacities } from '../constants/Index';
 import { updateAvatar } from '../actions/User';
 
 const propTypes = {
-    update: PropTypes.func.isRequired,
+    dispatchAvatar: PropTypes.func.isRequired,
     avatar: PropTypes.string.isRequired,
     size: PropTypes.number,
 };
@@ -23,7 +23,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        update: (avatar) => dispatch(updateAvatar(avatar)),
+        dispatchAvatar: (avatar) => dispatch(updateAvatar(avatar)),
     };
 }
 
@@ -33,11 +33,11 @@ class Avatar extends React.Component {
     }
 
     loadState = () => {
-        const { update } = this.props;
+        const { dispatchAvatar } = this.props;
         AsyncStorage.getItem('state').then((serializedState) => {
             const state = JSON.parse(serializedState);
             if (state) {
-                update(state.avatar);
+                dispatchAvatar(state.avatar);
             }
         });
     };
