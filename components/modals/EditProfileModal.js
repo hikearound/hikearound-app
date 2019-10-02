@@ -8,6 +8,8 @@ import ModalBase from './ModalBase';
 import Avatar from '../Avatar';
 import { colors, fontSizes, spacing, fontWeights } from '../../constants/Index';
 
+const INPUT_MAX_LENGTH = 100;
+
 function mapStateToProps(state) {
     return {
         action: state.modalReducer.action,
@@ -47,21 +49,29 @@ class EditProfileModal extends ModalBase {
             <AvatarWrapper>
                 <Avatar avatar={avatar} size={60} />
             </AvatarWrapper>
-            {this.renderLabelInputGroup('Name', 'updatedName', updatedName)}
+            {this.renderLabelInputGroup(
+                'Name',
+                'updatedName',
+                'name',
+                updatedName,
+            )}
             {this.renderLabelInputGroup(
                 'Location',
                 'updatedLocation',
+                'addressCityAndState',
                 updatedLocation,
             )}
         </ModalBody>
     );
 
-    renderLabelInputGroup = (labelName, key, value) => (
+    renderLabelInputGroup = (labelName, key, textContentType, value) => (
         <LabelInputGroup>
             <InputLabel>{labelName}</InputLabel>
             <ModalInput
                 placeholder={labelName}
                 value={value}
+                textContentType={textContentType}
+                maxLength={INPUT_MAX_LENGTH}
                 onChangeText={(text) => this.setState({ [key]: text })}
             />
         </LabelInputGroup>
