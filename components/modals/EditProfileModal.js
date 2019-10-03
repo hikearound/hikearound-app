@@ -47,6 +47,12 @@ class EditProfileModal extends ModalBase {
         this.setState({ modalVisible: true });
     }
 
+    hideModal() {
+        // const { action } = this.props;
+        // console.log(action)
+        this.setState({ modalVisible: false });
+    }
+
     extraActions() {
         const { name, location } = this.props;
         const { updatedName } = this.state;
