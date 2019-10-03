@@ -26,6 +26,7 @@ class ModalBase extends React.PureComponent {
     }
 
     showModal() {
+        this.extraActions();
         this.setState({ modalVisible: true });
         StatusBar.setHidden(true);
     }

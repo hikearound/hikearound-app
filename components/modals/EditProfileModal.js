@@ -43,6 +43,11 @@ class EditProfileModal extends ModalBase {
     }
 
     showModal() {
+        this.extraActions();
+        this.setState({ modalVisible: true });
+    }
+
+    extraActions() {
         const { name, location } = this.props;
         const { updatedName } = this.state;
 
@@ -52,10 +57,6 @@ class EditProfileModal extends ModalBase {
                 updatedLocation: location,
             });
         }
-
-        this.setState({
-            modalVisible: true,
-        });
     }
 
     renderModalHeader = (headerText) => (
