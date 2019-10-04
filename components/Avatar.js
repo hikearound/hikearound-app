@@ -44,7 +44,7 @@ class Avatar extends React.Component {
         });
     };
 
-    choosePhoto = async () => {
+    checkPhotoPermissions = async () => {
         const { status } = await Permissions.getAsync(Permissions.CAMERA_ROLL);
         if (status !== 'granted') {
             const { newStatus } = await Permissions.askAsync(
@@ -59,8 +59,8 @@ class Avatar extends React.Component {
     };
 
     launchPhotoPicker = async () => {
-        const result = await ImagePicker.launchImageLibraryAsync();
-        return result;
+        const photo = await ImagePicker.launchImageLibraryAsync();
+        return photo;
     };
 
     render() {
@@ -68,7 +68,7 @@ class Avatar extends React.Component {
         return (
             <TouchableOpacity
                 onPress={() => {
-                    this.choosePhoto();
+                    this.checkPhotoPermissions();
                 }}
                 activeOpacity={opacities.regular}
             >
