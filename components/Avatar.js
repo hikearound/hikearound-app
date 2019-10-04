@@ -6,6 +6,7 @@ import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
 import { opacities } from '../constants/Index';
 import { updateAvatar } from '../actions/User';
+import shrinkImageAsync from '../utils/User';
 
 const propTypes = {
     dispatchAvatar: PropTypes.func.isRequired,
@@ -25,25 +26,11 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        dispatchAvatar: (avatar) => dispatch(updateAvatar(avatar)),
+        dispatchAvatar: (photoData) => dispatch(updateAvatar(photoData)),
     };
 }
 
 class Avatar extends React.Component {
-    componentDidMount() {
-        this.loadState();
-    }
-
-    loadState = () => {
-        const { dispatchAvatar } = this.props;
-        AsyncStorage.getItem('state').then((serializedState) => {
-            const state = JSON.parse(serializedState);
-            if (state) {
-                dispatchAvatar(state.avatar);
-            }
-        });
-    };
-
     checkPhotoPermissions = async () => {
         const { status } = await Permissions.getAsync(Permissions.CAMERA_ROLL);
         if (status !== 'granted') {
@@ -60,7 +47,21 @@ class Avatar extends React.Component {
 
     launchPhotoPicker = async () => {
         const photo = await ImagePicker.launchImageLibraryAsync();
-        return photo;
+        if (!photo.cancelled) {
+            this.uploadImage(photo.uri);
+        }
+    };
+
+    uploadImage = async (originalUri) => {
+        const { dispatchAvatar } = this.props;
+        const { uri } = await shrinkImageAsync(originalUri);
+        const response = await fetch(uri);
+        const blob = await response.blob();
+        const photoData = {
+            uri,
+            blob,
+        };
+        dispatchAvatar(photoData);
     };
 
     render() {

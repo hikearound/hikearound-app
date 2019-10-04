@@ -8,10 +8,11 @@ import 'firebase/firestore';
 import { colors } from '../constants/Index';
 import { Settings, ProfileHeader, ProfileBody } from '../components/Index';
 import EditProfileModal from '../components/modals/EditProfileModal';
-import { initializeUserData } from '../actions/User';
+import { initializeUserData, initializeAvatar } from '../actions/User';
 
 const propTypes = {
     dispatchUserData: PropTypes.func.isRequired,
+    dispatchAvatar: PropTypes.func.isRequired,
 };
 
 function mapStateToProps() {
@@ -21,6 +22,7 @@ function mapStateToProps() {
 function mapDispatchToProps(dispatch) {
     return {
         dispatchUserData: (userData) => dispatch(initializeUserData(userData)),
+        dispatchAvatar: (avatarUri) => dispatch(initializeAvatar(avatarUri)),
     };
 }
 
@@ -96,10 +98,17 @@ class ProfileScreen extends React.Component {
     };
 
     getUserData = async () => {
-        const { dispatchUserData } = this.props;
+        const { dispatchUserData, dispatchAvatar } = this.props;
+
         const userSnapshot = await this.getUserSnapshot();
         const userData = await userSnapshot.data();
+
+        const uid = await this.getUid();
+        const ref = firebase.storage().ref(`images/users/${uid}.jpg`);
+        const avatarUri = await ref.getDownloadURL();
+
         dispatchUserData(userData);
+        dispatchAvatar(avatarUri);
     };
 
     render() {

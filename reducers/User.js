@@ -13,7 +13,6 @@ export default function userReducer(state = initialState, action) {
                 ...state,
                 name: action.userData.name,
                 location: action.userData.location,
-                avatar: action.userData.avatar,
             };
         case 'UPDATE_USER_DATA':
             return {
@@ -22,10 +21,15 @@ export default function userReducer(state = initialState, action) {
                 location: action.userData.location,
                 map: action.userData.defaultMap,
             };
+        case 'INITIALIZE_AVATAR':
+            return {
+                ...state,
+                avatar: action.uri,
+            };
         case 'UPDATE_AVATAR':
             return {
                 ...state,
-                avatar: action.avatar,
+                avatar: action.photoData.uri,
             };
         case 'UPDATE_MAP':
             return {
