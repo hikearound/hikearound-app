@@ -44,8 +44,8 @@ class ProfileScreen extends React.Component {
     }
 
     async componentWillMount() {
-        this.getHikeData();
         this.getUserData();
+        this.getHikeData();
     }
 
     getHikeSnapshot = async () => {
