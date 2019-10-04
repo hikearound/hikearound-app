@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { AsyncStorage, TouchableOpacity, Image } from 'react-native';
+import { TouchableOpacity, Image } from 'react-native';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
 import { opacities } from '../constants/Index';
@@ -54,13 +54,16 @@ class Avatar extends React.Component {
 
     uploadImage = async (originalUri) => {
         const { dispatchAvatar } = this.props;
+
         const { uri } = await shrinkImageAsync(originalUri);
         const response = await fetch(uri);
         const blob = await response.blob();
+
         const photoData = {
             uri,
             blob,
         };
+
         dispatchAvatar(photoData);
     };
 
