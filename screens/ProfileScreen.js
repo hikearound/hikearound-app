@@ -8,11 +8,10 @@ import 'firebase/firestore';
 import { colors } from '../constants/Index';
 import { Settings, ProfileHeader, ProfileBody } from '../components/Index';
 import EditProfileModal from '../components/modals/EditProfileModal';
-import { updateName, updateLocation } from '../actions/User';
+import { initializeUserData } from '../actions/User';
 
 const propTypes = {
-    dispatchName: PropTypes.func.isRequired,
-    dispatchLocation: PropTypes.func.isRequired,
+    dispatchUserData: PropTypes.func.isRequired,
 };
 
 function mapStateToProps() {
@@ -21,8 +20,7 @@ function mapStateToProps() {
 
 function mapDispatchToProps(dispatch) {
     return {
-        dispatchName: (name) => dispatch(updateName(name)),
-        dispatchLocation: (location) => dispatch(updateLocation(location)),
+        dispatchUserData: (userData) => dispatch(initializeUserData(userData)),
     };
 }
 
@@ -98,12 +96,10 @@ class ProfileScreen extends React.Component {
     };
 
     getUserData = async () => {
-        const { dispatchName, dispatchLocation } = this.props;
+        const { dispatchUserData } = this.props;
         const userSnapshot = await this.getUserSnapshot();
-        const user = await userSnapshot.data();
-
-        dispatchName(user.name);
-        dispatchLocation(user.location);
+        const userData = await userSnapshot.data();
+        dispatchUserData(userData);
     };
 
     render() {
@@ -124,6 +120,7 @@ class ProfileScreen extends React.Component {
                         animationType='push'
                         modalAction='showEditProfile'
                         transparent
+                        hideStatusBar={false}
                         fullScreen={false}
                     />
                 </RootView>

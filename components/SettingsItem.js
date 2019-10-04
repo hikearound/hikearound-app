@@ -7,7 +7,7 @@ import { Updates } from 'expo';
 import { connect } from 'react-redux';
 import firebase from 'firebase';
 import { colors, spacing, fontSizes, opacities } from '../constants/Index';
-import { setMap } from '../actions/User';
+import { updateMap } from '../actions/User';
 
 const propTypes = {
     item: PropTypes.string.isRequired,
@@ -23,7 +23,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        dispatchMap: (map) => dispatch(setMap(map)),
+        dispatchMap: (map) => dispatch(updateMap(map)),
     };
 }
 

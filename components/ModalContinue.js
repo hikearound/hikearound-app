@@ -9,22 +9,25 @@ import { closeModal } from '../actions/Modal';
 const propTypes = {
     dispatchModalFlag: PropTypes.func.isRequired,
     continueText: PropTypes.string,
+    modalCloseAction: PropTypes.string,
 };
 
 const defaultProps = {
     continueText: 'Continue',
+    modalCloseAction: 'closeAndContinue',
 };
 
 function mapDispatchToProps(dispatch) {
     return {
-        dispatchModalFlag: () => dispatch(closeModal()),
+        dispatchModalFlag: (modalCloseAction) =>
+            dispatch(closeModal(modalCloseAction)),
     };
 }
 
 class ModalDismiss extends React.PureComponent {
     close = () => {
-        const { dispatchModalFlag } = this.props;
-        dispatchModalFlag();
+        const { dispatchModalFlag, modalCloseAction } = this.props;
+        dispatchModalFlag(modalCloseAction);
     };
 
     render() {

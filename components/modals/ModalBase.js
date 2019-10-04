@@ -5,10 +5,12 @@ import { Modal, StatusBar } from 'react-native';
 const propTypes = {
     action: PropTypes.string,
     modalAction: PropTypes.string.isRequired,
+    hideStatusBar: PropTypes.bool,
 };
 
 const defaultProps = {
     action: '',
+    hideStatusBar: true,
 };
 
 class ModalBase extends React.PureComponent {
@@ -26,9 +28,17 @@ class ModalBase extends React.PureComponent {
     }
 
     showModal() {
-        this.extraActions();
+        const { hideStatusBar } = this.props;
+
+        if (this.extraActions) {
+            this.extraActions();
+        }
+
         this.setState({ modalVisible: true });
-        StatusBar.setHidden(true);
+
+        if (hideStatusBar) {
+            StatusBar.setHidden(true);
+        }
     }
 
     hideModal() {

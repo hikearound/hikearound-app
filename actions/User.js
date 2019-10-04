@@ -1,18 +1,28 @@
 import { AsyncStorage } from 'react-native';
-
-export const updateName = (name) => {
-    return { type: 'UPDATE_NAME', name };
-};
+import * as firebase from 'firebase';
+import 'firebase/firestore';
 
 export const updateAvatar = (avatar) => {
     return { type: 'UPDATE_AVATAR', avatar };
 };
 
-export const updateLocation = (location) => {
-    return { type: 'UPDATE_LOCATION', location };
+export const initializeUserData = (userData) => {
+    return { type: 'INITIALIZE_USER_DATA', userData };
 };
 
-export const setMap = (map) => {
+export const updateUserData = (userData) => {
+    const firestore = firebase.firestore();
+    const { uid } = firebase.auth().currentUser;
+
+    firestore
+        .collection('users')
+        .doc(uid)
+        .set(userData, { merge: true });
+
+    return { type: 'UPDATE_USER_DATA', userData };
+};
+
+export const updateMap = (map) => {
     AsyncStorage.setItem('mapSetting', map);
-    return { type: 'SET_DEFAULT_MAP', map };
+    return { type: 'UPDATE_MAP', map };
 };

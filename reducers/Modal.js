@@ -11,7 +11,11 @@ export default function modalReducer(state = initialState, action) {
         case 'SHOW_EDIT_PROFILE':
             return { ...state, action: 'showEditProfile' };
         case 'HIDE_MODAL':
-            return { ...state, action: 'hideModal' };
+            return {
+                ...state,
+                action: 'hideModal',
+                modalCloseAction: action.modalCloseAction,
+            };
         case 'SET_LIGHTBOX_IMAGE_INDEX':
             return { ...state, imageIndex: action.imageIndex };
         default:

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Modal, SafeAreaView } from 'react-native';
 import { connect } from 'react-redux';
@@ -8,13 +9,26 @@ import ModalBase from './ModalBase';
 import Avatar from '../Avatar';
 import InputLabelGroup from '../InputLabelGroup';
 import { colors, fontSizes, spacing, fontWeights } from '../../constants/Index';
+import { updateUserData } from '../../actions/User';
+
+const propTypes = {
+    dispatchUserData: PropTypes.func.isRequired,
+};
 
 function mapStateToProps(state) {
     return {
         action: state.modalReducer.action,
+        modalCloseAction: state.modalReducer.modalCloseAction,
         name: state.userReducer.name,
         location: state.userReducer.location,
+        map: state.userReducer.map,
         avatar: state.userReducer.avatar,
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        dispatchUserData: (userData) => dispatch(updateUserData(userData)),
     };
 }
 
@@ -42,14 +56,29 @@ class EditProfileModal extends ModalBase {
         });
     }
 
-    showModal() {
-        this.extraActions();
-        this.setState({ modalVisible: true });
-    }
-
     hideModal() {
-        // const { action } = this.props;
-        // console.log(action)
+        const {
+            name,
+            location,
+            modalCloseAction,
+            dispatchUserData,
+        } = this.props;
+
+        const { updatedName, updatedLocation } = this.state;
+        const userData = { location, name };
+
+        if (modalCloseAction === 'updateUserData') {
+            if (updatedName !== name) {
+                userData.name = updatedName;
+                dispatchUserData(userData);
+            }
+
+            if (updatedLocation !== location) {
+                userData.location = updatedLocation;
+                dispatchUserData(userData);
+            }
+        }
+
         this.setState({ modalVisible: false });
     }
 
@@ -69,7 +98,10 @@ class EditProfileModal extends ModalBase {
         <ModalHeader>
             <ModalTitleText>{headerText}</ModalTitleText>
             <ModalDismiss textDismiss />
-            <ModalContinue continueText='Save' />
+            <ModalContinue
+                continueText='Save'
+                modalCloseAction='updateUserData'
+            />
         </ModalHeader>
     );
 
@@ -119,7 +151,12 @@ class EditProfileModal extends ModalBase {
     }
 }
 
-export default connect(mapStateToProps)(EditProfileModal);
+EditProfileModal.propTypes = propTypes;
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(EditProfileModal);
 
 const ModalRoot = styled.View`
     display: flex;

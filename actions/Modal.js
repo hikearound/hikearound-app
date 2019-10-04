@@ -1,5 +1,5 @@
-export const closeModal = () => {
-    return { type: 'HIDE_MODAL' };
+export const closeModal = (modalCloseAction) => {
+    return { type: 'HIDE_MODAL', modalCloseAction };
 };
 
 export const setLightboxImage = (imageIndex) => {
