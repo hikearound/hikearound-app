@@ -105,10 +105,10 @@ class EditProfileModal extends ModalBase {
         </ModalHeader>
     );
 
-    renderModalBody = (avatar, updatedName, updatedLocation) => (
+    renderModalBody = (updatedName, updatedLocation) => (
         <ModalBody>
             <AvatarWrapper>
-                <Avatar avatar={avatar} size={60} />
+                <Avatar size={60} />
             </AvatarWrapper>
             <InputLabelGroup
                 labelName='Name'
@@ -127,7 +127,7 @@ class EditProfileModal extends ModalBase {
 
     render() {
         const { modalVisible, updatedName, updatedLocation } = this.state;
-        const { animationType, transparent, fullScreen, avatar } = this.props;
+        const { animationType, transparent, fullScreen } = this.props;
 
         return (
             <Modal
@@ -139,11 +139,7 @@ class EditProfileModal extends ModalBase {
                 <ModalRoot>
                     <SafeAreaView style={{ flex: 1 }}>
                         {this.renderModalHeader('Edit Profile')}
-                        {this.renderModalBody(
-                            avatar,
-                            updatedName,
-                            updatedLocation,
-                        )}
+                        {this.renderModalBody(updatedName, updatedLocation)}
                     </SafeAreaView>
                 </ModalRoot>
             </Modal>
