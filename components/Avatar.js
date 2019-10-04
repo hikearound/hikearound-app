@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { AsyncStorage, TouchableOpacity, Image } from 'react-native';
+import * as Permissions from 'expo-permissions';
+import * as ImagePicker from 'expo-image-picker';
 import { opacities } from '../constants/Index';
 import { updateAvatar } from '../actions/User';
 
@@ -42,10 +44,34 @@ class Avatar extends React.Component {
         });
     };
 
+    choosePhoto = async () => {
+        const { status } = await Permissions.getAsync(Permissions.CAMERA_ROLL);
+        if (status !== 'granted') {
+            const { newStatus } = await Permissions.askAsync(
+                Permissions.CAMERA_ROLL,
+            );
+            if (newStatus === 'granted') {
+                this.launchPhotoPicker();
+            }
+        } else {
+            this.launchPhotoPicker();
+        }
+    };
+
+    launchPhotoPicker = async () => {
+        const result = await ImagePicker.launchImageLibraryAsync();
+        return result;
+    };
+
     render() {
         const { avatar, size } = this.props;
         return (
-            <TouchableOpacity activeOpacity={opacities.regular}>
+            <TouchableOpacity
+                onPress={() => {
+                    this.choosePhoto();
+                }}
+                activeOpacity={opacities.regular}
+            >
                 <Image
                     source={{ uri: avatar }}
                     style={{
