@@ -3,11 +3,10 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-import SvgAnimatedLinearGradient from 'react-native-svg-animated-linear-gradient';
-import { Circle, Rect } from 'react-native-svg';
 import { colors } from '../constants/Index';
 import { Settings, ProfileHeader, ProfileBody } from '../components/Index';
 import EditProfileModal from '../components/modals/EditProfileModal';
+import ProfileLoadingState from '../components/loading/Profile';
 import { initializeUserData, initializeAvatar } from '../actions/User';
 import { getUserFavoriteHikes, getAvatarUri, getUserData } from '../utils/User';
 
@@ -57,19 +56,7 @@ class ProfileScreen extends React.Component {
         }, 3000);
     }
 
-    contentLoader = () => (
-        <SvgAnimatedLinearGradient
-            height={300}
-            duration={1000}
-            primaryColor={colors.lightGray}
-            secondaryColor={colors.lightUltraGray}
-        >
-            <Circle cx='30' cy='30' r='30' />
-            <Rect x='75' y='13' rx='4' ry='4' width='100' height='13' />
-            <Rect x='75' y='37' rx='4' ry='4' width='50' height='8' />
-            <Rect x='0' y='70' rx='5' ry='5' width='400' height='200' />
-        </SvgAnimatedLinearGradient>
-    );
+    contentLoader = () => <ProfileLoadingState />;
 
     getHikeData = async () => {
         const favoritedHikes = await getUserFavoriteHikes();
@@ -129,7 +116,7 @@ class ProfileScreen extends React.Component {
             );
         }
         if (loading) {
-            return <RootView>{this.contentLoader(loading)}</RootView>;
+            return <RootView>{this.contentLoader()}</RootView>;
         }
         return null;
     }
