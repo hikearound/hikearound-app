@@ -25,11 +25,6 @@ let inputs = [
 ];
 
 class SignInScreen extends React.Component {
-    static navigationOptions = {
-        headerTitle: 'Sign In',
-        headerBackTitle: null,
-    };
-
     constructor(props) {
         super(props);
 
@@ -42,6 +37,11 @@ class SignInScreen extends React.Component {
     componentDidMount() {
         StatusBar.setBarStyle('light-content', true);
     }
+
+    static navigationOptions = {
+        headerTitle: 'Sign In',
+        headerBackTitle: null,
+    };
 
     render() {
         const { navigation } = this.props;

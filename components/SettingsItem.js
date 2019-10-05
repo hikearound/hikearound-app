@@ -3,11 +3,10 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { TouchableOpacity, AsyncStorage } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { Updates } from 'expo';
 import { connect } from 'react-redux';
-import firebase from 'firebase';
 import { colors, spacing, fontSizes, opacities } from '../constants/Index';
 import { updateMap } from '../actions/User';
+import { logoutUser } from '../utils/User';
 
 const propTypes = {
     item: PropTypes.string.isRequired,
@@ -58,12 +57,7 @@ class SettingsItem extends React.PureComponent {
     };
 
     handleLogout = async () => {
-        firebase
-            .auth()
-            .signOut()
-            .then(() => {
-                Updates.reload();
-            });
+        logoutUser();
     };
 
     itemPress = () => {

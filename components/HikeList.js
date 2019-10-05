@@ -23,7 +23,7 @@ class HikeList extends React.PureComponent {
             return (
                 <EmptyContainer>
                     <EmptyContainerText>
-                        {'Hikes that you favorite will appear here.'}
+                        Hikes that you favorite will appear here.
                     </EmptyContainerText>
                 </EmptyContainer>
             );

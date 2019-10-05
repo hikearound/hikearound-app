@@ -1,20 +1,12 @@
 import { AsyncStorage } from 'react-native';
-import * as firebase from 'firebase';
-import 'firebase/firestore';
+import { writeUserData, writePhotoData } from '../utils/User';
 
 export const initializeUserData = (userData) => {
     return { type: 'INITIALIZE_USER_DATA', userData };
 };
 
 export const updateUserData = (userData) => {
-    const firestore = firebase.firestore();
-    const { uid } = firebase.auth().currentUser;
-
-    firestore
-        .collection('users')
-        .doc(uid)
-        .set(userData, { merge: true });
-
+    writeUserData(userData);
     return { type: 'UPDATE_USER_DATA', userData };
 };
 
@@ -23,14 +15,7 @@ export const initializeAvatar = (uri) => {
 };
 
 export const updateAvatar = (photoData) => {
-    const { uid } = firebase.auth().currentUser;
-
-    firebase
-        .storage()
-        .ref()
-        .child(`images/users/${uid}.jpg`)
-        .put(photoData.blob);
-
+    writePhotoData(photoData);
     return { type: 'UPDATE_AVATAR', photoData };
 };
 

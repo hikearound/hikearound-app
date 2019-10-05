@@ -3,12 +3,11 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-import * as firebase from 'firebase';
-import 'firebase/firestore';
 import { colors } from '../constants/Index';
 import { Settings, ProfileHeader, ProfileBody } from '../components/Index';
 import EditProfileModal from '../components/modals/EditProfileModal';
 import { initializeUserData, initializeAvatar } from '../actions/User';
+import { getUserFavoriteHikes, getAvatarUri, getUserData } from '../utils/User';
 
 const propTypes = {
     dispatchUserData: PropTypes.func.isRequired,
@@ -38,34 +37,21 @@ class ProfileScreen extends React.Component {
 
         this.state = {
             hikes: [],
-            loading: false,
+            loading: true,
             maybeShowEmptyState: false,
         };
     }
 
     async componentWillMount() {
-        this.getUserData();
+        this.getUserProfileData();
         this.getHikeData();
     }
 
-    getHikeSnapshot = async () => {
-        this.setState({ loading: true });
-
-        const firestore = firebase.firestore();
-        const uid = await this.getUid();
-
-        return firestore
-            .collection('favoritedHikes')
-            .doc(uid)
-            .collection('hikes')
-            .get();
-    };
-
     getHikeData = async () => {
-        const hikeSnapshot = await this.getHikeSnapshot();
+        const favoritedHikes = await getUserFavoriteHikes();
         const hikes = [];
 
-        hikeSnapshot.forEach((hike) => {
+        favoritedHikes.forEach((hike) => {
             if (hike.exists) {
                 const hikeData = hike.data() || {};
                 hikeData.id = hike.id;
@@ -85,29 +71,13 @@ class ProfileScreen extends React.Component {
         });
     };
 
-    getUid = async () => firebase.auth().currentUser.uid;
-
-    getUserSnapshot = async () => {
-        const firestore = firebase.firestore();
-        const uid = await this.getUid();
-
-        return firestore
-            .collection('users')
-            .doc(uid)
-            .get();
-    };
-
-    getUserData = async () => {
+    getUserProfileData = async () => {
         const { dispatchUserData, dispatchAvatar } = this.props;
 
-        const userSnapshot = await this.getUserSnapshot();
-        const userData = await userSnapshot.data();
+        const avatarUri = await getAvatarUri();
+        const userData = await getUserData();
 
-        const uid = await this.getUid();
-        const ref = firebase.storage().ref(`images/users/${uid}.jpg`);
-        const avatarUri = await ref.getDownloadURL();
-
-        dispatchUserData(userData);
+        dispatchUserData(userData.data());
         dispatchAvatar(avatarUri);
     };
 

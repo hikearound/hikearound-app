@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-import 'firebase/firestore';
 import Avatar from './Avatar';
 import {
     spacing,

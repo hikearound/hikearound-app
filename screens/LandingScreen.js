@@ -7,11 +7,6 @@ import { spacing } from '../constants/Index';
 const backgroundImg = require('../assets/landing-bg.png');
 
 class LandingScreen extends React.Component {
-    static navigationOptions = {
-        headerTitle: <Logo />,
-        headerBackTitle: null,
-    };
-
     constructor(props) {
         super(props);
         this.state = {
@@ -31,6 +26,11 @@ class LandingScreen extends React.Component {
             ]),
         ).start();
     }
+
+    static navigationOptions = {
+        headerTitle: <Logo />,
+        headerBackTitle: null,
+    };
 
     render() {
         const { left } = this.state;

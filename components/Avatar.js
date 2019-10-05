@@ -6,7 +6,7 @@ import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
 import { opacities } from '../constants/Index';
 import { updateAvatar } from '../actions/User';
-import shrinkImageAsync from '../utils/User';
+import { reduceImageAsync } from '../utils/Photo';
 
 const propTypes = {
     dispatchAvatar: PropTypes.func.isRequired,
@@ -55,7 +55,7 @@ class Avatar extends React.Component {
     uploadImage = async (originalUri) => {
         const { dispatchAvatar } = this.props;
 
-        const { uri } = await shrinkImageAsync(originalUri);
+        const { uri } = await reduceImageAsync(originalUri);
         const response = await fetch(uri);
         const blob = await response.blob();
 

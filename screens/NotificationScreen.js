@@ -2,16 +2,16 @@ import React from 'react';
 import { NotificationEmptyState } from '../components/Index';
 
 class NotificationScreen extends React.Component {
-    static navigationOptions = {
-        headerTitle: 'Notifications',
-    };
-
     constructor(props) {
         super(props);
         this.state = {
             notifications: [],
         };
     }
+
+    static navigationOptions = {
+        headerTitle: 'Notifications',
+    };
 
     render() {
         const { notifications } = this.state;

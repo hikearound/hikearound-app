@@ -1,10 +1,10 @@
 import React from 'react';
 import { View } from 'react-native';
 import PropTypes from 'prop-types';
-import firebase from 'firebase';
 import styled from 'styled-components';
 import Thumbnail from './Thumbnail';
 import LightboxModal from './modals/LightboxModal';
+import { getHikeImage } from '../utils/Hike';
 
 const propTypes = {
     id: PropTypes.string.isRequired,
@@ -27,20 +27,13 @@ class PhotoLightboxGroup extends React.PureComponent {
         this.buildHikeImageArray();
     }
 
-    getHikeImageUrl = async (id, imageIndex) => {
-        const ref = firebase
-            .storage()
-            .ref(`hikes/${id}/images/${imageIndex}.jpg`);
-        return ref.getDownloadURL();
-    };
-
     buildHikeImageArray = async () => {
         const { id, images } = this.props;
         const imageArray = [];
 
         /* eslint-disable no-await-in-loop */
         for (let i = 0; i < images.length; i += 1) {
-            const imageUrl = await this.getHikeImageUrl(id, i);
+            const imageUrl = await getHikeImage(id, i);
             imageArray.push({
                 uri: imageUrl,
                 attribution: images[i],

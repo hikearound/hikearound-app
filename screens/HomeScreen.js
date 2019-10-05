@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { RefreshControl } from 'react-native';
-import firebase from 'firebase';
 import Fire from '../Fire';
 import { Logo, FeedList, Sort } from '../components/Index';
 import { colors } from '../constants/Index';
+import { getFeedHikeCount } from '../utils/Hike';
 
 const PAGE_SIZE = 5;
 
@@ -44,14 +44,9 @@ class HomeScreen extends React.Component {
         });
     }
 
-    setFeedHikeCount = () => {
-        firebase
-            .firestore()
-            .collection('hikes')
-            .get()
-            .then((snap) => {
-                this.setState({ feedHikeCount: snap.size });
-            });
+    setFeedHikeCount = async () => {
+        const feedHikeCount = await getFeedHikeCount();
+        this.setState({ feedHikeCount });
     };
 
     addhikes = (hikes) => {

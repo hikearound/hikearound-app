@@ -4,11 +4,6 @@ import { StatusBar } from 'react-native';
 import firebase from 'firebase';
 
 class AuthScreen extends React.Component {
-    static navigationOptions = {
-        header: null,
-        headerBackTitle: null,
-    };
-
     componentDidMount() {
         StatusBar.setBarStyle('light-content', true);
         this.getAuth();
@@ -22,6 +17,11 @@ class AuthScreen extends React.Component {
         this.authSubscription = firebase.auth().onAuthStateChanged((user) => {
             this.dispatchNav(user);
         });
+    };
+
+    static navigationOptions = {
+        header: null,
+        headerBackTitle: null,
     };
 
     dispatchNav(user) {

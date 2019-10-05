@@ -35,11 +35,6 @@ let inputs = [
 ];
 
 class CreateAccountScreen extends React.Component {
-    static navigationOptions = {
-        headerTitle: 'Create Account',
-        headerBackTitle: null,
-    };
-
     constructor(props) {
         super(props);
 
@@ -48,6 +43,11 @@ class CreateAccountScreen extends React.Component {
             ...input,
         }));
     }
+
+    static navigationOptions = {
+        headerTitle: 'Create Account',
+        headerBackTitle: null,
+    };
 
     render() {
         return (

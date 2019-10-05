@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { TouchableOpacity } from 'react-native';
 import styled from 'styled-components';
 import { withNavigation } from 'react-navigation';
-import firebase from 'firebase';
 import FeedCard from './FeedCard';
 import { spacing, opacities } from '../constants/Index';
+import { getHikeImage } from '../utils/Hike';
 
 const propTypes = {
     id: PropTypes.string.isRequired,
@@ -31,15 +31,14 @@ const defaultProps = {
 class FeedItem extends React.Component {
     constructor(props) {
         super(props);
-        const { images, id } = this.props;
-
         this.state = {};
+    }
 
+    async componentDidMount() {
+        const { images, id } = this.props;
         if (images.length >= 1) {
-            const ref = firebase.storage().ref(`hikes/${id}/images/0.jpg`);
-            ref.getDownloadURL().then((data) => {
-                this.setState({ imageUrl: data });
-            });
+            const imageUrl = await getHikeImage(id, 0);
+            this.setState({ imageUrl });
         }
     }
 

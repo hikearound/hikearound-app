@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import firebase from 'firebase';
 import { ScrollView, AsyncStorage } from 'react-native';
 import openMap from 'react-native-open-maps';
 import { parseString } from 'react-native-xml2js';
@@ -14,6 +13,7 @@ import {
 import { hikeActionSheet } from '../components/action_sheets/Hike';
 import { getMapSetting } from '../utils/Settings';
 import { colors } from '../constants/Index';
+import { getHikeXmlUrl } from '../utils/Hike';
 
 class HikeScreen extends React.Component {
     static navigationOptions = ({ navigation }) => {
@@ -57,19 +57,9 @@ class HikeScreen extends React.Component {
         }
     }
 
-    getHikeXmlUrl = async () => {
-        const xmlRef = await this.getXmlRef();
-        const ref = firebase.storage().ref(xmlRef);
-        return ref.getDownloadURL();
-    };
-
-    getXmlRef = async () => {
-        const { id } = this.state;
-        return `hikes/${id}/hike.gpx`;
-    };
-
     getHikeData = async () => {
-        const hikeXmlUrl = await this.getHikeXmlUrl();
+        const { id } = this.state;
+        const hikeXmlUrl = await getHikeXmlUrl(id);
         const hikeData = await AsyncStorage.getItem('hikeData');
 
         await fetch(hikeXmlUrl)

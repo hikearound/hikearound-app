@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import firebase from 'firebase';
 import { TouchableOpacity } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import {
@@ -11,6 +10,7 @@ import {
     spacing,
     opacities,
 } from '../constants/Index';
+import { getHikeSnapshot } from '../utils/Hike';
 
 const propTypes = {
     id: PropTypes.string.isRequired,
@@ -21,17 +21,9 @@ const propTypes = {
 
 class ProfileHikeRow extends React.PureComponent {
     getHikeData = async () => {
-        const hikeSnapshot = await this.getHikeSnapshot();
-        this.setHikeData(hikeSnapshot);
-    };
-
-    getHikeSnapshot = async () => {
         const { id } = this.props;
-        const firestore = firebase.firestore();
-        return firestore
-            .collection('hikes')
-            .doc(id)
-            .get();
+        const hikeSnapshot = await getHikeSnapshot(id);
+        this.setHikeData(hikeSnapshot);
     };
 
     setHikeData = async (hikeSnapshot) => {
