@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-// import SkeletonContent from 'react-native-skeleton-content';
 import SvgAnimatedLinearGradient from 'react-native-svg-animated-linear-gradient';
 import { Circle, Rect } from 'react-native-svg';
 import { colors } from '../constants/Index';
@@ -57,18 +56,6 @@ class ProfileScreen extends React.Component {
             });
         }, 3000);
     }
-
-    // contentLoader = (loading) => (
-    //     <SkeletonContent
-    //         containerStyle={{ flex: 1 }}
-    //         layout={[
-    //             { width: 220, height: 20, marginBottom: 6 },
-    //             { width: 180, height: 20, marginBottom: 6 },
-    //         ]}
-    //         animationDirection='horizontalLeft'
-    //         isLoading={loading}
-    //     />
-    // );
 
     contentLoader = () => (
         <SvgAnimatedLinearGradient
