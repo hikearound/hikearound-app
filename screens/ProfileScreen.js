@@ -1,29 +1,18 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { colors } from '../constants/Index';
 import { Settings, ProfileHeader, ProfileBody } from '../components/Index';
 import EditProfileModal from '../components/modals/EditProfileModal';
-import ProfileLoadingState from '../components/loading/Profile';
-import { initializeUserData, initializeAvatar } from '../actions/User';
-import { getUserFavoriteHikes, getAvatarUri, getUserData } from '../utils/User';
-
-const propTypes = {
-    dispatchUserData: PropTypes.func.isRequired,
-    dispatchAvatar: PropTypes.func.isRequired,
-};
+import { getUserFavoriteHikes } from '../utils/User';
 
 function mapStateToProps() {
     return {};
 }
 
-function mapDispatchToProps(dispatch) {
-    return {
-        dispatchUserData: (userData) => dispatch(initializeUserData(userData)),
-        dispatchAvatar: (avatarUri) => dispatch(initializeAvatar(avatarUri)),
-    };
+function mapDispatchToProps() {
+    return {};
 }
 
 class ProfileScreen extends React.Component {
@@ -44,19 +33,8 @@ class ProfileScreen extends React.Component {
     }
 
     async componentWillMount() {
-        this.getUserProfileData();
         this.getHikeData();
     }
-
-    componentDidMount() {
-        this.timeout = setTimeout(() => {
-            this.setState({
-                loading: false,
-            });
-        }, 3000);
-    }
-
-    contentLoader = () => <ProfileLoadingState />;
 
     getHikeData = async () => {
         const favoritedHikes = await getUserFavoriteHikes();
@@ -78,17 +56,8 @@ class ProfileScreen extends React.Component {
 
         this.setState({
             hikes,
+            loading: false,
         });
-    };
-
-    getUserProfileData = async () => {
-        const { dispatchUserData, dispatchAvatar } = this.props;
-
-        const avatarUri = await getAvatarUri();
-        const userData = await getUserData();
-
-        dispatchUserData(userData.data());
-        dispatchAvatar(avatarUri);
     };
 
     render() {
@@ -115,14 +84,9 @@ class ProfileScreen extends React.Component {
                 </RootView>
             );
         }
-        if (loading) {
-            return <RootView>{this.contentLoader()}</RootView>;
-        }
         return null;
     }
 }
-
-ProfileScreen.propTypes = propTypes;
 
 export default connect(
     mapStateToProps,

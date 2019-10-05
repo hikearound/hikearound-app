@@ -1,12 +1,32 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { RefreshControl } from 'react-native';
+import { connect } from 'react-redux';
 import Fire from '../Fire';
 import { Logo, FeedList, Sort } from '../components/Index';
 import { colors } from '../constants/Index';
 import { getFeedHikeCount } from '../utils/Hike';
+import { getAvatarUri, getUserData } from '../utils/User';
+import { initializeUserData, initializeAvatar } from '../actions/User';
 
 const PAGE_SIZE = 5;
+
+const propTypes = {
+    dispatchUserData: PropTypes.func.isRequired,
+    dispatchAvatar: PropTypes.func.isRequired,
+};
+
+function mapStateToProps() {
+    return {};
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        dispatchUserData: (userData) => dispatch(initializeUserData(userData)),
+        dispatchAvatar: (avatarUri) => dispatch(initializeAvatar(avatarUri)),
+    };
+}
 
 class HomeScreen extends React.Component {
     static navigationOptions = ({ navigation }) => {
@@ -42,7 +62,19 @@ class HomeScreen extends React.Component {
         navigation.setParams({
             sortType,
         });
+
+        this.getUserProfileData();
     }
+
+    getUserProfileData = async () => {
+        const { dispatchUserData, dispatchAvatar } = this.props;
+
+        const avatarUri = await getAvatarUri();
+        const userData = await getUserData();
+
+        dispatchUserData(userData.data());
+        dispatchAvatar(avatarUri);
+    };
 
     setFeedHikeCount = async () => {
         const feedHikeCount = await getFeedHikeCount();
@@ -118,7 +150,12 @@ class HomeScreen extends React.Component {
     }
 }
 
-export default HomeScreen;
+HomeScreen.propTypes = propTypes;
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(HomeScreen);
 
 const RootView = styled.View`
     background: ${colors.white};
