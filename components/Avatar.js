@@ -7,6 +7,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { opacities } from '../constants/Index';
 import { updateAvatar } from '../actions/User';
 import { reduceImageAsync } from '../utils/Photo';
+import { colors } from '../constants/Index';
 
 const propTypes = {
     dispatchAvatar: PropTypes.func.isRequired,
@@ -82,6 +83,7 @@ class Avatar extends React.Component {
                         height: size,
                         width: size,
                         borderRadius: size / 2,
+                        backgroundColor: colors.lightGray,
                     }}
                 />
             </TouchableOpacity>
