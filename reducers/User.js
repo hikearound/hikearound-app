@@ -1,7 +1,7 @@
 const initialState = {
     name: '',
     avatar:
-        'https://firebasestorage.googleapis.com/v0/b/hikearound-14dad.appspot.com/o/images%2Fuser%2Favatar.png?alt=media&token=3e2c0849-d35b-419b-a277-11103b480539',
+        'https://firebasestorage.googleapis.com/v0/b/hikearound-14dad.appspot.com/o/images%2Fuser%2Favatar.png?alt=media&token=1d347f82-4022-41bd-9b93-0cc22fc0837c',
     location: '',
     map: '',
 };

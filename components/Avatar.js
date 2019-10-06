@@ -11,11 +11,13 @@ import { reduceImageAsync } from '../utils/Photo';
 const propTypes = {
     dispatchAvatar: PropTypes.func.isRequired,
     avatar: PropTypes.string.isRequired,
+    avatarResizeMode: PropTypes.string,
     size: PropTypes.number,
 };
 
 const defaultProps = {
     size: 60,
+    avatarResizeMode: 'cover',
 };
 
 function mapStateToProps(state) {
@@ -68,7 +70,7 @@ class Avatar extends React.Component {
     };
 
     render() {
-        const { avatar, size } = this.props;
+        const { avatar, size, avatarResizeMode } = this.props;
         return (
             <TouchableOpacity
                 onPress={() => {
@@ -78,11 +80,12 @@ class Avatar extends React.Component {
             >
                 <Image
                     source={{ uri: avatar }}
+                    resizeMode={avatarResizeMode}
                     style={{
                         height: size,
                         width: size,
                         borderRadius: size / 2,
-                        backgroundColor: colors.lightGray,
+                        backgroundColor: colors.gray,
                     }}
                 />
             </TouchableOpacity>
