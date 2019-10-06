@@ -4,10 +4,9 @@ import { connect } from 'react-redux';
 import { TouchableOpacity, Image } from 'react-native';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
-import { opacities } from '../constants/Index';
+import { opacities, colors } from '../constants/Index';
 import { updateAvatar } from '../actions/User';
 import { reduceImageAsync } from '../utils/Photo';
-import { colors } from '../constants/Index';
 
 const propTypes = {
     dispatchAvatar: PropTypes.func.isRequired,
