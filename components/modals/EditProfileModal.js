@@ -108,7 +108,7 @@ class EditProfileModal extends ModalBase {
     renderModalBody = (updatedName, updatedLocation) => (
         <ModalBody>
             <AvatarWrapper>
-                <Avatar size={60} />
+                <Avatar isEditable size={60} />
             </AvatarWrapper>
             <InputLabelGroup
                 labelName='Name'

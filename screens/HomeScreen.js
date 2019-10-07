@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { RefreshControl } from 'react-native';
+import { RefreshControl, Image } from 'react-native';
 import { connect } from 'react-redux';
 import Fire from '../Fire';
 import { Logo, FeedList, Sort } from '../components/Index';
@@ -71,6 +71,10 @@ class HomeScreen extends React.Component {
 
         const avatarUri = await getAvatarUri();
         const userData = await getUserData();
+
+        if (typeof avatarUri === 'string') {
+            Image.prefetch(avatarUri);
+        }
 
         dispatchUserData(userData.data());
         dispatchAvatar(avatarUri);
