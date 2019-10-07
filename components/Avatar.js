@@ -5,7 +5,13 @@ import { TouchableOpacity, View } from 'react-native';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
 import { Image } from 'react-native-expo-image-cache';
-import { opacities, colors } from '../constants/Index';
+import { Ionicons } from '@expo/vector-icons';
+import {
+    opacities,
+    colors,
+    transparentColors,
+    spacing,
+} from '../constants/Index';
 import { updateAvatar } from '../actions/User';
 import { reduceImageAsync } from '../utils/Photo';
 
@@ -76,6 +82,7 @@ class Avatar extends React.Component {
         <Image
             uri={avatar}
             resizeMode={avatarResizeMode}
+            tint='dark'
             style={{
                 height: size,
                 width: size,
@@ -96,6 +103,26 @@ class Avatar extends React.Component {
                     activeOpacity={opacities.regular}
                 >
                     {this.avatar(avatar, avatarResizeMode, size)}
+                    <Ionicons
+                        name='ios-camera'
+                        color={transparentColors.white}
+                        size={30}
+                        style={{
+                            position: 'absolute',
+                            zIndex: 2,
+                            top: parseInt(spacing.small, 10),
+                            left: 19,
+                        }}
+                    />
+                    <View
+                        style={{
+                            position: 'absolute',
+                            backgroundColor: transparentColors.grayUltraDark,
+                            height: size,
+                            width: size,
+                            borderRadius: size / 2,
+                        }}
+                    />
                 </TouchableOpacity>
             );
         }
