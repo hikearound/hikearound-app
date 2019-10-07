@@ -82,7 +82,6 @@ class Avatar extends React.Component {
         <Image
             uri={avatar}
             resizeMode={avatarResizeMode}
-            tint='dark'
             style={{
                 height: size,
                 width: size,
