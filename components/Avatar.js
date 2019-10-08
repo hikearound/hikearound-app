@@ -57,7 +57,10 @@ class Avatar extends React.Component {
     };
 
     launchPhotoPicker = async () => {
-        const photo = await ImagePicker.launchImageLibraryAsync();
+        const photo = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+        });
         if (!photo.cancelled) {
             this.uploadImage(photo.uri);
         }
@@ -91,6 +94,31 @@ class Avatar extends React.Component {
         />
     );
 
+    cameraGradientOverlay = (size) => (
+        <View>
+            <Ionicons
+                name='ios-camera'
+                color={transparentColors.white}
+                size={30}
+                style={{
+                    position: 'absolute',
+                    zIndex: 2,
+                    top: parseInt(spacing.small, 10),
+                    left: 19,
+                }}
+            />
+            <View
+                style={{
+                    position: 'absolute',
+                    backgroundColor: transparentColors.grayUltraDark,
+                    height: size,
+                    width: size,
+                    borderRadius: size / 2,
+                }}
+            />
+        </View>
+    );
+
     render() {
         const { avatar, size, avatarResizeMode, isEditable } = this.props;
         if (isEditable) {
@@ -102,26 +130,7 @@ class Avatar extends React.Component {
                     activeOpacity={opacities.regular}
                 >
                     {this.avatar(avatar, avatarResizeMode, size)}
-                    <Ionicons
-                        name='ios-camera'
-                        color={transparentColors.white}
-                        size={30}
-                        style={{
-                            position: 'absolute',
-                            zIndex: 2,
-                            top: parseInt(spacing.small, 10),
-                            left: 19,
-                        }}
-                    />
-                    <View
-                        style={{
-                            position: 'absolute',
-                            backgroundColor: transparentColors.grayUltraDark,
-                            height: size,
-                            width: size,
-                            borderRadius: size / 2,
-                        }}
-                    />
+                    {this.cameraGradientOverlay(size)}
                 </TouchableOpacity>
             );
         }
