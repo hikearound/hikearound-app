@@ -34,7 +34,8 @@ class FavoriteButton extends React.Component {
     componentWillMount = async () => {
         const { id } = this.props;
         const hikeArray = await this.getFavoritedHikes();
-        if (hikeArray.includes(id)) {
+
+        if (hikeArray && hikeArray.includes(id)) {
             this.setHeartFilled();
         }
     };
