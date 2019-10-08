@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ScrollView } from 'react-native';
+import { ScrollView, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { colors } from '../constants/Index';
 import { Settings, ProfileHeader, ProfileBody } from '../components/Index';
 import EditProfileModal from '../components/modals/EditProfileModal';
 import { getUserFavoriteHikes } from '../utils/User';
+import ProfileLoadingState from '../components/loading/Profile';
 
 function mapStateToProps() {
     return {};
@@ -36,6 +37,14 @@ class ProfileScreen extends React.Component {
         this.getHikeData();
     }
 
+    componentDidMount() {
+        this.timeout = setTimeout(() => {
+            this.setState({
+                loading: false,
+            });
+        }, 2500);
+    }
+
     getHikeData = async () => {
         const favoritedHikes = await getUserFavoriteHikes();
         const hikes = [];
@@ -56,12 +65,12 @@ class ProfileScreen extends React.Component {
 
         this.setState({
             hikes,
-            loading: false,
         });
     };
 
     render() {
         const { hikes, loading, maybeShowEmptyState } = this.state;
+        const screenWidth = Math.round(Dimensions.get('window').width);
 
         if (!loading) {
             return (
@@ -84,6 +93,13 @@ class ProfileScreen extends React.Component {
                 </RootView>
             );
         }
+        if (loading) {
+            return (
+                <RootView>
+                    <ProfileLoadingState width={screenWidth} />
+                </RootView>
+            );
+        }
         return null;
     }
 }
@@ -97,4 +113,5 @@ const RootView = styled.View`
     background: ${colors.white};
     flex: 1;
     overflow: hidden;
+    width: 100%;
 `;
