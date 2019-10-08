@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ScrollView, Dimensions } from 'react-native';
+import { ScrollView, Dimensions, LayoutAnimation } from 'react-native';
 import { connect } from 'react-redux';
 import { colors } from '../constants/Index';
 import { Settings, ProfileHeader, ProfileBody } from '../components/Index';
@@ -73,6 +73,7 @@ class ProfileScreen extends React.Component {
         const screenWidth = Math.round(Dimensions.get('window').width);
 
         if (!loading) {
+            LayoutAnimation.easeInEaseOut();
             return (
                 <RootView>
                     <ScrollView showsVerticalScrollIndicator={false}>
