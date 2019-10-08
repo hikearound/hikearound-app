@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ScrollView, AsyncStorage } from 'react-native';
+import { ScrollView } from 'react-native';
 import openMap from 'react-native-open-maps';
 import { parseString } from 'react-native-xml2js';
 import {
@@ -60,17 +60,16 @@ class HikeScreen extends React.Component {
     getHikeData = async () => {
         const { id } = this.state;
         const hikeXmlUrl = await getHikeXmlUrl(id);
-        const hikeData = await AsyncStorage.getItem('hikeData');
 
         await fetch(hikeXmlUrl)
             .then((response) => response.text())
             .then((response) => {
                 parseString(response, (err, result) => {
-                    AsyncStorage.setItem('hikeData', JSON.stringify(result));
+                    const hikeData = JSON.stringify(result);
+                    this.setHikeData(JSON.parse(hikeData));
                 });
             });
 
-        this.setHikeData(JSON.parse(hikeData));
         this.parseCoordinates();
         this.setMapRegion();
     };

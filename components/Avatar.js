@@ -45,7 +45,7 @@ class Avatar extends React.Component {
     checkPhotoPermissions = async () => {
         const { status } = await Permissions.getAsync(Permissions.CAMERA_ROLL);
         if (status !== 'granted') {
-            const { newStatus } = await Permissions.askAsync(
+            const { status: newStatus } = await Permissions.askAsync(
                 Permissions.CAMERA_ROLL,
             );
             if (newStatus === 'granted') {
