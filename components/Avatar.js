@@ -95,7 +95,15 @@ class Avatar extends React.Component {
     );
 
     cameraGradientOverlay = (size) => (
-        <View>
+        <View
+            style={{
+                position: 'absolute',
+                backgroundColor: transparentColors.grayUltraDark,
+                height: size,
+                width: size,
+                borderRadius: size / 2,
+            }}
+        >
             <Ionicons
                 name='ios-camera'
                 color={transparentColors.white}
@@ -105,15 +113,6 @@ class Avatar extends React.Component {
                     zIndex: 2,
                     top: parseInt(spacing.small, 10),
                     left: 19,
-                }}
-            />
-            <View
-                style={{
-                    position: 'absolute',
-                    backgroundColor: transparentColors.grayUltraDark,
-                    height: size,
-                    width: size,
-                    borderRadius: size / 2,
                 }}
             />
         </View>
