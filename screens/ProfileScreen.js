@@ -49,7 +49,7 @@ class ProfileScreen extends React.Component {
             this.setState({
                 loading: false,
             });
-        }, 2500);
+        }, 1500);
     }
 
     getHikeData = async () => {

@@ -60,7 +60,7 @@ class HomeScreen extends React.Component {
             this.setState({
                 firstLoad: false,
             });
-        }, 2500);
+        }, 1500);
 
         if (Fire.shared.uid) {
             this.makeRemoteRequest();
