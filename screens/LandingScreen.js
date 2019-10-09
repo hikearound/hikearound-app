@@ -73,7 +73,7 @@ const RootView = styled.View`
 const BackgroundWrapper = styled.View`
     height: 100%;
     width: 500%;
-    opacity: 0.5;
+    opacity: 0.7;
 `;
 
 const LandingBackground = styled.ImageBackground`
