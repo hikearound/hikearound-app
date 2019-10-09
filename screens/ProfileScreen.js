@@ -30,6 +30,7 @@ class ProfileScreen extends React.Component {
             hikes: [],
             loading: true,
             maybeShowEmptyState: false,
+            shouldLoad: false,
         };
     }
 
@@ -38,6 +39,12 @@ class ProfileScreen extends React.Component {
     }
 
     componentDidMount() {
+        this.loadingTimeout = setTimeout(() => {
+            this.setState({
+                shouldLoad: true,
+            });
+        }, 25);
+
         this.timeout = setTimeout(() => {
             this.setState({
                 loading: false,
@@ -69,7 +76,7 @@ class ProfileScreen extends React.Component {
     };
 
     render() {
-        const { hikes, loading, maybeShowEmptyState } = this.state;
+        const { hikes, loading, maybeShowEmptyState, shouldLoad } = this.state;
         const screenWidth = Math.round(Dimensions.get('window').width);
 
         if (!loading) {
@@ -94,7 +101,7 @@ class ProfileScreen extends React.Component {
                 </RootView>
             );
         }
-        if (loading) {
+        if (loading && shouldLoad) {
             return (
                 <RootView>
                     <ProfileLoadingState width={screenWidth} />

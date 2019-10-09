@@ -6,7 +6,16 @@ class NotificationScreen extends React.Component {
         super(props);
         this.state = {
             notifications: [],
+            shouldLoad: false,
         };
+    }
+
+    componentDidMount() {
+        this.loadingTimeout = setTimeout(() => {
+            this.setState({
+                shouldLoad: true,
+            });
+        }, 25);
     }
 
     static navigationOptions = {
@@ -14,9 +23,12 @@ class NotificationScreen extends React.Component {
     };
 
     render() {
-        const { notifications } = this.state;
-        if (notifications.length === 0) {
-            return <NotificationEmptyState />;
+        const { notifications, shouldLoad } = this.state;
+
+        if (shouldLoad) {
+            if (notifications.length === 0) {
+                return <NotificationEmptyState />;
+            }
         }
         return null;
     }
