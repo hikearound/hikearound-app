@@ -3,6 +3,7 @@ import spacing from './Spacing';
 import { fontSizes, fontWeights } from './Fonts';
 import { borderRadius } from './Dimensions';
 import { opacities } from './Opacities';
+import timings from './Timings';
 
 export {
     colors,
@@ -12,4 +13,5 @@ export {
     fontWeights,
     borderRadius,
     opacities,
+    timings,
 };

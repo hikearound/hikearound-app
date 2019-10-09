@@ -1,4 +1,5 @@
 import React from 'react';
+import { timings } from '../constants/Index';
 import { NotificationEmptyState } from '../components/Index';
 
 class NotificationScreen extends React.Component {
@@ -15,7 +16,7 @@ class NotificationScreen extends React.Component {
             this.setState({
                 shouldLoad: true,
             });
-        }, 25);
+        }, timings.short);
     }
 
     static navigationOptions = {

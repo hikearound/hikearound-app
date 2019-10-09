@@ -5,7 +5,7 @@ import { RefreshControl, Image, LayoutAnimation } from 'react-native';
 import { connect } from 'react-redux';
 import Fire from '../Fire';
 import { Logo, FeedList, Sort } from '../components/Index';
-import { colors } from '../constants/Index';
+import { colors, timings } from '../constants/Index';
 import { getFeedHikeCount } from '../utils/Hike';
 import { getAvatarUri, getUserData } from '../utils/User';
 import { initializeUserData, initializeAvatar } from '../actions/User';
@@ -60,7 +60,7 @@ class HomeScreen extends React.Component {
             this.setState({
                 firstLoad: false,
             });
-        }, 1500);
+        }, timings.long);
 
         if (Fire.shared.uid) {
             this.makeRemoteRequest();

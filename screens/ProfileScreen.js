@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { ScrollView, LayoutAnimation } from 'react-native';
 import { connect } from 'react-redux';
-import { colors } from '../constants/Index';
+import { colors, timings } from '../constants/Index';
 import { Settings, ProfileHeader, ProfileBody } from '../components/Index';
 import EditProfileModal from '../components/modals/EditProfileModal';
 import { getUserFavoriteHikes } from '../utils/User';
@@ -43,13 +43,13 @@ class ProfileScreen extends React.Component {
             this.setState({
                 shouldLoad: true,
             });
-        }, 25);
+        }, timings.short);
 
         this.timeout = setTimeout(() => {
             this.setState({
                 loading: false,
             });
-        }, 1500);
+        }, timings.long);
     }
 
     getHikeData = async () => {
