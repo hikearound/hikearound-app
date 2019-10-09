@@ -28,7 +28,7 @@ const ProfileLoadingState = ({ width, circleDimension }) => (
         <SvgAnimatedLinearGradient
             height={300}
             width={width}
-            duration={1000}
+            duration={800}
             primaryColor={colors.cardGray}
             secondaryColor={colors.white}
         >
