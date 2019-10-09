@@ -29,7 +29,7 @@ const ProfileLoadingState = ({ width, circleDimension }) => (
             height={300}
             width={width}
             duration={1000}
-            primaryColor={colors.gray}
+            primaryColor={colors.cardGray}
             secondaryColor={colors.white}
         >
             <Circle
