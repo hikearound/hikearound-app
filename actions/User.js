@@ -1,5 +1,4 @@
-import { AsyncStorage } from 'react-native';
-import { writeUserData, writePhotoData } from '../utils/User';
+import { writeUserData, writePhotoData, writeMapData } from '../utils/User';
 
 export const initializeUserData = (userData) => {
     return { type: 'INITIALIZE_USER_DATA', userData };
@@ -20,6 +19,6 @@ export const updateAvatar = (photoData) => {
 };
 
 export const updateMap = (map) => {
-    AsyncStorage.setItem('mapSetting', map);
+    writeMapData(map);
     return { type: 'UPDATE_MAP', map };
 };

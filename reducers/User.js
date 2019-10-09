@@ -13,13 +13,13 @@ export default function userReducer(state = initialState, action) {
                 ...state,
                 name: action.userData.name,
                 location: action.userData.location,
+                map: action.userData.map,
             };
         case 'UPDATE_USER_DATA':
             return {
                 ...state,
                 name: action.userData.name,
                 location: action.userData.location,
-                map: action.userData.defaultMap,
             };
         case 'INITIALIZE_AVATAR':
             return {

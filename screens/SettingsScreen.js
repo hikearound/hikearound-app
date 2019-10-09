@@ -16,10 +16,8 @@ const SETTING_ITEMS = [
     },
 ];
 
-function mapStateToProps(state) {
-    return {
-        map: state.userReducer.map,
-    };
+function mapStateToProps() {
+    return {};
 }
 
 class SettingsScreen extends React.Component {

@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { ScrollView } from 'react-native';
 import openMap from 'react-native-open-maps';
 import { parseString } from 'react-native-xml2js';
@@ -14,6 +16,20 @@ import { hikeActionSheet } from '../components/action_sheets/Hike';
 import { getMapSetting } from '../utils/Settings';
 import { colors } from '../constants/Index';
 import { getHikeXmlUrl } from '../utils/Hike';
+
+const propTypes = {
+    map: PropTypes.string.isRequired,
+};
+
+function mapStateToProps(state) {
+    return {
+        map: state.userReducer.map,
+    };
+}
+
+function mapDispatchToProps() {
+    return {};
+}
 
 class HikeScreen extends React.Component {
     static navigationOptions = ({ navigation }) => {
@@ -92,7 +108,9 @@ class HikeScreen extends React.Component {
 
     navigationToHike = async () => {
         const { startingLat, startingLon } = this.state;
-        const mapProvider = await getMapSetting();
+        const { map } = this.props;
+
+        const mapProvider = getMapSetting(map);
 
         openMap({
             provider: mapProvider,
@@ -169,7 +187,12 @@ class HikeScreen extends React.Component {
     }
 }
 
-export default HikeScreen;
+HikeScreen.propTypes = propTypes;
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(HikeScreen);
 
 const RootView = styled.View`
     background-color: ${colors.white};

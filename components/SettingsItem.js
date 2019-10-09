@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { TouchableOpacity, AsyncStorage } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { connect } from 'react-redux';
 import { colors, spacing, fontSizes, opacities } from '../constants/Index';
@@ -11,12 +11,12 @@ import { logoutUser } from '../utils/User';
 const propTypes = {
     item: PropTypes.string.isRequired,
     dispatchMap: PropTypes.func.isRequired,
-    defaultMap: PropTypes.string.isRequired,
+    map: PropTypes.string.isRequired,
 };
 
 function mapStateToProps(state) {
     return {
-        defaultMap: state.userReducer.map,
+        map: state.userReducer.map,
     };
 }
 
@@ -37,22 +37,17 @@ class SettingsItem extends React.PureComponent {
     }
 
     componentWillMount = async () => {
-        const { item, dispatchMap } = this.props;
-        const map = await AsyncStorage.getItem('mapSetting');
-
-        dispatchMap(map);
+        const { item, map } = this.props;
         if (item === map) {
             this.selectItem();
         }
     };
 
     componentDidUpdate = async () => {
-        const { item, defaultMap } = this.props;
+        const { item, map } = this.props;
 
-        if (item === 'Logout' || item !== defaultMap) {
+        if (item === 'Logout' || item !== map) {
             this.unselectItem();
-        } else {
-            this.selectItem();
         }
     };
 
@@ -61,11 +56,13 @@ class SettingsItem extends React.PureComponent {
     };
 
     itemPress = () => {
-        const { item, dispatchMap } = this.props;
+        const { item, dispatchMap, map } = this.props;
 
         if (item === 'Logout') {
             this.handleLogout();
-        } else {
+        }
+        if (item !== map) {
+            this.selectItem();
             dispatchMap(item);
         }
     };

@@ -10,6 +10,16 @@ export function writeUserData(userData) {
         .set(userData, { merge: true });
 }
 
+export function writeMapData(map) {
+    const { uid } = firebase.auth().currentUser;
+    const mapData = { map };
+    firebase
+        .firestore()
+        .collection('users')
+        .doc(uid)
+        .set(mapData, { merge: true });
+}
+
 export function writePhotoData(photoData) {
     const { uid } = firebase.auth().currentUser;
     firebase
