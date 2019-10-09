@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { RefreshControl, Image } from 'react-native';
+import { RefreshControl, Image, LayoutAnimation } from 'react-native';
 import { connect } from 'react-redux';
 import Fire from '../Fire';
 import { Logo, FeedList, Sort } from '../components/Index';
@@ -9,6 +9,7 @@ import { colors } from '../constants/Index';
 import { getFeedHikeCount } from '../utils/Hike';
 import { getAvatarUri, getUserData } from '../utils/User';
 import { initializeUserData, initializeAvatar } from '../actions/User';
+import HomeLoadingState from '../components/loading/Home';
 
 const PAGE_SIZE = 5;
 
@@ -47,12 +48,19 @@ class HomeScreen extends React.Component {
             loading: true,
             hikes: [],
             data: {},
+            firstLoad: true,
         };
     }
 
     componentDidMount() {
         const { navigation } = this.props;
         const { sortType } = this.state;
+
+        this.loadingTimeout = setTimeout(() => {
+            this.setState({
+                firstLoad: false,
+            });
+        }, 2500);
 
         if (Fire.shared.uid) {
             this.makeRemoteRequest();
@@ -132,25 +140,36 @@ class HomeScreen extends React.Component {
     };
 
     render() {
-        const { loading, hikes } = this.state;
+        const { loading, hikes, firstLoad } = this.state;
         const feedRef = React.createRef();
 
-        return (
-            <RootView>
-                <FeedList
-                    refreshControl={
-                        <RefreshControl
-                            tintColor='#E4E4E4'
-                            refreshing={loading}
-                            onRefresh={this.onRefresh}
-                        />
-                    }
-                    feedRef={feedRef}
-                    onEndReached={this.onEndReached}
-                    hikes={hikes}
-                />
-            </RootView>
-        );
+        if (!firstLoad) {
+            return (
+                <RootView>
+                    <FeedList
+                        refreshControl={
+                            <RefreshControl
+                                tintColor={colors.cardGray}
+                                refreshing={loading}
+                                onRefresh={this.onRefresh}
+                            />
+                        }
+                        feedRef={feedRef}
+                        onEndReached={this.onEndReached}
+                        hikes={hikes}
+                    />
+                </RootView>
+            );
+        }
+        if (firstLoad) {
+            LayoutAnimation.easeInEaseOut();
+            return (
+                <RootView>
+                    <HomeLoadingState />
+                </RootView>
+            );
+        }
+        return null;
     }
 }
 

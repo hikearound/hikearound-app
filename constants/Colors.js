@@ -9,6 +9,7 @@ export const colors = {
     gray: '#DADADA',
     borderGray: '#D8D8D8',
     darkGray: '#8E8E93',
+    cardGray: '#E4E4E4',
 };
 
 export const transparentColors = {

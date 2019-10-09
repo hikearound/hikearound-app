@@ -1,19 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View } from 'react-native';
+import { View, Dimensions } from 'react-native';
 import SvgAnimatedLinearGradient from 'react-native-svg-animated-linear-gradient';
 import { Circle, Rect } from 'react-native-svg';
 import { colors } from '../../constants/Index';
 
+const SCREEN_WIDTH = Math.round(Dimensions.get('window').width);
+
 const propTypes = {
     width: PropTypes.number,
+    circleDimension: PropTypes.number,
 };
 
 const defaultProps = {
-    width: 275,
+    width: SCREEN_WIDTH,
+    circleDimension: 30,
 };
 
-const ProfileLoadingState = ({ width }) => (
+const ProfileLoadingState = ({ width, circleDimension }) => (
     <View
         style={{
             position: 'absolute',
@@ -28,7 +32,11 @@ const ProfileLoadingState = ({ width }) => (
             primaryColor={colors.gray}
             secondaryColor={colors.white}
         >
-            <Circle cx='30' cy='30' r='30' />
+            <Circle
+                cx={circleDimension}
+                cy={circleDimension}
+                r={circleDimension}
+            />
             <Rect x='0' y='74' width='150' height='15' />
             <Rect x='0' y='97' width='120' height='11' />
         </SvgAnimatedLinearGradient>
