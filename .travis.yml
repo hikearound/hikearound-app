@@ -8,8 +8,7 @@ cache:
   - ".jest"
 before_script:
 - npm install -g npm@latest
-- echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl
-  -p
+- echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 script:
 - npm ci
 - npx jest --ci
