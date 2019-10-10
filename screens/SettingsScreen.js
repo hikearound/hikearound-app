@@ -5,16 +5,17 @@ import { SectionList } from 'react-native';
 import { SettingsItem } from '../components/Index';
 import { colors, fontSizes, spacing, fontWeights } from '../constants/Index';
 
-const SETTING_ITEMS = [
-    {
-        title: 'Default Map',
-        data: ['Apple Maps', 'Google Maps'],
-    },
-    {
-        title: 'Account',
-        data: ['Logout'],
-    },
-];
+const MAP_SECTION = {
+    title: 'Default Map',
+    data: ['Apple Maps', 'Google Maps'],
+};
+
+const ACCOUNT_SECTION = {
+    title: 'Account',
+    data: ['Logout'],
+};
+
+const SETTING_ITEMS = [MAP_SECTION, ACCOUNT_SECTION];
 
 function mapStateToProps() {
     return {};
@@ -26,7 +27,7 @@ class SettingsScreen extends React.Component {
     };
 
     renderItem = ({ item, index }) => (
-        <SettingsItem item={item} index={index} />
+        <SettingsItem item={item} index={index} sections={SETTING_ITEMS} />
     );
 
     renderSectionHeader = ({ section }) => (

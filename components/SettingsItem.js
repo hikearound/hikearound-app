@@ -12,6 +12,7 @@ const propTypes = {
     item: PropTypes.string.isRequired,
     dispatchMap: PropTypes.func.isRequired,
     map: PropTypes.string.isRequired,
+    sections: PropTypes.array.isRequired,
 };
 
 function mapStateToProps(state) {
@@ -29,24 +30,31 @@ function mapDispatchToProps(dispatch) {
 class SettingsItem extends React.PureComponent {
     constructor(props) {
         super(props);
+        const { sections } = this.props;
         this.handleLogout = this.handleLogout.bind(this);
+
         this.state = {
             textColor: colors.black,
             checkDisplay: 'none',
+            mapSectionData: sections[0].data,
+            accountSectionData: sections[1].data,
         };
     }
 
     componentWillMount = async () => {
         const { item, map } = this.props;
-        if (item === map) {
+        const { mapSectionData } = this.state;
+
+        if (mapSectionData.includes(item) && item === map) {
             this.selectItem();
         }
     };
 
     componentDidUpdate = async () => {
         const { item, map } = this.props;
+        const { mapSectionData } = this.state;
 
-        if (item === 'Logout' || item !== map) {
+        if (mapSectionData.includes(item) && item !== map) {
             this.unselectItem();
         }
     };
@@ -56,16 +64,24 @@ class SettingsItem extends React.PureComponent {
     };
 
     itemPress = () => {
-        const { item, dispatchMap, map } = this.props;
+        const { item, map } = this.props;
+        const { accountSectionData, mapSectionData } = this.state;
 
-        if (item === 'Logout') {
+        if (accountSectionData.includes(item) && item === 'Logout') {
             this.handleLogout();
         }
-        if (item !== map) {
-            this.selectItem();
-            dispatchMap(item);
+
+        if (mapSectionData.includes(item) || item !== map) {
+            this.updateMapSelection();
         }
     };
+
+    updateMapSelection() {
+        const { item, dispatchMap } = this.props;
+
+        this.selectItem();
+        dispatchMap(item);
+    }
 
     selectItem() {
         this.setState({
