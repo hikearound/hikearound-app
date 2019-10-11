@@ -34,6 +34,7 @@ import FeedList from './FeedList';
 
 // Settings
 import SettingsItem from './SettingsItem';
+import SettingsSwitchItem from './SettingsSwitchItem';
 
 // Input Groups
 import CreateAccountInputGroup from './input_groups/CreateAccountInputGroup';
@@ -81,4 +82,5 @@ export {
     LightboxImage,
     HikeMapWrapper,
     NotificationEmptyState,
+    SettingsSwitchItem,
 };

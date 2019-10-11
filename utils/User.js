@@ -20,6 +20,16 @@ export function writeMapData(map) {
         .set(mapData, { merge: true });
 }
 
+export function writeDarkMode(darkMode) {
+    const { uid } = firebase.auth().currentUser;
+    const darkModeData = { darkMode };
+    firebase
+        .firestore()
+        .collection('users')
+        .doc(uid)
+        .set(darkModeData, { merge: true });
+}
+
 export function writePhotoData(photoData) {
     const { uid } = firebase.auth().currentUser;
     firebase

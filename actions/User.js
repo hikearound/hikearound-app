@@ -1,4 +1,9 @@
-import { writeUserData, writePhotoData, writeMapData } from '../utils/User';
+import {
+    writeUserData,
+    writePhotoData,
+    writeMapData,
+    writeDarkMode,
+} from '../utils/User';
 
 export const initializeUserData = (userData) => {
     return { type: 'INITIALIZE_USER_DATA', userData };
@@ -21,4 +26,9 @@ export const updateAvatar = (photoData) => {
 export const updateMap = (map) => {
     writeMapData(map);
     return { type: 'UPDATE_MAP', map };
+};
+
+export const updateDarkMode = (darkMode) => {
+    writeDarkMode(darkMode);
+    return { type: 'UPDATE_DARK_MODE', darkMode };
 };

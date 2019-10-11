@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { SectionList } from 'react-native';
-import { SettingsItem } from '../components/Index';
+import { SettingsItem, SettingsSwitchItem } from '../components/Index';
 import { colors, fontSizes, spacing, fontWeights } from '../constants/Index';
 
 const MAP_SECTION = {
@@ -10,12 +10,17 @@ const MAP_SECTION = {
     data: ['Apple Maps', 'Google Maps'],
 };
 
+const DISPLAY_SECTION = {
+    title: 'Display',
+    data: ['Dark Mode'],
+};
+
 const ACCOUNT_SECTION = {
     title: 'Account',
     data: ['Logout'],
 };
 
-const SETTING_ITEMS = [MAP_SECTION, ACCOUNT_SECTION];
+const SETTING_ITEMS = [MAP_SECTION, DISPLAY_SECTION, ACCOUNT_SECTION];
 
 function mapStateToProps() {
     return {};
@@ -26,9 +31,20 @@ class SettingsScreen extends React.Component {
         headerTitle: 'Settings',
     };
 
-    renderItem = ({ item, index }) => (
-        <SettingsItem item={item} index={index} sections={SETTING_ITEMS} />
-    );
+    renderItem = ({ item, index }) => {
+        if (item === 'Dark Mode') {
+            return (
+                <SettingsSwitchItem
+                    item={item}
+                    index={index}
+                    sections={SETTING_ITEMS}
+                />
+            );
+        }
+        return (
+            <SettingsItem item={item} index={index} sections={SETTING_ITEMS} />
+        );
+    };
 
     renderSectionHeader = ({ section }) => (
         <HeaderContainer>

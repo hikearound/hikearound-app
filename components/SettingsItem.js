@@ -37,7 +37,7 @@ class SettingsItem extends React.PureComponent {
             textColor: colors.black,
             checkDisplay: 'none',
             mapSectionData: sections[0].data,
-            accountSectionData: sections[1].data,
+            accountSectionData: sections[2].data,
         };
     }
 
