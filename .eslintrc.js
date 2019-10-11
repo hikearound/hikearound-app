@@ -15,6 +15,15 @@ module.exports = {
         'jest': true,
         'react-native/react-native': true,
     },
+    'settings': {
+        'import/resolver': {
+            'node': {
+                'extensions': [
+                    '.js', '.jsx', '.ts', '.tsx'
+                ],
+            }
+        }
+    },
     'plugins': [
         'react',
         'react-native',
