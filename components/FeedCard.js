@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
+import { ThemeContext } from 'react-navigation';
 import FeedCardGradient from './FeedCardGradient';
 import {
     spacing,
@@ -19,42 +20,54 @@ const propTypes = {
     route: PropTypes.string.isRequired,
 };
 
-const FeedCard = ({ image, name, distance, elevation, route }) => (
-    <Container>
-        <Cover>
-            <Image source={image} resizeMode='cover' />
-            <HikeName>{name}</HikeName>
-            <FeedCardGradient imageDidLoad={image.uri} />
-        </Cover>
-        <Content>
-            <ContentItem>
-                <MetaDataType>Distance</MetaDataType>
-                <MetaData>
-                    {distance}
-                    {'m'}
-                </MetaData>
-            </ContentItem>
-            <ContentItem>
-                <MetaDataType>Elevation</MetaDataType>
-                <MetaData>
-                    {elevation}
-                    {'ft'}
-                </MetaData>
-            </ContentItem>
-            <ContentItem>
-                <MetaDataType>Route</MetaDataType>
-                <MetaData>{route}</MetaData>
-            </ContentItem>
-        </Content>
-    </Container>
-);
+class FeedCard extends React.PureComponent {
+    static contextType = ThemeContext;
+
+    render() {
+        const { image, name, distance, elevation, route } = this.props;
+        const theme = this.context;
+
+        return (
+            <ThemeProvider theme={{ style: theme }}>
+                <Container>
+                    <Cover>
+                        <Image source={image} resizeMode='cover' />
+                        <HikeName>{name}</HikeName>
+                        <FeedCardGradient imageDidLoad={image.uri} />
+                    </Cover>
+                    <Content>
+                        <ContentItem>
+                            <MetaDataType>Distance</MetaDataType>
+                            <MetaData>
+                                {distance}
+                                {'m'}
+                            </MetaData>
+                        </ContentItem>
+                        <ContentItem>
+                            <MetaDataType>Elevation</MetaDataType>
+                            <MetaData>
+                                {elevation}
+                                {'ft'}
+                            </MetaData>
+                        </ContentItem>
+                        <ContentItem>
+                            <MetaDataType>Route</MetaDataType>
+                            <MetaData>{route}</MetaData>
+                        </ContentItem>
+                    </Content>
+                </Container>
+            </ThemeProvider>
+        );
+    }
+}
 
 FeedCard.propTypes = propTypes;
 
 export default FeedCard;
 
 const Container = styled.View`
-    background-color: ${colors.gray};
+    background-color: ${(props) =>
+        props.theme.style === 'dark' ? colors.black : colors.gray};
     width: 100%;
     border-radius: ${borderRadius.medium}px;
     box-shadow: 0 4px 12px ${transparentColors.gray};

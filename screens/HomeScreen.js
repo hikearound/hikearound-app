@@ -194,7 +194,7 @@ export default connect(
 
 const RootView = styled.View`
     background-color: ${(props) =>
-        props.theme.style === 'dark' ? colors.black : colors.white};
+        props.theme.style === 'dark' ? colors.trueBlack : colors.white};
     flex: 1;
     overflow: hidden;
 `;
