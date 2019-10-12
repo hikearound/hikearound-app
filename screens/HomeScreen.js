@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled, { ThemeProvider } from 'styled-components';
+import styled from 'styled-components';
 import { RefreshControl, Image, LayoutAnimation } from 'react-native';
 import { connect } from 'react-redux';
 import { ThemeContext } from 'react-navigation';
@@ -31,11 +31,21 @@ function mapDispatchToProps(dispatch) {
 }
 
 class HomeScreen extends React.Component {
-    static navigationOptions = ({ navigation }) => {
+    static navigationOptions = ({ navigation, navigationOptions, theme }) => {
         const { params = {} } = navigation.state;
+        const style = navigationOptions.headerStyle;
+
         return {
             headerTitle: <Logo />,
             headerBackTitle: null,
+            headerStyle: {
+                backgroundColor:
+                    theme === 'dark' ? colors.black : colors.purple,
+                height: style.height,
+                borderBottomWidth: style.borderBottomWidth,
+                marginLeft: style.marginLeft,
+                marginRight: style.marginRight,
+            },
             headerRight: <Sort sortType={params.sortType} />,
         };
     };
@@ -149,36 +159,32 @@ class HomeScreen extends React.Component {
 
         if (!firstLoad) {
             return (
-                <ThemeProvider theme={{ style: theme }}>
-                    <RootView>
-                        <FeedList
-                            refreshControl={
-                                <RefreshControl
-                                    tintColor={
-                                        theme === 'dark'
-                                            ? colors.white
-                                            : colors.cardGray
-                                    }
-                                    refreshing={loading}
-                                    onRefresh={this.onRefresh}
-                                />
-                            }
-                            feedRef={feedRef}
-                            onEndReached={this.onEndReached}
-                            hikes={hikes}
-                        />
-                    </RootView>
-                </ThemeProvider>
+                <RootView theme={theme}>
+                    <FeedList
+                        refreshControl={
+                            <RefreshControl
+                                tintColor={
+                                    theme === 'dark'
+                                        ? colors.white
+                                        : colors.cardGray
+                                }
+                                refreshing={loading}
+                                onRefresh={this.onRefresh}
+                            />
+                        }
+                        feedRef={feedRef}
+                        onEndReached={this.onEndReached}
+                        hikes={hikes}
+                    />
+                </RootView>
             );
         }
         if (firstLoad) {
             LayoutAnimation.easeInEaseOut();
             return (
-                <ThemeProvider theme={{ style: theme }}>
-                    <RootView>
-                        <HomeLoadingState />
-                    </RootView>
-                </ThemeProvider>
+                <RootView theme={theme}>
+                    <HomeLoadingState />
+                </RootView>
             );
         }
         return null;
@@ -194,7 +200,7 @@ export default connect(
 
 const RootView = styled.View`
     background-color: ${(props) =>
-        props.theme.style === 'dark' ? colors.trueBlack : colors.white};
+        props.theme === 'dark' ? colors.trueBlack : colors.white};
     flex: 1;
     overflow: hidden;
 `;
