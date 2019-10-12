@@ -16,10 +16,13 @@ const PAGE_SIZE = 5;
 const propTypes = {
     dispatchUserData: PropTypes.func.isRequired,
     dispatchAvatar: PropTypes.func.isRequired,
+    darkMode: PropTypes.bool.isRequired,
 };
 
-function mapStateToProps() {
-    return {};
+function mapStateToProps(state) {
+    return {
+        darkMode: state.userReducer.darkMode,
+    };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -140,6 +143,7 @@ class HomeScreen extends React.Component {
     };
 
     render() {
+        const { darkMode } = this.props;
         const { loading, hikes, firstLoad } = this.state;
         const feedRef = React.createRef();
 
@@ -149,7 +153,9 @@ class HomeScreen extends React.Component {
                     <FeedList
                         refreshControl={
                             <RefreshControl
-                                tintColor={colors.cardGray}
+                                tintColor={
+                                    darkMode ? colors.white : colors.cardGray
+                                }
                                 refreshing={loading}
                                 onRefresh={this.onRefresh}
                             />
@@ -181,7 +187,7 @@ export default connect(
 )(HomeScreen);
 
 const RootView = styled.View`
-    background: ${colors.white};
+    color: ${(props) => (props.darkMode ? colors.white : colors.black)};
     flex: 1;
     overflow: hidden;
 `;
