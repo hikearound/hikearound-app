@@ -16,8 +16,30 @@ import {
     CreateAccountScreen,
 } from '../screens/Index';
 
-const activeColor = colors.purple;
-const inactiveColor = colors.darkGray;
+const themeColors = {
+    light: {
+        activeColor: colors.purple,
+        inactiveColor: colors.darkGray,
+    },
+    dark: {
+        activeColor: colors.white,
+        inactiveColor: colors.darkGray,
+    },
+};
+
+const defaultNavigationOptions = {
+    headerStyle: {
+        backgroundColor: colors.purple,
+        height: parseInt(spacing.header, 10),
+        borderBottomWidth: 0,
+        marginLeft: 5,
+        marginRight: 5,
+    },
+    headerTintColor: colors.white,
+    headerTitleStyle: {
+        fontSize: parseInt(fontSizes.big, 10),
+    },
+};
 
 const HomeStack = createStackNavigator(
     {
@@ -33,23 +55,11 @@ const HomeStack = createStackNavigator(
         headerMode: 'float',
         headerTransitionPreset: 'uikit', // uikit
         initialRouteName: 'Auth',
-        defaultNavigationOptions: {
-            headerStyle: {
-                backgroundColor: colors.purple,
-                height: parseInt(spacing.header, 10),
-                borderBottomWidth: 0,
-                marginLeft: 5,
-                marginRight: 5,
-            },
-            headerTintColor: colors.white,
-            headerTitleStyle: {
-                fontSize: parseInt(fontSizes.big, 10),
-            },
-        },
+        defaultNavigationOptions,
     },
 );
 
-HomeStack.navigationOptions = ({ navigation }) => {
+HomeStack.navigationOptions = ({ navigation, theme }) => {
     let tabBarVisible = false;
     const { routeName } = navigation.state.routes[navigation.state.index];
 
@@ -63,7 +73,14 @@ HomeStack.navigationOptions = ({ navigation }) => {
         tabBarLabel: 'Home',
 
         tabBarIcon: ({ focused }) => (
-            <HomeIcon size={26} fill={focused ? activeColor : inactiveColor} />
+            <HomeIcon
+                size={26}
+                fill={
+                    focused
+                        ? themeColors[theme].activeColor
+                        : themeColors[theme].inactiveColor
+                }
+            />
         ),
     };
 };
@@ -73,27 +90,23 @@ const NotificationStack = createStackNavigator(
         Notification: NotificationScreen,
     },
     {
-        defaultNavigationOptions: {
-            headerStyle: {
-                backgroundColor: colors.purple,
-                height: parseInt(spacing.header, 10),
-                borderBottomWidth: 0,
-                marginLeft: 5,
-                marginRight: 5,
-            },
-            headerTintColor: colors.white,
-            headerTitleStyle: {
-                fontSize: parseInt(fontSizes.big, 10),
-            },
-        },
+        defaultNavigationOptions,
     },
 );
 
-NotificationStack.navigationOptions = {
-    tabBarLabel: 'Notifications',
-    tabBarIcon: ({ focused }) => (
-        <BellIcon fill={focused ? activeColor : inactiveColor} />
-    ),
+NotificationStack.navigationOptions = ({ theme }) => {
+    return {
+        tabBarLabel: 'Notifications',
+        tabBarIcon: ({ focused }) => (
+            <BellIcon
+                fill={
+                    focused
+                        ? themeColors[theme].activeColor
+                        : themeColors[theme].inactiveColor
+                }
+            />
+        ),
+    };
 };
 
 const ProfileStack = createStackNavigator(
@@ -103,30 +116,24 @@ const ProfileStack = createStackNavigator(
         Hike: HikeScreen,
     },
     {
-        mode: 'card',
-        headerMode: 'float',
-        headerTransitionPreset: 'uikit',
-        defaultNavigationOptions: {
-            headerStyle: {
-                backgroundColor: colors.purple,
-                height: parseInt(spacing.header, 10),
-                borderBottomWidth: 0,
-                marginLeft: 5,
-                marginRight: 5,
-            },
-            headerTintColor: colors.white,
-            headerTitleStyle: {
-                fontSize: parseInt(fontSizes.big, 10),
-            },
-        },
+        defaultNavigationOptions,
     },
 );
 
-ProfileStack.navigationOptions = {
-    tabBarLabel: 'You',
-    tabBarIcon: ({ focused }) => (
-        <PersonIcon height={25} fill={focused ? activeColor : inactiveColor} />
-    ),
+ProfileStack.navigationOptions = ({ theme }) => {
+    return {
+        tabBarLabel: 'You',
+        tabBarIcon: ({ focused }) => (
+            <PersonIcon
+                height={25}
+                fill={
+                    focused
+                        ? themeColors[theme].activeColor
+                        : themeColors[theme].inactiveColor
+                }
+            />
+        ),
+    };
 };
 
 const TabNavigator = createBottomTabNavigator(
@@ -143,11 +150,17 @@ const TabNavigator = createBottomTabNavigator(
             },
         },
         tabBarOptions: {
-            activeTintColor: activeColor,
-            style: {
-                borderTopColor: colors.gray,
+            activeTintColor: {
+                light: colors.purple,
+                dark: colors.white,
             },
-            inactiveTintColor: inactiveColor,
+            // style: {
+            //     borderTopColor: colors.gray,
+            // },
+            inactiveTintColor: {
+                light: colors.darkGray,
+                dark: colors.gray,
+            },
             labelStyle: {
                 marginBottom: 0,
             },
