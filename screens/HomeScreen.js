@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 import { RefreshControl, Image, LayoutAnimation } from 'react-native';
 import { connect } from 'react-redux';
+import { ThemeContext } from 'react-navigation';
 import Fire from '../Fire';
 import { Logo, FeedList, Sort } from '../components/Index';
 import { colors, timings } from '../constants/Index';
@@ -16,13 +17,10 @@ const PAGE_SIZE = 5;
 const propTypes = {
     dispatchUserData: PropTypes.func.isRequired,
     dispatchAvatar: PropTypes.func.isRequired,
-    darkMode: PropTypes.bool.isRequired,
 };
 
-function mapStateToProps(state) {
-    return {
-        darkMode: state.userReducer.darkMode,
-    };
+function mapStateToProps() {
+    return {};
 }
 
 function mapDispatchToProps(dispatch) {
@@ -142,37 +140,45 @@ class HomeScreen extends React.Component {
         }
     };
 
+    static contextType = ThemeContext;
+
     render() {
-        const { darkMode } = this.props;
         const { loading, hikes, firstLoad } = this.state;
         const feedRef = React.createRef();
+        const theme = this.context;
 
         if (!firstLoad) {
             return (
-                <RootView>
-                    <FeedList
-                        refreshControl={
-                            <RefreshControl
-                                tintColor={
-                                    darkMode ? colors.white : colors.cardGray
-                                }
-                                refreshing={loading}
-                                onRefresh={this.onRefresh}
-                            />
-                        }
-                        feedRef={feedRef}
-                        onEndReached={this.onEndReached}
-                        hikes={hikes}
-                    />
-                </RootView>
+                <ThemeProvider theme={{ style: theme }}>
+                    <RootView>
+                        <FeedList
+                            refreshControl={
+                                <RefreshControl
+                                    tintColor={
+                                        theme === 'dark'
+                                            ? colors.white
+                                            : colors.cardGray
+                                    }
+                                    refreshing={loading}
+                                    onRefresh={this.onRefresh}
+                                />
+                            }
+                            feedRef={feedRef}
+                            onEndReached={this.onEndReached}
+                            hikes={hikes}
+                        />
+                    </RootView>
+                </ThemeProvider>
             );
         }
         if (firstLoad) {
             LayoutAnimation.easeInEaseOut();
             return (
-                <RootView>
-                    <HomeLoadingState />
-                </RootView>
+                <ThemeProvider theme={{ style: theme }}>
+                    <RootView>
+                        <HomeLoadingState />
+                    </RootView>
+                </ThemeProvider>
             );
         }
         return null;
@@ -187,7 +193,8 @@ export default connect(
 )(HomeScreen);
 
 const RootView = styled.View`
-    color: ${(props) => (props.darkMode ? colors.white : colors.black)};
+    background-color: ${(props) =>
+        props.theme.style === 'dark' ? colors.black : colors.white};
     flex: 1;
     overflow: hidden;
 `;
