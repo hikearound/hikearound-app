@@ -3,6 +3,7 @@ import * as Haptics from 'expo-haptics';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { colors, spacing, fontSizes } from '../constants/Index';
+import { themes } from '../constants/Themes';
 import { HomeIcon, BellIcon, PersonIcon } from '../icons/Index';
 import {
     LandingScreen,
@@ -15,17 +16,6 @@ import {
     SettingsScreen,
     CreateAccountScreen,
 } from '../screens/Index';
-
-const themeColors = {
-    light: {
-        activeColor: colors.purple,
-        inactiveColor: colors.darkGray,
-    },
-    dark: {
-        activeColor: colors.white,
-        inactiveColor: colors.darkGray,
-    },
-};
 
 const mode = 'card';
 const headerMode = 'float';
@@ -81,8 +71,8 @@ HomeStack.navigationOptions = ({ navigation, theme }) => {
                 size={26}
                 fill={
                     focused
-                        ? themeColors[theme].activeColor
-                        : themeColors[theme].inactiveColor
+                        ? themes[theme].navActiveColor
+                        : themes[theme].navInactiveColor
                 }
             />
         ),
@@ -108,8 +98,8 @@ NotificationStack.navigationOptions = ({ theme }) => {
             <BellIcon
                 fill={
                     focused
-                        ? themeColors[theme].activeColor
-                        : themeColors[theme].inactiveColor
+                        ? themes[theme].navActiveColor
+                        : themes[theme].navInactiveColor
                 }
             />
         ),
@@ -138,8 +128,8 @@ ProfileStack.navigationOptions = ({ theme }) => {
                 height={25}
                 fill={
                     focused
-                        ? themeColors[theme].activeColor
-                        : themeColors[theme].inactiveColor
+                        ? themes[theme].navActiveColor
+                        : themes[theme].navInactiveColor
                 }
             />
         ),
