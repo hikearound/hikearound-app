@@ -154,9 +154,6 @@ const TabNavigator = createBottomTabNavigator(
                 light: colors.purple,
                 dark: colors.white,
             },
-            // style: {
-            //     borderTopColor: colors.gray,
-            // },
             inactiveTintColor: {
                 light: colors.darkGray,
                 dark: colors.gray,

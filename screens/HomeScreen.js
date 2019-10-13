@@ -1,52 +1,28 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { RefreshControl, Image, LayoutAnimation } from 'react-native';
-import { connect } from 'react-redux';
+import { RefreshControl, LayoutAnimation } from 'react-native';
 import { ThemeContext } from 'react-navigation';
 import Fire from '../Fire';
 import { Logo, FeedList, Sort } from '../components/Index';
-import { colors, timings } from '../constants/Index';
+import { timings } from '../constants/Index';
+import { themes } from '../constants/Themes';
 import { getFeedHikeCount } from '../utils/Hike';
-import { getAvatarUri, getUserData } from '../utils/User';
-import { initializeUserData, initializeAvatar } from '../actions/User';
 import HomeLoadingState from '../components/loading/Home';
 
 const PAGE_SIZE = 5;
 
-const propTypes = {
-    dispatchUserData: PropTypes.func.isRequired,
-    dispatchAvatar: PropTypes.func.isRequired,
-};
-
-function mapStateToProps() {
-    return {};
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-        dispatchUserData: (userData) => dispatch(initializeUserData(userData)),
-        dispatchAvatar: (avatarUri) => dispatch(initializeAvatar(avatarUri)),
-    };
-}
-
 class HomeScreen extends React.Component {
     static navigationOptions = ({ navigation, navigationOptions, theme }) => {
         const { params = {} } = navigation.state;
-        const style = navigationOptions.headerStyle;
+        const { headerStyle } = navigationOptions;
+
+        headerStyle.backgroundColor = themes[theme].headerStyle;
 
         return {
             headerTitle: <Logo />,
             headerBackTitle: null,
-            headerStyle: {
-                backgroundColor:
-                    theme === 'dark' ? colors.black : colors.purple,
-                height: style.height,
-                borderBottomWidth: style.borderBottomWidth,
-                marginLeft: style.marginLeft,
-                marginRight: style.marginRight,
-            },
             headerRight: <Sort sortType={params.sortType} />,
+            headerStyle,
         };
     };
 
@@ -81,23 +57,7 @@ class HomeScreen extends React.Component {
         navigation.setParams({
             sortType,
         });
-
-        this.getUserProfileData();
     }
-
-    getUserProfileData = async () => {
-        const { dispatchUserData, dispatchAvatar } = this.props;
-
-        const avatarUri = await getAvatarUri();
-        const userData = await getUserData();
-
-        if (typeof avatarUri === 'string') {
-            Image.prefetch(avatarUri);
-        }
-
-        dispatchUserData(userData.data());
-        dispatchAvatar(avatarUri);
-    };
 
     setFeedHikeCount = async () => {
         const feedHikeCount = await getFeedHikeCount();
@@ -155,7 +115,7 @@ class HomeScreen extends React.Component {
     render() {
         const { loading, hikes, firstLoad } = this.state;
         const feedRef = React.createRef();
-        const theme = this.context;
+        const theme = themes[this.context];
 
         if (!firstLoad) {
             return (
@@ -163,11 +123,7 @@ class HomeScreen extends React.Component {
                     <FeedList
                         refreshControl={
                             <RefreshControl
-                                tintColor={
-                                    theme === 'dark'
-                                        ? colors.white
-                                        : colors.cardGray
-                                }
+                                tintColor={theme.refreshControlTint}
                                 refreshing={loading}
                                 onRefresh={this.onRefresh}
                             />
@@ -191,16 +147,9 @@ class HomeScreen extends React.Component {
     }
 }
 
-HomeScreen.propTypes = propTypes;
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps,
-)(HomeScreen);
+export default HomeScreen;
 
 const RootView = styled.View`
-    background-color: ${(props) =>
-        props.theme === 'dark' ? colors.trueBlack : colors.white};
-    flex: 1;
+    background-color: ${(props) => props.theme.rootBackground};
     overflow: hidden;
 `;
