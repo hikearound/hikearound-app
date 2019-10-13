@@ -27,6 +27,10 @@ const themeColors = {
     },
 };
 
+const mode = 'card';
+const headerMode = 'float';
+const headerTransitionPreset = 'uikit';
+
 const defaultNavigationOptions = {
     headerStyle: {
         backgroundColor: colors.purple,
@@ -51,9 +55,9 @@ const HomeStack = createStackNavigator(
         CreateAccount: CreateAccountScreen,
     },
     {
-        mode: 'card',
-        headerMode: 'float',
-        headerTransitionPreset: 'uikit', // uikit
+        mode,
+        headerMode,
+        headerTransitionPreset,
         initialRouteName: 'Auth',
         defaultNavigationOptions,
     },
@@ -90,6 +94,9 @@ const NotificationStack = createStackNavigator(
         Notification: NotificationScreen,
     },
     {
+        mode,
+        headerMode,
+        headerTransitionPreset,
         defaultNavigationOptions,
     },
 );
@@ -116,6 +123,9 @@ const ProfileStack = createStackNavigator(
         Hike: HikeScreen,
     },
     {
+        mode,
+        headerMode,
+        headerTransitionPreset,
         defaultNavigationOptions,
     },
 );
