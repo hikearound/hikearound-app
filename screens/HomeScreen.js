@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { RefreshControl, LayoutAnimation } from 'react-native';
+import { RefreshControl } from 'react-native';
 import { ThemeContext } from 'react-navigation';
 import Fire from '../Fire';
 import { Logo, FeedList, Sort } from '../components/Index';
@@ -117,9 +117,9 @@ class HomeScreen extends React.Component {
         const feedRef = React.createRef();
         const theme = themes[this.context];
 
-        if (!firstLoad) {
-            return (
-                <RootView theme={theme}>
+        return (
+            <RootView theme={theme}>
+                {!firstLoad && (
                     <FeedList
                         refreshControl={
                             <RefreshControl
@@ -132,18 +132,10 @@ class HomeScreen extends React.Component {
                         onEndReached={this.onEndReached}
                         hikes={hikes}
                     />
-                </RootView>
-            );
-        }
-        if (firstLoad) {
-            LayoutAnimation.easeInEaseOut();
-            return (
-                <RootView theme={theme}>
-                    <HomeLoadingState />
-                </RootView>
-            );
-        }
-        return null;
+                )}
+                {firstLoad && <HomeLoadingState />}
+            </RootView>
+        );
     }
 }
 

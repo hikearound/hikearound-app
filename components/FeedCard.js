@@ -1,4 +1,5 @@
 import React from 'react';
+import { LayoutAnimation } from 'react-native';
 import PropTypes from 'prop-types';
 import styled, { ThemeProvider } from 'styled-components';
 import { ThemeContext } from 'react-navigation';
@@ -21,6 +22,10 @@ const propTypes = {
 };
 
 class FeedCard extends React.PureComponent {
+    componentWillMount() {
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    }
+
     static contextType = ThemeContext;
 
     render() {
