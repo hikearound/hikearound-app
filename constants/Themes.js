@@ -7,6 +7,7 @@ export const themes = {
         rootBackground: colors.white,
         navActiveColor: colors.purple,
         navInactiveColor: colors.darkGray,
+        blockView: colors.purple,
     },
     dark: {
         headerStyle: colors.black,
@@ -14,6 +15,7 @@ export const themes = {
         rootBackground: colors.trueBlack,
         navActiveColor: colors.white,
         navInactiveColor: colors.darkGray,
+        blockView: colors.black,
     },
 };
 

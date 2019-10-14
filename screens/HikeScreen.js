@@ -1,5 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
+import { ThemeContext } from 'react-navigation';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { ScrollView } from 'react-native';
@@ -14,7 +15,7 @@ import {
 } from '../components/Index';
 import { hikeActionSheet } from '../components/action_sheets/Hike';
 import { getMapSetting } from '../utils/Settings';
-import { colors } from '../constants/Index';
+import { themes } from '../constants/Themes';
 import { getHikeXmlUrl } from '../utils/Hike';
 
 const propTypes = {
@@ -139,6 +140,8 @@ class HikeScreen extends React.Component {
         this.setState({ coordinates });
     }
 
+    static contextType = ThemeContext;
+
     render() {
         const {
             coordinates,
@@ -153,36 +156,40 @@ class HikeScreen extends React.Component {
             images,
         } = this.state;
 
+        const theme = themes[this.context];
+
         return (
-            <RootView>
-                <Toast name={name} />
-                <PurpleBlockView />
-                <ScrollView showsVerticalScrollIndicator={false}>
-                    <HikeMapWrapper
+            <ThemeProvider theme={theme}>
+                <RootView>
+                    <Toast name={name} />
+                    <PurpleBlockView />
+                    <ScrollView showsVerticalScrollIndicator={false}>
+                        <HikeMapWrapper
+                            coordinates={coordinates}
+                            region={region}
+                            distance={distance}
+                            elevation={elevation}
+                            route={route}
+                        />
+                        <HikeBody
+                            name={name}
+                            city={city}
+                            description={description}
+                            id={id}
+                            images={images}
+                        />
+                    </ScrollView>
+                    <MapModal
+                        mapRef={(ref) => {
+                            this.mapView = ref;
+                        }}
                         coordinates={coordinates}
                         region={region}
-                        distance={distance}
-                        elevation={elevation}
-                        route={route}
+                        animationType='push'
+                        modalAction='showMap'
                     />
-                    <HikeBody
-                        name={name}
-                        city={city}
-                        description={description}
-                        id={id}
-                        images={images}
-                    />
-                </ScrollView>
-                <MapModal
-                    mapRef={(ref) => {
-                        this.mapView = ref;
-                    }}
-                    coordinates={coordinates}
-                    region={region}
-                    animationType='push'
-                    modalAction='showMap'
-                />
-            </RootView>
+                </RootView>
+            </ThemeProvider>
         );
     }
 }
@@ -195,12 +202,12 @@ export default connect(
 )(HikeScreen);
 
 const RootView = styled.View`
-    background-color: ${colors.white};
+    background-color: ${(props) => props.theme.rootBackground};
 `;
 
 const PurpleBlockView = styled.View`
-    height: 200px;
-    background-color: ${colors.purple};
+    height: 100px;
+    background-color: ${(props) => props.theme.blockView};
     position: absolute;
     left: 0;
     right: 0;
