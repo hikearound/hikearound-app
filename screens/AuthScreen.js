@@ -38,11 +38,7 @@ class AuthScreen extends React.Component {
         StatusBar.setBarStyle('light-content', true);
     }
 
-    componentWillUnmount() {
-        this.authSubscription();
-    }
-
-    getAuth = async () => {
+    getUserAuth = async () => {
         this.authSubscription = firebase.auth().onAuthStateChanged((user) => {
             this.getUserProfileData(user);
         });
@@ -59,16 +55,16 @@ class AuthScreen extends React.Component {
             dispatchAvatar(avatarUri);
         }
 
-        this.dispatchNav(user);
-        SplashScreen.hide();
+        this.navToApp(user);
     };
 
     finishLoading = () => {
         this.setState({ isReady: true });
     };
 
-    dispatchNav(user) {
+    navToApp = (user) => {
         const { navigation } = this.props;
+
         navigation.dispatch(
             StackActions.reset({
                 index: 0,
@@ -79,7 +75,9 @@ class AuthScreen extends React.Component {
                 ],
             }),
         );
-    }
+
+        SplashScreen.hide();
+    };
 
     static navigationOptions = {
         header: null,
@@ -92,7 +90,7 @@ class AuthScreen extends React.Component {
         if (!isReady) {
             return (
                 <AppLoading
-                    startAsync={this.getAuth}
+                    startAsync={this.getUserAuth}
                     onFinish={this.finishLoading}
                     autoHideSplash={false}
                 />
