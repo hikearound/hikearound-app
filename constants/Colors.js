@@ -2,6 +2,7 @@ export const colors = {
     purple: '#935DFF',
     white: '#FFFFFF',
     black: '#333333',
+    loadingBlack: '#222222',
     trueBlack: '#000000',
     ultraLightGray: '#F6F6F6',
     lightGray: '#F0F0F0',

@@ -2,20 +2,46 @@ import { colors } from './Colors';
 
 export const themes = {
     light: {
+        // Navigation
         headerStyle: colors.purple,
-        refreshControlTint: colors.cardGray,
+        navActive: colors.purple,
+        navInactive: colors.darkGray,
+
+        // Scaffolding
         rootBackground: colors.white,
-        navActiveColor: colors.purple,
-        navInactiveColor: colors.darkGray,
         blockView: colors.purple,
+        refreshControlTint: colors.cardGray,
+
+        // Cards
+        cardBackground: colors.gray,
+        cardContentBackground: colors.white,
+        metaDataTypeText: colors.darkGray,
+        metaDataText: colors.black,
+
+        // Loading
+        loadingPrimary: colors.cardGray,
+        loadingSecondary: colors.white,
     },
     dark: {
+        // Navigation
         headerStyle: colors.black,
-        refreshControlTint: colors.white,
+        navActive: colors.white,
+        navInactive: colors.darkGray,
+
+        // Scaffolding
         rootBackground: colors.trueBlack,
-        navActiveColor: colors.white,
-        navInactiveColor: colors.darkGray,
         blockView: colors.black,
+        refreshControlTint: colors.white,
+
+        // Cards
+        cardBackground: colors.black,
+        cardContentBackground: colors.black,
+        metaDataTypeText: colors.white,
+        metaDataText: colors.white,
+
+        // Loading
+        loadingPrimary: colors.black,
+        loadingSecondary: colors.loadingBlack,
     },
 };
 

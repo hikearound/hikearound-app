@@ -71,8 +71,8 @@ HomeStack.navigationOptions = ({ navigation, theme }) => {
                 size={26}
                 fill={
                     focused
-                        ? themes[theme].navActiveColor
-                        : themes[theme].navInactiveColor
+                        ? themes[theme].navActive
+                        : themes[theme].navInactive
                 }
             />
         ),
@@ -98,8 +98,8 @@ NotificationStack.navigationOptions = ({ theme }) => {
             <BellIcon
                 fill={
                     focused
-                        ? themes[theme].navActiveColor
-                        : themes[theme].navInactiveColor
+                        ? themes[theme].navActive
+                        : themes[theme].navInactive
                 }
             />
         ),
@@ -128,8 +128,8 @@ ProfileStack.navigationOptions = ({ theme }) => {
                 height={25}
                 fill={
                     focused
-                        ? themes[theme].navActiveColor
-                        : themes[theme].navInactiveColor
+                        ? themes[theme].navActive
+                        : themes[theme].navInactive
                 }
             />
         ),

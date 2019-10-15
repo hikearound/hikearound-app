@@ -1,43 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import { View, StyleSheet } from 'react-native';
-import { fontWeights, fontSizes, colors } from '../constants/Index';
+import { View } from 'react-native';
+import { fontWeights, fontSizes, colors, spacing } from '../constants/Index';
 
-const FOOTER_STYLE = StyleSheet.create({
-    visibleText: {
-        display: 'flex',
-    },
-    hiddenText: {
-        display: 'none',
-    },
-});
-
-export default class FeedFooter extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            footerVisibility: FOOTER_STYLE.hiddenText,
-        };
-    }
-
-    componentDidMount() {
-        this.timeout = setTimeout(() => {
-            this.setState({
-                footerVisibility: FOOTER_STYLE.visibleText,
-            });
-        }, 3500);
-    }
-
-    componentWillUnmount() {
-        clearTimeout(this.timeout);
-    }
-
+export default class FeedFooter extends React.PureComponent {
     render() {
-        const { footerVisibility } = this.state;
         return (
             <Container>
-                <View style={footerVisibility}>
+                <View>
                     <Text>New Hikes Every Week</Text>
                     <Circle />
                 </View>
@@ -52,11 +22,11 @@ const Circle = styled.View`
     border-radius: 7px;
     height: 7px;
     width: 7px;
-    margin: 6px auto -4px;
+    margin: ${spacing.micro}px auto;
 `;
 
 const Container = styled.View`
-    padding: 25px 0;
+    padding: ${spacing.large}px;
 `;
 
 const Text = styled.Text`

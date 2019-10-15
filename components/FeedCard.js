@@ -11,6 +11,7 @@ import {
     fontSizes,
     borderRadius,
 } from '../constants/Index';
+import { themes } from '../constants/Themes';
 
 const propTypes = {
     image: PropTypes.object.isRequired,
@@ -25,10 +26,10 @@ class FeedCard extends React.PureComponent {
 
     render() {
         const { image, name, distance, elevation, route } = this.props;
-        const theme = this.context;
+        const theme = themes[this.context];
 
         return (
-            <ThemeProvider theme={{ style: theme }}>
+            <ThemeProvider theme={theme}>
                 <Container>
                     <Cover>
                         <Image source={image} resizeMode='cover' />
@@ -66,11 +67,10 @@ FeedCard.propTypes = propTypes;
 export default FeedCard;
 
 const Container = styled.View`
-    background-color: ${(props) =>
-        props.theme.style === 'dark' ? colors.black : colors.gray};
+    background-color: ${(props) => props.theme.cardBackground};
     width: 100%;
     border-radius: ${borderRadius.medium}px;
-    box-shadow: 0 4px 12px ${transparentColors.gray};
+    box-shadow: 0 4px 4px ${transparentColors.gray};
 `;
 
 const Cover = styled.View`
@@ -101,7 +101,7 @@ const HikeName = styled.Text`
 `;
 
 const Content = styled.View`
-    background-color: ${colors.white};
+    background-color: ${(props) => props.theme.cardContentBackground};
     flex-direction: row;
     align-items: center;
     position: relative;
@@ -116,7 +116,7 @@ const ContentItem = styled.View`
 `;
 
 const MetaDataType = styled.Text`
-    color: ${colors.darkGray};
+    color: ${(props) => props.theme.metaDataTypeText};
     font-size: ${fontSizes.small}px;
     font-weight: ${fontWeights.medium};
     text-transform: uppercase;
@@ -124,7 +124,7 @@ const MetaDataType = styled.Text`
 
 const MetaData = styled.Text`
     padding-top: 1px;
-    color: ${colors.black};
+    color: ${(props) => props.theme.metaDataText};
     font-size: ${fontSizes.small};
     font-weight: ${fontWeights.medium};
 `;
