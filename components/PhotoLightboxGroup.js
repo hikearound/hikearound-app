@@ -31,7 +31,6 @@ class PhotoLightboxGroup extends React.PureComponent {
         const { id, images } = this.props;
         const imageArray = [];
 
-        /* eslint-disable no-await-in-loop */
         for (let i = 0; i < images.length; i += 1) {
             const imageUrl = await getHikeImage(id, i);
             imageArray.push({

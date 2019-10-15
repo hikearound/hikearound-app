@@ -1,4 +1,5 @@
 import React from 'react';
+import { AppLoading } from 'expo';
 import PropTypes from 'prop-types';
 import { NavigationActions, StackActions } from 'react-navigation';
 import { StatusBar } from 'react-native';
@@ -24,9 +25,16 @@ function mapDispatchToProps(dispatch) {
 }
 
 class AuthScreen extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            isReady: false,
+        };
+    }
+
     componentWillMount() {
         StatusBar.setBarStyle('light-content', true);
-        this.getAuth();
     }
 
     componentWillUnmount() {
@@ -53,9 +61,8 @@ class AuthScreen extends React.Component {
         this.dispatchNav(user);
     };
 
-    static navigationOptions = {
-        header: null,
-        headerBackTitle: null,
+    finishLoading = () => {
+        this.setState({ isReady: true });
     };
 
     dispatchNav(user) {
@@ -72,7 +79,22 @@ class AuthScreen extends React.Component {
         );
     }
 
+    static navigationOptions = {
+        header: null,
+        headerBackTitle: null,
+    };
+
     render() {
+        const { isReady } = this.state;
+
+        if (!isReady) {
+            return (
+                <AppLoading
+                    startAsync={this.getAuth}
+                    onFinish={this.finishLoading}
+                />
+            );
+        }
         return null;
     }
 }

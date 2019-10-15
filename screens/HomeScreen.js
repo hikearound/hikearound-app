@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { RefreshControl } from 'react-native';
+import { RefreshControl, Image } from 'react-native';
 import { ThemeContext } from 'react-navigation';
 import Fire from '../Fire';
 import { Logo, FeedList, Sort } from '../components/Index';
 import { timings } from '../constants/Index';
 import { themes } from '../constants/Themes';
-import { getFeedHikeCount } from '../utils/Hike';
+import { getFeedHikeCount, getHikeImage } from '../utils/Hike';
 import HomeLoadingState from '../components/loading/Home';
 
 const PAGE_SIZE = 5;
@@ -88,12 +88,26 @@ class HomeScreen extends React.Component {
 
         /* eslint-disable no-restricted-syntax */
         this.lastKnownKey = cursor;
+
         for (const hike of data) {
+            const imageUrl = await this.cacheHikeImage(hike);
+            hike.coverPhoto = imageUrl;
             hikes[hike.key] = hike;
         }
 
         this.addhikes(hikes);
         this.setState({ loading: false });
+    };
+
+    cacheHikeImage = async (hike) => {
+        let imageUrl = null;
+        if (hike.images) {
+            imageUrl = await getHikeImage(hike.id, 0);
+            if (imageUrl) {
+                Image.prefetch(imageUrl);
+            }
+        }
+        return imageUrl;
     };
 
     onRefresh = async () => {

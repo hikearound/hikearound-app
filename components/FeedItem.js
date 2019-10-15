@@ -5,11 +5,9 @@ import styled from 'styled-components';
 import { withNavigation } from 'react-navigation';
 import FeedCard from './FeedCard';
 import { spacing, opacities } from '../constants/Index';
-import { getHikeImage } from '../utils/Hike';
 
 const propTypes = {
-    id: PropTypes.string.isRequired,
-    images: PropTypes.array,
+    coverPhoto: PropTypes.string,
     name: PropTypes.string,
     distance: PropTypes.number,
     elevation: PropTypes.number,
@@ -19,27 +17,21 @@ const propTypes = {
 };
 
 const defaultProps = {
-    images: [],
     name: '',
-    distance: 0,
-    elevation: 0,
     route: '',
+    coverPhoto: '',
     description: '',
     city: '',
+    distance: 0,
+    elevation: 0,
 };
 
 class FeedItem extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {};
-    }
-
-    async componentDidMount() {
-        const { images, id } = this.props;
-        if (images.length >= 1) {
-            const imageUrl = await getHikeImage(id, 0);
-            this.setState({ imageUrl });
-        }
+        this.state = {
+            showCard: true,
+        };
     }
 
     render() {
@@ -51,32 +43,36 @@ class FeedItem extends React.Component {
             route,
             city,
             description,
+            coverPhoto,
         } = this.props;
 
-        const { imageUrl } = this.state;
+        const { showCard } = this.state;
 
-        return (
-            <CardsContainer>
-                <TouchableOpacity
-                    activeOpacity={opacities.regular}
-                    onPress={() => {
-                        navigation.push('Hike', {
-                            hike: this.props,
-                        });
-                    }}
-                >
-                    <FeedCard
-                        name={name}
-                        image={{ uri: imageUrl }}
-                        distance={distance}
-                        elevation={elevation}
-                        route={route}
-                        city={city}
-                        description={description}
-                    />
-                </TouchableOpacity>
-            </CardsContainer>
-        );
+        if (showCard) {
+            return (
+                <CardsContainer>
+                    <TouchableOpacity
+                        activeOpacity={opacities.regular}
+                        onPress={() => {
+                            navigation.push('Hike', {
+                                hike: this.props,
+                            });
+                        }}
+                    >
+                        <FeedCard
+                            name={name}
+                            image={{ uri: coverPhoto }}
+                            distance={distance}
+                            elevation={elevation}
+                            route={route}
+                            city={city}
+                            description={description}
+                        />
+                    </TouchableOpacity>
+                </CardsContainer>
+            );
+        }
+        return null;
     }
 }
 

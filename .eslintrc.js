@@ -45,6 +45,7 @@ module.exports = {
         'react/static-property-placement': 'off',
         'jsx-quotes': ['error', 'prefer-single'],
         'comma-dangle': ['error', 'always-multiline'],
+        'no-await-in-loop': 'off',
         'react/prop-types': [
             'error', {
                 'ignore': [
