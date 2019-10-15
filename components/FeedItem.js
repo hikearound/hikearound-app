@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, LayoutAnimation } from 'react-native';
 import styled from 'styled-components';
 import { withNavigation } from 'react-navigation';
 import FeedCard from './FeedCard';
@@ -19,9 +19,9 @@ const propTypes = {
 const defaultProps = {
     name: '',
     route: '',
-    coverPhoto: '',
     description: '',
     city: '',
+    coverPhoto: undefined,
     distance: 0,
     elevation: 0,
 };
@@ -32,6 +32,10 @@ class FeedItem extends React.Component {
         this.state = {
             showCard: true,
         };
+    }
+
+    componentWillMount() {
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     }
 
     render() {

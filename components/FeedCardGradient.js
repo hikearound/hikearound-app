@@ -7,7 +7,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-    imageDidLoad: undefined,
+    imageDidLoad: true,
 };
 
 const FeedCardGradient = ({ imageDidLoad }) => (
