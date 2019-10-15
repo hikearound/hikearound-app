@@ -32,7 +32,7 @@ class HomeScreen extends React.Component {
         this.state = {
             feedHikeCount: 0,
             sortType: 'desc',
-            loading: true,
+            loading: false,
             hikes: [],
             data: {},
             firstLoad: true,
@@ -47,7 +47,7 @@ class HomeScreen extends React.Component {
             this.setState({
                 firstLoad: false,
             });
-        }, timings.long);
+        }, timings.extraLong);
 
         if (Fire.shared.uid) {
             this.makeRemoteRequest();

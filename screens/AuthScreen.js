@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppLoading } from 'expo';
+import { AppLoading, SplashScreen } from 'expo';
 import PropTypes from 'prop-types';
 import { NavigationActions, StackActions } from 'react-navigation';
 import { StatusBar } from 'react-native';
@@ -34,6 +34,7 @@ class AuthScreen extends React.Component {
     }
 
     componentWillMount() {
+        SplashScreen.preventAutoHide();
         StatusBar.setBarStyle('light-content', true);
     }
 
@@ -59,6 +60,7 @@ class AuthScreen extends React.Component {
         }
 
         this.dispatchNav(user);
+        SplashScreen.hide();
     };
 
     finishLoading = () => {
@@ -92,6 +94,7 @@ class AuthScreen extends React.Component {
                 <AppLoading
                     startAsync={this.getAuth}
                     onFinish={this.finishLoading}
+                    autoHideSplash={false}
                 />
             );
         }
