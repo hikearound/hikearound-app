@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TouchableOpacity, LayoutAnimation } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import styled from 'styled-components';
 import { withNavigation } from 'react-navigation';
 import FeedCard from './FeedCard';
@@ -32,10 +32,6 @@ class FeedItem extends React.Component {
         this.state = {
             showCard: true,
         };
-    }
-
-    componentWillMount() {
-        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     }
 
     render() {
