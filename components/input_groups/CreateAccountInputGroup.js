@@ -10,7 +10,6 @@ class CreateAccountInputGroup extends InputGroup {
             name: '',
             email: '',
             password: '',
-            passwordCopy: '',
         };
     }
 

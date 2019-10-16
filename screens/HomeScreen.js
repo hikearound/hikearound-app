@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { RefreshControl, Image } from 'react-native';
 import { ThemeContext } from 'react-navigation';
 import Fire from '../Fire';
@@ -8,8 +10,26 @@ import { timings } from '../constants/Index';
 import { themes } from '../constants/Themes';
 import { getFeedHikeCount, getHikeImage } from '../utils/Hike';
 import HomeLoadingState from '../components/loading/Home';
+import { getAvatarUri, getUserData } from '../utils/User';
+import { initializeUserData, initializeAvatar } from '../actions/User';
 
 const PAGE_SIZE = 5;
+
+const propTypes = {
+    dispatchUserData: PropTypes.func.isRequired,
+    dispatchAvatar: PropTypes.func.isRequired,
+};
+
+function mapStateToProps() {
+    return {};
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        dispatchUserData: (userData) => dispatch(initializeUserData(userData)),
+        dispatchAvatar: (avatarUri) => dispatch(initializeAvatar(avatarUri)),
+    };
+}
 
 class HomeScreen extends React.Component {
     static navigationOptions = ({ navigation, navigationOptions, theme }) => {
@@ -52,12 +72,23 @@ class HomeScreen extends React.Component {
         if (Fire.shared.uid) {
             this.makeRemoteRequest();
             this.setFeedHikeCount();
+            this.getUserProfileData();
         }
 
         navigation.setParams({
             sortType,
         });
     }
+
+    getUserProfileData = async () => {
+        const { dispatchUserData, dispatchAvatar } = this.props;
+
+        const avatarUri = await getAvatarUri();
+        const userData = await getUserData();
+
+        dispatchUserData(userData.data());
+        dispatchAvatar(avatarUri);
+    };
 
     setFeedHikeCount = async () => {
         const feedHikeCount = await getFeedHikeCount();
@@ -153,7 +184,12 @@ class HomeScreen extends React.Component {
     }
 }
 
-export default HomeScreen;
+HomeScreen.propTypes = propTypes;
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(HomeScreen);
 
 const RootView = styled.View`
     background-color: ${(props) => props.theme.rootBackground};

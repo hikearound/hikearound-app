@@ -42,7 +42,7 @@ InputButton.propTypes = propTypes;
 export default InputButton;
 
 const ButtonView = styled.View`
-    margin-top: 30px;
+    margin-top: 20px;
     background-color: ${colors.white};
     border: 1px solid ${colors.lightGray};
     border-left-width: 0;

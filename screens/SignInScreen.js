@@ -45,13 +45,13 @@ class SignInScreen extends React.Component {
 
     render() {
         const { navigation } = this.props;
+
         return (
             <RootView>
                 <SignInInputGroup
                     inputs={inputs}
                     resetAction={resetAction}
-                    passwordLinkDisplay='flex'
-                    continueText='Continue'
+                    continueText='Sign In'
                     navigation={navigation}
                 />
             </RootView>
