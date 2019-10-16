@@ -4,10 +4,10 @@ import styled from 'styled-components';
 import { TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { connect } from 'react-redux';
+import * as Haptics from 'expo-haptics';
 import { colors, spacing, fontSizes, opacities } from '../constants/Index';
 import { updateMap } from '../actions/User';
 import { logoutUser } from '../utils/User';
-import * as Haptics from 'expo-haptics';
 
 const propTypes = {
     item: PropTypes.string.isRequired,
