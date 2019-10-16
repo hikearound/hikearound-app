@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { colors, spacing, fontSizes, opacities } from '../constants/Index';
 import { updateMap } from '../actions/User';
 import { logoutUser } from '../utils/User';
+import * as Haptics from 'expo-haptics';
 
 const propTypes = {
     item: PropTypes.string.isRequired,
@@ -80,6 +81,8 @@ class SettingsItem extends React.PureComponent {
         const { item, dispatchMap } = this.props;
 
         this.selectItem();
+        Haptics.selectionAsync();
+
         dispatchMap(item);
     }
 
