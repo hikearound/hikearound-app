@@ -63,5 +63,4 @@ export default SignInScreen;
 
 const RootView = styled.View`
     flex: 1;
-    margin-top: 26px;
 `;

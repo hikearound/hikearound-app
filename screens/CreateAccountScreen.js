@@ -27,11 +27,6 @@ let inputs = [
         name: 'password',
         secureTextEntry: true,
     },
-    {
-        placeholder: 'Repeat Password',
-        name: 'passwordCopy',
-        secureTextEntry: true,
-    },
 ];
 
 class CreateAccountScreen extends React.Component {
@@ -67,5 +62,4 @@ export default CreateAccountScreen;
 
 const RootView = styled.View`
     flex: 1;
-    margin-top: 26px;
 `;

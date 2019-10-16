@@ -38,6 +38,10 @@ class AuthScreen extends React.Component {
         StatusBar.setBarStyle('light-content', true);
     }
 
+    componentWillUnmount() {
+        this.authSubscription();
+    }
+
     getUserAuth = async () => {
         this.authSubscription = firebase.auth().onAuthStateChanged((user) => {
             this.getUserProfileData(user);
@@ -77,11 +81,6 @@ class AuthScreen extends React.Component {
         );
 
         SplashScreen.hide();
-    };
-
-    static navigationOptions = {
-        header: null,
-        headerBackTitle: null,
     };
 
     render() {

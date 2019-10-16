@@ -4,10 +4,13 @@ import HikeBody from './HikeBody';
 import HikeMap from './HikeMap';
 import HikeMapWrapper from './HikeMapWrapper';
 
+// Buttons
+import ActionButton from './Button';
+import InputButton from './InputButton';
+import FavoriteButton from './FavoriteButton';
+
 // Components
 import Avatar from './Avatar';
-import ActionButton from './Button';
-import FavoriteButton from './FavoriteButton';
 import Subtitle from './Subtitle';
 import Toast from './Toast';
 import Thumbnail from './Thumbnail';
@@ -83,4 +86,5 @@ export {
     HikeMapWrapper,
     NotificationEmptyState,
     SettingsSwitchItem,
+    InputButton,
 };

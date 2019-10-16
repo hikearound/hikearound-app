@@ -1,21 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { TouchableOpacity, ScrollView } from 'react-native';
+import { ScrollView } from 'react-native';
 import { KeyboardAccessoryNavigation } from 'react-native-keyboard-accessory';
-import ActionButton from '../Button';
-import {
-    colors,
-    fontWeights,
-    spacing,
-    fontSizes,
-    opacities,
-} from '../../constants/Index';
+import InputButton from '../InputButton';
+import { colors, fontWeights, spacing, fontSizes } from '../../constants/Index';
 
 const propTypes = {
     resetAction: PropTypes.object.isRequired,
     inputs: PropTypes.array.isRequired,
-    passwordLinkDisplay: PropTypes.string.isRequired,
 };
 
 class InputGroup extends React.Component {
@@ -70,7 +63,7 @@ class InputGroup extends React.Component {
     };
 
     render() {
-        const { inputs, passwordLinkDisplay } = this.props;
+        const { inputs } = this.props;
 
         const {
             nextFocusDisabled,
@@ -94,36 +87,25 @@ class InputGroup extends React.Component {
                             },
                             index,
                         ) => (
-                            <TextInput
-                                key={`input_${index}`}
-                                ref={ref}
-                                placeholder={placeholder}
-                                keyboardType={keyboardType}
-                                secureTextEntry={secureTextEntry}
-                                autoCorrect={autoCorrect}
-                                autoCapitalize={autoCapitalize}
-                                onFocus={this.handleFocus(index)}
-                                autoFocus={index === 0}
-                                onChangeText={(text) =>
-                                    this.setValue(name, text, index)
-                                }
-                            />
+                            <LabelInputGroup key={`input_${index}`}>
+                                <InputLabel>{placeholder}</InputLabel>
+                                <TextInput
+                                    ref={ref}
+                                    placeholder={placeholder}
+                                    keyboardType={keyboardType}
+                                    secureTextEntry={secureTextEntry}
+                                    autoCorrect={autoCorrect}
+                                    autoCapitalize={autoCapitalize}
+                                    onFocus={this.handleFocus(index)}
+                                    autoFocus={index === 0}
+                                    onChangeText={(text) =>
+                                        this.setValue(name, text, index)
+                                    }
+                                />
+                            </LabelInputGroup>
                         ),
                     )}
-                    <ActionButton
-                        primary
-                        text='Continue'
-                        margin={`0 ${spacing.medium}px`}
-                        action={this.handleLogin}
-                    />
-                    <TouchableOpacity
-                        activeOpacity={opacities.regular}
-                        style={{
-                            display: passwordLinkDisplay,
-                        }}
-                    >
-                        <PasswordText>Forgot Password?</PasswordText>
-                    </TouchableOpacity>
+                    <InputButton text='Continue' action={this.handleLogin} />
                 </ScrollView>
                 <KeyboardAccessoryNavigation
                     avoidKeyboard
@@ -147,27 +129,37 @@ InputGroup.propTypes = propTypes;
 export default InputGroup;
 
 const RootView = styled.View`
+    display: flex;
     flex: 1;
 `;
 
 const TextInput = styled.TextInput`
-    margin: 0 ${spacing.medium}px 26px ${spacing.medium}px;
-    padding-bottom: 3px;
-    border-bottom-width: 1px;
-    border-bottom-color: ${colors.borderGray};
-    font-size: ${fontSizes.large}px;
-    color: ${colors.black};
-`;
-
-const PasswordText = styled.Text`
-    font-weight: ${fontWeights.medium};
-    font-size: ${spacing.small}px;
-    margin: ${spacing.medium}px;
-    color: ${colors.purple};
+    color: ${colors.darkGray};
+    font-size: ${fontSizes.medium}px;
+    display: flex;
+    flex: 1;
 `;
 
 const Text = styled.Text`
     font-size: ${fontSizes.medium}px;
     color: ${colors.purple};
     font-weight: ${fontWeights.bold};
+`;
+
+const LabelInputGroup = styled.View`
+    width: 100%;
+    flex-direction: row;
+    border-color: ${colors.lightGray};
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    padding: ${spacing.small}px;
+    margin-top: -1px;
+`;
+
+const InputLabel = styled.Text`
+    color: ${colors.black};
+    font-size: ${fontSizes.medium}px;
+    font-weight: ${fontWeights.bold};
+    display: flex;
+    width: 85px;
 `;

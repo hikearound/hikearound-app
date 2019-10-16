@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ScrollView, LayoutAnimation } from 'react-native';
+import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-import { colors, timings } from '../constants/Index';
+import { ThemeContext } from 'react-navigation';
+import { timings } from '../constants/Index';
+import { themes } from '../constants/Themes';
 import { Settings, ProfileHeader, ProfileBody } from '../components/Index';
 import EditProfileModal from '../components/modals/EditProfileModal';
 import { getUserFavoriteHikes } from '../utils/User';
@@ -28,9 +30,8 @@ class ProfileScreen extends React.Component {
 
         this.state = {
             hikes: [],
-            loading: true,
+            firstLoad: true,
             maybeShowEmptyState: false,
-            shouldLoad: false,
         };
     }
 
@@ -39,15 +40,9 @@ class ProfileScreen extends React.Component {
     }
 
     componentDidMount() {
-        this.loadingTimeout = setTimeout(() => {
-            this.setState({
-                shouldLoad: true,
-            });
-        }, timings.short);
-
         this.timeout = setTimeout(() => {
             this.setState({
-                loading: false,
+                firstLoad: false,
             });
         }, timings.long);
     }
@@ -75,39 +70,34 @@ class ProfileScreen extends React.Component {
         });
     };
 
-    render() {
-        const { hikes, loading, maybeShowEmptyState, shouldLoad } = this.state;
+    static contextType = ThemeContext;
 
-        if (!loading) {
-            return (
-                <RootView>
+    render() {
+        const { hikes, firstLoad, maybeShowEmptyState } = this.state;
+        const theme = themes[this.context];
+
+        return (
+            <RootView theme={theme}>
+                {!firstLoad && (
                     <ScrollView showsVerticalScrollIndicator={false}>
                         <ProfileHeader />
                         <ProfileBody
                             hikes={hikes}
-                            loading={loading}
+                            loading={firstLoad}
                             maybeShowEmptyState={maybeShowEmptyState}
                         />
                     </ScrollView>
-                    <EditProfileModal
-                        animationType='push'
-                        modalAction='showEditProfile'
-                        transparent
-                        hideStatusBar={false}
-                        fullScreen={false}
-                    />
-                </RootView>
-            );
-        }
-        if (loading && shouldLoad) {
-            LayoutAnimation.easeInEaseOut();
-            return (
-                <RootView>
-                    <ProfileLoadingState />
-                </RootView>
-            );
-        }
-        return null;
+                )}
+                {firstLoad && <ProfileLoadingState />}
+                <EditProfileModal
+                    animationType='push'
+                    modalAction='showEditProfile'
+                    transparent
+                    hideStatusBar={false}
+                    fullScreen={false}
+                />
+            </RootView>
+        );
     }
 }
 
@@ -117,7 +107,7 @@ export default connect(
 )(ProfileScreen);
 
 const RootView = styled.View`
-    background: ${colors.white};
+    background: ${(props) => props.theme.rootBackground};
     flex: 1;
     overflow: hidden;
     width: 100%;
