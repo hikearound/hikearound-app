@@ -4,16 +4,26 @@ import PropTypes from 'prop-types';
 import { colors, fontSizes, spacing, fontWeights } from '../constants/Index';
 
 const propTypes = {
-    setValue: PropTypes.func.isRequired,
-    labelName: PropTypes.string.isRequired,
-    value: PropTypes.string,
+    placeholder: PropTypes.string.isRequired,
+    defaultValue: PropTypes.string,
     textContentType: PropTypes.string.isRequired,
     inputMaxLegnth: PropTypes.number,
+    onChangeText: PropTypes.func.isRequired,
+    keyboardType: PropTypes.string,
+    secureTextEntry: PropTypes.bool,
+    autoCorrect: PropTypes.bool,
+    autoCapitalize: PropTypes.string,
+    autoFocus: PropTypes.bool,
 };
 
 const defaultProps = {
     inputMaxLegnth: 100,
-    value: '',
+    defaultValue: '',
+    keyboardType: 'default',
+    secureTextEntry: false,
+    autoCorrect: false,
+    autoCapitalize: 'none',
+    autoFocus: false,
 };
 
 class InputLabelGroup extends React.Component {
@@ -24,22 +34,32 @@ class InputLabelGroup extends React.Component {
 
     render() {
         const {
-            labelName,
             textContentType,
-            setValue,
             inputMaxLegnth,
-            value,
+            defaultValue,
+            onChangeText,
+            placeholder,
+            keyboardType,
+            secureTextEntry,
+            autoCorrect,
+            autoCapitalize,
+            autoFocus,
         } = this.props;
 
         return (
             <LabelInputGroup>
-                <InputLabel>{labelName}</InputLabel>
+                <InputLabel>{placeholder}</InputLabel>
                 <ModalInput
-                    placeholder={labelName}
-                    value={value}
+                    placeholder={placeholder}
+                    keyboardType={keyboardType}
+                    secureTextEntry={secureTextEntry}
+                    autoCorrect={autoCorrect}
+                    autoCapitalize={autoCapitalize}
+                    autoFocus={autoFocus}
                     textContentType={textContentType}
                     maxLength={inputMaxLegnth}
-                    onChangeText={(text) => setValue(text)}
+                    onChangeText={onChangeText}
+                    defaultValue={defaultValue}
                 />
             </LabelInputGroup>
         );
@@ -54,7 +74,7 @@ export default InputLabelGroup;
 const LabelInputGroup = styled.View`
     width: 100%;
     flex-direction: row;
-    border-color: ${colors.gray};
+    border-color: ${colors.lightGray};
     border-top-width: 1px;
     border-bottom-width: 1px;
     padding: ${spacing.small}px;
@@ -66,7 +86,7 @@ const InputLabel = styled.Text`
     font-size: ${fontSizes.medium}px;
     font-weight: ${fontWeights.bold};
     display: flex;
-    width: 85px;
+    width: 95px;
 `;
 
 const ModalInput = styled.TextInput`

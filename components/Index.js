@@ -39,11 +39,6 @@ import FeedList from './FeedList';
 import SettingsItem from './SettingsItem';
 import SettingsSwitchItem from './SettingsSwitchItem';
 
-// Input Groups
-import CreateAccountInputGroup from './input_groups/CreateAccountInputGroup';
-import InputGroup from './input_groups/InputGroup';
-import SignInInputGroup from './input_groups/SignInInputGroup';
-
 // Profile
 import ProfileHeader from './ProfileHeader';
 import ProfileBody from './ProfileBody';
@@ -70,9 +65,6 @@ export {
     Avatar,
     Settings,
     SettingsItem,
-    InputGroup,
-    CreateAccountInputGroup,
-    SignInInputGroup,
     HikeList,
     HikeListItem,
     ProfileHeader,

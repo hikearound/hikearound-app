@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { NavigationActions, StackActions } from 'react-navigation';
-import { StatusBar } from 'react-native';
-import { SignInInputGroup } from '../components/Index';
+import { Alert, StatusBar } from 'react-native';
+import firebase from 'firebase';
+import InputButton from '../components/InputButton';
+import InputLabelGroup from '../components/InputLabelGroup';
 
 const resetAction = StackActions.reset({
     index: 0,
@@ -16,11 +18,13 @@ let inputs = [
         name: 'email',
         autoCorrect: false,
         autoCapitalize: 'none',
+        textContentType: 'emailAddress',
     },
     {
         placeholder: 'Password',
         name: 'password',
         secureTextEntry: true,
+        textContentType: 'password',
     },
 ];
 
@@ -38,22 +42,67 @@ class SignInScreen extends React.Component {
         StatusBar.setBarStyle('light-content', true);
     }
 
+    setValue(name, text) {
+        this.setState({ [name]: text });
+    }
+
+    handleLogin = async () => {
+        const { email, password } = this.state;
+        const { navigation } = this.props;
+
+        firebase
+            .auth()
+            .signInWithEmailAndPassword(email, password)
+            .catch((error) => {
+                Alert.alert('Error', error.message);
+            })
+            .then((response) => {
+                if (response) {
+                    navigation.dispatch(resetAction);
+                }
+            });
+    };
+
     static navigationOptions = {
         headerTitle: 'Sign In',
         headerBackTitle: null,
     };
 
     render() {
-        const { navigation } = this.props;
-
         return (
             <RootView>
-                <SignInInputGroup
-                    inputs={inputs}
-                    resetAction={resetAction}
-                    continueText='Sign In'
-                    navigation={navigation}
-                />
+                {inputs.map(
+                    (
+                        {
+                            name,
+                            placeholder,
+                            keyboardType,
+                            secureTextEntry,
+                            autoCorrect,
+                            autoCapitalize,
+                            textContentType,
+                            ref,
+                        },
+                        index,
+                    ) => (
+                        <InputLabelGroup
+                            key={`input_${index}`}
+                            ref={ref}
+                            placeholder={placeholder}
+                            keyboardType={keyboardType}
+                            secureTextEntry={secureTextEntry}
+                            autoCorrect={autoCorrect}
+                            autoCapitalize={autoCapitalize}
+                            autoFocus={index === 0}
+                            onChangeText={(text) =>
+                                this.setValue(name, text, index)
+                            }
+                            labelName={placeholder}
+                            textContentType={textContentType}
+                        />
+                    ),
+                )}
+                <InputButton text='Sign In' action={this.handleLogin} />
             </RootView>
         );
     }

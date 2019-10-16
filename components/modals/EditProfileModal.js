@@ -39,21 +39,10 @@ class EditProfileModal extends ModalBase {
         this.state = {
             modalVisible: false,
         };
-
-        this.updateLocation = this.updateLocation.bind(this);
-        this.updateName = this.updateName.bind(this);
     }
 
-    updateLocation(location) {
-        this.setState({
-            updatedLocation: location,
-        });
-    }
-
-    updateName(name) {
-        this.setState({
-            updatedName: name,
-        });
+    setValue(name, text) {
+        this.setState({ [name]: text });
     }
 
     hideModal() {
@@ -105,30 +94,35 @@ class EditProfileModal extends ModalBase {
         </ModalHeader>
     );
 
-    renderModalBody = (updatedName, updatedLocation) => (
+    renderModalBody = (name, location) => (
         <ModalBody>
             <AvatarWrapper>
                 <Avatar isEditable size={60} />
             </AvatarWrapper>
             <InputLabelGroup
-                labelName='Name'
+                placeholder='Name'
                 textContentType='name'
-                setValue={this.updateName}
-                value={updatedName}
+                defaultValue={name}
+                onChangeText={(text) => this.setValue('updatedName', text)}
             />
             <InputLabelGroup
-                labelName='Location'
+                placeholder='Location'
                 textContentType='addressCityAndState'
-                setValue={this.updateLocation}
-                value={updatedLocation}
+                defaultValue={location}
+                onChangeText={(text) => this.setValue('updatedLocation', text)}
             />
         </ModalBody>
     );
 
     render() {
-        const { modalVisible, updatedName, updatedLocation } = this.state;
-        const { animationType, transparent, fullScreen } = this.props;
-
+        const { modalVisible } = this.state;
+        const {
+            animationType,
+            transparent,
+            fullScreen,
+            name,
+            location,
+        } = this.props;
         return (
             <Modal
                 animationType={animationType}
@@ -139,7 +133,7 @@ class EditProfileModal extends ModalBase {
                 <ModalRoot>
                     <SafeAreaView style={{ flex: 1 }}>
                         {this.renderModalHeader('Edit Profile')}
-                        {this.renderModalBody(updatedName, updatedLocation)}
+                        {this.renderModalBody(name, location)}
                     </SafeAreaView>
                 </ModalRoot>
             </Modal>
