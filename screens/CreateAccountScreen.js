@@ -48,12 +48,23 @@ function mapDispatchToProps(dispatch) {
 }
 
 class CreateAccountScreen extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            email: '',
+            password: '',
+            name: '',
+            location: '',
+        };
+    }
+
     setValue(name, text) {
         this.setState({ [name]: text });
     }
 
     handleCreateAccount = async () => {
-        const { email, password, name } = this.state;
+        const { email, password, name, location } = this.state;
         const { navigation, dispatchUserData } = this.props;
 
         const resetAction = StackActions.reset({
@@ -69,7 +80,7 @@ class CreateAccountScreen extends React.Component {
             })
             .then((response) => {
                 if (response) {
-                    dispatchUserData({ name });
+                    dispatchUserData({ name, location });
                     navigation.dispatch(resetAction);
                 }
             });
