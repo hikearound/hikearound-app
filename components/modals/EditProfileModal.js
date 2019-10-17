@@ -11,6 +11,22 @@ import InputLabelGroup from '../InputLabelGroup';
 import { colors, fontSizes, spacing, fontWeights } from '../../constants/Index';
 import { updateUserData } from '../../actions/User';
 
+const editProfileInputs = [
+    {
+        placeholder: 'Name',
+        value: 'updatedName',
+        autoCorrect: false,
+        autoCapitalize: 'words',
+        textContentType: 'name',
+    },
+    {
+        placeholder: 'Location',
+        value: 'updatedLocation',
+        autoCapitalize: 'words',
+        textContentType: 'addressCityAndState',
+    },
+];
+
 const propTypes = {
     dispatchUserData: PropTypes.func.isRequired,
 };
@@ -36,9 +52,14 @@ class EditProfileModal extends ModalBase {
     constructor(props, context) {
         super(props, context);
 
+        const { name, location } = this.props;
+
         this.state = {
             modalVisible: false,
         };
+
+        editProfileInputs[0].defaultValue = name;
+        editProfileInputs[1].defaultValue = location;
     }
 
     setValue(name, text) {
@@ -59,11 +80,13 @@ class EditProfileModal extends ModalBase {
         if (modalCloseAction === 'updateUserData') {
             if (updatedName !== name) {
                 userData.name = updatedName;
+                editProfileInputs[0].defaultValue = updatedName;
                 dispatchUserData(userData);
             }
 
             if (updatedLocation !== location) {
                 userData.location = updatedLocation;
+                editProfileInputs[1].defaultValue = updatedLocation;
                 dispatchUserData(userData);
             }
         }
@@ -83,9 +106,9 @@ class EditProfileModal extends ModalBase {
         }
     }
 
-    renderModalHeader = (headerText) => (
+    renderModalHeader = () => (
         <ModalHeader>
-            <ModalTitleText>{headerText}</ModalTitleText>
+            <ModalTitleText>Edit Profile</ModalTitleText>
             <ModalDismiss textDismiss />
             <ModalContinue
                 continueText='Save'
@@ -94,35 +117,43 @@ class EditProfileModal extends ModalBase {
         </ModalHeader>
     );
 
-    renderModalBody = (name, location) => (
+    renderModalBody = () => (
         <ModalBody>
             <AvatarWrapper>
                 <Avatar isEditable size={60} />
             </AvatarWrapper>
-            <InputLabelGroup
-                placeholder='Name'
-                textContentType='name'
-                defaultValue={name}
-                onChangeText={(text) => this.setValue('updatedName', text)}
-            />
-            <InputLabelGroup
-                placeholder='Location'
-                textContentType='addressCityAndState'
-                defaultValue={location}
-                onChangeText={(text) => this.setValue('updatedLocation', text)}
-            />
+            {editProfileInputs.map(
+                (
+                    {
+                        value,
+                        defaultValue,
+                        placeholder,
+                        keyboardType,
+                        autoCorrect,
+                        autoCapitalize,
+                        textContentType,
+                    },
+                    index,
+                ) => (
+                    <InputLabelGroup
+                        key={index}
+                        placeholder={placeholder}
+                        keyboardType={keyboardType}
+                        autoCorrect={autoCorrect}
+                        autoCapitalize={autoCapitalize}
+                        defaultValue={defaultValue}
+                        onChangeText={(text) => this.setValue(value, text)}
+                        labelName={placeholder}
+                        textContentType={textContentType}
+                    />
+                ),
+            )}
         </ModalBody>
     );
 
     render() {
         const { modalVisible } = this.state;
-        const {
-            animationType,
-            transparent,
-            fullScreen,
-            name,
-            location,
-        } = this.props;
+        const { animationType, transparent, fullScreen } = this.props;
         return (
             <Modal
                 animationType={animationType}
@@ -132,8 +163,8 @@ class EditProfileModal extends ModalBase {
             >
                 <ModalRoot>
                     <SafeAreaView style={{ flex: 1 }}>
-                        {this.renderModalHeader('Edit Profile')}
-                        {this.renderModalBody(name, location)}
+                        {this.renderModalHeader()}
+                        {this.renderModalBody()}
                     </SafeAreaView>
                 </ModalRoot>
             </Modal>

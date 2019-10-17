@@ -6,12 +6,7 @@ import firebase from 'firebase';
 import InputButton from '../components/InputButton';
 import InputLabelGroup from '../components/InputLabelGroup';
 
-const resetAction = StackActions.reset({
-    index: 0,
-    actions: [NavigationActions.navigate({ routeName: 'Home' })],
-});
-
-let inputs = [
+const signInInputs = [
     {
         keyboardType: 'email-address',
         placeholder: 'Email',
@@ -29,15 +24,6 @@ let inputs = [
 ];
 
 class SignInScreen extends React.Component {
-    constructor(props) {
-        super(props);
-
-        inputs = inputs.map((input) => ({
-            ref: React.createRef(),
-            ...input,
-        }));
-    }
-
     componentDidMount() {
         StatusBar.setBarStyle('light-content', true);
     }
@@ -49,6 +35,11 @@ class SignInScreen extends React.Component {
     handleLogin = async () => {
         const { email, password } = this.state;
         const { navigation } = this.props;
+
+        const resetAction = StackActions.reset({
+            index: 0,
+            actions: [NavigationActions.navigate({ routeName: 'Home' })],
+        });
 
         firebase
             .auth()
@@ -71,7 +62,7 @@ class SignInScreen extends React.Component {
     render() {
         return (
             <RootView>
-                {inputs.map(
+                {signInInputs.map(
                     (
                         {
                             name,
@@ -81,13 +72,11 @@ class SignInScreen extends React.Component {
                             autoCorrect,
                             autoCapitalize,
                             textContentType,
-                            ref,
                         },
                         index,
                     ) => (
                         <InputLabelGroup
-                            key={`input_${index}`}
-                            ref={ref}
+                            key={index}
                             placeholder={placeholder}
                             keyboardType={keyboardType}
                             secureTextEntry={secureTextEntry}

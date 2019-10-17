@@ -5,7 +5,7 @@ import HikeMap from './HikeMap';
 import HikeMapWrapper from './HikeMapWrapper';
 
 // Buttons
-import ActionButton from './Button';
+import LandingButton from './LandingButton';
 import InputButton from './InputButton';
 import FavoriteButton from './FavoriteButton';
 
@@ -48,7 +48,7 @@ import HikeList from './HikeList';
 import HikeListItem from './HikeListItem';
 
 export {
-    ActionButton,
+    LandingButton,
     FeedCard,
     FeedCardGradient,
     FeedFooter,

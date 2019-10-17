@@ -5,12 +5,7 @@ import firebase from 'firebase';
 import InputButton from '../components/InputButton';
 import InputLabelGroup from '../components/InputLabelGroup';
 
-const resetAction = StackActions.reset({
-    index: 0,
-    actions: [NavigationActions.navigate({ routeName: 'Home' })],
-});
-
-let inputs = [
+const createAccountInputs = [
     {
         keyboardType: 'default',
         placeholder: 'Name',
@@ -35,15 +30,6 @@ let inputs = [
 ];
 
 class CreateAccountScreen extends React.Component {
-    constructor(props) {
-        super(props);
-
-        inputs = inputs.map((input) => ({
-            ref: React.createRef(),
-            ...input,
-        }));
-    }
-
     setValue(name, text) {
         this.setState({ [name]: text });
     }
@@ -51,6 +37,11 @@ class CreateAccountScreen extends React.Component {
     handleCreateAccount = async () => {
         const { email, password } = this.state;
         const { navigation } = this.props;
+
+        const resetAction = StackActions.reset({
+            index: 0,
+            actions: [NavigationActions.navigate({ routeName: 'Home' })],
+        });
 
         firebase
             .auth()
@@ -70,7 +61,7 @@ class CreateAccountScreen extends React.Component {
     render() {
         return (
             <RootView>
-                {inputs.map(
+                {createAccountInputs.map(
                     (
                         {
                             name,
@@ -80,13 +71,11 @@ class CreateAccountScreen extends React.Component {
                             autoCorrect,
                             autoCapitalize,
                             textContentType,
-                            ref,
                         },
                         index,
                     ) => (
                         <InputLabelGroup
-                            key={`input_${index}`}
-                            ref={ref}
+                            key={index}
                             placeholder={placeholder}
                             keyboardType={keyboardType}
                             secureTextEntry={secureTextEntry}

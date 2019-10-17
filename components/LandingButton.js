@@ -24,7 +24,7 @@ const defaultProps = {
     margin: '',
 };
 
-const ActionButton = ({ action, primary, margin, text }) => (
+const LandingButton = ({ action, primary, margin, text }) => (
     <TouchableOpacity activeOpacity={opacities.regular} onPress={action}>
         <Button primary={primary} buttonMargin={margin}>
             <ButtonText primary={primary}>{text}</ButtonText>
@@ -32,10 +32,10 @@ const ActionButton = ({ action, primary, margin, text }) => (
     </TouchableOpacity>
 );
 
-ActionButton.propTypes = propTypes;
-ActionButton.defaultProps = defaultProps;
+LandingButton.propTypes = propTypes;
+LandingButton.defaultProps = defaultProps;
 
-export default ActionButton;
+export default LandingButton;
 
 const Button = styled.View`
     background-color: ${(props) =>

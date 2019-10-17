@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Animated, Easing } from 'react-native';
-import { ActionButton, Logo } from '../components/Index';
+import { LandingButton, Logo } from '../components/Index';
 import { spacing } from '../constants/Index';
 
 const backgroundImg = require('../assets/landing-bg.png');
@@ -41,14 +41,14 @@ class LandingScreen extends React.Component {
                     <LandingBackground source={backgroundImg} />
                 </AnimatedBackgroundWrapper>
                 <ButtonWrapper>
-                    <ActionButton
+                    <LandingButton
                         primary
                         text='Create Account'
                         action={() => {
                             navigation.push('CreateAccount');
                         }}
                     />
-                    <ActionButton
+                    <LandingButton
                         text='Sign In'
                         margin={
                             `${spacing.small}px ${spacing.medium}px ` +
