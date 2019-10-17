@@ -1,9 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Alert } from 'react-native';
 import { NavigationActions, StackActions } from 'react-navigation';
 import firebase from 'firebase';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import InputButton from '../components/InputButton';
 import InputLabelGroup from '../components/InputLabelGroup';
+import { updateUserData } from '../actions/User';
 
 const createAccountInputs = [
     {
@@ -29,14 +33,28 @@ const createAccountInputs = [
     },
 ];
 
+const propTypes = {
+    dispatchUserData: PropTypes.func.isRequired,
+};
+
+function mapStateToProps() {
+    return {};
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        dispatchUserData: (userData) => dispatch(updateUserData(userData)),
+    };
+}
+
 class CreateAccountScreen extends React.Component {
     setValue(name, text) {
         this.setState({ [name]: text });
     }
 
     handleCreateAccount = async () => {
-        const { email, password } = this.state;
-        const { navigation } = this.props;
+        const { email, password, name } = this.state;
+        const { navigation, dispatchUserData } = this.props;
 
         const resetAction = StackActions.reset({
             index: 0,
@@ -45,9 +63,13 @@ class CreateAccountScreen extends React.Component {
 
         firebase
             .auth()
-            .signInWithEmailAndPassword(email, password)
+            .createUserWithEmailAndPassword(email, password)
+            .catch((error) => {
+                Alert.alert('Error', error.message);
+            })
             .then((response) => {
                 if (response) {
+                    dispatchUserData({ name });
                     navigation.dispatch(resetAction);
                 }
             });
@@ -99,7 +121,12 @@ class CreateAccountScreen extends React.Component {
     }
 }
 
-export default CreateAccountScreen;
+CreateAccountScreen.propTypes = propTypes;
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(CreateAccountScreen);
 
 const RootView = styled.View`
     flex: 1;
