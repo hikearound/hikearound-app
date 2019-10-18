@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { ActivityIndicator } from 'react-native';
+import { ActivityIndicator, Keyboard } from 'react-native';
 import { colors } from '../constants/Index';
 
 const propTypes = {
@@ -12,7 +12,15 @@ const defaultProps = {
     loading: false,
 };
 
-class LoadingOverlay extends React.PureComponent {
+class LoadingOverlay extends React.Component {
+    componentDidUpdate() {
+        const { loading } = this.props;
+
+        if (loading) {
+            Keyboard.dismiss();
+        }
+    }
+
     render() {
         const { loading } = this.props;
 
