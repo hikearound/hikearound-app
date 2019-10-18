@@ -4,6 +4,7 @@ import { NavigationActions, StackActions } from 'react-navigation';
 import { Alert, StatusBar } from 'react-native';
 import firebase from 'firebase';
 import InputButton from '../components/InputButton';
+import LoadingOverlay from '../components/LoadingOverlay';
 import InputLabelGroup from '../components/InputLabelGroup';
 
 const signInInputs = [
@@ -30,6 +31,7 @@ class SignInScreen extends React.Component {
         this.state = {
             email: '',
             password: '',
+            loading: false,
         };
     }
 
@@ -50,11 +52,14 @@ class SignInScreen extends React.Component {
             actions: [NavigationActions.navigate({ routeName: 'Home' })],
         });
 
+        this.setState({ loading: true });
+
         firebase
             .auth()
             .signInWithEmailAndPassword(email, password)
             .catch((error) => {
                 Alert.alert('Error', error.message);
+                this.setState({ loading: false });
             })
             .then((response) => {
                 if (response) {
@@ -69,6 +74,7 @@ class SignInScreen extends React.Component {
     };
 
     render() {
+        const { loading } = this.state;
         return (
             <RootView>
                 {signInInputs.map(
@@ -101,6 +107,7 @@ class SignInScreen extends React.Component {
                     ),
                 )}
                 <InputButton text='Sign In' action={this.handleLogin} />
+                <LoadingOverlay loading={loading} />
             </RootView>
         );
     }

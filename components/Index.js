@@ -17,6 +17,7 @@ import Thumbnail from './Thumbnail';
 import ModalDismiss from './ModalDismiss';
 import LightboxImage from './LightboxImage';
 import NotificationEmptyState from './NotificationEmptyState';
+import LoadingOverlay from './LoadingOverlay';
 
 // Modals
 import MapModal from './modals/MapModal';
@@ -79,4 +80,5 @@ export {
     NotificationEmptyState,
     SettingsSwitchItem,
     InputButton,
+    LoadingOverlay,
 };

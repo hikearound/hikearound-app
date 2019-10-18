@@ -6,6 +6,7 @@ import firebase from 'firebase';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import InputButton from '../components/InputButton';
+import LoadingOverlay from '../components/LoadingOverlay';
 import InputLabelGroup from '../components/InputLabelGroup';
 import { updateUserData } from '../actions/User';
 
@@ -56,6 +57,7 @@ class CreateAccountScreen extends React.Component {
             password: '',
             name: '',
             location: '',
+            loading: false,
         };
     }
 
@@ -71,6 +73,8 @@ class CreateAccountScreen extends React.Component {
             index: 0,
             actions: [NavigationActions.navigate({ routeName: 'Home' })],
         });
+
+        this.setState({ loading: true });
 
         firebase
             .auth()
@@ -92,6 +96,7 @@ class CreateAccountScreen extends React.Component {
     };
 
     render() {
+        const { loading } = this.state;
         return (
             <RootView>
                 {createAccountInputs.map(
@@ -127,6 +132,7 @@ class CreateAccountScreen extends React.Component {
                     text='Create Account'
                     action={this.handleCreateAccount}
                 />
+                <LoadingOverlay loading={loading} />
             </RootView>
         );
     }
