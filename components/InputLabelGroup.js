@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { Keyboard } from 'react-native';
 import { colors, fontSizes, spacing, fontWeights } from '../constants/Index';
 
 const propTypes = {
@@ -14,6 +15,7 @@ const propTypes = {
     autoCorrect: PropTypes.bool,
     autoCapitalize: PropTypes.string,
     autoFocus: PropTypes.bool,
+    blurOnSubmit: PropTypes.bool,
 };
 
 const defaultProps = {
@@ -24,6 +26,7 @@ const defaultProps = {
     autoCorrect: false,
     autoCapitalize: 'none',
     autoFocus: false,
+    blurOnSubmit: true,
 };
 
 class InputLabelGroup extends React.Component {
@@ -44,12 +47,13 @@ class InputLabelGroup extends React.Component {
             autoCorrect,
             autoCapitalize,
             autoFocus,
+            blurOnSubmit,
         } = this.props;
 
         return (
             <LabelInputGroup>
                 <InputLabel>{placeholder}</InputLabel>
-                <ModalInput
+                <Input
                     placeholder={placeholder}
                     keyboardType={keyboardType}
                     secureTextEntry={secureTextEntry}
@@ -60,6 +64,8 @@ class InputLabelGroup extends React.Component {
                     maxLength={inputMaxLegnth}
                     onChangeText={onChangeText}
                     defaultValue={defaultValue}
+                    blurOnSubmit={blurOnSubmit}
+                    onSubmitEditing={Keyboard.dismiss}
                 />
             </LabelInputGroup>
         );
@@ -77,7 +83,6 @@ const LabelInputGroup = styled.View`
     border-color: ${colors.lightGray};
     border-top-width: 1px;
     border-bottom-width: 1px;
-    padding: ${spacing.small}px;
     margin-top: -1px;
 `;
 
@@ -86,12 +91,14 @@ const InputLabel = styled.Text`
     font-size: ${fontSizes.medium}px;
     font-weight: ${fontWeights.bold};
     display: flex;
+    padding: ${spacing.small}px 0 ${spacing.small}px ${spacing.small}px;
     width: 95px;
 `;
 
-const ModalInput = styled.TextInput`
-    color: ${colors.darkGray};
+const Input = styled.TextInput`
+    color: ${colors.black};
     font-size: ${fontSizes.medium}px;
     display: flex;
     flex: 1;
+    padding: ${spacing.small}px;
 `;

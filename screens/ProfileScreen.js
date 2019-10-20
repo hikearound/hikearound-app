@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { ThemeContext } from 'react-navigation';
-import { timings } from '../constants/Index';
 import { themes } from '../constants/Themes';
 import { Settings, ProfileHeader, ProfileBody } from '../components/Index';
 import EditProfileModal from '../components/modals/EditProfileModal';
@@ -39,17 +38,15 @@ class ProfileScreen extends React.Component {
         this.getHikeData();
     }
 
-    componentDidMount() {
-        this.timeout = setTimeout(() => {
-            this.setState({
-                firstLoad: false,
-            });
-        }, timings.long);
-    }
-
     getHikeData = async () => {
         const favoritedHikes = await getUserFavoriteHikes();
         const hikes = [];
+
+        if (favoritedHikes) {
+            this.setState({
+                firstLoad: false,
+            });
+        }
 
         favoritedHikes.forEach((hike) => {
             if (hike.exists) {
@@ -78,6 +75,7 @@ class ProfileScreen extends React.Component {
 
         return (
             <RootView theme={theme}>
+                {firstLoad && <ProfileLoadingState />}
                 {!firstLoad && (
                     <ScrollView showsVerticalScrollIndicator={false}>
                         <ProfileHeader />
@@ -88,7 +86,6 @@ class ProfileScreen extends React.Component {
                         />
                     </ScrollView>
                 )}
-                {firstLoad && <ProfileLoadingState />}
                 <EditProfileModal
                     animationType='push'
                     modalAction='showEditProfile'

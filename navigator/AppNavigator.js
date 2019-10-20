@@ -8,7 +8,11 @@ import TabNavigator from './TabNavigator';
 const Navigation = createAppContainer(TabNavigator);
 
 const propTypes = {
-    darkMode: PropTypes.bool.isRequired,
+    darkMode: PropTypes.bool,
+};
+
+const defaultProps = {
+    darkMode: false,
 };
 
 function mapStateToProps(state) {
@@ -36,6 +40,7 @@ function App({ darkMode }) {
 }
 
 App.propTypes = propTypes;
+App.defaultProps = defaultProps;
 
 export default connect(
     mapStateToProps,

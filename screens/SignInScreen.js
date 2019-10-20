@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { NavigationActions, StackActions } from 'react-navigation';
-import { Alert, StatusBar } from 'react-native';
+import { Alert, StatusBar, ScrollView } from 'react-native';
 import firebase from 'firebase';
 import InputButton from '../components/InputButton';
 import LoadingOverlay from '../components/LoadingOverlay';
@@ -77,37 +77,43 @@ class SignInScreen extends React.Component {
         const { loading } = this.state;
         return (
             <RootView>
-                {signInInputs.map(
-                    (
-                        {
-                            name,
-                            placeholder,
-                            keyboardType,
-                            secureTextEntry,
-                            autoCorrect,
-                            autoCapitalize,
-                            textContentType,
-                        },
-                        index,
-                    ) => (
-                        <InputLabelGroup
-                            key={index}
-                            placeholder={placeholder}
-                            keyboardType={keyboardType}
-                            secureTextEntry={secureTextEntry}
-                            autoCorrect={autoCorrect}
-                            autoCapitalize={autoCapitalize}
-                            autoFocus={index === 0}
-                            onChangeText={(text) =>
-                                this.setValue(name, text, index)
-                            }
-                            labelName={placeholder}
-                            textContentType={textContentType}
-                        />
-                    ),
-                )}
-                <InputButton text='Sign In' action={this.handleLogin} />
-                <LoadingOverlay loading={loading} />
+                <ScrollView
+                    keyboardShouldPersistTaps='handled'
+                    scrollEnabled={false}
+                    contentContainerStyle={{ flexGrow: 1 }}
+                >
+                    {signInInputs.map(
+                        (
+                            {
+                                name,
+                                placeholder,
+                                keyboardType,
+                                secureTextEntry,
+                                autoCorrect,
+                                autoCapitalize,
+                                textContentType,
+                            },
+                            index,
+                        ) => (
+                            <InputLabelGroup
+                                key={index}
+                                placeholder={placeholder}
+                                keyboardType={keyboardType}
+                                secureTextEntry={secureTextEntry}
+                                autoCorrect={autoCorrect}
+                                autoCapitalize={autoCapitalize}
+                                onChangeText={(text) =>
+                                    this.setValue(name, text, index)
+                                }
+                                labelName={placeholder}
+                                textContentType={textContentType}
+                                autoFocus={index === 0}
+                            />
+                        ),
+                    )}
+                    <InputButton text='Sign In' action={this.handleLogin} />
+                    <LoadingOverlay loading={loading} />
+                </ScrollView>
             </RootView>
         );
     }

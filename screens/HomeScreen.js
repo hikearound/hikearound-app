@@ -6,7 +6,6 @@ import { RefreshControl, Image } from 'react-native';
 import { ThemeContext } from 'react-navigation';
 import Fire from '../Fire';
 import { Logo, FeedList, Sort } from '../components/Index';
-import { timings } from '../constants/Index';
 import { themes } from '../constants/Themes';
 import { getFeedHikeCount, getHikeImage } from '../utils/Hike';
 import HomeLoadingState from '../components/loading/Home';
@@ -50,11 +49,11 @@ class HomeScreen extends React.Component {
         super(props);
 
         this.state = {
+            hikes: [],
+            data: {},
             feedHikeCount: 0,
             sortType: 'desc',
             loading: false,
-            hikes: [],
-            data: {},
             firstLoad: true,
         };
     }
@@ -62,12 +61,6 @@ class HomeScreen extends React.Component {
     componentDidMount() {
         const { navigation } = this.props;
         const { sortType } = this.state;
-
-        this.loadingTimeout = setTimeout(() => {
-            this.setState({
-                firstLoad: false,
-            });
-        }, timings.extraLong);
 
         if (Fire.shared.uid) {
             this.makeRemoteRequest();
@@ -87,7 +80,9 @@ class HomeScreen extends React.Component {
         const userData = await getUserData();
 
         dispatchUserData(userData.data());
-        dispatchAvatar(avatarUri);
+        if (avatarUri) {
+            dispatchAvatar(avatarUri);
+        }
     };
 
     setFeedHikeCount = async () => {
@@ -124,6 +119,12 @@ class HomeScreen extends React.Component {
             const imageUrl = await this.cacheHikeImage(hike);
             hike.coverPhoto = imageUrl;
             hikes[hike.key] = hike;
+        }
+
+        if (hikes) {
+            this.setState({
+                firstLoad: false,
+            });
         }
 
         this.addhikes(hikes);
@@ -164,6 +165,7 @@ class HomeScreen extends React.Component {
 
         return (
             <RootView theme={theme}>
+                {firstLoad && <HomeLoadingState />}
                 {!firstLoad && (
                     <FeedList
                         refreshControl={
@@ -178,7 +180,6 @@ class HomeScreen extends React.Component {
                         hikes={hikes}
                     />
                 )}
-                {firstLoad && <HomeLoadingState />}
             </RootView>
         );
     }

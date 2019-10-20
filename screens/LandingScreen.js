@@ -51,7 +51,7 @@ class LandingScreen extends React.Component {
                     <LandingButton
                         text='Sign In'
                         margin={
-                            `${spacing.small}px ${spacing.medium}px ` +
+                            `${spacing.tiny}px ${spacing.medium}px ` +
                             `0 ${spacing.medium}px`
                         }
                         action={() => {

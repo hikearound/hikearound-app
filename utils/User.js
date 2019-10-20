@@ -51,10 +51,18 @@ export async function getUserFavoriteHikes() {
 
 export async function getAvatarUri() {
     const { uid } = firebase.auth().currentUser;
-    return firebase
+    let avatarUri = null;
+    await firebase
         .storage()
         .ref(`images/users/${uid}.jpg`)
-        .getDownloadURL();
+        .getDownloadURL()
+        .catch(() => {
+            return null;
+        })
+        .then((result) => {
+            avatarUri = result;
+        });
+    return avatarUri;
 }
 
 export async function getUserData() {
