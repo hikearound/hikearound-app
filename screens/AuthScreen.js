@@ -1,16 +1,25 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { AppLoading, SplashScreen } from 'expo';
 import { NavigationActions, StackActions } from 'react-navigation';
 import { StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import firebase from 'firebase';
+import { getUserData } from '../utils/User';
+import { initializeUserData } from '../actions/User';
+
+const propTypes = {
+    dispatchUserData: PropTypes.func.isRequired,
+};
 
 function mapStateToProps() {
     return {};
 }
 
-function mapDispatchToProps() {
-    return {};
+function mapDispatchToProps(dispatch) {
+    return {
+        dispatchUserData: (userData) => dispatch(initializeUserData(userData)),
+    };
 }
 
 class AuthScreen extends React.Component {
@@ -41,7 +50,7 @@ class AuthScreen extends React.Component {
         this.setState({ isReady: true });
     };
 
-    navToApp = (user) => {
+    navToApp = async (user) => {
         const { navigation } = this.props;
 
         navigation.dispatch(
@@ -55,7 +64,17 @@ class AuthScreen extends React.Component {
             }),
         );
 
+        await this.getUserProfileData(user);
         SplashScreen.hide();
+    };
+
+    getUserProfileData = async (user) => {
+        const { dispatchUserData } = this.props;
+
+        if (user) {
+            const userData = await getUserData();
+            dispatchUserData(userData.data());
+        }
     };
 
     render() {
@@ -73,6 +92,8 @@ class AuthScreen extends React.Component {
         return null;
     }
 }
+
+AuthScreen.propTypes = propTypes;
 
 export default connect(
     mapStateToProps,
