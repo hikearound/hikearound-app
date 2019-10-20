@@ -81,6 +81,7 @@ class CreateAccountScreen extends React.Component {
             .createUserWithEmailAndPassword(email, password)
             .catch((error) => {
                 Alert.alert('Error', error.message);
+                this.setState({ loading: false });
             })
             .then((response) => {
                 if (response) {
