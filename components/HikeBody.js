@@ -12,12 +12,14 @@ const propTypes = {
     city: PropTypes.string,
     id: PropTypes.string.isRequired,
     images: PropTypes.array,
+    distance: PropTypes.number,
 };
 
 const defaultProps = {
     description: '',
     name: '',
     city: '',
+    distance: '',
     images: [],
 };
 
@@ -43,14 +45,19 @@ class HikeBody extends React.PureComponent {
     }
 
     render() {
-        const { name, city, id, images } = this.props;
+        const { name, city, id, images, distance } = this.props;
         const { description } = this.state;
 
         return (
             <BodyContent>
                 <TitleText>{name}</TitleText>
                 <LocationText>{city}</LocationText>
-                <FavoriteButton name={name} id={id} />
+                <FavoriteButton
+                    name={name}
+                    id={id}
+                    distance={distance}
+                    city={city}
+                />
                 <Subtitle text='Description' />
                 <DescriptionText>{description}</DescriptionText>
                 <Subtitle text='Images' />

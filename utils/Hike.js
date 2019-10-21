@@ -30,6 +30,28 @@ export async function getHikeXmlUrl(id) {
         .getDownloadURL();
 }
 
+export function writeFavoriteHike(hikeData) {
+    const { uid } = firebase.auth().currentUser;
+    firebase
+        .firestore()
+        .collection('favoritedHikes')
+        .doc(uid)
+        .collection('hikes')
+        .doc(hikeData.id)
+        .set(hikeData, { merge: true });
+}
+
+export function removeFavoriteHike(hikeData) {
+    const { uid } = firebase.auth().currentUser;
+    firebase
+        .firestore()
+        .collection('favoritedHikes')
+        .doc(uid)
+        .collection('hikes')
+        .doc(hikeData.id)
+        .delete();
+}
+
 export default {
     getHikeSnapshot,
     getFeedHikeCount,

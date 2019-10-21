@@ -1,22 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TouchableOpacity, AsyncStorage } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import * as Haptics from 'expo-haptics';
 import { connect } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
 import { opacities, colors } from '../constants/Index';
 import { favoriteHike, unfavoriteHike } from '../actions/Hike';
+import { getUserFavoriteHikes } from '../utils/User';
 
 const propTypes = {
     id: PropTypes.string.isRequired,
     dispatchFavorite: PropTypes.func.isRequired,
     dispatchUnfavorite: PropTypes.func.isRequired,
+    name: PropTypes.string.isRequired,
+    distance: PropTypes.number.isRequired,
+    city: PropTypes.string.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {
     return {
-        dispatchFavorite: () => dispatch(favoriteHike()),
-        dispatchUnfavorite: () => dispatch(unfavoriteHike()),
+        dispatchFavorite: (hikeData) => dispatch(favoriteHike(hikeData)),
+        dispatchUnfavorite: (hikeData) => dispatch(unfavoriteHike(hikeData)),
     };
 }
 
@@ -32,34 +36,31 @@ class FavoriteButton extends React.Component {
     }
 
     componentWillMount = async () => {
-        const { id } = this.props;
-        const hikeArray = await this.getFavoritedHikes();
-
-        if (hikeArray && hikeArray.includes(id)) {
-            this.setHeartFilled();
-        }
+        await this.getFavoriteHikes();
+        this.setFavoriteHike();
     };
 
-    getFavoritedHikes = async () => AsyncStorage.getItem('favoritedHikes');
+    getFavoriteHikes = async () => {
+        const favoritedHikes = await getUserFavoriteHikes();
+        const hikes = [];
+
+        favoritedHikes.forEach((hike) => {
+            if (hike.exists) {
+                hikes.push(hike.id);
+            }
+        });
+
+        this.setState({
+            hikes,
+        });
+    };
 
     setFavoriteHike = async () => {
         const { id } = this.props;
-        let hikeArray = await this.getFavoritedHikes();
-        if (hikeArray) {
-            hikeArray = JSON.parse(hikeArray);
-            if (!hikeArray.includes(id)) {
-                hikeArray.push(id);
-                AsyncStorage.setItem(
-                    'favoritedHikes',
-                    JSON.stringify(hikeArray),
-                );
-            }
-        } else {
-            const newHikeArray = [id];
-            AsyncStorage.setItem(
-                'favoritedHikes',
-                JSON.stringify(newHikeArray),
-            );
+        const { hikes } = this.state;
+
+        if (hikes.includes(id)) {
+            this.setHeartFilled();
         }
     };
 
@@ -79,11 +80,10 @@ class FavoriteButton extends React.Component {
 
     removeFavoriteHike = async () => {
         const { id } = this.props;
-        let hikeArray = await this.getFavoritedHikes();
-        hikeArray = JSON.parse(hikeArray);
-        const index = hikeArray.indexOf(id);
-        delete hikeArray[index];
-        AsyncStorage.setItem('favoritedHikes', JSON.stringify(hikeArray));
+        const { hikes } = this.state;
+        const index = hikes.indexOf(id);
+
+        delete hikes[index];
     };
 
     buttonPress = () => {
@@ -93,20 +93,36 @@ class FavoriteButton extends React.Component {
 
     updateButtonStyle() {
         const { iconName } = this.state;
-        const { dispatchFavorite, dispatchUnfavorite } = this.props;
+        const {
+            dispatchFavorite,
+            dispatchUnfavorite,
+            id,
+            distance,
+            name,
+            city,
+        } = this.props;
+
+        const hikeData = {
+            id,
+            distance,
+            name,
+            city,
+        };
+
         if (iconName === 'ios-heart-empty') {
             this.setHeartFilled();
             this.setFavoriteHike();
-            dispatchFavorite();
+            dispatchFavorite(hikeData);
         } else {
             this.setHeartEmpty();
             this.removeFavoriteHike();
-            dispatchUnfavorite();
+            dispatchUnfavorite(hikeData);
         }
     }
 
     render() {
         const { iconName, iconColor, iconSize } = this.state;
+
         return (
             <TouchableOpacity
                 activeOpacity={opacities.regular}

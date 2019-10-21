@@ -174,6 +174,7 @@ class HikeScreen extends React.Component {
                         <HikeBody
                             name={name}
                             city={city}
+                            distance={distance}
                             description={description}
                             id={id}
                             images={images}
