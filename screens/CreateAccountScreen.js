@@ -12,7 +12,6 @@ import { updateUserData } from '../actions/User';
 
 const createAccountInputs = [
     {
-        keyboardType: 'default',
         placeholder: 'Name',
         name: 'name',
         autoCorrect: false,
