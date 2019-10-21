@@ -1,4 +1,6 @@
-const initialState = {};
+const initialState = {
+    hikeData: {},
+};
 
 export default function hikeReducer(state = initialState, action) {
     switch (action.type) {
