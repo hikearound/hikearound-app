@@ -9,8 +9,10 @@ import EditProfileModal from '../components/modals/EditProfileModal';
 import { getUserFavoriteHikes } from '../utils/User';
 import ProfileLoadingState from '../components/loading/Profile';
 
-function mapStateToProps() {
-    return {};
+function mapStateToProps(state) {
+    return {
+        hikeData: state.hikeReducer.hikeData,
+    };
 }
 
 function mapDispatchToProps() {
@@ -37,6 +39,10 @@ class ProfileScreen extends React.Component {
     async componentWillMount() {
         this.getHikeData();
     }
+
+    // componentDidUpdate() {
+    //     const { hikeData } = this.props;
+    // }
 
     getHikeData = async () => {
         const favoritedHikes = await getUserFavoriteHikes();
