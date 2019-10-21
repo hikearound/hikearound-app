@@ -36,10 +36,17 @@ const createAccountInputs = [
 
 const propTypes = {
     dispatchUserData: PropTypes.func.isRequired,
+    map: PropTypes.string.isRequired,
+    location: PropTypes.string.isRequired,
+    darkMode: PropTypes.bool.isRequired,
 };
 
-function mapStateToProps() {
-    return {};
+function mapStateToProps(state) {
+    return {
+        map: state.userReducer.map,
+        location: state.userReducer.location,
+        darkMode: state.userReducer.darkMode,
+    };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -56,7 +63,6 @@ class CreateAccountScreen extends React.Component {
             email: '',
             password: '',
             name: '',
-            location: '',
             loading: false,
         };
     }
@@ -66,8 +72,14 @@ class CreateAccountScreen extends React.Component {
     }
 
     handleCreateAccount = async () => {
-        const { email, password, name, location } = this.state;
-        const { navigation, dispatchUserData } = this.props;
+        const { email, password, name } = this.state;
+        const {
+            navigation,
+            dispatchUserData,
+            location,
+            darkMode,
+            map,
+        } = this.props;
 
         const resetAction = StackActions.reset({
             index: 0,
@@ -85,7 +97,7 @@ class CreateAccountScreen extends React.Component {
             })
             .then((response) => {
                 if (response) {
-                    dispatchUserData({ name, location });
+                    dispatchUserData({ name, location, darkMode, map });
                     navigation.dispatch(resetAction);
                 }
             });

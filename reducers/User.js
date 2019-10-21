@@ -10,12 +10,6 @@ const initialState = {
 export default function userReducer(state = initialState, action) {
     switch (action.type) {
         case 'INITIALIZE_USER_DATA':
-            if (!action.userData.map) {
-                action.userData.map = state.map;
-            }
-            if (!action.userData.darkMode) {
-                action.userData.darkMode = state.darkMode;
-            }
             return {
                 ...state,
                 name: action.userData.name,
