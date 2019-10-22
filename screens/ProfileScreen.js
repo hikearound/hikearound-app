@@ -14,11 +14,17 @@ import { initializeHikeData } from '../actions/Hike';
 const propTypes = {
     dispatchHikeData: PropTypes.func.isRequired,
     hikeData: PropTypes.array.isRequired,
+    action: PropTypes.string,
+};
+
+const defaultProps = {
+    action: '',
 };
 
 function mapStateToProps(state) {
     return {
         hikeData: state.hikeReducer.hikeData,
+        action: state.hikeReducer.action,
     };
 }
 
@@ -72,15 +78,16 @@ class ProfileScreen extends React.Component {
                 maybeShowEmptyState: true,
             });
         }
-
-        dispatchHikeData(hikeData);
+        if (hikeData) {
+            dispatchHikeData(hikeData);
+        }
     };
 
     static contextType = ThemeContext;
 
     render() {
         const { firstLoad, maybeShowEmptyState } = this.state;
-        const { hikeData } = this.props;
+        const { hikeData, action } = this.props;
         const theme = themes[this.context];
 
         return (
@@ -90,7 +97,8 @@ class ProfileScreen extends React.Component {
                     <ScrollView showsVerticalScrollIndicator={false}>
                         <ProfileHeader />
                         <ProfileBody
-                            hikes={hikeData}
+                            action={action}
+                            hikeData={hikeData}
                             loading={firstLoad}
                             maybeShowEmptyState={maybeShowEmptyState}
                         />
@@ -109,6 +117,7 @@ class ProfileScreen extends React.Component {
 }
 
 ProfileScreen.propTypes = propTypes;
+ProfileScreen.defaultProps = defaultProps;
 
 export default connect(
     mapStateToProps,

@@ -6,10 +6,10 @@ export const initializeHikeData = (hikeData) => {
 
 export const favoriteHike = (hikeData) => {
     writeFavoriteHike(hikeData);
-    return { type: 'FAVORITE_HIKE', hikeData };
+    return { type: 'FAVORITE_HIKE' };
 };
 
 export const unfavoriteHike = (hikeData) => {
     removeFavoriteHike(hikeData);
-    return { type: 'UNFAVORITE_HIKE', hikeData };
+    return { type: 'UNFAVORITE_HIKE' };
 };

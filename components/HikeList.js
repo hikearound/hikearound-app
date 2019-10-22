@@ -7,7 +7,7 @@ import { colors, fontSizes, fontWeights, spacing } from '../constants/Index';
 
 const propTypes = {
     maybeShowEmptyState: PropTypes.bool.isRequired,
-    hikes: PropTypes.array.isRequired,
+    hikeData: PropTypes.array.isRequired,
 };
 
 class HikeList extends React.PureComponent {
@@ -41,18 +41,21 @@ class HikeList extends React.PureComponent {
     );
 
     render() {
-        const { hikes } = this.props;
+        const { hikeData, action } = this.props;
         const extractKey = ({ id }) => id;
 
         return (
             <RootView>
-                <FlatList
-                    renderItem={this.renderItem}
-                    ListHeaderComponent={this.renderListHeader}
-                    ListEmptyComponent={this.renderEmptyList}
-                    data={hikes}
-                    keyExtractor={extractKey}
-                />
+                {hikeData && (
+                    <FlatList
+                        renderItem={this.renderItem}
+                        ListHeaderComponent={this.renderListHeader}
+                        ListEmptyComponent={this.renderEmptyList}
+                        data={hikeData}
+                        extraData={action}
+                        keyExtractor={extractKey}
+                    />
+                )}
             </RootView>
         );
     }
