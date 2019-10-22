@@ -6,6 +6,11 @@ const propTypes = {
     hikeData: PropTypes.array.isRequired,
     loading: PropTypes.bool.isRequired,
     maybeShowEmptyState: PropTypes.bool.isRequired,
+    action: PropTypes.string,
+};
+
+const defaultProps = {
+    action: '',
 };
 
 class ProfileBody extends React.PureComponent {
@@ -24,5 +29,6 @@ class ProfileBody extends React.PureComponent {
 }
 
 ProfileBody.propTypes = propTypes;
+ProfileBody.defaultProps = defaultProps;
 
 export default ProfileBody;

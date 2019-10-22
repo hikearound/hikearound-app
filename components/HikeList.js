@@ -8,6 +8,11 @@ import { colors, fontSizes, fontWeights, spacing } from '../constants/Index';
 const propTypes = {
     maybeShowEmptyState: PropTypes.bool.isRequired,
     hikeData: PropTypes.array.isRequired,
+    action: PropTypes.string,
+};
+
+const defaultProps = {
+    action: '',
 };
 
 class HikeList extends React.PureComponent {
@@ -62,6 +67,7 @@ class HikeList extends React.PureComponent {
 }
 
 HikeList.propTypes = propTypes;
+HikeList.defaultProps = defaultProps;
 
 export default HikeList;
 
