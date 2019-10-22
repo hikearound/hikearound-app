@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { ThemeContext } from 'react-navigation';
@@ -8,6 +9,12 @@ import { Settings, ProfileHeader, ProfileBody } from '../components/Index';
 import EditProfileModal from '../components/modals/EditProfileModal';
 import { getUserFavoriteHikes } from '../utils/User';
 import ProfileLoadingState from '../components/loading/Profile';
+import { initializeHikeData } from '../actions/Hike';
+
+const propTypes = {
+    dispatchHikeData: PropTypes.func.isRequired,
+    hikeData: PropTypes.array.isRequired,
+};
 
 function mapStateToProps(state) {
     return {
@@ -15,8 +22,10 @@ function mapStateToProps(state) {
     };
 }
 
-function mapDispatchToProps() {
-    return {};
+function mapDispatchToProps(dispatch) {
+    return {
+        dispatchHikeData: (hikeData) => dispatch(initializeHikeData(hikeData)),
+    };
 }
 
 class ProfileScreen extends React.Component {
@@ -30,23 +39,19 @@ class ProfileScreen extends React.Component {
         super(props);
 
         this.state = {
-            hikes: [],
             firstLoad: true,
             maybeShowEmptyState: false,
         };
     }
 
     async componentWillMount() {
-        this.getHikeData();
+        await this.getHikeData();
     }
 
-    // componentDidUpdate() {
-    //     const { hikeData } = this.props;
-    // }
-
     getHikeData = async () => {
+        const hikeData = [];
         const favoritedHikes = await getUserFavoriteHikes();
-        const hikes = [];
+        const { dispatchHikeData } = this.props;
 
         if (favoritedHikes) {
             this.setState({
@@ -56,27 +61,26 @@ class ProfileScreen extends React.Component {
 
         favoritedHikes.forEach((hike) => {
             if (hike.exists) {
-                const hikeData = hike.data() || {};
-                hikeData.id = hike.id;
-                hikes.push(hikeData);
+                const favoriteHike = hike.data() || {};
+                favoriteHike.id = hike.id;
+                hikeData.push(favoriteHike);
             }
         });
 
-        if (hikes.length === 0) {
+        if (hikeData.length === 0) {
             this.setState({
                 maybeShowEmptyState: true,
             });
         }
 
-        this.setState({
-            hikes,
-        });
+        dispatchHikeData(hikeData);
     };
 
     static contextType = ThemeContext;
 
     render() {
-        const { hikes, firstLoad, maybeShowEmptyState } = this.state;
+        const { firstLoad, maybeShowEmptyState } = this.state;
+        const { hikeData } = this.props;
         const theme = themes[this.context];
 
         return (
@@ -86,7 +90,7 @@ class ProfileScreen extends React.Component {
                     <ScrollView showsVerticalScrollIndicator={false}>
                         <ProfileHeader />
                         <ProfileBody
-                            hikes={hikes}
+                            hikes={hikeData}
                             loading={firstLoad}
                             maybeShowEmptyState={maybeShowEmptyState}
                         />
@@ -103,6 +107,8 @@ class ProfileScreen extends React.Component {
         );
     }
 }
+
+ProfileScreen.propTypes = propTypes;
 
 export default connect(
     mapStateToProps,
