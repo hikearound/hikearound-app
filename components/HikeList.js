@@ -8,14 +8,9 @@ import { colors, fontSizes, fontWeights, spacing } from '../constants/Index';
 const propTypes = {
     maybeShowEmptyState: PropTypes.bool.isRequired,
     hikeData: PropTypes.array.isRequired,
-    action: PropTypes.string,
 };
 
-const defaultProps = {
-    action: '',
-};
-
-class HikeList extends React.PureComponent {
+class HikeList extends React.Component {
     renderListHeader = () => (
         <HeaderContainer>
             <HeaderText>Your Hikes</HeaderText>
@@ -46,7 +41,7 @@ class HikeList extends React.PureComponent {
     );
 
     render() {
-        const { hikeData, action } = this.props;
+        const { hikeData } = this.props;
         const extractKey = ({ id }) => id;
 
         return (
@@ -57,7 +52,7 @@ class HikeList extends React.PureComponent {
                         ListHeaderComponent={this.renderListHeader}
                         ListEmptyComponent={this.renderEmptyList}
                         data={hikeData}
-                        extraData={action}
+                        extraData={this.props}
                         keyExtractor={extractKey}
                     />
                 )}
@@ -67,7 +62,6 @@ class HikeList extends React.PureComponent {
 }
 
 HikeList.propTypes = propTypes;
-HikeList.defaultProps = defaultProps;
 
 export default HikeList;
 

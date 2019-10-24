@@ -13,17 +13,19 @@ import { initializeHikeData } from '../actions/Hike';
 
 const propTypes = {
     dispatchHikeData: PropTypes.func.isRequired,
-    hikeData: PropTypes.array.isRequired,
+    updatedHikeData: PropTypes.object,
     action: PropTypes.string,
 };
 
 const defaultProps = {
     action: '',
+    updatedHikeData: {},
 };
 
 function mapStateToProps(state) {
     return {
         hikeData: state.hikeReducer.hikeData,
+        updatedHikeData: state.hikeReducer.updatedHikeData,
         action: state.hikeReducer.action,
     };
 }
@@ -47,11 +49,22 @@ class ProfileScreen extends React.Component {
         this.state = {
             firstLoad: true,
             maybeShowEmptyState: false,
+            hikeData: [],
         };
     }
 
     async componentWillMount() {
         await this.getHikeData();
+    }
+
+    async componentDidUpdate(prevProps) {
+        const { action, updatedHikeData } = this.props;
+
+        if (action === 'favoriteHike' || action === 'unfavoriteHike') {
+            if (prevProps.updatedHikeData !== updatedHikeData) {
+                await this.getHikeData();
+            }
+        }
     }
 
     getHikeData = async () => {
@@ -60,9 +73,7 @@ class ProfileScreen extends React.Component {
         const { dispatchHikeData } = this.props;
 
         if (favoritedHikes) {
-            this.setState({
-                firstLoad: false,
-            });
+            this.setState({ firstLoad: false });
         }
 
         favoritedHikes.forEach((hike) => {
@@ -74,20 +85,19 @@ class ProfileScreen extends React.Component {
         });
 
         if (hikeData.length === 0) {
-            this.setState({
-                maybeShowEmptyState: true,
-            });
+            this.setState({ maybeShowEmptyState: true });
         }
+
         if (hikeData) {
             dispatchHikeData(hikeData);
+            this.setState({ hikeData });
         }
     };
 
     static contextType = ThemeContext;
 
     render() {
-        const { firstLoad, maybeShowEmptyState } = this.state;
-        const { hikeData, action } = this.props;
+        const { firstLoad, maybeShowEmptyState, hikeData } = this.state;
         const theme = themes[this.context];
 
         return (
@@ -97,7 +107,6 @@ class ProfileScreen extends React.Component {
                     <ScrollView showsVerticalScrollIndicator={false}>
                         <ProfileHeader />
                         <ProfileBody
-                            action={action}
                             hikeData={hikeData}
                             loading={firstLoad}
                             maybeShowEmptyState={maybeShowEmptyState}
