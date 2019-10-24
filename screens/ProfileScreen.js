@@ -14,11 +14,9 @@ import { initializeHikeData } from '../actions/Hike';
 const propTypes = {
     dispatchHikeData: PropTypes.func.isRequired,
     updatedHikeData: PropTypes.object,
-    action: PropTypes.string,
 };
 
 const defaultProps = {
-    action: '',
     updatedHikeData: {},
 };
 
@@ -26,7 +24,6 @@ function mapStateToProps(state) {
     return {
         hikeData: state.hikeReducer.hikeData,
         updatedHikeData: state.hikeReducer.updatedHikeData,
-        action: state.hikeReducer.action,
     };
 }
 
@@ -58,12 +55,10 @@ class ProfileScreen extends React.Component {
     }
 
     async componentDidUpdate(prevProps) {
-        const { action, updatedHikeData } = this.props;
+        const { updatedHikeData } = this.props;
 
-        if (action === 'favoriteHike' || action === 'unfavoriteHike') {
-            if (prevProps.updatedHikeData !== updatedHikeData) {
-                await this.getHikeData();
-            }
+        if (prevProps.updatedHikeData !== updatedHikeData) {
+            await this.getHikeData();
         }
     }
 
