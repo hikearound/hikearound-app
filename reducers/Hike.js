@@ -1,5 +1,6 @@
 const initialState = {
     hikeData: [],
+    updatedHikeData: {},
 };
 
 export default function hikeReducer(state = initialState, action) {

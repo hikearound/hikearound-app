@@ -13,11 +13,7 @@ import { initializeHikeData } from '../actions/Hike';
 
 const propTypes = {
     dispatchHikeData: PropTypes.func.isRequired,
-    updatedHikeData: PropTypes.object,
-};
-
-const defaultProps = {
-    updatedHikeData: {},
+    updatedHikeData: PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state) {
@@ -121,7 +117,6 @@ class ProfileScreen extends React.Component {
 }
 
 ProfileScreen.propTypes = propTypes;
-ProfileScreen.defaultProps = defaultProps;
 
 export default connect(
     mapStateToProps,
