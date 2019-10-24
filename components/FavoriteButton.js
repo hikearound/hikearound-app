@@ -19,8 +19,10 @@ const propTypes = {
 
 function mapDispatchToProps(dispatch) {
     return {
-        dispatchFavorite: (hikeData) => dispatch(favoriteHike(hikeData)),
-        dispatchUnfavorite: (hikeData) => dispatch(unfavoriteHike(hikeData)),
+        dispatchFavorite: (updatedHikeData) =>
+            dispatch(favoriteHike(updatedHikeData)),
+        dispatchUnfavorite: (updatedHikeData) =>
+            dispatch(unfavoriteHike(updatedHikeData)),
     };
 }
 
@@ -102,7 +104,7 @@ class FavoriteButton extends React.Component {
             city,
         } = this.props;
 
-        const hikeData = {
+        const updatedHikeData = {
             id,
             distance,
             name,
@@ -112,11 +114,11 @@ class FavoriteButton extends React.Component {
         if (iconName === 'ios-heart-empty') {
             this.setHeartFilled();
             this.setFavoriteHike();
-            dispatchFavorite(hikeData);
+            dispatchFavorite(updatedHikeData);
         } else {
             this.setHeartEmpty();
             this.removeFavoriteHike();
-            dispatchUnfavorite(hikeData);
+            dispatchUnfavorite(updatedHikeData);
         }
     }
 

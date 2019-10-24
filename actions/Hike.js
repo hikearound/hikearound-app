@@ -4,12 +4,12 @@ export const initializeHikeData = (hikeData) => {
     return { type: 'INITIALIZE_HIKE_DATA', hikeData };
 };
 
-export const favoriteHike = (hikeData) => {
-    writeFavoriteHike(hikeData);
-    return { type: 'FAVORITE_HIKE', hikeData };
+export const favoriteHike = (updatedHikeData) => {
+    writeFavoriteHike(updatedHikeData);
+    return { type: 'FAVORITE_HIKE', updatedHikeData };
 };
 
-export const unfavoriteHike = (hikeData) => {
-    removeFavoriteHike(hikeData);
-    return { type: 'UNFAVORITE_HIKE', hikeData };
+export const unfavoriteHike = (updatedHikeData) => {
+    removeFavoriteHike(updatedHikeData);
+    return { type: 'UNFAVORITE_HIKE', updatedHikeData };
 };

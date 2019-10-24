@@ -14,13 +14,13 @@ export default function hikeReducer(state = initialState, action) {
             return {
                 ...state,
                 action: 'favoriteHike',
-                updatedHikeData: action.hikeData,
+                updatedHikeData: action.updatedHikeData,
             };
         case 'UNFAVORITE_HIKE':
             return {
                 ...state,
                 action: 'unfavoriteHike',
-                updatedHikeData: action.hikeData,
+                updatedHikeData: action.updatedHikeData,
             };
         default:
             return state;
