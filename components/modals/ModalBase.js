@@ -22,9 +22,11 @@ class ModalBase extends React.PureComponent {
         };
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(prevProps) {
         const { action, modalAction } = this.props;
-        this.toggleModal(action, modalAction);
+        if (prevProps.action !== action) {
+            this.toggleModal(action, modalAction);
+        }
     }
 
     showModal() {
