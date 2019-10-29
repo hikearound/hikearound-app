@@ -3,13 +3,12 @@ import PropTypes from 'prop-types';
 import { Modal, StatusBar } from 'react-native';
 
 const propTypes = {
-    action: PropTypes.string,
+    action: PropTypes.string.isRequired,
     modalAction: PropTypes.string.isRequired,
     hideStatusBar: PropTypes.bool,
 };
 
 const defaultProps = {
-    action: '',
     hideStatusBar: true,
 };
 
