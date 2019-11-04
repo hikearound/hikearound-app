@@ -1,5 +1,5 @@
 const timings = {
-    short: 25,
+    short: 75,
     medium: 800,
     long: 1500,
     extraLong: 2500,

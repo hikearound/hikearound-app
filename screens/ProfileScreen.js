@@ -10,6 +10,7 @@ import EditProfileModal from '../components/modals/EditProfileModal';
 import { getUserFavoriteHikes } from '../utils/User';
 import ProfileLoadingState from '../components/loading/Profile';
 import { initializeHikeData } from '../actions/Hike';
+import { timings } from '../constants/Index';
 
 const propTypes = {
     dispatchHikeData: PropTypes.func.isRequired,
@@ -50,6 +51,14 @@ class ProfileScreen extends React.Component {
         await this.getHikeData();
     }
 
+    componentDidMount() {
+        this.loadingTimeout = setTimeout(() => {
+            this.setState({
+                shouldLoad: true,
+            });
+        }, timings.short);
+    }
+
     async componentDidUpdate(prevProps) {
         const { updatedHikeData } = this.props;
 
@@ -88,12 +97,18 @@ class ProfileScreen extends React.Component {
     static contextType = ThemeContext;
 
     render() {
-        const { firstLoad, maybeShowEmptyState, hikeData } = this.state;
+        const {
+            firstLoad,
+            maybeShowEmptyState,
+            hikeData,
+            shouldLoad,
+        } = this.state;
+
         const theme = themes[this.context];
 
         return (
             <RootView theme={theme}>
-                {firstLoad && <ProfileLoadingState />}
+                {firstLoad && shouldLoad && <ProfileLoadingState />}
                 {!firstLoad && (
                     <ScrollView showsVerticalScrollIndicator={false}>
                         <ProfileHeader />
