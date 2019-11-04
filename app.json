@@ -8,7 +8,7 @@
       "ios",
       "web"
     ],
-    "version": "1.0.0",
+    "version": "0.0.1",
     "orientation": "default",
     "icon": "./assets/icon.png",
     "splash": {
@@ -25,8 +25,9 @@
     "ios": {
       "supportsTablet": false,
       "userInterfaceStyle": "automatic",
+      "bundleIdentifier": "com.tryhikearound",
       "config": {
-        "googleMapsApiKey": "AIzaSyDNvaSlj_yrjkhClop5dPBDPSNUjOUS_a8"
+        "googleMapsApiKey": "AIzaSyDzhRGewrBXqU6XPG5Bdl29JpPRPNtdilY"
       }
     },
     "description": "An iOS app that offers curated and personalized hikes.",
