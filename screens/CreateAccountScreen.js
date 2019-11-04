@@ -16,6 +16,7 @@ const createAccountInputs = [
         name: 'name',
         autoCorrect: false,
         textContentType: 'name',
+        autoCapitalize: 'words',
     },
     {
         keyboardType: 'email-address',
