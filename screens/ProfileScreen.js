@@ -21,6 +21,7 @@ function mapStateToProps(state) {
     return {
         hikeData: state.hikeReducer.hikeData,
         updatedHikeData: state.hikeReducer.updatedHikeData,
+        avatar: state.userReducer.avatar,
     };
 }
 

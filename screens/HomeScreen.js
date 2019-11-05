@@ -2,8 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { RefreshControl, Image } from 'react-native';
+import { RefreshControl } from 'react-native';
 import { ThemeContext } from 'react-navigation';
+import { CacheManager } from 'react-native-expo-image-cache';
 import Fire from '../Fire';
 import { Logo, FeedList, Sort } from '../components/Index';
 import { themes } from '../constants/Themes';
@@ -11,16 +12,20 @@ import { getFeedHikeCount, getHikeImage } from '../utils/Hike';
 import HomeLoadingState from '../components/loading/Home';
 import { getAvatarUri, getUserData } from '../utils/User';
 import { initializeUserData, initializeAvatar } from '../actions/User';
+import { timings } from '../constants/Index';
 
 const PAGE_SIZE = 5;
 
 const propTypes = {
     dispatchUserData: PropTypes.func.isRequired,
     dispatchAvatar: PropTypes.func.isRequired,
+    avatar: PropTypes.string.isRequired,
 };
 
-function mapStateToProps() {
-    return {};
+function mapStateToProps(state) {
+    return {
+        avatar: state.userReducer.avatar,
+    };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -74,15 +79,23 @@ class HomeScreen extends React.Component {
     }
 
     getUserProfileData = async () => {
-        const { dispatchUserData, dispatchAvatar } = this.props;
-
-        const avatarUri = await getAvatarUri();
+        const { dispatchUserData, dispatchAvatar, avatar } = this.props;
+        let avatarUri = await getAvatarUri();
         const userData = await getUserData();
 
         dispatchUserData(userData.data());
+
         if (avatarUri) {
             dispatchAvatar(avatarUri);
+        } else {
+            avatarUri = avatar;
         }
+
+        this.cacheAvatar(avatarUri);
+    };
+
+    cacheAvatar = (uri) => {
+        CacheManager.get(uri).getPath();
     };
 
     setFeedHikeCount = async () => {
@@ -112,9 +125,9 @@ class HomeScreen extends React.Component {
             start: lastKey,
         });
 
-        /* eslint-disable no-restricted-syntax */
         this.lastKnownKey = cursor;
 
+        /* eslint-disable-next-line */
         for (const hike of data) {
             const imageUrl = await this.cacheHikeImage(hike);
             hike.coverPhoto = imageUrl;
@@ -133,12 +146,14 @@ class HomeScreen extends React.Component {
 
     cacheHikeImage = async (hike) => {
         let imageUrl = null;
+
         if (hike.images) {
             imageUrl = await getHikeImage(hike.id, 0);
             if (imageUrl) {
-                Image.prefetch(imageUrl);
+                await CacheManager.get(imageUrl).getPath();
             }
         }
+
         return imageUrl;
     };
 
@@ -146,7 +161,7 @@ class HomeScreen extends React.Component {
         await this.setState({ loading: true });
         this.timeout = setTimeout(() => {
             this.makeRemoteRequest();
-        }, 1000);
+        }, timings.medium);
     };
 
     onEndReached = () => {

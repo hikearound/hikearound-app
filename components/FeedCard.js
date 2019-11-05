@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { ThemeProvider } from 'styled-components';
 import { ThemeContext } from 'react-navigation';
+import { Image } from 'react-native-expo-image-cache';
 import FeedCardGradient from './FeedCardGradient';
 import {
     spacing,
@@ -32,7 +33,17 @@ class FeedCard extends React.PureComponent {
             <ThemeProvider theme={theme}>
                 <Container>
                     <Cover>
-                        <Image source={image} resizeMode='cover' />
+                        <Image
+                            uri={image.uri}
+                            resizeMode='cover'
+                            style={{
+                                position: 'absolute',
+                                top: 0,
+                                left: 0,
+                                height: '100%',
+                                width: '100%',
+                            }}
+                        />
                         <HikeName>{name}</HikeName>
                         <FeedCardGradient imageDidLoad={image.uri} />
                     </Cover>
@@ -79,14 +90,6 @@ const Cover = styled.View`
     border-top-left-radius: ${borderRadius.medium}px;
     border-top-right-radius: ${borderRadius.medium}px;
     overflow: hidden;
-`;
-
-const Image = styled.Image`
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
 `;
 
 const HikeName = styled.Text`

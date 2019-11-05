@@ -5,6 +5,7 @@ import { NavigationActions, StackActions } from 'react-navigation';
 import { StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import firebase from 'firebase';
+import { CacheManager } from 'react-native-expo-image-cache';
 import { getUserData } from '../utils/User';
 import { initializeUserData } from '../actions/User';
 
@@ -34,6 +35,7 @@ class AuthScreen extends React.Component {
     componentWillMount() {
         SplashScreen.preventAutoHide();
         StatusBar.setBarStyle('light-content', true);
+        CacheManager.clearCache();
     }
 
     componentWillUnmount() {

@@ -13,7 +13,7 @@ import {
     spacing,
 } from '../constants/Index';
 import { updateAvatar } from '../actions/User';
-import { reduceImageAsync } from '../utils/Photo';
+import { reduceImageAsync } from '../utils/Image';
 
 const propTypes = {
     dispatchAvatar: PropTypes.func.isRequired,
