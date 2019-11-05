@@ -15,6 +15,17 @@ import { showModal } from '../actions/Modal';
 
 const BACKGROUND_IMAGE = require('../assets/profile-bg.png');
 
+const linkStyle = {
+    position: 'absolute',
+    bottom: parseInt(spacing.medium, 10),
+};
+
+const editProfileStyle = { ...linkStyle };
+editProfileStyle.right = parseInt(spacing.small, 10);
+
+const addLocationStyle = { ...linkStyle };
+addLocationStyle.left = parseInt(spacing.small, 10);
+
 const propTypes = {
     dispatchModalFlag: PropTypes.func.isRequired,
     modalType: PropTypes.string,
@@ -50,24 +61,35 @@ class ProfileHeader extends React.PureComponent {
         dispatchModalFlag(modalType);
     };
 
+    editProfileLink = () => (
+        <TouchableOpacity
+            activeOpacity={opacities.regular}
+            onPress={this.editProfile}
+            style={editProfileStyle}
+        >
+            <ActionLink primary>Edit Profile</ActionLink>
+        </TouchableOpacity>
+    );
+
+    addLocationLink = () => (
+        <TouchableOpacity
+            activeOpacity={opacities.regular}
+            onPress={this.editProfile}
+            style={addLocationStyle}
+        >
+            <ActionLink>Add Location</ActionLink>
+        </TouchableOpacity>
+    );
+
     render() {
         const { name, location } = this.props;
         return (
             <HeaderWrapper source={BACKGROUND_IMAGE}>
                 <Avatar />
                 <NameText>{name}</NameText>
-                <LocationText>{location}</LocationText>
-                <TouchableOpacity
-                    activeOpacity={opacities.regular}
-                    onPress={this.editProfile}
-                    style={{
-                        position: 'absolute',
-                        right: parseInt(spacing.small, 10),
-                        bottom: 20,
-                    }}
-                >
-                    <EditProfileLink>Edit Profile</EditProfileLink>
-                </TouchableOpacity>
+                {location === '' && this.addLocationLink()}
+                {location !== '' && <LocationText>{location}</LocationText>}
+                {this.editProfileLink()}
             </HeaderWrapper>
         );
     }
@@ -101,8 +123,7 @@ const LocationText = styled.Text`
     color: ${colors.black};
 `;
 
-const EditProfileLink = styled.Text`
+const ActionLink = styled.Text`
     font-size: ${fontSizes.medium}px;
-    font-weight: ${fontWeights.medium};
-    color: ${colors.purple};
+    color: ${(props) => (props.primary ? colors.purple : colors.darkGray)};
 `;
