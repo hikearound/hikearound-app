@@ -30,6 +30,18 @@
         "googleMapsApiKey": "AIzaSyDzhRGewrBXqU6XPG5Bdl29JpPRPNtdilY"
       }
     },
+    "hooks": {
+      "postPublish": [
+        {
+          "file": "sentry-expo/upload-sourcemaps",
+          "config": {
+            "organization": "hikearound",
+            "project": "hikearound",
+            "authToken": "",
+          }
+        }
+      ]
+    },
     "description": "An iOS app that offers curated and personalized hikes.",
     "githubUrl": "https://github.com/pdugan20/hikearound-app"
   }
