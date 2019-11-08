@@ -24,7 +24,7 @@
     "expo-linear-gradient": "^7.0.1",
     "expo-location": "^7.0.0",
     "expo-permissions": "^7.0.0",
-    "firebase": "^7.2.3",
+    "firebase": "^7.3.0",
     "fsevents": "^2.1.1",
     "prop-types": "^15.7.2",
     "react": "16.8.3",
@@ -48,7 +48,8 @@
     "redux": "^4.0.4",
     "sentry-expo": "^2.0.1",
     "styled-components": "^4.4.1",
-    "webpack": "^4.41.2"
+    "webpack": "^4.41.2",
+    "expo-constants": "~7.0.0"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.3",

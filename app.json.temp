@@ -8,8 +8,8 @@
       "ios",
       "web"
     ],
-    "version": "0.0.1",
-    "orientation": "default",
+    "version": "0.0.2",
+    "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
@@ -27,7 +27,7 @@
       "userInterfaceStyle": "automatic",
       "bundleIdentifier": "com.tryhikearound",
       "config": {
-        "googleMapsApiKey": "AIzaSyDzhRGewrBXqU6XPG5Bdl29JpPRPNtdilY"
+        "googleMapsApiKey": ""
       }
     },
     "hooks": {
@@ -37,7 +37,7 @@
           "config": {
             "organization": "hikearound",
             "project": "hikearound",
-            "authToken": "",
+            "authToken": ""
           }
         }
       ]
