@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import { RefreshControl } from 'react-native';
 import { ThemeContext } from 'react-navigation';
 import { CacheManager } from 'react-native-expo-image-cache';
-import Fire from '../Fire';
 import { Logo, FeedList, Sort } from '../components/Index';
 import { themes } from '../constants/Themes';
 import { getFeedHikeCount, getHikeImage } from '../utils/Hike';
@@ -13,6 +12,7 @@ import HomeLoadingState from '../components/loading/Home';
 import { getAvatarUri, getUserData } from '../utils/User';
 import { initializeUserData, initializeAvatar } from '../actions/User';
 import { timings } from '../constants/Index';
+import { pageFeed } from '../utils/Feed';
 
 const PAGE_SIZE = 5;
 
@@ -67,11 +67,9 @@ class HomeScreen extends React.Component {
         const { navigation } = this.props;
         const { sortType } = this.state;
 
-        if (Fire.shared.uid) {
-            this.makeRemoteRequest();
-            this.setFeedHikeCount();
-            this.getUserProfileData();
-        }
+        this.makeRemoteRequest();
+        this.setFeedHikeCount();
+        this.getUserProfileData();
 
         navigation.setParams({
             sortType,
@@ -120,7 +118,7 @@ class HomeScreen extends React.Component {
 
     makeRemoteRequest = async (lastKey) => {
         const hikes = {};
-        const { data, cursor } = await Fire.shared.getPaged({
+        const { data, cursor } = await pageFeed({
             size: PAGE_SIZE,
             start: lastKey,
         });

@@ -125,5 +125,7 @@ const LocationText = styled.Text`
 
 const ActionLink = styled.Text`
     font-size: ${fontSizes.medium}px;
+    font-weight: ${(props) =>
+        props.primary ? fontWeights.medium : fontWeights.regular};
     color: ${(props) => (props.primary ? colors.purple : colors.darkGray)};
 `;
