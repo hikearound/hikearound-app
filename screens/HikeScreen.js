@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { ScrollView } from 'react-native';
 import openMap from 'react-native-open-maps';
-import { parseString } from 'react-native-xml2js';
 import {
     HikeBody,
     Overflow,
@@ -16,7 +15,7 @@ import {
 import { hikeActionSheet } from '../components/action_sheets/Hike';
 import { getMapSetting } from '../utils/Settings';
 import { themes } from '../constants/Themes';
-import { getHikeXmlUrl } from '../utils/Hike';
+import { getHikeXmlUrl, parseHikeXml } from '../utils/Hike';
 
 const propTypes = {
     map: PropTypes.string.isRequired,
@@ -77,30 +76,20 @@ class HikeScreen extends React.Component {
     getHikeData = async () => {
         const { id } = this.state;
         const hikeXmlUrl = await getHikeXmlUrl(id);
+        const hikeData = await parseHikeXml(hikeXmlUrl);
 
-        await fetch(hikeXmlUrl)
-            .then((response) => response.text())
-            .then((response) => {
-                parseString(response, (err, result) => {
-                    const hikeData = JSON.stringify(result);
-                    this.setHikeData(JSON.parse(hikeData));
-                });
-            });
-
+        this.setHikeData(hikeData);
         this.parseCoordinates();
-        this.setMapRegion();
+        this.setMapCenter();
     };
 
     setHikeData(hikeData) {
         const hikeMetaData = hikeData.gpx.metadata[0].bounds[0].$;
-        const maxlat = parseFloat(hikeMetaData.maxlat);
-        const minlat = parseFloat(hikeMetaData.minlat);
-        const minlon = parseFloat(hikeMetaData.minlon);
-        const maxlon = parseFloat(hikeMetaData.maxlon);
+        const { maxlat, minlat, minlon, maxlon } = hikeMetaData;
 
         this.setState({
-            startingLat: (maxlat + minlat) / 2,
-            startingLon: (maxlon + minlon) / 2,
+            startingLat: (parseFloat(maxlat) + parseFloat(minlat)) / 2,
+            startingLon: (parseFloat(maxlon) + parseFloat(minlon)) / 2,
             latDelta: maxlat - minlat + 0.02,
             lonDelta: maxlon - minlon,
             hikeData,
@@ -126,8 +115,8 @@ class HikeScreen extends React.Component {
 
     parseCoordinates() {
         const { hikeData } = this.state;
-        const coordinates = [];
         const coordinateCount = hikeData.gpx.rte[0].rtept.length;
+        const coordinates = [];
 
         for (let i = 0, len = coordinateCount; i < len; i += 1) {
             const coordinate = hikeData.gpx.rte[0].rtept[i].$;
