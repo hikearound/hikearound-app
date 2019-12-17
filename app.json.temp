@@ -2,6 +2,7 @@
   "expo": {
     "name": "Hike Around",
     "slug": "hikearound-app",
+    "scheme": "hikearound",
     "privacy": "public",
     "sdkVersion": "35.0.0",
     "platforms": [
@@ -26,6 +27,10 @@
       "supportsTablet": false,
       "userInterfaceStyle": "automatic",
       "bundleIdentifier": "com.tryhikearound",
+      "associatedDomains": [
+          "applinks:www.tryhikearound.com",
+          "applinks:tryhikearound.com"
+      ],
       "config": {
         "googleMapsApiKey": "INSERT_GOOGLE_MAPS_KEY"
       }
