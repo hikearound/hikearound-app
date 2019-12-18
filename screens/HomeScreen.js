@@ -74,9 +74,15 @@ class HomeScreen extends React.Component {
         this.setFeedHikeCount();
         this.getUserProfileData();
 
+        Linking.addEventListener('url', this.handleOpenURL);
+
         navigation.setParams({
             sortType,
         });
+    }
+
+    componentWillUnmount() {
+        Linking.removeEventListener('url', this.handleOpenURL);
     }
 
     checkInitialUrl = async () => {
@@ -181,6 +187,15 @@ class HomeScreen extends React.Component {
             this.makeRemoteRequest(this.lastKnownKey);
         }
     };
+
+    handleOpenURL(event) {
+        const { navigation } = this.props;
+        const hid = getHikeIdFromUrl(event.url);
+
+        if (hid) {
+            openHikeScreen(hid, navigation);
+        }
+    }
 
     static contextType = ThemeContext;
 
