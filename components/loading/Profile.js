@@ -22,7 +22,7 @@ const defaultProps = {
 };
 
 class ProfileLoadingState extends React.PureComponent {
-    componentWillMount() {
+    componentDidMount() {
         const theme = themes[this.context];
         this.setState({
             primaryColor: theme.loadingPrimary,

@@ -31,7 +31,7 @@ class HikeBody extends React.PureComponent {
         };
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.updateDescription();
     }
 

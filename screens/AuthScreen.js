@@ -31,7 +31,7 @@ class AuthScreen extends React.Component {
         };
     }
 
-    componentWillMount() {
+    componentDidMount() {
         SplashScreen.preventAutoHide();
         StatusBar.setBarStyle('light-content', true);
     }

@@ -37,7 +37,7 @@ class FavoriteButton extends React.Component {
         };
     }
 
-    componentWillMount = async () => {
+    componentDidMount = async () => {
         await this.getFavoriteHikes();
         this.setFavoriteHike();
     };

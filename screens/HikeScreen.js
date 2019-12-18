@@ -54,7 +54,7 @@ class HikeScreen extends React.Component {
         });
     }
 
-    async componentWillMount() {
+    async componentDidMount() {
         await this.initializeMap();
     }
 

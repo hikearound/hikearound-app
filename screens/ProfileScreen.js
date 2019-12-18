@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { ThemeContext } from 'react-navigation';
 import { themes } from '../constants/Themes';
@@ -48,11 +47,9 @@ class ProfileScreen extends React.Component {
         };
     }
 
-    async componentWillMount() {
+    async componentDidMount() {
         await this.getHikeData();
-    }
 
-    componentDidMount() {
         this.loadingTimeout = setTimeout(() => {
             this.setState({
                 shouldLoad: true,
@@ -111,14 +108,14 @@ class ProfileScreen extends React.Component {
             <RootView theme={theme}>
                 {firstLoad && shouldLoad && <ProfileLoadingState />}
                 {!firstLoad && (
-                    <ScrollView showsVerticalScrollIndicator={false}>
+                    <>
                         <ProfileHeader />
                         <ProfileBody
                             hikeData={hikeData}
                             loading={firstLoad}
                             maybeShowEmptyState={maybeShowEmptyState}
                         />
-                    </ScrollView>
+                    </>
                 )}
                 <EditProfileModal
                     animationType='push'

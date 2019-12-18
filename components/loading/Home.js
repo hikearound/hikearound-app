@@ -4,7 +4,7 @@ import { ThemeContext } from 'react-navigation';
 import { View, Dimensions, LayoutAnimation } from 'react-native';
 import SvgAnimatedLinearGradient from 'react-native-svg-animated-linear-gradient';
 import { Rect } from 'react-native-svg';
-import { timings, borderRadius, spacing } from '../../constants/Index';
+import { timings, borderRadius, spacing, colors } from '../../constants/Index';
 import { themes } from '../../constants/Themes';
 
 const SCREEN_WIDTH = Math.round(Dimensions.get('window').width);
@@ -27,7 +27,15 @@ const defaultProps = {
 };
 
 class HomeLoadingState extends React.PureComponent {
-    componentWillMount() {
+    constructor(props) {
+        super(props);
+        this.state = {
+            primaryColor: colors.cardGray,
+            secondaryColor: colors.white,
+        };
+    }
+
+    componentDidMount() {
         const theme = themes[this.context];
         this.setState({
             primaryColor: theme.loadingPrimary,
