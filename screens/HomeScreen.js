@@ -22,6 +22,11 @@ const propTypes = {
     dispatchUserData: PropTypes.func.isRequired,
     dispatchAvatar: PropTypes.func.isRequired,
     avatar: PropTypes.string.isRequired,
+    navigation: PropTypes.object,
+};
+
+const defaultProps = {
+    navigation: {},
 };
 
 function mapStateToProps(state) {
@@ -89,7 +94,7 @@ class HomeScreen extends React.Component {
         const initialUrl = await Linking.getInitialURL();
         const hid = getHikeIdFromUrl(initialUrl);
 
-        if (hid && navigation) {
+        if (hid && navigation.state) {
             openHikeScreen(hid, navigation);
         }
     };
@@ -195,7 +200,7 @@ class HomeScreen extends React.Component {
         const { navigation } = this.props;
         const hid = getHikeIdFromUrl(event.url);
 
-        if (hid && navigation) {
+        if (hid && navigation.state) {
             openHikeScreen(hid, navigation);
         }
     }
@@ -230,6 +235,7 @@ class HomeScreen extends React.Component {
 }
 
 HomeScreen.propTypes = propTypes;
+HomeScreen.defaultProps = defaultProps;
 
 export default connect(
     mapStateToProps,
