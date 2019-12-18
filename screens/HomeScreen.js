@@ -8,7 +8,8 @@ import { ThemeContext } from 'react-navigation';
 import { CacheManager } from 'react-native-expo-image-cache';
 import { Logo, FeedList, Sort } from '../components/Index';
 import { themes } from '../constants/Themes';
-import { getFeedHikeCount, getHikeImage, openHikeScreen } from '../utils/Hike';
+import { getFeedHikeCount, openHikeScreen } from '../utils/Hike';
+import { cacheHikeImage } from '../utils/Image';
 import HomeLoadingState from '../components/loading/Home';
 import { getAvatarUri, getUserData } from '../utils/User';
 import { initializeUserData, initializeAvatar } from '../actions/User';
@@ -69,15 +70,13 @@ class HomeScreen extends React.Component {
         const { navigation } = this.props;
         const { sortType } = this.state;
 
-        this.checkInitialUrl();
+        this.checkInitialUrl(navigation);
         this.addUrlListener(navigation);
         this.makeRemoteRequest();
         this.setFeedHikeCount();
         this.getUserProfileData();
 
-        navigation.setParams({
-            sortType,
-        });
+        navigation.setParams({ sortType });
     }
 
     componentWillUnmount() {
@@ -85,13 +84,10 @@ class HomeScreen extends React.Component {
         this.removeUrlListener(navigation);
     }
 
-    checkInitialUrl = async () => {
-        const { navigation } = this.props;
-        const initialUrl = await Linking.getInitialURL();
-        const hid = getHikeIdFromUrl(initialUrl);
-
-        if (hid && navigation) {
-            openHikeScreen(hid, navigation);
+    checkInitialUrl = async (navigation) => {
+        const url = await Linking.getInitialURL();
+        if (url) {
+            this.handleOpenURL(url, navigation);
         }
     };
 
@@ -109,11 +105,11 @@ class HomeScreen extends React.Component {
 
     getUserProfileData = async () => {
         const { dispatchUserData, dispatchAvatar, avatar } = this.props;
-        let avatarUri = await getAvatarUri();
-        const userData = await getUserData();
 
+        const userData = await getUserData();
         dispatchUserData(userData.data());
 
+        let avatarUri = await getAvatarUri();
         if (avatarUri) {
             dispatchAvatar(avatarUri);
         } else {
@@ -158,7 +154,7 @@ class HomeScreen extends React.Component {
 
         /* eslint-disable-next-line */
         for (const hike of data) {
-            const imageUrl = await this.cacheHikeImage(hike);
+            const imageUrl = await cacheHikeImage(hike);
             hike.coverPhoto = imageUrl;
             hikes[hike.key] = hike;
         }
@@ -173,19 +169,6 @@ class HomeScreen extends React.Component {
         this.setState({ loading: false });
     };
 
-    cacheHikeImage = async (hike) => {
-        let imageUrl = null;
-
-        if (hike.images) {
-            imageUrl = await getHikeImage(hike.id, 0);
-            if (imageUrl) {
-                await CacheManager.get(imageUrl).getPath();
-            }
-        }
-
-        return imageUrl;
-    };
-
     onRefresh = async () => {
         await this.setState({ loading: true });
         this.timeout = setTimeout(() => {
@@ -195,7 +178,6 @@ class HomeScreen extends React.Component {
 
     onEndReached = () => {
         const { hikes, feedHikeCount } = this.state;
-
         if (hikes.length < feedHikeCount) {
             this.makeRemoteRequest(this.lastKnownKey);
         }
@@ -203,7 +185,6 @@ class HomeScreen extends React.Component {
 
     handleOpenURL = (url, navigation) => {
         const hid = getHikeIdFromUrl(url);
-
         if (hid && navigation) {
             openHikeScreen(hid, navigation);
         }
