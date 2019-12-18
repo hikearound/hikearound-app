@@ -1,5 +1,6 @@
 import firebase from 'firebase';
 import { Updates } from 'expo';
+import { cacheImage } from './Image';
 
 export function writeUserData(userData) {
     const { uid } = firebase.auth().currentUser;
@@ -83,6 +84,24 @@ export function logoutUser() {
         });
 }
 
+export async function getUserProfileData(
+    dispatchUserData,
+    dispatchAvatar,
+    avatar,
+) {
+    const userData = await getUserData();
+    dispatchUserData(userData.data());
+
+    let avatarUri = await getAvatarUri();
+    if (avatarUri) {
+        dispatchAvatar(avatarUri);
+    } else {
+        avatarUri = avatar;
+    }
+
+    cacheImage(avatarUri);
+}
+
 export default {
     writeUserData,
     writePhotoData,
@@ -90,4 +109,5 @@ export default {
     getUserFavoriteHikes,
     getAvatarUri,
     getUserData,
+    getUserProfileData,
 };

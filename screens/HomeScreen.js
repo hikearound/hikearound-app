@@ -5,19 +5,18 @@ import PropTypes from 'prop-types';
 import { Linking } from 'expo';
 import { RefreshControl } from 'react-native';
 import { ThemeContext } from 'react-navigation';
-import { CacheManager } from 'react-native-expo-image-cache';
 import { Logo, FeedList, Sort } from '../components/Index';
 import { themes } from '../constants/Themes';
 import { getFeedHikeCount, openHikeScreen } from '../utils/Hike';
 import { cacheHikeImage } from '../utils/Image';
 import HomeLoadingState from '../components/loading/Home';
-import { getAvatarUri, getUserData } from '../utils/User';
+import { getUserProfileData } from '../utils/User';
 import { initializeUserData, initializeAvatar } from '../actions/User';
 import { timings } from '../constants/Index';
 import { pageFeed } from '../utils/Feed';
 import { getHikeIdFromUrl } from '../utils/Link';
 
-const PAGE_SIZE = 5;
+const pageSize = 5;
 
 const propTypes = {
     dispatchUserData: PropTypes.func.isRequired,
@@ -39,8 +38,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 class HomeScreen extends React.Component {
-    static navigationOptions = ({ navigation, navigationOptions, theme }) => {
-        const { params = {} } = navigation.state;
+    static navigationOptions = ({ navigationOptions, theme }) => {
         const { headerStyle } = navigationOptions;
 
         headerStyle.backgroundColor = themes[theme].headerStyle;
@@ -48,7 +46,7 @@ class HomeScreen extends React.Component {
         return {
             headerTitle: <Logo />,
             headerBackTitle: null,
-            headerRight: <Sort sortType={params.sortType} />,
+            headerRight: <Sort sortType='desc' />,
             headerStyle,
         };
     };
@@ -60,29 +58,89 @@ class HomeScreen extends React.Component {
             hikes: [],
             data: {},
             feedHikeCount: 0,
-            sortType: 'desc',
             loading: false,
             firstLoad: true,
         };
     }
 
     componentDidMount() {
-        const { navigation } = this.props;
-        const { sortType } = this.state;
+        const {
+            navigation,
+            dispatchUserData,
+            dispatchAvatar,
+            avatar,
+        } = this.props;
 
         this.checkInitialUrl(navigation);
         this.addUrlListener(navigation);
         this.makeRemoteRequest();
         this.setFeedHikeCount();
-        this.getUserProfileData();
 
-        navigation.setParams({ sortType });
+        getUserProfileData(dispatchUserData, dispatchAvatar, avatar);
     }
 
     componentWillUnmount() {
         const { navigation } = this.props;
         this.removeUrlListener(navigation);
     }
+
+    setFeedHikeCount = async () => {
+        const feedHikeCount = await getFeedHikeCount();
+        this.setState({ feedHikeCount });
+    };
+
+    makeRemoteRequest = async (lastKey) => {
+        const hikes = {};
+        const { data, cursor } = await pageFeed({
+            size: pageSize,
+            start: lastKey,
+        });
+
+        this.lastKnownKey = cursor;
+
+        /* eslint-disable-next-line */
+        for (const hike of data) {
+            const imageUrl = await cacheHikeImage(hike);
+            hike.coverPhoto = imageUrl;
+            hikes[hike.key] = hike;
+        }
+
+        if (hikes) {
+            this.setState({ firstLoad: false });
+        }
+
+        this.addhikes(hikes);
+        this.setState({ loading: false });
+    };
+
+    addhikes = (hikes) => {
+        this.setState((previousState) => {
+            const data = {
+                ...previousState.data,
+                ...hikes,
+            };
+            return {
+                data,
+                hikes: Object.values(data).sort(
+                    (a, b) => a.timestamp < b.timestamp,
+                ),
+            };
+        });
+    };
+
+    onRefresh = async () => {
+        await this.setState({ loading: true });
+        this.timeout = setTimeout(() => {
+            this.makeRemoteRequest();
+        }, timings.medium);
+    };
+
+    onEndReached = () => {
+        const { hikes, feedHikeCount } = this.state;
+        if (hikes.length < feedHikeCount) {
+            this.makeRemoteRequest(this.lastKnownKey);
+        }
+    };
 
     checkInitialUrl = async (navigation) => {
         const url = await Linking.getInitialURL();
@@ -101,86 +159,6 @@ class HomeScreen extends React.Component {
         Linking.removeEventListener('url', (event) =>
             this.handleOpenURL(event.url, navigation),
         );
-    };
-
-    getUserProfileData = async () => {
-        const { dispatchUserData, dispatchAvatar, avatar } = this.props;
-
-        const userData = await getUserData();
-        dispatchUserData(userData.data());
-
-        let avatarUri = await getAvatarUri();
-        if (avatarUri) {
-            dispatchAvatar(avatarUri);
-        } else {
-            avatarUri = avatar;
-        }
-
-        this.cacheAvatar(avatarUri);
-    };
-
-    cacheAvatar = (uri) => {
-        CacheManager.get(uri).getPath();
-    };
-
-    setFeedHikeCount = async () => {
-        const feedHikeCount = await getFeedHikeCount();
-        this.setState({ feedHikeCount });
-    };
-
-    addhikes = (hikes) => {
-        this.setState((previousState) => {
-            const data = {
-                ...previousState.data,
-                ...hikes,
-            };
-            return {
-                data,
-                hikes: Object.values(data).sort(
-                    (a, b) => a.timestamp < b.timestamp,
-                ),
-            };
-        });
-    };
-
-    makeRemoteRequest = async (lastKey) => {
-        const hikes = {};
-        const { data, cursor } = await pageFeed({
-            size: PAGE_SIZE,
-            start: lastKey,
-        });
-
-        this.lastKnownKey = cursor;
-
-        /* eslint-disable-next-line */
-        for (const hike of data) {
-            const imageUrl = await cacheHikeImage(hike);
-            hike.coverPhoto = imageUrl;
-            hikes[hike.key] = hike;
-        }
-
-        if (hikes) {
-            this.setState({
-                firstLoad: false,
-            });
-        }
-
-        this.addhikes(hikes);
-        this.setState({ loading: false });
-    };
-
-    onRefresh = async () => {
-        await this.setState({ loading: true });
-        this.timeout = setTimeout(() => {
-            this.makeRemoteRequest();
-        }, timings.medium);
-    };
-
-    onEndReached = () => {
-        const { hikes, feedHikeCount } = this.state;
-        if (hikes.length < feedHikeCount) {
-            this.makeRemoteRequest(this.lastKnownKey);
-        }
     };
 
     handleOpenURL = (url, navigation) => {

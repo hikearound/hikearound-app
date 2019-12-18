@@ -8,6 +8,10 @@ export function reduceImageAsync(uri) {
     });
 }
 
+export function cacheImage(uri) {
+    CacheManager.get(uri).getPath();
+}
+
 export function cacheImages(images) {
     return images.map((image) => {
         return CacheManager.get(image).getPath();
@@ -25,4 +29,4 @@ export async function cacheHikeImage(hike) {
     return imageUrl;
 }
 
-export default { reduceImageAsync, cacheImages, cacheHikeImage };
+export default { reduceImageAsync, cacheImage, cacheImages, cacheHikeImage };
