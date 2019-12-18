@@ -22,11 +22,6 @@ const propTypes = {
     dispatchUserData: PropTypes.func.isRequired,
     dispatchAvatar: PropTypes.func.isRequired,
     avatar: PropTypes.string.isRequired,
-    navigation: PropTypes.object,
-};
-
-const defaultProps = {
-    navigation: {},
 };
 
 function mapStateToProps(state) {
@@ -75,7 +70,7 @@ class HomeScreen extends React.Component {
         const { sortType } = this.state;
 
         this.checkInitialUrl();
-        this.addUrlListener();
+        this.addUrlListener(navigation);
         this.makeRemoteRequest();
         this.setFeedHikeCount();
         this.getUserProfileData();
@@ -86,7 +81,8 @@ class HomeScreen extends React.Component {
     }
 
     componentWillUnmount() {
-        Linking.removeEventListener('url', this.handleOpenURL);
+        const { navigation } = this.props;
+        this.removeUrlListener(navigation);
     }
 
     checkInitialUrl = async () => {
@@ -94,13 +90,21 @@ class HomeScreen extends React.Component {
         const initialUrl = await Linking.getInitialURL();
         const hid = getHikeIdFromUrl(initialUrl);
 
-        if (hid && navigation.state) {
+        if (hid && navigation) {
             openHikeScreen(hid, navigation);
         }
     };
 
-    addUrlListener = () => {
-        Linking.addEventListener('url', this.handleOpenURL);
+    addUrlListener = (navigation) => {
+        Linking.addEventListener('url', (event) =>
+            this.handleOpenURL(event.url, navigation),
+        );
+    };
+
+    removeUrlListener = (navigation) => {
+        Linking.removeEventListener('url', (event) =>
+            this.handleOpenURL(event.url, navigation),
+        );
     };
 
     getUserProfileData = async () => {
@@ -191,19 +195,19 @@ class HomeScreen extends React.Component {
 
     onEndReached = () => {
         const { hikes, feedHikeCount } = this.state;
+
         if (hikes.length < feedHikeCount) {
             this.makeRemoteRequest(this.lastKnownKey);
         }
     };
 
-    handleOpenURL(event) {
-        const { navigation } = this.props;
-        const hid = getHikeIdFromUrl(event.url);
+    handleOpenURL = (url, navigation) => {
+        const hid = getHikeIdFromUrl(url);
 
-        if (hid && navigation.state) {
+        if (hid && navigation) {
             openHikeScreen(hid, navigation);
         }
-    }
+    };
 
     static contextType = ThemeContext;
 
@@ -235,7 +239,6 @@ class HomeScreen extends React.Component {
 }
 
 HomeScreen.propTypes = propTypes;
-HomeScreen.defaultProps = defaultProps;
 
 export default connect(
     mapStateToProps,
