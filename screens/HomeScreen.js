@@ -70,11 +70,10 @@ class HomeScreen extends React.Component {
         const { sortType } = this.state;
 
         this.checkInitialUrl();
+        this.addUrlListener();
         this.makeRemoteRequest();
         this.setFeedHikeCount();
         this.getUserProfileData();
-
-        Linking.addEventListener('url', this.handleOpenURL);
 
         navigation.setParams({
             sortType,
@@ -90,9 +89,13 @@ class HomeScreen extends React.Component {
         const initialUrl = await Linking.getInitialURL();
         const hid = getHikeIdFromUrl(initialUrl);
 
-        if (hid) {
+        if (hid && navigation) {
             openHikeScreen(hid, navigation);
         }
+    };
+
+    addUrlListener = () => {
+        Linking.addEventListener('url', this.handleOpenURL);
     };
 
     getUserProfileData = async () => {
@@ -192,7 +195,7 @@ class HomeScreen extends React.Component {
         const { navigation } = this.props;
         const hid = getHikeIdFromUrl(event.url);
 
-        if (hid) {
+        if (hid && navigation) {
             openHikeScreen(hid, navigation);
         }
     }
