@@ -2,17 +2,19 @@ import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Linking } from 'expo';
 import { RefreshControl } from 'react-native';
 import { ThemeContext } from 'react-navigation';
 import { CacheManager } from 'react-native-expo-image-cache';
 import { Logo, FeedList, Sort } from '../components/Index';
 import { themes } from '../constants/Themes';
-import { getFeedHikeCount, getHikeImage } from '../utils/Hike';
+import { getFeedHikeCount, getHikeImage, openHikeScreen } from '../utils/Hike';
 import HomeLoadingState from '../components/loading/Home';
 import { getAvatarUri, getUserData } from '../utils/User';
 import { initializeUserData, initializeAvatar } from '../actions/User';
 import { timings } from '../constants/Index';
 import { pageFeed } from '../utils/Feed';
+import { getHikeIdFromUrl } from '../utils/Link';
 
 const PAGE_SIZE = 5;
 
@@ -67,6 +69,7 @@ class HomeScreen extends React.Component {
         const { navigation } = this.props;
         const { sortType } = this.state;
 
+        this.checkInitialUrl();
         this.makeRemoteRequest();
         this.setFeedHikeCount();
         this.getUserProfileData();
@@ -75,6 +78,16 @@ class HomeScreen extends React.Component {
             sortType,
         });
     }
+
+    checkInitialUrl = async () => {
+        const { navigation } = this.props;
+        const initialUrl = await Linking.getInitialURL();
+        const hid = getHikeIdFromUrl(initialUrl);
+
+        if (hid) {
+            openHikeScreen(hid, navigation);
+        }
+    };
 
     getUserProfileData = async () => {
         const { dispatchUserData, dispatchAvatar, avatar } = this.props;

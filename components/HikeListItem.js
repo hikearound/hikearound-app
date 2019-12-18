@@ -10,7 +10,7 @@ import {
     spacing,
     opacities,
 } from '../constants/Index';
-import { getHikeSnapshot } from '../utils/Hike';
+import { openHikeScreen } from '../utils/Hike';
 
 const propTypes = {
     id: PropTypes.string.isRequired,
@@ -21,18 +21,8 @@ const propTypes = {
 
 class ProfileHikeRow extends React.PureComponent {
     getHikeData = async () => {
-        const { id } = this.props;
-        const hikeSnapshot = await getHikeSnapshot(id);
-        this.setHikeData(hikeSnapshot);
-    };
-
-    setHikeData = async (hikeSnapshot) => {
-        const { navigation, id } = this.props;
-        const hikeData = hikeSnapshot.data();
-        hikeData.id = id;
-        navigation.push('Hike', {
-            hike: hikeData,
-        });
+        const { id, navigation } = this.props;
+        openHikeScreen(id, navigation);
     };
 
     render() {

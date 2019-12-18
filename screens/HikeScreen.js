@@ -80,7 +80,7 @@ class HikeScreen extends React.Component {
 
         this.setHikeData(hikeData);
         this.parseCoordinates();
-        this.setMapCenter();
+        this.setMapRegion();
     };
 
     setHikeData(hikeData) {
