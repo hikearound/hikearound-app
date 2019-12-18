@@ -73,7 +73,7 @@ class HomeScreen extends React.Component {
 
         this.checkInitialUrl(navigation);
         this.addUrlListener(navigation);
-        this.makeRemoteRequest();
+        this.getHikeFeedData();
         this.setFeedHikeCount();
 
         getUserProfileData(dispatchUserData, dispatchAvatar, avatar);
@@ -89,7 +89,7 @@ class HomeScreen extends React.Component {
         this.setState({ feedHikeCount });
     };
 
-    makeRemoteRequest = async (lastKey) => {
+    getHikeFeedData = async (lastKey) => {
         const hikes = {};
         const { data, cursor } = await pageFeed({
             size: pageSize,
@@ -131,14 +131,14 @@ class HomeScreen extends React.Component {
     onRefresh = async () => {
         await this.setState({ loading: true });
         this.timeout = setTimeout(() => {
-            this.makeRemoteRequest();
+            this.getHikeFeedData();
         }, timings.medium);
     };
 
     onEndReached = () => {
         const { hikes, feedHikeCount } = this.state;
         if (hikes.length < feedHikeCount) {
-            this.makeRemoteRequest(this.lastKnownKey);
+            this.getHikeFeedData(this.lastKnownKey);
         }
     };
 

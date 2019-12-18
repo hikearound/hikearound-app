@@ -1,6 +1,6 @@
 import firebase from 'firebase';
 import { Updates } from 'expo';
-import { cacheImage } from './Image';
+import { cacheImages } from './Image';
 
 export function writeUserData(userData) {
     const { uid } = firebase.auth().currentUser;
@@ -99,7 +99,7 @@ export async function getUserProfileData(
         avatarUri = avatar;
     }
 
-    cacheImage(avatarUri);
+    cacheImages([avatarUri]);
 }
 
 export default {

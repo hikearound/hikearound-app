@@ -2,7 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { SectionList } from 'react-native';
-import { SettingsItem, SettingsSwitchItem } from '../components/Index';
+import Constants from 'expo-constants';
+import {
+    SettingsItem,
+    SettingsSwitchItem,
+    SettingsStaticItem,
+    SettingsLinkItem,
+} from '../components/Index';
 import { colors, fontSizes, spacing, fontWeights } from '../constants/Index';
 
 const MAP_SECTION = {
@@ -15,12 +21,28 @@ const DISPLAY_SECTION = {
     data: ['Dark Mode'],
 };
 
+const TERMS_SECTION = {
+    title: 'Terms & Privacy',
+    data: ['Terms of Service', 'Privacy Policy'],
+};
+
 const ACCOUNT_SECTION = {
     title: 'Account',
     data: ['Logout'],
 };
 
-const SETTING_ITEMS = [MAP_SECTION, DISPLAY_SECTION, ACCOUNT_SECTION];
+const VERSION_SECTION = {
+    title: 'Version',
+    data: [Constants.nativeBuildVersion],
+};
+
+const SETTING_ITEMS = [
+    MAP_SECTION,
+    DISPLAY_SECTION,
+    TERMS_SECTION,
+    ACCOUNT_SECTION,
+    VERSION_SECTION,
+];
 
 function mapStateToProps() {
     return {};
@@ -32,9 +54,27 @@ class SettingsScreen extends React.Component {
     };
 
     renderItem = ({ item, index }) => {
-        if (item === 'Dark Mode') {
+        if (DISPLAY_SECTION.data.includes(item)) {
             return (
                 <SettingsSwitchItem
+                    item={item}
+                    index={index}
+                    sections={SETTING_ITEMS}
+                />
+            );
+        }
+        if (TERMS_SECTION.data.includes(item)) {
+            return (
+                <SettingsLinkItem
+                    item={item}
+                    index={index}
+                    sections={SETTING_ITEMS}
+                />
+            );
+        }
+        if (VERSION_SECTION.data.includes(item)) {
+            return (
+                <SettingsStaticItem
                     item={item}
                     index={index}
                     sections={SETTING_ITEMS}

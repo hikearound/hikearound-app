@@ -39,6 +39,8 @@ import FeedList from './FeedList';
 // Settings
 import SettingsItem from './SettingsItem';
 import SettingsSwitchItem from './SettingsSwitchItem';
+import SettingsStaticItem from './SettingsStaticItem';
+import SettingsLinkItem from './SettingsLinkItem';
 
 // Profile
 import ProfileHeader from './ProfileHeader';
@@ -81,4 +83,6 @@ export {
     SettingsSwitchItem,
     InputButton,
     LoadingOverlay,
+    SettingsStaticItem,
+    SettingsLinkItem,
 };
