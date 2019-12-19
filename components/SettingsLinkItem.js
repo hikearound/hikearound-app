@@ -38,7 +38,7 @@ class SettingsLinkItem extends React.Component {
         const baseUrl = 'https://tryhikearound.com';
 
         let itemUrl = `${baseUrl}/privacy`;
-        if (item === 'Terms of service') {
+        if (item === 'Terms of Service') {
             itemUrl = `${baseUrl}/terms`;
         }
         itemUrl = `${itemUrl}?contentOnly=true`;
