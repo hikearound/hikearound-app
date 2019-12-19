@@ -33,7 +33,7 @@ const ACCOUNT_SECTION = {
 
 const VERSION_SECTION = {
     title: 'Version',
-    data: [Constants.nativeBuildVersion],
+    data: [Constants.manifest.version],
 };
 
 const SETTING_ITEMS = [

@@ -25,6 +25,7 @@
     ],
     "ios": {
       "supportsTablet": false,
+      "backgroundColor": "#FFF",
       "userInterfaceStyle": "automatic",
       "bundleIdentifier": "com.tryhikearound",
       "associatedDomains": [
