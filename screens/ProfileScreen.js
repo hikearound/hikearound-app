@@ -45,16 +45,16 @@ class ProfileScreen extends React.Component {
             maybeShowEmptyState: false,
             hikeData: [],
         };
-    }
-
-    async componentDidMount() {
-        await this.getHikeData();
 
         this.loadingTimeout = setTimeout(() => {
             this.setState({
                 shouldLoad: true,
             });
         }, timings.short);
+    }
+
+    async componentDidMount() {
+        await this.getHikeData();
     }
 
     async componentDidUpdate(prevProps) {

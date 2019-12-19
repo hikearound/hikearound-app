@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { colors, spacing, fontSizes } from '../constants/Index';
+import { colors, spacing } from '../constants/Index';
 import { updateDarkMode } from '../actions/User';
+import { ItemContainer, ItemText } from './SettingsItem';
 
 const propTypes = {
     item: PropTypes.string.isRequired,
@@ -71,19 +72,8 @@ export default connect(
     mapDispatchToProps,
 )(SettingsItem);
 
-const ItemContainer = styled.View`
-    border-color: ${colors.lightGray};
-    border-top-width: 1px;
-    padding: ${spacing.small}px 0;
-`;
-
 const SettingsSwitch = styled.Switch`
     position: absolute;
     right: ${spacing.tiny}px;
     top: ${spacing.tiny}px;
-`;
-
-const ItemText = styled.Text`
-    color: ${(props) => props.textColor || colors.black};
-    font-size: ${fontSizes.large}px;
 `;

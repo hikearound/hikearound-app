@@ -33,7 +33,6 @@ class MapModal extends ModalBase {
                         maxZoom={12.5}
                         mapPadding={{
                             left: parseInt(spacing.tiny, 10),
-                            bottom: parseInt(spacing.medium, 10),
                         }}
                     />
                     <ModalDismiss includeBackground />

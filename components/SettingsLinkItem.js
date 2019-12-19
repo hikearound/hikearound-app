@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import { TouchableOpacity, StatusBar } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
-import { colors, spacing, fontSizes, opacities } from '../constants/Index';
+import { colors, opacities } from '../constants/Index';
+import { ItemContainer, ItemText } from './SettingsItem';
 
 const browserSettings = {
     toolbarColor: colors.white,
@@ -74,14 +74,3 @@ class SettingsLinkItem extends React.Component {
 SettingsLinkItem.propTypes = propTypes;
 
 export default SettingsLinkItem;
-
-const ItemContainer = styled.View`
-    border-color: ${colors.lightGray};
-    border-top-width: 1px;
-    padding: ${spacing.small}px 0;
-`;
-
-const ItemText = styled.Text`
-    color: ${colors.black};
-    font-size: ${fontSizes.large}px;
-`;

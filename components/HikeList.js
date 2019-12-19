@@ -54,6 +54,7 @@ class HikeList extends React.Component {
                         data={hikeData}
                         extraData={this.props}
                         keyExtractor={extractKey}
+                        scrollEnabled={false}
                     />
                 )}
             </RootView>

@@ -137,13 +137,13 @@ export default connect(
     mapDispatchToProps,
 )(SettingsItem);
 
-const ItemContainer = styled.View`
+export const ItemContainer = styled.View`
     border-color: ${colors.lightGray};
     border-top-width: 1px;
     padding: ${spacing.small}px 0;
 `;
 
-const ItemText = styled.Text`
+export const ItemText = styled.Text`
     color: ${(props) => props.textColor || colors.black};
     font-size: ${fontSizes.large}px;
 `;
