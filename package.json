@@ -15,7 +15,7 @@
     ]
   },
   "dependencies": {
-    "expo": "^36.0.0",
+    "expo": "^36.0.2",
     "expo-asset": "~8.0.0",
     "expo-blur": "~8.0.0",
     "expo-constants": "~8.0.0",
@@ -49,7 +49,7 @@
     "redux": "^4.0.4",
     "sentry-expo": "^2.0.1",
     "styled-components": "^4.4.1",
-    "webpack": "^4.41.3"
+    "webpack": "^4.41.4"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.3",
