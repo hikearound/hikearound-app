@@ -35,20 +35,24 @@ class SettingsLinkItem extends React.Component {
 
     itemPress = async () => {
         const { item } = this.props;
-        const baseUrl = 'https://tryhikearound.com';
+        const itemUrl = this.buildUrl(item);
+        const browserResult = await WebBrowser.openBrowserAsync(
+            itemUrl,
+            browserSettings,
+        );
+        this.setState({ browserResult });
+    };
 
+    buildUrl = (item) => {
+        const baseUrl = 'https://tryhikearound.com';
         let itemUrl = `${baseUrl}/privacy`;
+
         if (item === 'Terms of Service') {
             itemUrl = `${baseUrl}/terms`;
         }
         itemUrl = `${itemUrl}?contentOnly=true`;
 
-        const browserResult = await WebBrowser.openBrowserAsync(
-            itemUrl,
-            browserSettings,
-        );
-
-        this.setState({ browserResult });
+        return itemUrl;
     };
 
     render() {
