@@ -1,14 +1,14 @@
 import firebase from 'firebase';
 
-export async function pageFeed({ size, start }) {
+export async function pageFeed(pageSize, lastKey, sortDirection) {
     let hikeRef = firebase
         .firestore()
         .collection('hikes')
-        .orderBy('timestamp', 'desc')
-        .limit(size);
+        .orderBy('timestamp', sortDirection)
+        .limit(pageSize);
 
-    if (start) {
-        hikeRef = hikeRef.startAfter(start);
+    if (lastKey) {
+        hikeRef = hikeRef.startAfter(lastKey);
     }
 
     const querySnapshot = await hikeRef.get();

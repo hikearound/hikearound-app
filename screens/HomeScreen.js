@@ -17,8 +17,6 @@ import { pageFeed } from '../utils/Feed';
 import { getHikeIdFromUrl } from '../utils/Link';
 import { feedActionSheet } from '../components/action_sheets/Feed';
 
-const pageSize = 5;
-
 const propTypes = {
     dispatchUserData: PropTypes.func.isRequired,
     dispatchAvatar: PropTypes.func.isRequired,
@@ -57,12 +55,15 @@ class HomeScreen extends React.Component {
         const { navigation } = this.props;
 
         this.state = {
-            hikes: [],
-            data: {},
             feedHikeCount: 0,
             loading: false,
             firstLoad: true,
+            sortDirection: 'desc',
+            pageSize: 5,
         };
+
+        this.state.hikes = [];
+        this.state.data = {};
 
         this.feedActionSheet = feedActionSheet.bind(this);
 
@@ -99,10 +100,13 @@ class HomeScreen extends React.Component {
 
     getHikeFeedData = async (lastKey) => {
         const hikes = {};
-        const { data, cursor } = await pageFeed({
-            size: pageSize,
-            start: lastKey,
-        });
+        const { sortDirection, pageSize } = this.state;
+
+        const { data, cursor } = await pageFeed(
+            pageSize,
+            lastKey,
+            sortDirection,
+        );
 
         this.lastKnownKey = cursor;
 
