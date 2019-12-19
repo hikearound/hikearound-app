@@ -4,7 +4,7 @@ import { ThemeContext } from 'react-navigation';
 import { View, Dimensions, LayoutAnimation } from 'react-native';
 import SvgAnimatedLinearGradient from 'react-native-svg-animated-linear-gradient';
 import { Rect } from 'react-native-svg';
-import { timings, borderRadius, spacing, colors } from '../../constants/Index';
+import { timings, borderRadius, spacing } from '../../constants/Index';
 import { themes } from '../../constants/Themes';
 
 const SCREEN_WIDTH = Math.round(Dimensions.get('window').width);
@@ -30,8 +30,7 @@ class HomeLoadingState extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            primaryColor: colors.cardGray,
-            secondaryColor: colors.white,
+            showLoadingState: false,
         };
     }
 
@@ -40,6 +39,7 @@ class HomeLoadingState extends React.PureComponent {
         this.setState({
             primaryColor: theme.loadingPrimary,
             secondaryColor: theme.loadingSecondary,
+            showLoadingState: true,
         });
     }
 
@@ -58,48 +58,52 @@ class HomeLoadingState extends React.PureComponent {
             cardHeight,
         } = this.props;
 
-        const { primaryColor, secondaryColor } = this.state;
+        const { primaryColor, secondaryColor, showLoadingState } = this.state;
 
         return (
-            <View
-                style={{
-                    width: '100%',
-                    height: '100%',
-                }}
-            >
-                <SvgAnimatedLinearGradient
-                    height={height}
-                    width={width}
-                    duration={timings.medium}
-                    primaryColor={primaryColor}
-                    secondaryColor={secondaryColor}
-                >
-                    <Rect
-                        x={cardSpacing}
-                        y={cardSpacing}
-                        rx={cardBorderRadius}
-                        ry={cardBorderRadius}
-                        width={width - 20}
-                        height={cardHeight}
-                    />
-                    <Rect
-                        x={cardSpacing}
-                        y='247'
-                        rx={cardBorderRadius}
-                        ry={cardBorderRadius}
-                        width={width - 20}
-                        height={cardHeight}
-                    />
-                    <Rect
-                        x={cardSpacing}
-                        y='485'
-                        rx={cardBorderRadius}
-                        ry={cardBorderRadius}
-                        width={width - 20}
-                        height={cardHeight}
-                    />
-                </SvgAnimatedLinearGradient>
-            </View>
+            <>
+                {showLoadingState && (
+                    <View
+                        style={{
+                            width: '100%',
+                            height: '100%',
+                        }}
+                    >
+                        <SvgAnimatedLinearGradient
+                            height={height}
+                            width={width}
+                            duration={timings.medium}
+                            primaryColor={primaryColor}
+                            secondaryColor={secondaryColor}
+                        >
+                            <Rect
+                                x={cardSpacing}
+                                y={cardSpacing}
+                                rx={cardBorderRadius}
+                                ry={cardBorderRadius}
+                                width={width - 20}
+                                height={cardHeight}
+                            />
+                            <Rect
+                                x={cardSpacing}
+                                y='247'
+                                rx={cardBorderRadius}
+                                ry={cardBorderRadius}
+                                width={width - 20}
+                                height={cardHeight}
+                            />
+                            <Rect
+                                x={cardSpacing}
+                                y='485'
+                                rx={cardBorderRadius}
+                                ry={cardBorderRadius}
+                                width={width - 20}
+                                height={cardHeight}
+                            />
+                        </SvgAnimatedLinearGradient>
+                    </View>
+                )}
+            </>
         );
     }
 }
