@@ -1,21 +1,36 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, StatusBar } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
 import { colors, spacing, fontSizes, opacities } from '../constants/Index';
 
 const browserSettings = {
-    toolbarColor: colors.purple,
-    controlsColor: colors.white,
-    enableBarCollapsing: false,
+    toolbarColor: colors.white,
+    controlsColor: colors.black,
+    enableBarCollapsing: true,
 };
 
 const propTypes = {
     item: PropTypes.string.isRequired,
 };
 
-class SettingsLinkItem extends React.PureComponent {
+class SettingsLinkItem extends React.Component {
+    constructor(props, context) {
+        super(props, context);
+        this.state = {
+            browserResult: null,
+        };
+    }
+
+    componentDidUpdate() {
+        const { browserResult } = this.state;
+
+        if (browserResult.type === 'cancel') {
+            StatusBar.setBarStyle('light-content', true);
+        }
+    }
+
     itemPress = async () => {
         const { item } = this.props;
         const baseUrl = 'https://tryhikearound.com';
@@ -25,7 +40,12 @@ class SettingsLinkItem extends React.PureComponent {
             itemUrl = `${baseUrl}/terms`;
         }
 
-        WebBrowser.openBrowserAsync(itemUrl, browserSettings);
+        const browserResult = await WebBrowser.openBrowserAsync(
+            itemUrl,
+            browserSettings,
+        );
+
+        this.setState({ browserResult });
     };
 
     render() {
