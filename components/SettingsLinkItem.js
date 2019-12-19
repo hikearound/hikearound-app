@@ -19,7 +19,9 @@ class SettingsLinkItem extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            browserResult: null,
+            browserResult: {
+                type: null,
+            },
         };
     }
 
@@ -34,8 +36,8 @@ class SettingsLinkItem extends React.Component {
     itemPress = async () => {
         const { item } = this.props;
         const baseUrl = 'https://tryhikearound.com';
-        let itemUrl = `${baseUrl}/privacy`;
 
+        let itemUrl = `${baseUrl}/privacy`;
         if (item === 'Terms of service') {
             itemUrl = `${baseUrl}/terms`;
         }
