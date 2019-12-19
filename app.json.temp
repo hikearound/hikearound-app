@@ -4,7 +4,7 @@
     "slug": "hikearound-app",
     "scheme": "hikearound",
     "privacy": "public",
-    "sdkVersion": "35.0.0",
+    "sdkVersion": "36.0.0",
     "platforms": [
       "ios",
       "web"
@@ -28,8 +28,8 @@
       "userInterfaceStyle": "automatic",
       "bundleIdentifier": "com.tryhikearound",
       "associatedDomains": [
-          "applinks:www.tryhikearound.com",
-          "applinks:tryhikearound.com"
+        "applinks:www.tryhikearound.com",
+        "applinks:tryhikearound.com"
       ],
       "config": {
         "googleMapsApiKey": "INSERT_GOOGLE_MAPS_KEY"
@@ -48,16 +48,16 @@
       ]
     },
     "extra" : {
-        "firebaseConfig": {
-            "apiKey": "INSERT_FIREBASE_KEY",
-            "authDomain": "hikearound-14dad.firebaseapp.com",
-            "databaseURL": "https://hikearound-14dad.firebaseio.com",
-            "projectId": "hikearound-14dad",
-            "storageBucket": "hikearound-14dad.appspot.com",
-            "messagingSenderId": "175063732296",
-            "appId": "1:175063732296:web:1f60ff2b03523972"
-        },
-        "sentryDsn": "https://5c8352d2c1f6437c9f678277bfc5528d@sentry.io/1811790"
+      "firebaseConfig": {
+        "apiKey": "INSERT_FIREBASE_KEY",
+        "authDomain": "hikearound-14dad.firebaseapp.com",
+        "databaseURL": "https://hikearound-14dad.firebaseio.com",
+        "projectId": "hikearound-14dad",
+        "storageBucket": "hikearound-14dad.appspot.com",
+        "messagingSenderId": "175063732296",
+        "appId": "1:175063732296:web:1f60ff2b03523972"
+      },
+      "sentryDsn": "https://5c8352d2c1f6437c9f678277bfc5528d@sentry.io/1811790"
     },
     "description": "An iOS app that offers curated and personalized hikes.",
     "githubUrl": "https://github.com/pdugan20/hikearound-app"
