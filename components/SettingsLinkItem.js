@@ -41,6 +41,7 @@ class SettingsLinkItem extends React.Component {
         if (item === 'Terms of service') {
             itemUrl = `${baseUrl}/terms`;
         }
+        itemUrl = `${itemUrl}?contentOnly=true`;
 
         const browserResult = await WebBrowser.openBrowserAsync(
             itemUrl,
