@@ -15,6 +15,7 @@ import { initializeUserData, initializeAvatar } from '../actions/User';
 import { timings } from '../constants/Index';
 import { pageFeed } from '../utils/Feed';
 import { getHikeIdFromUrl } from '../utils/Link';
+import { feedActionSheet } from '../components/action_sheets/Feed';
 
 const pageSize = 5;
 
@@ -38,7 +39,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 class HomeScreen extends React.Component {
-    static navigationOptions = ({ navigationOptions, theme }) => {
+    static navigationOptions = ({ navigation, navigationOptions, theme }) => {
         const { headerStyle } = navigationOptions;
 
         headerStyle.backgroundColor = themes[theme].headerStyle;
@@ -46,13 +47,14 @@ class HomeScreen extends React.Component {
         return {
             headerTitle: <Logo />,
             headerBackTitle: null,
-            headerRight: <Sort sortType='desc' />,
+            headerRight: <Sort navigation={navigation} />,
             headerStyle,
         };
     };
 
     constructor(props) {
         super(props);
+        const { navigation } = this.props;
 
         this.state = {
             hikes: [],
@@ -61,6 +63,12 @@ class HomeScreen extends React.Component {
             loading: false,
             firstLoad: true,
         };
+
+        this.feedActionSheet = feedActionSheet.bind(this);
+
+        navigation.setParams({
+            showActionSheet: this.feedActionSheet,
+        });
     }
 
     componentDidMount() {
