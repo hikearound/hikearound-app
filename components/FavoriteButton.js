@@ -35,6 +35,8 @@ class FavoriteButton extends React.Component {
             iconName: 'ios-heart-empty',
             iconSize: 30,
         };
+
+        this.state.hikes = [];
     }
 
     componentDidMount = async () => {
