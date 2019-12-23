@@ -3,12 +3,15 @@ import { Updates } from 'expo';
 import { cacheImages } from './Image';
 
 export function writeUserData(userData) {
-    const { uid } = firebase.auth().currentUser;
+    const user = firebase.auth().currentUser;
     firebase
         .firestore()
         .collection('users')
-        .doc(uid)
+        .doc(user.uid)
         .set(userData, { merge: true });
+    user.updateProfile({
+        displayName: userData.name,
+    });
 }
 
 export function writeMapData(map) {
