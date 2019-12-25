@@ -13,6 +13,7 @@ export async function writeUserData(userData) {
         .collection('users')
         .doc(user.uid)
         .set(userData, { merge: true });
+
     user.updateProfile({
         displayName: userData.name,
     });
@@ -21,6 +22,7 @@ export async function writeUserData(userData) {
 export function writeMapData(map) {
     const { uid } = firebase.auth().currentUser;
     const mapData = { map };
+
     firebase
         .firestore()
         .collection('users')
@@ -31,6 +33,7 @@ export function writeMapData(map) {
 export function writeDarkMode(darkMode) {
     const { uid } = firebase.auth().currentUser;
     const darkModeData = { darkMode };
+
     firebase
         .firestore()
         .collection('users')
@@ -40,6 +43,7 @@ export function writeDarkMode(darkMode) {
 
 export function writePhotoData(photoData) {
     const { uid } = firebase.auth().currentUser;
+
     firebase
         .storage()
         .ref()
@@ -49,6 +53,7 @@ export function writePhotoData(photoData) {
 
 export async function getUserFavoriteHikes() {
     const { uid } = firebase.auth().currentUser;
+
     return firebase
         .firestore()
         .collection('favoritedHikes')
@@ -60,6 +65,7 @@ export async function getUserFavoriteHikes() {
 export async function getAvatarUri() {
     const { uid } = firebase.auth().currentUser;
     let avatarUri = null;
+
     await firebase
         .storage()
         .ref(`images/users/${uid}.jpg`)
@@ -70,11 +76,13 @@ export async function getAvatarUri() {
         .then((result) => {
             avatarUri = result;
         });
+
     return avatarUri;
 }
 
 export async function getUserData() {
     const { uid } = firebase.auth().currentUser;
+
     return firebase
         .firestore()
         .collection('users')
