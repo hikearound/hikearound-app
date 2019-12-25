@@ -2,8 +2,12 @@ import firebase from 'firebase';
 import { Updates } from 'expo';
 import { cacheImages } from './Image';
 
-export function writeUserData(userData) {
+export async function writeUserData(userData) {
     const user = firebase.auth().currentUser;
+    const token = await user.getIdToken(true);
+
+    userData.token = token;
+
     firebase
         .firestore()
         .collection('users')
