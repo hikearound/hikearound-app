@@ -33,7 +33,7 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.1.tar.gz",
     "react-native-appearance": "~0.3.1",
     "react-native-expo-image-cache": "^4.1.0",
-    "react-native-gesture-handler": "~1.5.0",
+    "react-native-gesture-handler": "^1.5.3",
     "react-native-image-pan-zoom": "^2.1.11",
     "react-native-maps": "0.26.1",
     "react-native-open-maps": "^0.3.4",
@@ -49,14 +49,14 @@
     "redux": "^4.0.5",
     "sentry-expo": "^2.0.1",
     "styled-components": "^4.4.1",
-    "webpack": "^4.41.4"
+    "webpack": "^4.41.5"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.3",
     "babel-preset-expo": "^7.1.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^18.0.1",
-    "eslint-config-prettier": "^6.8.0",
+    "eslint-config-prettier": "^6.9.0",
     "eslint-plugin-import": "^2.19.1",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-prettier": "^3.1.2",
