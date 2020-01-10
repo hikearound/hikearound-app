@@ -42,7 +42,7 @@
           "file": "sentry-expo/upload-sourcemaps",
           "config": {
             "organization": "hikearound",
-            "project": "hikearound",
+            "project": "hikearound-app",
             "authToken": "INSERT_SENTRY_TOKEN"
           }
         }
