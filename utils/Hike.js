@@ -27,7 +27,7 @@ export async function getHikeImage(id, index) {
 export async function getHikeXmlUrl(id) {
     return firebase
         .storage()
-        .ref(`hikes/${id}/hike.gpx`)
+        .ref(`gpx/${id}.gpx`)
         .getDownloadURL();
 }
 
