@@ -14,7 +14,7 @@ export function hikeActionSheet() {
             if (buttonIndex === 0) {
                 this.shareHike();
             } else if (buttonIndex === 1) {
-                this.navigateToHike();
+                this.getDirections();
             }
         },
     );

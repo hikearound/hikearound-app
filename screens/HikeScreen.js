@@ -93,7 +93,7 @@ class HikeScreen extends React.Component {
         this.setState({ toastText });
     }
 
-    setMapRegion() {
+    setCenter() {
         const { startingLat, startingLon, latDelta, lonDelta } = this.state;
 
         const region = {
@@ -108,16 +108,6 @@ class HikeScreen extends React.Component {
         }
     }
 
-    getHikeData = async () => {
-        const { id } = this.state;
-        const hikeXmlUrl = await getHikeXmlUrl(id);
-        const hikeData = await parseHikeXml(hikeXmlUrl);
-
-        this.setHikeData(hikeData);
-        this.parseCoordinates();
-        this.setMapRegion();
-    };
-
     setHikeData(hikeData) {
         const hikeMetaData = hikeData.gpx.metadata[0].bounds[0].$;
         const { maxlat, minlat, minlon, maxlon } = hikeMetaData;
@@ -131,7 +121,17 @@ class HikeScreen extends React.Component {
         });
     }
 
-    navigateToHike = async () => {
+    initializeMap = async () => {
+        const { id } = this.state;
+        const hikeXmlUrl = await getHikeXmlUrl(id);
+        const hikeData = await parseHikeXml(hikeXmlUrl);
+
+        this.setHikeData(hikeData);
+        this.setCenter();
+        this.plotCoordinates();
+    };
+
+    getDirections = async () => {
         const { startingLat, startingLon } = this.state;
         const { map } = this.props;
 
@@ -158,11 +158,7 @@ class HikeScreen extends React.Component {
         }
     };
 
-    initializeMap = async () => {
-        this.getHikeData();
-    };
-
-    parseCoordinates() {
+    plotCoordinates() {
         const { hikeData } = this.state;
         const coordinateCount = hikeData.gpx.rte[0].rtept.length;
         const coordinates = [];
