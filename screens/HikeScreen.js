@@ -20,7 +20,7 @@ import { setToastText } from '../utils/Toast';
 import { copyLink } from '../actions/Hike';
 
 const shareAction = 'com.apple.UIKit.activity.CopyToPasteboard';
-const baseUrl = 'https://tryhikearound.com/hike/';
+const baseUrl = 'https://tryhikearound.com/hike';
 
 const propTypes = {
     map: PropTypes.string.isRequired,
@@ -143,7 +143,7 @@ class HikeScreen extends React.Component {
         const { id } = this.state;
         const { dispatchCopyLink } = this.props;
 
-        const url = `${baseUrl}${id}`;
+        const url = `${baseUrl}/${id}`;
         const result = await Share.share({ url });
 
         if (result.action === Share.sharedAction) {
