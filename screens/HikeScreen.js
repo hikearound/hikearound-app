@@ -16,7 +16,11 @@ import { hikeActionSheet } from '../components/action_sheets/Hike';
 import { getMapSetting } from '../utils/Settings';
 import { themes } from '../constants/Themes';
 import { getHikeXmlUrl, parseHikeXml } from '../utils/Hike';
+import { setToastText } from '../utils/Toast';
 import { copyLink } from '../actions/Hike';
+
+const shareAction = 'com.apple.UIKit.activity.CopyToPasteboard';
+const baseUrl = 'https://tryhikearound.com/hike/';
 
 const propTypes = {
     map: PropTypes.string.isRequired,
@@ -77,18 +81,10 @@ class HikeScreen extends React.Component {
 
     componentDidUpdate(prevProps) {
         const { action } = this.props;
-        if (prevProps.action !== action) {
-            this.setToastText(action);
-        }
-    }
-
-    setToastText(action) {
         const { name } = this.state;
-        if (action === 'favoriteHike') {
-            this.setState({ toastText: `You favorited ${name}.` });
-        }
-        if (action === 'copyLink') {
-            this.setState({ toastText: `Link copied to clipboard.` });
+
+        if (prevProps.action !== action) {
+            setToastText(action, name);
         }
     }
 
@@ -146,14 +142,12 @@ class HikeScreen extends React.Component {
     shareHike = async () => {
         const { id } = this.state;
         const { dispatchCopyLink } = this.props;
-        const url = `https://tryhikearound.com/hike/${id}`;
+
+        const url = `${baseUrl}${id}`;
         const result = await Share.share({ url });
 
         if (result.action === Share.sharedAction) {
-            if (
-                result.activityType ===
-                'com.apple.UIKit.activity.CopyToPasteboard'
-            ) {
+            if (result.activityType === shareAction) {
                 dispatchCopyLink();
             }
         }
