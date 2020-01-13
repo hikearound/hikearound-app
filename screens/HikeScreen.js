@@ -3,7 +3,7 @@ import styled, { ThemeProvider } from 'styled-components';
 import { ThemeContext } from 'react-navigation';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { ScrollView } from 'react-native';
+import { ScrollView, Share } from 'react-native';
 import openMap from 'react-native-open-maps';
 import {
     HikeBody,
@@ -16,19 +16,25 @@ import { hikeActionSheet } from '../components/action_sheets/Hike';
 import { getMapSetting } from '../utils/Settings';
 import { themes } from '../constants/Themes';
 import { getHikeXmlUrl, parseHikeXml } from '../utils/Hike';
+import { copyLink } from '../actions/Hike';
 
 const propTypes = {
     map: PropTypes.string.isRequired,
+    dispatchCopyLink: PropTypes.func.isRequired,
+    action: PropTypes.string.isRequired,
 };
 
 function mapStateToProps(state) {
     return {
         map: state.userReducer.map,
+        action: state.hikeReducer.action,
     };
 }
 
-function mapDispatchToProps() {
-    return {};
+function mapDispatchToProps(dispatch) {
+    return {
+        dispatchCopyLink: () => dispatch(copyLink()),
+    };
 }
 
 class HikeScreen extends React.Component {
@@ -46,7 +52,18 @@ class HikeScreen extends React.Component {
         const { navigation } = this.props;
         const hike = navigation.getParam('hike');
 
-        this.state = hike;
+        this.state = {
+            name: hike.name,
+            distance: hike.distance,
+            elevation: hike.elevation,
+            route: hike.route,
+            city: hike.city,
+            description: hike.description,
+            id: hike.id,
+            images: hike.images,
+        };
+
+        this.state.toastText = '';
         this.hikeActionSheet = hikeActionSheet.bind(this);
 
         navigation.setParams({
@@ -56,6 +73,23 @@ class HikeScreen extends React.Component {
 
     async componentDidMount() {
         await this.initializeMap();
+    }
+
+    componentDidUpdate(prevProps) {
+        const { action } = this.props;
+        if (prevProps.action !== action) {
+            this.setToastText(action);
+        }
+    }
+
+    setToastText(action) {
+        const { name } = this.state;
+        if (action === 'favoriteHike') {
+            this.setState({ toastText: `You favorited ${name}.` });
+        }
+        if (action === 'copyLink') {
+            this.setState({ toastText: `Link copied to clipboard.` });
+        }
     }
 
     setMapRegion() {
@@ -96,7 +130,7 @@ class HikeScreen extends React.Component {
         });
     }
 
-    navigationToHike = async () => {
+    navigateToHike = async () => {
         const { startingLat, startingLon } = this.state;
         const { map } = this.props;
 
@@ -107,6 +141,22 @@ class HikeScreen extends React.Component {
             travelType: 'drive',
             query: `${startingLat}, ${startingLon}`,
         });
+    };
+
+    shareHike = async () => {
+        const { id } = this.state;
+        const { dispatchCopyLink } = this.props;
+        const url = `https://tryhikearound.com/hike/${id}`;
+        const result = await Share.share({ url });
+
+        if (result.action === Share.sharedAction) {
+            if (
+                result.activityType ===
+                'com.apple.UIKit.activity.CopyToPasteboard'
+            ) {
+                dispatchCopyLink();
+            }
+        }
     };
 
     initializeMap = async () => {
@@ -143,6 +193,7 @@ class HikeScreen extends React.Component {
             description,
             id,
             images,
+            toastText,
         } = this.state;
 
         const theme = themes[this.context];
@@ -150,7 +201,7 @@ class HikeScreen extends React.Component {
         return (
             <ThemeProvider theme={theme}>
                 <RootView>
-                    <Toast name={name} />
+                    <Toast text={toastText} />
                     <PurpleBlockView />
                     <ScrollView showsVerticalScrollIndicator={false}>
                         <HikeMapWrapper

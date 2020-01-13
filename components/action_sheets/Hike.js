@@ -1,7 +1,7 @@
 import { ActionSheetIOS } from 'react-native';
 
-const SHEET_ITEMS = ['Get Directions', 'Cancel'];
-const SHEET_CANCEL_INDEX = 1;
+const SHEET_ITEMS = ['Get Directions', 'Share', 'Cancel'];
+const SHEET_CANCEL_INDEX = 2;
 
 export function hikeActionSheet() {
     ActionSheetIOS.showActionSheetWithOptions(
@@ -12,7 +12,9 @@ export function hikeActionSheet() {
 
         (buttonIndex) => {
             if (buttonIndex === 0) {
-                this.navigationToHike();
+                this.navigateToHike();
+            } else if (buttonIndex === 1) {
+                this.shareHike();
             }
         },
     );

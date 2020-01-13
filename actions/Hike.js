@@ -13,3 +13,7 @@ export const unfavoriteHike = (updatedHikeData) => {
     removeFavoriteHike(updatedHikeData);
     return { type: 'UNFAVORITE_HIKE', updatedHikeData };
 };
+
+export const copyLink = () => {
+    return { type: 'COPY_LINK' };
+};

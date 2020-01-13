@@ -23,6 +23,11 @@ export default function hikeReducer(state = initialState, action) {
                 action: 'unfavoriteHike',
                 updatedHikeData: action.updatedHikeData,
             };
+        case 'COPY_LINK':
+            return {
+                ...state,
+                action: 'copyLink',
+            };
         default:
             return state;
     }

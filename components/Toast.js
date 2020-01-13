@@ -17,7 +17,7 @@ import {
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 
 const propTypes = {
-    name: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
     action: PropTypes.string.isRequired,
 };
 
@@ -44,7 +44,7 @@ class Toast extends React.Component {
         const { action } = this.props;
         const { top } = this.state;
 
-        if (action === 'favoriteHike') {
+        if (action === 'favoriteHike' || action === 'copyLink') {
             Animated.timing(top, {
                 toValue: SCREEN_HEIGHT - 250,
                 duration: 500,
@@ -67,16 +67,12 @@ class Toast extends React.Component {
     };
 
     render() {
-        const { name } = this.props;
+        const { text } = this.props;
         const { top } = this.state;
 
         return (
             <AnimatedContainer style={{ top }}>
-                <ToastText>
-                    {'You favorited, '}
-                    {name}
-                    {'.'}
-                </ToastText>
+                <ToastText>{text}</ToastText>
                 <TouchableOpacity
                     activeOpacity={opacities.regular}
                     onPress={this.buttonPress}
