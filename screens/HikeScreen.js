@@ -16,10 +16,10 @@ import { hikeActionSheet } from '../components/action_sheets/Hike';
 import { getMapSetting } from '../utils/Settings';
 import { themes } from '../constants/Themes';
 import { getHikeXmlUrl, parseHikeXml } from '../utils/Hike';
-import { setToastText } from '../utils/Toast';
+import { getToastText } from '../utils/Toast';
 import { copyLink } from '../actions/Hike';
 
-const shareAction = 'com.apple.UIKit.activity.CopyToPasteboard';
+const shareAction = 'CopyToPasteboard';
 const baseUrl = 'https://tryhikearound.com/hike';
 
 const propTypes = {
@@ -84,8 +84,13 @@ class HikeScreen extends React.Component {
         const { name } = this.state;
 
         if (prevProps.action !== action) {
-            setToastText(action, name);
+            const toastText = getToastText(action, name);
+            this.setToastText(toastText);
         }
+    }
+
+    setToastText(toastText) {
+        this.setState({ toastText });
     }
 
     setMapRegion() {
@@ -147,7 +152,7 @@ class HikeScreen extends React.Component {
         const result = await Share.share({ url });
 
         if (result.action === Share.sharedAction) {
-            if (result.activityType === shareAction) {
+            if (result.activityType.includes(shareAction)) {
                 dispatchCopyLink();
             }
         }

@@ -1,4 +1,4 @@
-export async function setToastText(action, name) {
+export function getToastText(action, name) {
     let toastText = '';
 
     if (action === 'favoriteHike') {
@@ -12,5 +12,5 @@ export async function setToastText(action, name) {
 }
 
 export default {
-    setToastText,
+    getToastText,
 };
