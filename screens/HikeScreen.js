@@ -134,7 +134,6 @@ class HikeScreen extends React.Component {
     getDirections = async () => {
         const { startingLat, startingLon } = this.state;
         const { map } = this.props;
-
         const mapProvider = getMapSetting(map);
 
         openMap({
@@ -147,7 +146,6 @@ class HikeScreen extends React.Component {
     shareHike = async () => {
         const { id } = this.state;
         const { dispatchCopyLink } = this.props;
-
         const url = `${baseUrl}/${id}`;
         const result = await Share.share({ url });
 
