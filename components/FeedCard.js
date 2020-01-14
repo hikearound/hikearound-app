@@ -128,6 +128,6 @@ const MetaDataType = styled.Text`
 const MetaData = styled.Text`
     padding-top: 1px;
     color: ${(props) => props.theme.metaDataText};
-    font-size: ${fontSizes.small};
+    font-size: ${fontSizes.small}px;
     font-weight: ${fontWeights.medium};
 `;
