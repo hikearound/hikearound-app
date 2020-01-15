@@ -23,6 +23,10 @@ function mapDispatchToProps(dispatch) {
 }
 
 class AuthScreen extends React.Component {
+    static navigationOptions = () => {
+        return { header: null };
+    };
+
     constructor(props) {
         super(props);
 

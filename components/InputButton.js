@@ -52,7 +52,7 @@ const ButtonView = styled.View`
 const ButtonText = styled.Text`
     color: ${colors.purple};
     font-weight: ${fontWeights.medium};
-    font-size: ${fontSizes.large};
+    font-size: ${fontSizes.large}px;
     text-align: center;
     padding: ${spacing.small}px 0;
 `;
