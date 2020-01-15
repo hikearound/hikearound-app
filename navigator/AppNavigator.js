@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createAppContainer } from 'react-navigation';
 import { AppearanceProvider, useColorScheme } from 'react-native-appearance';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import TabNavigator from './TabNavigator';
 
 const Navigation = createAppContainer(TabNavigator);
@@ -33,9 +34,11 @@ function App({ darkMode }) {
     }
 
     return (
-        <AppearanceProvider>
-            <Navigation theme={theme} />
-        </AppearanceProvider>
+        <SafeAreaProvider>
+            <AppearanceProvider>
+                <Navigation theme={theme} />
+            </AppearanceProvider>
+        </SafeAreaProvider>
     );
 }
 

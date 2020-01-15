@@ -1,5 +1,4 @@
 import React from 'react';
-import { timings } from '../constants/Index';
 import { NotificationEmptyState } from '../components/Index';
 
 class NotificationScreen extends React.Component {
@@ -7,16 +6,7 @@ class NotificationScreen extends React.Component {
         super(props);
         this.state = {
             notifications: [],
-            shouldLoad: false,
         };
-    }
-
-    componentDidMount() {
-        this.loadingTimeout = setTimeout(() => {
-            this.setState({
-                shouldLoad: true,
-            });
-        }, timings.short);
     }
 
     static navigationOptions = {
@@ -24,12 +14,10 @@ class NotificationScreen extends React.Component {
     };
 
     render() {
-        const { notifications, shouldLoad } = this.state;
+        const { notifications } = this.state;
 
-        if (shouldLoad) {
-            if (notifications.length === 0) {
-                return <NotificationEmptyState />;
-            }
+        if (notifications.length === 0) {
+            return <NotificationEmptyState />;
         }
         return null;
     }

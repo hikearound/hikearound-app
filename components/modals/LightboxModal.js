@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { Modal, SafeAreaView } from 'react-native';
+import { Modal } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import ModalOverflow from '../ModalOverflow';
 import ModalDismiss from '../ModalDismiss';
 import ModalBase from './ModalBase';
