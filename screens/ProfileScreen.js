@@ -34,7 +34,7 @@ class ProfileScreen extends React.Component {
     static navigationOptions = ({ navigation }) => ({
         headerTitle: 'You',
         headerBackTitle: null,
-        headerRight: <Settings navigation={navigation} />,
+        headerRight: () => <Settings navigation={navigation} />,
     });
 
     constructor(props) {

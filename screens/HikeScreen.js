@@ -46,7 +46,7 @@ class HikeScreen extends React.Component {
         const hike = navigation.getParam('hike');
         return {
             title: hike.name || 'Hike',
-            headerRight: <Overflow navigation={navigation} />,
+            headerRight: () => <Overflow navigation={navigation} />,
         };
     };
 
@@ -93,32 +93,18 @@ class HikeScreen extends React.Component {
         this.setState({ toastText });
     }
 
-    setCenter() {
-        const { startingLat, startingLon, latDelta, lonDelta } = this.state;
-
-        const region = {
-            latitude: startingLat,
-            longitude: startingLon,
-            latitudeDelta: latDelta,
-            longitudeDelta: lonDelta,
-        };
-
-        if (region) {
-            this.setState({ region });
-        }
-    }
-
     setHikeData(hikeData) {
         const hikeMetaData = hikeData.gpx.metadata[0].bounds[0].$;
         const { maxlat, minlat, minlon, maxlon } = hikeMetaData;
 
-        this.setState({
-            startingLat: (parseFloat(maxlat) + parseFloat(minlat)) / 2,
-            startingLon: (parseFloat(maxlon) + parseFloat(minlon)) / 2,
-            latDelta: maxlat - minlat + 0.02,
-            lonDelta: maxlon - minlon,
-            hikeData,
-        });
+        const region = {
+            latitude: (parseFloat(maxlat) + parseFloat(minlat)) / 2,
+            longitude: (parseFloat(maxlon) + parseFloat(minlon)) / 2,
+            latitudeDelta: maxlat - minlat + 0.02,
+            longitudeDelta: maxlon - minlon,
+        };
+
+        this.setState({ region, hikeData });
     }
 
     initializeMap = async () => {
@@ -127,7 +113,6 @@ class HikeScreen extends React.Component {
         const hikeData = await parseHikeXml(hikeXmlUrl);
 
         this.setHikeData(hikeData);
-        this.setCenter();
         this.plotCoordinates();
     };
 

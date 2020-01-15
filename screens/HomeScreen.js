@@ -43,9 +43,9 @@ class HomeScreen extends React.Component {
         headerStyle.backgroundColor = themes[theme].headerStyle;
 
         return {
-            headerTitle: <Logo />,
+            headerTitle: () => <Logo />,
+            headerRight: () => <Sort navigation={navigation} />,
             headerBackTitle: null,
-            headerRight: <Sort navigation={navigation} />,
             headerStyle,
         };
     };
