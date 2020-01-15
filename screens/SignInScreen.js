@@ -70,7 +70,6 @@ class SignInScreen extends React.Component {
 
     static navigationOptions = {
         headerTitle: 'Sign In',
-        headerBackTitle: null,
     };
 
     render() {

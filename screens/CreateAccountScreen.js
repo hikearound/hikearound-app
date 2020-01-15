@@ -105,7 +105,6 @@ class CreateAccountScreen extends React.Component {
 
     static navigationOptions = {
         headerTitle: 'Create Account',
-        headerBackTitle: null,
     };
 
     render() {

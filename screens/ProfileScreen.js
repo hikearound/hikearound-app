@@ -33,7 +33,10 @@ function mapDispatchToProps(dispatch) {
 class ProfileScreen extends React.Component {
     static navigationOptions = ({ navigation }) => ({
         headerTitle: 'You',
+<<<<<<< HEAD
         headerBackTitle: null,
+=======
+>>>>>>> First pass
         headerRight: () => <Settings navigation={navigation} />,
     });
 

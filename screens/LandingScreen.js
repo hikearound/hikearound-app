@@ -28,8 +28,7 @@ class LandingScreen extends React.Component {
     }
 
     static navigationOptions = {
-        headerTitle: <Logo />,
-        headerBackTitle: null,
+        headerTitle: () => <Logo />,
     };
 
     render() {

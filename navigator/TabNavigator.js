@@ -1,6 +1,10 @@
 import React from 'react';
 import * as Haptics from 'expo-haptics';
-import { createStackNavigator } from 'react-navigation-stack';
+import {
+    createStackNavigator,
+    TransitionPresets,
+    HeaderStyleInterpolators,
+} from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { colors, spacing, fontSizes } from '../constants/Index';
 import { themes } from '../constants/Themes';
@@ -19,20 +23,26 @@ import {
 
 const mode = 'card';
 const headerMode = 'float';
-const headerTransitionPreset = 'uikit';
+const headerInterpolator = HeaderStyleInterpolators.forUIKit;
 
 const defaultNavigationOptions = {
     headerStyle: {
         backgroundColor: colors.purple,
         height: parseInt(spacing.header, 10),
         borderBottomWidth: 0,
-        marginLeft: 5,
-        marginRight: 5,
+    },
+    headerLeftContainerStyle: {
+        left: 5,
+    },
+    headerRightContainerStyle: {
+        right: 5,
     },
     headerTintColor: colors.white,
     headerTitleStyle: {
         fontSize: parseInt(fontSizes.big, 10),
     },
+    headerBackTitleVisible: false,
+    headerStyleInterpolator: headerInterpolator,
 };
 
 const HomeStack = createStackNavigator(
@@ -47,7 +57,6 @@ const HomeStack = createStackNavigator(
     {
         mode,
         headerMode,
-        headerTransitionPreset,
         initialRouteName: 'Auth',
         defaultNavigationOptions,
     },
@@ -63,8 +72,8 @@ HomeStack.navigationOptions = ({ navigation, theme }) => {
 
     return {
         tabBarVisible,
-        animationEnabled: true,
         tabBarLabel: 'Home',
+        ...TransitionPresets.SlideFromRightIOS,
 
         tabBarIcon: ({ focused }) => (
             <HomeIcon
@@ -86,7 +95,6 @@ const NotificationStack = createStackNavigator(
     {
         mode,
         headerMode,
-        headerTransitionPreset,
         defaultNavigationOptions,
     },
 );
@@ -94,6 +102,8 @@ const NotificationStack = createStackNavigator(
 NotificationStack.navigationOptions = ({ theme }) => {
     return {
         tabBarLabel: 'Notifications',
+        ...TransitionPresets.SlideFromRightIOS,
+
         tabBarIcon: ({ focused }) => (
             <BellIcon
                 fill={
@@ -115,7 +125,6 @@ const ProfileStack = createStackNavigator(
     {
         mode,
         headerMode,
-        headerTransitionPreset,
         defaultNavigationOptions,
     },
 );
@@ -123,6 +132,8 @@ const ProfileStack = createStackNavigator(
 ProfileStack.navigationOptions = ({ theme }) => {
     return {
         tabBarLabel: 'You',
+        ...TransitionPresets.SlideFromRightIOS,
+
         tabBarIcon: ({ focused }) => (
             <PersonIcon
                 height={25}

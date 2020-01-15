@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Modal, SafeAreaView } from 'react-native';
+import { Modal } from 'react-native';
 import { connect } from 'react-redux';
 import ModalDismiss from '../ModalDismiss';
 import ModalContinue from '../ModalContinue';
@@ -154,6 +154,7 @@ class EditProfileModal extends ModalBase {
     render() {
         const { modalVisible } = this.state;
         const { animationType, transparent, fullScreen } = this.props;
+
         return (
             <Modal
                 animationType={animationType}
@@ -162,10 +163,8 @@ class EditProfileModal extends ModalBase {
                 fullScreen={fullScreen}
             >
                 <ModalRoot>
-                    <SafeAreaView style={{ flex: 1 }}>
-                        {this.renderModalHeader()}
-                        {this.renderModalBody()}
-                    </SafeAreaView>
+                    {this.renderModalHeader()}
+                    {this.renderModalBody()}
                 </ModalRoot>
             </Modal>
         );
