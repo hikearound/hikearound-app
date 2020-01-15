@@ -2,7 +2,6 @@ import React from 'react';
 import * as Haptics from 'expo-haptics';
 import {
     createStackNavigator,
-    TransitionPresets,
     HeaderStyleInterpolators,
 } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
@@ -32,10 +31,10 @@ const defaultNavigationOptions = {
         borderBottomWidth: 0,
     },
     headerLeftContainerStyle: {
-        left: 5,
+        left: parseInt(spacing.micro, 10),
     },
     headerRightContainerStyle: {
-        right: 5,
+        right: parseInt(spacing.micro, 10),
     },
     headerTintColor: colors.white,
     headerTitleStyle: {
@@ -73,8 +72,6 @@ HomeStack.navigationOptions = ({ navigation, theme }) => {
     return {
         tabBarVisible,
         tabBarLabel: 'Home',
-        ...TransitionPresets.SlideFromRightIOS,
-
         tabBarIcon: ({ focused }) => (
             <HomeIcon
                 size={26}
@@ -102,8 +99,6 @@ const NotificationStack = createStackNavigator(
 NotificationStack.navigationOptions = ({ theme }) => {
     return {
         tabBarLabel: 'Notifications',
-        ...TransitionPresets.SlideFromRightIOS,
-
         tabBarIcon: ({ focused }) => (
             <BellIcon
                 fill={
@@ -132,8 +127,6 @@ const ProfileStack = createStackNavigator(
 ProfileStack.navigationOptions = ({ theme }) => {
     return {
         tabBarLabel: 'You',
-        ...TransitionPresets.SlideFromRightIOS,
-
         tabBarIcon: ({ focused }) => (
             <PersonIcon
                 height={25}
