@@ -15,7 +15,6 @@
     ]
   },
   "dependencies": {
-    "@react-native-community/masked-view": "0.1.5",
     "expo": "^36.0.2",
     "expo-asset": "~8.0.0",
     "expo-blur": "~8.0.0",
@@ -52,7 +51,8 @@
     "redux": "^4.0.5",
     "sentry-expo": "^2.0.1",
     "styled-components": "^5.0.0",
-    "webpack": "^4.41.5"
+    "webpack": "^4.41.5",
+    "@react-native-community/masked-view": "0.1.5"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.3",
