@@ -24,18 +24,8 @@ function mapDispatchToProps(dispatch) {
 
 class AuthScreen extends React.Component {
     static navigationOptions = () => {
-        return {
-            headerShown: false,
-        };
+        return { headerShown: false };
     };
-
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            isReady: false,
-        };
-    }
 
     componentDidMount() {
         SplashScreen.preventAutoHide();
@@ -52,9 +42,7 @@ class AuthScreen extends React.Component {
         });
     };
 
-    finishLoading = () => {
-        this.setState({ isReady: true });
-    };
+    finishLoading = () => {};
 
     navToApp = async (user) => {
         const { navigation } = this.props;
@@ -71,7 +59,6 @@ class AuthScreen extends React.Component {
         );
 
         await this.getUserProfileData(user);
-
         SplashScreen.hide();
     };
 
@@ -85,18 +72,13 @@ class AuthScreen extends React.Component {
     };
 
     render() {
-        const { isReady } = this.state;
-
-        if (!isReady) {
-            return (
-                <AppLoading
-                    startAsync={this.getUserAuth}
-                    onFinish={this.finishLoading}
-                    autoHideSplash={false}
-                />
-            );
-        }
-        return null;
+        return (
+            <AppLoading
+                startAsync={this.getUserAuth}
+                onFinish={this.finishLoading}
+                autoHideSplash={false}
+            />
+        );
     }
 }
 
