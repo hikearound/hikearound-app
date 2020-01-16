@@ -24,7 +24,8 @@ function mapDispatchToProps(dispatch) {
 }
 
 class AuthScreen extends React.Component {
-    componentDidMount() {
+    constructor(props) {
+        super(props);
         SplashScreen.preventAutoHide();
         StatusBar.setBarStyle('light-content', true);
     }

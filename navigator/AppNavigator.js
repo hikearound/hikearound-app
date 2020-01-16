@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import { createAppContainer } from 'react-navigation';
 import { AppearanceProvider, useColorScheme } from 'react-native-appearance';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import TabNavigator from './TabNavigator';
+import SwitchNavigator from './SwitchNavigator';
 
-const Navigation = createAppContainer(TabNavigator);
+const Navigation = createAppContainer(SwitchNavigator);
 
 const propTypes = {
     darkMode: PropTypes.bool,

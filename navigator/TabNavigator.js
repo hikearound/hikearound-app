@@ -15,7 +15,6 @@ import {
     HikeScreen,
     NotificationScreen,
     ProfileScreen,
-    AuthScreen,
     SettingsScreen,
     CreateAccountScreen,
 } from '../screens/Index';
@@ -46,7 +45,6 @@ const defaultNavigationOptions = {
 
 const HomeStack = createStackNavigator(
     {
-        Auth: AuthScreen,
         Landing: LandingScreen,
         SignIn: SignInScreen,
         Home: HomeScreen,
@@ -56,7 +54,6 @@ const HomeStack = createStackNavigator(
     {
         mode,
         headerMode,
-        initialRouteName: 'Auth',
         defaultNavigationOptions,
     },
 );
