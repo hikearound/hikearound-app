@@ -222,6 +222,7 @@ export default connect(
 
 const RootView = styled.View`
     background-color: ${(props) => props.theme.rootBackground};
+    flex: 1;
 `;
 
 const PurpleBlockView = styled.View`

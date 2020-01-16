@@ -1,10 +1,15 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
+import {
+    NavigationActions,
+    StackActions,
+    ThemeContext,
+} from 'react-navigation';
 import { Alert } from 'react-native';
-import { NavigationActions, StackActions } from 'react-navigation';
 import firebase from 'firebase';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { themes } from '../constants/Themes';
 import InputButton from '../components/InputButton';
 import LoadingOverlay from '../components/LoadingOverlay';
 import InputLabelGroup from '../components/InputLabelGroup';
@@ -107,45 +112,51 @@ class CreateAccountScreen extends React.Component {
         headerTitle: 'Create Account',
     };
 
+    static contextType = ThemeContext;
+
     render() {
         const { loading } = this.state;
+        const theme = themes[this.context];
+
         return (
-            <RootView>
-                {createAccountInputs.map(
-                    (
-                        {
-                            name,
-                            placeholder,
-                            keyboardType,
-                            secureTextEntry,
-                            autoCorrect,
-                            autoCapitalize,
-                            textContentType,
-                        },
-                        index,
-                    ) => (
-                        <InputLabelGroup
-                            key={index}
-                            placeholder={placeholder}
-                            keyboardType={keyboardType}
-                            secureTextEntry={secureTextEntry}
-                            autoCorrect={autoCorrect}
-                            autoCapitalize={autoCapitalize}
-                            autoFocus={index === 0}
-                            onChangeText={(text) =>
-                                this.setValue(name, text, index)
-                            }
-                            labelName={placeholder}
-                            textContentType={textContentType}
-                        />
-                    ),
-                )}
-                <InputButton
-                    text='Create Account'
-                    action={this.handleCreateAccount}
-                />
-                <LoadingOverlay loading={loading} />
-            </RootView>
+            <ThemeProvider theme={theme}>
+                <RootView>
+                    {createAccountInputs.map(
+                        (
+                            {
+                                name,
+                                placeholder,
+                                keyboardType,
+                                secureTextEntry,
+                                autoCorrect,
+                                autoCapitalize,
+                                textContentType,
+                            },
+                            index,
+                        ) => (
+                            <InputLabelGroup
+                                key={index}
+                                placeholder={placeholder}
+                                keyboardType={keyboardType}
+                                secureTextEntry={secureTextEntry}
+                                autoCorrect={autoCorrect}
+                                autoCapitalize={autoCapitalize}
+                                autoFocus={index === 0}
+                                onChangeText={(text) =>
+                                    this.setValue(name, text, index)
+                                }
+                                labelName={placeholder}
+                                textContentType={textContentType}
+                            />
+                        ),
+                    )}
+                    <InputButton
+                        text='Create Account'
+                        action={this.handleCreateAccount}
+                    />
+                    <LoadingOverlay loading={loading} />
+                </RootView>
+            </ThemeProvider>
         );
     }
 }
@@ -158,5 +169,6 @@ export default connect(
 )(CreateAccountScreen);
 
 const RootView = styled.View`
+    background-color: ${(props) => props.theme.rootBackground};
     flex: 1;
 `;

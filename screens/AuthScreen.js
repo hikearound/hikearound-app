@@ -24,7 +24,9 @@ function mapDispatchToProps(dispatch) {
 
 class AuthScreen extends React.Component {
     static navigationOptions = () => {
-        return { headerShown: false };
+        return {
+            headerShown: false,
+        };
     };
 
     constructor(props) {
@@ -69,6 +71,7 @@ class AuthScreen extends React.Component {
         );
 
         await this.getUserProfileData(user);
+
         SplashScreen.hide();
     };
 
