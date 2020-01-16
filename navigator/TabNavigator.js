@@ -22,7 +22,7 @@ import {
 
 const mode = 'card';
 const headerMode = 'float';
-const headerInterpolator = HeaderStyleInterpolators.forUIKit;
+const headerInterpolator = HeaderStyleInterpolators.forFade;
 
 const defaultNavigationOptions = {
     headerStyle: {
