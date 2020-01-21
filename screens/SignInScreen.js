@@ -81,7 +81,6 @@ class SignInScreen extends React.Component {
 
     render() {
         const { loading } = this.state;
-
         const theme = themes[this.context];
 
         return (
