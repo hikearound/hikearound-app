@@ -7,6 +7,18 @@ export const mode = 'card';
 export const headerMode = 'float';
 export const headerInterpolator = HeaderStyleInterpolators.forFade;
 
+function forCustomHeaderAnimation(options) {
+    const { progress } = options.current;
+    const styles = HeaderStyleInterpolators.forUIKit(options);
+
+    return {
+        ...styles,
+        leftButtonStyle: { opacity: progress },
+        leftLabelStyle: {},
+        rightButtonStyle: { opacity: progress },
+    };
+}
+
 export const defaultNavigationOptions = {
     headerStyle: {
         backgroundColor: colors.purple,
@@ -24,7 +36,7 @@ export const defaultNavigationOptions = {
         fontSize: parseInt(fontSizes.big, 10),
     },
     headerBackTitleVisible: false,
-    headerStyleInterpolator: headerInterpolator,
+    headerStyleInterpolator: forCustomHeaderAnimation,
 };
 
 export const tabBarOptions = {
@@ -50,4 +62,5 @@ export default {
     headerInterpolator,
     defaultNavigationOptions,
     tabBarOptions,
+    forCustomHeaderAnimation,
 };
