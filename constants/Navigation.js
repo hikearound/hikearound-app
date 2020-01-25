@@ -17,6 +17,7 @@ function forCustomHeaderAnimation(options) {
         leftButtonStyle: { opacity: progress },
         leftLabelStyle: {},
         rightButtonStyle: { opacity: progress },
+        backgroundStyle: { opacity: progress },
     };
 }
 
