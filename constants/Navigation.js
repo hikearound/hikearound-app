@@ -24,6 +24,7 @@ export const defaultNavigationOptions = {
         backgroundColor: colors.purple,
         height: parseInt(spacing.header, 10),
         borderBottomWidth: 0,
+        shadowColor: 'transparent',
     },
     headerLeftContainerStyle: {
         left: parseInt(spacing.micro, 10),

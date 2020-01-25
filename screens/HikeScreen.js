@@ -226,7 +226,7 @@ const RootView = styled.View`
 `;
 
 const PurpleBlockView = styled.View`
-    height: 100px;
+    height: 500px;
     background-color: ${(props) => props.theme.blockView};
     position: absolute;
     left: 0;
