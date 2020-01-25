@@ -5,6 +5,7 @@ import spacing from './Spacing';
 
 export const mode = 'card';
 export const headerMode = 'float';
+export const shadowColor = 'transparent';
 export const headerInterpolator = HeaderStyleInterpolators.forFade;
 
 function forCustomHeaderAnimation(options) {
@@ -24,7 +25,7 @@ export const defaultNavigationOptions = {
         backgroundColor: colors.purple,
         height: parseInt(spacing.header, 10),
         borderBottomWidth: 0,
-        shadowColor: 'transparent',
+        shadowColor,
     },
     headerLeftContainerStyle: {
         left: parseInt(spacing.micro, 10),
