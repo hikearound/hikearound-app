@@ -3,15 +3,9 @@ import styled, { ThemeProvider } from 'styled-components';
 import { ThemeContext } from 'react-navigation';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { ScrollView, Share } from 'react-native';
+import { Share } from 'react-native';
 import openMap from 'react-native-open-maps';
-import {
-    HikeBody,
-    Overflow,
-    Toast,
-    MapModal,
-    HikeMapWrapper,
-} from '../components/Index';
+import { HikeBody, Overflow, Toast, MapModal } from '../components/Index';
 import { hikeActionSheet } from '../components/action_sheets/Hike';
 import { getMapSetting } from '../utils/Settings';
 import { themes } from '../constants/Themes';
@@ -180,24 +174,18 @@ class HikeScreen extends React.Component {
             <ThemeProvider theme={theme}>
                 <RootView>
                     <Toast text={toastText} />
-                    <PurpleBlockView />
-                    <ScrollView showsVerticalScrollIndicator={false}>
-                        <HikeMapWrapper
-                            coordinates={coordinates}
-                            region={region}
-                            distance={distance}
-                            elevation={elevation}
-                            route={route}
-                        />
-                        <HikeBody
-                            name={name}
-                            city={city}
-                            distance={distance}
-                            description={description}
-                            id={id}
-                            images={images}
-                        />
-                    </ScrollView>
+                    <HikeBody
+                        name={name}
+                        city={city}
+                        distance={distance}
+                        description={description}
+                        id={id}
+                        images={images}
+                        elevation={elevation}
+                        route={route}
+                        coordinates={coordinates}
+                        region={region}
+                    />
                     <MapModal
                         mapRef={(ref) => {
                             this.mapView = ref;
@@ -223,13 +211,4 @@ export default connect(
 const RootView = styled.View`
     background-color: ${(props) => props.theme.rootBackground};
     flex: 1;
-`;
-
-const PurpleBlockView = styled.View`
-    height: 500px;
-    background-color: ${(props) => props.theme.blockView};
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
 `;

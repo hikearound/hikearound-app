@@ -1,10 +1,12 @@
 import React from 'react';
+import { ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { spacing, colors, fontWeights, fontSizes } from '../constants/Index';
 import Subtitle from './Subtitle';
 import FavoriteButton from './FavoriteButton';
 import PhotoLightboxGroup from './PhotoLightboxGroup';
+import HikeMapWrapper from './HikeMapWrapper';
 
 const propTypes = {
     description: PropTypes.string,
@@ -13,6 +15,10 @@ const propTypes = {
     id: PropTypes.string.isRequired,
     images: PropTypes.array,
     distance: PropTypes.number,
+    coordinates: PropTypes.array,
+    region: PropTypes.object,
+    elevation: PropTypes.number.isRequired,
+    route: PropTypes.string.isRequired,
 };
 
 const defaultProps = {
@@ -21,6 +27,8 @@ const defaultProps = {
     city: '',
     distance: '',
     images: [],
+    region: undefined,
+    coordinates: [],
 };
 
 class HikeBody extends React.PureComponent {
@@ -45,24 +53,46 @@ class HikeBody extends React.PureComponent {
     }
 
     render() {
-        const { name, city, id, images, distance } = this.props;
+        const {
+            name,
+            city,
+            id,
+            images,
+            distance,
+            coordinates,
+            region,
+            elevation,
+            route,
+        } = this.props;
         const { description } = this.state;
 
         return (
-            <BodyContent>
-                <TitleText>{name}</TitleText>
-                <LocationText>{city}</LocationText>
-                <FavoriteButton
-                    name={name}
-                    id={id}
-                    distance={distance}
-                    city={city}
-                />
-                <Subtitle text='Description' />
-                <DescriptionText>{description}</DescriptionText>
-                <Subtitle text='Images' />
-                <PhotoLightboxGroup id={id} images={images} />
-            </BodyContent>
+            <>
+                <PurpleBlockView />
+                <ScrollView showsVerticalScrollIndicator={false}>
+                    <HikeMapWrapper
+                        coordinates={coordinates}
+                        region={region}
+                        distance={distance}
+                        elevation={elevation}
+                        route={route}
+                    />
+                    <BodyContent>
+                        <TitleText>{name}</TitleText>
+                        <LocationText>{city}</LocationText>
+                        <FavoriteButton
+                            name={name}
+                            id={id}
+                            distance={distance}
+                            city={city}
+                        />
+                        <Subtitle text='Description' />
+                        <DescriptionText>{description}</DescriptionText>
+                        <Subtitle text='Images' />
+                        <PhotoLightboxGroup id={id} images={images} />
+                    </BodyContent>
+                </ScrollView>
+            </>
         );
     }
 }
@@ -91,4 +121,13 @@ const TitleText = styled.Text`
 const LocationText = styled.Text`
     color: ${colors.mediumGray};
     font-size: ${fontSizes.large}px;
+`;
+
+const PurpleBlockView = styled.View`
+    height: 500px;
+    background-color: ${(props) => props.theme.blockView};
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
 `;
