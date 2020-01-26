@@ -6,7 +6,6 @@ import spacing from './Spacing';
 export const mode = 'card';
 export const headerMode = 'float';
 export const shadowColor = 'transparent';
-export const headerInterpolator = HeaderStyleInterpolators.forFade;
 
 function forCustomHeaderAnimation(options) {
     const { progress } = options.current;
@@ -62,7 +61,6 @@ export const tabBarOptions = {
 export default {
     mode,
     headerMode,
-    headerInterpolator,
     defaultNavigationOptions,
     tabBarOptions,
     forCustomHeaderAnimation,
