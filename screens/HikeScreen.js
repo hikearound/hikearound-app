@@ -91,14 +91,17 @@ class HikeScreen extends React.Component {
         const hikeMetaData = hikeData.gpx.metadata[0].bounds[0].$;
         const { maxlat, minlat, minlon, maxlon } = hikeMetaData;
 
+        const latitude = (parseFloat(maxlat) + parseFloat(minlat)) / 2;
+        const longitude = (parseFloat(maxlon) + parseFloat(minlon)) / 2;
+
         const region = {
-            latitude: (parseFloat(maxlat) + parseFloat(minlat)) / 2,
-            longitude: (parseFloat(maxlon) + parseFloat(minlon)) / 2,
+            latitude,
+            longitude,
             latitudeDelta: maxlat - minlat + 0.02,
             longitudeDelta: maxlon - minlon,
         };
 
-        this.setState({ region, hikeData });
+        this.setState({ region, hikeData, latitude, longitude });
     }
 
     initializeMap = async () => {
@@ -111,14 +114,14 @@ class HikeScreen extends React.Component {
     };
 
     getDirections = async () => {
-        const { startingLat, startingLon } = this.state;
+        const { latitude, longitude } = this.state;
         const { map } = this.props;
         const mapProvider = getMapSetting(map);
 
         openMap({
             provider: mapProvider,
             travelType: 'drive',
-            query: `${startingLat}, ${startingLon}`,
+            query: `${latitude}, ${longitude}`,
         });
     };
 
