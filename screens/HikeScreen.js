@@ -93,12 +93,14 @@ class HikeScreen extends React.Component {
 
         const latitude = (parseFloat(maxlat) + parseFloat(minlat)) / 2;
         const longitude = (parseFloat(maxlon) + parseFloat(minlon)) / 2;
+        const latitudeDelta = maxlat - minlat + 0.02;
+        const longitudeDelta = maxlon - minlon;
 
         const region = {
             latitude,
             longitude,
-            latitudeDelta: maxlat - minlat + 0.02,
-            longitudeDelta: maxlon - minlon,
+            latitudeDelta,
+            longitudeDelta,
         };
 
         this.setState({ region, hikeData, latitude, longitude });
