@@ -9,24 +9,12 @@ import PhotoLightboxGroup from './PhotoLightboxGroup';
 import HikeMapWrapper from './HikeMapWrapper';
 
 const propTypes = {
-    description: PropTypes.string,
-    name: PropTypes.string,
-    city: PropTypes.string,
-    id: PropTypes.string.isRequired,
-    images: PropTypes.array,
-    distance: PropTypes.number,
     coordinates: PropTypes.array,
     region: PropTypes.object,
-    elevation: PropTypes.number.isRequired,
-    route: PropTypes.string.isRequired,
+    hike: PropTypes.object.isRequired,
 };
 
 const defaultProps = {
-    description: '',
-    name: '',
-    city: '',
-    distance: '',
-    images: [],
     region: undefined,
     coordinates: [],
 };
@@ -34,8 +22,17 @@ const defaultProps = {
 class HikeBody extends React.PureComponent {
     constructor(props, context) {
         super(props, context);
+        const { hike } = this.props;
+
         this.state = {
-            description: '',
+            name: hike.name,
+            distance: hike.distance,
+            elevation: hike.elevation,
+            route: hike.route,
+            city: hike.city,
+            description: hike.description,
+            id: hike.id,
+            images: hike.images,
         };
     }
 
@@ -44,7 +41,7 @@ class HikeBody extends React.PureComponent {
     }
 
     updateDescription() {
-        const { description } = this.props;
+        const { description } = this.state;
         if (description) {
             this.setState({
                 description: description.replace('\\n\\n', '\n\n'),
@@ -53,18 +50,17 @@ class HikeBody extends React.PureComponent {
     }
 
     render() {
+        const { coordinates, region } = this.props;
         const {
+            description,
             name,
             city,
             id,
             images,
             distance,
-            coordinates,
-            region,
             elevation,
             route,
-        } = this.props;
-        const { description } = this.state;
+        } = this.state;
 
         return (
             <>

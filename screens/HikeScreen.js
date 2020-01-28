@@ -46,22 +46,14 @@ class HikeScreen extends React.Component {
 
     constructor(props, context) {
         super(props, context);
-
         const { navigation } = this.props;
         const hike = navigation.getParam('hike');
 
         this.state = {
-            name: hike.name,
-            distance: hike.distance,
-            elevation: hike.elevation,
-            route: hike.route,
-            city: hike.city,
-            description: hike.description,
             id: hike.id,
-            images: hike.images,
+            toastText: '',
         };
 
-        this.state.toastText = '';
         this.hikeActionSheet = hikeActionSheet.bind(this);
 
         navigation.setParams({
@@ -159,20 +151,10 @@ class HikeScreen extends React.Component {
     static contextType = ThemeContext;
 
     render() {
-        const {
-            coordinates,
-            region,
-            distance,
-            elevation,
-            route,
-            name,
-            city,
-            description,
-            id,
-            images,
-            toastText,
-        } = this.state;
+        const { coordinates, region, toastText } = this.state;
+        const { navigation } = this.props;
 
+        const hike = navigation.getParam('hike');
         const theme = themes[this.context];
 
         return (
@@ -180,14 +162,7 @@ class HikeScreen extends React.Component {
                 <RootView>
                     <Toast text={toastText} />
                     <HikeBody
-                        name={name}
-                        city={city}
-                        distance={distance}
-                        description={description}
-                        id={id}
-                        images={images}
-                        elevation={elevation}
-                        route={route}
+                        hike={hike}
                         coordinates={coordinates}
                         region={region}
                     />
