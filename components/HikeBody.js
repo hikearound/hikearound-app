@@ -2,11 +2,11 @@ import React from 'react';
 import { ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { spacing, colors, fontWeights, fontSizes } from '../constants/Index';
+import { spacing, colors } from '../constants/Index';
 import Subtitle from './Subtitle';
-import FavoriteButton from './FavoriteButton';
 import PhotoLightboxGroup from './PhotoLightboxGroup';
 import HikeMapWrapper from './HikeMapWrapper';
+import TextContent from './hike/TextContent';
 
 const propTypes = {
     coordinates: PropTypes.array,
@@ -36,19 +36,6 @@ class HikeBody extends React.PureComponent {
         };
     }
 
-    componentDidMount() {
-        this.updateDescription();
-    }
-
-    updateDescription() {
-        const { description } = this.state;
-        if (description) {
-            this.setState({
-                description: description.replace('\\n\\n', '\n\n'),
-            });
-        }
-    }
-
     render() {
         const { coordinates, region } = this.props;
         const {
@@ -74,16 +61,13 @@ class HikeBody extends React.PureComponent {
                         route={route}
                     />
                     <BodyContent>
-                        <TitleText>{name}</TitleText>
-                        <LocationText>{city}</LocationText>
-                        <FavoriteButton
+                        <TextContent
                             name={name}
+                            city={city}
                             id={id}
                             distance={distance}
-                            city={city}
+                            description={description}
                         />
-                        <Subtitle text='Description' />
-                        <DescriptionText>{description}</DescriptionText>
                         <Subtitle text='Images' />
                         <PhotoLightboxGroup id={id} images={images} />
                     </BodyContent>
@@ -101,22 +85,6 @@ export default HikeBody;
 const BodyContent = styled.View`
     padding: ${spacing.small}px ${spacing.small}px;
     background-color: ${colors.white};
-`;
-
-const DescriptionText = styled.Text`
-    color: ${colors.black};
-    font-size: ${fontSizes.medium}px;
-`;
-
-const TitleText = styled.Text`
-    color: ${colors.black};
-    font-weight: ${fontWeights.bold};
-    font-size: ${fontSizes.big}px;
-`;
-
-const LocationText = styled.Text`
-    color: ${colors.mediumGray};
-    font-size: ${fontSizes.large}px;
 `;
 
 const PurpleBlockView = styled.View`
