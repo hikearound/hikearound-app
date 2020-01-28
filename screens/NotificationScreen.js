@@ -1,5 +1,9 @@
 import React from 'react';
+import { ThemeProvider } from 'styled-components';
+import { ThemeContext } from 'react-navigation';
+import { themes } from '../constants/Themes';
 import { NotificationEmptyState } from '../components/Index';
+import { RootView } from '../styles/Screens';
 
 class NotificationScreen extends React.Component {
     constructor(props) {
@@ -13,13 +17,19 @@ class NotificationScreen extends React.Component {
         headerTitle: 'Notifications',
     };
 
+    static contextType = ThemeContext;
+
     render() {
         const { notifications } = this.state;
+        const theme = themes[this.context];
 
-        if (notifications.length === 0) {
-            return <NotificationEmptyState />;
-        }
-        return null;
+        return (
+            <ThemeProvider theme={theme}>
+                <RootView>
+                    {notifications.length === 0 && <NotificationEmptyState />}
+                </RootView>
+            </ThemeProvider>
+        );
     }
 }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from 'styled-components';
 import {
     NavigationActions,
     StackActions,
@@ -11,6 +11,7 @@ import { themes } from '../constants/Themes';
 import InputButton from '../components/InputButton';
 import LoadingOverlay from '../components/LoadingOverlay';
 import InputLabelGroup from '../components/InputLabelGroup';
+import { RootView } from '../styles/Screens';
 
 const signInInputs = [
     {
@@ -130,8 +131,3 @@ class SignInScreen extends React.Component {
 }
 
 export default SignInScreen;
-
-const RootView = styled.View`
-    background-color: ${(props) => props.theme.rootBackground};
-    flex: 1;
-`;

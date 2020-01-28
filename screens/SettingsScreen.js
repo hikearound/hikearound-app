@@ -1,15 +1,18 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 import { connect } from 'react-redux';
 import { SectionList } from 'react-native';
 import Constants from 'expo-constants';
+import { ThemeContext } from 'react-navigation';
 import {
     SettingsItem,
     SettingsSwitchItem,
     SettingsStaticItem,
     SettingsLinkItem,
 } from '../components/Index';
+import { themes } from '../constants/Themes';
 import { colors, fontSizes, spacing, fontWeights } from '../constants/Index';
+import { RootView } from '../styles/Screens';
 
 const MAP_SECTION = {
     title: 'Default Map',
@@ -92,28 +95,31 @@ class SettingsScreen extends React.Component {
         </HeaderContainer>
     );
 
+    static contextType = ThemeContext;
+
     render() {
+        const theme = themes[this.context];
+
         return (
-            <RootView>
-                <SectionList
-                    extraData={this.state}
-                    renderItem={this.renderItem}
-                    stickySectionHeadersEnabled={false}
-                    renderSectionHeader={this.renderSectionHeader}
-                    sections={SETTING_ITEMS}
-                    keyExtractor={(item, index) => item + index}
-                />
-            </RootView>
+            <ThemeProvider theme={theme}>
+                <StyledRootView>
+                    <SectionList
+                        extraData={this.state}
+                        renderItem={this.renderItem}
+                        stickySectionHeadersEnabled={false}
+                        renderSectionHeader={this.renderSectionHeader}
+                        sections={SETTING_ITEMS}
+                        keyExtractor={(item, index) => item + index}
+                    />
+                </StyledRootView>
+            </ThemeProvider>
         );
     }
 }
 
 export default connect(mapStateToProps)(SettingsScreen);
 
-const RootView = styled.View`
-    background: ${colors.white};
-    flex: 1;
-    overflow: hidden;
+const StyledRootView = styled(RootView)`
     padding-left: ${spacing.small}px;
 `;
 

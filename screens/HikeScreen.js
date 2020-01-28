@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from 'styled-components';
 import { ThemeContext } from 'react-navigation';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -12,6 +12,7 @@ import { themes } from '../constants/Themes';
 import { getHikeXmlUrl, parseHikeXml } from '../utils/Hike';
 import { getToastText } from '../utils/Toast';
 import { copyLink } from '../actions/Hike';
+import { RootView } from '../styles/Screens';
 
 const shareAction = 'CopyToPasteboard';
 const baseUrl = 'https://tryhikearound.com/hike';
@@ -187,8 +188,3 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps,
 )(HikeScreen);
-
-const RootView = styled.View`
-    background-color: ${(props) => props.theme.rootBackground};
-    flex: 1;
-`;

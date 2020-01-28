@@ -1,10 +1,10 @@
 import React from 'react';
-import styled from 'styled-components';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Linking } from 'expo';
 import { RefreshControl } from 'react-native';
 import { ThemeContext } from 'react-navigation';
+import { ThemeProvider } from 'styled-components';
 import { Logo, FeedList, Sort } from '../components/Index';
 import { themes } from '../constants/Themes';
 import { getFeedHikeCount, openHikeScreen } from '../utils/Hike';
@@ -16,6 +16,7 @@ import { timings } from '../constants/Index';
 import { pageFeed } from '../utils/Feed';
 import { getHikeIdFromUrl } from '../utils/Link';
 import { feedActionSheet } from '../components/action_sheets/Feed';
+import { RootView } from '../styles/Screens';
 
 const propTypes = {
     dispatchUserData: PropTypes.func.isRequired,
@@ -188,23 +189,25 @@ class HomeScreen extends React.Component {
         const theme = themes[this.context];
 
         return (
-            <RootView theme={theme}>
-                {firstLoad && <HomeLoadingState />}
-                {!firstLoad && (
-                    <FeedList
-                        refreshControl={
-                            <RefreshControl
-                                tintColor={theme.refreshControlTint}
-                                refreshing={loading}
-                                onRefresh={this.onRefresh}
-                            />
-                        }
-                        feedRef={feedRef}
-                        onEndReached={this.onEndReached}
-                        hikes={hikes}
-                    />
-                )}
-            </RootView>
+            <ThemeProvider theme={theme}>
+                <RootView>
+                    {firstLoad && <HomeLoadingState />}
+                    {!firstLoad && (
+                        <FeedList
+                            refreshControl={
+                                <RefreshControl
+                                    tintColor={theme.refreshControlTint}
+                                    refreshing={loading}
+                                    onRefresh={this.onRefresh}
+                                />
+                            }
+                            feedRef={feedRef}
+                            onEndReached={this.onEndReached}
+                            hikes={hikes}
+                        />
+                    )}
+                </RootView>
+            </ThemeProvider>
         );
     }
 }
@@ -215,8 +218,3 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps,
 )(HomeScreen);
-
-const RootView = styled.View`
-    background-color: ${(props) => props.theme.rootBackground};
-    overflow: hidden;
-`;

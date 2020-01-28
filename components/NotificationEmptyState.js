@@ -22,7 +22,6 @@ const RootView = styled.View`
     flex: 1;
     justify-content: center;
     align-items: center;
-    background: ${colors.white};
 `;
 
 const BellWrapper = styled.View`

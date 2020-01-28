@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import { ThemeProvider } from 'styled-components';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { ThemeContext } from 'react-navigation';
@@ -10,6 +10,7 @@ import { getUserFavoriteHikes } from '../utils/User';
 import ProfileLoadingState from '../components/loading/Profile';
 import { initializeHikeData } from '../actions/Hike';
 import { timings } from '../constants/Index';
+import { RootView } from '../styles/Screens';
 
 const propTypes = {
     dispatchHikeData: PropTypes.func.isRequired,
@@ -104,26 +105,28 @@ class ProfileScreen extends React.Component {
         const theme = themes[this.context];
 
         return (
-            <RootView theme={theme}>
-                {firstLoad && shouldLoad && <ProfileLoadingState />}
-                {!firstLoad && (
-                    <>
-                        <ProfileHeader />
-                        <ProfileBody
-                            hikeData={hikeData}
-                            loading={firstLoad}
-                            maybeShowEmptyState={maybeShowEmptyState}
-                        />
-                    </>
-                )}
-                <EditProfileModal
-                    animationType='push'
-                    modalAction='showEditProfile'
-                    transparent
-                    hideStatusBar={false}
-                    fullScreen={false}
-                />
-            </RootView>
+            <ThemeProvider theme={theme}>
+                <RootView>
+                    {firstLoad && shouldLoad && <ProfileLoadingState />}
+                    {!firstLoad && (
+                        <>
+                            <ProfileHeader />
+                            <ProfileBody
+                                hikeData={hikeData}
+                                loading={firstLoad}
+                                maybeShowEmptyState={maybeShowEmptyState}
+                            />
+                        </>
+                    )}
+                    <EditProfileModal
+                        animationType='push'
+                        modalAction='showEditProfile'
+                        transparent
+                        hideStatusBar={false}
+                        fullScreen={false}
+                    />
+                </RootView>
+            </ThemeProvider>
         );
     }
 }
@@ -134,10 +137,3 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps,
 )(ProfileScreen);
-
-const RootView = styled.View`
-    background: ${(props) => props.theme.rootBackground};
-    flex: 1;
-    overflow: hidden;
-    width: 100%;
-`;

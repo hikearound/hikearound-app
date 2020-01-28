@@ -1,8 +1,11 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 import { Animated, Easing } from 'react-native';
+import { ThemeContext } from 'react-navigation';
 import { LandingButton, Logo } from '../components/Index';
 import { spacing } from '../constants/Index';
+import { RootView } from '../styles/Screens';
+import { themes } from '../constants/Themes';
 
 const backgroundImg = require('../assets/landing-bg.png');
 
@@ -34,43 +37,45 @@ class LandingScreen extends React.Component {
         ).start();
     }
 
+    static contextType = ThemeContext;
+
     render() {
         const { left } = this.state;
         const { navigation } = this.props;
+        const theme = themes[this.context];
+
         return (
-            <RootView>
-                <AnimatedBackgroundWrapper style={{ left }}>
-                    <LandingBackground source={backgroundImg} />
-                </AnimatedBackgroundWrapper>
-                <ButtonWrapper>
-                    <LandingButton
-                        primary
-                        text='Create Account'
-                        action={() => {
-                            navigation.push('CreateAccount');
-                        }}
-                    />
-                    <LandingButton
-                        text='Sign In'
-                        margin={
-                            `${spacing.tiny}px ${spacing.medium}px ` +
-                            `0 ${spacing.medium}px`
-                        }
-                        action={() => {
-                            navigation.push('SignIn');
-                        }}
-                    />
-                </ButtonWrapper>
-            </RootView>
+            <ThemeProvider theme={theme}>
+                <RootView>
+                    <AnimatedBackgroundWrapper style={{ left }}>
+                        <LandingBackground source={backgroundImg} />
+                    </AnimatedBackgroundWrapper>
+                    <ButtonWrapper>
+                        <LandingButton
+                            primary
+                            text='Create Account'
+                            action={() => {
+                                navigation.push('CreateAccount');
+                            }}
+                        />
+                        <LandingButton
+                            text='Sign In'
+                            margin={
+                                `${spacing.tiny}px ${spacing.medium}px ` +
+                                `0 ${spacing.medium}px`
+                            }
+                            action={() => {
+                                navigation.push('SignIn');
+                            }}
+                        />
+                    </ButtonWrapper>
+                </RootView>
+            </ThemeProvider>
         );
     }
 }
 
 export default LandingScreen;
-
-const RootView = styled.View`
-    flex: 1;
-`;
 
 const BackgroundWrapper = styled.View`
     height: 100%;

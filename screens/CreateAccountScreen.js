@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from 'styled-components';
 import {
     NavigationActions,
     StackActions,
@@ -14,6 +14,7 @@ import InputButton from '../components/InputButton';
 import LoadingOverlay from '../components/LoadingOverlay';
 import InputLabelGroup from '../components/InputLabelGroup';
 import { updateUserData } from '../actions/User';
+import { RootView } from '../styles/Screens';
 
 const createAccountInputs = [
     {
@@ -167,8 +168,3 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps,
 )(CreateAccountScreen);
-
-const RootView = styled.View`
-    background-color: ${(props) => props.theme.rootBackground};
-    flex: 1;
-`;
