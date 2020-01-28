@@ -3,15 +3,9 @@ import styled, { ThemeProvider } from 'styled-components';
 import { ThemeContext } from 'react-navigation';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { ScrollView, Share } from 'react-native';
+import { Share } from 'react-native';
 import openMap from 'react-native-open-maps';
-import {
-    HikeBody,
-    Overflow,
-    Toast,
-    MapModal,
-    HikeMapWrapper,
-} from '../components/Index';
+import { HikeBody, Overflow, Toast, MapModal } from '../components/Index';
 import { hikeActionSheet } from '../components/action_sheets/Hike';
 import { getMapSetting } from '../utils/Settings';
 import { themes } from '../constants/Themes';
@@ -52,22 +46,14 @@ class HikeScreen extends React.Component {
 
     constructor(props, context) {
         super(props, context);
-
         const { navigation } = this.props;
         const hike = navigation.getParam('hike');
 
         this.state = {
-            name: hike.name,
-            distance: hike.distance,
-            elevation: hike.elevation,
-            route: hike.route,
-            city: hike.city,
-            description: hike.description,
             id: hike.id,
-            images: hike.images,
+            toastText: '',
         };
 
-        this.state.toastText = '';
         this.hikeActionSheet = hikeActionSheet.bind(this);
 
         navigation.setParams({
@@ -97,14 +83,19 @@ class HikeScreen extends React.Component {
         const hikeMetaData = hikeData.gpx.metadata[0].bounds[0].$;
         const { maxlat, minlat, minlon, maxlon } = hikeMetaData;
 
+        const latitude = (parseFloat(maxlat) + parseFloat(minlat)) / 2;
+        const longitude = (parseFloat(maxlon) + parseFloat(minlon)) / 2;
+        const latitudeDelta = maxlat - minlat + 0.02;
+        const longitudeDelta = maxlon - minlon;
+
         const region = {
-            latitude: (parseFloat(maxlat) + parseFloat(minlat)) / 2,
-            longitude: (parseFloat(maxlon) + parseFloat(minlon)) / 2,
-            latitudeDelta: maxlat - minlat + 0.02,
-            longitudeDelta: maxlon - minlon,
+            latitude,
+            longitude,
+            latitudeDelta,
+            longitudeDelta,
         };
 
-        this.setState({ region, hikeData });
+        this.setState({ region, hikeData, latitude, longitude });
     }
 
     initializeMap = async () => {
@@ -117,14 +108,14 @@ class HikeScreen extends React.Component {
     };
 
     getDirections = async () => {
-        const { startingLat, startingLon } = this.state;
+        const { latitude, longitude } = this.state;
         const { map } = this.props;
         const mapProvider = getMapSetting(map);
 
         openMap({
             provider: mapProvider,
             travelType: 'drive',
-            query: `${startingLat}, ${startingLon}`,
+            query: `${latitude}, ${longitude}`,
         });
     };
 
@@ -160,44 +151,21 @@ class HikeScreen extends React.Component {
     static contextType = ThemeContext;
 
     render() {
-        const {
-            coordinates,
-            region,
-            distance,
-            elevation,
-            route,
-            name,
-            city,
-            description,
-            id,
-            images,
-            toastText,
-        } = this.state;
+        const { coordinates, region, toastText } = this.state;
+        const { navigation } = this.props;
 
+        const hike = navigation.getParam('hike');
         const theme = themes[this.context];
 
         return (
             <ThemeProvider theme={theme}>
                 <RootView>
                     <Toast text={toastText} />
-                    <PurpleBlockView />
-                    <ScrollView showsVerticalScrollIndicator={false}>
-                        <HikeMapWrapper
-                            coordinates={coordinates}
-                            region={region}
-                            distance={distance}
-                            elevation={elevation}
-                            route={route}
-                        />
-                        <HikeBody
-                            name={name}
-                            city={city}
-                            distance={distance}
-                            description={description}
-                            id={id}
-                            images={images}
-                        />
-                    </ScrollView>
+                    <HikeBody
+                        hike={hike}
+                        coordinates={coordinates}
+                        region={region}
+                    />
                     <MapModal
                         mapRef={(ref) => {
                             this.mapView = ref;
@@ -222,13 +190,5 @@ export default connect(
 
 const RootView = styled.View`
     background-color: ${(props) => props.theme.rootBackground};
-`;
-
-const PurpleBlockView = styled.View`
-    height: 100px;
-    background-color: ${(props) => props.theme.blockView};
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
+    flex: 1;
 `;

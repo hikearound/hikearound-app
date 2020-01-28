@@ -5,6 +5,7 @@ import { NavigationActions, StackActions } from 'react-navigation';
 import { StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import firebase from 'firebase';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { getUserData } from '../utils/User';
 import { initializeUserData } from '../actions/User';
 
@@ -23,19 +24,8 @@ function mapDispatchToProps(dispatch) {
 }
 
 class AuthScreen extends React.Component {
-    static navigationOptions = () => {
-        return { header: null };
-    };
-
     constructor(props) {
         super(props);
-
-        this.state = {
-            isReady: false,
-        };
-    }
-
-    componentDidMount() {
         SplashScreen.preventAutoHide();
         StatusBar.setBarStyle('light-content', true);
     }
@@ -50,9 +40,7 @@ class AuthScreen extends React.Component {
         });
     };
 
-    finishLoading = () => {
-        this.setState({ isReady: true });
-    };
+    finishLoading = () => {};
 
     navToApp = async (user) => {
         const { navigation } = this.props;
@@ -82,18 +70,15 @@ class AuthScreen extends React.Component {
     };
 
     render() {
-        const { isReady } = this.state;
-
-        if (!isReady) {
-            return (
+        return (
+            <SafeAreaView style={{ flex: 1 }}>
                 <AppLoading
                     startAsync={this.getUserAuth}
                     onFinish={this.finishLoading}
                     autoHideSplash={false}
                 />
-            );
-        }
-        return null;
+            </SafeAreaView>
+        );
     }
 }
 

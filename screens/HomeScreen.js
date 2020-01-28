@@ -45,7 +45,7 @@ class HomeScreen extends React.Component {
         return {
             headerTitle: () => <Logo />,
             headerRight: () => <Sort navigation={navigation} />,
-            headerBackTitle: null,
+            animationEnabled: false,
             headerStyle,
         };
     };

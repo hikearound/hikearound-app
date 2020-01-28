@@ -9,7 +9,6 @@ import EditProfileModal from '../components/modals/EditProfileModal';
 import { getUserFavoriteHikes } from '../utils/User';
 import ProfileLoadingState from '../components/loading/Profile';
 import { initializeHikeData } from '../actions/Hike';
-import { timings } from '../constants/Index';
 
 const propTypes = {
     dispatchHikeData: PropTypes.func.isRequired,
@@ -33,7 +32,10 @@ function mapDispatchToProps(dispatch) {
 class ProfileScreen extends React.Component {
     static navigationOptions = ({ navigation }) => ({
         headerTitle: 'You',
+<<<<<<< HEAD
         headerBackTitle: null,
+=======
+>>>>>>> First pass
         headerRight: () => <Settings navigation={navigation} />,
     });
 
@@ -45,12 +47,6 @@ class ProfileScreen extends React.Component {
             maybeShowEmptyState: false,
             hikeData: [],
         };
-
-        this.loadingTimeout = setTimeout(() => {
-            this.setState({
-                shouldLoad: true,
-            });
-        }, timings.short);
     }
 
     async componentDidMount() {
@@ -95,18 +91,13 @@ class ProfileScreen extends React.Component {
     static contextType = ThemeContext;
 
     render() {
-        const {
-            firstLoad,
-            maybeShowEmptyState,
-            hikeData,
-            shouldLoad,
-        } = this.state;
+        const { firstLoad, maybeShowEmptyState, hikeData } = this.state;
 
         const theme = themes[this.context];
 
         return (
             <RootView theme={theme}>
-                {firstLoad && shouldLoad && <ProfileLoadingState />}
+                {firstLoad && <ProfileLoadingState />}
                 {!firstLoad && (
                     <>
                         <ProfileHeader />

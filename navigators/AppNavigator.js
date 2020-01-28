@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createAppContainer } from 'react-navigation';
 import { AppearanceProvider, useColorScheme } from 'react-native-appearance';
-import TabNavigator from './TabNavigator';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import SwitchNavigator from './SwitchNavigator';
 
-const Navigation = createAppContainer(TabNavigator);
+const Navigation = createAppContainer(SwitchNavigator);
 
 const propTypes = {
     darkMode: PropTypes.bool,
@@ -33,9 +34,11 @@ function App({ darkMode }) {
     }
 
     return (
-        <AppearanceProvider>
-            <Navigation theme={theme} />
-        </AppearanceProvider>
+        <SafeAreaProvider>
+            <AppearanceProvider>
+                <Navigation theme={theme} />
+            </AppearanceProvider>
+        </SafeAreaProvider>
     );
 }
 

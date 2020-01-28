@@ -114,7 +114,7 @@ const RootView = styled.View`
     background: ${colors.white};
     flex: 1;
     overflow: hidden;
-    margin-left: ${spacing.small}px;
+    padding-left: ${spacing.small}px;
 `;
 
 const HeaderContainer = styled.View`

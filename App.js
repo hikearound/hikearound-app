@@ -3,7 +3,7 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import * as Sentry from 'sentry-expo';
 import Constants from 'expo-constants';
-import AppNavigator from './navigator/AppNavigator';
+import AppNavigator from './navigators/AppNavigator';
 import reducer from './reducers/Index';
 import Fire from './lib/Fire';
 

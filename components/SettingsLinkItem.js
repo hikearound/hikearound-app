@@ -7,7 +7,6 @@ import { ItemContainer, ItemText } from './SettingsItem';
 
 const browserSettings = {
     toolbarColor: colors.white,
-    controlsColor: colors.black,
     enableBarCollapsing: true,
 };
 
