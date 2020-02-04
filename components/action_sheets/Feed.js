@@ -13,7 +13,8 @@ export function feedActionSheet() {
 
         (buttonIndex) => {
             if (buttonIndex === 0) {
-                this.navigationToHike();
+                // TODO: actually build the sort function
+                // this.sortFeed();
             }
         },
     );

@@ -16,7 +16,7 @@ import { RootView } from '../styles/Screens';
 
 const shareAction = 'CopyToPasteboard';
 const baseUrl = 'https://tryhikearound.com/hike';
-const latModifier = 0.2;
+const latModifier = 0.02;
 
 const propTypes = {
     map: PropTypes.string.isRequired,
@@ -53,6 +53,7 @@ class HikeScreen extends React.Component {
 
         this.state = {
             id: hike.id,
+            name: hike.name,
             toastText: '',
         };
 
@@ -72,7 +73,7 @@ class HikeScreen extends React.Component {
         const { name } = this.state;
 
         if (prevProps.action !== action) {
-            const toastText = getToastText(action, name);
+            const toastText = getToastText(action, { name });
             this.setToastText(toastText);
         }
     }

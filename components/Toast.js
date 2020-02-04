@@ -17,8 +17,12 @@ import {
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 
 const propTypes = {
-    text: PropTypes.string.isRequired,
+    text: PropTypes.string,
     action: PropTypes.string.isRequired,
+};
+
+const defaultProps = {
+    text: '',
 };
 
 function mapStateToProps(state) {
@@ -90,6 +94,7 @@ class Toast extends React.Component {
 }
 
 Toast.propTypes = propTypes;
+Toast.defaultProps = defaultProps;
 
 export default connect(mapStateToProps)(Toast);
 
