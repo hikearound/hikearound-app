@@ -103,8 +103,9 @@ class HomeScreen extends React.Component {
         await this.setState({
             sortDirection,
             hikes: [],
+            firstLoad: true,
         });
-        this.getHikeFeedData();
+        this.onRefresh();
     };
 
     getHikeFeedData = async (lastKey) => {
