@@ -16,6 +16,7 @@ import { RootView } from '../styles/Screens';
 
 const shareAction = 'CopyToPasteboard';
 const baseUrl = 'https://tryhikearound.com/hike';
+const latModifier = 0.2;
 
 const propTypes = {
     map: PropTypes.string.isRequired,
@@ -86,7 +87,7 @@ class HikeScreen extends React.Component {
 
         const latitude = (parseFloat(maxlat) + parseFloat(minlat)) / 2;
         const longitude = (parseFloat(maxlon) + parseFloat(minlon)) / 2;
-        const latitudeDelta = maxlat - minlat + 0.02;
+        const latitudeDelta = maxlat - minlat + latModifier;
         const longitudeDelta = maxlon - minlon;
 
         const region = {
