@@ -99,6 +99,14 @@ class HomeScreen extends React.Component {
         this.setState({ feedHikeCount });
     };
 
+    sortFeed = async (sortDirection) => {
+        await this.setState({
+            sortDirection,
+            hikes: [],
+        });
+        this.getHikeFeedData();
+    };
+
     getHikeFeedData = async (lastKey) => {
         const hikes = {};
         const { sortDirection, pageSize } = this.state;
@@ -127,16 +135,27 @@ class HomeScreen extends React.Component {
     };
 
     addhikes = (hikes) => {
+        const { sortDirection } = this.state;
+
         this.setState((previousState) => {
             const data = {
                 ...previousState.data,
                 ...hikes,
             };
+
+            let sortedHikes = Object.values(data).sort(
+                (a, b) => a.timestamp < b.timestamp,
+            );
+
+            if (sortDirection === 'asc') {
+                sortedHikes = Object.values(data).sort(
+                    (a, b) => a.timestamp > b.timestamp,
+                );
+            }
+
             return {
                 data,
-                hikes: Object.values(data).sort(
-                    (a, b) => a.timestamp < b.timestamp,
-                ),
+                hikes: sortedHikes,
             };
         });
     };

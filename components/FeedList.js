@@ -37,6 +37,7 @@ class FeedList extends React.Component {
             <FlatList
                 ref={feedRef}
                 data={hikes}
+                extraData={hikes}
                 showsVerticalScrollIndicator={false}
                 keyExtractor={this.keyExtractor}
                 renderItem={this.renderItem}

@@ -13,8 +13,9 @@ export function feedActionSheet() {
 
         (buttonIndex) => {
             if (buttonIndex === 0) {
-                // TODO: actually build the sort function
-                // this.sortFeed();
+                this.sortFeed('desc');
+            } else if (buttonIndex === 1) {
+                this.sortFeed('asc');
             }
         },
     );
