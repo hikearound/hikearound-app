@@ -30,4 +30,20 @@ export async function pageFeed(pageSize, lastKey, sortDirection) {
     return { data, cursor: lastVisible };
 }
 
-export default { pageFeed };
+export function sortHikes(previousState, hikes, sortDirection) {
+    const data = { ...previousState.data, ...hikes };
+
+    let sortedHikes = Object.values(data).sort(
+        (a, b) => a.timestamp < b.timestamp,
+    );
+
+    if (sortDirection === 'asc') {
+        sortedHikes = Object.values(data).sort(
+            (a, b) => a.timestamp > b.timestamp,
+        );
+    }
+
+    return { data, sortedHikes };
+}
+
+export default { pageFeed, sortHikes };

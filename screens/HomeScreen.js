@@ -13,7 +13,7 @@ import HomeLoadingState from '../components/loading/Home';
 import { getUserProfileData } from '../utils/User';
 import { initializeUserData, initializeAvatar } from '../actions/User';
 import { timings } from '../constants/Index';
-import { pageFeed } from '../utils/Feed';
+import { pageFeed, sortHikes } from '../utils/Feed';
 import { getHikeIdFromUrl } from '../utils/Link';
 import { feedActionSheet } from '../components/action_sheets/Feed';
 import { RootView } from '../styles/Screens';
@@ -135,28 +135,15 @@ class HomeScreen extends React.Component {
         this.setState({ loading: false });
     };
 
-    addhikes = (hikes) => {
+    addhikes = async (hikes) => {
         const { sortDirection } = this.state;
 
         this.setState((previousState) => {
-            const data = {
-                ...previousState.data,
-                ...hikes,
-            };
-
-            let sortedHikes = Object.values(data).sort(
-                (a, b) => a.timestamp < b.timestamp,
-            );
-
-            if (sortDirection === 'asc') {
-                sortedHikes = Object.values(data).sort(
-                    (a, b) => a.timestamp > b.timestamp,
-                );
-            }
+            const hikeData = sortHikes(previousState, hikes, sortDirection);
 
             return {
-                data,
-                hikes: sortedHikes,
+                data: hikeData.data,
+                hikes: hikeData.sortedHikes,
             };
         });
     };
