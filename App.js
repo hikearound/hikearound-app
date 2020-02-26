@@ -3,7 +3,6 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import * as Sentry from 'sentry-expo';
 import Constants from 'expo-constants';
-import { decode, encode } from 'base-64';
 import AppNavigator from './navigators/AppNavigator';
 import reducer from './reducers/Index';
 import Fire from './lib/Fire';
@@ -31,13 +30,5 @@ Sentry.init({
 });
 
 Sentry.setRelease(Constants.manifest.revisionId);
-
-if (!global.btoa) {
-    global.btoa = encode;
-}
-
-if (!global.atob) {
-    global.atob = decode;
-}
 
 export default App;
