@@ -94,7 +94,7 @@ class CreateAccountScreen extends React.Component {
 
         this.setState({ loading: true });
 
-        firebase
+        await firebase
             .auth()
             .createUserWithEmailAndPassword(email, password)
             .catch((error) => {
@@ -103,6 +103,9 @@ class CreateAccountScreen extends React.Component {
             })
             .then((response) => {
                 if (response) {
+                    response.user.updateProfile({
+                        displayName: name,
+                    });
                     dispatchUserData({ name, location, darkMode, map });
                     navigation.dispatch(resetAction);
                 }
