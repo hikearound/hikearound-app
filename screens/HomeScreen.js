@@ -15,7 +15,6 @@ import { initializeUserData, initializeAvatar } from '../actions/User';
 import { timings } from '../constants/Index';
 import { pageFeed, sortHikes } from '../utils/Feed';
 import { getHikeIdFromUrl } from '../utils/Link';
-import { registerForPushNotifications } from '../utils/Notifications';
 import { feedActionSheet } from '../components/action_sheets/Feed';
 import { RootView } from '../styles/Screens';
 
@@ -74,7 +73,7 @@ class HomeScreen extends React.Component {
         });
     }
 
-    async componentDidMount() {
+    componentDidMount() {
         const {
             navigation,
             dispatchUserData,
@@ -88,7 +87,6 @@ class HomeScreen extends React.Component {
         this.setFeedHikeCount();
 
         getUserProfileData(dispatchUserData, dispatchAvatar, avatar);
-        await registerForPushNotifications();
     }
 
     componentWillUnmount() {

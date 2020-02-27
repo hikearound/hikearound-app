@@ -2,6 +2,7 @@ import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import { ThemeContext } from 'react-navigation';
 import { themes } from '../constants/Themes';
+import { registerForPushNotifications } from '../utils/Notifications';
 import { NotificationEmptyState } from '../components/Index';
 import { RootView } from '../styles/Screens';
 
@@ -12,6 +13,14 @@ class NotificationScreen extends React.Component {
             notifications: [],
         };
     }
+
+    async componentDidMount() {
+        this.getNotificationPermissions();
+    }
+
+    getNotificationPermissions = async () => {
+        await registerForPushNotifications();
+    };
 
     static navigationOptions = {
         headerTitle: 'Notifications',
