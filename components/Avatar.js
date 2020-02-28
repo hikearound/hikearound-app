@@ -62,21 +62,17 @@ class Avatar extends React.Component {
             allowsEditing: true,
         });
         if (!photo.cancelled) {
-            this.uploadImage(photo.uri);
+            await this.uploadImage(photo.uri);
         }
     };
 
     uploadImage = async (originalUri) => {
         const { dispatchAvatar } = this.props;
-
         const { uri } = await reduceImageAsync(originalUri);
+
         const response = await fetch(uri);
         const blob = await response.blob();
-
-        const photoData = {
-            uri,
-            blob,
-        };
+        const photoData = { uri, blob };
 
         dispatchAvatar(photoData);
     };

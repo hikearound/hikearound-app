@@ -2,7 +2,7 @@ import * as ImageManipulator from 'expo-image-manipulator';
 import { CacheManager } from 'react-native-expo-image-cache';
 import { getHikeImage } from './Hike';
 
-export function reduceImageAsync(uri) {
+export async function reduceImageAsync(uri) {
     return ImageManipulator.manipulateAsync(uri, [{ resize: { width: 250 } }], {
         compress: 0.7,
     });
