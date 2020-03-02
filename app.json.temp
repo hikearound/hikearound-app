@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Hike Around",
+    "name": "Hikearound",
     "slug": "hikearound-app",
     "scheme": "hikearound",
     "privacy": "public",
@@ -9,7 +9,7 @@
       "ios",
       "web"
     ],
-    "version": "0.0.5",
+    "version": "0.0.6",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -30,7 +30,8 @@
       "bundleIdentifier": "com.tryhikearound",
       "associatedDomains": [
         "applinks:www.tryhikearound.com",
-        "applinks:tryhikearound.com"
+        "applinks:tryhikearound.com",
+        "applinks:url8422.tryhikearound.com"
       ],
       "config": {
         "googleMapsApiKey": "INSERT_GOOGLE_MAPS_KEY"

@@ -41,14 +41,16 @@ export function writeDarkMode(darkMode) {
         .set(darkModeData, { merge: true });
 }
 
-export function writePhotoData(photoData) {
+export async function writePhotoData(photoData) {
     const { uid } = firebase.auth().currentUser;
 
-    firebase
+    await firebase
         .storage()
         .ref()
         .child(`images/users/${uid}.jpg`)
         .put(photoData.blob);
+
+    photoData.blob.close();
 }
 
 export async function getUserFavoriteHikes() {
