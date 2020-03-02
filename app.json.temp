@@ -17,6 +17,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#FFF"
     },
+    "notification": {
+      "iosDisplayInForeground": true
+    },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
