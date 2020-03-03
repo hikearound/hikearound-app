@@ -25,4 +25,17 @@ export async function cacheHikeImage(hike) {
     return imageUrl;
 }
 
-export default { reduceImageAsync, cacheImages, cacheHikeImage };
+export async function getBlob(uri) {
+    const blob = await new Promise((resolve) => {
+        const xhr = new XMLHttpRequest();
+        xhr.onload = function() {
+            resolve(xhr.response);
+        };
+        xhr.responseType = 'blob';
+        xhr.open('GET', uri, true);
+        xhr.send(null);
+    });
+    return blob;
+}
+
+export default { reduceImageAsync, cacheImages, cacheHikeImage, getBlob };

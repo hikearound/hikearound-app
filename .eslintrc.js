@@ -42,6 +42,7 @@ module.exports = {
         'react/jsx-filename-extension': 'off',
         'react/forbid-prop-types': 'off',
         'react/no-array-index-key': 'off',
+        'func-names': 'off',
         'react/static-property-placement': 'off',
         'jsx-quotes': ['error', 'prefer-single'],
         'comma-dangle': ['error', 'always-multiline'],

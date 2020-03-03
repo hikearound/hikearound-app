@@ -13,7 +13,7 @@ import {
     spacing,
 } from '../constants/Index';
 import { updateAvatar } from '../actions/User';
-import { reduceImageAsync } from '../utils/Image';
+import { reduceImageAsync, getBlob } from '../utils/Image';
 
 const propTypes = {
     dispatchAvatar: PropTypes.func.isRequired,
@@ -74,15 +74,7 @@ class Avatar extends React.Component {
 
     uploadImage = async (uri) => {
         const { dispatchAvatar } = this.props;
-
-        const blob = await new Promise((resolve) => {
-            const xhr = new XMLHttpRequest();
-            /* eslint-disable-next-line */
-            xhr.onload = function() { resolve(xhr.response); };
-            xhr.responseType = 'blob';
-            xhr.open('GET', uri, true);
-            xhr.send(null);
-        });
+        const blob = await getBlob(uri);
 
         if (blob) {
             dispatchAvatar({ uri, blob });
