@@ -75,7 +75,6 @@ class Avatar extends React.Component {
     uploadImage = async (uri) => {
         const { dispatchAvatar } = this.props;
         const blob = await getBlob(uri);
-
         if (blob) {
             dispatchAvatar({ uri, blob });
         }
