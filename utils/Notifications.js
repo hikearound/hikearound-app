@@ -19,6 +19,17 @@ export async function registerForPushNotifications() {
         .set({ notificationToken }, { merge: true });
 }
 
+export async function clearBadge() {
+    await Notifications.setBadgeNumberAsync(0);
+}
+
+export async function getBadgeNumber() {
+    const badgeNumber = await Notifications.getBadgeNumberAsync();
+    return badgeNumber;
+}
+
 export default {
     registerForPushNotifications,
+    clearBadge,
+    getBadgeNumber,
 };

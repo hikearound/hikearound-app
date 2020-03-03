@@ -17,6 +17,7 @@ import { pageFeed, sortHikes } from '../utils/Feed';
 import { getHikeIdFromUrl } from '../utils/Link';
 import { feedActionSheet } from '../components/action_sheets/Feed';
 import { RootView } from '../styles/Screens';
+import { getBadgeNumber, clearBadge } from '../utils/Notifications';
 
 const propTypes = {
     dispatchUserData: PropTypes.func.isRequired,
@@ -85,6 +86,7 @@ class HomeScreen extends React.Component {
         this.addUrlListener(navigation);
         this.getHikeFeedData();
         this.setFeedHikeCount();
+        this.handleAppBadge();
 
         getUserProfileData(dispatchUserData, dispatchAvatar, avatar);
     }
@@ -93,6 +95,13 @@ class HomeScreen extends React.Component {
         const { navigation } = this.props;
         this.removeUrlListener(navigation);
     }
+
+    handleAppBadge = async () => {
+        const badgeNumber = await getBadgeNumber();
+        if (badgeNumber > 0) {
+            clearBadge();
+        }
+    };
 
     setFeedHikeCount = async () => {
         const feedHikeCount = await getFeedHikeCount();
