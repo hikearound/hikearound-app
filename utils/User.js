@@ -7,16 +7,15 @@ export async function writeUserData(userData) {
     const idToken = await user.getIdToken(true);
 
     userData.idToken = idToken;
+    user.updateProfile({
+        displayName: userData.name,
+    });
 
     firebase
         .firestore()
         .collection('users')
         .doc(user.uid)
         .set(userData, { merge: true });
-
-    user.updateProfile({
-        displayName: userData.name,
-    });
 }
 
 export function writeMapData(map) {

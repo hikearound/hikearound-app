@@ -106,7 +106,12 @@ class CreateAccountScreen extends React.Component {
                     response.user.updateProfile({
                         displayName: name,
                     });
-                    dispatchUserData({ name, location, darkMode, map });
+                    dispatchUserData({
+                        name,
+                        location,
+                        darkMode,
+                        map,
+                    });
                     navigation.dispatch(resetAction);
                 }
             });
