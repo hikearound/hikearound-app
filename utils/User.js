@@ -4,9 +4,9 @@ import { cacheImages } from './Image';
 
 export async function writeUserData(userData) {
     const user = firebase.auth().currentUser;
-    const token = await user.getIdToken(true);
+    const idToken = await user.getIdToken(true);
 
-    userData.token = token;
+    userData.idToken = idToken;
 
     firebase
         .firestore()
