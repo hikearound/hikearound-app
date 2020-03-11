@@ -28,7 +28,7 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-class SettingsItem extends React.Component {
+class SettingsItem extends React.PureComponent {
     constructor(props) {
         super(props);
         const { sections } = this.props;
