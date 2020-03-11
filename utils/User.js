@@ -40,6 +40,10 @@ export function writeDarkMode(darkMode) {
         .set(darkModeData, { merge: true });
 }
 
+export function writeNotificationData(notificationData) {
+    // TODO
+}
+
 export async function writePhotoData(photoData) {
     const { uid } = firebase.auth().currentUser;
 
@@ -126,4 +130,5 @@ export default {
     getAvatarUri,
     getUserData,
     getUserProfileData,
+    writeNotificationData,
 };
