@@ -9,6 +9,7 @@ import {
     SettingsSwitchItem,
     SettingsStaticItem,
     SettingsLinkItem,
+    SettingsPushItem,
 } from '../components/Index';
 import { themes } from '../constants/Themes';
 import { colors, fontSizes, spacing, fontWeights } from '../constants/Index';
@@ -22,6 +23,11 @@ const MAP_SECTION = {
 const DISPLAY_SECTION = {
     title: 'Display',
     data: ['Dark Mode'],
+};
+
+const NOTIFICATION_SECTION = {
+    title: 'Notifications',
+    data: ['Email & Push Notifications'],
 };
 
 const TERMS_SECTION = {
@@ -42,6 +48,7 @@ const VERSION_SECTION = {
 const SETTING_ITEMS = [
     MAP_SECTION,
     DISPLAY_SECTION,
+    NOTIFICATION_SECTION,
     TERMS_SECTION,
     ACCOUNT_SECTION,
     VERSION_SECTION,
@@ -57,6 +64,8 @@ class SettingsScreen extends React.Component {
     };
 
     renderItem = ({ item, index }) => {
+        const { navigation } = this.props;
+
         if (DISPLAY_SECTION.data.includes(item)) {
             return (
                 <SettingsSwitchItem
@@ -81,6 +90,16 @@ class SettingsScreen extends React.Component {
                     item={item}
                     index={index}
                     sections={SETTING_ITEMS}
+                />
+            );
+        }
+        if (NOTIFICATION_SECTION.data.includes(item)) {
+            return (
+                <SettingsPushItem
+                    item={item}
+                    index={index}
+                    sections={SETTING_ITEMS}
+                    navigation={navigation}
                 />
             );
         }

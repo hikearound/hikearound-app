@@ -1,11 +1,15 @@
+import { avatar } from '../constants/Images';
+
 const initialState = {
     name: '',
-    avatar:
-        'https://firebasestorage.googleapis.com/v0/b/hikearound-14dad.appspot.com/o/images%2Fusers%2Favatar.png?alt=media&token=a8fed0d3-7233-4138-95ed-4109afc7c323',
     location: '',
     map: 'Apple Maps',
     darkMode: false,
 };
+
+initialState.avatar = avatar;
+initialState.emailNotifs = { enabled: true };
+initialState.pushNotifs = { enabled: true };
 
 export default function userReducer(state = initialState, action) {
     switch (action.type) {
@@ -17,16 +21,22 @@ export default function userReducer(state = initialState, action) {
                 map: action.userData.map,
                 darkMode: action.userData.darkMode,
             };
-        case 'UPDATE_USER_DATA':
+        case 'INITIALIZE_NOTIFS':
             return {
                 ...state,
-                name: action.userData.name,
-                location: action.userData.location,
+                emailNotifs: action.userData.emailNotifs,
+                pushNotifs: action.userData.pushNotifs,
             };
         case 'INITIALIZE_AVATAR':
             return {
                 ...state,
                 avatar: action.uri,
+            };
+        case 'UPDATE_USER_DATA':
+            return {
+                ...state,
+                name: action.userData.name,
+                location: action.userData.location,
             };
         case 'UPDATE_AVATAR':
             return {
@@ -42,6 +52,12 @@ export default function userReducer(state = initialState, action) {
             return {
                 ...state,
                 darkMode: action.darkMode,
+            };
+        case 'UPDATE_NOTIFS':
+            return {
+                ...state,
+                emailNotifs: action.emailNotifs,
+                pushNotifs: action.pushNotifs,
             };
         default:
             return state;

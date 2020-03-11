@@ -2,7 +2,12 @@ import React from 'react';
 import { createStackNavigator } from 'react-navigation-stack';
 import { themes } from '../constants/Themes';
 import { PersonIcon } from '../icons/Index';
-import { ProfileScreen, SettingsScreen, HikeScreen } from '../screens/Index';
+import {
+    ProfileScreen,
+    SettingsScreen,
+    HikeScreen,
+    NotificationSettingsScreen,
+} from '../screens/Index';
 import {
     mode,
     headerMode,
@@ -13,6 +18,7 @@ const ProfileStack = createStackNavigator(
     {
         Profile: ProfileScreen,
         Settings: SettingsScreen,
+        NotificationSettings: NotificationSettingsScreen,
         Hike: HikeScreen,
     },
     {

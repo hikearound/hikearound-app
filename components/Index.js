@@ -41,6 +41,7 @@ import SettingsItem from './SettingsItem';
 import SettingsSwitchItem from './SettingsSwitchItem';
 import SettingsStaticItem from './SettingsStaticItem';
 import SettingsLinkItem from './SettingsLinkItem';
+import SettingsPushItem from './SettingsPushItem';
 
 // Profile
 import ProfileHeader from './ProfileHeader';
@@ -85,4 +86,5 @@ export {
     LoadingOverlay,
     SettingsStaticItem,
     SettingsLinkItem,
+    SettingsPushItem,
 };

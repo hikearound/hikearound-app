@@ -28,7 +28,7 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-class SettingsItem extends React.PureComponent {
+class SettingsItem extends React.Component {
     constructor(props) {
         super(props);
         const { sections } = this.props;
@@ -38,7 +38,7 @@ class SettingsItem extends React.PureComponent {
             textColor: colors.black,
             checkDisplay: 'none',
             mapSectionData: sections[0].data,
-            accountSectionData: sections[3].data,
+            accountSectionData: sections[4].data,
         };
     }
 
