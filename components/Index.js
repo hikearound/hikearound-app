@@ -37,11 +37,11 @@ import FeedItem from './FeedItem';
 import FeedList from './FeedList';
 
 // Settings
-import SettingsItem from './SettingsItem';
-import SettingsSwitchItem from './SettingsSwitchItem';
-import SettingsStaticItem from './SettingsStaticItem';
-import SettingsLinkItem from './SettingsLinkItem';
-import SettingsPushItem from './SettingsPushItem';
+import SettingsItem from './settings/Item';
+import SettingsSwitchItem from './settings/SwitchItem';
+import SettingsStaticItem from './settings/StaticItem';
+import SettingsLinkItem from './settings/LinkItem';
+import SettingsPushItem from './settings/PushItem';
 
 // Profile
 import ProfileHeader from './ProfileHeader';

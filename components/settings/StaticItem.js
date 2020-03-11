@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ItemContainer, ItemText } from './SettingsItem';
+import { ItemContainer, ItemText } from './Item';
 
 const propTypes = {
     item: PropTypes.string.isRequired,

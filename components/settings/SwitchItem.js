@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { colors, spacing } from '../constants/Index';
-import { updateDarkMode } from '../actions/User';
-import { ItemContainer, ItemText } from './SettingsItem';
+import { colors, spacing } from '../../constants/Index';
+import { updateDarkMode } from '../../actions/User';
+import { ItemContainer, ItemText } from './Item';
 
 const propTypes = {
     item: PropTypes.string.isRequired,

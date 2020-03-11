@@ -10,12 +10,12 @@ import { RootView } from '../../styles/Screens';
 
 const EMAIL_SECTION = {
     title: 'Emails',
-    data: ['Enable all emails'],
+    data: ['Enable emails'],
 };
 
 const PUSH_SECTION = {
     title: 'Push Notifications',
-    data: ['Enable all push notifications'],
+    data: ['Enable push notifications'],
 };
 
 const SETTING_ITEMS = [EMAIL_SECTION, PUSH_SECTION];

@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { TouchableOpacity, StatusBar } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
-import { colors, opacities } from '../constants/Index';
-import { ItemContainer, ItemText } from './SettingsItem';
+import { colors, opacities } from '../../constants/Index';
+import { ItemContainer, ItemText } from './Item';
 
 const browserSettings = {
     toolbarColor: colors.white,
