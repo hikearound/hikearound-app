@@ -7,7 +7,7 @@ import SettingsSwitch from '../../SettingsSwitch';
 
 const propTypes = {
     item: PropTypes.string.isRequired,
-    dispatchNotifications: PropTypes.func.isRequired,
+    dispatchNotifs: PropTypes.func.isRequired,
     emailNotifs: PropTypes.object.isRequired,
     pushNotifs: PropTypes.object.isRequired,
 };
@@ -21,7 +21,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        dispatchNotifications: (notifData) => dispatch(updateNotifs(notifData)),
+        dispatchNotifs: (notifData) => dispatch(updateNotifs(notifData)),
     };
 }
 
@@ -40,12 +40,7 @@ class SwitchItem extends React.Component {
     }
 
     handleToggleSwitch = (value) => {
-        const {
-            item,
-            dispatchNotifications,
-            emailNotifs,
-            pushNotifs,
-        } = this.props;
+        const { item, dispatchNotifs, emailNotifs, pushNotifs } = this.props;
 
         const notifData = { emailNotifs, pushNotifs };
 
@@ -56,7 +51,7 @@ class SwitchItem extends React.Component {
         }
 
         this.setState({ value });
-        dispatchNotifications(notifData);
+        dispatchNotifs(notifData);
     };
 
     render() {
