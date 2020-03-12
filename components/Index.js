@@ -37,12 +37,12 @@ import FeedItem from './FeedItem';
 import FeedList from './FeedList';
 
 // Settings
-import SettingsGroupItem from './settings/GroupItem';
-import SettingsSwitchItem from './settings/SwitchItem';
-import SettingsStaticItem from './settings/StaticItem';
-import SettingsLinkItem from './settings/LinkItem';
-import SettingsPushItem from './settings/PushItem';
-import SettingsActionItem from './settings/ActionItem';
+import GroupItem from './settings/GroupItem';
+import SwitchItem from './settings/SwitchItem';
+import StaticItem from './settings/StaticItem';
+import LinkItem from './settings/LinkItem';
+import PushItem from './settings/PushItem';
+import ActionItem from './settings/ActionItem';
 
 // Notification Settings
 import NotificationSwitchItem from './settings/notifications/SwitchItem';
@@ -72,8 +72,8 @@ export {
     Subtitle,
     Avatar,
     Settings,
-    SettingsGroupItem,
-    SettingsActionItem,
+    GroupItem,
+    ActionItem,
     HikeList,
     HikeListItem,
     ProfileHeader,
@@ -86,11 +86,11 @@ export {
     LightboxImage,
     HikeMapWrapper,
     NotificationEmptyState,
-    SettingsSwitchItem,
+    SwitchItem,
     InputButton,
     LoadingOverlay,
-    SettingsStaticItem,
-    SettingsLinkItem,
-    SettingsPushItem,
+    StaticItem,
+    LinkItem,
+    PushItem,
     NotificationSwitchItem,
 };

@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 import { SectionList } from 'react-native';
 import { ThemeContext } from 'react-navigation';
 import {
-    SettingsGroupItem,
-    SettingsSwitchItem,
-    SettingsStaticItem,
-    SettingsLinkItem,
-    SettingsPushItem,
-    SettingsActionItem,
+    GroupItem,
+    SwitchItem,
+    StaticItem,
+    LinkItem,
+    PushItem,
+    ActionItem,
 } from '../components/Index';
 import { themes } from '../constants/Themes';
 import { settingsControls } from '../constants/Index';
@@ -29,28 +29,24 @@ class SettingsScreen extends React.Component {
         const { navigation } = this.props;
 
         if (item.control === settingsControls.switch) {
-            return <SettingsSwitchItem item={item} index={index} />;
+            return <SwitchItem item={item} index={index} />;
         }
         if (item.control === settingsControls.link) {
-            return <SettingsLinkItem item={item} index={index} />;
+            return <LinkItem item={item} index={index} />;
         }
         if (item.control === settingsControls.static) {
-            return <SettingsStaticItem item={item} index={index} />;
+            return <StaticItem item={item} index={index} />;
         }
         if (item.control === settingsControls.push) {
             return (
-                <SettingsPushItem
-                    item={item}
-                    index={index}
-                    navigation={navigation}
-                />
+                <PushItem item={item} index={index} navigation={navigation} />
             );
         }
         if (item.control === settingsControls.action) {
-            return <SettingsActionItem item={item} index={index} />;
+            return <ActionItem item={item} index={index} />;
         }
         if (item.control === settingsControls.groupSelection) {
-            return <SettingsGroupItem item={item} index={index} />;
+            return <GroupItem item={item} index={index} />;
         }
 
         return null;
