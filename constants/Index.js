@@ -4,6 +4,7 @@ import { fontSizes, fontWeights } from './Fonts';
 import { borderRadius } from './Dimensions';
 import { opacities } from './Opacities';
 import timings from './Timings';
+import { settingsItems, settingsControls } from './Settings';
 
 export {
     colors,
@@ -14,4 +15,6 @@ export {
     borderRadius,
     opacities,
     timings,
+    settingsItems,
+    settingsControls,
 };

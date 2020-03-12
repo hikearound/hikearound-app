@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ItemContainer, ItemText } from './Item';
+import { ItemContainer, ItemText } from '../../styles/Settings';
 
 const propTypes = {
-    item: PropTypes.string.isRequired,
+    item: PropTypes.object.isRequired,
 };
 
 class StaticItem extends React.PureComponent {
@@ -11,7 +11,7 @@ class StaticItem extends React.PureComponent {
         const { item } = this.props;
         return (
             <ItemContainer>
-                <ItemText key={item.key}>{item}</ItemText>
+                <ItemText key={item.key}>{item.name}</ItemText>
             </ItemContainer>
         );
     }

@@ -1,19 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import { TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { connect } from 'react-redux';
 import * as Haptics from 'expo-haptics';
-import { colors, spacing, fontSizes, opacities } from '../../constants/Index';
+import {
+    colors,
+    spacing,
+    opacities,
+    settingsItems,
+} from '../../constants/Index';
 import { updateMap } from '../../actions/User';
-import { logoutUser } from '../../utils/User';
+import { ItemContainer, ItemText } from '../../styles/Settings';
 
 const propTypes = {
-    item: PropTypes.string.isRequired,
+    item: PropTypes.object.isRequired,
     dispatchMap: PropTypes.func.isRequired,
     map: PropTypes.string.isRequired,
-    sections: PropTypes.array.isRequired,
 };
 
 function mapStateToProps(state) {
@@ -28,51 +31,36 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-class Item extends React.PureComponent {
+class GroupItem extends React.PureComponent {
     constructor(props) {
         super(props);
-        const { sections } = this.props;
-        this.handleLogout = this.handleLogout.bind(this);
 
         this.state = {
             textColor: colors.black,
             checkDisplay: 'none',
-            mapSectionData: sections[0].data,
-            accountSectionData: sections[4].data,
         };
     }
 
     componentDidMount = async () => {
         const { item, map } = this.props;
-        const { mapSectionData } = this.state;
 
-        if (mapSectionData.includes(item) && item === map) {
+        if (item.type === settingsItems.map && item.name === map) {
             this.selectItem();
         }
     };
 
     componentDidUpdate = async () => {
         const { item, map } = this.props;
-        const { mapSectionData } = this.state;
 
-        if (mapSectionData.includes(item) && item !== map) {
+        if (item.type === settingsItems.map && item.name !== map) {
             this.unselectItem();
         }
     };
 
-    handleLogout = async () => {
-        logoutUser();
-    };
-
     itemPress = () => {
         const { item, map } = this.props;
-        const { accountSectionData, mapSectionData } = this.state;
 
-        if (accountSectionData.includes(item) && item === 'Logout') {
-            this.handleLogout();
-        }
-
-        if (mapSectionData.includes(item) || item !== map) {
+        if (item.type === settingsItems.map && item.name !== map) {
             this.updateMapSelection();
         }
     };
@@ -82,8 +70,7 @@ class Item extends React.PureComponent {
 
         this.selectItem();
         Haptics.selectionAsync();
-
-        dispatchMap(item);
+        dispatchMap(item.name);
     }
 
     selectItem() {
@@ -111,7 +98,7 @@ class Item extends React.PureComponent {
             >
                 <ItemContainer>
                     <ItemText key={item.key} textColor={textColor}>
-                        {item}
+                        {item.name}
                     </ItemText>
                     <Ionicons
                         name='ios-checkmark'
@@ -130,20 +117,9 @@ class Item extends React.PureComponent {
     }
 }
 
-Item.propTypes = propTypes;
+GroupItem.propTypes = propTypes;
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(Item);
-
-export const ItemContainer = styled.View`
-    border-color: ${colors.lightGray};
-    border-top-width: 1px;
-    padding: ${spacing.small}px 0;
-`;
-
-export const ItemText = styled.Text`
-    color: ${(props) => props.textColor || colors.black};
-    font-size: ${fontSizes.large}px;
-`;
+)(GroupItem);

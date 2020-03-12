@@ -3,17 +3,18 @@ import PropTypes from 'prop-types';
 import { TouchableOpacity } from 'react-native';
 import { opacities, settingsItems } from '../../constants/Index';
 import { ItemContainer, ItemText } from '../../styles/Settings';
+import { logoutUser } from '../../utils/User';
 
 const propTypes = {
     item: PropTypes.object.isRequired,
 };
 
-class PushItem extends React.Component {
+class ActionItem extends React.Component {
     itemPress = async () => {
-        const { navigation, item } = this.props;
+        const { item } = this.props;
 
-        if (item.type === settingsItems.notificationScreen) {
-            navigation.push('NotificationSettings');
+        if (item.type === settingsItems.logout) {
+            logoutUser();
         }
     };
 
@@ -33,6 +34,6 @@ class PushItem extends React.Component {
     }
 }
 
-PushItem.propTypes = propTypes;
+ActionItem.propTypes = propTypes;
 
-export default PushItem;
+export default ActionItem;

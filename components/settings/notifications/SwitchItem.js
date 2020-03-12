@@ -2,11 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { updateNotifs } from '../../../actions/User';
-import { ItemContainer, ItemText } from '../Item';
+import { ItemContainer, ItemText } from '../../../styles/Settings';
 import SettingsSwitch from '../../SettingsSwitch';
+import { settingsItems } from '../../../constants/Index';
 
 const propTypes = {
-    item: PropTypes.string.isRequired,
+    item: PropTypes.object.isRequired,
     dispatchNotifs: PropTypes.func.isRequired,
     emailNotifs: PropTypes.object.isRequired,
     pushNotifs: PropTypes.object.isRequired,
@@ -32,21 +33,20 @@ class SwitchItem extends React.Component {
 
         this.state = {};
 
-        if (item.includes('email')) {
+        if (item.type === settingsItems.globalEmail) {
             this.state.value = emailNotifs.enabled;
-        } else if (item.includes('push')) {
+        } else if (item.type === settingsItems.globalNotification) {
             this.state.value = pushNotifs.enabled;
         }
     }
 
     handleToggleSwitch = (value) => {
         const { item, dispatchNotifs, emailNotifs, pushNotifs } = this.props;
-
         const notifData = { emailNotifs, pushNotifs };
 
-        if (item.includes('email')) {
+        if (item.type === settingsItems.globalEmail) {
             notifData.emailNotifs.enabled = value;
-        } else if (item.includes('push')) {
+        } else if (item.type === settingsItems.globalNotification) {
             notifData.pushNotifs.enabled = value;
         }
 
@@ -60,7 +60,7 @@ class SwitchItem extends React.Component {
 
         return (
             <ItemContainer>
-                <ItemText key={item.key}>{item}</ItemText>
+                <ItemText key={item.key}>{item.name}</ItemText>
                 <SettingsSwitch
                     onValueChange={(updatedValue) =>
                         this.handleToggleSwitch(updatedValue)

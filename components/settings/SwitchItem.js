@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { updateDarkMode } from '../../actions/User';
-import { ItemContainer, ItemText } from './Item';
+import { ItemContainer, ItemText } from '../../styles/Settings';
+import { settingsItems } from '../../constants/Index';
 import SettingsSwitch from '../SettingsSwitch';
 
 const propTypes = {
-    item: PropTypes.string.isRequired,
-    sections: PropTypes.array.isRequired,
+    item: PropTypes.object.isRequired,
     dispatchDarkMode: PropTypes.func.isRequired,
     darkMode: PropTypes.bool.isRequired,
 };
@@ -25,20 +25,10 @@ function mapDispatchToProps(dispatch) {
 }
 
 class SwitchItem extends React.PureComponent {
-    constructor(props) {
-        super(props);
-        const { sections } = this.props;
-
-        this.state = {
-            displaySectionData: sections[1].data,
-        };
-    }
-
     handleToggleSwitch = (value) => {
         const { item, dispatchDarkMode } = this.props;
-        const { displaySectionData } = this.state;
 
-        if (displaySectionData.includes(item) && item === 'Dark Mode') {
+        if (item.type === settingsItems.darkMode) {
             dispatchDarkMode(value);
         }
     };
@@ -48,7 +38,7 @@ class SwitchItem extends React.PureComponent {
 
         return (
             <ItemContainer>
-                <ItemText key={item.key}>{item}</ItemText>
+                <ItemText key={item.key}>{item.name}</ItemText>
                 <SettingsSwitch
                     onValueChange={(value) => this.handleToggleSwitch(value)}
                     value={darkMode}

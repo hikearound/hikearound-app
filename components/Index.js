@@ -37,11 +37,12 @@ import FeedItem from './FeedItem';
 import FeedList from './FeedList';
 
 // Settings
-import SettingsItem from './settings/Item';
+import SettingsGroupItem from './settings/GroupItem';
 import SettingsSwitchItem from './settings/SwitchItem';
 import SettingsStaticItem from './settings/StaticItem';
 import SettingsLinkItem from './settings/LinkItem';
 import SettingsPushItem from './settings/PushItem';
+import SettingsActionItem from './settings/ActionItem';
 
 // Notification Settings
 import NotificationSwitchItem from './settings/notifications/SwitchItem';
@@ -71,7 +72,8 @@ export {
     Subtitle,
     Avatar,
     Settings,
-    SettingsItem,
+    SettingsGroupItem,
+    SettingsActionItem,
     HikeList,
     HikeListItem,
     ProfileHeader,

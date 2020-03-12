@@ -1,24 +1,16 @@
 import React from 'react';
-import styled, { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from 'styled-components';
 import { connect } from 'react-redux';
 import { SectionList } from 'react-native';
 import { ThemeContext } from 'react-navigation';
 import { NotificationSwitchItem } from '../../components/Index';
 import { themes } from '../../constants/Themes';
-import { colors, fontSizes, spacing, fontWeights } from '../../constants/Index';
-import { RootView } from '../../styles/Screens';
-
-const EMAIL_SECTION = {
-    title: 'Emails',
-    data: ['Enable emails'],
-};
-
-const PUSH_SECTION = {
-    title: 'Push Notifications',
-    data: ['Enable push notifications'],
-};
-
-const SETTING_ITEMS = [EMAIL_SECTION, PUSH_SECTION];
+import { listData } from '../../constants/lists/NotificationSettings';
+import {
+    StyledRootView,
+    HeaderContainer,
+    HeaderText,
+} from '../../styles/Screens';
 
 function mapStateToProps() {
     return {};
@@ -30,13 +22,7 @@ class NotificationSettingsScreen extends React.Component {
     };
 
     renderItem = ({ item, index }) => {
-        return (
-            <NotificationSwitchItem
-                item={item}
-                index={index}
-                sections={SETTING_ITEMS}
-            />
-        );
+        return <NotificationSwitchItem item={item} index={index} />;
     };
 
     renderSectionHeader = ({ section }) => (
@@ -58,7 +44,7 @@ class NotificationSettingsScreen extends React.Component {
                         renderItem={this.renderItem}
                         stickySectionHeadersEnabled={false}
                         renderSectionHeader={this.renderSectionHeader}
-                        sections={SETTING_ITEMS}
+                        sections={listData}
                         keyExtractor={(item, index) => item + index}
                     />
                 </StyledRootView>
@@ -68,19 +54,3 @@ class NotificationSettingsScreen extends React.Component {
 }
 
 export default connect(mapStateToProps)(NotificationSettingsScreen);
-
-const StyledRootView = styled(RootView)`
-    padding-left: ${spacing.small}px;
-`;
-
-const HeaderContainer = styled.View`
-    padding-bottom: 4px;
-    margin-top: ${spacing.small}px;
-`;
-
-const HeaderText = styled.Text`
-    color: ${colors.mediumGray};
-    font-size: ${fontSizes.small}px;
-    font-weight: ${fontWeights.medium};
-    text-transform: uppercase;
-`;

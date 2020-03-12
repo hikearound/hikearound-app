@@ -1,58 +1,20 @@
 import React from 'react';
-import styled, { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from 'styled-components';
 import { connect } from 'react-redux';
 import { SectionList } from 'react-native';
-import Constants from 'expo-constants';
 import { ThemeContext } from 'react-navigation';
 import {
-    SettingsItem,
+    SettingsGroupItem,
     SettingsSwitchItem,
     SettingsStaticItem,
     SettingsLinkItem,
     SettingsPushItem,
+    SettingsActionItem,
 } from '../components/Index';
 import { themes } from '../constants/Themes';
-import { colors, fontSizes, spacing, fontWeights } from '../constants/Index';
-import { RootView } from '../styles/Screens';
-
-const MAP_SECTION = {
-    title: 'Default Map',
-    data: ['Apple Maps', 'Google Maps'],
-};
-
-const DISPLAY_SECTION = {
-    title: 'Display',
-    data: ['Dark Mode'],
-};
-
-const NOTIFICATION_SECTION = {
-    title: 'Notifications',
-    data: ['Email & Push Notifications'],
-};
-
-const TERMS_SECTION = {
-    title: 'Terms & Privacy',
-    data: ['Terms of Service', 'Privacy Policy'],
-};
-
-const ACCOUNT_SECTION = {
-    title: 'Account',
-    data: ['Logout'],
-};
-
-const VERSION_SECTION = {
-    title: 'Version',
-    data: [Constants.manifest.version],
-};
-
-const SETTING_ITEMS = [
-    MAP_SECTION,
-    DISPLAY_SECTION,
-    NOTIFICATION_SECTION,
-    TERMS_SECTION,
-    ACCOUNT_SECTION,
-    VERSION_SECTION,
-];
+import { settingsControls } from '../constants/Index';
+import { listData } from '../constants/lists/Settings';
+import { StyledRootView, HeaderContainer, HeaderText } from '../styles/Screens';
 
 function mapStateToProps() {
     return {};
@@ -66,46 +28,32 @@ class SettingsScreen extends React.Component {
     renderItem = ({ item, index }) => {
         const { navigation } = this.props;
 
-        if (DISPLAY_SECTION.data.includes(item)) {
-            return (
-                <SettingsSwitchItem
-                    item={item}
-                    index={index}
-                    sections={SETTING_ITEMS}
-                />
-            );
+        if (item.control === settingsControls.switch) {
+            return <SettingsSwitchItem item={item} index={index} />;
         }
-        if (TERMS_SECTION.data.includes(item)) {
-            return (
-                <SettingsLinkItem
-                    item={item}
-                    index={index}
-                    sections={SETTING_ITEMS}
-                />
-            );
+        if (item.control === settingsControls.link) {
+            return <SettingsLinkItem item={item} index={index} />;
         }
-        if (VERSION_SECTION.data.includes(item)) {
-            return (
-                <SettingsStaticItem
-                    item={item}
-                    index={index}
-                    sections={SETTING_ITEMS}
-                />
-            );
+        if (item.control === settingsControls.static) {
+            return <SettingsStaticItem item={item} index={index} />;
         }
-        if (NOTIFICATION_SECTION.data.includes(item)) {
+        if (item.control === settingsControls.push) {
             return (
                 <SettingsPushItem
                     item={item}
                     index={index}
-                    sections={SETTING_ITEMS}
                     navigation={navigation}
                 />
             );
         }
-        return (
-            <SettingsItem item={item} index={index} sections={SETTING_ITEMS} />
-        );
+        if (item.control === settingsControls.action) {
+            return <SettingsActionItem item={item} index={index} />;
+        }
+        if (item.control === settingsControls.groupSelection) {
+            return <SettingsGroupItem item={item} index={index} />;
+        }
+
+        return null;
     };
 
     renderSectionHeader = ({ section }) => (
@@ -127,7 +75,7 @@ class SettingsScreen extends React.Component {
                         renderItem={this.renderItem}
                         stickySectionHeadersEnabled={false}
                         renderSectionHeader={this.renderSectionHeader}
-                        sections={SETTING_ITEMS}
+                        sections={listData}
                         keyExtractor={(item, index) => item + index}
                     />
                 </StyledRootView>
@@ -137,19 +85,3 @@ class SettingsScreen extends React.Component {
 }
 
 export default connect(mapStateToProps)(SettingsScreen);
-
-const StyledRootView = styled(RootView)`
-    padding-left: ${spacing.small}px;
-`;
-
-const HeaderContainer = styled.View`
-    padding-bottom: 4px;
-    margin-top: ${spacing.small}px;
-`;
-
-const HeaderText = styled.Text`
-    color: ${colors.mediumGray};
-    font-size: ${fontSizes.small}px;
-    font-weight: ${fontWeights.medium};
-    text-transform: uppercase;
-`;

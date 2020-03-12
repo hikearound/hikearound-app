@@ -2,8 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { TouchableOpacity, StatusBar } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
-import { colors, opacities } from '../../constants/Index';
-import { ItemContainer, ItemText } from './Item';
+import { colors, opacities, settingsItems } from '../../constants/Index';
+import { ItemContainer, ItemText } from '../../styles/Settings';
+
+const baseUrl = 'https://tryhikearound.com';
 
 const browserSettings = {
     toolbarColor: colors.white,
@@ -11,7 +13,7 @@ const browserSettings = {
 };
 
 const propTypes = {
-    item: PropTypes.string.isRequired,
+    item: PropTypes.object.isRequired,
 };
 
 class LinkItem extends React.Component {
@@ -35,23 +37,25 @@ class LinkItem extends React.Component {
     itemPress = async () => {
         const { item } = this.props;
         const itemUrl = this.buildUrl(item);
+
         const browserResult = await WebBrowser.openBrowserAsync(
             itemUrl,
             browserSettings,
         );
+
         this.setState({ browserResult });
     };
 
     buildUrl = (item) => {
-        const baseUrl = 'https://tryhikearound.com';
-        let itemUrl = `${baseUrl}/privacy`;
+        let itemUrl;
 
-        if (item === 'Terms of Service') {
+        if (item.type === settingsItems.termsOfService) {
             itemUrl = `${baseUrl}/terms`;
+        } else if (item.type === settingsItems.privacyPolicy) {
+            itemUrl = `${baseUrl}/privacy`;
         }
-        itemUrl = `${itemUrl}?contentOnly=true`;
 
-        return itemUrl;
+        return `${itemUrl}?contentOnly=true`;
     };
 
     render() {
@@ -63,7 +67,7 @@ class LinkItem extends React.Component {
                 onPress={this.itemPress}
             >
                 <ItemContainer>
-                    <ItemText key={item.key}>{item}</ItemText>
+                    <ItemText key={item.key}>{item.name}</ItemText>
                 </ItemContainer>
             </TouchableOpacity>
         );
