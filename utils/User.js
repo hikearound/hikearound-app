@@ -41,7 +41,13 @@ export function writeDarkMode(darkMode) {
 }
 
 export function writeNotifData(notifData) {
-    // TODO
+    const { uid } = firebase.auth().currentUser;
+
+    firebase
+        .firestore()
+        .collection('users')
+        .doc(uid)
+        .set(notifData, { merge: true });
 }
 
 export async function writePhotoData(photoData) {
