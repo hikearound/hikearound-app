@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { colors, spacing } from '../../constants/Index';
 import { updateDarkMode } from '../../actions/User';
 import { ItemContainer, ItemText } from './Item';
+import SettingsSwitch from '../SettingsSwitch';
 
 const propTypes = {
     item: PropTypes.string.isRequired,
@@ -29,6 +28,7 @@ class SwitchItem extends React.PureComponent {
     constructor(props) {
         super(props);
         const { sections } = this.props;
+
         this.state = {
             displaySectionData: sections[1].data,
         };
@@ -45,20 +45,13 @@ class SwitchItem extends React.PureComponent {
 
     render() {
         const { item, darkMode } = this.props;
-        const { textColor } = this.state;
 
         return (
             <ItemContainer>
-                <ItemText key={item.key} textColor={textColor}>
-                    {item}
-                </ItemText>
+                <ItemText key={item.key}>{item}</ItemText>
                 <SettingsSwitch
                     onValueChange={(value) => this.handleToggleSwitch(value)}
                     value={darkMode}
-                    trackColor={{ true: colors.purple, false: colors.gray }}
-                    style={{
-                        transform: [{ scaleX: 0.8 }, { scaleY: 0.8 }],
-                    }}
                 />
             </ItemContainer>
         );
@@ -71,9 +64,3 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps,
 )(SwitchItem);
-
-const SettingsSwitch = styled.Switch`
-    position: absolute;
-    right: ${spacing.tiny}px;
-    top: ${spacing.tiny}px;
-`;

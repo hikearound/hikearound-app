@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { colors, spacing } from '../../../constants/Index';
 import { updateNotifs } from '../../../actions/User';
 import { ItemContainer, ItemText } from '../Item';
+import SettingsSwitch from '../../SettingsSwitch';
 
 const propTypes = {
     item: PropTypes.string.isRequired,
@@ -35,9 +34,7 @@ class SwitchItem extends React.Component {
 
         if (item.includes('email')) {
             this.state.value = emailNotifs.enabled;
-        }
-
-        if (item.includes('push')) {
+        } else if (item.includes('push')) {
             this.state.value = pushNotifs.enabled;
         }
     }
@@ -54,9 +51,7 @@ class SwitchItem extends React.Component {
 
         if (item.includes('email')) {
             notifData.emailNotifs.enabled = value;
-        }
-
-        if (item.includes('push')) {
+        } else if (item.includes('push')) {
             notifData.pushNotifs.enabled = value;
         }
 
@@ -76,10 +71,6 @@ class SwitchItem extends React.Component {
                         this.handleToggleSwitch(updatedValue)
                     }
                     value={value}
-                    trackColor={{ true: colors.purple, false: colors.gray }}
-                    style={{
-                        transform: [{ scaleX: 0.8 }, { scaleY: 0.8 }],
-                    }}
                 />
             </ItemContainer>
         );
@@ -92,9 +83,3 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps,
 )(SwitchItem);
-
-const SettingsSwitch = styled.Switch`
-    position: absolute;
-    right: ${spacing.tiny}px;
-    top: ${spacing.tiny}px;
-`;
