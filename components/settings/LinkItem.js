@@ -14,7 +14,7 @@ const propTypes = {
     item: PropTypes.string.isRequired,
 };
 
-class SettingsLinkItem extends React.Component {
+class LinkItem extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
@@ -70,6 +70,6 @@ class SettingsLinkItem extends React.Component {
     }
 }
 
-SettingsLinkItem.propTypes = propTypes;
+LinkItem.propTypes = propTypes;
 
-export default SettingsLinkItem;
+export default LinkItem;

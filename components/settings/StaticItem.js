@@ -6,7 +6,7 @@ const propTypes = {
     item: PropTypes.string.isRequired,
 };
 
-class SettingsItem extends React.PureComponent {
+class StaticItem extends React.PureComponent {
     render() {
         const { item } = this.props;
         return (
@@ -17,6 +17,6 @@ class SettingsItem extends React.PureComponent {
     }
 }
 
-SettingsItem.propTypes = propTypes;
+StaticItem.propTypes = propTypes;
 
-export default SettingsItem;
+export default StaticItem;

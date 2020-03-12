@@ -3,7 +3,7 @@ import {
     writePhotoData,
     writeMapData,
     writeDarkMode,
-    writeNotificationData,
+    writeNotifData,
 } from '../utils/User';
 
 export const initializeUserData = (userData) => {
@@ -34,7 +34,7 @@ export const updateDarkMode = (darkMode) => {
     return { type: 'UPDATE_DARK_MODE', darkMode };
 };
 
-export const updateNotifications = (notificationData) => {
-    writeNotificationData(notificationData);
-    return { type: 'UPDATE_NOTIFS', notificationData };
+export const updateNotifs = (notifData) => {
+    writeNotifData(notifData);
+    return { type: 'UPDATE_NOTIFS', notifData };
 };

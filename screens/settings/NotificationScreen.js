@@ -3,7 +3,7 @@ import styled, { ThemeProvider } from 'styled-components';
 import { connect } from 'react-redux';
 import { SectionList } from 'react-native';
 import { ThemeContext } from 'react-navigation';
-import { SettingsSwitchItem } from '../../components/Index';
+import { NotificationSwitchItem } from '../../components/Index';
 import { themes } from '../../constants/Themes';
 import { colors, fontSizes, spacing, fontWeights } from '../../constants/Index';
 import { RootView } from '../../styles/Screens';
@@ -31,7 +31,7 @@ class NotificationSettingsScreen extends React.Component {
 
     renderItem = ({ item, index }) => {
         return (
-            <SettingsSwitchItem
+            <NotificationSwitchItem
                 item={item}
                 index={index}
                 sections={SETTING_ITEMS}

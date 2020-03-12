@@ -56,8 +56,8 @@ export default function userReducer(state = initialState, action) {
         case 'UPDATE_NOTIFS':
             return {
                 ...state,
-                emailNotifs: action.emailNotifs,
-                pushNotifs: action.pushNotifs,
+                emailNotifs: action.notifData.emailNotifs,
+                pushNotifs: action.notifData.pushNotifs,
             };
         default:
             return state;

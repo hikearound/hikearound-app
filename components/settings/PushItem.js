@@ -8,7 +8,7 @@ const propTypes = {
     item: PropTypes.string.isRequired,
 };
 
-class SettingsPushItem extends React.Component {
+class PushItem extends React.Component {
     itemPress = async () => {
         const { item, navigation } = this.props;
 
@@ -33,6 +33,6 @@ class SettingsPushItem extends React.Component {
     }
 }
 
-SettingsPushItem.propTypes = propTypes;
+PushItem.propTypes = propTypes;
 
-export default SettingsPushItem;
+export default PushItem;

@@ -43,6 +43,9 @@ import SettingsStaticItem from './settings/StaticItem';
 import SettingsLinkItem from './settings/LinkItem';
 import SettingsPushItem from './settings/PushItem';
 
+// Notification Settings
+import NotificationSwitchItem from './settings/notifications/SwitchItem';
+
 // Profile
 import ProfileHeader from './ProfileHeader';
 import ProfileBody from './ProfileBody';
@@ -87,4 +90,5 @@ export {
     SettingsStaticItem,
     SettingsLinkItem,
     SettingsPushItem,
+    NotificationSwitchItem,
 };

@@ -40,7 +40,7 @@ export function writeDarkMode(darkMode) {
         .set(darkModeData, { merge: true });
 }
 
-export function writeNotificationData(notificationData) {
+export function writeNotifData(notifData) {
     // TODO
 }
 
@@ -130,5 +130,5 @@ export default {
     getAvatarUri,
     getUserData,
     getUserProfileData,
-    writeNotificationData,
+    writeNotifData,
 };

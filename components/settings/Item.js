@@ -28,7 +28,7 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-class SettingsItem extends React.PureComponent {
+class Item extends React.PureComponent {
     constructor(props) {
         super(props);
         const { sections } = this.props;
@@ -130,12 +130,12 @@ class SettingsItem extends React.PureComponent {
     }
 }
 
-SettingsItem.propTypes = propTypes;
+Item.propTypes = propTypes;
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(SettingsItem);
+)(Item);
 
 export const ItemContainer = styled.View`
     border-color: ${colors.lightGray};
