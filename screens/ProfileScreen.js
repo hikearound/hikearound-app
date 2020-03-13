@@ -32,6 +32,8 @@ function mapDispatchToProps(dispatch) {
 }
 
 class ProfileScreen extends React.Component {
+    static contextType = ThemeContext;
+
     static navigationOptions = ({ navigation }) => ({
         headerTitle: 'You',
         headerRight: () => <Settings navigation={navigation} />,
@@ -91,8 +93,6 @@ class ProfileScreen extends React.Component {
             this.setState({ hikeData });
         }
     };
-
-    static contextType = ThemeContext;
 
     render() {
         const {

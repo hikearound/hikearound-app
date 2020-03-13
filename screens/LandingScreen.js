@@ -10,6 +10,8 @@ import { themes } from '../constants/Themes';
 const backgroundImg = require('../assets/landing-bg.png');
 
 class LandingScreen extends React.Component {
+    static contextType = ThemeContext;
+
     static navigationOptions = () => {
         return {
             headerTitle: () => <Logo />,
@@ -36,8 +38,6 @@ class LandingScreen extends React.Component {
             ]),
         ).start();
     }
-
-    static contextType = ThemeContext;
 
     render() {
         const { left } = this.state;

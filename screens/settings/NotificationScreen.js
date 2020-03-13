@@ -17,6 +17,8 @@ function mapStateToProps() {
 }
 
 class NotificationSettingsScreen extends React.Component {
+    static contextType = ThemeContext;
+
     static navigationOptions = {
         headerTitle: 'Notification Settings',
     };
@@ -30,8 +32,6 @@ class NotificationSettingsScreen extends React.Component {
             <HeaderText>{section.title}</HeaderText>
         </HeaderContainer>
     );
-
-    static contextType = ThemeContext;
 
     render() {
         const theme = themes[this.context];

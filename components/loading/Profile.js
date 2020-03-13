@@ -22,6 +22,8 @@ const defaultProps = {
 };
 
 class ProfileLoadingState extends React.PureComponent {
+    static contextType = ThemeContext;
+
     constructor(props) {
         super(props);
         this.state = {
@@ -41,8 +43,6 @@ class ProfileLoadingState extends React.PureComponent {
     componentWillUnmount() {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     }
-
-    static contextType = ThemeContext;
 
     render() {
         const { width, height, circleDimension } = this.props;

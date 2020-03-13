@@ -31,6 +31,12 @@ const signInInputs = [
 ];
 
 class SignInScreen extends React.Component {
+    static navigationOptions = {
+        headerTitle: 'Sign In',
+    };
+
+    static contextType = ThemeContext;
+
     constructor(props) {
         super(props);
 
@@ -73,12 +79,6 @@ class SignInScreen extends React.Component {
                 }
             });
     };
-
-    static navigationOptions = {
-        headerTitle: 'Sign In',
-    };
-
-    static contextType = ThemeContext;
 
     render() {
         const { loading } = this.state;

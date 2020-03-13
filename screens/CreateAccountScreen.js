@@ -66,6 +66,12 @@ function mapDispatchToProps(dispatch) {
 }
 
 class CreateAccountScreen extends React.Component {
+    static navigationOptions = {
+        headerTitle: 'Create Account',
+    };
+
+    static contextType = ThemeContext;
+
     constructor(props) {
         super(props);
 
@@ -124,12 +130,6 @@ class CreateAccountScreen extends React.Component {
                 }
             });
     };
-
-    static navigationOptions = {
-        headerTitle: 'Create Account',
-    };
-
-    static contextType = ThemeContext;
 
     render() {
         const { loading } = this.state;

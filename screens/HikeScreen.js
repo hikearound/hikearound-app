@@ -38,6 +38,8 @@ function mapDispatchToProps(dispatch) {
 }
 
 class HikeScreen extends React.Component {
+    static contextType = ThemeContext;
+
     static navigationOptions = ({ navigation }) => {
         const hike = navigation.getParam('hike');
         return {
@@ -150,8 +152,6 @@ class HikeScreen extends React.Component {
 
         this.setState({ coordinates });
     }
-
-    static contextType = ThemeContext;
 
     render() {
         const { coordinates, region, toastText } = this.state;

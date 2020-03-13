@@ -39,6 +39,8 @@ function mapDispatchToProps(dispatch) {
 }
 
 class HomeScreen extends React.Component {
+    static contextType = ThemeContext;
+
     static navigationOptions = ({ navigation, navigationOptions, theme }) => {
         const { headerStyle } = navigationOptions;
 
@@ -196,8 +198,6 @@ class HomeScreen extends React.Component {
             openHikeScreen(hid, navigation);
         }
     };
-
-    static contextType = ThemeContext;
 
     render() {
         const { loading, hikes, firstLoad } = this.state;

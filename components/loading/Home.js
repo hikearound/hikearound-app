@@ -27,6 +27,8 @@ const defaultProps = {
 };
 
 class HomeLoadingState extends React.PureComponent {
+    static contextType = ThemeContext;
+
     constructor(props) {
         super(props);
         this.state = {
@@ -46,8 +48,6 @@ class HomeLoadingState extends React.PureComponent {
     componentWillUnmount() {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     }
-
-    static contextType = ThemeContext;
 
     render() {
         const {

@@ -7,6 +7,12 @@ import { NotificationEmptyState } from '../components/Index';
 import { RootView } from '../styles/Screens';
 
 class NotificationScreen extends React.Component {
+    static navigationOptions = {
+        headerTitle: 'Notifications',
+    };
+
+    static contextType = ThemeContext;
+
     constructor(props) {
         super(props);
         this.state = {
@@ -21,12 +27,6 @@ class NotificationScreen extends React.Component {
     getNotificationPermissions = async () => {
         await registerForPushNotifications();
     };
-
-    static navigationOptions = {
-        headerTitle: 'Notifications',
-    };
-
-    static contextType = ThemeContext;
 
     render() {
         const { notifications } = this.state;

@@ -21,6 +21,8 @@ function mapStateToProps() {
 }
 
 class SettingsScreen extends React.Component {
+    static contextType = ThemeContext;
+
     static navigationOptions = {
         headerTitle: 'Settings',
     };
@@ -57,8 +59,6 @@ class SettingsScreen extends React.Component {
             <HeaderText>{section.title}</HeaderText>
         </HeaderContainer>
     );
-
-    static contextType = ThemeContext;
 
     render() {
         const theme = themes[this.context];
