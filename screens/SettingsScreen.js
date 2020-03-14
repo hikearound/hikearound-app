@@ -20,10 +20,6 @@ function mapStateToProps() {
 }
 
 class SettingsScreen extends React.Component {
-    static navigationOptions = {
-        headerTitle: 'Settings',
-    };
-
     renderItem = ({ item, index }) => {
         const { navigation } = this.props;
 

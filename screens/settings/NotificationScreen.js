@@ -16,10 +16,6 @@ function mapStateToProps() {
 }
 
 class NotificationSettingsScreen extends React.Component {
-    static navigationOptions = {
-        headerTitle: 'Notification Settings',
-    };
-
     renderItem = ({ item, index }) => {
         return <NotificationSwitchItem item={item} index={index} />;
     };

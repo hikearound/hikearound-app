@@ -6,10 +6,6 @@ import { RootView } from '../styles/Screens';
 import { withTheme } from '../hooks/Themes';
 
 class NotificationScreen extends React.Component {
-    static navigationOptions = {
-        headerTitle: 'Notifications',
-    };
-
     constructor(props) {
         super(props);
         this.state = {

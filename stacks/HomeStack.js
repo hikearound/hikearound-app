@@ -8,11 +8,7 @@ import {
     CreateAccountScreen,
     AuthScreen,
 } from '../screens/Index';
-import {
-    mode,
-    headerMode,
-    defaultNavigationOptions,
-} from '../constants/Navigation';
+import { mode, headerMode, screenOptions } from '../constants/Navigation';
 import { Logo } from '../components/Index';
 
 const Stack = createStackNavigator();
@@ -22,7 +18,7 @@ class HomeStack extends React.PureComponent {
         return (
             <Stack.Navigator
                 initialRouteName='Auth'
-                screenOptions={defaultNavigationOptions}
+                screenOptions={screenOptions}
                 headerMode={headerMode}
                 mode={mode}
             >
@@ -33,8 +29,21 @@ class HomeStack extends React.PureComponent {
                         tabBarVisible: false,
                     }}
                 />
-                <Stack.Screen name='Landing' component={LandingScreen} />
-                <Stack.Screen name='SignIn' component={SignInScreen} />
+                <Stack.Screen
+                    name='Landing'
+                    component={LandingScreen}
+                    options={() => ({
+                        headerTitle: () => <Logo />,
+                        animationEnabled: false,
+                    })}
+                />
+                <Stack.Screen
+                    name='SignIn'
+                    component={SignInScreen}
+                    options={{
+                        headerTitle: 'Sign In',
+                    }}
+                />
                 <Stack.Screen
                     name='Home'
                     component={HomeScreen}
@@ -47,6 +56,9 @@ class HomeStack extends React.PureComponent {
                 <Stack.Screen
                     name='CreateAccount'
                     component={CreateAccountScreen}
+                    options={{
+                        headerTitle: 'Create Account',
+                    }}
                 />
             </Stack.Navigator>
         );

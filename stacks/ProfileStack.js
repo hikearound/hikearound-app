@@ -6,11 +6,7 @@ import {
     HikeScreen,
     NotificationSettingsScreen,
 } from '../screens/Index';
-import {
-    mode,
-    headerMode,
-    defaultNavigationOptions,
-} from '../constants/Navigation';
+import { mode, headerMode, screenOptions } from '../constants/Navigation';
 
 const Stack = createStackNavigator();
 
@@ -19,7 +15,7 @@ class ProfileStack extends React.PureComponent {
         return (
             <Stack.Navigator
                 initialRouteName='Profile'
-                screenOptions={defaultNavigationOptions}
+                screenOptions={screenOptions}
                 headerMode={headerMode}
                 mode={mode}
             >
@@ -28,6 +24,9 @@ class ProfileStack extends React.PureComponent {
                 <Stack.Screen
                     name='NotificationSettings'
                     component={NotificationSettingsScreen}
+                    options={{
+                        headerTitle: 'Notifications',
+                    }}
                 />
                 <Stack.Screen name='Hike' component={HikeScreen} />
             </Stack.Navigator>

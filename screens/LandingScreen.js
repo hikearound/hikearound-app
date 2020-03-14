@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import { Animated, Easing } from 'react-native';
-import { LandingButton, Logo } from '../components/Index';
+import { LandingButton } from '../components/Index';
 import { spacing } from '../constants/Index';
 import { RootView } from '../styles/Screens';
 import { withTheme } from '../hooks/Themes';
@@ -9,13 +9,6 @@ import { withTheme } from '../hooks/Themes';
 const backgroundImg = require('../assets/landing-bg.png');
 
 class LandingScreen extends React.Component {
-    static navigationOptions = () => {
-        return {
-            headerTitle: () => <Logo />,
-            animationEnabled: false,
-        };
-    };
-
     constructor(props) {
         super(props);
         this.state = {

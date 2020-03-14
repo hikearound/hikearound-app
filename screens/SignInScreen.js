@@ -28,10 +28,6 @@ const signInInputs = [
 ];
 
 class SignInScreen extends React.Component {
-    static navigationOptions = {
-        headerTitle: 'Sign In',
-    };
-
     constructor(props) {
         super(props);
 

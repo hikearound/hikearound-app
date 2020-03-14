@@ -20,7 +20,7 @@ function forCustomHeaderAnimation(options) {
     };
 }
 
-export const defaultNavigationOptions = {
+export const screenOptions = {
     headerStyle: {
         backgroundColor: colors.purple,
         height: parseInt(spacing.header, 10),
@@ -44,6 +44,6 @@ export const defaultNavigationOptions = {
 export default {
     mode,
     headerMode,
-    defaultNavigationOptions,
+    screenOptions,
     forCustomHeaderAnimation,
 };

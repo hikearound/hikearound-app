@@ -63,10 +63,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 class CreateAccountScreen extends React.Component {
-    static navigationOptions = {
-        headerTitle: 'Create Account',
-    };
-
     constructor(props) {
         super(props);
 
