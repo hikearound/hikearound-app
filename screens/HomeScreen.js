@@ -4,8 +4,7 @@ import PropTypes from 'prop-types';
 import { Linking } from 'expo';
 import { RefreshControl, StatusBar } from 'react-native';
 import { ThemeProvider } from 'styled-components';
-import { CommonActions } from '@react-navigation/native';
-import { FeedList } from '../components/Index';
+import { FeedList, Sort } from '../components/Index';
 import { getFeedHikeCount, openHikeScreen } from '../utils/Hike';
 import { cacheHikeImage } from '../utils/Image';
 import HomeLoadingState from '../components/loading/Home';
@@ -58,11 +57,9 @@ class HomeScreen extends React.Component {
 
         this.feedActionSheet = feedActionSheet.bind(this);
 
-        navigation.dispatch(
-            CommonActions.setParams({
-                showActionSheet: this.feedActionSheet,
-            }),
-        );
+        navigation.setOptions({
+            headerRight: () => <Sort onPress={this.feedActionSheet} />,
+        });
     }
 
     componentDidMount() {

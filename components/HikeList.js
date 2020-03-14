@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { FlatList } from '@react-navigation/native';
+import { FlatList } from 'react-native';
+// TODO https://reactnavigation.org/docs/use-scroll-to-top
 import HikeListItem from './HikeListItem';
 import { colors, fontSizes, fontWeights, spacing } from '../constants/Index';
 

@@ -37,18 +37,10 @@ function mapDispatchToProps(dispatch) {
 }
 
 class HikeScreen extends React.Component {
-    static navigationOptions = ({ navigation }) => {
-        const hike = navigation.getParam('hike');
-        return {
-            title: hike.name || 'Hike',
-            headerRight: () => <Overflow navigation={navigation} />,
-        };
-    };
-
     constructor(props, context) {
         super(props, context);
-        const { navigation } = this.props;
-        const hike = navigation.getParam('hike');
+        const { navigation, route } = this.props;
+        const { hike } = route.params;
 
         this.state = {
             id: hike.id,
@@ -58,8 +50,9 @@ class HikeScreen extends React.Component {
 
         this.hikeActionSheet = hikeActionSheet.bind(this);
 
-        navigation.setParams({
-            showActionSheet: this.hikeActionSheet,
+        navigation.setOptions({
+            title: hike.name || 'Hike',
+            headerRight: () => <Overflow onPress={this.hikeActionSheet} />,
         });
     }
 
@@ -152,9 +145,8 @@ class HikeScreen extends React.Component {
 
     render() {
         const { coordinates, region, toastText } = this.state;
-        const { navigation, theme } = this.props;
-
-        const hike = navigation.getParam('hike');
+        const { theme, route } = this.props;
+        const { hike } = route.params;
 
         return (
             <ThemeProvider theme={theme.colors}>

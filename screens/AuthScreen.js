@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { AppLoading, SplashScreen } from 'expo';
-import { NavigationActions, StackActions } from '@react-navigation/compat';
+import { CommonActions } from '@react-navigation/native';
 import { StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import firebase from 'firebase';
@@ -46,13 +46,9 @@ class AuthScreen extends React.Component {
         const { navigation } = this.props;
 
         navigation.dispatch(
-            StackActions.reset({
+            CommonActions.reset({
                 index: 0,
-                actions: [
-                    NavigationActions.navigate({
-                        routeName: user ? 'Home' : 'Landing',
-                    }),
-                ],
+                routes: [{ name: user ? 'Home' : 'Landing' }],
             }),
         );
 

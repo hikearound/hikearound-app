@@ -6,13 +6,14 @@ import {
     HomeScreen,
     HikeScreen,
     CreateAccountScreen,
+    AuthScreen,
 } from '../screens/Index';
 import {
     mode,
     headerMode,
     defaultNavigationOptions,
 } from '../constants/Navigation';
-import { Logo, Sort } from '../components/Index';
+import { Logo } from '../components/Index';
 
 const Stack = createStackNavigator();
 
@@ -20,21 +21,26 @@ class HomeStack extends React.PureComponent {
     render() {
         return (
             <Stack.Navigator
-                initialRouteName='Home'
+                initialRouteName='Auth'
                 screenOptions={defaultNavigationOptions}
                 headerMode={headerMode}
                 mode={mode}
             >
+                <Stack.Screen
+                    name='Auth'
+                    component={AuthScreen}
+                    options={{
+                        tabBarVisible: false,
+                    }}
+                />
                 <Stack.Screen name='Landing' component={LandingScreen} />
                 <Stack.Screen name='SignIn' component={SignInScreen} />
                 <Stack.Screen
                     name='Home'
                     component={HomeScreen}
-                    options={(navigation) => ({
+                    options={() => ({
                         headerTitle: () => <Logo />,
-                        // headerRight: () => <Sort route={route} />,
                         animationEnabled: false,
-                        tabBarVisible: true,
                     })}
                 />
                 <Stack.Screen name='Hike' component={HikeScreen} />

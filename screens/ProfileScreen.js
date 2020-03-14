@@ -31,19 +31,20 @@ function mapDispatchToProps(dispatch) {
 }
 
 class ProfileScreen extends React.Component {
-    static navigationOptions = ({ navigation }) => ({
-        headerTitle: 'You',
-        headerRight: () => <Settings navigation={navigation} />,
-    });
-
     constructor(props) {
         super(props);
+        const { navigation } = this.props;
 
         this.state = {
             firstLoad: true,
             maybeShowEmptyState: false,
             hikeData: [],
         };
+
+        navigation.setOptions({
+            title: 'You',
+            headerRight: () => <Settings navigation={navigation} />,
+        });
 
         this.loadingTimeout = setTimeout(() => {
             this.setState({
