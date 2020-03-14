@@ -1,14 +1,14 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
-import { StackActions, ThemeContext } from '@react-navigation/native';
+import { StackActions } from '@react-navigation/native';
 import { NavigationActions } from '@react-navigation/compat';
 import { Alert, StatusBar, ScrollView } from 'react-native';
 import firebase from 'firebase';
-import { themes } from '../constants/Themes';
 import InputButton from '../components/InputButton';
 import LoadingOverlay from '../components/LoadingOverlay';
 import InputLabelGroup from '../components/InputLabelGroup';
 import { RootView } from '../styles/Screens';
+import { withTheme } from '../hooks/Themes';
 
 const signInInputs = [
     {
@@ -31,8 +31,6 @@ class SignInScreen extends React.Component {
     static navigationOptions = {
         headerTitle: 'Sign In',
     };
-
-    static contextType = ThemeContext;
 
     constructor(props) {
         super(props);
@@ -79,7 +77,7 @@ class SignInScreen extends React.Component {
 
     render() {
         const { loading } = this.state;
-        const theme = themes[this.context];
+        const { theme } = this.props;
 
         return (
             <ThemeProvider theme={theme}>
@@ -127,4 +125,4 @@ class SignInScreen extends React.Component {
     }
 }
 
-export default SignInScreen;
+export default withTheme(SignInScreen);

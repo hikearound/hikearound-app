@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { ThemeProvider } from 'styled-components';
-import { ThemeContext } from '@react-navigation/native';
 import { Image } from 'react-native-expo-image-cache';
 import FeedCardGradient from './FeedCardGradient';
 import {
@@ -12,7 +11,7 @@ import {
     fontSizes,
     borderRadius,
 } from '../constants/Index';
-import { themes } from '../constants/Themes';
+import { withTheme } from '../hooks/Themes';
 
 const propTypes = {
     image: PropTypes.object.isRequired,
@@ -23,14 +22,11 @@ const propTypes = {
 };
 
 class FeedCard extends React.PureComponent {
-    static contextType = ThemeContext;
-
     render() {
-        const { image, name, distance, elevation, route } = this.props;
-        const theme = themes[this.context];
+        const { image, name, distance, elevation, route, theme } = this.props;
 
         return (
-            <ThemeProvider theme={theme}>
+            <ThemeProvider theme={theme.colors}>
                 <Container>
                     <Cover>
                         <Image
@@ -75,7 +71,7 @@ class FeedCard extends React.PureComponent {
 
 FeedCard.propTypes = propTypes;
 
-export default FeedCard;
+export default withTheme(FeedCard);
 
 const Container = styled.View`
     background-color: ${(props) => props.theme.cardBackground};

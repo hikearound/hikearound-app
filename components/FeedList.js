@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FlatList } from '@react-navigation/native';
+import { FlatList } from 'react-native';
+// TODO https://reactnavigation.org/docs/use-scroll-to-top
 import FeedItem from './FeedItem';
 import FeedFooter from './FeedFooter';
 

@@ -41,27 +41,9 @@ export const defaultNavigationOptions = {
     headerStyleInterpolator: forCustomHeaderAnimation,
 };
 
-export const tabBarOptions = {
-    activeTintColor: {
-        light: colors.purple,
-        dark: colors.white,
-    },
-    inactiveTintColor: {
-        light: colors.darkGray,
-        dark: colors.gray,
-    },
-    labelStyle: {
-        marginBottom: 0,
-    },
-    tabStyle: {
-        marginTop: 6,
-    },
-};
-
 export default {
     mode,
     headerMode,
     defaultNavigationOptions,
-    tabBarOptions,
     forCustomHeaderAnimation,
 };

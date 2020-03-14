@@ -1,6 +1,5 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
-import { ThemeContext } from '@react-navigation/native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Share } from 'react-native';
@@ -8,11 +7,11 @@ import openMap from 'react-native-open-maps';
 import { HikeBody, Overflow, Toast, MapModal } from '../components/Index';
 import { hikeActionSheet } from '../components/action_sheets/Hike';
 import { getMapSetting } from '../utils/Settings';
-import { themes } from '../constants/Themes';
 import { getHikeXmlUrl, parseHikeXml } from '../utils/Hike';
 import { getToastText } from '../utils/Toast';
 import { copyLink } from '../actions/Hike';
 import { RootView } from '../styles/Screens';
+import { withTheme } from '../hooks/Themes';
 
 const shareAction = 'CopyToPasteboard';
 const baseUrl = 'https://tryhikearound.com/hike';
@@ -38,8 +37,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 class HikeScreen extends React.Component {
-    static contextType = ThemeContext;
-
     static navigationOptions = ({ navigation }) => {
         const hike = navigation.getParam('hike');
         return {
@@ -155,13 +152,12 @@ class HikeScreen extends React.Component {
 
     render() {
         const { coordinates, region, toastText } = this.state;
-        const { navigation } = this.props;
+        const { navigation, theme } = this.props;
 
         const hike = navigation.getParam('hike');
-        const theme = themes[this.context];
 
         return (
-            <ThemeProvider theme={theme}>
+            <ThemeProvider theme={theme.colors}>
                 <RootView>
                     <Toast text={toastText} />
                     <HikeBody
@@ -189,4 +185,4 @@ HikeScreen.propTypes = propTypes;
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(HikeScreen);
+)(withTheme(HikeScreen));

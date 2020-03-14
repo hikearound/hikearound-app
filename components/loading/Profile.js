@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ThemeContext } from '@react-navigation/native';
 import { View, Dimensions, LayoutAnimation } from 'react-native';
 import SvgAnimatedLinearGradient from 'react-native-svg-animated-linear-gradient';
 import { Circle, Rect } from 'react-native-svg';
 import { timings } from '../../constants/Index';
-import { themes } from '../../constants/Themes';
+import { withTheme } from '../../hooks/Themes';
 
 const SCREEN_WIDTH = Math.round(Dimensions.get('window').width);
 
@@ -22,8 +21,6 @@ const defaultProps = {
 };
 
 class ProfileLoadingState extends React.PureComponent {
-    static contextType = ThemeContext;
-
     constructor(props) {
         super(props);
         this.state = {
@@ -32,10 +29,11 @@ class ProfileLoadingState extends React.PureComponent {
     }
 
     componentDidMount() {
-        const theme = themes[this.context];
+        const { theme } = this.props;
+
         this.setState({
-            primaryColor: theme.loadingPrimary,
-            secondaryColor: theme.loadingSecondary,
+            primaryColor: theme.colors.loadingPrimary,
+            secondaryColor: theme.colors.loadingSecondary,
             showLoadingState: true,
         });
     }
@@ -83,4 +81,4 @@ class ProfileLoadingState extends React.PureComponent {
 ProfileLoadingState.defaultProps = defaultProps;
 ProfileLoadingState.propTypes = propTypes;
 
-export default ProfileLoadingState;
+export default withTheme(ProfileLoadingState);

@@ -1,17 +1,17 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
-import { StackActions, ThemeContext } from '@react-navigation/native';
+import { StackActions } from '@react-navigation/native';
 import { NavigationActions } from '@react-navigation/compat';
 import { Alert } from 'react-native';
 import firebase from 'firebase';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { themes } from '../constants/Themes';
 import InputButton from '../components/InputButton';
 import LoadingOverlay from '../components/LoadingOverlay';
 import InputLabelGroup from '../components/InputLabelGroup';
 import { updateUserData } from '../actions/User';
 import { RootView } from '../styles/Screens';
+import { withTheme } from '../hooks/Themes';
 
 const createAccountInputs = [
     {
@@ -66,8 +66,6 @@ class CreateAccountScreen extends React.Component {
     static navigationOptions = {
         headerTitle: 'Create Account',
     };
-
-    static contextType = ThemeContext;
 
     constructor(props) {
         super(props);
@@ -130,10 +128,10 @@ class CreateAccountScreen extends React.Component {
 
     render() {
         const { loading } = this.state;
-        const theme = themes[this.context];
+        const { theme } = this.props;
 
         return (
-            <ThemeProvider theme={theme}>
+            <ThemeProvider theme={theme.colors}>
                 <RootView>
                     {createAccountInputs.map(
                         (
@@ -180,4 +178,4 @@ CreateAccountScreen.propTypes = propTypes;
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(CreateAccountScreen);
+)(withTheme(CreateAccountScreen));

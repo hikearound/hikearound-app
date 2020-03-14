@@ -2,23 +2,20 @@ import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import { connect } from 'react-redux';
 import { SectionList } from 'react-native';
-import { ThemeContext } from '@react-navigation/native';
 import { NotificationSwitchItem } from '../../components/Index';
-import { themes } from '../../constants/Themes';
 import { listData } from '../../constants/lists/NotificationSettings';
 import {
     StyledRootView,
     HeaderContainer,
     HeaderText,
 } from '../../styles/Screens';
+import { withTheme } from '../../hooks/Themes';
 
 function mapStateToProps() {
     return {};
 }
 
 class NotificationSettingsScreen extends React.Component {
-    static contextType = ThemeContext;
-
     static navigationOptions = {
         headerTitle: 'Notification Settings',
     };
@@ -34,10 +31,10 @@ class NotificationSettingsScreen extends React.Component {
     );
 
     render() {
-        const theme = themes[this.context];
+        const { theme } = this.props;
 
         return (
-            <ThemeProvider theme={theme}>
+            <ThemeProvider theme={theme.colors}>
                 <StyledRootView>
                     <SectionList
                         extraData={this.state}
@@ -53,4 +50,4 @@ class NotificationSettingsScreen extends React.Component {
     }
 }
 
-export default connect(mapStateToProps)(NotificationSettingsScreen);
+export default connect(mapStateToProps)(withTheme(NotificationSettingsScreen));

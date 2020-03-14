@@ -1,17 +1,14 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
-import { ThemeContext } from '@react-navigation/native';
-import { themes } from '../constants/Themes';
 import { registerForPushNotifications } from '../utils/Notifications';
 import { NotificationEmptyState } from '../components/Index';
 import { RootView } from '../styles/Screens';
+import { withTheme } from '../hooks/Themes';
 
 class NotificationScreen extends React.Component {
     static navigationOptions = {
         headerTitle: 'Notifications',
     };
-
-    static contextType = ThemeContext;
 
     constructor(props) {
         super(props);
@@ -30,10 +27,10 @@ class NotificationScreen extends React.Component {
 
     render() {
         const { notifications } = this.state;
-        const theme = themes[this.context];
+        const { theme } = this.props;
 
         return (
-            <ThemeProvider theme={theme}>
+            <ThemeProvider theme={theme.colors}>
                 <RootView>
                     {notifications.length === 0 && <NotificationEmptyState />}
                 </RootView>
@@ -42,4 +39,4 @@ class NotificationScreen extends React.Component {
     }
 }
 
-export default NotificationScreen;
+export default withTheme(NotificationScreen);

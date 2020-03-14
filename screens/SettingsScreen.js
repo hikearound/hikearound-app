@@ -2,7 +2,6 @@ import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import { connect } from 'react-redux';
 import { SectionList } from 'react-native';
-import { ThemeContext } from '@react-navigation/native';
 import {
     GroupItem,
     SwitchItem,
@@ -11,18 +10,16 @@ import {
     PushItem,
     ActionItem,
 } from '../components/Index';
-import { themes } from '../constants/Themes';
 import { settingsControls } from '../constants/Index';
 import { listData } from '../constants/lists/Settings';
 import { StyledRootView, HeaderContainer, HeaderText } from '../styles/Screens';
+import { withTheme } from '../hooks/Themes';
 
 function mapStateToProps() {
     return {};
 }
 
 class SettingsScreen extends React.Component {
-    static contextType = ThemeContext;
-
     static navigationOptions = {
         headerTitle: 'Settings',
     };
@@ -61,10 +58,10 @@ class SettingsScreen extends React.Component {
     );
 
     render() {
-        const theme = themes[this.context];
+        const { theme } = this.props;
 
         return (
-            <ThemeProvider theme={theme}>
+            <ThemeProvider theme={theme.colors}>
                 <StyledRootView>
                     <SectionList
                         extraData={this.state}
@@ -80,4 +77,4 @@ class SettingsScreen extends React.Component {
     }
 }
 
-export default connect(mapStateToProps)(SettingsScreen);
+export default connect(mapStateToProps)(withTheme(SettingsScreen));

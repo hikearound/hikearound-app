@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ThemeContext } from '@react-navigation/native';
 import { View, Dimensions, LayoutAnimation } from 'react-native';
 import SvgAnimatedLinearGradient from 'react-native-svg-animated-linear-gradient';
 import { Rect } from 'react-native-svg';
 import { timings, borderRadius, spacing } from '../../constants/Index';
-import { themes } from '../../constants/Themes';
+import { withTheme } from '../../hooks/Themes';
 
 const SCREEN_WIDTH = Math.round(Dimensions.get('window').width);
 const SCREEN_HEIGHT = Math.round(Dimensions.get('window').height);
@@ -27,8 +26,6 @@ const defaultProps = {
 };
 
 class HomeLoadingState extends React.PureComponent {
-    static contextType = ThemeContext;
-
     constructor(props) {
         super(props);
         this.state = {
@@ -37,10 +34,11 @@ class HomeLoadingState extends React.PureComponent {
     }
 
     componentDidMount() {
-        const theme = themes[this.context];
+        const { theme } = this.props;
+
         this.setState({
-            primaryColor: theme.loadingPrimary,
-            secondaryColor: theme.loadingSecondary,
+            primaryColor: theme.colors.loadingPrimary,
+            secondaryColor: theme.colors.loadingSecondary,
             showLoadingState: true,
         });
     }
@@ -57,7 +55,6 @@ class HomeLoadingState extends React.PureComponent {
             cardSpacing,
             cardHeight,
         } = this.props;
-
         const { primaryColor, secondaryColor, showLoadingState } = this.state;
 
         return (
@@ -111,4 +108,4 @@ class HomeLoadingState extends React.PureComponent {
 HomeLoadingState.defaultProps = defaultProps;
 HomeLoadingState.propTypes = propTypes;
 
-export default HomeLoadingState;
+export default withTheme(HomeLoadingState);

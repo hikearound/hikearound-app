@@ -1,8 +1,5 @@
 import React from 'react';
-import { createCompatNavigatorFactory } from '@react-navigation/compat';
 import { createStackNavigator } from '@react-navigation/stack';
-import { themes } from '../constants/Themes';
-import { BellIcon } from '../icons/Index';
 import { NotificationScreen } from '../screens/Index';
 import {
     mode,
@@ -10,30 +7,24 @@ import {
     defaultNavigationOptions,
 } from '../constants/Navigation';
 
-const NotificationStack = createCompatNavigatorFactory(createStackNavigator)(
-    {
-        Notification: NotificationScreen,
-    },
-    {
-        mode,
-        headerMode,
-        defaultNavigationOptions,
-    },
-);
+const Stack = createStackNavigator();
 
-NotificationStack.navigationOptions = ({ theme }) => {
-    return {
-        tabBarLabel: 'Notifications',
-        tabBarIcon: ({ focused }) => (
-            <BellIcon
-                fill={
-                    focused
-                        ? themes[theme].navActive
-                        : themes[theme].navInactive
-                }
-            />
-        ),
-    };
-};
+class NotificationStack extends React.PureComponent {
+    render() {
+        return (
+            <Stack.Navigator
+                initialRouteName='Notification'
+                screenOptions={defaultNavigationOptions}
+                headerMode={headerMode}
+                mode={mode}
+            >
+                <Stack.Screen
+                    name='Notification'
+                    component={NotificationScreen}
+                />
+            </Stack.Navigator>
+        );
+    }
+}
 
 export default NotificationStack;
