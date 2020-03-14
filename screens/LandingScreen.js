@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import { Animated, Easing } from 'react-native';
-import { ThemeContext } from 'react-navigation';
+import { ThemeContext } from '@react-navigation/native';
 import { LandingButton, Logo } from '../components/Index';
 import { spacing } from '../constants/Index';
 import { RootView } from '../styles/Screens';

@@ -1,5 +1,6 @@
 import React from 'react';
-import { createStackNavigator } from 'react-navigation-stack';
+import { createCompatNavigatorFactory } from '@react-navigation/compat';
+import { createStackNavigator } from '@react-navigation/stack';
 import { themes } from '../constants/Themes';
 import { PersonIcon } from '../icons/Index';
 import {
@@ -14,7 +15,7 @@ import {
     defaultNavigationOptions,
 } from '../constants/Navigation';
 
-const ProfileStack = createStackNavigator(
+const ProfileStack = createCompatNavigatorFactory(createStackNavigator)(
     {
         Profile: ProfileScreen,
         Settings: SettingsScreen,

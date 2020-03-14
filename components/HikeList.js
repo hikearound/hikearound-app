@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { FlatList } from 'react-navigation';
+import { FlatList } from '@react-navigation/native';
 import HikeListItem from './HikeListItem';
 import { colors, fontSizes, fontWeights, spacing } from '../constants/Index';
 

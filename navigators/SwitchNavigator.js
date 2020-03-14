@@ -1,4 +1,4 @@
-import { createSwitchNavigator } from 'react-navigation';
+import { createSwitchNavigator } from '@react-navigation/compat';
 import TabNavigator from './TabNavigator';
 import { AuthScreen } from '../screens/Index';
 

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Linking } from 'expo';
 import { RefreshControl } from 'react-native';
-import { ThemeContext } from 'react-navigation';
+import { ThemeContext } from '@react-navigation/native';
 import { ThemeProvider } from 'styled-components';
 import { Logo, FeedList, Sort } from '../components/Index';
 import { themes } from '../constants/Themes';
@@ -202,10 +202,11 @@ class HomeScreen extends React.Component {
     render() {
         const { loading, hikes, firstLoad } = this.state;
         const feedRef = React.createRef();
-        const theme = themes[this.context];
+        // const theme = themes[this.context];
+        const theme = themes.light;
 
         return (
-            <ThemeProvider theme={theme}>
+            <ThemeProvider theme={themes}>
                 <RootView>
                     {firstLoad && <HomeLoadingState />}
                     {!firstLoad && (

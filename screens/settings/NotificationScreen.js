@@ -2,7 +2,7 @@ import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import { connect } from 'react-redux';
 import { SectionList } from 'react-native';
-import { ThemeContext } from 'react-navigation';
+import { ThemeContext } from '@react-navigation/native';
 import { NotificationSwitchItem } from '../../components/Index';
 import { themes } from '../../constants/Themes';
 import { listData } from '../../constants/lists/NotificationSettings';

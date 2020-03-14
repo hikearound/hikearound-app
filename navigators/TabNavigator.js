@@ -1,11 +1,12 @@
 import * as Haptics from 'expo-haptics';
-import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { createCompatNavigatorFactory } from '@react-navigation/compat';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { tabBarOptions } from '../constants/Navigation';
 import HomeStack from '../stacks/HomeStack';
 import NotificationStack from '../stacks/NotificationStack';
 import ProfileStack from '../stacks/ProfileStack';
 
-const TabNavigator = createBottomTabNavigator(
+const TabNavigator = createCompatNavigatorFactory(createBottomTabNavigator)(
     {
         HomeStack,
         NotificationStack,

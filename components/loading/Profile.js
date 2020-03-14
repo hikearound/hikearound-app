@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ThemeContext } from 'react-navigation';
+import { ThemeContext } from '@react-navigation/native';
 import { View, Dimensions, LayoutAnimation } from 'react-native';
 import SvgAnimatedLinearGradient from 'react-native-svg-animated-linear-gradient';
 import { Circle, Rect } from 'react-native-svg';

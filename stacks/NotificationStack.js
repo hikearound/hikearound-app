@@ -1,5 +1,6 @@
 import React from 'react';
-import { createStackNavigator } from 'react-navigation-stack';
+import { createCompatNavigatorFactory } from '@react-navigation/compat';
+import { createStackNavigator } from '@react-navigation/stack';
 import { themes } from '../constants/Themes';
 import { BellIcon } from '../icons/Index';
 import { NotificationScreen } from '../screens/Index';
@@ -9,7 +10,7 @@ import {
     defaultNavigationOptions,
 } from '../constants/Navigation';
 
-const NotificationStack = createStackNavigator(
+const NotificationStack = createCompatNavigatorFactory(createStackNavigator)(
     {
         Notification: NotificationScreen,
     },

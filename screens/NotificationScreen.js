@@ -1,6 +1,6 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
-import { ThemeContext } from 'react-navigation';
+import { ThemeContext } from '@react-navigation/native';
 import { themes } from '../constants/Themes';
 import { registerForPushNotifications } from '../utils/Notifications';
 import { NotificationEmptyState } from '../components/Index';

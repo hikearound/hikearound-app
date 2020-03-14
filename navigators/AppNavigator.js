@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { createAppContainer } from 'react-navigation';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { AppearanceProvider, useColorScheme } from 'react-native-appearance';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import SwitchNavigator from './SwitchNavigator';
-
-const Navigation = createAppContainer(SwitchNavigator);
+// import SwitchNavigator from './SwitchNavigator';
+import HomeStack from '../stacks/HomeStack';
 
 const propTypes = {
     darkMode: PropTypes.bool,
@@ -27,16 +26,18 @@ function mapDispatchToProps() {
 }
 
 function App({ darkMode }) {
-    let theme = useColorScheme();
+    // let theme = useColorScheme();
 
     if (darkMode) {
-        theme = 'dark';
+        // theme = 'dark';
     }
 
     return (
         <SafeAreaProvider>
             <AppearanceProvider>
-                <Navigation theme={theme} />
+                <NavigationContainer theme={DefaultTheme}>
+                    <HomeStack />
+                </NavigationContainer>
             </AppearanceProvider>
         </SafeAreaProvider>
     );

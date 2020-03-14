@@ -1,4 +1,4 @@
-import { HeaderStyleInterpolators } from 'react-navigation-stack';
+import { HeaderStyleInterpolators } from '@react-navigation/stack';
 import { colors } from './Colors';
 import { fontSizes } from './Fonts';
 import spacing from './Spacing';

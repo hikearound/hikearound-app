@@ -1,10 +1,7 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
-import {
-    NavigationActions,
-    StackActions,
-    ThemeContext,
-} from 'react-navigation';
+import { StackActions, ThemeContext } from '@react-navigation/native';
+import { NavigationActions } from '@react-navigation/compat';
 import { Alert } from 'react-native';
 import firebase from 'firebase';
 import { connect } from 'react-redux';
