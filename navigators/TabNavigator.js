@@ -11,6 +11,66 @@ import { tabBarOptions } from '../constants/Navigation';
 const Tab = createBottomTabNavigator();
 
 class TabNavigator extends React.PureComponent {
+    renderHomeStack = () => {
+        return (
+            <Tab.Screen
+                name='Home'
+                component={HomeStack}
+                options={() => ({
+                    tabBarLabel: 'Home',
+                    tabBarIcon: ({ focused }) => (
+                        <HomeIcon size={26} fill={this.setFill(focused)} />
+                    ),
+                })}
+                listeners={{
+                    tabPress: () => {
+                        this.onPress();
+                    },
+                }}
+            />
+        );
+    };
+
+    renderNotificationStack = () => {
+        return (
+            <Tab.Screen
+                name='Notification'
+                component={NotificationStack}
+                options={() => ({
+                    tabBarLabel: 'Notifications',
+                    tabBarIcon: ({ focused }) => (
+                        <BellIcon fill={this.setFill(focused)} />
+                    ),
+                })}
+                listeners={{
+                    tabPress: () => {
+                        this.onPress();
+                    },
+                }}
+            />
+        );
+    };
+
+    renderProfileStack = () => {
+        return (
+            <Tab.Screen
+                name='Profile'
+                component={ProfileStack}
+                options={() => ({
+                    tabBarLabel: 'You',
+                    tabBarIcon: ({ focused }) => (
+                        <PersonIcon height={25} fill={this.setFill(focused)} />
+                    ),
+                })}
+                listeners={{
+                    tabPress: () => {
+                        this.onPress();
+                    },
+                }}
+            />
+        );
+    };
+
     setFill = (focused) => {
         const { theme } = this.props;
         if (focused) {
@@ -33,54 +93,9 @@ class TabNavigator extends React.PureComponent {
                     theme.colors.navInactive,
                 )}
             >
-                <Tab.Screen
-                    name='Home'
-                    component={HomeStack}
-                    options={() => ({
-                        tabBarLabel: 'Home',
-                        tabBarIcon: ({ focused }) => (
-                            <HomeIcon size={26} fill={this.setFill(focused)} />
-                        ),
-                    })}
-                    listeners={{
-                        tabPress: () => {
-                            this.onPress();
-                        },
-                    }}
-                />
-                <Tab.Screen
-                    name='Notification'
-                    component={NotificationStack}
-                    options={() => ({
-                        tabBarLabel: 'Notifications',
-                        tabBarIcon: ({ focused }) => (
-                            <BellIcon fill={this.setFill(focused)} />
-                        ),
-                    })}
-                    listeners={{
-                        tabPress: () => {
-                            this.onPress();
-                        },
-                    }}
-                />
-                <Tab.Screen
-                    name='Profile'
-                    component={ProfileStack}
-                    options={() => ({
-                        tabBarLabel: 'You',
-                        tabBarIcon: ({ focused }) => (
-                            <PersonIcon
-                                height={25}
-                                fill={this.setFill(focused)}
-                            />
-                        ),
-                    })}
-                    listeners={{
-                        tabPress: () => {
-                            this.onPress();
-                        },
-                    }}
-                />
+                {this.renderHomeStack()}
+                {this.renderNotificationStack()}
+                {this.renderProfileStack()}
             </Tab.Navigator>
         );
     }
