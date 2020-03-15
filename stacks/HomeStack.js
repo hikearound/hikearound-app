@@ -10,6 +10,7 @@ import {
 } from '../screens/Index';
 import { mode, headerMode, screenOptions } from '../constants/Navigation';
 import { Logo } from '../components/Index';
+import { withTheme } from '../utils/Themes';
 
 const Stack = createStackNavigator();
 
@@ -29,10 +30,12 @@ class HomeStack extends React.Component {
     }
 
     render() {
+        const { theme } = this.props;
+
         return (
             <Stack.Navigator
                 initialRouteName='Auth'
-                screenOptions={screenOptions}
+                screenOptions={screenOptions(theme.colors.headerStyle)}
                 headerMode={headerMode}
                 mode={mode}
             >
@@ -80,4 +83,4 @@ class HomeStack extends React.Component {
     }
 }
 
-export default HomeStack;
+export default withTheme(HomeStack);

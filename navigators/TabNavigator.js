@@ -6,25 +6,29 @@ import NotificationStack from '../stacks/NotificationStack';
 import ProfileStack from '../stacks/ProfileStack';
 import { HomeIcon, BellIcon, PersonIcon } from '../icons/Index';
 import { withTheme } from '../utils/Themes';
+import { tabBarOptions } from '../constants/Navigation';
 
 const Tab = createBottomTabNavigator();
 
 class TabNavigator extends React.PureComponent {
+    setFill = (focused) => {
+        const { theme } = this.props;
+
+        if (focused) {
+            return theme.colors.navActive;
+        }
+        return theme.colors.navInactive;
+    };
+
     render() {
         const { theme } = this.props;
 
         return (
             <Tab.Navigator
-                tabBarOptions={{
-                    activeTintColor: theme.colors.navActive,
-                    inactiveTintColor: theme.colors.navInactive,
-                    labelStyle: {
-                        marginBottom: 0,
-                    },
-                    tabStyle: {
-                        marginTop: 6,
-                    },
-                }}
+                tabBarOptions={tabBarOptions(
+                    theme.colors.navActive,
+                    theme.colors.navInactive,
+                )}
                 screenOptions={{
                     tabBarOnPress: ({ defaultHandler }) => {
                         Haptics.selectionAsync();
@@ -38,14 +42,7 @@ class TabNavigator extends React.PureComponent {
                     options={() => ({
                         tabBarLabel: 'Home',
                         tabBarIcon: ({ focused }) => (
-                            <HomeIcon
-                                size={26}
-                                fill={
-                                    focused
-                                        ? theme.colors.navActive
-                                        : theme.colors.navInactive
-                                }
-                            />
+                            <HomeIcon size={26} fill={this.setFill(focused)} />
                         ),
                     })}
                 />
@@ -55,13 +52,7 @@ class TabNavigator extends React.PureComponent {
                     options={() => ({
                         tabBarLabel: 'Notifications',
                         tabBarIcon: ({ focused }) => (
-                            <BellIcon
-                                fill={
-                                    focused
-                                        ? theme.colors.navActive
-                                        : theme.colors.navInactive
-                                }
-                            />
+                            <BellIcon fill={this.setFill(focused)} />
                         ),
                     })}
                 />
@@ -73,11 +64,7 @@ class TabNavigator extends React.PureComponent {
                         tabBarIcon: ({ focused }) => (
                             <PersonIcon
                                 height={25}
-                                fill={
-                                    focused
-                                        ? theme.colors.navActive
-                                        : theme.colors.navInactive
-                                }
+                                fill={this.setFill(focused)}
                             />
                         ),
                     })}

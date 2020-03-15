@@ -7,15 +7,18 @@ import {
     NotificationSettingsScreen,
 } from '../screens/Index';
 import { mode, headerMode, screenOptions } from '../constants/Navigation';
+import { withTheme } from '../utils/Themes';
 
 const Stack = createStackNavigator();
 
 class ProfileStack extends React.PureComponent {
     render() {
+        const { theme } = this.props;
+
         return (
             <Stack.Navigator
                 initialRouteName='Profile'
-                screenOptions={screenOptions}
+                screenOptions={screenOptions(theme.colors.headerStyle)}
                 headerMode={headerMode}
                 mode={mode}
             >
@@ -34,4 +37,4 @@ class ProfileStack extends React.PureComponent {
     }
 }
 
-export default ProfileStack;
+export default withTheme(ProfileStack);

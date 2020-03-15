@@ -1,14 +1,15 @@
+import { DarkTheme, DefaultTheme } from '@react-navigation/native';
 import { colors } from './Colors';
 
 export const defaultTheme = {
     dark: false,
     colors: {
         // Required
-        primary: 'rgb(255, 45, 85)',
-        background: 'rgb(242, 242, 242)',
-        card: 'rgb(255, 255, 255)',
-        text: 'rgb(28, 28, 30)',
-        border: 'rgb(199, 199, 204)',
+        primary: DefaultTheme.colors.primary,
+        background: DefaultTheme.colors.background,
+        card: DefaultTheme.colors.card,
+        text: DefaultTheme.colors.text,
+        border: DefaultTheme.colors.border,
 
         // Navigation
         headerStyle: colors.purple,
@@ -36,11 +37,11 @@ export const darkTheme = {
     dark: true,
     colors: {
         // Required
-        primary: 'rgb(255, 45, 85)',
-        background: 'rgb(242, 242, 242)',
-        card: 'rgb(255, 255, 255)',
-        text: 'rgb(28, 28, 30)',
-        border: 'rgb(199, 199, 204)',
+        primary: DarkTheme.colors.primary,
+        background: DarkTheme.colors.background,
+        card: DarkTheme.colors.card,
+        text: DarkTheme.colors.text,
+        border: DarkTheme.colors.border,
 
         // Navigation
         headerStyle: colors.black,
