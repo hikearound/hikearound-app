@@ -19,6 +19,10 @@ class TabNavigator extends React.PureComponent {
         return theme.colors.navInactive;
     };
 
+    onPress = () => {
+        Haptics.selectionAsync();
+    };
+
     render() {
         const { theme } = this.props;
 
@@ -28,12 +32,6 @@ class TabNavigator extends React.PureComponent {
                     theme.colors.navActive,
                     theme.colors.navInactive,
                 )}
-                screenOptions={{
-                    tabBarOnPress: ({ defaultHandler }) => {
-                        Haptics.selectionAsync();
-                        defaultHandler();
-                    },
-                }}
             >
                 <Tab.Screen
                     name='Home'
@@ -44,6 +42,11 @@ class TabNavigator extends React.PureComponent {
                             <HomeIcon size={26} fill={this.setFill(focused)} />
                         ),
                     })}
+                    listeners={{
+                        tabPress: () => {
+                            this.onPress();
+                        },
+                    }}
                 />
                 <Tab.Screen
                     name='Notification'
@@ -54,6 +57,11 @@ class TabNavigator extends React.PureComponent {
                             <BellIcon fill={this.setFill(focused)} />
                         ),
                     })}
+                    listeners={{
+                        tabPress: () => {
+                            this.onPress();
+                        },
+                    }}
                 />
                 <Tab.Screen
                     name='Profile'
@@ -67,6 +75,11 @@ class TabNavigator extends React.PureComponent {
                             />
                         ),
                     })}
+                    listeners={{
+                        tabPress: () => {
+                            this.onPress();
+                        },
+                    }}
                 />
             </Tab.Navigator>
         );
