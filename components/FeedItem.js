@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { TouchableOpacity } from 'react-native';
 import styled from 'styled-components';
-import { withNavigation } from '@react-navigation/compat';
+import { useNavigation } from '@react-navigation/native';
 import FeedCard from './FeedCard';
 import { spacing, opacities } from '../constants/Index';
 
@@ -94,7 +94,10 @@ class FeedItem extends React.Component {
 FeedItem.propTypes = propTypes;
 FeedItem.defaultProps = defaultProps;
 
-export default withNavigation(FeedItem);
+export default function(props) {
+    const navigation = useNavigation();
+    return <FeedItem {...props} navigation={navigation} />;
+}
 
 const CardsContainer = styled.View`
     flex-direction: column;

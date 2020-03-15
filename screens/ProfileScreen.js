@@ -9,7 +9,7 @@ import ProfileLoadingState from '../components/loading/Profile';
 import { initializeHikeData } from '../actions/Hike';
 import { timings } from '../constants/Index';
 import { RootView } from '../styles/Screens';
-import { withTheme } from '../hooks/Themes';
+import { withTheme } from '../utils/Themes';
 
 const propTypes = {
     dispatchHikeData: PropTypes.func.isRequired,

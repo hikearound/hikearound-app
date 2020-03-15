@@ -2,13 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FlatList } from 'react-native';
-// TODO https://reactnavigation.org/docs/use-scroll-to-top
+import { useScrollToTop } from '@react-navigation/native';
 import HikeListItem from './HikeListItem';
 import { colors, fontSizes, fontWeights, spacing } from '../constants/Index';
 
 const propTypes = {
     maybeShowEmptyState: PropTypes.bool.isRequired,
     hikeData: PropTypes.array.isRequired,
+    listRef: PropTypes.object.isRequired,
 };
 
 class HikeList extends React.Component {
@@ -42,13 +43,14 @@ class HikeList extends React.Component {
     );
 
     render() {
-        const { hikeData } = this.props;
+        const { hikeData, listRef } = this.props;
         const extractKey = ({ id }) => id;
 
         return (
             <RootView>
                 {hikeData && (
                     <FlatList
+                        ref={listRef}
                         renderItem={this.renderItem}
                         ListHeaderComponent={this.renderListHeader}
                         ListEmptyComponent={this.renderEmptyList}
@@ -63,9 +65,17 @@ class HikeList extends React.Component {
     }
 }
 
-HikeList.propTypes = propTypes;
+function HikeListFunction(props) {
+    const { listRef } = props;
+    useScrollToTop(listRef);
 
-export default HikeList;
+    return <HikeList {...props} />;
+}
+
+HikeList.propTypes = propTypes;
+HikeListFunction.propTypes = propTypes;
+
+export default HikeListFunction;
 
 const RootView = styled.View`
     margin-left: ${spacing.small}px;

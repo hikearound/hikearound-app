@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Linking } from 'expo';
-import { RefreshControl, StatusBar } from 'react-native';
+import { RefreshControl } from 'react-native';
 import { ThemeProvider } from 'styled-components';
 import { FeedList, Sort } from '../components/Index';
 import { getFeedHikeCount, openHikeScreen } from '../utils/Hike';
@@ -16,7 +16,7 @@ import { getHikeIdFromUrl } from '../utils/Link';
 import { feedActionSheet } from '../components/action_sheets/Feed';
 import { RootView } from '../styles/Screens';
 import { getBadgeNumber, clearBadge } from '../utils/Notifications';
-import { withTheme } from '../hooks/Themes';
+import { withTheme } from '../utils/Themes';
 
 const propTypes = {
     dispatchUserData: PropTypes.func.isRequired,
@@ -41,8 +41,6 @@ class HomeScreen extends React.Component {
     constructor(props) {
         super(props);
         const { navigation } = this.props;
-
-        StatusBar.setBarStyle('light-content', true);
 
         this.state = {
             feedHikeCount: 0,

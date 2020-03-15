@@ -40,6 +40,7 @@ module.exports = {
         'react/jsx-indent-props': ['error', 4],
         'import/no-extraneous-dependencies': 'off',
         'react/jsx-filename-extension': 'off',
+        'react/jsx-props-no-spreading': 'off',
         'react/forbid-prop-types': 'off',
         'react/no-array-index-key': 'off',
         'func-names': 'off',
@@ -51,7 +52,7 @@ module.exports = {
         'react/prop-types': [
             'error', {
                 'ignore': [
-                    'navigation', 'focused', 'theme', 'route',
+                    'navigation', 'focused', 'theme', 'route', 'scheme',
                 ],
             }
         ],

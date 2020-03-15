@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { TouchableOpacity } from 'react-native';
-import { withNavigation } from '@react-navigation/compat';
+import { useNavigation } from '@react-navigation/native';
 import {
     colors,
     fontSizes,
@@ -51,7 +51,10 @@ class HikeListItem extends React.PureComponent {
 
 HikeListItem.propTypes = propTypes;
 
-export default withNavigation(HikeListItem);
+export default function(props) {
+    const navigation = useNavigation();
+    return <HikeListItem {...props} navigation={navigation} />;
+}
 
 const Container = styled.View`
     border-color: ${colors.lightGray};

@@ -1,7 +1,6 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
-import { StackActions } from '@react-navigation/native';
-import { NavigationActions } from '@react-navigation/compat';
+import { CommonActions } from '@react-navigation/native';
 import { Alert } from 'react-native';
 import firebase from 'firebase';
 import { connect } from 'react-redux';
@@ -11,7 +10,7 @@ import LoadingOverlay from '../components/LoadingOverlay';
 import InputLabelGroup from '../components/InputLabelGroup';
 import { updateUserData } from '../actions/User';
 import { RootView } from '../styles/Screens';
-import { withTheme } from '../hooks/Themes';
+import { withTheme } from '../utils/Themes';
 
 const createAccountInputs = [
     {
@@ -90,9 +89,9 @@ class CreateAccountScreen extends React.Component {
             pushNotifs,
         } = this.props;
 
-        const resetAction = StackActions.reset({
+        const resetAction = CommonActions.reset({
             index: 0,
-            actions: [NavigationActions.navigate({ routeName: 'Home' })],
+            routes: [{ name: 'Home' }],
         });
 
         this.setState({ loading: true });

@@ -13,7 +13,21 @@ import { Logo } from '../components/Index';
 
 const Stack = createStackNavigator();
 
-class HomeStack extends React.PureComponent {
+class HomeStack extends React.Component {
+    componentDidUpdate() {
+        const { navigation, route } = this.props;
+        let tabBarVisible = false;
+
+        if (route.state) {
+            const { name } = route.state.routes[route.state.index];
+            if (name === 'Home' || name === 'Hike') {
+                tabBarVisible = true;
+            }
+        }
+
+        navigation.setOptions({ tabBarVisible });
+    }
+
     render() {
         return (
             <Stack.Navigator
@@ -35,6 +49,7 @@ class HomeStack extends React.PureComponent {
                     options={() => ({
                         headerTitle: () => <Logo />,
                         animationEnabled: false,
+                        tabBarVisible: false,
                     })}
                 />
                 <Stack.Screen

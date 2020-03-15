@@ -4,7 +4,7 @@ import { Animated, Easing } from 'react-native';
 import { LandingButton } from '../components/Index';
 import { spacing } from '../constants/Index';
 import { RootView } from '../styles/Screens';
-import { withTheme } from '../hooks/Themes';
+import { withTheme } from '../utils/Themes';
 
 const backgroundImg = require('../assets/landing-bg.png');
 

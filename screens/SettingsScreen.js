@@ -13,7 +13,7 @@ import {
 import { settingsControls } from '../constants/Index';
 import { listData } from '../constants/lists/Settings';
 import { StyledRootView, HeaderContainer, HeaderText } from '../styles/Screens';
-import { withTheme } from '../hooks/Themes';
+import { withTheme } from '../utils/Themes';
 
 function mapStateToProps() {
     return {};

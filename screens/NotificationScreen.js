@@ -3,7 +3,7 @@ import { ThemeProvider } from 'styled-components';
 import { registerForPushNotifications } from '../utils/Notifications';
 import { NotificationEmptyState } from '../components/Index';
 import { RootView } from '../styles/Screens';
-import { withTheme } from '../hooks/Themes';
+import { withTheme } from '../utils/Themes';
 
 class NotificationScreen extends React.Component {
     constructor(props) {

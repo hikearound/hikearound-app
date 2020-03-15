@@ -5,7 +5,7 @@ import HomeStack from '../stacks/HomeStack';
 import NotificationStack from '../stacks/NotificationStack';
 import ProfileStack from '../stacks/ProfileStack';
 import { HomeIcon, BellIcon, PersonIcon } from '../icons/Index';
-import { withTheme } from '../hooks/Themes';
+import { withTheme } from '../utils/Themes';
 
 const Tab = createBottomTabNavigator();
 

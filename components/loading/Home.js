@@ -4,7 +4,7 @@ import { View, Dimensions, LayoutAnimation } from 'react-native';
 import SvgAnimatedLinearGradient from 'react-native-svg-animated-linear-gradient';
 import { Rect } from 'react-native-svg';
 import { timings, borderRadius, spacing } from '../../constants/Index';
-import { withTheme } from '../../hooks/Themes';
+import { withTheme } from '../../utils/Themes';
 
 const SCREEN_WIDTH = Math.round(Dimensions.get('window').width);
 const SCREEN_HEIGHT = Math.round(Dimensions.get('window').height);

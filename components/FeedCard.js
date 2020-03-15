@@ -11,7 +11,7 @@ import {
     fontSizes,
     borderRadius,
 } from '../constants/Index';
-import { withTheme } from '../hooks/Themes';
+import { withTheme } from '../utils/Themes';
 
 const propTypes = {
     image: PropTypes.object.isRequired,
