@@ -71,9 +71,17 @@ export async function openHikeScreen(id, navigation) {
     const hikeSnapshot = await getHikeSnapshot(id);
     const hikeData = hikeSnapshot.data();
 
-    hikeData.id = id;
     navigation.push('Hike', {
-        hike: hikeData,
+        hike: {
+            id,
+            images: hikeData.images,
+            name: hikeData.name,
+            distance: hikeData.distance,
+            elevation: hikeData.elevation,
+            route: hikeData.route,
+            city: hikeData.city,
+            description: hikeData.description,
+        },
     });
 }
 

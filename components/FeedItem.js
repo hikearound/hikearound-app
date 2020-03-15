@@ -8,6 +8,8 @@ import { spacing, opacities } from '../constants/Index';
 
 const propTypes = {
     coverPhoto: PropTypes.string,
+    images: PropTypes.array,
+    id: PropTypes.string,
     name: PropTypes.string,
     distance: PropTypes.number,
     elevation: PropTypes.number,
@@ -17,6 +19,8 @@ const propTypes = {
 };
 
 const defaultProps = {
+    id: '',
+    images: [],
     name: '',
     route: '',
     description: '',
@@ -37,6 +41,8 @@ class FeedItem extends React.Component {
     render() {
         const {
             navigation,
+            id,
+            images,
             name,
             distance,
             elevation,
@@ -55,7 +61,16 @@ class FeedItem extends React.Component {
                         activeOpacity={opacities.regular}
                         onPress={() => {
                             navigation.push('Hike', {
-                                hike: this.props,
+                                hike: {
+                                    id,
+                                    images,
+                                    name,
+                                    distance,
+                                    elevation,
+                                    route,
+                                    city,
+                                    description,
+                                },
                             });
                         }}
                     >

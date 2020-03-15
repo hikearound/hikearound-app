@@ -19,7 +19,7 @@ const propTypes = {
     distance: PropTypes.number.isRequired,
 };
 
-class ProfileHikeRow extends React.PureComponent {
+class HikeListItem extends React.PureComponent {
     getHikeData = async () => {
         const { id, navigation } = this.props;
         openHikeScreen(id, navigation);
@@ -49,9 +49,9 @@ class ProfileHikeRow extends React.PureComponent {
     }
 }
 
-ProfileHikeRow.propTypes = propTypes;
+HikeListItem.propTypes = propTypes;
 
-export default withNavigation(ProfileHikeRow);
+export default withNavigation(HikeListItem);
 
 const Container = styled.View`
     border-color: ${colors.lightGray};
