@@ -29,6 +29,73 @@ class HomeStack extends React.Component {
         navigation.setOptions({ tabBarVisible });
     }
 
+    renderAuthScreen = () => {
+        return (
+            <Stack.Screen
+                name='Auth'
+                component={AuthScreen}
+                options={{
+                    tabBarVisible: false,
+                }}
+            />
+        );
+    };
+
+    renderLandingScreen = () => {
+        return (
+            <Stack.Screen
+                name='Landing'
+                component={LandingScreen}
+                options={() => ({
+                    headerTitle: () => <Logo />,
+                    animationEnabled: false,
+                    tabBarVisible: false,
+                })}
+            />
+        );
+    };
+
+    renderCreateAccountScreen = () => {
+        return (
+            <Stack.Screen
+                name='CreateAccount'
+                component={CreateAccountScreen}
+                options={{
+                    headerTitle: 'Create Account',
+                }}
+            />
+        );
+    };
+
+    renderSignInScreen = () => {
+        return (
+            <Stack.Screen
+                name='SignIn'
+                component={SignInScreen}
+                options={{
+                    headerTitle: 'Sign In',
+                }}
+            />
+        );
+    };
+
+    renderHomeScreen = () => {
+        return (
+            <Stack.Screen
+                name='Home'
+                component={HomeScreen}
+                options={() => ({
+                    headerTitle: () => <Logo />,
+                    animationEnabled: false,
+                })}
+            />
+        );
+    };
+
+    renderHikeScreen = () => {
+        return <Stack.Screen name='Hike' component={HikeScreen} />;
+    };
+
     render() {
         const { theme } = this.props;
 
@@ -39,45 +106,12 @@ class HomeStack extends React.Component {
                 headerMode={headerMode}
                 mode={mode}
             >
-                <Stack.Screen
-                    name='Auth'
-                    component={AuthScreen}
-                    options={{
-                        tabBarVisible: false,
-                    }}
-                />
-                <Stack.Screen
-                    name='Landing'
-                    component={LandingScreen}
-                    options={() => ({
-                        headerTitle: () => <Logo />,
-                        animationEnabled: false,
-                        tabBarVisible: false,
-                    })}
-                />
-                <Stack.Screen
-                    name='SignIn'
-                    component={SignInScreen}
-                    options={{
-                        headerTitle: 'Sign In',
-                    }}
-                />
-                <Stack.Screen
-                    name='Home'
-                    component={HomeScreen}
-                    options={() => ({
-                        headerTitle: () => <Logo />,
-                        animationEnabled: false,
-                    })}
-                />
-                <Stack.Screen name='Hike' component={HikeScreen} />
-                <Stack.Screen
-                    name='CreateAccount'
-                    component={CreateAccountScreen}
-                    options={{
-                        headerTitle: 'Create Account',
-                    }}
-                />
+                {this.renderAuthScreen()}
+                {this.renderLandingScreen()}
+                {this.renderSignInScreen()}
+                {this.renderCreateAccountScreen()}
+                {this.renderHomeScreen()}
+                {this.renderHikeScreen()}
             </Stack.Navigator>
         );
     }

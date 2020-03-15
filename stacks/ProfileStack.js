@@ -12,6 +12,30 @@ import { withTheme } from '../utils/Themes';
 const Stack = createStackNavigator();
 
 class ProfileStack extends React.PureComponent {
+    renderProfileScreen = () => {
+        return <Stack.Screen name='Profile' component={ProfileScreen} />;
+    };
+
+    renderHikeScreen = () => {
+        return <Stack.Screen name='Hike' component={HikeScreen} />;
+    };
+
+    renderSettingsScreen = () => {
+        return <Stack.Screen name='Settings' component={SettingsScreen} />;
+    };
+
+    renderNotificationSettingsScreen = () => {
+        return (
+            <Stack.Screen
+                name='NotificationSettings'
+                component={NotificationSettingsScreen}
+                options={{
+                    headerTitle: 'Notifications',
+                }}
+            />
+        );
+    };
+
     render() {
         const { theme } = this.props;
 
@@ -22,16 +46,10 @@ class ProfileStack extends React.PureComponent {
                 headerMode={headerMode}
                 mode={mode}
             >
-                <Stack.Screen name='Profile' component={ProfileScreen} />
-                <Stack.Screen name='Settings' component={SettingsScreen} />
-                <Stack.Screen
-                    name='NotificationSettings'
-                    component={NotificationSettingsScreen}
-                    options={{
-                        headerTitle: 'Notifications',
-                    }}
-                />
-                <Stack.Screen name='Hike' component={HikeScreen} />
+                {this.renderProfileScreen()}
+                {this.renderHikeScreen()}
+                {this.renderSettingsScreen()}
+                {this.renderNotificationSettingsScreen()}
             </Stack.Navigator>
         );
     }

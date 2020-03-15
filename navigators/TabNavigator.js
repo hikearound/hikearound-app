@@ -13,7 +13,6 @@ const Tab = createBottomTabNavigator();
 class TabNavigator extends React.PureComponent {
     setFill = (focused) => {
         const { theme } = this.props;
-
         if (focused) {
             return theme.colors.navActive;
         }
