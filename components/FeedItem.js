@@ -2,12 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { TouchableOpacity } from 'react-native';
 import styled from 'styled-components';
-import { withNavigation } from 'react-navigation';
+import { useNavigation } from '@react-navigation/native';
 import FeedCard from './FeedCard';
 import { spacing, opacities } from '../constants/Index';
 
 const propTypes = {
     coverPhoto: PropTypes.string,
+    images: PropTypes.array,
+    id: PropTypes.string,
     name: PropTypes.string,
     distance: PropTypes.number,
     elevation: PropTypes.number,
@@ -17,6 +19,8 @@ const propTypes = {
 };
 
 const defaultProps = {
+    id: '',
+    images: [],
     name: '',
     route: '',
     description: '',
@@ -37,6 +41,8 @@ class FeedItem extends React.Component {
     render() {
         const {
             navigation,
+            id,
+            images,
             name,
             distance,
             elevation,
@@ -55,7 +61,16 @@ class FeedItem extends React.Component {
                         activeOpacity={opacities.regular}
                         onPress={() => {
                             navigation.push('Hike', {
-                                hike: this.props,
+                                hike: {
+                                    id,
+                                    images,
+                                    name,
+                                    distance,
+                                    elevation,
+                                    route,
+                                    city,
+                                    description,
+                                },
                             });
                         }}
                     >
@@ -79,7 +94,10 @@ class FeedItem extends React.Component {
 FeedItem.propTypes = propTypes;
 FeedItem.defaultProps = defaultProps;
 
-export default withNavigation(FeedItem);
+export default function(props) {
+    const navigation = useNavigation();
+    return <FeedItem {...props} navigation={navigation} />;
+}
 
 const CardsContainer = styled.View`
     flex-direction: column;

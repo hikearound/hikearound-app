@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { AppLoading, SplashScreen } from 'expo';
-import { NavigationActions, StackActions } from 'react-navigation';
-import { StatusBar } from 'react-native';
+import { CommonActions } from '@react-navigation/native';
 import { connect } from 'react-redux';
 import firebase from 'firebase';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -24,12 +23,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 class AuthScreen extends React.Component {
-    constructor(props) {
-        super(props);
-        SplashScreen.preventAutoHide();
-        StatusBar.setBarStyle('light-content', true);
-    }
-
     componentWillUnmount() {
         this.authSubscription();
     }
@@ -46,13 +39,9 @@ class AuthScreen extends React.Component {
         const { navigation } = this.props;
 
         navigation.dispatch(
-            StackActions.reset({
+            CommonActions.reset({
                 index: 0,
-                actions: [
-                    NavigationActions.navigate({
-                        routeName: user ? 'Home' : 'Landing',
-                    }),
-                ],
+                routes: [{ name: user ? 'Home' : 'Landing' }],
             }),
         );
 

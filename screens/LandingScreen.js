@@ -1,24 +1,14 @@
 import React from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import { Animated, Easing } from 'react-native';
-import { ThemeContext } from 'react-navigation';
-import { LandingButton, Logo } from '../components/Index';
+import { LandingButton } from '../components/Index';
 import { spacing } from '../constants/Index';
 import { RootView } from '../styles/Screens';
-import { themes } from '../constants/Themes';
+import { withTheme } from '../utils/Themes';
 
 const backgroundImg = require('../assets/landing-bg.png');
 
 class LandingScreen extends React.Component {
-    static contextType = ThemeContext;
-
-    static navigationOptions = () => {
-        return {
-            headerTitle: () => <Logo />,
-            animationEnabled: false,
-        };
-    };
-
     constructor(props) {
         super(props);
         this.state = {
@@ -41,11 +31,10 @@ class LandingScreen extends React.Component {
 
     render() {
         const { left } = this.state;
-        const { navigation } = this.props;
-        const theme = themes[this.context];
+        const { navigation, theme } = this.props;
 
         return (
-            <ThemeProvider theme={theme}>
+            <ThemeProvider theme={theme.colors}>
                 <RootView>
                     <AnimatedBackgroundWrapper style={{ left }}>
                         <LandingBackground source={backgroundImg} />
@@ -75,7 +64,7 @@ class LandingScreen extends React.Component {
     }
 }
 
-export default LandingScreen;
+export default withTheme(LandingScreen);
 
 const BackgroundWrapper = styled.View`
     height: 100%;

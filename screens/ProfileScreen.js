@@ -2,8 +2,6 @@ import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { ThemeContext } from 'react-navigation';
-import { themes } from '../constants/Themes';
 import { Settings, ProfileHeader, ProfileBody } from '../components/Index';
 import EditProfileModal from '../components/modals/EditProfileModal';
 import { getUserFavoriteHikes } from '../utils/User';
@@ -11,6 +9,7 @@ import ProfileLoadingState from '../components/loading/Profile';
 import { initializeHikeData } from '../actions/Hike';
 import { timings } from '../constants/Index';
 import { RootView } from '../styles/Screens';
+import { withTheme } from '../utils/Themes';
 
 const propTypes = {
     dispatchHikeData: PropTypes.func.isRequired,
@@ -32,21 +31,20 @@ function mapDispatchToProps(dispatch) {
 }
 
 class ProfileScreen extends React.Component {
-    static contextType = ThemeContext;
-
-    static navigationOptions = ({ navigation }) => ({
-        headerTitle: 'You',
-        headerRight: () => <Settings navigation={navigation} />,
-    });
-
     constructor(props) {
         super(props);
+        const { navigation } = this.props;
 
         this.state = {
             firstLoad: true,
             maybeShowEmptyState: false,
             hikeData: [],
         };
+
+        navigation.setOptions({
+            title: 'You',
+            headerRight: () => <Settings navigation={navigation} />,
+        });
 
         this.loadingTimeout = setTimeout(() => {
             this.setState({
@@ -101,11 +99,10 @@ class ProfileScreen extends React.Component {
             hikeData,
             shouldLoad,
         } = this.state;
-
-        const theme = themes[this.context];
+        const { theme } = this.props;
 
         return (
-            <ThemeProvider theme={theme}>
+            <ThemeProvider theme={theme.colors}>
                 <RootView>
                     {firstLoad && shouldLoad && <ProfileLoadingState />}
                     {!firstLoad && (
@@ -136,4 +133,4 @@ ProfileScreen.propTypes = propTypes;
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(ProfileScreen);
+)(withTheme(ProfileScreen));

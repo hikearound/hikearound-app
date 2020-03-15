@@ -1,17 +1,13 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
-import {
-    NavigationActions,
-    StackActions,
-    ThemeContext,
-} from 'react-navigation';
-import { Alert, StatusBar, ScrollView } from 'react-native';
+import { CommonActions } from '@react-navigation/native';
+import { Alert, ScrollView } from 'react-native';
 import firebase from 'firebase';
-import { themes } from '../constants/Themes';
 import InputButton from '../components/InputButton';
 import LoadingOverlay from '../components/LoadingOverlay';
 import InputLabelGroup from '../components/InputLabelGroup';
 import { RootView } from '../styles/Screens';
+import { withTheme } from '../utils/Themes';
 
 const signInInputs = [
     {
@@ -31,12 +27,6 @@ const signInInputs = [
 ];
 
 class SignInScreen extends React.Component {
-    static navigationOptions = {
-        headerTitle: 'Sign In',
-    };
-
-    static contextType = ThemeContext;
-
     constructor(props) {
         super(props);
 
@@ -47,10 +37,6 @@ class SignInScreen extends React.Component {
         };
     }
 
-    componentDidMount() {
-        StatusBar.setBarStyle('light-content', true);
-    }
-
     setValue(name, text) {
         this.setState({ [name]: text });
     }
@@ -59,9 +45,9 @@ class SignInScreen extends React.Component {
         const { email, password } = this.state;
         const { navigation } = this.props;
 
-        const resetAction = StackActions.reset({
+        const resetAction = CommonActions.reset({
             index: 0,
-            actions: [NavigationActions.navigate({ routeName: 'Home' })],
+            routes: [{ name: 'Home' }],
         });
 
         this.setState({ loading: true });
@@ -82,10 +68,10 @@ class SignInScreen extends React.Component {
 
     render() {
         const { loading } = this.state;
-        const theme = themes[this.context];
+        const { theme } = this.props;
 
         return (
-            <ThemeProvider theme={theme}>
+            <ThemeProvider theme={theme.colors}>
                 <RootView>
                     <ScrollView
                         keyboardShouldPersistTaps='handled'
@@ -130,4 +116,4 @@ class SignInScreen extends React.Component {
     }
 }
 
-export default SignInScreen;
+export default withTheme(SignInScreen);

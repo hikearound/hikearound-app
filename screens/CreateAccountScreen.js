@@ -1,20 +1,16 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
-import {
-    NavigationActions,
-    StackActions,
-    ThemeContext,
-} from 'react-navigation';
+import { CommonActions } from '@react-navigation/native';
 import { Alert } from 'react-native';
 import firebase from 'firebase';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { themes } from '../constants/Themes';
 import InputButton from '../components/InputButton';
 import LoadingOverlay from '../components/LoadingOverlay';
 import InputLabelGroup from '../components/InputLabelGroup';
 import { updateUserData } from '../actions/User';
 import { RootView } from '../styles/Screens';
+import { withTheme } from '../utils/Themes';
 
 const createAccountInputs = [
     {
@@ -66,12 +62,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 class CreateAccountScreen extends React.Component {
-    static navigationOptions = {
-        headerTitle: 'Create Account',
-    };
-
-    static contextType = ThemeContext;
-
     constructor(props) {
         super(props);
 
@@ -99,9 +89,9 @@ class CreateAccountScreen extends React.Component {
             pushNotifs,
         } = this.props;
 
-        const resetAction = StackActions.reset({
+        const resetAction = CommonActions.reset({
             index: 0,
-            actions: [NavigationActions.navigate({ routeName: 'Home' })],
+            routes: [{ name: 'Home' }],
         });
 
         this.setState({ loading: true });
@@ -133,10 +123,10 @@ class CreateAccountScreen extends React.Component {
 
     render() {
         const { loading } = this.state;
-        const theme = themes[this.context];
+        const { theme } = this.props;
 
         return (
-            <ThemeProvider theme={theme}>
+            <ThemeProvider theme={theme.colors}>
                 <RootView>
                     {createAccountInputs.map(
                         (
@@ -183,4 +173,4 @@ CreateAccountScreen.propTypes = propTypes;
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(CreateAccountScreen);
+)(withTheme(CreateAccountScreen));

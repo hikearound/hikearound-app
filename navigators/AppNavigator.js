@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { createAppContainer } from 'react-navigation';
-import { AppearanceProvider, useColorScheme } from 'react-native-appearance';
+import { NavigationContainer } from '@react-navigation/native';
+import { AppearanceProvider } from 'react-native-appearance';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import SwitchNavigator from './SwitchNavigator';
-
-const Navigation = createAppContainer(SwitchNavigator);
+import { SplashScreen } from 'expo';
+import { StatusBar } from 'react-native';
+import TabNavigator from './TabNavigator';
+import { defaultTheme, darkTheme } from '../constants/Themes';
+import { withTheme } from '../utils/Themes';
 
 const propTypes = {
     darkMode: PropTypes.bool,
@@ -26,26 +28,37 @@ function mapDispatchToProps() {
     return {};
 }
 
-function App({ darkMode }) {
-    let theme = useColorScheme();
-
-    if (darkMode) {
-        theme = 'dark';
+class AppNavigator extends React.PureComponent {
+    constructor(props) {
+        super(props);
+        SplashScreen.preventAutoHide();
+        StatusBar.setBarStyle('light-content', true);
     }
 
-    return (
-        <SafeAreaProvider>
-            <AppearanceProvider>
-                <Navigation theme={theme} />
-            </AppearanceProvider>
-        </SafeAreaProvider>
-    );
+    render() {
+        const { scheme, darkMode } = this.props;
+
+        let theme = defaultTheme;
+        if (darkMode || scheme === 'dark') {
+            theme = darkTheme;
+        }
+
+        return (
+            <SafeAreaProvider>
+                <AppearanceProvider>
+                    <NavigationContainer theme={theme}>
+                        <TabNavigator />
+                    </NavigationContainer>
+                </AppearanceProvider>
+            </SafeAreaProvider>
+        );
+    }
 }
 
-App.propTypes = propTypes;
-App.defaultProps = defaultProps;
+AppNavigator.propTypes = propTypes;
+AppNavigator.defaultProps = defaultProps;
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(App);
+)(withTheme(AppNavigator));

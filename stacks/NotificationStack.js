@@ -1,38 +1,38 @@
 import React from 'react';
-import { createStackNavigator } from 'react-navigation-stack';
-import { themes } from '../constants/Themes';
-import { BellIcon } from '../icons/Index';
+import { createStackNavigator } from '@react-navigation/stack';
 import { NotificationScreen } from '../screens/Index';
-import {
-    mode,
-    headerMode,
-    defaultNavigationOptions,
-} from '../constants/Navigation';
+import { mode, headerMode, screenOptions } from '../constants/Navigation';
+import { withTheme } from '../utils/Themes';
 
-const NotificationStack = createStackNavigator(
-    {
-        Notification: NotificationScreen,
-    },
-    {
-        mode,
-        headerMode,
-        defaultNavigationOptions,
-    },
-);
+const Stack = createStackNavigator();
 
-NotificationStack.navigationOptions = ({ theme }) => {
-    return {
-        tabBarLabel: 'Notifications',
-        tabBarIcon: ({ focused }) => (
-            <BellIcon
-                fill={
-                    focused
-                        ? themes[theme].navActive
-                        : themes[theme].navInactive
-                }
+class NotificationStack extends React.PureComponent {
+    renderNotificationScreen = () => {
+        return (
+            <Stack.Screen
+                name='Notification'
+                component={NotificationScreen}
+                options={{
+                    headerTitle: 'Notifications',
+                }}
             />
-        ),
+        );
     };
-};
 
-export default NotificationStack;
+    render() {
+        const { theme } = this.props;
+
+        return (
+            <Stack.Navigator
+                initialRouteName='Notification'
+                screenOptions={screenOptions(theme.colors.headerStyle)}
+                headerMode={headerMode}
+                mode={mode}
+            >
+                {this.renderNotificationScreen()}
+            </Stack.Navigator>
+        );
+    }
+}
+
+export default withTheme(NotificationStack);

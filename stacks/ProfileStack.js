@@ -1,47 +1,58 @@
 import React from 'react';
-import { createStackNavigator } from 'react-navigation-stack';
-import { themes } from '../constants/Themes';
-import { PersonIcon } from '../icons/Index';
+import { createStackNavigator } from '@react-navigation/stack';
 import {
     ProfileScreen,
     SettingsScreen,
     HikeScreen,
     NotificationSettingsScreen,
 } from '../screens/Index';
-import {
-    mode,
-    headerMode,
-    defaultNavigationOptions,
-} from '../constants/Navigation';
+import { mode, headerMode, screenOptions } from '../constants/Navigation';
+import { withTheme } from '../utils/Themes';
 
-const ProfileStack = createStackNavigator(
-    {
-        Profile: ProfileScreen,
-        Settings: SettingsScreen,
-        NotificationSettings: NotificationSettingsScreen,
-        Hike: HikeScreen,
-    },
-    {
-        mode,
-        headerMode,
-        defaultNavigationOptions,
-    },
-);
+const Stack = createStackNavigator();
 
-ProfileStack.navigationOptions = ({ theme }) => {
-    return {
-        tabBarLabel: 'You',
-        tabBarIcon: ({ focused }) => (
-            <PersonIcon
-                height={25}
-                fill={
-                    focused
-                        ? themes[theme].navActive
-                        : themes[theme].navInactive
-                }
-            />
-        ),
+class ProfileStack extends React.PureComponent {
+    renderProfileScreen = () => {
+        return <Stack.Screen name='Profile' component={ProfileScreen} />;
     };
-};
 
-export default ProfileStack;
+    renderHikeScreen = () => {
+        return <Stack.Screen name='Hike' component={HikeScreen} />;
+    };
+
+    renderSettingsScreen = () => {
+        return <Stack.Screen name='Settings' component={SettingsScreen} />;
+    };
+
+    renderNotificationSettingsScreen = () => {
+        return (
+            <Stack.Screen
+                name='NotificationSettings'
+                component={NotificationSettingsScreen}
+                options={{
+                    headerTitle: 'Notifications',
+                }}
+            />
+        );
+    };
+
+    render() {
+        const { theme } = this.props;
+
+        return (
+            <Stack.Navigator
+                initialRouteName='Profile'
+                screenOptions={screenOptions(theme.colors.headerStyle)}
+                headerMode={headerMode}
+                mode={mode}
+            >
+                {this.renderProfileScreen()}
+                {this.renderHikeScreen()}
+                {this.renderSettingsScreen()}
+                {this.renderNotificationSettingsScreen()}
+            </Stack.Navigator>
+        );
+    }
+}
+
+export default withTheme(ProfileStack);

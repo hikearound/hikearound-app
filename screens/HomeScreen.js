@@ -3,10 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Linking } from 'expo';
 import { RefreshControl } from 'react-native';
-import { ThemeContext } from 'react-navigation';
 import { ThemeProvider } from 'styled-components';
-import { Logo, FeedList, Sort } from '../components/Index';
-import { themes } from '../constants/Themes';
+import { FeedList, Sort } from '../components/Index';
 import { getFeedHikeCount, openHikeScreen } from '../utils/Hike';
 import { cacheHikeImage } from '../utils/Image';
 import HomeLoadingState from '../components/loading/Home';
@@ -18,6 +16,7 @@ import { getHikeIdFromUrl } from '../utils/Link';
 import { feedActionSheet } from '../components/action_sheets/Feed';
 import { RootView } from '../styles/Screens';
 import { getBadgeNumber, clearBadge } from '../utils/Notifications';
+import { withTheme } from '../utils/Themes';
 
 const propTypes = {
     dispatchUserData: PropTypes.func.isRequired,
@@ -39,21 +38,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 class HomeScreen extends React.Component {
-    static contextType = ThemeContext;
-
-    static navigationOptions = ({ navigation, navigationOptions, theme }) => {
-        const { headerStyle } = navigationOptions;
-
-        headerStyle.backgroundColor = themes[theme].headerStyle;
-
-        return {
-            headerTitle: () => <Logo />,
-            headerRight: () => <Sort navigation={navigation} />,
-            animationEnabled: false,
-            headerStyle,
-        };
-    };
-
     constructor(props) {
         super(props);
         const { navigation } = this.props;
@@ -71,8 +55,8 @@ class HomeScreen extends React.Component {
 
         this.feedActionSheet = feedActionSheet.bind(this);
 
-        navigation.setParams({
-            showActionSheet: this.feedActionSheet,
+        navigation.setOptions({
+            headerRight: () => <Sort onPress={this.feedActionSheet} />,
         });
     }
 
@@ -201,18 +185,18 @@ class HomeScreen extends React.Component {
 
     render() {
         const { loading, hikes, firstLoad } = this.state;
+        const { theme } = this.props;
         const feedRef = React.createRef();
-        const theme = themes[this.context];
 
         return (
-            <ThemeProvider theme={theme}>
+            <ThemeProvider theme={theme.colors}>
                 <RootView>
                     {firstLoad && <HomeLoadingState />}
                     {!firstLoad && (
                         <FeedList
                             refreshControl={
                                 <RefreshControl
-                                    tintColor={theme.refreshControlTint}
+                                    tintColor={theme.colors.refreshControlTint}
                                     refreshing={loading}
                                     onRefresh={this.onRefresh}
                                 />
@@ -233,4 +217,4 @@ HomeScreen.propTypes = propTypes;
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(HomeScreen);
+)(withTheme(HomeScreen));

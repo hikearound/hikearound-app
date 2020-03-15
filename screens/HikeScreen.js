@@ -1,6 +1,5 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
-import { ThemeContext } from 'react-navigation';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Share } from 'react-native';
@@ -8,11 +7,11 @@ import openMap from 'react-native-open-maps';
 import { HikeBody, Overflow, Toast, MapModal } from '../components/Index';
 import { hikeActionSheet } from '../components/action_sheets/Hike';
 import { getMapSetting } from '../utils/Settings';
-import { themes } from '../constants/Themes';
 import { getHikeXmlUrl, parseHikeXml } from '../utils/Hike';
 import { getToastText } from '../utils/Toast';
 import { copyLink } from '../actions/Hike';
 import { RootView } from '../styles/Screens';
+import { withTheme } from '../utils/Themes';
 
 const shareAction = 'CopyToPasteboard';
 const baseUrl = 'https://tryhikearound.com/hike';
@@ -38,20 +37,10 @@ function mapDispatchToProps(dispatch) {
 }
 
 class HikeScreen extends React.Component {
-    static contextType = ThemeContext;
-
-    static navigationOptions = ({ navigation }) => {
-        const hike = navigation.getParam('hike');
-        return {
-            title: hike.name || 'Hike',
-            headerRight: () => <Overflow navigation={navigation} />,
-        };
-    };
-
     constructor(props, context) {
         super(props, context);
-        const { navigation } = this.props;
-        const hike = navigation.getParam('hike');
+        const { navigation, route } = this.props;
+        const { hike } = route.params;
 
         this.state = {
             id: hike.id,
@@ -61,8 +50,9 @@ class HikeScreen extends React.Component {
 
         this.hikeActionSheet = hikeActionSheet.bind(this);
 
-        navigation.setParams({
-            showActionSheet: this.hikeActionSheet,
+        navigation.setOptions({
+            title: hike.name || 'Hike',
+            headerRight: () => <Overflow onPress={this.hikeActionSheet} />,
         });
     }
 
@@ -155,13 +145,11 @@ class HikeScreen extends React.Component {
 
     render() {
         const { coordinates, region, toastText } = this.state;
-        const { navigation } = this.props;
-
-        const hike = navigation.getParam('hike');
-        const theme = themes[this.context];
+        const { theme, route } = this.props;
+        const { hike } = route.params;
 
         return (
-            <ThemeProvider theme={theme}>
+            <ThemeProvider theme={theme.colors}>
                 <RootView>
                     <Toast text={toastText} />
                     <HikeBody
@@ -189,4 +177,4 @@ HikeScreen.propTypes = propTypes;
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(HikeScreen);
+)(withTheme(HikeScreen));

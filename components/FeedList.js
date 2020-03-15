@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FlatList } from 'react-navigation';
+import { FlatList } from 'react-native';
+import { useScrollToTop } from '@react-navigation/native';
 import FeedItem from './FeedItem';
 import FeedFooter from './FeedFooter';
 
@@ -50,6 +51,14 @@ class FeedList extends React.Component {
     }
 }
 
-FeedList.propTypes = propTypes;
+function FeedListFunction(props) {
+    const { feedRef } = props;
+    useScrollToTop(feedRef);
 
-export default FeedList;
+    return <FeedList {...props} />;
+}
+
+FeedList.propTypes = propTypes;
+FeedListFunction.propTypes = propTypes;
+
+export default FeedListFunction;
