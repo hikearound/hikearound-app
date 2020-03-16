@@ -21,7 +21,7 @@ class HomeStack extends React.Component {
 
         if (route.state) {
             const { name } = route.state.routes[route.state.index];
-            if (name === 'Home' || name === 'Hike') {
+            if (name === 'Home') {
                 tabBarVisible = true;
             }
         }
@@ -49,7 +49,6 @@ class HomeStack extends React.Component {
                 options={() => ({
                     headerTitle: () => <Logo />,
                     animationEnabled: false,
-                    tabBarVisible: false,
                 })}
             />
         );
