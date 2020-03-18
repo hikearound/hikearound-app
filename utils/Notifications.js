@@ -1,8 +1,6 @@
-import firebase from 'firebase';
 import { Notifications } from 'expo';
 import * as Permissions from 'expo-permissions';
-
-const db = firebase.firestore();
+import { db, auth } from '../lib/Fire';
 
 export async function registerForPushNotifications() {
     const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
@@ -11,7 +9,7 @@ export async function registerForPushNotifications() {
         return;
     }
 
-    const user = firebase.auth().currentUser;
+    const user = auth.currentUser;
     const notificationToken = await Notifications.getExpoPushTokenAsync();
 
     db.collection('users')

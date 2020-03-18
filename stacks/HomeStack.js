@@ -21,7 +21,7 @@ class HomeStack extends React.Component {
 
         if (route.state) {
             const { name } = route.state.routes[route.state.index];
-            if (name === 'Home') {
+            if (name === 'Home' || name === 'Hike') {
                 tabBarVisible = true;
             }
         }

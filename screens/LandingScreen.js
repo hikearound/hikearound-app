@@ -11,6 +11,12 @@ const backgroundImg = require('../assets/landing-bg.png');
 class LandingScreen extends React.Component {
     constructor(props) {
         super(props);
+        const { navigation } = this.props;
+
+        navigation.setOptions({
+            headerLeft: () => null,
+        });
+
         this.state = {
             left: new Animated.Value(0),
         };

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { opacities, settingsItems } from '../../constants/Index';
 import { ItemContainer, ItemText } from '../../styles/Settings';
 import { logoutUser } from '../../utils/User';
@@ -11,10 +12,10 @@ const propTypes = {
 
 class ActionItem extends React.Component {
     itemPress = async () => {
-        const { item } = this.props;
+        const { item, navigation } = this.props;
 
         if (item.type === settingsItems.logout) {
-            logoutUser();
+            logoutUser(navigation);
         }
     };
 
@@ -36,4 +37,7 @@ class ActionItem extends React.Component {
 
 ActionItem.propTypes = propTypes;
 
-export default ActionItem;
+export default function(props) {
+    const navigation = useNavigation();
+    return <ActionItem {...props} navigation={navigation} />;
+}

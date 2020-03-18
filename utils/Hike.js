@@ -1,8 +1,5 @@
-import firebase from 'firebase';
 import { parseString } from 'react-native-xml2js';
-
-const db = firebase.firestore();
-const storage = firebase.storage();
+import { db, storage, auth } from '../lib/Fire';
 
 export async function getHikeSnapshot(id) {
     return db
@@ -25,7 +22,7 @@ export async function getHikeXmlUrl(id) {
 }
 
 export function writeFavoriteHike(hikeData) {
-    const { uid } = firebase.auth().currentUser;
+    const { uid } = auth.currentUser;
     db.collection('favoritedHikes')
         .doc(uid)
         .collection('hikes')
@@ -34,7 +31,7 @@ export function writeFavoriteHike(hikeData) {
 }
 
 export function removeFavoriteHike(hikeData) {
-    const { uid } = firebase.auth().currentUser;
+    const { uid } = auth.currentUser;
     db.collection('favoritedHikes')
         .doc(uid)
         .collection('hikes')

@@ -1,6 +1,4 @@
-import firebase from 'firebase';
-
-const db = firebase.firestore();
+import { db } from '../lib/Fire';
 
 export async function pageFeed(pageSize, lastKey, sortDirection) {
     let hikeRef = db
