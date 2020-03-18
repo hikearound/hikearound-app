@@ -1,41 +1,32 @@
 import firebase from 'firebase';
 import { parseString } from 'react-native-xml2js';
 
+const db = firebase.firestore();
+const storage = firebase.storage();
+
 export async function getHikeSnapshot(id) {
-    return firebase
-        .firestore()
+    return db
         .collection('hikes')
         .doc(id)
         .get();
 }
 
 export async function getFeedHikeCount() {
-    const snap = await firebase
-        .firestore()
-        .collection('hikes')
-        .get();
+    const snap = await db.collection('hikes').get();
     return snap.size;
 }
 
 export async function getHikeImage(id, index) {
-    return firebase
-        .storage()
-        .ref(`hikes/${id}/images/${index}.jpg`)
-        .getDownloadURL();
+    return storage.ref(`hikes/${id}/images/${index}.jpg`).getDownloadURL();
 }
 
 export async function getHikeXmlUrl(id) {
-    return firebase
-        .storage()
-        .ref(`gpx/${id}.gpx`)
-        .getDownloadURL();
+    return storage.ref(`gpx/${id}.gpx`).getDownloadURL();
 }
 
 export function writeFavoriteHike(hikeData) {
     const { uid } = firebase.auth().currentUser;
-    firebase
-        .firestore()
-        .collection('favoritedHikes')
+    db.collection('favoritedHikes')
         .doc(uid)
         .collection('hikes')
         .doc(hikeData.id)
@@ -44,9 +35,7 @@ export function writeFavoriteHike(hikeData) {
 
 export function removeFavoriteHike(hikeData) {
     const { uid } = firebase.auth().currentUser;
-    firebase
-        .firestore()
-        .collection('favoritedHikes')
+    db.collection('favoritedHikes')
         .doc(uid)
         .collection('hikes')
         .doc(hikeData.id)

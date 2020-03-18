@@ -1,8 +1,9 @@
 import firebase from 'firebase';
 
+const db = firebase.firestore();
+
 export async function pageFeed(pageSize, lastKey, sortDirection) {
-    let hikeRef = firebase
-        .firestore()
+    let hikeRef = db
         .collection('hikes')
         .orderBy('timestamp', sortDirection)
         .limit(pageSize);

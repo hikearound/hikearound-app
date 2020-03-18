@@ -2,6 +2,10 @@ import firebase from 'firebase';
 import { Updates } from 'expo';
 import { cacheImages } from './Image';
 
+const db = firebase.firestore();
+const storage = firebase.storage();
+const auth = firebase.auth();
+
 export async function writeUserData(userData) {
     const user = firebase.auth().currentUser;
     const idToken = await user.getIdToken(true);
@@ -11,9 +15,7 @@ export async function writeUserData(userData) {
         displayName: userData.name,
     });
 
-    firebase
-        .firestore()
-        .collection('users')
+    db.collection('users')
         .doc(user.uid)
         .set(userData, { merge: true });
 }
@@ -22,9 +24,7 @@ export function writeMapData(map) {
     const { uid } = firebase.auth().currentUser;
     const mapData = { map };
 
-    firebase
-        .firestore()
-        .collection('users')
+    db.collection('users')
         .doc(uid)
         .set(mapData, { merge: true });
 }
@@ -33,9 +33,7 @@ export function writeDarkMode(darkMode) {
     const { uid } = firebase.auth().currentUser;
     const darkModeData = { darkMode };
 
-    firebase
-        .firestore()
-        .collection('users')
+    db.collection('users')
         .doc(uid)
         .set(darkModeData, { merge: true });
 }
@@ -43,9 +41,7 @@ export function writeDarkMode(darkMode) {
 export function writeNotifData(notifData) {
     const { uid } = firebase.auth().currentUser;
 
-    firebase
-        .firestore()
-        .collection('users')
+    db.collection('users')
         .doc(uid)
         .set(notifData, { merge: true });
 }
@@ -53,8 +49,7 @@ export function writeNotifData(notifData) {
 export async function writePhotoData(photoData) {
     const { uid } = firebase.auth().currentUser;
 
-    await firebase
-        .storage()
+    await storage
         .ref()
         .child(`images/users/${uid}.jpg`)
         .put(photoData.blob);
@@ -65,8 +60,7 @@ export async function writePhotoData(photoData) {
 export async function getUserFavoriteHikes() {
     const { uid } = firebase.auth().currentUser;
 
-    return firebase
-        .firestore()
+    return db
         .collection('favoritedHikes')
         .doc(uid)
         .collection('hikes')
@@ -77,8 +71,7 @@ export async function getAvatarUri() {
     const { uid } = firebase.auth().currentUser;
     let avatarUri = null;
 
-    await firebase
-        .storage()
+    await storage
         .ref(`images/users/${uid}.jpg`)
         .getDownloadURL()
         .catch(() => {
@@ -94,20 +87,16 @@ export async function getAvatarUri() {
 export async function getUserData() {
     const { uid } = firebase.auth().currentUser;
 
-    return firebase
-        .firestore()
+    return db
         .collection('users')
         .doc(uid)
         .get();
 }
 
 export function logoutUser() {
-    firebase
-        .auth()
-        .signOut()
-        .then(() => {
-            Updates.reload();
-        });
+    auth.signOut().then(() => {
+        Updates.reload();
+    });
 }
 
 export async function getUserProfileData(
