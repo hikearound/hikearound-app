@@ -1,7 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { TouchableOpacity } from 'react-native';
-import { opacities, settingsItems } from '../../constants/Index';
+import { Ionicons } from '@expo/vector-icons';
+import {
+    opacities,
+    settingsItems,
+    colors,
+    spacing,
+} from '../../constants/Index';
 import { ItemContainer, ItemText } from '../../styles/Settings';
 
 const propTypes = {
@@ -27,6 +33,16 @@ class PushItem extends React.Component {
             >
                 <ItemContainer>
                     <ItemText key={item.key}>{item.name}</ItemText>
+                    <Ionicons
+                        name='ios-arrow-forward'
+                        size={25}
+                        color={colors.gray}
+                        style={{
+                            right: parseInt(spacing.small, 10),
+                            top: 12,
+                            position: 'absolute',
+                        }}
+                    />
                 </ItemContainer>
             </TouchableOpacity>
         );
