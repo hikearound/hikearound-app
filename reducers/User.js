@@ -1,17 +1,6 @@
-import { avatar } from '../constants/Images';
+import { user } from '../constants/Reducers';
 
-const initialState = {
-    name: '',
-    location: '',
-    map: 'Apple Maps',
-    darkMode: false,
-};
-
-initialState.avatar = avatar;
-initialState.emailNotifs = { enabled: true };
-initialState.pushNotifs = { enabled: true };
-
-export default function userReducer(state = initialState, action) {
+export default function userReducer(state = user, action) {
     switch (action.type) {
         case 'INITIALIZE_USER_DATA':
             return {

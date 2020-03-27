@@ -1,9 +1,6 @@
-const initialState = {
-    action: '',
-    imageIndex: 0,
-};
+import { modal } from '../constants/Reducers';
 
-export default function modalReducer(state = initialState, action) {
+export default function modalReducer(state = modal, action) {
     switch (action.type) {
         case 'SHOW_LIGHTBOX':
             return { ...state, action: 'showLightbox' };

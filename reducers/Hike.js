@@ -1,10 +1,6 @@
-const initialState = {
-    action: '',
-    hikeData: [],
-    updatedHikeData: {},
-};
+import { hike } from '../constants/Reducers';
 
-export default function hikeReducer(state = initialState, action) {
+export default function hikeReducer(state = hike, action) {
     switch (action.type) {
         case 'INITIALIZE_HIKE_DATA':
             return {
