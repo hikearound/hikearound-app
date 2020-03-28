@@ -1,5 +1,6 @@
 import { cacheImages } from './Image';
 import { db, storage, auth } from '../lib/Fire';
+import { notifs } from '../constants/Reducers';
 
 export async function writeUserData(userData) {
     const user = auth.currentUser;
@@ -102,17 +103,32 @@ export async function getUserProfileData(
     dispatchAvatar,
     avatar,
 ) {
-    const userData = await getUserData();
-    dispatchUserData(userData.data());
-
+    let userData = await getUserData();
     let avatarUri = await getAvatarUri();
+
+    userData = userData.data();
+
+    if (!userData.notifs) {
+        userData = this.patchUserData(userData);
+    }
+
     if (avatarUri) {
         dispatchAvatar(avatarUri);
     } else {
         avatarUri = avatar;
     }
 
+    dispatchUserData(userData);
     cacheImages([avatarUri]);
+}
+
+export function patchUserData(userData) {
+    userData.notifs = {};
+
+    userData.notifs.email = notifs;
+    userData.notifs.push = notifs;
+
+    return userData;
 }
 
 export default {
