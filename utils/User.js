@@ -123,10 +123,10 @@ export async function getUserProfileData(
 }
 
 export function patchUserData(userData) {
-    userData.notifs = {};
-
-    userData.notifs.email = notifs;
-    userData.notifs.push = notifs;
+    userData.notifs = {
+        email: notifs,
+        push: notifs,
+    };
 
     return userData;
 }
