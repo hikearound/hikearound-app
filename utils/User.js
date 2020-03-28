@@ -38,7 +38,7 @@ export function writeNotifData(notifData) {
 
     db.collection('users')
         .doc(uid)
-        .set(notifData, { merge: true });
+        .set({ notifs: notifData }, { merge: true });
 }
 
 export async function writePhotoData(photoData) {

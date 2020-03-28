@@ -1,6 +1,6 @@
-import { user } from '../constants/Reducers';
+import { userState } from '../constants/Reducers';
 
-export default function userReducer(state = user, action) {
+export default function userReducer(state = userState, action) {
     switch (action.type) {
         case 'INITIALIZE_USER_DATA':
             return {
@@ -9,12 +9,12 @@ export default function userReducer(state = user, action) {
                 location: action.userData.location,
                 map: action.userData.map,
                 darkMode: action.userData.darkMode,
+                notifs: action.userData.notifs,
             };
         case 'INITIALIZE_NOTIFS':
             return {
                 ...state,
-                emailNotifs: action.userData.emailNotifs,
-                pushNotifs: action.userData.pushNotifs,
+                notifs: action.userData.notifs,
             };
         case 'INITIALIZE_AVATAR':
             return {
@@ -45,8 +45,7 @@ export default function userReducer(state = user, action) {
         case 'UPDATE_NOTIFS':
             return {
                 ...state,
-                emailNotifs: action.notifData.emailNotifs,
-                pushNotifs: action.notifData.pushNotifs,
+                notifs: action.notifData,
             };
         default:
             return state;

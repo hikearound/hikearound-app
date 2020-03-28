@@ -41,8 +41,7 @@ const propTypes = {
     map: PropTypes.string.isRequired,
     location: PropTypes.string.isRequired,
     darkMode: PropTypes.bool.isRequired,
-    emailNotifs: PropTypes.object.isRequired,
-    pushNotifs: PropTypes.object.isRequired,
+    notifs: PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state) {
@@ -50,8 +49,7 @@ function mapStateToProps(state) {
         map: state.userReducer.map,
         location: state.userReducer.location,
         darkMode: state.userReducer.darkMode,
-        emailNotifs: state.userReducer.emailNotifs,
-        pushNotifs: state.userReducer.pushNotifs,
+        notifs: state.userReducer.notifs,
     };
 }
 
@@ -85,8 +83,7 @@ class CreateAccountScreen extends React.Component {
             location,
             darkMode,
             map,
-            emailNotifs,
-            pushNotifs,
+            notifs,
         } = this.props;
 
         const resetAction = CommonActions.reset({
@@ -113,8 +110,7 @@ class CreateAccountScreen extends React.Component {
                         location,
                         darkMode,
                         map,
-                        emailNotifs,
-                        pushNotifs,
+                        notifs,
                     });
                     navigation.dispatch(resetAction);
                 }

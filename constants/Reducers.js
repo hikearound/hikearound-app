@@ -1,17 +1,17 @@
 import { avatar } from './Images';
 
-export const hike = {
+export const hikeState = {
     action: '',
     hikeData: [],
     updatedHikeData: {},
 };
 
-export const modal = {
+export const modalState = {
     action: '',
     imageIndex: 0,
 };
 
-const notifs = {
+export const notifs = {
     enabled: true,
     digest: {
         enabled: true,
@@ -21,12 +21,13 @@ const notifs = {
 export const user = {
     name: '',
     location: '',
+    notifs: {},
     map: 'Apple Maps',
     darkMode: false,
 };
 
 user.avatar = avatar;
-user.emailNotifs = notifs;
-user.pushNotifs = notifs;
+user.notifs.email = notifs;
+user.notifs.push = notifs;
 
-export default { hike, modal, user };
+export const userState = user;
