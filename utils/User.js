@@ -140,4 +140,5 @@ export default {
     getUserData,
     getUserProfileData,
     writeNotifData,
+    patchUserData,
 };
