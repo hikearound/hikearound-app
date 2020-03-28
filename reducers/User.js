@@ -11,11 +11,6 @@ export default function userReducer(state = userState, action) {
                 darkMode: action.userData.darkMode,
                 notifs: action.userData.notifs,
             };
-        case 'INITIALIZE_NOTIFS':
-            return {
-                ...state,
-                notifs: action.userData.notifs,
-            };
         case 'INITIALIZE_AVATAR':
             return {
                 ...state,
@@ -45,7 +40,7 @@ export default function userReducer(state = userState, action) {
         case 'UPDATE_NOTIFS':
             return {
                 ...state,
-                notifs: action.notifData,
+                notifs: action.notifs,
             };
         default:
             return state;

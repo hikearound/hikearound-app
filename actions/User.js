@@ -34,7 +34,7 @@ export const updateDarkMode = (darkMode) => {
     return { type: 'UPDATE_DARK_MODE', darkMode };
 };
 
-export const updateNotifs = (notifData) => {
-    writeNotifData(notifData);
-    return { type: 'UPDATE_NOTIFS', notifData };
+export const updateNotifs = (notifs) => {
+    writeNotifData(notifs);
+    return { type: 'UPDATE_NOTIFS', notifs };
 };
