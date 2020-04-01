@@ -86,10 +86,7 @@ class HikeMapWrapper extends React.Component {
 HikeMapWrapper.propTypes = propTypes;
 HikeMapWrapper.defaultProps = defaultProps;
 
-export default connect(
-    null,
-    mapDispatchToProps,
-)(HikeMapWrapper);
+export default connect(null, mapDispatchToProps)(HikeMapWrapper);
 
 const MapViewWrapper = styled.View`
     flex: 1;

@@ -119,7 +119,4 @@ class GroupItem extends React.PureComponent {
 
 GroupItem.propTypes = propTypes;
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps,
-)(GroupItem);
+export default connect(mapStateToProps, mapDispatchToProps)(GroupItem);

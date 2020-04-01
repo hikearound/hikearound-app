@@ -37,7 +37,7 @@ class ActionItem extends React.Component {
 
 ActionItem.propTypes = propTypes;
 
-export default function(props) {
+export default function (props) {
     const navigation = useNavigation();
     return <ActionItem {...props} navigation={navigation} />;
 }

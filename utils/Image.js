@@ -28,7 +28,7 @@ export async function cacheHikeImage(hike) {
 export async function getBlob(uri) {
     const blob = await new Promise((resolve) => {
         const xhr = new XMLHttpRequest();
-        xhr.onload = function() {
+        xhr.onload = function () {
             resolve(xhr.response);
         };
         xhr.responseType = 'blob';

@@ -11,44 +11,33 @@ export async function writeUserData(userData) {
         displayName: userData.name,
     });
 
-    db.collection('users')
-        .doc(user.uid)
-        .set(userData, { merge: true });
+    db.collection('users').doc(user.uid).set(userData, { merge: true });
 }
 
 export function writeMapData(map) {
     const { uid } = auth.currentUser;
     const mapData = { map };
 
-    db.collection('users')
-        .doc(uid)
-        .set(mapData, { merge: true });
+    db.collection('users').doc(uid).set(mapData, { merge: true });
 }
 
 export function writeDarkMode(darkMode) {
     const { uid } = auth.currentUser;
     const darkModeData = { darkMode };
 
-    db.collection('users')
-        .doc(uid)
-        .set(darkModeData, { merge: true });
+    db.collection('users').doc(uid).set(darkModeData, { merge: true });
 }
 
 export function writeNotifData(notifData) {
     const { uid } = auth.currentUser;
 
-    db.collection('users')
-        .doc(uid)
-        .set({ notifs: notifData }, { merge: true });
+    db.collection('users').doc(uid).set({ notifs: notifData }, { merge: true });
 }
 
 export async function writePhotoData(photoData) {
     const { uid } = auth.currentUser;
 
-    await storage
-        .ref()
-        .child(`images/users/${uid}.jpg`)
-        .put(photoData.blob);
+    await storage.ref().child(`images/users/${uid}.jpg`).put(photoData.blob);
 
     photoData.blob.close();
 }
@@ -56,11 +45,7 @@ export async function writePhotoData(photoData) {
 export async function getUserFavoriteHikes() {
     const { uid } = auth.currentUser;
 
-    return db
-        .collection('favoritedHikes')
-        .doc(uid)
-        .collection('hikes')
-        .get();
+    return db.collection('favoritedHikes').doc(uid).collection('hikes').get();
 }
 
 export async function getAvatarUri() {
@@ -83,10 +68,7 @@ export async function getAvatarUri() {
 export async function getUserData() {
     const { uid } = auth.currentUser;
 
-    return db
-        .collection('users')
-        .doc(uid)
-        .get();
+    return db.collection('users').doc(uid).get();
 }
 
 export function logoutUser(navigation) {

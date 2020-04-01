@@ -89,7 +89,4 @@ class SwitchItem extends React.PureComponent {
 
 SwitchItem.propTypes = propTypes;
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps,
-)(SwitchItem);
+export default connect(mapStateToProps, mapDispatchToProps)(SwitchItem);

@@ -173,10 +173,7 @@ class EditProfileModal extends ModalBase {
 
 EditProfileModal.propTypes = propTypes;
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps,
-)(EditProfileModal);
+export default connect(mapStateToProps, mapDispatchToProps)(EditProfileModal);
 
 const ModalRoot = styled.View`
     display: flex;

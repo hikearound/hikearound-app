@@ -73,7 +73,4 @@ class AuthScreen extends React.Component {
 
 AuthScreen.propTypes = propTypes;
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps,
-)(AuthScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(AuthScreen);

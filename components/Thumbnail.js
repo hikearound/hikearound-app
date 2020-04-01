@@ -57,10 +57,7 @@ class Thumbnail extends React.PureComponent {
 Thumbnail.propTypes = propTypes;
 Thumbnail.defaultProps = defaultProps;
 
-export default connect(
-    null,
-    mapDispatchToProps,
-)(Thumbnail);
+export default connect(null, mapDispatchToProps)(Thumbnail);
 
 const ThumbnailImage = styled.Image`
     display: flex;

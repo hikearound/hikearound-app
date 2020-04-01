@@ -139,7 +139,4 @@ class Avatar extends React.Component {
 Avatar.propTypes = propTypes;
 Avatar.defaultProps = defaultProps;
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps,
-)(Avatar);
+export default connect(mapStateToProps, mapDispatchToProps)(Avatar);

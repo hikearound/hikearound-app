@@ -98,10 +98,7 @@ class ProfileHeader extends React.PureComponent {
 ProfileHeader.propTypes = propTypes;
 ProfileHeader.defaultProps = defaultProps;
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps,
-)(ProfileHeader);
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileHeader);
 
 const HeaderWrapper = styled.ImageBackground`
     padding-left: ${spacing.small}px;

@@ -51,7 +51,7 @@ class HikeListItem extends React.PureComponent {
 
 HikeListItem.propTypes = propTypes;
 
-export default function(props) {
+export default function (props) {
     const navigation = useNavigation();
     return <HikeListItem {...props} navigation={navigation} />;
 }

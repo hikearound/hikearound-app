@@ -94,7 +94,7 @@ class FeedItem extends React.Component {
 FeedItem.propTypes = propTypes;
 FeedItem.defaultProps = defaultProps;
 
-export default function(props) {
+export default function (props) {
     const navigation = useNavigation();
     return <FeedItem {...props} navigation={navigation} />;
 }

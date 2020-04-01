@@ -145,7 +145,4 @@ class FavoriteButton extends React.Component {
 
 FavoriteButton.propTypes = propTypes;
 
-export default connect(
-    null,
-    mapDispatchToProps,
-)(FavoriteButton);
+export default connect(null, mapDispatchToProps)(FavoriteButton);

@@ -102,10 +102,7 @@ class ModalDismiss extends React.PureComponent {
 ModalDismiss.propTypes = propTypes;
 ModalDismiss.defaultProps = defaultProps;
 
-export default connect(
-    null,
-    mapDispatchToProps,
-)(ModalDismiss);
+export default connect(null, mapDispatchToProps)(ModalDismiss);
 
 const DismissIconWrapper = styled.View`
     border-radius: ${DISMISS_ICON_SIZE}px;

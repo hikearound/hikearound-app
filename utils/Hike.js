@@ -2,10 +2,7 @@ import { parseString } from 'react-native-xml2js';
 import { db, storage, auth } from '../lib/Fire';
 
 export async function getHikeSnapshot(id) {
-    return db
-        .collection('hikes')
-        .doc(id)
-        .get();
+    return db.collection('hikes').doc(id).get();
 }
 
 export async function getFeedHikeCount() {

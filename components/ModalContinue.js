@@ -54,10 +54,7 @@ class ModalDismiss extends React.PureComponent {
 ModalDismiss.propTypes = propTypes;
 ModalDismiss.defaultProps = defaultProps;
 
-export default connect(
-    null,
-    mapDispatchToProps,
-)(ModalDismiss);
+export default connect(null, mapDispatchToProps)(ModalDismiss);
 
 const DismissText = styled.Text`
     color: ${colors.white};

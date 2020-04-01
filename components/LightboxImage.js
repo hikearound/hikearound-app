@@ -73,9 +73,6 @@ class LightboxImage extends React.Component {
 
 LightboxImage.propTypes = propTypes;
 
-export default connect(
-    null,
-    mapDispatchToProps,
-)(LightboxImage);
+export default connect(null, mapDispatchToProps)(LightboxImage);
 
 const AnimatedImage = Animated.createAnimatedComponent(Image);
