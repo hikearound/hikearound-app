@@ -4,7 +4,6 @@
     "slug": "hikearound-app",
     "scheme": "hikearound",
     "privacy": "public",
-    "sdkVersion": "36.0.0",
     "platforms": [
       "ios",
       "web"
