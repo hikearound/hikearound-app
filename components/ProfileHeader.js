@@ -55,18 +55,24 @@ function mapDispatchToProps(dispatch) {
 class ProfileHeader extends React.PureComponent {
     constructor(props) {
         super(props);
+        this.state = {};
+        this.setHeaderImage();
+    }
 
-        const { scheme } = this.props;
+    componentDidUpdate() {
+        this.setHeaderImage();
+    }
+
+    setHeaderImage = () => {
+        const { theme } = this.props;
         let backgroundImage = BACKGROUND_IMAGE_DEFAULT;
 
-        if (scheme === 'dark') {
+        if (theme.dark) {
             backgroundImage = BACKGROUND_IMAGE_DARK;
         }
 
-        this.state = {
-            backgroundImage,
-        };
-    }
+        this.setState({ backgroundImage });
+    };
 
     editProfile = () => {
         const { dispatchModalFlag, modalType } = this.props;
