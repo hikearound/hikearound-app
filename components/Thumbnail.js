@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-import { spacing, borderRadius, colors, opacities } from '../constants/Index';
+import { spacing, borderRadius, opacities } from '../constants/Index';
 import { showModal, setLightboxImage } from '../actions/Modal';
 
 const THUMBNAIL_DIMENSION = 75;
@@ -61,7 +61,7 @@ export default connect(null, mapDispatchToProps)(Thumbnail);
 
 const ThumbnailImage = styled.Image`
     display: flex;
-    background-color: ${colors.lightGray};
+    background-color: ${(props) => props.theme.thumbnailBackground};
     width: ${THUMBNAIL_DIMENSION}px;
     height: ${THUMBNAIL_DIMENSION}px;
     border-radius: ${borderRadius.small}px;

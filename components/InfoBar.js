@@ -56,7 +56,7 @@ const CardContent = styled.View`
     padding: ${spacing.tiny}px ${spacing.small}px;
     margin-top: -4px;
     z-index: 2;
-    background-color: ${colors.white};
+    background-color: ${(props) => props.theme.infoBarBackground};
     border-bottom-left-radius: ${borderRadius.medium}px;
     border-bottom-right-radius: ${borderRadius.medium}px;
 `;
@@ -75,7 +75,7 @@ const MetaDataType = styled.Text`
 
 const MetaData = styled.Text`
     padding-top: 1px;
-    color: ${colors.black};
+    color: ${(props) => props.theme.text};
     font-size: ${fontSizes.small}px;
     font-weight: ${fontWeights.medium};
 `;

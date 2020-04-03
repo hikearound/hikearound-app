@@ -11,6 +11,7 @@ export const colors = {
     borderGray: '#D8D8D8',
     darkGray: '#8E8E93',
     cardGray: '#E4E4E4',
+    nearBlack: '#1C1C1E',
 };
 
 export const transparentColors = {

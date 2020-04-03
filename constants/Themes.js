@@ -1,5 +1,5 @@
 import { DarkTheme, DefaultTheme } from '@react-navigation/native';
-import { colors } from './Colors';
+import { colors, transparentColors } from './Colors';
 
 export const defaultTheme = {
     dark: false,
@@ -24,8 +24,16 @@ export const defaultTheme = {
         // Cards
         cardBackground: colors.gray,
         cardContentBackground: colors.white,
+        cardShadow: transparentColors.gray,
         metaDataTypeText: colors.darkGray,
         metaDataText: colors.black,
+
+        // Hikes
+        mapBackground: colors.purple,
+        infoBarBackground: colors.white,
+
+        // Images
+        thumbnailBackground: colors.lightGray,
 
         // Loading
         loadingPrimary: colors.cardGray,
@@ -58,6 +66,13 @@ export const darkTheme = {
         cardContentBackground: colors.black,
         metaDataTypeText: colors.white,
         metaDataText: colors.white,
+
+        // Hikes
+        mapBackground: colors.black,
+        infoBarBackground: colors.nearBlack,
+
+        // Images
+        thumbnailBackground: colors.nearBlack,
 
         // Loading
         loadingPrimary: colors.black,

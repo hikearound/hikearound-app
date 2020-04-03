@@ -5,13 +5,7 @@ import { TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import InfoBar from './InfoBar';
 import HikeMap from './HikeMap';
-import {
-    spacing,
-    colors,
-    transparentColors,
-    borderRadius,
-    opacities,
-} from '../constants/Index';
+import { spacing, borderRadius, opacities } from '../constants/Index';
 import { showModal } from '../actions/Modal';
 
 const propTypes = {
@@ -77,7 +71,7 @@ class HikeMapWrapper extends React.Component {
                         <MapOverlay />
                     </TouchableOpacity>
                 </InnerMapViewWrapper>
-                <GrayBlockView />
+                <BlockView />
             </MapViewWrapper>
         );
     }
@@ -91,22 +85,25 @@ export default connect(null, mapDispatchToProps)(HikeMapWrapper);
 const MapViewWrapper = styled.View`
     flex: 1;
     height: 275px;
-    background-color: ${colors.purple};
+    background-color: ${(props) => props.theme.mapBackground};
     padding: ${spacing.micro}px ${spacing.small}px;
 `;
 
 const InnerMapViewWrapper = styled.View`
     position: relative;
-    background-color: ${colors.white};
+    background-color: ${(props) => props.theme.card};
     border-radius: ${borderRadius.medium}px;
-    box-shadow: 0 4px 12px ${transparentColors.gray};
+    box-shadow: ${(props) =>
+        props.theme.cardShadow
+            ? `0 4px 12px ${props.theme.cardShadow}`
+            : '0 0'};
     z-index: 1;
 `;
 
-const GrayBlockView = styled.View`
+const BlockView = styled.View`
     flex: 1;
     height: 165px;
-    background-color: ${colors.ultraLightGray};
+    background-color: ${(props) => props.theme.background};
     position: absolute;
     left: 0;
     right: 0;

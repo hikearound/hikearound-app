@@ -2,7 +2,7 @@ import React from 'react';
 import { ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { spacing, colors } from '../constants/Index';
+import { spacing } from '../constants/Index';
 import Subtitle from './Subtitle';
 import PhotoLightboxGroup from './PhotoLightboxGroup';
 import HikeMapWrapper from './HikeMapWrapper';
@@ -51,7 +51,7 @@ class HikeBody extends React.PureComponent {
 
         return (
             <>
-                <PurpleBlockView />
+                <BlockView />
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <HikeMapWrapper
                         coordinates={coordinates}
@@ -84,10 +84,10 @@ export default HikeBody;
 
 const BodyContent = styled.View`
     padding: ${spacing.small}px ${spacing.small}px;
-    background-color: ${colors.white};
+    background-color: ${(props) => props.theme.rootBackground};
 `;
 
-const PurpleBlockView = styled.View`
+const BlockView = styled.View`
     height: 500px;
     background-color: ${(props) => props.theme.blockView};
     position: absolute;

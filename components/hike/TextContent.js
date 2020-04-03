@@ -69,12 +69,12 @@ TextContent.defaultProps = defaultProps;
 export default TextContent;
 
 const DescriptionText = styled.Text`
-    color: ${colors.black};
+    color: ${(props) => props.theme.text};
     font-size: ${fontSizes.medium}px;
 `;
 
 const TitleText = styled.Text`
-    color: ${colors.black};
+    color: ${(props) => props.theme.text};
     font-weight: ${fontWeights.bold};
     font-size: ${fontSizes.big}px;
 `;
