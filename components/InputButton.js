@@ -43,14 +43,14 @@ export default InputButton;
 
 const ButtonView = styled.View`
     margin-top: 20px;
-    background-color: ${colors.white};
+    background-color: ${(props) => props.theme.inputBackground};
     border: 1px solid ${colors.lightGray};
     border-left-width: 0;
     border-right-width: 0;
 `;
 
 const ButtonText = styled.Text`
-    color: ${colors.purple};
+    color: ${(props) => props.theme.buttonInputText};
     font-weight: ${fontWeights.medium};
     font-size: ${fontSizes.large}px;
     text-align: center;

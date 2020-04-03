@@ -14,8 +14,8 @@ import {
 import { showModal } from '../actions/Modal';
 import { withTheme } from '../utils/Themes';
 
-const BACKGROUND_IMAGE_DEFAULT = require('../assets/default/profile-bg.png');
-const BACKGROUND_IMAGE_DARK = require('../assets/dark/profile-bg.png');
+const backgroundImageDefault = require('../assets/default/profile-bg.png');
+const backgroundImageDark = require('../assets/dark/profile-bg.png');
 
 const linkStyle = {
     position: 'absolute',
@@ -56,6 +56,9 @@ class ProfileHeader extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {};
+    }
+
+    componentDidMount() {
         this.setHeaderImage();
     }
 
@@ -65,10 +68,10 @@ class ProfileHeader extends React.PureComponent {
 
     setHeaderImage = () => {
         const { theme } = this.props;
-        let backgroundImage = BACKGROUND_IMAGE_DEFAULT;
+        let backgroundImage = backgroundImageDefault;
 
         if (theme.dark) {
-            backgroundImage = BACKGROUND_IMAGE_DARK;
+            backgroundImage = backgroundImageDark;
         }
 
         this.setState({ backgroundImage });

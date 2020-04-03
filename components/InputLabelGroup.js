@@ -87,7 +87,7 @@ const LabelInputGroup = styled.View`
 `;
 
 const InputLabel = styled.Text`
-    color: ${colors.black};
+    color: ${(props) => props.theme.text};
     font-size: ${fontSizes.medium}px;
     font-weight: ${fontWeights.bold};
     display: flex;
@@ -95,8 +95,10 @@ const InputLabel = styled.Text`
     width: 95px;
 `;
 
-const Input = styled.TextInput`
-    color: ${colors.black};
+const Input = styled.TextInput.attrs((props) => ({
+    placeholderTextColor: props.theme.inputPlaceholderText,
+}))`
+    color: ${(props) => props.theme.text};
     font-size: ${fontSizes.medium}px;
     display: flex;
     flex: 1;

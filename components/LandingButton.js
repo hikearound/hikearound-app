@@ -39,7 +39,9 @@ export default LandingButton;
 
 const Button = styled.View`
     background-color: ${(props) =>
-        props.primary ? colors.purple : colors.white};
+        props.primary
+            ? props.theme.buttonBackgroundPrimary
+            : props.theme.buttonBackgroundSecondary};
     border-radius: ${borderRadius.medium}px;
     margin: ${(props) => props.buttonMargin || `0 ${spacing.medium}px`};
     border: 1px solid ${colors.lightGray};
@@ -47,7 +49,7 @@ const Button = styled.View`
 `;
 
 const ButtonText = styled.Text`
-    color: ${(props) => (props.primary ? colors.white : colors.black)};
+    color: ${(props) => (props.primary ? colors.white : props.theme.text)};
     font-weight: ${fontWeights.bold};
     font-size: ${fontSizes.extraLarge}px;
     text-align: center;

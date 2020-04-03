@@ -35,9 +35,19 @@ export const defaultTheme = {
         // Images
         thumbnailBackground: colors.lightGray,
 
+        // Buttons
+        buttonBackgroundPrimary: colors.purple,
+        buttonBackgroundSecondary: colors.white,
+        buttonInputText: colors.purple,
+
+        // Inputs
+        inputPlaceholderText: colors.mediumGray,
+        inputBackground: colors.white,
+
         // Loading
         loadingPrimary: colors.cardGray,
         loadingSecondary: colors.white,
+        loadingSpinner: colors.grayDark,
     },
 };
 
@@ -74,9 +84,19 @@ export const darkTheme = {
         // Images
         thumbnailBackground: colors.nearBlack,
 
+        // Buttons
+        buttonBackgroundPrimary: colors.nearBlack,
+        buttonBackgroundSecondary: colors.black,
+        buttonInputText: colors.white,
+
+        // Inputs
+        inputPlaceholderText: colors.mediumGray,
+        inputBackground: colors.trueBlack,
+
         // Loading
         loadingPrimary: colors.black,
         loadingSecondary: colors.loadingBlack,
+        loadingSpinner: colors.white,
     },
 };
 

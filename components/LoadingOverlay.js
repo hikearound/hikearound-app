@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { ActivityIndicator, Keyboard } from 'react-native';
-import { colors } from '../constants/Index';
+import { withTheme } from '../utils/Themes';
 
 const propTypes = {
     loading: PropTypes.bool,
@@ -22,14 +22,14 @@ class LoadingOverlay extends React.Component {
     }
 
     render() {
-        const { loading } = this.props;
+        const { loading, theme } = this.props;
 
         return (
             <LoadingView loading={loading}>
                 <ActivityView>
                     <ActivityIndicator
                         size='small'
-                        color={colors.grayDark}
+                        color={theme.loadingSpinner}
                         style={{
                             zIndex: 1,
                             transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }],
@@ -44,7 +44,7 @@ class LoadingOverlay extends React.Component {
 LoadingOverlay.propTypes = propTypes;
 LoadingOverlay.defaultProps = defaultProps;
 
-export default LoadingOverlay;
+export default withTheme(LoadingOverlay);
 
 const ActivityView = styled.View`
     flex: 1;
@@ -59,5 +59,5 @@ const LoadingView = styled.View`
     right: 0;
     bottom: 0;
     opacity: 0.8;
-    background-color: ${colors.white};
+    background-color: ${(props) => props.theme.rootBackground};
 `;
