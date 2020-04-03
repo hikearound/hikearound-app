@@ -100,7 +100,7 @@ const HikeName = styled.Text`
 `;
 
 const Content = styled.View`
-    background-color: ${(props) => props.theme.cardContentBackground};
+    background-color: ${(props) => props.theme.infoBarBackground};
     flex-direction: row;
     align-items: center;
     position: relative;

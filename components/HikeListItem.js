@@ -63,7 +63,7 @@ const Container = styled.View`
 `;
 
 const Name = styled.Text`
-    color: ${colors.black};
+    color: ${(props) => props.theme.text};
     font-size: ${fontSizes.large}px;
     font-weight: ${fontWeights.bold};
 `;

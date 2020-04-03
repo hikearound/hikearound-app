@@ -8,7 +8,7 @@ export const ItemContainer = styled.View`
 `;
 
 export const ItemText = styled.Text`
-    color: ${(props) => props.textColor || colors.black};
+    color: ${(props) => props.textColor || props.theme.text};
     font-size: ${fontSizes.large}px;
 `;
 

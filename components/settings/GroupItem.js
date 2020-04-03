@@ -12,6 +12,7 @@ import {
 } from '../../constants/Index';
 import { updateMap } from '../../actions/User';
 import { ItemContainer, ItemText } from '../../styles/Settings';
+import { withTheme } from '../../utils/Themes';
 
 const propTypes = {
     item: PropTypes.object.isRequired,
@@ -34,9 +35,10 @@ function mapDispatchToProps(dispatch) {
 class GroupItem extends React.PureComponent {
     constructor(props) {
         super(props);
+        const { theme } = this.props;
 
         this.state = {
-            textColor: colors.black,
+            textColor: theme.text,
             checkDisplay: 'none',
         };
     }
@@ -81,8 +83,9 @@ class GroupItem extends React.PureComponent {
     }
 
     unselectItem() {
+        const { theme } = this.props;
         this.setState({
-            textColor: colors.black,
+            textColor: theme.text,
             checkDisplay: 'none',
         });
     }
@@ -119,4 +122,7 @@ class GroupItem extends React.PureComponent {
 
 GroupItem.propTypes = propTypes;
 
-export default connect(mapStateToProps, mapDispatchToProps)(GroupItem);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(withTheme(GroupItem));

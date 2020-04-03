@@ -12,8 +12,10 @@ import {
     opacities,
 } from '../constants/Index';
 import { showModal } from '../actions/Modal';
+import { withTheme } from '../utils/Themes';
 
-const BACKGROUND_IMAGE = require('../assets/profile-bg.png');
+const BACKGROUND_IMAGE_DEFAULT = require('../assets/default/profile-bg.png');
+const BACKGROUND_IMAGE_DARK = require('../assets/dark/profile-bg.png');
 
 const linkStyle = {
     position: 'absolute',
@@ -53,7 +55,17 @@ function mapDispatchToProps(dispatch) {
 class ProfileHeader extends React.PureComponent {
     constructor(props) {
         super(props);
-        this.state = {};
+
+        const { scheme } = this.props;
+        let backgroundImage = BACKGROUND_IMAGE_DEFAULT;
+
+        if (scheme === 'dark') {
+            backgroundImage = BACKGROUND_IMAGE_DARK;
+        }
+
+        this.state = {
+            backgroundImage,
+        };
     }
 
     editProfile = () => {
@@ -83,8 +95,10 @@ class ProfileHeader extends React.PureComponent {
 
     render() {
         const { name, location } = this.props;
+        const { backgroundImage } = this.state;
+
         return (
-            <HeaderWrapper source={BACKGROUND_IMAGE}>
+            <HeaderWrapper source={backgroundImage}>
                 <Avatar />
                 <NameText>{name}</NameText>
                 {location === '' && this.addLocationLink()}
@@ -98,7 +112,10 @@ class ProfileHeader extends React.PureComponent {
 ProfileHeader.propTypes = propTypes;
 ProfileHeader.defaultProps = defaultProps;
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProfileHeader);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(withTheme(ProfileHeader));
 
 const HeaderWrapper = styled.ImageBackground`
     padding-left: ${spacing.small}px;
@@ -110,14 +127,14 @@ const HeaderWrapper = styled.ImageBackground`
 const NameText = styled.Text`
     font-size: ${fontSizes.big}px;
     font-weight: ${fontWeights.bold};
-    color: ${colors.black};
+    color: ${(props) => props.theme.text};
     margin-top: ${spacing.tiny}px;
 `;
 
 const LocationText = styled.Text`
     font-size: ${fontSizes.medium}px;
     font-weight: ${fontWeights.medium};
-    color: ${colors.black};
+    color: ${(props) => props.theme.text};
 `;
 
 const ActionLink = styled.Text`
