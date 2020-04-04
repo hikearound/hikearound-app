@@ -208,7 +208,7 @@ const ModalTitleText = styled.Text`
 `;
 
 const ModalBody = styled.View`
-    background-color: ${(props) => props.theme.background};
+    background-color: ${(props) => props.theme.rootBackground};
     display: flex;
     flex-direction: column;
     height: 100%;
