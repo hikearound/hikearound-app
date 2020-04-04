@@ -10,6 +10,8 @@ import Avatar from '../Avatar';
 import InputLabelGroup from '../InputLabelGroup';
 import { colors, fontSizes, spacing, fontWeights } from '../../constants/Index';
 import { updateUserData } from '../../actions/User';
+import { withTheme } from '../../utils/Themes';
+import { RootView } from '../../styles/Screens';
 
 const editProfileInputs = [
     {
@@ -162,10 +164,10 @@ class EditProfileModal extends ModalBase {
                 visible={modalVisible}
                 fullScreen={fullScreen}
             >
-                <ModalRoot>
+                <RootView>
                     {this.renderModalHeader()}
                     {this.renderModalBody()}
-                </ModalRoot>
+                </RootView>
             </Modal>
         );
     }
@@ -173,15 +175,13 @@ class EditProfileModal extends ModalBase {
 
 EditProfileModal.propTypes = propTypes;
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditProfileModal);
-
-const ModalRoot = styled.View`
-    display: flex;
-    height: 100%;
-`;
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(withTheme(EditProfileModal));
 
 const ModalHeader = styled.View`
-    background-color: ${colors.purple};
+    background-color: ${(props) => props.theme.headerStyle};
     border-bottom-color: ${colors.gray};
     height: ${spacing.header}px;
     width: 100%;
@@ -208,7 +208,7 @@ const ModalTitleText = styled.Text`
 `;
 
 const ModalBody = styled.View`
-    background-color: ${colors.white};
+    background-color: ${(props) => props.theme.background};
     display: flex;
     flex-direction: column;
     height: 100%;

@@ -74,7 +74,7 @@ export const darkTheme = {
         // Cards
         cardBackground: colors.blackText,
         cardContentBackground: colors.blackText,
-        metaDataTypeText: colors.white,
+        metaDataTypeText: colors.grayDark,
         metaDataText: colors.white,
 
         // Hikes
