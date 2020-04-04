@@ -77,7 +77,7 @@ const Container = styled.View`
     background-color: ${(props) => props.theme.cardBackground};
     width: 100%;
     border-radius: ${borderRadius.medium}px;
-    box-shadow: 0 4px 4px ${transparentColors.gray};
+    box-shadow: 0 4px 4px ${transparentColors.grayLight};
 `;
 
 const Cover = styled.View`

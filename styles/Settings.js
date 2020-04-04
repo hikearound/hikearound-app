@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { colors, fontSizes, spacing } from '../constants/Index';
 
 export const ItemContainer = styled.View`
-    border-color: ${colors.lightGray};
+    border-color: ${colors.grayUltraLight};
     border-top-width: 1px;
     padding: ${spacing.small}px 0;
 `;

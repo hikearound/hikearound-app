@@ -108,7 +108,7 @@ const DismissIconWrapper = styled.View`
     border-radius: ${DISMISS_ICON_SIZE}px;
     height: ${DISMISS_ICON_SIZE}px;
     width: ${DISMISS_ICON_SIZE}px;
-    box-shadow: 0 4px 4px ${transparentColors.grayDark};
+    box-shadow: 0 4px 4px ${transparentColors.gray};
     background-color: ${colors.white};
     padding-left: 11px;
 `;

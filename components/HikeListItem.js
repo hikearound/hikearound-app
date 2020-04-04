@@ -57,7 +57,7 @@ export default function (props) {
 }
 
 const Container = styled.View`
-    border-color: ${colors.lightGray};
+    border-color: ${colors.grayUltraLight};
     border-top-width: 1px;
     padding: ${spacing.small}px 0;
 `;
@@ -69,6 +69,6 @@ const Name = styled.Text`
 `;
 
 const MetaData = styled.Text`
-    color: ${colors.mediumGray};
+    color: ${colors.grayMedium};
     font-size: ${fontSizes.medium}px;
 `;

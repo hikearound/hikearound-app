@@ -12,7 +12,7 @@ const propTypes = {
 const defaultProps = {
     width: 22,
     height: 26,
-    fill: colors.darkGray,
+    fill: colors.grayDark,
 };
 
 const BellIcon = ({ width, height, fill }) => (

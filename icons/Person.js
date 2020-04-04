@@ -12,7 +12,7 @@ const propTypes = {
 const defaultProps = {
     width: 21,
     height: 24,
-    fill: colors.darkGray,
+    fill: colors.grayDark,
 };
 
 const PersonIcon = ({ width, height, fill }) => (

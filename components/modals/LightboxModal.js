@@ -51,5 +51,5 @@ const ModalRoot = styled.View`
     display: flex;
     flex-direction: column;
     height: 100%;
-    background-color: ${colors.trueBlack};
+    background-color: ${colors.black};
 `;

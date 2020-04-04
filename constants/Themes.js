@@ -14,26 +14,26 @@ export const defaultTheme = {
         // Navigation
         headerStyle: colors.purple,
         navActive: colors.purple,
-        navInactive: colors.darkGray,
+        navInactive: colors.grayDark,
 
         // Scaffolding
         rootBackground: colors.white,
         blockView: colors.purple,
-        refreshControlTint: colors.cardGray,
+        refreshControlTint: colors.grayLight,
 
         // Cards
         cardBackground: colors.gray,
         cardContentBackground: colors.white,
-        cardShadow: transparentColors.gray,
-        metaDataTypeText: colors.darkGray,
-        metaDataText: colors.black,
+        cardShadow: transparentColors.grayLight,
+        metaDataTypeText: colors.grayDark,
+        metaDataText: colors.blackText,
 
         // Hikes
         mapBackground: colors.purple,
         infoBarBackground: colors.white,
 
         // Images
-        thumbnailBackground: colors.lightGray,
+        thumbnailBackground: colors.grayUltraLight,
 
         // Buttons
         buttonBackgroundPrimary: colors.purple,
@@ -41,11 +41,11 @@ export const defaultTheme = {
         buttonInputText: colors.purple,
 
         // Inputs
-        inputPlaceholderText: colors.mediumGray,
+        inputPlaceholderText: colors.grayMedium,
         inputBackground: colors.white,
 
         // Loading
-        loadingPrimary: colors.cardGray,
+        loadingPrimary: colors.grayLight,
         loadingSecondary: colors.white,
         loadingSpinner: colors.grayDark,
     },
@@ -64,38 +64,38 @@ export const darkTheme = {
         // Navigation
         headerStyle: DarkTheme.colors.card,
         navActive: colors.white,
-        navInactive: colors.darkGray,
+        navInactive: colors.grayDark,
 
         // Scaffolding
-        rootBackground: colors.trueBlack,
+        rootBackground: colors.black,
         blockView: DarkTheme.colors.card,
         refreshControlTint: colors.white,
 
         // Cards
-        cardBackground: colors.black,
-        cardContentBackground: colors.black,
+        cardBackground: colors.blackText,
+        cardContentBackground: colors.blackText,
         metaDataTypeText: colors.white,
         metaDataText: colors.white,
 
         // Hikes
         mapBackground: DarkTheme.colors.card,
-        infoBarBackground: colors.nearBlack,
+        infoBarBackground: colors.blackMedium,
 
         // Images
-        thumbnailBackground: colors.nearBlack,
+        thumbnailBackground: colors.blackMedium,
 
         // Buttons
-        buttonBackgroundPrimary: colors.nearBlack,
-        buttonBackgroundSecondary: colors.black,
+        buttonBackgroundPrimary: colors.blackMedium,
+        buttonBackgroundSecondary: colors.blackText,
         buttonInputText: colors.white,
 
         // Inputs
-        inputPlaceholderText: colors.mediumGray,
-        inputBackground: colors.trueBlack,
+        inputPlaceholderText: colors.grayMedium,
+        inputBackground: colors.black,
 
         // Loading
-        loadingPrimary: colors.black,
-        loadingSecondary: colors.loadingBlack,
+        loadingPrimary: colors.blackText,
+        loadingSecondary: colors.blackLight,
         loadingSpinner: colors.white,
     },
 };

@@ -44,7 +44,7 @@ export default InputButton;
 const ButtonView = styled.View`
     margin-top: 20px;
     background-color: ${(props) => props.theme.inputBackground};
-    border: 1px solid ${colors.lightGray};
+    border: 1px solid ${colors.grayUltraLight};
     border-left-width: 0;
     border-right-width: 0;
 `;

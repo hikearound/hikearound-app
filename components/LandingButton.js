@@ -44,8 +44,8 @@ const Button = styled.View`
             : props.theme.buttonBackgroundSecondary};
     border-radius: ${borderRadius.medium}px;
     margin: ${(props) => props.buttonMargin || `0 ${spacing.medium}px`};
-    border: 1px solid ${colors.lightGray};
-    box-shadow: 0 2px 8px ${transparentColors.gray};
+    border: 1px solid ${colors.grayUltraLight};
+    box-shadow: 0 2px 8px ${transparentColors.grayLight};
 `;
 
 const ButtonText = styled.Text`

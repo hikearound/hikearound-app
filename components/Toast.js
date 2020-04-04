@@ -103,7 +103,7 @@ const Container = styled.View`
     left: ${spacing.small}px;
     right: ${spacing.small}px;
     background: ${transparentColors.purple};
-    box-shadow: 0 4px 12px ${transparentColors.gray};
+    box-shadow: 0 4px 12px ${transparentColors.grayLight};
     border-radius: ${borderRadius.medium}px;
     z-index: 1;
 `;

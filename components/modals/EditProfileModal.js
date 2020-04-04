@@ -182,7 +182,7 @@ const ModalRoot = styled.View`
 
 const ModalHeader = styled.View`
     background-color: ${colors.purple};
-    border-bottom-color: ${colors.borderGray};
+    border-bottom-color: ${colors.gray};
     height: ${spacing.header}px;
     width: 100%;
     position: relative;

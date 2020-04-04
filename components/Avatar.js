@@ -97,7 +97,7 @@ class Avatar extends React.Component {
         <View
             style={{
                 position: 'absolute',
-                backgroundColor: transparentColors.grayUltraDark,
+                backgroundColor: transparentColors.grayDark,
                 height: size,
                 width: size,
                 borderRadius: size / 2,

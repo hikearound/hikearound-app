@@ -30,6 +30,6 @@ const BellWrapper = styled.View`
 
 const EmptyStateText = styled.Text`
     margin-top: ${spacing.micro}px;
-    color: ${colors.mediumGray};
+    color: ${colors.grayMedium};
     font-size: ${fontSizes.medium}px;
 `;

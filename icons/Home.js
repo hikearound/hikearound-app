@@ -12,7 +12,7 @@ const propTypes = {
 const defaultProps = {
     width: 25,
     height: 25,
-    fill: colors.darkGray,
+    fill: colors.grayDark,
 };
 
 const HomeIcon = ({ width, height, fill }) => (

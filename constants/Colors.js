@@ -1,25 +1,35 @@
 export const colors = {
+    // Purples
     purple: '#935DFF',
+
+    // Whites
     white: '#FFFFFF',
-    black: '#333333',
-    loadingBlack: '#222222',
-    trueBlack: '#000000',
-    ultraLightGray: '#F6F6F6',
-    lightGray: '#F0F0F0',
-    mediumGray: '#9C9C9C',
+
+    // Blacks
+    blackText: '#333333',
+    blackLight: '#222222',
+    blackMedium: '#1C1C1E',
+    black: '#000000',
+
+    // Grays
+    grayUltraLight: '#F0F0F0',
+    grayLight: '#E4E4E4',
     gray: '#DADADA',
-    borderGray: '#D8D8D8',
-    darkGray: '#8E8E93',
-    cardGray: '#E4E4E4',
-    nearBlack: '#1C1C1E',
+    grayMedium: '#9C9C9C',
+    grayDark: '#8E8E93',
 };
 
 export const transparentColors = {
-    gray: 'rgba(0, 0, 0, 0.1)',
-    grayDark: 'rgba(0, 0, 0, 0.2)',
-    grayUltraDark: 'rgba(0, 0, 0, 0.4)',
+    // Purples
     purple: 'rgba(147, 93, 255, 0.95)',
+
+    // Whites
     white: 'rgba(255, 255, 255, 0.9)',
+
+    // Grays
+    grayLight: 'rgba(0, 0, 0, 0.1)',
+    gray: 'rgba(0, 0, 0, 0.2)',
+    grayDark: 'rgba(0, 0, 0, 0.4)',
 };
 
 export default { colors, transparentColors };

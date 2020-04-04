@@ -80,7 +80,7 @@ export default InputLabelGroup;
 const LabelInputGroup = styled.View`
     width: 100%;
     flex-direction: row;
-    border-color: ${colors.lightGray};
+    border-color: ${colors.grayUltraLight};
     border-top-width: 1px;
     border-bottom-width: 1px;
     margin-top: -1px;

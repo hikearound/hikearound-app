@@ -87,19 +87,19 @@ const HeaderContainer = styled.View`
 `;
 
 const HeaderText = styled.Text`
-    color: ${colors.mediumGray};
+    color: ${colors.grayMedium};
     font-size: ${fontSizes.small}px;
     font-weight: ${fontWeights.medium};
     text-transform: uppercase;
 `;
 
 const EmptyContainer = styled.View`
-    border-color: ${colors.lightGray};
+    border-color: ${colors.grayUltraLight};
     border-top-width: 1px;
     padding: ${spacing.small}px 0;
 `;
 
 const EmptyContainerText = styled.Text`
-    color: ${colors.black};
+    color: ${colors.blackText};
     font-size: ${fontSizes.medium}px;
 `;
