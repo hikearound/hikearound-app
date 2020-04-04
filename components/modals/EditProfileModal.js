@@ -8,10 +8,11 @@ import ModalContinue from '../ModalContinue';
 import ModalBase from './ModalBase';
 import Avatar from '../Avatar';
 import InputLabelGroup from '../InputLabelGroup';
-import { colors, fontSizes, spacing, fontWeights } from '../../constants/Index';
+import { spacing } from '../../constants/Index';
 import { updateUserData } from '../../actions/User';
 import { withTheme } from '../../utils/Themes';
 import { RootView } from '../../styles/Screens';
+import { ModalHeader, ModalTitleText, ModalBody } from '../../styles/Modals';
 
 const editProfileInputs = [
     {
@@ -180,36 +181,10 @@ export default connect(
     mapDispatchToProps,
 )(withTheme(EditProfileModal));
 
-const ModalHeader = styled.View`
-    background-color: ${(props) => props.theme.headerStyle};
-    border-bottom-color: ${colors.gray};
-    height: ${spacing.header}px;
-    width: 100%;
-    position: relative;
-`;
-
 const AvatarWrapper = styled.View`
     width: 100%;
     flex-direction: row;
     justify-content: flex-start;
     padding: ${spacing.medium}px;
     padding-left: ${spacing.small}px;
-`;
-
-const ModalTitleText = styled.Text`
-    text-align: center;
-    color: ${colors.white};
-    font-size: ${fontSizes.extraLarge}px;
-    position: absolute;
-    width: 100%
-    text-align: center;
-    bottom: ${spacing.small}px;
-    font-weight: ${fontWeights.bold};
-`;
-
-const ModalBody = styled.View`
-    background-color: ${(props) => props.theme.rootBackground};
-    display: flex;
-    flex-direction: column;
-    height: 100%;
 `;
