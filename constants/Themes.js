@@ -62,13 +62,13 @@ export const darkTheme = {
         border: DarkTheme.colors.border,
 
         // Navigation
-        headerStyle: colors.black,
+        headerStyle: DarkTheme.colors.card,
         navActive: colors.white,
         navInactive: colors.darkGray,
 
         // Scaffolding
         rootBackground: colors.trueBlack,
-        blockView: colors.black,
+        blockView: DarkTheme.colors.card,
         refreshControlTint: colors.white,
 
         // Cards
@@ -78,7 +78,7 @@ export const darkTheme = {
         metaDataText: colors.white,
 
         // Hikes
-        mapBackground: colors.black,
+        mapBackground: DarkTheme.colors.card,
         infoBarBackground: colors.nearBlack,
 
         // Images
