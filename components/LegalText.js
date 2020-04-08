@@ -28,8 +28,8 @@ class LegalText extends React.PureComponent {
             <>
                 <Text>
                     By clicking &apos;Create Account&apos; you agree to
-                    Hikearound&apos;s {this.renderTermsOfServiceLink()} and
-                    &nbsp;{this.renderPrivacyPolicyLink()}.
+                    Hikearound&apos;s {this.renderTermsOfServiceLink()} and{' '}
+                    {this.renderPrivacyPolicyLink()}.
                 </Text>
             </>
         );
