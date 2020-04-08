@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import InputButton from '../components/InputButton';
 import LoadingOverlay from '../components/LoadingOverlay';
 import InputLabelGroup from '../components/InputLabelGroup';
+import LegalText from '../components/LegalText';
 import { updateUserData } from '../actions/User';
 import { RootView } from '../styles/Screens';
 import { withTheme } from '../utils/Themes';
@@ -157,6 +158,7 @@ class CreateAccountScreen extends React.Component {
                         text='Create Account'
                         action={this.handleCreateAccount}
                     />
+                    <LegalText />
                     <LoadingOverlay loading={loading} />
                 </RootView>
             </ThemeProvider>
