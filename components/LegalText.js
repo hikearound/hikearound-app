@@ -26,11 +26,11 @@ class LegalText extends React.PureComponent {
     render() {
         return (
             <>
-                <Text>
+                <StyledText>
                     By clicking &apos;Create Account&apos; you agree to
                     Hikearound&apos;s {this.renderTermsOfServiceLink()} and{' '}
                     {this.renderPrivacyPolicyLink()}.
-                </Text>
+                </StyledText>
             </>
         );
     }
@@ -38,7 +38,7 @@ class LegalText extends React.PureComponent {
 
 export default withTheme(LegalText);
 
-const Text = styled.Text`
+const StyledText = styled.Text`
     color: ${colors.grayMedium};
     font-weight: ${fontWeights.medium};
     font-size: ${fontSizes.small}px;
