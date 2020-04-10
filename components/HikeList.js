@@ -100,6 +100,6 @@ const EmptyContainer = styled.View`
 `;
 
 const EmptyContainerText = styled.Text`
-    color: ${colors.blackText};
+    color: ${(props) => props.theme.text};
     font-size: ${fontSizes.medium}px;
 `;

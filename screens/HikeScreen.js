@@ -1,5 +1,4 @@
 import React from 'react';
-import { ThemeProvider } from 'styled-components';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Share } from 'react-native';
@@ -145,29 +144,27 @@ class HikeScreen extends React.Component {
 
     render() {
         const { coordinates, region, toastText } = this.state;
-        const { theme, route } = this.props;
+        const { route } = this.props;
         const { hike } = route.params;
 
         return (
-            <ThemeProvider theme={theme.colors}>
-                <RootView>
-                    <Toast text={toastText} />
-                    <HikeBody
-                        hike={hike}
-                        coordinates={coordinates}
-                        region={region}
-                    />
-                    <MapModal
-                        mapRef={(ref) => {
-                            this.mapView = ref;
-                        }}
-                        coordinates={coordinates}
-                        region={region}
-                        animationType='push'
-                        modalAction='showMap'
-                    />
-                </RootView>
-            </ThemeProvider>
+            <RootView>
+                <Toast text={toastText} />
+                <HikeBody
+                    hike={hike}
+                    coordinates={coordinates}
+                    region={region}
+                />
+                <MapModal
+                    mapRef={(ref) => {
+                        this.mapView = ref;
+                    }}
+                    coordinates={coordinates}
+                    region={region}
+                    animationType='push'
+                    modalAction='showMap'
+                />
+            </RootView>
         );
     }
 }

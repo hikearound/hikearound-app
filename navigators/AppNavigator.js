@@ -6,6 +6,7 @@ import { AppearanceProvider } from 'react-native-appearance';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { SplashScreen } from 'expo';
 import { StatusBar } from 'react-native';
+import { ThemeProvider } from 'styled-components';
 import TabNavigator from './TabNavigator';
 import { defaultTheme, darkTheme } from '../constants/Themes';
 import { withTheme } from '../utils/Themes';
@@ -47,7 +48,9 @@ class AppNavigator extends React.PureComponent {
             <SafeAreaProvider>
                 <AppearanceProvider>
                     <NavigationContainer theme={theme}>
-                        <TabNavigator />
+                        <ThemeProvider theme={theme.colors}>
+                            <TabNavigator />
+                        </ThemeProvider>
                     </NavigationContainer>
                 </AppearanceProvider>
             </SafeAreaProvider>

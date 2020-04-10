@@ -1,5 +1,4 @@
 import React from 'react';
-import { ThemeProvider } from 'styled-components';
 import { connect } from 'react-redux';
 import { SectionList } from 'react-native';
 import {
@@ -54,21 +53,17 @@ class SettingsScreen extends React.Component {
     );
 
     render() {
-        const { theme } = this.props;
-
         return (
-            <ThemeProvider theme={theme.colors}>
-                <StyledRootView>
-                    <SectionList
-                        extraData={this.state}
-                        renderItem={this.renderItem}
-                        stickySectionHeadersEnabled={false}
-                        renderSectionHeader={this.renderSectionHeader}
-                        sections={listData}
-                        keyExtractor={(item, index) => item + index}
-                    />
-                </StyledRootView>
-            </ThemeProvider>
+            <StyledRootView>
+                <SectionList
+                    extraData={this.state}
+                    renderItem={this.renderItem}
+                    stickySectionHeadersEnabled={false}
+                    renderSectionHeader={this.renderSectionHeader}
+                    sections={listData}
+                    keyExtractor={(item, index) => item + index}
+                />
+            </StyledRootView>
         );
     }
 }

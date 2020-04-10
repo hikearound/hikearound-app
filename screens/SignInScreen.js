@@ -1,5 +1,4 @@
 import React from 'react';
-import { ThemeProvider } from 'styled-components';
 import { CommonActions } from '@react-navigation/native';
 import { Alert, ScrollView } from 'react-native';
 import firebase from 'firebase';
@@ -68,50 +67,47 @@ class SignInScreen extends React.Component {
 
     render() {
         const { loading } = this.state;
-        const { theme } = this.props;
 
         return (
-            <ThemeProvider theme={theme.colors}>
-                <RootView>
-                    <ScrollView
-                        keyboardShouldPersistTaps='handled'
-                        scrollEnabled={false}
-                        contentContainerStyle={{ flexGrow: 1 }}
-                    >
-                        {signInInputs.map(
-                            (
-                                {
-                                    name,
-                                    placeholder,
-                                    keyboardType,
-                                    secureTextEntry,
-                                    autoCorrect,
-                                    autoCapitalize,
-                                    textContentType,
-                                },
-                                index,
-                            ) => (
-                                <InputLabelGroup
-                                    key={index}
-                                    placeholder={placeholder}
-                                    keyboardType={keyboardType}
-                                    secureTextEntry={secureTextEntry}
-                                    autoCorrect={autoCorrect}
-                                    autoCapitalize={autoCapitalize}
-                                    onChangeText={(text) =>
-                                        this.setValue(name, text, index)
-                                    }
-                                    labelName={placeholder}
-                                    textContentType={textContentType}
-                                    autoFocus={index === 0}
-                                />
-                            ),
-                        )}
-                        <InputButton text='Sign In' action={this.handleLogin} />
-                        <LoadingOverlay loading={loading} />
-                    </ScrollView>
-                </RootView>
-            </ThemeProvider>
+            <RootView>
+                <ScrollView
+                    keyboardShouldPersistTaps='handled'
+                    scrollEnabled={false}
+                    contentContainerStyle={{ flexGrow: 1 }}
+                >
+                    {signInInputs.map(
+                        (
+                            {
+                                name,
+                                placeholder,
+                                keyboardType,
+                                secureTextEntry,
+                                autoCorrect,
+                                autoCapitalize,
+                                textContentType,
+                            },
+                            index,
+                        ) => (
+                            <InputLabelGroup
+                                key={index}
+                                placeholder={placeholder}
+                                keyboardType={keyboardType}
+                                secureTextEntry={secureTextEntry}
+                                autoCorrect={autoCorrect}
+                                autoCapitalize={autoCapitalize}
+                                onChangeText={(text) =>
+                                    this.setValue(name, text, index)
+                                }
+                                labelName={placeholder}
+                                textContentType={textContentType}
+                                autoFocus={index === 0}
+                            />
+                        ),
+                    )}
+                    <InputButton text='Sign In' action={this.handleLogin} />
+                    <LoadingOverlay loading={loading} />
+                </ScrollView>
+            </RootView>
         );
     }
 }

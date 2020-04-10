@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Linking } from 'expo';
 import { RefreshControl } from 'react-native';
-import { ThemeProvider } from 'styled-components';
 import { FeedList, Sort } from '../components/Index';
 import { getFeedHikeCount, openHikeScreen } from '../utils/Hike';
 import { cacheHikeImage } from '../utils/Image';
@@ -189,25 +188,23 @@ class HomeScreen extends React.Component {
         const feedRef = React.createRef();
 
         return (
-            <ThemeProvider theme={theme.colors}>
-                <RootView>
-                    {firstLoad && <HomeLoadingState />}
-                    {!firstLoad && (
-                        <FeedList
-                            refreshControl={
-                                <RefreshControl
-                                    tintColor={theme.colors.refreshControlTint}
-                                    refreshing={loading}
-                                    onRefresh={this.onRefresh}
-                                />
-                            }
-                            feedRef={feedRef}
-                            onEndReached={this.onEndReached}
-                            hikes={hikes}
-                        />
-                    )}
-                </RootView>
-            </ThemeProvider>
+            <RootView>
+                {firstLoad && <HomeLoadingState />}
+                {!firstLoad && (
+                    <FeedList
+                        refreshControl={
+                            <RefreshControl
+                                tintColor={theme.colors.refreshControlTint}
+                                refreshing={loading}
+                                onRefresh={this.onRefresh}
+                            />
+                        }
+                        feedRef={feedRef}
+                        onEndReached={this.onEndReached}
+                        hikes={hikes}
+                    />
+                )}
+            </RootView>
         );
     }
 }

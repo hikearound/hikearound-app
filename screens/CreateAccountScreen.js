@@ -1,5 +1,4 @@
 import React from 'react';
-import { ThemeProvider } from 'styled-components';
 import { CommonActions } from '@react-navigation/native';
 import { Alert } from 'react-native';
 import firebase from 'firebase';
@@ -120,48 +119,45 @@ class CreateAccountScreen extends React.Component {
 
     render() {
         const { loading } = this.state;
-        const { theme } = this.props;
 
         return (
-            <ThemeProvider theme={theme.colors}>
-                <RootView>
-                    {createAccountInputs.map(
-                        (
-                            {
-                                name,
-                                placeholder,
-                                keyboardType,
-                                secureTextEntry,
-                                autoCorrect,
-                                autoCapitalize,
-                                textContentType,
-                            },
-                            index,
-                        ) => (
-                            <InputLabelGroup
-                                key={index}
-                                placeholder={placeholder}
-                                keyboardType={keyboardType}
-                                secureTextEntry={secureTextEntry}
-                                autoCorrect={autoCorrect}
-                                autoCapitalize={autoCapitalize}
-                                autoFocus={index === 0}
-                                onChangeText={(text) =>
-                                    this.setValue(name, text, index)
-                                }
-                                labelName={placeholder}
-                                textContentType={textContentType}
-                            />
-                        ),
-                    )}
-                    <InputButton
-                        text='Create Account'
-                        action={this.handleCreateAccount}
-                    />
-                    <LegalText />
-                    <LoadingOverlay loading={loading} />
-                </RootView>
-            </ThemeProvider>
+            <RootView>
+                {createAccountInputs.map(
+                    (
+                        {
+                            name,
+                            placeholder,
+                            keyboardType,
+                            secureTextEntry,
+                            autoCorrect,
+                            autoCapitalize,
+                            textContentType,
+                        },
+                        index,
+                    ) => (
+                        <InputLabelGroup
+                            key={index}
+                            placeholder={placeholder}
+                            keyboardType={keyboardType}
+                            secureTextEntry={secureTextEntry}
+                            autoCorrect={autoCorrect}
+                            autoCapitalize={autoCapitalize}
+                            autoFocus={index === 0}
+                            onChangeText={(text) =>
+                                this.setValue(name, text, index)
+                            }
+                            labelName={placeholder}
+                            textContentType={textContentType}
+                        />
+                    ),
+                )}
+                <InputButton
+                    text='Create Account'
+                    action={this.handleCreateAccount}
+                />
+                <LegalText />
+                <LoadingOverlay loading={loading} />
+            </RootView>
         );
     }
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled, { ThemeProvider } from 'styled-components';
+import styled from 'styled-components';
 import { Image } from 'react-native-expo-image-cache';
 import FeedCardGradient from './FeedCardGradient';
 import {
@@ -23,48 +23,46 @@ const propTypes = {
 
 class FeedCard extends React.PureComponent {
     render() {
-        const { image, name, distance, elevation, route, theme } = this.props;
+        const { image, name, distance, elevation, route } = this.props;
 
         return (
-            <ThemeProvider theme={theme.colors}>
-                <Container>
-                    <Cover>
-                        <Image
-                            uri={image.uri}
-                            resizeMode='cover'
-                            style={{
-                                position: 'absolute',
-                                top: 0,
-                                left: 0,
-                                height: '100%',
-                                width: '100%',
-                            }}
-                        />
-                        <HikeName>{name}</HikeName>
-                        <FeedCardGradient imageDidLoad={image.uri} />
-                    </Cover>
-                    <Content>
-                        <ContentItem>
-                            <MetaDataType>Distance</MetaDataType>
-                            <MetaData>
-                                {distance}
-                                {'m'}
-                            </MetaData>
-                        </ContentItem>
-                        <ContentItem>
-                            <MetaDataType>Elevation</MetaDataType>
-                            <MetaData>
-                                {elevation}
-                                {'ft'}
-                            </MetaData>
-                        </ContentItem>
-                        <ContentItem>
-                            <MetaDataType>Route</MetaDataType>
-                            <MetaData>{route}</MetaData>
-                        </ContentItem>
-                    </Content>
-                </Container>
-            </ThemeProvider>
+            <Container>
+                <Cover>
+                    <Image
+                        uri={image.uri}
+                        resizeMode='cover'
+                        style={{
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            height: '100%',
+                            width: '100%',
+                        }}
+                    />
+                    <HikeName>{name}</HikeName>
+                    <FeedCardGradient imageDidLoad={image.uri} />
+                </Cover>
+                <Content>
+                    <ContentItem>
+                        <MetaDataType>Distance</MetaDataType>
+                        <MetaData>
+                            {distance}
+                            {'m'}
+                        </MetaData>
+                    </ContentItem>
+                    <ContentItem>
+                        <MetaDataType>Elevation</MetaDataType>
+                        <MetaData>
+                            {elevation}
+                            {'ft'}
+                        </MetaData>
+                    </ContentItem>
+                    <ContentItem>
+                        <MetaDataType>Route</MetaDataType>
+                        <MetaData>{route}</MetaData>
+                    </ContentItem>
+                </Content>
+            </Container>
         );
     }
 }

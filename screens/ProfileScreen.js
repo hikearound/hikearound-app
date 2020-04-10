@@ -1,5 +1,4 @@
 import React from 'react';
-import { ThemeProvider } from 'styled-components';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Settings, ProfileHeader, ProfileBody } from '../components/Index';
@@ -99,31 +98,28 @@ class ProfileScreen extends React.Component {
             hikeData,
             shouldLoad,
         } = this.state;
-        const { theme } = this.props;
 
         return (
-            <ThemeProvider theme={theme.colors}>
-                <RootView>
-                    {firstLoad && shouldLoad && <ProfileLoadingState />}
-                    {!firstLoad && (
-                        <>
-                            <ProfileHeader />
-                            <ProfileBody
-                                hikeData={hikeData}
-                                loading={firstLoad}
-                                maybeShowEmptyState={maybeShowEmptyState}
-                            />
-                        </>
-                    )}
-                    <EditProfileModal
-                        animationType='push'
-                        modalAction='showEditProfile'
-                        transparent
-                        hideStatusBar={false}
-                        fullScreen={false}
-                    />
-                </RootView>
-            </ThemeProvider>
+            <RootView>
+                {firstLoad && shouldLoad && <ProfileLoadingState />}
+                {!firstLoad && (
+                    <>
+                        <ProfileHeader />
+                        <ProfileBody
+                            hikeData={hikeData}
+                            loading={firstLoad}
+                            maybeShowEmptyState={maybeShowEmptyState}
+                        />
+                    </>
+                )}
+                <EditProfileModal
+                    animationType='push'
+                    modalAction='showEditProfile'
+                    transparent
+                    hideStatusBar={false}
+                    fullScreen={false}
+                />
+            </RootView>
         );
     }
 }

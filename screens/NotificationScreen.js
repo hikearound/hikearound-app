@@ -1,5 +1,4 @@
 import React from 'react';
-import { ThemeProvider } from 'styled-components';
 import { registerForPushNotifications } from '../utils/Notifications';
 import { NotificationEmptyState } from '../components/Index';
 import { RootView } from '../styles/Screens';
@@ -23,14 +22,11 @@ class NotificationScreen extends React.Component {
 
     render() {
         const { notifications } = this.state;
-        const { theme } = this.props;
 
         return (
-            <ThemeProvider theme={theme.colors}>
-                <RootView>
-                    {notifications.length === 0 && <NotificationEmptyState />}
-                </RootView>
-            </ThemeProvider>
+            <RootView>
+                {notifications.length === 0 && <NotificationEmptyState />}
+            </RootView>
         );
     }
 }
