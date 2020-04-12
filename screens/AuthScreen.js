@@ -49,6 +49,7 @@ class AuthScreen extends React.Component {
 
         await this.cacheLocalImages();
         await this.getUserProfileData(user);
+
         SplashScreen.hide();
     };
 
