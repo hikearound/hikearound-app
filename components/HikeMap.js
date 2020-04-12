@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { LayoutAnimation } from 'react-native';
+import { LayoutAnimation } from 'react-native';
 import styled from 'styled-components';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { colors, borderRadius } from '../constants/Index';
@@ -49,7 +49,7 @@ class HikeMap extends React.Component {
         const { maxZoom, fadeAnim, fullHeight, mapDidLoad } = this.state;
 
         if (!fullHeight && !mapDidLoad) {
-            // LayoutAnimation.easeInEaseOut();
+            LayoutAnimation.easeInEaseOut();
         }
 
         if (region) {

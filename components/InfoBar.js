@@ -4,9 +4,9 @@ import styled from 'styled-components';
 import {
     spacing,
     colors,
-    fontWeights,
     fontSizes,
     borderRadius,
+    fontWeights,
 } from '../constants/Index';
 
 const propTypes = {
@@ -27,14 +27,14 @@ const InfoBar = ({ distance, elevation, route }) => (
             <MetaDataType>Distance</MetaDataType>
             <MetaData>
                 {distance}
-                {'m'}
+                {' miles'}
             </MetaData>
         </ContentItem>
         <ContentItem>
             <MetaDataType>Elevation</MetaDataType>
             <MetaData>
                 {elevation}
-                {'ft'}
+                {' feet'}
             </MetaData>
         </ContentItem>
         <ContentItem>
@@ -53,12 +53,12 @@ const CardContent = styled.View`
     flex-direction: row;
     align-items: center;
     position: relative;
-    padding: ${spacing.tiny}px ${spacing.small}px;
-    margin-top: -4px;
+    padding: ${spacing.tiny}px;
     z-index: 2;
     background-color: ${(props) => props.theme.infoBarBackground};
     border-bottom-left-radius: ${borderRadius.medium}px;
     border-bottom-right-radius: ${borderRadius.medium}px;
+    margin-top: -4px;
 `;
 
 const ContentItem = styled.View`
@@ -68,14 +68,13 @@ const ContentItem = styled.View`
 
 const MetaDataType = styled.Text`
     color: ${colors.grayMedium};
-    font-size: ${fontSizes.small}px;
+    font-size: 11px;
     font-weight: ${fontWeights.medium};
+    margin-top: -2px;
     text-transform: uppercase;
 `;
 
 const MetaData = styled.Text`
-    padding-top: 1px;
     color: ${(props) => props.theme.text};
-    font-size: ${fontSizes.small}px;
-    font-weight: ${fontWeights.medium};
+    font-size: ${fontSizes.extraSmall}px;
 `;

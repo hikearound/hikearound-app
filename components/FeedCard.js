@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Image } from 'react-native-expo-image-cache';
 import FeedCardGradient from './FeedCardGradient';
+import InfoBar from './InfoBar';
 import {
     spacing,
     colors,
     transparentColors,
-    fontWeights,
     fontSizes,
     borderRadius,
 } from '../constants/Index';
@@ -42,26 +42,11 @@ class FeedCard extends React.PureComponent {
                     <HikeName>{name}</HikeName>
                     <FeedCardGradient imageDidLoad={image.uri} />
                 </Cover>
-                <Content>
-                    <ContentItem>
-                        <MetaDataType>Distance</MetaDataType>
-                        <MetaData>
-                            {distance}
-                            {'m'}
-                        </MetaData>
-                    </ContentItem>
-                    <ContentItem>
-                        <MetaDataType>Elevation</MetaDataType>
-                        <MetaData>
-                            {elevation}
-                            {'ft'}
-                        </MetaData>
-                    </ContentItem>
-                    <ContentItem>
-                        <MetaDataType>Route</MetaDataType>
-                        <MetaData>{route}</MetaData>
-                    </ContentItem>
-                </Content>
+                <InfoBar
+                    distance={distance}
+                    elevation={elevation}
+                    route={route}
+                />
             </Container>
         );
     }
@@ -92,36 +77,7 @@ const HikeName = styled.Text`
     font-weight: bold;
     width: 65%;
     position: absolute;
-    left: ${spacing.small}px;
-    bottom: ${spacing.small}px;
+    left: ${spacing.tiny}px;
+    bottom: 12px;
     z-index: 1;
-`;
-
-const Content = styled.View`
-    background-color: ${(props) => props.theme.infoBarBackground};
-    flex-direction: row;
-    align-items: center;
-    position: relative;
-    padding: ${spacing.tiny}px ${spacing.small}px;
-    border-bottom-left-radius: ${borderRadius.medium}px;
-    border-bottom-right-radius: ${borderRadius.medium}px;
-`;
-
-const ContentItem = styled.View`
-    flex-direction: column;
-    flex-grow: 1;
-`;
-
-const MetaDataType = styled.Text`
-    color: ${(props) => props.theme.metaDataTypeText};
-    font-size: ${fontSizes.small}px;
-    font-weight: ${fontWeights.medium};
-    text-transform: uppercase;
-`;
-
-const MetaData = styled.Text`
-    padding-top: 1px;
-    color: ${(props) => props.theme.metaDataText};
-    font-size: ${fontSizes.small}px;
-    font-weight: ${fontWeights.medium};
 `;
