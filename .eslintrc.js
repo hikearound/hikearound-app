@@ -50,6 +50,7 @@ module.exports = {
         'comma-dangle': ['error', 'always-multiline'],
         'no-await-in-loop': 'off',
         'no-param-reassign': 'off',
+        'global-require': 'off',
         'react/prop-types': [
             'error', {
                 'ignore': [

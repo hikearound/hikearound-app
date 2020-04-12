@@ -13,9 +13,7 @@ import {
 } from '../constants/Index';
 import { showModal } from '../actions/Modal';
 import { withTheme } from '../utils/Themes';
-
-const backgroundImageDefault = require('../assets/default/profile-bg.png');
-const backgroundImageDark = require('../assets/dark/profile-bg.png');
+import { profileBgDefault, profileBgDark } from '../constants/Images';
 
 const linkStyle = {
     position: 'absolute',
@@ -68,13 +66,13 @@ class ProfileHeader extends React.PureComponent {
 
     setHeaderImage = () => {
         const { theme } = this.props;
-        let backgroundImage = backgroundImageDefault;
+        let bgImage = profileBgDefault;
 
         if (theme.dark) {
-            backgroundImage = backgroundImageDark;
+            bgImage = profileBgDark;
         }
 
-        this.setState({ backgroundImage });
+        this.setState({ bgImage });
     };
 
     editProfile = () => {
@@ -104,10 +102,10 @@ class ProfileHeader extends React.PureComponent {
 
     render() {
         const { name, location } = this.props;
-        const { backgroundImage } = this.state;
+        const { bgImage } = this.state;
 
         return (
-            <HeaderWrapper source={backgroundImage}>
+            <HeaderWrapper source={bgImage}>
                 <Avatar />
                 <NameText>{name}</NameText>
                 {location === '' && this.addLocationLink()}

@@ -5,9 +5,7 @@ import { LandingButton } from '../components/Index';
 import { spacing } from '../constants/Index';
 import { RootView } from '../styles/Screens';
 import { withTheme } from '../utils/Themes';
-
-const backgroundImageDefault = require('../assets/default/landing-bg.png');
-const backgroundImageDark = require('../assets/dark/landing-bg.png');
+import { landingBgDefault, landingBgDark } from '../constants/Images';
 
 class LandingScreen extends React.Component {
     constructor(props) {
@@ -40,23 +38,23 @@ class LandingScreen extends React.Component {
 
     setBackgroundImage = () => {
         const { theme } = this.props;
-        let backgroundImage = backgroundImageDefault;
+        let bgImage = landingBgDefault;
 
         if (theme.dark) {
-            backgroundImage = backgroundImageDark;
+            bgImage = landingBgDark;
         }
 
-        this.setState({ backgroundImage });
+        this.setState({ bgImage });
     };
 
     render() {
-        const { left, backgroundImage } = this.state;
+        const { left, bgImage } = this.state;
         const { navigation } = this.props;
 
         return (
             <RootView>
                 <AnimatedBackgroundWrapper style={{ left }}>
-                    <LandingBackground source={backgroundImage} />
+                    <LandingBackground source={bgImage} />
                 </AnimatedBackgroundWrapper>
                 <ButtonWrapper>
                     <LandingButton

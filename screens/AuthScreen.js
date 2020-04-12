@@ -7,6 +7,8 @@ import firebase from 'firebase';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { getUserData } from '../utils/User';
 import { initializeUserData } from '../actions/User';
+import { cacheImages } from '../utils/Image';
+import { localImages } from '../constants/Images';
 
 const propTypes = {
     dispatchUserData: PropTypes.func.isRequired,
@@ -45,8 +47,13 @@ class AuthScreen extends React.Component {
             }),
         );
 
+        await this.cacheLocalImages();
         await this.getUserProfileData(user);
         SplashScreen.hide();
+    };
+
+    cacheLocalImages = async () => {
+        cacheImages(localImages);
     };
 
     getUserProfileData = async (user) => {
