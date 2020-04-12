@@ -44,7 +44,7 @@ class HomeScreen extends React.Component {
         this.state = {
             feedHikeCount: 0,
             loading: false,
-            firstLoad: true,
+            firstLoad: false,
             sortDirection: 'desc',
             pageSize: 5,
         };
@@ -69,6 +69,7 @@ class HomeScreen extends React.Component {
 
         this.checkInitialUrl(navigation);
         this.addUrlListener(navigation);
+        this.setFirstLoad();
         this.getHikeFeedData();
         this.setFeedHikeCount();
         this.handleAppBadge();
@@ -86,6 +87,10 @@ class HomeScreen extends React.Component {
         if (badgeNumber > 0) {
             clearBadge();
         }
+    };
+
+    setFirstLoad = () => {
+        this.setState({ firstLoad: true });
     };
 
     setFeedHikeCount = async () => {
@@ -121,12 +126,11 @@ class HomeScreen extends React.Component {
             hikes[hike.key] = hike;
         }
 
-        if (hikes) {
-            this.setState({ firstLoad: false });
-        }
-
         this.addhikes(hikes);
-        this.setState({ loading: false });
+        this.setState({
+            loading: false,
+            firstLoad: false,
+        });
     };
 
     addhikes = async (hikes) => {

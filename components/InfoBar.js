@@ -68,7 +68,7 @@ const ContentItem = styled.View`
 
 const MetaDataType = styled.Text`
     color: ${colors.grayMedium};
-    font-size: 11px;
+    font-size: ${fontSizes.extraSmall}px;
     font-weight: ${fontWeights.medium};
     margin-top: -2px;
     text-transform: uppercase;
@@ -76,5 +76,5 @@ const MetaDataType = styled.Text`
 
 const MetaData = styled.Text`
     color: ${(props) => props.theme.text};
-    font-size: ${fontSizes.extraSmall}px;
+    font-size: ${fontSizes.small}px;
 `;
