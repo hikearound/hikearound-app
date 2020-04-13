@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import TextLink from './TextLink';
 import { withTheme } from '../utils/Themes';
-import { colors, fontSizes, fontWeights, spacing } from '../constants/Index';
+import { colors, fontSizes, spacing } from '../constants/Index';
 
 class LegalText extends React.PureComponent {
     renderTermsOfServiceLink = () => {
@@ -40,7 +40,6 @@ export default withTheme(LegalText);
 
 const StyledText = styled.Text`
     color: ${colors.grayMedium};
-    font-weight: ${fontWeights.medium};
     font-size: ${fontSizes.small}px;
     margin: ${spacing.small}px;
 `;

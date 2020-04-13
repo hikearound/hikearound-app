@@ -36,7 +36,7 @@ class TextLink extends React.PureComponent {
 
     render() {
         const { text } = this.props;
-        return <Text onPress={this.handlePress}>{text}</Text>;
+        return <StyledText onPress={this.handlePress}>{text}</StyledText>;
     }
 }
 
@@ -45,6 +45,6 @@ TextLink.defaultProps = defaultProps;
 
 export default TextLink;
 
-const Text = styled.Text`
+const StyledText = styled.Text`
     color: ${colors.purple};
 `;
