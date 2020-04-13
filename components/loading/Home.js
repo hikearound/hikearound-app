@@ -6,8 +6,15 @@ import { Rect } from 'react-native-svg';
 import { timings, borderRadius, spacing } from '../../constants/Index';
 import { withTheme } from '../../utils/Themes';
 
-const SCREEN_WIDTH = Math.round(Dimensions.get('window').width);
-const SCREEN_HEIGHT = Math.round(Dimensions.get('window').height);
+const screenWidth = Math.round(Dimensions.get('window').width);
+const screenHeight = Math.round(Dimensions.get('window').height);
+
+const cards = [
+    { yOffset: 10 },
+    { yOffset: 240 },
+    { yOffset: 470 },
+    { yOffset: 700 },
+];
 
 const propTypes = {
     width: PropTypes.number,
@@ -18,11 +25,11 @@ const propTypes = {
 };
 
 const defaultProps = {
-    width: SCREEN_WIDTH,
-    height: SCREEN_HEIGHT,
+    width: screenWidth,
+    height: screenHeight,
     cardBorderRadius: parseInt(borderRadius.medium, 10),
     cardSpacing: parseInt(spacing.tiny, 10),
-    cardHeight: 227,
+    cardHeight: 220,
 };
 
 class HomeLoadingState extends React.PureComponent {
@@ -73,30 +80,17 @@ class HomeLoadingState extends React.PureComponent {
                             primaryColor={primaryColor}
                             secondaryColor={secondaryColor}
                         >
-                            <Rect
-                                x={cardSpacing}
-                                y={cardSpacing}
-                                rx={cardBorderRadius}
-                                ry={cardBorderRadius}
-                                width={width - 20}
-                                height={cardHeight}
-                            />
-                            <Rect
-                                x={cardSpacing}
-                                y='247'
-                                rx={cardBorderRadius}
-                                ry={cardBorderRadius}
-                                width={width - 20}
-                                height={cardHeight}
-                            />
-                            <Rect
-                                x={cardSpacing}
-                                y='485'
-                                rx={cardBorderRadius}
-                                ry={cardBorderRadius}
-                                width={width - 20}
-                                height={cardHeight}
-                            />
+                            {cards.map(({ yOffset }, index) => (
+                                <Rect
+                                    key={index}
+                                    x={cardSpacing}
+                                    y={yOffset}
+                                    rx={cardBorderRadius}
+                                    ry={cardBorderRadius}
+                                    width={width - 20}
+                                    height={cardHeight}
+                                />
+                            ))}
                         </SvgAnimatedLinearGradient>
                     </View>
                 )}
