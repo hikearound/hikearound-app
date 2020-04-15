@@ -189,7 +189,7 @@ class HomeScreen extends React.Component {
     render() {
         const { loading, hikes, firstLoad } = this.state;
         const { theme } = this.props;
-        const feedRef = React.createRef();
+        const scrollRef = React.createRef();
 
         return (
             <RootView>
@@ -203,7 +203,7 @@ class HomeScreen extends React.Component {
                                 onRefresh={this.onRefresh}
                             />
                         }
-                        feedRef={feedRef}
+                        scrollRef={scrollRef}
                         onEndReached={this.onEndReached}
                         hikes={hikes}
                     />

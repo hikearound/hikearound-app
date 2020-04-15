@@ -11,11 +11,11 @@ const propTypes = {
 class ProfileBody extends React.PureComponent {
     render() {
         const { hikeData, loading, maybeShowEmptyState } = this.props;
-        const listRef = React.createRef();
+        const scrollRef = React.createRef();
 
         return (
             <HikeList
-                listRef={listRef}
+                scrollRef={scrollRef}
                 hikeData={hikeData}
                 loading={loading}
                 maybeShowEmptyState={maybeShowEmptyState}

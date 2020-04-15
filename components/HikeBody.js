@@ -2,7 +2,7 @@ import React from 'react';
 import { ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { useScrollToTop } from '@react-navigation/native';
+import { withScrollToTop } from '../utils/Navigation';
 import { spacing } from '../constants/Index';
 import Subtitle from './Subtitle';
 import PhotoLightboxGroup from './PhotoLightboxGroup';
@@ -82,17 +82,10 @@ class HikeBody extends React.PureComponent {
     }
 }
 
-function HikeBodyFunction(props) {
-    const bodyRef = React.useRef(null);
-    useScrollToTop(bodyRef);
-
-    return <HikeBody {...props} scrollRef={bodyRef} />;
-}
-
 HikeBody.propTypes = propTypes;
 HikeBody.defaultProps = defaultProps;
 
-export default HikeBodyFunction;
+export default withScrollToTop(HikeBody);
 
 const BodyContent = styled.View`
     padding: ${spacing.small}px ${spacing.small}px;
