@@ -23,14 +23,14 @@ class ActionItem extends React.Component {
         const { item } = this.props;
 
         return (
-            <TouchableOpacity
-                activeOpacity={opacities.regular}
-                onPress={this.itemPress}
-            >
-                <ItemContainer>
+            <ItemContainer>
+                <TouchableOpacity
+                    activeOpacity={opacities.regular}
+                    onPress={this.itemPress}
+                >
                     <ItemText key={item.key}>{item.name}</ItemText>
-                </ItemContainer>
-            </TouchableOpacity>
+                </TouchableOpacity>
+            </ItemContainer>
         );
     }
 }

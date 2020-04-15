@@ -2,6 +2,7 @@ import React from 'react';
 import { ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { useScrollToTop } from '@react-navigation/native';
 import { spacing } from '../constants/Index';
 import Subtitle from './Subtitle';
 import PhotoLightboxGroup from './PhotoLightboxGroup';
@@ -9,6 +10,7 @@ import HikeMapWrapper from './HikeMapWrapper';
 import TextContent from './hike/TextContent';
 
 const propTypes = {
+    scrollRef: PropTypes.object.isRequired,
     coordinates: PropTypes.array,
     region: PropTypes.object,
     hike: PropTypes.object.isRequired,
@@ -37,7 +39,7 @@ class HikeBody extends React.PureComponent {
     }
 
     render() {
-        const { coordinates, region } = this.props;
+        const { coordinates, region, scrollRef } = this.props;
         const {
             description,
             name,
@@ -52,7 +54,10 @@ class HikeBody extends React.PureComponent {
         return (
             <>
                 <BlockView />
-                <ScrollView showsVerticalScrollIndicator={false}>
+                <ScrollView
+                    showsVerticalScrollIndicator={false}
+                    ref={scrollRef}
+                >
                     <HikeMapWrapper
                         coordinates={coordinates}
                         region={region}
@@ -77,10 +82,17 @@ class HikeBody extends React.PureComponent {
     }
 }
 
+function HikeBodyFunction(props) {
+    const ref = React.useRef(null);
+    useScrollToTop(ref);
+
+    return <HikeBody {...props} scrollRef={ref} />;
+}
+
 HikeBody.propTypes = propTypes;
 HikeBody.defaultProps = defaultProps;
 
-export default HikeBody;
+export default HikeBodyFunction;
 
 const BodyContent = styled.View`
     padding: ${spacing.small}px ${spacing.small}px;

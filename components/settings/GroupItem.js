@@ -95,11 +95,11 @@ class GroupItem extends React.PureComponent {
         const { checkDisplay, textColor } = this.state;
 
         return (
-            <TouchableOpacity
-                activeOpacity={opacities.regular}
-                onPress={this.itemPress}
-            >
-                <ItemContainer>
+            <ItemContainer>
+                <TouchableOpacity
+                    activeOpacity={opacities.regular}
+                    onPress={this.itemPress}
+                >
                     <ItemText key={item.key} textColor={textColor}>
                         {item.name}
                     </ItemText>
@@ -114,8 +114,8 @@ class GroupItem extends React.PureComponent {
                             position: 'absolute',
                         }}
                     />
-                </ItemContainer>
-            </TouchableOpacity>
+                </TouchableOpacity>
+            </ItemContainer>
         );
     }
 }

@@ -27,11 +27,11 @@ class PushItem extends React.Component {
         const { item } = this.props;
 
         return (
-            <TouchableOpacity
-                activeOpacity={opacities.regular}
-                onPress={this.itemPress}
-            >
-                <ItemContainer>
+            <ItemContainer>
+                <TouchableOpacity
+                    activeOpacity={opacities.regular}
+                    onPress={this.itemPress}
+                >
                     <ItemText key={item.key}>{item.name}</ItemText>
                     <Ionicons
                         name='ios-arrow-forward'
@@ -43,8 +43,8 @@ class PushItem extends React.Component {
                             position: 'absolute',
                         }}
                     />
-                </ItemContainer>
-            </TouchableOpacity>
+                </TouchableOpacity>
+            </ItemContainer>
         );
     }
 }

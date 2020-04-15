@@ -94,6 +94,7 @@ export default HikeMap;
 
 const EmptyMapView = styled.View`
     border-color: ${colors.grayMedium};
+    border-radius: ${borderRadius.medium}px;
     height: ${(props) =>
         props.fullHeight ? '100%' : `${DEFAULT_MAP_HEIGHT}px`};
     background-color: ${(props) => props.theme.loadingPrimary};
