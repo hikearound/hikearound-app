@@ -39,7 +39,7 @@ class PushItem extends React.Component {
                         color={colors.gray}
                         style={{
                             right: parseInt(spacing.small, 10),
-                            top: 12,
+                            top: 8,
                             position: 'absolute',
                         }}
                     />

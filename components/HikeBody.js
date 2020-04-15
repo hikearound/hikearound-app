@@ -83,10 +83,10 @@ class HikeBody extends React.PureComponent {
 }
 
 function HikeBodyFunction(props) {
-    const ref = React.useRef(null);
-    useScrollToTop(ref);
+    const bodyRef = React.useRef(null);
+    useScrollToTop(bodyRef);
 
-    return <HikeBody {...props} scrollRef={ref} />;
+    return <HikeBody {...props} scrollRef={bodyRef} />;
 }
 
 HikeBody.propTypes = propTypes;

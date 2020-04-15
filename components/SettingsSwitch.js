@@ -32,5 +32,5 @@ export default SettingsSwitch;
 const Switch = styled.Switch`
     position: absolute;
     right: ${spacing.tiny}px;
-    top: ${spacing.tiny}px;
+    top: ${spacing.micro}px;
 `;
