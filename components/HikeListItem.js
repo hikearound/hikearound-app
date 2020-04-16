@@ -57,7 +57,7 @@ export default function (props) {
 }
 
 const Container = styled.View`
-    border-color: ${colors.grayUltraLight};
+    border-color: ${(props) => props.theme.itemBorder};
     border-top-width: 1px;
     padding: ${spacing.small}px 0;
 `;

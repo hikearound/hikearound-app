@@ -19,7 +19,7 @@ export default Subtitle;
 
 const SubtitleView = styled.View`
     border-bottom-width: 1px;
-    border-bottom-color: ${colors.gray};
+    border-bottom-color: ${(props) => props.theme.itemBorder};
     margin: ${spacing.medium}px 0 ${spacing.tiny}px 0;
 `;
 

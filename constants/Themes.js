@@ -20,6 +20,7 @@ export const defaultTheme = {
         rootBackground: colors.white,
         blockView: colors.purple,
         refreshControlTint: colors.grayLight,
+        itemBorder: colors.grayUltraLight,
 
         // Cards
         cardBackground: colors.gray,
@@ -48,6 +49,9 @@ export const defaultTheme = {
         loadingPrimary: colors.grayLight,
         loadingSecondary: colors.white,
         loadingSpinner: colors.grayDark,
+
+        // Empty States
+        emptyStateFill: colors.grayMedium,
     },
 };
 
@@ -70,6 +74,7 @@ export const darkTheme = {
         rootBackground: colors.black,
         blockView: DarkTheme.colors.card,
         refreshControlTint: colors.white,
+        itemBorder: DarkTheme.colors.border,
 
         // Cards
         cardBackground: colors.blackText,
@@ -97,6 +102,9 @@ export const darkTheme = {
         loadingPrimary: colors.blackText,
         loadingSecondary: colors.blackLight,
         loadingSpinner: colors.white,
+
+        // Empty States
+        emptyStateFill: colors.white,
     },
 };
 

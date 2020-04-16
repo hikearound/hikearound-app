@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { Keyboard } from 'react-native';
-import { colors, fontSizes, spacing, fontWeights } from '../constants/Index';
+import { fontSizes, spacing, fontWeights } from '../constants/Index';
 
 const propTypes = {
     placeholder: PropTypes.string.isRequired,
@@ -80,7 +80,7 @@ export default InputLabelGroup;
 const LabelInputGroup = styled.View`
     width: 100%;
     flex-direction: row;
-    border-color: ${colors.grayUltraLight};
+    border-color: ${(props) => props.theme.itemBorder};
     border-top-width: 1px;
     border-bottom-width: 1px;
     margin-top: -1px;

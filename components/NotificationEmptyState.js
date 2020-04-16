@@ -2,13 +2,16 @@ import React from 'react';
 import styled from 'styled-components';
 import { colors, fontSizes, spacing } from '../constants/Index';
 import { BellEmptyState } from '../icons/Index';
+import { withTheme } from '../utils/Themes';
 
 class NotificationEmptyState extends React.PureComponent {
     render() {
+        const { theme } = this.props;
+
         return (
             <RootView>
                 <BellWrapper>
-                    <BellEmptyState />
+                    <BellEmptyState fill={theme.colors.emptyStateFill} />
                 </BellWrapper>
                 <EmptyStateText>No new notifications</EmptyStateText>
             </RootView>
@@ -16,7 +19,7 @@ class NotificationEmptyState extends React.PureComponent {
     }
 }
 
-export default NotificationEmptyState;
+export default withTheme(NotificationEmptyState);
 
 const RootView = styled.View`
     flex: 1;
@@ -30,6 +33,6 @@ const BellWrapper = styled.View`
 
 const EmptyStateText = styled.Text`
     margin-top: ${spacing.micro}px;
-    color: ${colors.grayMedium};
+    color: ${(props) => props.theme.emptyStateFill};
     font-size: ${fontSizes.medium}px;
 `;
