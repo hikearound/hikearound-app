@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { colors, fontSizes, spacing } from '../constants/Index';
+import { fontSizes, spacing } from '../constants/Index';
 import { BellEmptyState } from '../icons/Index';
 import { withTheme } from '../utils/Themes';
 
