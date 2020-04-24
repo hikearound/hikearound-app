@@ -86,7 +86,7 @@ const MapViewWrapper = styled.View`
     flex: 1;
     height: 275px;
     background-color: ${(props) => props.theme.mapBackground};
-    padding: ${spacing.micro}px ${spacing.small}px;
+    padding: 0 ${spacing.small}px ${spacing.micro}px ${spacing.small}px;
 `;
 
 const InnerMapViewWrapper = styled.View`
@@ -100,10 +100,12 @@ const InnerMapViewWrapper = styled.View`
     z-index: 1;
 `;
 
+// TODO
+
 const BlockView = styled.View`
     flex: 1;
     height: 165px;
-    background-color: ${(props) => props.theme.background};
+    background-color: ${(props) => props.theme.mapViewBackground};
     position: absolute;
     left: 0;
     right: 0;

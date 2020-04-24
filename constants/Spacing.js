@@ -4,7 +4,7 @@ const spacing = {
     small: '15',
     medium: '20',
     large: '25',
-    header: '100',
+    header: '90',
 };
 
 export default spacing;

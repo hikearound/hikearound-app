@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Ionicons } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 import styled from 'styled-components';
 import { colors, spacing, opacities } from '../../constants/Index';
 
@@ -12,21 +12,21 @@ const propTypes = {
 };
 
 const defaultProps = {
-    name: 'md-options',
+    name: 'map',
     color: colors.white,
-    size: 25,
+    size: 26,
 };
 
-const Sort = ({ onPress, name, color, size }) => (
+const Map = ({ onPress, name, color, size }) => (
     <StyledOpacity activeOpacity={opacities.regular} onPress={onPress}>
-        <Ionicons name={name} size={size} color={color} />
+        <MaterialIcons name={name} size={size} color={color} />
     </StyledOpacity>
 );
 
-Sort.propTypes = propTypes;
-Sort.defaultProps = defaultProps;
+Map.propTypes = propTypes;
+Map.defaultProps = defaultProps;
 
-export default Sort;
+export default Map;
 
 const StyledOpacity = styled.TouchableOpacity`
     margin-left: ${spacing.tiny}px;

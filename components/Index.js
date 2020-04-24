@@ -28,6 +28,7 @@ import Logo from './header/Logo';
 import Overflow from './header/Overflow';
 import Sort from './header/Sort';
 import Settings from './header/Settings';
+import Map from './header/Map';
 
 // Feed
 import FeedCard from './FeedCard';
@@ -93,4 +94,5 @@ export {
     LinkItem,
     PushItem,
     NotificationSwitchItem,
+    Map,
 };

@@ -52,6 +52,9 @@ export const defaultTheme = {
 
         // Empty States
         emptyStateFill: colors.grayMedium,
+
+        // Maps
+        mapViewBackground: colors.grayUltraLight,
     },
 };
 
@@ -105,6 +108,9 @@ export const darkTheme = {
 
         // Empty States
         emptyStateFill: colors.white,
+
+        // Maps
+        mapViewBackground: colors.blackLight,
     },
 };
 

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Linking } from 'expo';
 import { RefreshControl } from 'react-native';
-import { FeedList, Sort } from '../components/Index';
+import { FeedList } from '../components/Index';
 import { getFeedHikeCount, openHikeScreen } from '../utils/Hike';
 import { cacheHikeImage } from '../utils/Image';
 import HomeLoadingState from '../components/loading/Home';
@@ -13,6 +13,7 @@ import { timings } from '../constants/Index';
 import { pageFeed, sortHikes } from '../utils/Feed';
 import { getHikeIdFromUrl } from '../utils/Link';
 import { feedActionSheet } from '../components/action_sheets/Feed';
+import HomeActions from '../components/HomeActions';
 import { RootView } from '../styles/Screens';
 import { getBadgeNumber, clearBadge } from '../utils/Notifications';
 import { withTheme } from '../utils/Themes';
@@ -53,9 +54,15 @@ class HomeScreen extends React.Component {
         this.state.data = {};
 
         this.feedActionSheet = feedActionSheet.bind(this);
+        this.mapAction = {};
 
         navigation.setOptions({
-            headerRight: () => <Sort onPress={this.feedActionSheet} />,
+            headerRight: () => (
+                <HomeActions
+                    feedAction={this.feedActionSheet}
+                    mapAction={this.mapAction}
+                />
+            ),
         });
     }
 
