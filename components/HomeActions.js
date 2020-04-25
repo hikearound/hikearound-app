@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Sort from './header/Sort';
-import Map from './header/Map';
+import Toggle from './header/Toggle';
 
 const propTypes = {
     feedAction: PropTypes.func.isRequired,
@@ -15,7 +15,7 @@ class HomeActions extends React.PureComponent {
 
         return (
             <ActionsWrapper>
-                <Map onPress={toggleAction} />
+                <Toggle onPress={toggleAction} />
                 <Sort onPress={feedAction} />
             </ActionsWrapper>
         );

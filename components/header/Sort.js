@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Ionicons } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 import styled from 'styled-components';
-import { colors, spacing, opacities } from '../../constants/Index';
+import { colors, opacities } from '../../constants/Index';
+
+const iconLeftMargin = '8px';
+const iconTopMargin = '3px';
 
 const propTypes = {
     onPress: PropTypes.func.isRequired,
@@ -12,14 +15,14 @@ const propTypes = {
 };
 
 const defaultProps = {
-    name: 'md-options',
+    name: 'filter',
     color: colors.white,
-    size: 25,
+    size: 18,
 };
 
 const Sort = ({ onPress, name, color, size }) => (
     <StyledOpacity activeOpacity={opacities.regular} onPress={onPress}>
-        <Ionicons name={name} size={size} color={color} />
+        <FontAwesome5 name={name} size={size} color={color} solid />
     </StyledOpacity>
 );
 
@@ -29,5 +32,6 @@ Sort.defaultProps = defaultProps;
 export default Sort;
 
 const StyledOpacity = styled.TouchableOpacity`
-    margin-left: ${spacing.tiny}px;
+    margin-left: ${iconLeftMargin};
+    margin-top: ${iconTopMargin};
 `;
