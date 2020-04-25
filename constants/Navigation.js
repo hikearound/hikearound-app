@@ -1,7 +1,9 @@
+import React from 'react';
 import { HeaderStyleInterpolators } from '@react-navigation/stack';
 import { colors } from './Colors';
 import { fontSizes } from './Fonts';
 import spacing from './Spacing';
+import Back from '../components/header/Back';
 
 export const mode = 'card';
 export const headerMode = 'float';
@@ -41,6 +43,7 @@ export function screenOptions(backgroundColor) {
         headerTitleStyle: {
             fontSize: parseInt(fontSizes.big, 10),
         },
+        headerBackImage: () => <Back />,
         headerBackTitleVisible: false,
         headerStyleInterpolator: forCustomHeaderAnimation,
     };
