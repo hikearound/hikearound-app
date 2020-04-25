@@ -1,5 +1,9 @@
 import { avatar } from './Images';
 
+export const homeState = {
+    screenType: 'feed',
+};
+
 export const hikeState = {
     action: '',
     hikeData: [],

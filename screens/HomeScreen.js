@@ -9,6 +9,7 @@ import { cacheHikeImage } from '../utils/Image';
 import HomeLoadingState from '../components/loading/Home';
 import { getUserProfileData } from '../utils/User';
 import { initializeUserData, initializeAvatar } from '../actions/User';
+import toggleScreenType from '../actions/Home';
 import { timings } from '../constants/Index';
 import { pageFeed, sortHikes } from '../utils/Feed';
 import { getHikeIdFromUrl } from '../utils/Link';
@@ -17,10 +18,12 @@ import HomeActions from '../components/HomeActions';
 import { RootView } from '../styles/Screens';
 import { getBadgeNumber, clearBadge } from '../utils/Notifications';
 import { withTheme } from '../utils/Themes';
+import GlobalMap from '../components/GlobalMap';
 
 const propTypes = {
     dispatchUserData: PropTypes.func.isRequired,
     dispatchAvatar: PropTypes.func.isRequired,
+    dispatchScreenType: PropTypes.func.isRequired,
     avatar: PropTypes.string.isRequired,
 };
 
@@ -34,6 +37,8 @@ function mapDispatchToProps(dispatch) {
     return {
         dispatchUserData: (userData) => dispatch(initializeUserData(userData)),
         dispatchAvatar: (avatarUri) => dispatch(initializeAvatar(avatarUri)),
+        dispatchScreenType: (screenType) =>
+            dispatch(toggleScreenType(screenType)),
     };
 }
 
@@ -48,19 +53,18 @@ class HomeScreen extends React.Component {
             firstLoad: false,
             sortDirection: 'desc',
             pageSize: 5,
+            view: 'feed',
         };
 
         this.state.hikes = [];
         this.state.data = {};
 
         this.feedActionSheet = feedActionSheet.bind(this);
-        this.mapAction = {};
-
         navigation.setOptions({
             headerRight: () => (
                 <HomeActions
                     feedAction={this.feedActionSheet}
-                    mapAction={this.mapAction}
+                    toggleAction={this.toggleScreenType}
                 />
             ),
         });
@@ -193,28 +197,51 @@ class HomeScreen extends React.Component {
         }
     };
 
-    render() {
-        const { loading, hikes, firstLoad } = this.state;
+    renderHomeView = () => {
+        const { loading, hikes, view } = this.state;
         const { theme } = this.props;
         const scrollRef = React.createRef();
+
+        if (view === 'map') {
+            return <GlobalMap />;
+        }
+
+        return (
+            <FeedList
+                refreshControl={
+                    <RefreshControl
+                        tintColor={theme.colors.refreshControlTint}
+                        refreshing={loading}
+                        onRefresh={this.onRefresh}
+                    />
+                }
+                scrollRef={scrollRef}
+                onEndReached={this.onEndReached}
+                hikes={hikes}
+            />
+        );
+    };
+
+    toggleScreenType = () => {
+        const { dispatchScreenType } = this.props;
+        const { view } = this.state;
+        let newView = 'map';
+
+        if (view === newView) {
+            newView = 'feed';
+        }
+
+        this.setState({ view: newView });
+        dispatchScreenType(newView);
+    };
+
+    render() {
+        const { firstLoad } = this.state;
 
         return (
             <RootView>
                 {firstLoad && <HomeLoadingState />}
-                {!firstLoad && (
-                    <FeedList
-                        refreshControl={
-                            <RefreshControl
-                                tintColor={theme.colors.refreshControlTint}
-                                refreshing={loading}
-                                onRefresh={this.onRefresh}
-                            />
-                        }
-                        scrollRef={scrollRef}
-                        onEndReached={this.onEndReached}
-                        hikes={hikes}
-                    />
-                )}
+                {!firstLoad && this.renderHomeView()}
             </RootView>
         );
     }

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FlatList } from 'react-native';
+import { FlatList, LayoutAnimation } from 'react-native';
 import FeedItem from './FeedItem';
 import FeedFooter from './FeedFooter';
 import { withScrollToTop } from '../utils/Navigation';
@@ -33,6 +33,8 @@ class FeedList extends React.Component {
 
     render() {
         const { onEndReached, refreshControl, hikes, scrollRef } = this.props;
+
+        LayoutAnimation.easeInEaseOut();
 
         return (
             <FlatList

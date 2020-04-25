@@ -3,19 +3,19 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Sort from './header/Sort';
 import Map from './header/Map';
-// import { spacing } from '../constants/Index';
 
 const propTypes = {
     feedAction: PropTypes.func.isRequired,
+    toggleAction: PropTypes.func.isRequired,
 };
 
 class HomeActions extends React.PureComponent {
     render() {
-        const { feedAction } = this.props;
+        const { feedAction, toggleAction } = this.props;
 
         return (
             <ActionsWrapper>
-                <Map onPress={feedAction} />
+                <Map onPress={toggleAction} />
                 <Sort onPress={feedAction} />
             </ActionsWrapper>
         );
