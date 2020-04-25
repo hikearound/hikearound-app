@@ -2,9 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesome5 } from '@expo/vector-icons';
 import styled from 'styled-components';
-import { colors, opacities } from '../../constants/Index';
+import { colors, spacing, opacities } from '../../constants/Index';
 
-const iconLeftMargin = '8px';
 const iconTopMargin = '3px';
 
 const propTypes = {
@@ -32,6 +31,6 @@ Sort.defaultProps = defaultProps;
 export default Sort;
 
 const StyledOpacity = styled.TouchableOpacity`
-    margin-left: ${iconLeftMargin};
+    margin-left: ${spacing.tiny}px;
     margin-top: ${iconTopMargin};
 `;

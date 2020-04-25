@@ -4,6 +4,9 @@ import styled from 'styled-components';
 import Sort from './header/Sort';
 import Toggle from './header/Toggle';
 
+const marginRight = '7px';
+const marginBottom = '4px';
+
 const propTypes = {
     feedAction: PropTypes.func.isRequired,
     toggleAction: PropTypes.func.isRequired,
@@ -29,6 +32,5 @@ export default HomeActions;
 const ActionsWrapper = styled.View`
     display: flex;
     flex-direction: row;
-    margin-bottom: 2px;
-    margin: 0 7px 2px 0;
+    margin: 0 ${marginRight} ${marginBottom} 0;
 `;

@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { LayoutAnimation } from 'react-native';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 
 const propTypes = {
@@ -12,25 +11,12 @@ const defaultProps = {
 };
 
 class HikeMap extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            mapDidLoad: false,
-        };
-    }
-
     onMapReady = () => {
         // todo
     };
 
     render() {
         const { mapType } = this.props;
-        const { mapDidLoad } = this.state;
-
-        if (!mapDidLoad) {
-            LayoutAnimation.easeInEaseOut();
-        }
 
         return (
             <MapView
