@@ -9,6 +9,9 @@ import { colors, spacing, opacities } from '../../constants/Index';
 const iconRightMargin = '30px';
 const iconTopMargin = '-1px';
 
+const mapIconVisible = { mapIconDisplay: 'flex', listIconDisplay: 'none' };
+const listIconVisible = { mapIconDisplay: 'none', listIconDisplay: 'flex' };
+
 const propTypes = {
     onPress: PropTypes.func.isRequired,
     color: PropTypes.string,
@@ -30,27 +33,51 @@ function mapDispatchToProps() {
 }
 
 class Toggle extends React.PureComponent {
-    componentDidUpdate() {
-        const { screenType } = this.props;
+    constructor(props, context) {
+        super(props, context);
 
-        if (screenType === 'list') {
-            LayoutAnimation.configureNext(
-                LayoutAnimation.Presets.easeInEaseOut,
-            );
-        }
+        this.state = {
+            mapIconDisplay: 'flex',
+            listIconDisplay: 'none',
+        };
     }
 
+    componentDidUpdate(prevProps) {
+        const { screenType } = this.props;
+
+        if (prevProps.screenType !== screenType) {
+            this.toggleIconVisibility(screenType);
+        }
+
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    }
+
+    toggleIconVisibility = (screenType) => {
+        if (screenType === 'feed') {
+            this.setState(mapIconVisible);
+        } else {
+            this.setState(listIconVisible);
+        }
+    };
+
     render() {
-        const { onPress, color, screenType } = this.props;
+        const { onPress, color } = this.props;
+        const { mapIconDisplay, listIconDisplay } = this.state;
 
         return (
             <StyledOpacity activeOpacity={opacities.regular} onPress={onPress}>
-                {screenType !== 'feed' && (
-                    <Entypo name='list' size={26} color={color} />
-                )}
-                {screenType !== 'map' && (
-                    <MaterialIcons name='map' size={26} color={color} />
-                )}
+                <Entypo
+                    name='list'
+                    size={26}
+                    color={color}
+                    style={{ display: listIconDisplay }}
+                />
+                <MaterialIcons
+                    name='map'
+                    size={26}
+                    color={color}
+                    style={{ display: mapIconDisplay }}
+                />
             </StyledOpacity>
         );
     }
