@@ -84,7 +84,7 @@ export default connect(null, mapDispatchToProps)(HikeMapWrapper);
 
 const MapViewWrapper = styled.View`
     flex: 1;
-    height: 275px;
+    height: 265px;
     background-color: ${(props) => props.theme.mapBackground};
     padding: 0 ${spacing.small}px ${spacing.micro}px ${spacing.small}px;
 `;
@@ -99,8 +99,6 @@ const InnerMapViewWrapper = styled.View`
             : '0 0'};
     z-index: 1;
 `;
-
-// TODO
 
 const BlockView = styled.View`
     flex: 1;

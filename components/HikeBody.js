@@ -88,7 +88,7 @@ HikeBody.defaultProps = defaultProps;
 export default withScrollToTop(HikeBody);
 
 const BodyContent = styled.View`
-    padding: ${spacing.small}px ${spacing.small}px;
+    padding: ${spacing.tiny}px ${spacing.small}px;
     background-color: ${(props) => props.theme.rootBackground};
 `;
 

@@ -6,11 +6,13 @@ import * as Location from 'expo-location';
 
 const propTypes = {
     mapType: PropTypes.string,
+    mapPadding: PropTypes.object,
     delta: PropTypes.number,
 };
 
 const defaultProps = {
     mapType: 'terrain',
+    mapPadding: {},
     delta: 0.05,
 };
 
@@ -55,7 +57,7 @@ class HikeMap extends React.Component {
     };
 
     render() {
-        const { mapType } = this.props;
+        const { mapType, mapPadding } = this.props;
         const { region } = this.state;
 
         LayoutAnimation.easeInEaseOut();
@@ -76,10 +78,11 @@ class HikeMap extends React.Component {
                     initialRegion={region}
                     showsUserLocation
                     loadingEnabled
-                    showsMyLocationButton={false}
+                    showsMyLocationButton
                     showsPointsOfInterest={false}
-                    showsCompass={false}
+                    showsCompass
                     onMapReady={this.onMapReady}
+                    mapPadding={mapPadding}
                 />
             );
         }

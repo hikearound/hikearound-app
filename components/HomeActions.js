@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import Sort from './header/Sort';
 import Toggle from './header/Toggle';
 
-const marginRight = '7px';
-const marginBottom = '4px';
+const marginRight = '8px';
+const marginBottom = '6px';
 
 const propTypes = {
     feedAction: PropTypes.func.isRequired,

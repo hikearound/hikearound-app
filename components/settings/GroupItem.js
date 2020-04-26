@@ -110,7 +110,7 @@ class GroupItem extends React.PureComponent {
                         style={{
                             display: checkDisplay,
                             right: parseInt(spacing.small, 10),
-                            top: 5,
+                            top: parseInt(spacing.micro, 10),
                             position: 'absolute',
                         }}
                     />

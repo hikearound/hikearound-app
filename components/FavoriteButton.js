@@ -4,7 +4,7 @@ import { TouchableOpacity } from 'react-native';
 import * as Haptics from 'expo-haptics';
 import { connect } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
-import { opacities, colors } from '../constants/Index';
+import { opacities, colors, spacing } from '../constants/Index';
 import { favoriteHike, unfavoriteHike } from '../actions/Hike';
 import { getUserFavoriteHikes } from '../utils/User';
 
@@ -133,8 +133,8 @@ class FavoriteButton extends React.Component {
                 onPress={this.buttonPress}
                 style={{
                     position: 'absolute',
-                    right: 20,
-                    top: 20,
+                    right: parseInt(spacing.small, 10),
+                    top: parseInt(spacing.small, 10),
                 }}
             >
                 <Ionicons name={iconName} color={iconColor} size={iconSize} />
