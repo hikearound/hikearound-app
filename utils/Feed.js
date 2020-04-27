@@ -1,4 +1,5 @@
 import { db } from '../lib/Fire';
+import { cacheHikeImage } from './Image';
 
 export async function pageFeed(pageSize, lastKey, sortDirection) {
     let hikeRef = db
@@ -45,4 +46,27 @@ export function sortHikes(previousState, hikes, sortDirection) {
     return { data, sortedHikes };
 }
 
-export default { pageFeed, sortHikes };
+export async function buildHikeData(data) {
+    const hikes = {};
+
+    /* eslint-disable-next-line */
+    for (const hike of data) {
+        const imageUrl = await cacheHikeImage(hike);
+        hike.coverPhoto = imageUrl;
+        hikes[hike.key] = hike;
+    }
+
+    return hikes;
+}
+
+export function setFeed(view) {
+    let nextView = 'map';
+
+    if (view === nextView) {
+        nextView = 'feed';
+    }
+
+    return nextView;
+}
+
+export default { pageFeed, sortHikes, buildHikeData, setFeed };

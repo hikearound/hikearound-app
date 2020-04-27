@@ -1,13 +1,12 @@
 import React from 'react';
-import { LayoutAnimation } from 'react-native';
 import PropTypes from 'prop-types';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
-import * as Location from 'expo-location';
 
 const propTypes = {
     mapType: PropTypes.string,
     mapPadding: PropTypes.object,
     delta: PropTypes.number,
+    position: PropTypes.object.isRequired,
 };
 
 const defaultProps = {
@@ -26,25 +25,15 @@ class HikeMap extends React.Component {
     }
 
     async componentDidMount() {
-        await this.getCurrentPosition();
+        this.setRegion();
     }
 
     onMapReady = () => {
         // todo
     };
 
-    getCurrentPosition = async () => {
-        const { status } = await Location.requestPermissionsAsync();
-        if (status !== 'granted') {
-            return;
-        }
-
-        const position = await Location.getCurrentPositionAsync({});
-        this.setRegion(position);
-    };
-
-    setRegion = (position) => {
-        const { delta } = this.props;
+    setRegion = () => {
+        const { delta, position } = this.props;
 
         this.setState({
             region: {
@@ -59,8 +48,6 @@ class HikeMap extends React.Component {
     render() {
         const { mapType, mapPadding } = this.props;
         const { region } = this.state;
-
-        LayoutAnimation.easeInEaseOut();
 
         if (region) {
             return (

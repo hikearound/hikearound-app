@@ -4,10 +4,9 @@ import { MaterialIcons, Entypo } from '@expo/vector-icons';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { LayoutAnimation } from 'react-native';
-import { colors, spacing, opacities } from '../../constants/Index';
+import { colors, opacities } from '../../constants/Index';
 
-const iconRightMargin = '30px';
-const iconTopMargin = '-1px';
+const iconTopMargin = '1px';
 
 const mapIconVisible = { mapIconDisplay: 'flex', listIconDisplay: 'none' };
 const listIconVisible = { mapIconDisplay: 'none', listIconDisplay: 'flex' };
@@ -89,8 +88,5 @@ Toggle.defaultProps = defaultProps;
 export default connect(mapStateToProps, mapDispatchToProps)(Toggle);
 
 const StyledOpacity = styled.TouchableOpacity`
-    position: absolute;
-    margin-left: ${spacing.tiny}px;
-    right: ${iconRightMargin};
-    top: ${iconTopMargin};
+    margin-top: ${iconTopMargin};
 `;

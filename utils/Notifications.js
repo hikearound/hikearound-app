@@ -26,8 +26,16 @@ export async function getBadgeNumber() {
     return badgeNumber;
 }
 
+export async function handleAppBadge() {
+    const badgeNumber = await getBadgeNumber();
+    if (badgeNumber > 0) {
+        this.clearBadge();
+    }
+}
+
 export default {
     registerForPushNotifications,
     clearBadge,
     getBadgeNumber,
+    handleAppBadge,
 };
