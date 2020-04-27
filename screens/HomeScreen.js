@@ -28,13 +28,10 @@ const propTypes = {
     dispatchUserData: PropTypes.func.isRequired,
     dispatchAvatar: PropTypes.func.isRequired,
     dispatchScreenType: PropTypes.func.isRequired,
-    avatar: PropTypes.string.isRequired,
 };
 
-function mapStateToProps(state) {
-    return {
-        avatar: state.userReducer.avatar,
-    };
+function mapStateToProps() {
+    return {};
 }
 
 function mapDispatchToProps(dispatch) {
@@ -65,12 +62,7 @@ class HomeScreen extends React.Component {
     }
 
     componentDidMount() {
-        const {
-            navigation,
-            dispatchUserData,
-            dispatchAvatar,
-            avatar,
-        } = this.props;
+        const { navigation, dispatchUserData, dispatchAvatar } = this.props;
 
         this.setFirstLoad();
         this.getHikeFeedData();
@@ -80,7 +72,7 @@ class HomeScreen extends React.Component {
         handleAppBadge();
         checkInitialUrl(navigation);
         addUrlListener(navigation);
-        getUserProfileData(dispatchUserData, dispatchAvatar, avatar);
+        getUserProfileData(dispatchUserData, dispatchAvatar);
     }
 
     componentWillUnmount() {

@@ -1,6 +1,7 @@
 import { cacheImages } from './Image';
 import { db, storage, auth } from '../lib/Fire';
 import { notifs } from '../constants/Reducers';
+import store from '../store/Store';
 
 export async function writeUserData(userData) {
     const user = auth.currentUser;
@@ -80,13 +81,12 @@ export function logoutUser(navigation) {
     });
 }
 
-export async function getUserProfileData(
-    dispatchUserData,
-    dispatchAvatar,
-    avatar,
-) {
+export async function getUserProfileData(dispatchUserData, dispatchAvatar) {
     let userData = await getUserData();
     let avatarUri = await getAvatarUri();
+
+    const state = store.getState();
+    const { avatar } = state.userReducer;
 
     userData = userData.data();
 

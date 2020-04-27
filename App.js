@@ -1,13 +1,10 @@
 import React from 'react';
-import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import * as Sentry from 'sentry-expo';
 import Constants from 'expo-constants';
 import AppNavigator from './navigators/AppNavigator';
-import reducer from './reducers/Index';
+import store from './store/Store';
 import Fire from './lib/Fire';
-
-const store = createStore(reducer);
 
 class App extends React.Component {
     async componentDidMount() {
