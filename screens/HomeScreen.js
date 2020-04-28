@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { RefreshControl } from 'react-native';
 import HomeLoadingState from '../components/loading/Home';
+import MapScreen from './MapScreen';
 import HomeActions from '../components/HomeActions';
-import GlobalMap from '../components/GlobalMap';
 import FeedList from '../components/FeedList';
 import { feedActionSheet } from '../components/action_sheets/Feed';
 import { initializeUserData, initializeAvatar } from '../actions/User';
-import toggleScreenType from '../actions/Home';
+import toggleScreen from '../actions/Home';
 import { timings } from '../constants/Index';
 import { defaultState } from '../constants/states/Home';
 import { RootView } from '../styles/Screens';
@@ -38,8 +38,7 @@ function mapDispatchToProps(dispatch) {
     return {
         dispatchUserData: (userData) => dispatch(initializeUserData(userData)),
         dispatchAvatar: (avatarUri) => dispatch(initializeAvatar(avatarUri)),
-        dispatchScreenType: (screenType) =>
-            dispatch(toggleScreenType(screenType)),
+        dispatchScreenType: (screenType) => dispatch(toggleScreen(screenType)),
     };
 }
 
@@ -167,7 +166,7 @@ class HomeScreen extends React.Component {
         }
 
         if (view === 'map') {
-            return <GlobalMap position={position} />;
+            return <MapScreen position={position} />;
         }
 
         return (

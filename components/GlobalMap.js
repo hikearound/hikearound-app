@@ -65,7 +65,7 @@ class HikeMap extends React.Component {
                     initialRegion={region}
                     showsUserLocation
                     loadingEnabled
-                    showsMyLocationButton
+                    showsMyLocationButton={false}
                     showsPointsOfInterest={false}
                     showsCompass
                     onMapReady={this.onMapReady}

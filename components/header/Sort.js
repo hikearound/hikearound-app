@@ -5,8 +5,8 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { colors, spacing, opacities } from '../../constants/Index';
 
-const feedOpacity = 1;
-const mapOpacity = 0;
+const enabled = 1;
+const disabled = 0.3;
 
 const propTypes = {
     onPress: PropTypes.func.isRequired,
@@ -38,7 +38,7 @@ class Sort extends React.PureComponent {
         const { onPress } = this.props;
 
         this.state = {
-            iconOpacity: feedOpacity,
+            iconOpacity: enabled,
             iconPress: onPress,
         };
     }
@@ -54,12 +54,12 @@ class Sort extends React.PureComponent {
     toggleIconVisibility = (screenType, onPress) => {
         if (screenType === 'feed') {
             this.setState({
-                iconOpacity: feedOpacity,
+                iconOpacity: enabled,
                 iconPress: onPress,
             });
         } else {
             this.setState({
-                iconOpacity: mapOpacity,
+                iconOpacity: disabled,
                 iconPress: null,
             });
         }
