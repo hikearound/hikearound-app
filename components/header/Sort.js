@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FontAwesome5 } from '@expo/vector-icons';
+import { TouchableOpacity } from 'react-native';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { colors, spacing, opacities } from '../../constants/Index';
+import { spacing, opacities } from '../../constants/Index';
+import FilterIcon from '../../icons/Filter';
 
 const enabled = 1;
 const disabled = 0.3;
@@ -11,15 +12,11 @@ const disabled = 0.3;
 const propTypes = {
     onPress: PropTypes.func.isRequired,
     screenType: PropTypes.string.isRequired,
-    name: PropTypes.string,
-    color: PropTypes.string,
     size: PropTypes.number,
 };
 
 const defaultProps = {
-    name: 'filter',
-    color: colors.white,
-    size: 18,
+    size: 40,
 };
 
 function mapStateToProps(state) {
@@ -66,22 +63,24 @@ class Sort extends React.PureComponent {
     };
 
     render() {
-        const { name, color, size } = this.props;
         const { iconOpacity, iconPress } = this.state;
+        const { size } = this.props;
 
         return (
-            <StyledOpacity
+            <TouchableOpacity
                 activeOpacity={opacities.regular}
                 onPress={iconPress}
             >
-                <FontAwesome5
-                    name={name}
-                    size={size}
-                    color={color}
-                    style={{ opacity: iconOpacity }}
-                    solid
-                />
-            </StyledOpacity>
+                <StyledView
+                    style={{
+                        opacity: iconOpacity,
+                        aspectRatio: 1,
+                        height: size,
+                    }}
+                >
+                    <FilterIcon />
+                </StyledView>
+            </TouchableOpacity>
         );
     }
 }
@@ -91,7 +90,6 @@ Sort.defaultProps = defaultProps;
 
 export default connect(mapStateToProps, mapDispatchToProps)(Sort);
 
-const StyledOpacity = styled.TouchableOpacity`
-    margin-top: ${spacing.micro}px;
-    margin-right: ${spacing.tiny}px;
+const StyledView = styled.View`
+    margin-top: -${spacing.micro}px;
 `;

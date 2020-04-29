@@ -10,10 +10,11 @@ const Settings = ({ navigation }) => (
             navigation.push('Settings');
         }}
         style={{
-            marginRight: parseInt(spacing.tiny, 10),
+            marginRight: parseInt(spacing.micro, 10),
+            marginTop: -1,
         }}
     >
-        <Ionicons name='ios-settings' size={28} color={colors.white} />
+        <Ionicons name='ios-settings' size={26} color={colors.white} />
     </TouchableOpacity>
 );
 
