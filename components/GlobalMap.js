@@ -11,11 +11,11 @@ const propTypes = {
 
 const defaultProps = {
     mapType: 'terrain',
-    mapPadding: {},
+    mapPadding: { bottom: 45 },
     delta: 0.05,
 };
 
-class HikeMap extends React.Component {
+class GlobalMap extends React.Component {
     constructor(props) {
         super(props);
 
@@ -77,7 +77,7 @@ class HikeMap extends React.Component {
     }
 }
 
-HikeMap.propTypes = propTypes;
-HikeMap.defaultProps = defaultProps;
+GlobalMap.propTypes = propTypes;
+GlobalMap.defaultProps = defaultProps;
 
-export default HikeMap;
+export default GlobalMap;

@@ -50,7 +50,7 @@ class Toast extends React.Component {
 
         if (action === 'favoriteHike' || action === 'copyLink') {
             Animated.timing(top, {
-                toValue: SCREEN_HEIGHT - 250,
+                toValue: SCREEN_HEIGHT - 230,
                 duration: 500,
             }).start();
         }

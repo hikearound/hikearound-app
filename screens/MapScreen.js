@@ -6,6 +6,9 @@ import GlobalMap from '../components/GlobalMap';
 import { withTheme } from '../utils/Themes';
 import { colors, spacing, fontSizes } from '../constants/Index';
 
+const handleWidth = '40px';
+const handleHeight = '8px';
+
 const propTypes = {
     position: PropTypes.object.isRequired,
 };
@@ -13,14 +16,20 @@ const propTypes = {
 class MapScreen extends React.Component {
     renderContent = () => {
         return (
-            <StyledView>
+            <Body style={{ backgroundColor: colors.whiteLight }}>
                 <StyledText>Placeholder text</StyledText>
-            </StyledView>
+            </Body>
         );
     };
 
     renderHeader = () => {
-        // todo
+        return (
+            <Header style={{ backgroundColor: colors.whiteLight }}>
+                <HeaderPanel>
+                    <HeaderHandle />
+                </HeaderPanel>
+            </Header>
+        );
     };
 
     render() {
@@ -30,7 +39,7 @@ class MapScreen extends React.Component {
             <>
                 <GlobalMap position={position} />
                 <BottomSheet
-                    snapPoints={[50, 100, 50]}
+                    snapPoints={[45, 100, 45]}
                     renderContent={this.renderContent}
                     renderHeader={this.renderHeader}
                 />
@@ -43,13 +52,29 @@ MapScreen.propTypes = propTypes;
 
 export default withTheme(MapScreen);
 
-const StyledView = styled.View`
+const Body = styled.View`
     height: 100px;
     padding: ${spacing.small}px;
-    background-color: ${colors.white};
-    opacity: 0.85;
 `;
 
 const StyledText = styled.Text`
     font-size: ${fontSizes.small}px;
+`;
+
+const Header = styled.View`
+    padding-top: ${spacing.medium}px;
+    border-top-left-radius: ${spacing.small}px;
+    border-top-right-radius: ${spacing.small}px;
+`;
+
+const HeaderPanel = styled.View`
+    align-items: center;
+`;
+
+const HeaderHandle = styled.View`
+    width: ${handleWidth};
+    height: ${handleHeight};
+    border-radius: ${spacing.micro}px;
+    margin-bottom: ${spacing.micro}px;
+    background-color: ${colors.gray};
 `;
