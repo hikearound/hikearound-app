@@ -64,7 +64,7 @@ class HomeScreen extends React.Component {
         });
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         const {
             navigation,
             dispatchUserData,
@@ -81,8 +81,9 @@ class HomeScreen extends React.Component {
         handleAppBadge();
         checkInitialUrl(navigation);
         addUrlListener(navigation);
-        getUserProfileData(dispatchUserData, dispatchAvatar);
-        getMapData(dispatchMapData, scheme);
+
+        await getUserProfileData(dispatchUserData, dispatchAvatar);
+        await getMapData(dispatchMapData, scheme);
     }
 
     componentWillUnmount() {

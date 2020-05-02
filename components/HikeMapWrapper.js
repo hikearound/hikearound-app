@@ -99,7 +99,7 @@ const MapViewWrapper = styled.View`
 
 const InnerMapViewWrapper = styled.View`
     position: relative;
-    background-color: ${(props) => props.theme.card};
+    background-color: '${(props) => props.theme.card}';
     border-radius: ${borderRadius.medium}px;
     box-shadow: ${(props) =>
         props.theme.cardShadow

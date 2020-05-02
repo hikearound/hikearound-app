@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { connect } from 'react-redux';
 import { colors, borderRadius } from '../constants/Index';
-// import { darkTheme } from '../constants/Maps';
 
 const DEFAULT_MAP_HEIGHT = 200;
 
@@ -66,7 +65,7 @@ class HikeMap extends React.Component {
             mapPadding,
             mapStyle,
         } = this.props;
-        const { maxZoom, fadeAnim, fullHeight, mapDidLoad } = this.state;
+        const { maxZoom, fullHeight, mapDidLoad } = this.state;
 
         if (!fullHeight && !mapDidLoad) {
             LayoutAnimation.easeInEaseOut();
@@ -83,7 +82,6 @@ class HikeMap extends React.Component {
                         zIndex: 1,
                         overflow: 'hidden',
                         borderRadius: parseInt(borderRadius.medium, 10),
-                        opacity: fadeAnim,
                     }}
                     mapType={mapType}
                     showsUserLocation

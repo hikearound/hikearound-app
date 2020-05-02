@@ -15,16 +15,20 @@ const propTypes = {
 
 class MapScreen extends React.Component {
     renderContent = () => {
+        const { theme } = this.props;
+
         return (
-            <Body style={{ backgroundColor: colors.whiteLight }}>
+            <Body style={{ backgroundColor: theme.colors.sheetBackground }}>
                 <StyledText>Placeholder text</StyledText>
             </Body>
         );
     };
 
     renderHeader = () => {
+        const { theme } = this.props;
+
         return (
-            <Header style={{ backgroundColor: colors.whiteLight }}>
+            <Header style={{ backgroundColor: theme.colors.sheetBackground }}>
                 <HeaderPanel>
                     <HeaderHandle />
                 </HeaderPanel>
@@ -58,6 +62,7 @@ const Body = styled.View`
 `;
 
 const StyledText = styled.Text`
+    color: ${(props) => props.theme.text};
     font-size: ${fontSizes.small}px;
 `;
 
