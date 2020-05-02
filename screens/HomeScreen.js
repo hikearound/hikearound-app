@@ -8,6 +8,7 @@ import HomeActions from '../components/HomeActions';
 import FeedList from '../components/FeedList';
 import { feedActionSheet } from '../components/action_sheets/Feed';
 import { initializeUserData, initializeAvatar } from '../actions/User';
+import { initializeMapData } from '../actions/Map';
 import toggleScreen from '../actions/Home';
 import { timings } from '../constants/Index';
 import { defaultState } from '../constants/states/Home';
@@ -16,6 +17,7 @@ import { getUserProfileData } from '../utils/User';
 import { getFeedHikeCount } from '../utils/Hike';
 import { handleAppBadge } from '../utils/Notifications';
 import { withTheme } from '../utils/Themes';
+import { getMapData } from '../utils/Map';
 import { getCurrentPosition } from '../utils/Location';
 import { pageFeed, sortHikes, buildHikeData, setFeed } from '../utils/Feed';
 import {
@@ -26,6 +28,7 @@ import {
 
 const propTypes = {
     dispatchUserData: PropTypes.func.isRequired,
+    dispatchMapData: PropTypes.func.isRequired,
     dispatchAvatar: PropTypes.func.isRequired,
     dispatchScreenType: PropTypes.func.isRequired,
 };
@@ -37,6 +40,7 @@ function mapStateToProps() {
 function mapDispatchToProps(dispatch) {
     return {
         dispatchUserData: (userData) => dispatch(initializeUserData(userData)),
+        dispatchMapData: (mapData) => dispatch(initializeMapData(mapData)),
         dispatchAvatar: (avatarUri) => dispatch(initializeAvatar(avatarUri)),
         dispatchScreenType: (screenType) => dispatch(toggleScreen(screenType)),
     };
@@ -61,7 +65,13 @@ class HomeScreen extends React.Component {
     }
 
     componentDidMount() {
-        const { navigation, dispatchUserData, dispatchAvatar } = this.props;
+        const {
+            navigation,
+            dispatchUserData,
+            dispatchAvatar,
+            dispatchMapData,
+            scheme,
+        } = this.props;
 
         this.setFirstLoad();
         this.getHikeFeedData();
@@ -72,6 +82,7 @@ class HomeScreen extends React.Component {
         checkInitialUrl(navigation);
         addUrlListener(navigation);
         getUserProfileData(dispatchUserData, dispatchAvatar);
+        getMapData(dispatchMapData, scheme);
     }
 
     componentWillUnmount() {

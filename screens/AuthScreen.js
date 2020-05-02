@@ -14,8 +14,10 @@ const propTypes = {
     dispatchUserData: PropTypes.func.isRequired,
 };
 
-function mapStateToProps() {
-    return {};
+function mapStateToProps(state) {
+    return {
+        darkMode: state.userReducer.darkMode,
+    };
 }
 
 function mapDispatchToProps(dispatch) {

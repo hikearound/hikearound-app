@@ -3,28 +3,41 @@ import PropTypes from 'prop-types';
 import { LayoutAnimation } from 'react-native';
 import styled from 'styled-components';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import { connect } from 'react-redux';
 import { colors, borderRadius } from '../constants/Index';
+// import { darkTheme } from '../constants/Maps';
 
 const DEFAULT_MAP_HEIGHT = 200;
 
 const propTypes = {
     mapRef: PropTypes.func.isRequired,
+    mapType: PropTypes.string.isRequired,
+    mapStyle: PropTypes.array.isRequired,
     coordinates: PropTypes.array,
     region: PropTypes.object,
     maxZoom: PropTypes.number,
-    mapType: PropTypes.string,
     fullHeight: PropTypes.bool,
     mapPadding: PropTypes.object,
 };
 
 const defaultProps = {
     maxZoom: 20,
-    mapType: 'terrain',
     fullHeight: false,
     region: undefined,
     coordinates: [],
     mapPadding: {},
 };
+
+function mapStateToProps(state) {
+    return {
+        mapType: state.mapReducer.mapType,
+        mapStyle: state.mapReducer.mapStyle,
+    };
+}
+
+function mapDispatchToProps() {
+    return {};
+}
 
 class HikeMap extends React.Component {
     constructor(props) {
@@ -45,7 +58,14 @@ class HikeMap extends React.Component {
     };
 
     render() {
-        const { coordinates, mapRef, region, mapType, mapPadding } = this.props;
+        const {
+            coordinates,
+            mapRef,
+            region,
+            mapType,
+            mapPadding,
+            mapStyle,
+        } = this.props;
         const { maxZoom, fadeAnim, fullHeight, mapDidLoad } = this.state;
 
         if (!fullHeight && !mapDidLoad) {
@@ -56,6 +76,7 @@ class HikeMap extends React.Component {
             return (
                 <MapView
                     ref={mapRef}
+                    customMapStyle={mapStyle}
                     provider={PROVIDER_GOOGLE}
                     style={{
                         height: fullHeight ? '100%' : DEFAULT_MAP_HEIGHT,
@@ -90,7 +111,7 @@ class HikeMap extends React.Component {
 HikeMap.propTypes = propTypes;
 HikeMap.defaultProps = defaultProps;
 
-export default HikeMap;
+export default connect(mapStateToProps, mapDispatchToProps)(HikeMap);
 
 const EmptyMapView = styled.View`
     border-color: ${colors.grayMedium};

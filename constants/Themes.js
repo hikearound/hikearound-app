@@ -110,7 +110,7 @@ export const darkTheme = {
         emptyStateFill: colors.white,
 
         // Maps
-        mapViewBackground: colors.blackLight,
+        mapViewBackground: colors.black,
     },
 };
 

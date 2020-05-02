@@ -7,6 +7,7 @@ import InfoBar from './InfoBar';
 import HikeMap from './HikeMap';
 import { spacing, borderRadius, opacities } from '../constants/Index';
 import { showModal } from '../actions/Modal';
+import { withTheme } from '../utils/Themes';
 
 const propTypes = {
     dispatchModalFlag: PropTypes.func.isRequired,
@@ -39,10 +40,17 @@ class HikeMapWrapper extends React.Component {
     };
 
     render() {
-        const { coordinates, region, distance, elevation, route } = this.props;
+        const {
+            coordinates,
+            region,
+            distance,
+            elevation,
+            route,
+            theme,
+        } = this.props;
 
         return (
-            <MapViewWrapper>
+            <MapViewWrapper isDark={theme.dark}>
                 <InnerMapViewWrapper>
                     <HikeMap
                         mapRef={(ref) => {
@@ -80,11 +88,11 @@ class HikeMapWrapper extends React.Component {
 HikeMapWrapper.propTypes = propTypes;
 HikeMapWrapper.defaultProps = defaultProps;
 
-export default connect(null, mapDispatchToProps)(HikeMapWrapper);
+export default connect(null, mapDispatchToProps)(withTheme(HikeMapWrapper));
 
 const MapViewWrapper = styled.View`
     flex: 1;
-    height: 265px;
+    height: ${(props) => (props.isDark ? '250px' : '265px')};
     background-color: ${(props) => props.theme.mapBackground};
     padding: 0 ${spacing.small}px ${spacing.micro}px ${spacing.small}px;
 `;

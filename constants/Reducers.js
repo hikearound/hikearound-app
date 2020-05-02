@@ -4,6 +4,11 @@ export const homeState = {
     screenType: 'feed',
 };
 
+export const mapState = {
+    mapType: 'terrain',
+    mapStyle: [],
+};
+
 export const hikeState = {
     action: '',
     hikeData: [],

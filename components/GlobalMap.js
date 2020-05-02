@@ -1,19 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import { connect } from 'react-redux';
 
 const propTypes = {
-    mapType: PropTypes.string,
+    mapType: PropTypes.string.isRequired,
+    mapStyle: PropTypes.array.isRequired,
     mapPadding: PropTypes.object,
     delta: PropTypes.number,
     position: PropTypes.object.isRequired,
 };
 
 const defaultProps = {
-    mapType: 'terrain',
     mapPadding: { bottom: 45 },
     delta: 0.05,
 };
+
+function mapStateToProps(state) {
+    return {
+        mapType: state.mapReducer.mapType,
+        mapStyle: state.mapReducer.mapStyle,
+    };
+}
+
+function mapDispatchToProps() {
+    return {};
+}
 
 class GlobalMap extends React.Component {
     constructor(props) {
@@ -46,7 +58,7 @@ class GlobalMap extends React.Component {
     };
 
     render() {
-        const { mapType, mapPadding } = this.props;
+        const { mapType, mapPadding, mapStyle } = this.props;
         const { region } = this.state;
 
         if (region) {
@@ -55,6 +67,7 @@ class GlobalMap extends React.Component {
                     ref={(ref) => {
                         this.mapView = ref;
                     }}
+                    customMapStyle={mapStyle}
                     provider={PROVIDER_GOOGLE}
                     style={{
                         height: '100%',
@@ -80,4 +93,4 @@ class GlobalMap extends React.Component {
 GlobalMap.propTypes = propTypes;
 GlobalMap.defaultProps = defaultProps;
 
-export default GlobalMap;
+export default connect(mapStateToProps, mapDispatchToProps)(GlobalMap);
