@@ -19,6 +19,8 @@ const createAccountInputs = [
         autoCorrect: false,
         textContentType: 'name',
         autoCapitalize: 'words',
+        enablesReturnKeyAutomatically: true,
+        returnKeyType: 'next',
     },
     {
         keyboardType: 'email-address',
@@ -27,12 +29,16 @@ const createAccountInputs = [
         autoCorrect: false,
         autoCapitalize: 'none',
         textContentType: 'emailAddress',
+        enablesReturnKeyAutomatically: true,
+        returnKeyType: 'next',
     },
     {
         placeholder: 'Password',
         name: 'password',
         secureTextEntry: true,
         textContentType: 'password',
+        enablesReturnKeyAutomatically: true,
+        returnKeyType: 'done',
     },
 ];
 
@@ -117,6 +123,16 @@ class CreateAccountScreen extends React.Component {
             });
     };
 
+    handleSubmitEditing = (index) => {
+        if (index === 0) {
+            this.emailInput.focus();
+        } else if (index === 1) {
+            this.passwordInput.focus();
+        } else {
+            this.handleCreateAccount();
+        }
+    };
+
     render() {
         const { loading } = this.state;
 
@@ -132,6 +148,8 @@ class CreateAccountScreen extends React.Component {
                             autoCorrect,
                             autoCapitalize,
                             textContentType,
+                            enablesReturnKeyAutomatically,
+                            returnKeyType,
                         },
                         index,
                     ) => (
@@ -148,6 +166,16 @@ class CreateAccountScreen extends React.Component {
                             }
                             labelName={placeholder}
                             textContentType={textContentType}
+                            enablesReturnKeyAutomatically={
+                                enablesReturnKeyAutomatically
+                            }
+                            returnKeyType={returnKeyType}
+                            onSubmitEditing={() =>
+                                this.handleSubmitEditing(index)
+                            }
+                            inputRef={(ref) => {
+                                this[`${name}Input`] = ref;
+                            }}
                         />
                     ),
                 )}

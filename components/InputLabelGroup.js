@@ -33,7 +33,7 @@ const defaultProps = {
     autoFocus: false,
     blurOnSubmit: true,
     enablesReturnKeyAutomatically: false,
-    returnKeyType: 'return',
+    returnKeyType: 'default',
     onChange: () => {},
     onSubmitEditing: () => {},
     inputRef: () => {},

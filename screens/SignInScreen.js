@@ -25,7 +25,7 @@ const signInInputs = [
         secureTextEntry: true,
         textContentType: 'password',
         enablesReturnKeyAutomatically: true,
-        returnKeyType: 'go',
+        returnKeyType: 'done',
     },
 ];
 

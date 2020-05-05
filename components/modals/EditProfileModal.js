@@ -17,16 +17,22 @@ import { ModalHeader, ModalTitleText, ModalBody } from '../../styles/Modals';
 const editProfileInputs = [
     {
         placeholder: 'Name',
+        name: 'name',
         value: 'updatedName',
         autoCorrect: false,
         autoCapitalize: 'words',
         textContentType: 'name',
+        enablesReturnKeyAutomatically: true,
+        returnKeyType: 'next',
     },
     {
         placeholder: 'Location',
+        name: 'location',
         value: 'updatedLocation',
         autoCapitalize: 'words',
         textContentType: 'addressCityAndState',
+        enablesReturnKeyAutomatically: true,
+        returnKeyType: 'done',
     },
 ];
 
@@ -120,6 +126,14 @@ class EditProfileModal extends ModalBase {
         </ModalHeader>
     );
 
+    handleSubmitEditing = (index) => {
+        if (index === 0) {
+            this.locationInput.focus();
+        } else {
+            this.hideModal();
+        }
+    };
+
     renderModalBody = () => (
         <ModalBody>
             <AvatarWrapper>
@@ -128,6 +142,7 @@ class EditProfileModal extends ModalBase {
             {editProfileInputs.map(
                 (
                     {
+                        name,
                         value,
                         defaultValue,
                         placeholder,
@@ -135,6 +150,8 @@ class EditProfileModal extends ModalBase {
                         autoCorrect,
                         autoCapitalize,
                         textContentType,
+                        enablesReturnKeyAutomatically,
+                        returnKeyType,
                     },
                     index,
                 ) => (
@@ -148,6 +165,14 @@ class EditProfileModal extends ModalBase {
                         onChangeText={(text) => this.setValue(value, text)}
                         labelName={placeholder}
                         textContentType={textContentType}
+                        enablesReturnKeyAutomatically={
+                            enablesReturnKeyAutomatically
+                        }
+                        returnKeyType={returnKeyType}
+                        onSubmitEditing={() => this.handleSubmitEditing(index)}
+                        inputRef={(ref) => {
+                            this[`${name}Input`] = ref;
+                        }}
                     />
                 ),
             )}
