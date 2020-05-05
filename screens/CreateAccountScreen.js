@@ -11,36 +11,7 @@ import LegalText from '../components/LegalText';
 import { updateUserData } from '../actions/User';
 import { RootView } from '../styles/Screens';
 import { withTheme } from '../utils/Themes';
-
-const createAccountInputs = [
-    {
-        placeholder: 'Name',
-        name: 'name',
-        autoCorrect: false,
-        textContentType: 'name',
-        autoCapitalize: 'words',
-        enablesReturnKeyAutomatically: true,
-        returnKeyType: 'next',
-    },
-    {
-        keyboardType: 'email-address',
-        placeholder: 'Email',
-        name: 'email',
-        autoCorrect: false,
-        autoCapitalize: 'none',
-        textContentType: 'emailAddress',
-        enablesReturnKeyAutomatically: true,
-        returnKeyType: 'next',
-    },
-    {
-        placeholder: 'Password',
-        name: 'password',
-        secureTextEntry: true,
-        textContentType: 'password',
-        enablesReturnKeyAutomatically: true,
-        returnKeyType: 'done',
-    },
-];
+import { createAccountInputs } from '../constants/Inputs';
 
 const propTypes = {
     dispatchUserData: PropTypes.func.isRequired,

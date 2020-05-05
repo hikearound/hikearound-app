@@ -13,28 +13,7 @@ import { updateUserData } from '../../actions/User';
 import { withTheme } from '../../utils/Themes';
 import { RootView } from '../../styles/Screens';
 import { ModalHeader, ModalTitleText, ModalBody } from '../../styles/Modals';
-
-const editProfileInputs = [
-    {
-        placeholder: 'Name',
-        name: 'name',
-        value: 'updatedName',
-        autoCorrect: false,
-        autoCapitalize: 'words',
-        textContentType: 'name',
-        enablesReturnKeyAutomatically: true,
-        returnKeyType: 'next',
-    },
-    {
-        placeholder: 'Location',
-        name: 'location',
-        value: 'updatedLocation',
-        autoCapitalize: 'words',
-        textContentType: 'addressCityAndState',
-        enablesReturnKeyAutomatically: true,
-        returnKeyType: 'done',
-    },
-];
+import { editProfileInputs } from '../../constants/Inputs';
 
 const propTypes = {
     dispatchUserData: PropTypes.func.isRequired,

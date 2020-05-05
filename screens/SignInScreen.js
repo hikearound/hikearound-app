@@ -7,27 +7,7 @@ import LoadingOverlay from '../components/LoadingOverlay';
 import InputLabelGroup from '../components/InputLabelGroup';
 import { RootView } from '../styles/Screens';
 import { withTheme } from '../utils/Themes';
-
-const signInInputs = [
-    {
-        keyboardType: 'email-address',
-        placeholder: 'Email',
-        name: 'email',
-        autoCorrect: false,
-        autoCapitalize: 'none',
-        textContentType: 'emailAddress',
-        enablesReturnKeyAutomatically: true,
-        returnKeyType: 'next',
-    },
-    {
-        placeholder: 'Password',
-        name: 'password',
-        secureTextEntry: true,
-        textContentType: 'password',
-        enablesReturnKeyAutomatically: true,
-        returnKeyType: 'done',
-    },
-];
+import { signInInputs } from '../constants/Inputs';
 
 class SignInScreen extends React.Component {
     constructor(props) {
