@@ -78,13 +78,6 @@ class SignInScreen extends React.Component {
         }
     };
 
-    maybeSetRef = (index) => {
-        if (index === 1) {
-            return this.secondTextInputRef;
-        }
-        return null;
-    };
-
     render() {
         const { loading } = this.state;
 
