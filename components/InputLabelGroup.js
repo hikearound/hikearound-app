@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { Keyboard } from 'react-native';
 import { fontSizes, spacing, fontWeights } from '../constants/Index';
+import { withTheme } from '../utils/Themes';
 
 const propTypes = {
     placeholder: PropTypes.string.isRequired,
@@ -16,6 +16,11 @@ const propTypes = {
     autoCapitalize: PropTypes.string,
     autoFocus: PropTypes.bool,
     blurOnSubmit: PropTypes.bool,
+    enablesReturnKeyAutomatically: PropTypes.bool,
+    returnKeyType: PropTypes.string,
+    onChange: PropTypes.func,
+    onSubmitEditing: PropTypes.func,
+    inputRef: PropTypes.func,
 };
 
 const defaultProps = {
@@ -27,12 +32,25 @@ const defaultProps = {
     autoCapitalize: 'none',
     autoFocus: false,
     blurOnSubmit: true,
+    enablesReturnKeyAutomatically: false,
+    returnKeyType: 'return',
+    onChange: () => {},
+    onSubmitEditing: () => {},
+    inputRef: () => {},
 };
 
 class InputLabelGroup extends React.Component {
     constructor(props, context) {
         super(props, context);
-        this.state = {};
+        this.state = { keyboardTheme: 'light' };
+    }
+
+    componentDidMount() {
+        const { theme, scheme } = this.props;
+
+        if (theme.dark || scheme === 'dark') {
+            this.setState({ keyboardTheme: 'dark' });
+        }
     }
 
     render() {
@@ -48,7 +66,13 @@ class InputLabelGroup extends React.Component {
             autoCapitalize,
             autoFocus,
             blurOnSubmit,
+            enablesReturnKeyAutomatically,
+            returnKeyType,
+            onChange,
+            onSubmitEditing,
+            inputRef,
         } = this.props;
+        const { keyboardTheme } = this.state;
 
         return (
             <LabelInputGroup>
@@ -65,7 +89,14 @@ class InputLabelGroup extends React.Component {
                     onChangeText={onChangeText}
                     defaultValue={defaultValue}
                     blurOnSubmit={blurOnSubmit}
-                    onSubmitEditing={Keyboard.dismiss}
+                    onSubmitEditing={onSubmitEditing}
+                    enablesReturnKeyAutomatically={
+                        enablesReturnKeyAutomatically
+                    }
+                    returnKeyType={returnKeyType}
+                    onChange={onChange}
+                    ref={inputRef}
+                    keyboardAppearance={keyboardTheme}
                 />
             </LabelInputGroup>
         );
@@ -75,7 +106,7 @@ class InputLabelGroup extends React.Component {
 InputLabelGroup.propTypes = propTypes;
 InputLabelGroup.defaultProps = defaultProps;
 
-export default InputLabelGroup;
+export default withTheme(InputLabelGroup);
 
 const LabelInputGroup = styled.View`
     width: 100%;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { CommonActions } from '@react-navigation/native';
-import { Alert, ScrollView } from 'react-native';
+import { Alert, ScrollView, Keyboard } from 'react-native';
 import firebase from 'firebase';
 import InputButton from '../components/InputButton';
 import LoadingOverlay from '../components/LoadingOverlay';
@@ -16,12 +16,16 @@ const signInInputs = [
         autoCorrect: false,
         autoCapitalize: 'none',
         textContentType: 'emailAddress',
+        enablesReturnKeyAutomatically: true,
+        returnKeyType: 'next',
     },
     {
         placeholder: 'Password',
         name: 'password',
         secureTextEntry: true,
         textContentType: 'password',
+        enablesReturnKeyAutomatically: true,
+        returnKeyType: 'go',
     },
 ];
 
@@ -49,6 +53,7 @@ class SignInScreen extends React.Component {
             routes: [{ name: 'Home' }],
         });
 
+        Keyboard.dismiss();
         this.setState({ loading: true });
 
         firebase
@@ -63,6 +68,21 @@ class SignInScreen extends React.Component {
                     navigation.dispatch(resetAction);
                 }
             });
+    };
+
+    handleSubmitEditing = (index) => {
+        if (index === 0) {
+            this.passwordInput.focus();
+        } else {
+            this.handleLogin();
+        }
+    };
+
+    maybeSetRef = (index) => {
+        if (index === 1) {
+            return this.secondTextInputRef;
+        }
+        return null;
     };
 
     render() {
@@ -85,6 +105,8 @@ class SignInScreen extends React.Component {
                                 autoCorrect,
                                 autoCapitalize,
                                 textContentType,
+                                enablesReturnKeyAutomatically,
+                                returnKeyType,
                             },
                             index,
                         ) => (
@@ -101,6 +123,16 @@ class SignInScreen extends React.Component {
                                 labelName={placeholder}
                                 textContentType={textContentType}
                                 autoFocus={index === 0}
+                                enablesReturnKeyAutomatically={
+                                    enablesReturnKeyAutomatically
+                                }
+                                returnKeyType={returnKeyType}
+                                onSubmitEditing={() =>
+                                    this.handleSubmitEditing(index)
+                                }
+                                inputRef={(ref) => {
+                                    this[`${name}Input`] = ref;
+                                }}
                             />
                         ),
                     )}
