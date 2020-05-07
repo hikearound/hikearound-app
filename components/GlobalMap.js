@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import { connect } from 'react-redux';
+import HikeMapMarker from './HikeMapMarker';
 
 const propTypes = {
     mapType: PropTypes.string.isRequired,
@@ -10,12 +11,14 @@ const propTypes = {
     delta: PropTypes.number,
     position: PropTypes.object.isRequired,
     duration: PropTypes.number,
+    zoom: PropTypes.number,
 };
 
 const defaultProps = {
     mapPadding: { bottom: 35 },
     delta: 0.05,
     duration: 250,
+    zoom: 14,
 };
 
 const hikeMarkers = [
@@ -24,6 +27,7 @@ const hikeMarkers = [
             latitude: 37.7784649,
             longitude: -122.4258831,
         },
+        distance: 2.3,
     },
 ];
 
@@ -68,10 +72,10 @@ class GlobalMap extends React.Component {
         });
     };
 
-    markerPress = (e) => {
-        const { duration } = this.props;
-        const { latitude, longitude } = e.nativeEvent.coordinate;
-        const camera = { center: { latitude, longitude } };
+    markerPress = (event) => {
+        const { duration, zoom } = this.props;
+        const { latitude, longitude } = event.nativeEvent.coordinate;
+        const camera = { center: { latitude, longitude }, zoom };
 
         this.mapView.animateCamera(camera, { duration });
     };
@@ -103,7 +107,7 @@ class GlobalMap extends React.Component {
                     onMapReady={this.onMapReady}
                     mapPadding={mapPadding}
                 >
-                    {hikeMarkers.map(({ latlng }, index) => (
+                    {hikeMarkers.map(({ latlng, distance }, index) => (
                         <Marker
                             key={index}
                             ref={(marker) => {
@@ -111,7 +115,9 @@ class GlobalMap extends React.Component {
                             }}
                             coordinate={latlng}
                             onPress={this.markerPress}
-                        />
+                        >
+                            <HikeMapMarker distance={distance} />
+                        </Marker>
                     ))}
                 </MapView>
             );
