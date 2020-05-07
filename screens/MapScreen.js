@@ -6,8 +6,8 @@ import GlobalMap from '../components/GlobalMap';
 import { withTheme } from '../utils/Themes';
 import { colors, spacing, fontSizes } from '../constants/Index';
 
-const handleWidth = '40px';
-const handleHeight = '8px';
+const handleWidth = '30px';
+const handleHeight = '5px';
 
 const propTypes = {
     position: PropTypes.object.isRequired,
@@ -43,7 +43,7 @@ class MapScreen extends React.Component {
             <>
                 <GlobalMap position={position} />
                 <BottomSheet
-                    snapPoints={[45, 100, 45]}
+                    snapPoints={[35, 100, 35]}
                     renderContent={this.renderContent}
                     renderHeader={this.renderHeader}
                 />
@@ -67,9 +67,9 @@ const StyledText = styled.Text`
 `;
 
 const Header = styled.View`
-    padding-top: ${spacing.medium}px;
-    border-top-left-radius: ${spacing.small}px;
-    border-top-right-radius: ${spacing.small}px;
+    padding-top: ${spacing.small}px;
+    border-top-left-radius: ${spacing.tiny}px;
+    border-top-right-radius: ${spacing.tiny}px;
 `;
 
 const HeaderPanel = styled.View`

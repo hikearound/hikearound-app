@@ -104,6 +104,10 @@ class CreateAccountScreen extends React.Component {
         }
     };
 
+    assignRef = (ref, name) => {
+        this[`${name}Input`] = ref;
+    };
+
     render() {
         const { loading } = this.state;
 
@@ -144,9 +148,7 @@ class CreateAccountScreen extends React.Component {
                             onSubmitEditing={() =>
                                 this.handleSubmitEditing(index)
                             }
-                            inputRef={(ref) => {
-                                this[`${name}Input`] = ref;
-                            }}
+                            inputRef={(ref) => this.assignRef(ref, name)}
                         />
                     ),
                 )}

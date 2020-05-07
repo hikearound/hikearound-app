@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import { connect } from 'react-redux';
 
 const propTypes = {
@@ -9,12 +9,23 @@ const propTypes = {
     mapPadding: PropTypes.object,
     delta: PropTypes.number,
     position: PropTypes.object.isRequired,
+    duration: PropTypes.number,
 };
 
 const defaultProps = {
-    mapPadding: { bottom: 45 },
+    mapPadding: { bottom: 35 },
     delta: 0.05,
+    duration: 250,
 };
+
+const hikeMarkers = [
+    {
+        latlng: {
+            latitude: 37.7784649,
+            longitude: -122.4258831,
+        },
+    },
+];
 
 function mapStateToProps(state) {
     return {
@@ -57,6 +68,14 @@ class GlobalMap extends React.Component {
         });
     };
 
+    markerPress = (e) => {
+        const { duration } = this.props;
+        const { latitude, longitude } = e.nativeEvent.coordinate;
+        const camera = { center: { latitude, longitude } };
+
+        this.mapView.animateCamera(camera, { duration });
+    };
+
     render() {
         const { mapType, mapPadding, mapStyle } = this.props;
         const { region } = this.state;
@@ -83,7 +102,18 @@ class GlobalMap extends React.Component {
                     showsCompass
                     onMapReady={this.onMapReady}
                     mapPadding={mapPadding}
-                />
+                >
+                    {hikeMarkers.map(({ latlng }, index) => (
+                        <Marker
+                            key={index}
+                            ref={(marker) => {
+                                this.marker = marker;
+                            }}
+                            coordinate={latlng}
+                            onPress={this.markerPress}
+                        />
+                    ))}
+                </MapView>
             );
         }
         return null;

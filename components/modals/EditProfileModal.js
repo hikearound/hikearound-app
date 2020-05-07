@@ -113,6 +113,10 @@ class EditProfileModal extends ModalBase {
         }
     };
 
+    assignRef = (ref, name) => {
+        this[`${name}Input`] = ref;
+    };
+
     renderModalBody = () => (
         <ModalBody>
             <AvatarWrapper>
@@ -149,9 +153,7 @@ class EditProfileModal extends ModalBase {
                         }
                         returnKeyType={returnKeyType}
                         onSubmitEditing={() => this.handleSubmitEditing(index)}
-                        inputRef={(ref) => {
-                            this[`${name}Input`] = ref;
-                        }}
+                        inputRef={(ref) => this.assignRef(ref, name)}
                     />
                 ),
             )}
