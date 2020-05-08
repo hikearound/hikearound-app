@@ -47,6 +47,7 @@ class FeedList extends React.Component {
                     refreshControl={refreshControl}
                     onEndReached={onEndReached}
                     ListFooterComponent={this.renderFooter}
+                    disableHeaderSnap
                     bounces
                 />
             </>
