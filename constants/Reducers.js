@@ -7,6 +7,7 @@ export const homeState = {
 export const mapState = {
     mapType: 'terrain',
     mapStyle: [],
+    selectedHike: null,
 };
 
 export const hikeState = {

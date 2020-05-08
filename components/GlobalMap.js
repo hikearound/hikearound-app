@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { connect } from 'react-redux';
+import { updateMapData } from '../actions/Map';
 import HikeMapMarker from './HikeMapMarker';
 
 const propTypes = {
+    dispatchMapData: PropTypes.func.isRequired,
     mapType: PropTypes.string.isRequired,
     mapStyle: PropTypes.array.isRequired,
     mapPadding: PropTypes.object,
@@ -23,7 +25,8 @@ const defaultProps = {
 
 const hikeMarkers = [
     {
-        latlng: {
+        hid: 'zvXj5WRBdxrlRTLm65SD',
+        coordinate: {
             latitude: 37.7784649,
             longitude: -122.4258831,
         },
@@ -38,8 +41,10 @@ function mapStateToProps(state) {
     };
 }
 
-function mapDispatchToProps() {
-    return {};
+function mapDispatchToProps(dispatch) {
+    return {
+        dispatchMapData: (mapData) => dispatch(updateMapData(mapData)),
+    };
 }
 
 class GlobalMap extends React.Component {
@@ -73,11 +78,29 @@ class GlobalMap extends React.Component {
     };
 
     markerPress = (event) => {
-        const { duration, zoom } = this.props;
-        const { latitude, longitude } = event.nativeEvent.coordinate;
-        const camera = { center: { latitude, longitude }, zoom };
+        const {
+            duration,
+            zoom,
+            dispatchMapData,
+            mapType,
+            mapStyle,
+        } = this.props;
+        const { coordinate, id } = event.nativeEvent;
 
+        const camera = {
+            center: {
+                latitude: coordinate.latitude,
+                longitude: coordinate.longitude,
+            },
+            zoom,
+        };
+
+        dispatchMapData({ mapType, mapStyle, selectedHike: id });
         this.mapView.animateCamera(camera, { duration });
+    };
+
+    assignRef = (ref, index) => {
+        this[`marker${index}`] = ref;
     };
 
     render() {
@@ -92,11 +115,7 @@ class GlobalMap extends React.Component {
                     }}
                     customMapStyle={mapStyle}
                     provider={PROVIDER_GOOGLE}
-                    style={{
-                        height: '100%',
-                        zIndex: 1,
-                        overflow: 'hidden',
-                    }}
+                    style={{ height: '100%' }}
                     mapType={mapType}
                     initialRegion={region}
                     showsUserLocation
@@ -107,17 +126,15 @@ class GlobalMap extends React.Component {
                     onMapReady={this.onMapReady}
                     mapPadding={mapPadding}
                 >
-                    {hikeMarkers.map(({ latlng, distance }, index) => (
-                        <Marker
+                    {hikeMarkers.map(({ hid, coordinate, distance }, index) => (
+                        <HikeMapMarker
                             key={index}
-                            ref={(marker) => {
-                                this.marker = marker;
-                            }}
-                            coordinate={latlng}
+                            identifier={hid}
+                            distance={distance}
+                            markerRef={(ref) => this.assignRef(ref, index)}
+                            coordinate={coordinate}
                             onPress={this.markerPress}
-                        >
-                            <HikeMapMarker distance={distance} />
-                        </Marker>
+                        />
                     ))}
                 </MapView>
             );

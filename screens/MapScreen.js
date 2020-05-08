@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import BottomSheet from 'reanimated-bottom-sheet';
+import { connect } from 'react-redux';
 import GlobalMap from '../components/GlobalMap';
 import { withTheme } from '../utils/Themes';
 import { colors, spacing, fontSizes } from '../constants/Index';
@@ -11,15 +12,30 @@ const handleHeight = '5px';
 
 const propTypes = {
     position: PropTypes.object.isRequired,
+    selectedHike: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
+
+const defaultProps = {
+    selectedHike: null,
+};
+
+function mapStateToProps(state) {
+    return {
+        selectedHike: state.mapReducer.selectedHike,
+    };
+}
+
+function mapDispatchToProps() {
+    return {};
+}
 
 class MapScreen extends React.Component {
     renderContent = () => {
-        const { theme } = this.props;
+        const { theme, selectedHike } = this.props;
 
         return (
             <Body style={{ backgroundColor: theme.colors.sheetBackground }}>
-                <StyledText>Placeholder text</StyledText>
+                <StyledText>{selectedHike}</StyledText>
             </Body>
         );
     };
@@ -53,8 +69,12 @@ class MapScreen extends React.Component {
 }
 
 MapScreen.propTypes = propTypes;
+MapScreen.defaultProps = defaultProps;
 
-export default withTheme(MapScreen);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(withTheme(MapScreen));
 
 const Body = styled.View`
     height: 100px;

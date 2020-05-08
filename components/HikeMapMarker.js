@@ -1,26 +1,49 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { Marker } from 'react-native-maps';
 import { colors, fontSizes, fontWeights } from '../constants/Index';
 
 const propTypes = {
     distance: PropTypes.number,
     size: PropTypes.number,
+    identifier: PropTypes.string.isRequired,
+    coordinate: PropTypes.object,
+    markerRef: PropTypes.func,
+    onPress: PropTypes.func,
 };
 
 const defaultProps = {
     distance: 0,
     size: 40,
+    coordinate: {},
+    markerRef: () => {},
+    onPress: () => {},
 };
 
 class HikeMapMarker extends React.PureComponent {
-    render() {
+    renderMarkerIcon = () => {
         const { distance, size } = this.props;
 
         return (
             <MapMarker size={size}>
                 <MarkerLabel>{distance}m</MarkerLabel>
             </MapMarker>
+        );
+    };
+
+    render() {
+        const { identifier, coordinate, markerRef, onPress } = this.props;
+
+        return (
+            <Marker
+                ref={markerRef}
+                identifier={identifier}
+                coordinate={coordinate}
+                onPress={onPress}
+            >
+                {this.renderMarkerIcon()}
+            </Marker>
         );
     }
 }

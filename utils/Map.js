@@ -3,7 +3,9 @@ import store from '../store/Store';
 
 export async function getMapData(dispatchMapData, scheme) {
     const state = store.getState();
+
     const { darkMode } = state.userReducer;
+    const { selectedHike } = state.mapReducer;
 
     let mapData = {};
 
@@ -11,11 +13,13 @@ export async function getMapData(dispatchMapData, scheme) {
         mapData = {
             mapType: 'standard',
             mapStyle: darkTheme,
+            selectedHike,
         };
     } else {
         mapData = {
             mapType: 'terrain',
             mapStyle: [],
+            selectedHike,
         };
     }
 
