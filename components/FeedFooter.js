@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { View } from 'react-native';
 import { fontWeights, fontSizes, colors, spacing } from '../constants/Index';
 
-export default class FeedFooter extends React.PureComponent {
+class FeedFooter extends React.PureComponent {
     render() {
         return (
             <Container>
@@ -15,6 +15,8 @@ export default class FeedFooter extends React.PureComponent {
         );
     }
 }
+
+export default FeedFooter;
 
 const Circle = styled.View`
     background-color: ${colors.gray};
@@ -31,7 +33,7 @@ const Container = styled.View`
 
 const Text = styled.Text`
     color: ${colors.gray};
-    font-size: ${fontSizes.small}px;
+    font-size: ${fontSizes.extraSmall}px;
     font-weight: ${fontWeights.medium};
     text-transform: uppercase;
     text-align: center;

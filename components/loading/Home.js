@@ -9,11 +9,13 @@ import { withTheme } from '../../utils/Themes';
 const screenWidth = Math.round(Dimensions.get('window').width);
 const screenHeight = Math.round(Dimensions.get('window').height);
 
+const header = { height: parseInt(spacing.small, 10), width: 175 };
+const border = { yOffset: 34, height: 1 };
 const cards = [
-    { yOffset: 10 },
-    { yOffset: 240 },
-    { yOffset: 470 },
-    { yOffset: 700 },
+    { yOffset: 45 },
+    { yOffset: 275 },
+    { yOffset: 505 },
+    { yOffset: 735 },
 ];
 
 const propTypes = {
@@ -80,6 +82,17 @@ class HomeLoadingState extends React.PureComponent {
                             primaryColor={primaryColor}
                             secondaryColor={secondaryColor}
                         >
+                            <Rect
+                                x={cardSpacing}
+                                y={cardSpacing}
+                                width={header.width}
+                                height={header.height}
+                            />
+                            <Rect
+                                y={border.yOffset}
+                                width={width}
+                                height={border.height}
+                            />
                             {cards.map(({ yOffset }, index) => (
                                 <Rect
                                     key={index}

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FlatList } from 'react-native';
 import FeedItem from './FeedItem';
+import FeedHeader from './FeedHeader';
 import FeedFooter from './FeedFooter';
 import { withScrollToTop } from '../utils/Navigation';
 
@@ -29,24 +30,25 @@ class FeedList extends React.Component {
 
     renderFooter = () => <FeedFooter />;
 
-    keyExtractor = (item) => item.key;
-
     render() {
         const { onEndReached, refreshControl, hikes, scrollRef } = this.props;
 
         return (
-            <FlatList
-                ref={scrollRef}
-                data={hikes}
-                extraData={hikes}
-                showsVerticalScrollIndicator={false}
-                keyExtractor={this.keyExtractor}
-                renderItem={this.renderItem}
-                refreshControl={refreshControl}
-                onEndReached={onEndReached}
-                onEndReachedThreshold={0.75}
-                ListFooterComponent={this.renderFooter}
-            />
+            <>
+                <FeedHeader />
+                <FlatList
+                    ref={scrollRef}
+                    data={hikes}
+                    extraData={hikes}
+                    showsVerticalScrollIndicator={false}
+                    keyExtractor={(item) => item.key}
+                    renderItem={this.renderItem}
+                    refreshControl={refreshControl}
+                    onEndReached={onEndReached}
+                    onEndReachedThreshold={0.75}
+                    ListFooterComponent={this.renderFooter}
+                />
+            </>
         );
     }
 }
