@@ -5,6 +5,7 @@ import FeedItem from './FeedItem';
 import FeedHeader from './FeedHeader';
 import FeedFooter from './FeedFooter';
 import { withScrollToTop } from '../utils/Navigation';
+import { withTheme } from '../utils/Themes';
 
 const propTypes = {
     onEndReached: PropTypes.func.isRequired,
@@ -31,7 +32,13 @@ class FeedList extends React.Component {
     renderFooter = () => <FeedFooter />;
 
     render() {
-        const { onEndReached, refreshControl, hikes, scrollRef } = this.props;
+        const {
+            onEndReached,
+            refreshControl,
+            hikes,
+            theme,
+            scrollRef,
+        } = this.props;
 
         return (
             <>
@@ -47,6 +54,7 @@ class FeedList extends React.Component {
                     refreshControl={refreshControl}
                     onEndReached={onEndReached}
                     ListFooterComponent={this.renderFooter}
+                    headerContainerBackgroundColor={theme.colors.rootBackground}
                     disableHeaderSnap
                     bounces
                 />
@@ -57,4 +65,4 @@ class FeedList extends React.Component {
 
 FeedList.propTypes = propTypes;
 
-export default withScrollToTop(FeedList);
+export default withScrollToTop(withTheme(FeedList));
