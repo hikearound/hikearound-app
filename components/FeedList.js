@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FlatList } from 'react-native';
+import { CollapsibleHeaderFlatList } from 'react-native-collapsible-header-views';
 import FeedItem from './FeedItem';
 import FeedHeader from './FeedHeader';
 import FeedFooter from './FeedFooter';
@@ -35,25 +35,25 @@ class FeedList extends React.Component {
 
         return (
             <>
-                <FeedHeader />
-                <FlatList
+                <CollapsibleHeaderFlatList
                     ref={scrollRef}
                     data={hikes}
                     extraData={hikes}
+                    CollapsibleHeaderComponent={<FeedHeader />}
+                    headerHeight={35}
                     showsVerticalScrollIndicator={false}
                     keyExtractor={(item) => item.key}
                     renderItem={this.renderItem}
                     refreshControl={refreshControl}
                     onEndReached={onEndReached}
-                    onEndReachedThreshold={0.75}
                     ListFooterComponent={this.renderFooter}
+                    bounces
                 />
             </>
         );
     }
 }
 
-FeedList.propTypes = propTypes;
 FeedList.propTypes = propTypes;
 
 export default withScrollToTop(FeedList);

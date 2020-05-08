@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { RefreshControl } from 'react-native';
 import HomeLoadingState from '../components/loading/Home';
 import MapScreen from './MapScreen';
 import HomeActions from '../components/HomeActions';
 import FeedList from '../components/FeedList';
+import FeedRefreshControl from '../components/FeedRefreshControl';
 import { feedActionSheet } from '../components/action_sheets/Feed';
 import { initializeUserData, initializeAvatar } from '../actions/User';
 import { initializeMapData } from '../actions/Map';
@@ -169,8 +169,7 @@ class HomeScreen extends React.Component {
     };
 
     renderHome = () => {
-        const { loading, hikes, view, position, firstLoad } = this.state;
-        const { theme } = this.props;
+        const { hikes, view, position, firstLoad, loading } = this.state;
         const scrollRef = React.createRef();
 
         if (firstLoad) {
@@ -184,8 +183,7 @@ class HomeScreen extends React.Component {
         return (
             <FeedList
                 refreshControl={
-                    <RefreshControl
-                        tintColor={theme.colors.refreshControlTint}
+                    <FeedRefreshControl
                         refreshing={loading}
                         onRefresh={this.onRefresh}
                     />
