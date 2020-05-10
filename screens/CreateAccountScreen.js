@@ -41,7 +41,6 @@ class CreateAccountScreen extends React.Component {
     constructor(props) {
         super(props);
         const { t } = this.props;
-
         const createAccountInputs = getCreateAccountInputs(
             t('name'),
             t('email'),
