@@ -5,16 +5,16 @@ import { fontWeights, fontSizes, spacing } from '../constants/Index';
 class FeedHeader extends React.PureComponent {
     render() {
         return (
-            <Container>
+            <View>
                 <Text>Hikes Near San Francisco</Text>
-            </Container>
+            </View>
         );
     }
 }
 
 export default FeedHeader;
 
-const Container = styled.View`
+const View = styled.View`
     padding: ${spacing.tiny}px;
     border-bottom-width: 1px;
     border-bottom-color: ${(props) => props.theme.itemBorder};

@@ -1,17 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import { View } from 'react-native';
 import { fontWeights, fontSizes, colors, spacing } from '../constants/Index';
 
 class FeedFooter extends React.PureComponent {
     render() {
         return (
-            <Container>
-                <View>
-                    <Text>New Hikes Every Week</Text>
-                    <Circle />
-                </View>
-            </Container>
+            <View>
+                <Text>New Hikes Every Week</Text>
+                <Circle />
+            </View>
         );
     }
 }
@@ -27,7 +24,7 @@ const Circle = styled.View`
     margin: ${spacing.micro}px auto;
 `;
 
-const Container = styled.View`
+const View = styled.View`
     padding: ${spacing.large}px;
 `;
 

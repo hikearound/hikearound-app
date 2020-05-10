@@ -29,7 +29,7 @@ class HikeListItem extends React.PureComponent {
         const { name, location, distance } = this.props;
 
         return (
-            <Container>
+            <View>
                 <TouchableOpacity
                     activeOpacity={opacities.regular}
                     onPress={() => {
@@ -44,7 +44,7 @@ class HikeListItem extends React.PureComponent {
                         {'m'}
                     </MetaData>
                 </TouchableOpacity>
-            </Container>
+            </View>
         );
     }
 }
@@ -56,7 +56,7 @@ export default function (props) {
     return <HikeListItem {...props} navigation={navigation} />;
 }
 
-const Container = styled.View`
+const View = styled.View`
     border-color: ${(props) => props.theme.itemBorder};
     border-top-width: 1px;
     padding: ${spacing.small}px 0;

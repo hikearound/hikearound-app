@@ -26,7 +26,7 @@ class FeedCard extends React.PureComponent {
         const { image, name, distance, elevation, route } = this.props;
 
         return (
-            <Container>
+            <View>
                 <Cover>
                     <Image
                         uri={image.uri}
@@ -47,7 +47,7 @@ class FeedCard extends React.PureComponent {
                     elevation={elevation}
                     route={route}
                 />
-            </Container>
+            </View>
         );
     }
 }
@@ -56,7 +56,7 @@ FeedCard.propTypes = propTypes;
 
 export default withTheme(FeedCard);
 
-const Container = styled.View`
+const View = styled.View`
     background-color: ${(props) => props.theme.cardBackground};
     width: 100%;
     border-radius: ${borderRadius.medium}px;

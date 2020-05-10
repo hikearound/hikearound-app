@@ -35,7 +35,7 @@ class MapScreen extends React.Component {
 
         return (
             <Body style={{ backgroundColor: theme.colors.sheetBackground }}>
-                <StyledText>{selectedHike}</StyledText>
+                <Text>{selectedHike}</Text>
             </Body>
         );
     };
@@ -81,7 +81,7 @@ const Body = styled.View`
     padding: ${spacing.small}px;
 `;
 
-const StyledText = styled.Text`
+const Text = styled.Text`
     color: ${(props) => props.theme.text};
     font-size: ${fontSizes.small}px;
 `;

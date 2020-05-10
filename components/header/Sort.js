@@ -71,7 +71,7 @@ class Sort extends React.PureComponent {
                 activeOpacity={opacities.regular}
                 onPress={iconPress}
             >
-                <StyledView
+                <View
                     style={{
                         opacity: iconOpacity,
                         aspectRatio: 1,
@@ -79,7 +79,7 @@ class Sort extends React.PureComponent {
                     }}
                 >
                     <FilterIcon />
-                </StyledView>
+                </View>
             </TouchableOpacity>
         );
     }
@@ -90,6 +90,6 @@ Sort.defaultProps = defaultProps;
 
 export default connect(mapStateToProps, mapDispatchToProps)(Sort);
 
-const StyledView = styled.View`
+const View = styled.View`
     margin-top: -${spacing.micro}px;
 `;

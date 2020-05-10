@@ -17,9 +17,9 @@ const defaultProps = {
 };
 
 const Back = ({ name, color, size }) => (
-    <StyledView>
+    <View>
         <Ionicons name={name} size={size} color={color} />
-    </StyledView>
+    </View>
 );
 
 Back.propTypes = propTypes;
@@ -27,6 +27,6 @@ Back.defaultProps = defaultProps;
 
 export default Back;
 
-const StyledView = styled.View`
+const View = styled.View`
     margin-left: ${spacing.tiny}px;
 `;
