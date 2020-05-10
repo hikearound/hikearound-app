@@ -32,6 +32,7 @@ function mapDispatchToProps() {
 class AppNavigator extends React.PureComponent {
     constructor(props) {
         super(props);
+
         SplashScreen.preventAutoHide();
         StatusBar.setBarStyle('light-content', true);
     }

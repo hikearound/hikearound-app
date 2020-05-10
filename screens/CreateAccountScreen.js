@@ -4,6 +4,7 @@ import { Alert } from 'react-native';
 import firebase from 'firebase';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { withTranslation } from 'react-i18next';
 import InputButton from '../components/InputButton';
 import LoadingOverlay from '../components/LoadingOverlay';
 import InputLabelGroup from '../components/InputLabelGroup';
@@ -11,7 +12,7 @@ import LegalText from '../components/LegalText';
 import { updateUserData } from '../actions/User';
 import { RootView } from '../styles/Screens';
 import { withTheme } from '../utils/Themes';
-import { createAccountInputs } from '../constants/Inputs';
+import { getCreateAccountInputs } from '../constants/Inputs';
 
 const propTypes = {
     dispatchUserData: PropTypes.func.isRequired,
@@ -39,12 +40,20 @@ function mapDispatchToProps(dispatch) {
 class CreateAccountScreen extends React.Component {
     constructor(props) {
         super(props);
+        const { t } = this.props;
+
+        const createAccountInputs = getCreateAccountInputs(
+            t('name'),
+            t('email'),
+            t('password'),
+        );
 
         this.state = {
             email: '',
             password: '',
             name: '',
             loading: false,
+            createAccountInputs,
         };
     }
 
@@ -109,7 +118,8 @@ class CreateAccountScreen extends React.Component {
     };
 
     render() {
-        const { loading } = this.state;
+        const { loading, createAccountInputs } = this.state;
+        const { t } = this.props;
 
         return (
             <RootView>
@@ -153,7 +163,7 @@ class CreateAccountScreen extends React.Component {
                     ),
                 )}
                 <InputButton
-                    text='Create Account'
+                    text={t('createAccount')}
                     action={this.handleCreateAccount}
                 />
                 <LegalText />
@@ -168,4 +178,4 @@ CreateAccountScreen.propTypes = propTypes;
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(withTheme(CreateAccountScreen));
+)(withTranslation()(withTheme(CreateAccountScreen)));

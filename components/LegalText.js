@@ -1,42 +1,46 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Trans, withTranslation } from 'react-i18next';
 import TextLink from './TextLink';
 import { withTheme } from '../utils/Themes';
 import { colors, fontSizes, spacing } from '../constants/Index';
 
 class LegalText extends React.PureComponent {
-    renderTermsOfServiceLink = () => {
+    renderTermsOfServiceLink = (t) => {
         return (
             <TextLink
                 url='https://www.tryhikearound.com/terms?contentOnly=true'
-                text='Terms of Service'
+                text={t('termsOfService')}
             />
         );
     };
 
-    renderPrivacyPolicyLink = () => {
+    renderPrivacyPolicyLink = (t) => {
         return (
             <TextLink
                 url='https://www.tryhikearound.com/privacy?contentOnly=true'
-                text='Privacy Policy'
+                text={t('privacyPolicy')}
             />
         );
     };
 
     render() {
+        const { t } = this.props;
+        const createAccount = t('createAccount');
+        const appName = t('appName', { count: 0 });
+
         return (
-            <>
-                <Text>
-                    By clicking &apos;Create Account&apos; you agree to
-                    Hikearound&apos;s {this.renderTermsOfServiceLink()} and{' '}
-                    {this.renderPrivacyPolicyLink()}.
-                </Text>
-            </>
+            <Text>
+                <Trans i18nKey='legal'>
+                    {/* eslint-disable-next-line */}
+                    By clicking {{ createAccount }}, you agree to {{ appName }} {this.renderTermsOfServiceLink(t)} and {this.renderPrivacyPolicyLink(t)}.
+                </Trans>
+            </Text>
         );
     }
 }
 
-export default withTheme(LegalText);
+export default withTranslation()(withTheme(LegalText));
 
 const Text = styled.Text`
     color: ${colors.grayMedium};

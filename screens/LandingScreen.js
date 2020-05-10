@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Animated, Easing } from 'react-native';
+import { withTranslation } from 'react-i18next';
 import { LandingButton } from '../components/Index';
 import { spacing } from '../constants/Index';
 import { RootView } from '../styles/Screens';
@@ -49,7 +50,7 @@ class LandingScreen extends React.Component {
 
     render() {
         const { left, bgImage } = this.state;
-        const { navigation } = this.props;
+        const { navigation, t } = this.props;
 
         return (
             <RootView>
@@ -59,13 +60,13 @@ class LandingScreen extends React.Component {
                 <ButtonWrapper>
                     <LandingButton
                         primary
-                        text='Create Account'
+                        text={t('createAccount')}
                         action={() => {
                             navigation.push('CreateAccount');
                         }}
                     />
                     <LandingButton
-                        text='Sign In'
+                        text={t('signIn')}
                         margin={
                             `${spacing.tiny}px ${spacing.medium}px ` +
                             `0 ${spacing.medium}px`
@@ -80,7 +81,7 @@ class LandingScreen extends React.Component {
     }
 }
 
-export default withTheme(LandingScreen);
+export default withTranslation()(withTheme(LandingScreen));
 
 const BackgroundWrapper = styled.View`
     height: 100%;

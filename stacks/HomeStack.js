@@ -1,5 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
+import { withTranslation } from 'react-i18next';
 import {
     LandingScreen,
     SignInScreen,
@@ -54,25 +55,25 @@ class HomeStack extends React.Component {
         );
     };
 
-    renderCreateAccountScreen = () => {
+    renderCreateAccountScreen = (t) => {
         return (
             <Stack.Screen
                 name='CreateAccount'
                 component={CreateAccountScreen}
                 options={{
-                    headerTitle: 'Create Account',
+                    headerTitle: t('createAccount'),
                 }}
             />
         );
     };
 
-    renderSignInScreen = () => {
+    renderSignInScreen = (t) => {
         return (
             <Stack.Screen
                 name='SignIn'
                 component={SignInScreen}
                 options={{
-                    headerTitle: 'Sign In',
+                    headerTitle: t('signIn'),
                 }}
             />
         );
@@ -96,7 +97,7 @@ class HomeStack extends React.Component {
     };
 
     render() {
-        const { theme } = this.props;
+        const { theme, t } = this.props;
 
         return (
             <Stack.Navigator
@@ -107,8 +108,8 @@ class HomeStack extends React.Component {
             >
                 {this.renderAuthScreen()}
                 {this.renderLandingScreen()}
-                {this.renderSignInScreen()}
-                {this.renderCreateAccountScreen()}
+                {this.renderSignInScreen(t)}
+                {this.renderCreateAccountScreen(t)}
                 {this.renderHomeScreen()}
                 {this.renderHikeScreen()}
             </Stack.Navigator>
@@ -116,4 +117,4 @@ class HomeStack extends React.Component {
     }
 }
 
-export default withTheme(HomeStack);
+export default withTranslation()(withTheme(HomeStack));

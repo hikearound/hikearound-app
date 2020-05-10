@@ -123,7 +123,7 @@ const InputLabel = styled.Text`
     font-weight: ${fontWeights.bold};
     display: flex;
     padding: ${spacing.small}px 0 ${spacing.small}px ${spacing.small}px;
-    width: 95px;
+    width: 105px;
 `;
 
 const Input = styled.TextInput.attrs((props) => ({

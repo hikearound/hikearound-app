@@ -2,21 +2,25 @@ import React from 'react';
 import { CommonActions } from '@react-navigation/native';
 import { Alert, ScrollView, Keyboard } from 'react-native';
 import firebase from 'firebase';
+import { withTranslation } from 'react-i18next';
 import InputButton from '../components/InputButton';
 import LoadingOverlay from '../components/LoadingOverlay';
 import InputLabelGroup from '../components/InputLabelGroup';
 import { RootView } from '../styles/Screens';
 import { withTheme } from '../utils/Themes';
-import { signInInputs } from '../constants/Inputs';
+import { getSignInInputs } from '../constants/Inputs';
 
 class SignInScreen extends React.Component {
     constructor(props) {
         super(props);
+        const { t } = this.props;
+        const signInInputs = getSignInInputs(t('email'), t('password'));
 
         this.state = {
             email: '',
             password: '',
             loading: false,
+            signInInputs,
         };
     }
 
@@ -63,7 +67,8 @@ class SignInScreen extends React.Component {
     };
 
     render() {
-        const { loading } = this.state;
+        const { loading, signInInputs } = this.state;
+        const { t } = this.props;
 
         return (
             <RootView>
@@ -111,7 +116,7 @@ class SignInScreen extends React.Component {
                             />
                         ),
                     )}
-                    <InputButton text='Sign In' action={this.handleLogin} />
+                    <InputButton text={t('signIn')} action={this.handleLogin} />
                     <LoadingOverlay loading={loading} />
                 </ScrollView>
             </RootView>
@@ -119,4 +124,4 @@ class SignInScreen extends React.Component {
     }
 }
 
-export default withTheme(SignInScreen);
+export default withTranslation()(withTheme(SignInScreen));

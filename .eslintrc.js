@@ -54,7 +54,7 @@ module.exports = {
         'react/prop-types': [
             'error', {
                 'ignore': [
-                    'navigation', 'focused', 'theme', 'route', 'scheme',
+                    'navigation', 'focused', 'theme', 'route', 'scheme', 't',
                 ],
             }
         ],

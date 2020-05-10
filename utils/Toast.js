@@ -10,6 +10,4 @@ export function getToastText(action, data) {
     return toastText;
 }
 
-export default {
-    getToastText,
-};
+export default { getToastText };

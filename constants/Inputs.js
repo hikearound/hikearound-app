@@ -1,5 +1,6 @@
-export const nameInput = {
-    placeholder: 'Name',
+import i18n from 'i18next';
+
+const nameInput = {
     name: 'name',
     autoCorrect: false,
     textContentType: 'name',
@@ -8,9 +9,8 @@ export const nameInput = {
     returnKeyType: 'next',
 };
 
-export const emailInput = {
+const emailInput = {
     keyboardType: 'email-address',
-    placeholder: 'Email',
     name: 'email',
     autoCorrect: false,
     autoCapitalize: 'none',
@@ -19,8 +19,7 @@ export const emailInput = {
     returnKeyType: 'next',
 };
 
-export const passwordInput = {
-    placeholder: 'Password',
+const passwordInput = {
     name: 'password',
     secureTextEntry: true,
     textContentType: 'password',
@@ -28,8 +27,8 @@ export const passwordInput = {
     returnKeyType: 'done',
 };
 
-export const updateLocationInput = {
-    placeholder: 'Location',
+const updateLocationInput = {
+    placeholder: i18n.t('location'),
     name: 'location',
     value: 'updatedLocation',
     autoCapitalize: 'words',
@@ -41,8 +40,19 @@ export const updateLocationInput = {
 const updateNameInput = nameInput;
 updateNameInput.value = 'updatedName';
 
-export const signInInputs = [emailInput, passwordInput];
-export const createAccountInputs = [nameInput, emailInput, passwordInput];
 export const editProfileInputs = [updateNameInput, updateLocationInput];
 
-export default { signInInputs, createAccountInputs, editProfileInputs };
+export function getSignInInputs(emailLabel, passwordLabel) {
+    emailInput.placeholder = emailLabel;
+    passwordInput.placeholder = passwordLabel;
+    return [emailInput, passwordInput];
+}
+
+export function getCreateAccountInputs(nameLabel, emailLabel, passwordLabel) {
+    nameInput.placeholder = nameLabel;
+    emailInput.placeholder = emailLabel;
+    passwordInput.placeholder = passwordLabel;
+    return [nameInput, emailInput, passwordInput];
+}
+
+export default { getSignInInputs, getCreateAccountInputs, editProfileInputs };
