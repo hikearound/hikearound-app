@@ -1,3 +1,5 @@
+import store from '../store/Store';
+
 const nameInput = {
     name: 'name',
     autoCorrect: false,
@@ -37,24 +39,30 @@ const updateLocationInput = {
 const updateNameInput = nameInput;
 updateNameInput.value = 'updatedName';
 
-export function getSignInInputs(emailLabel, passwordLabel) {
-    emailInput.placeholder = emailLabel;
-    passwordInput.placeholder = passwordLabel;
+export function getSignInInputs(labels) {
+    emailInput.placeholder = labels.email;
+    passwordInput.placeholder = labels.password;
+
     return [emailInput, passwordInput];
 }
 
-export function getCreateAccountInputs(nameLabel, emailLabel, passwordLabel) {
-    nameInput.placeholder = nameLabel;
-    emailInput.placeholder = emailLabel;
-    passwordInput.placeholder = passwordLabel;
+export function getCreateAccountInputs(labels) {
+    nameInput.placeholder = labels.name;
+    emailInput.placeholder = labels.email;
+    passwordInput.placeholder = labels.password;
+
     return [nameInput, emailInput, passwordInput];
 }
 
-export function getEditProfileInputs(nameLabel, locationLabel, name, location) {
-    updateNameInput.placeholder = nameLabel;
+export function getEditProfileInputs(labels) {
+    const state = store.getState();
+    const { name, location } = state.userReducer;
+
+    updateNameInput.placeholder = labels.name;
     updateNameInput.defaultValue = name;
-    updateLocationInput.placeholder = locationLabel;
+    updateLocationInput.placeholder = labels.location;
     updateLocationInput.defaultValue = location;
+
     return [updateNameInput, updateLocationInput];
 }
 

@@ -13,6 +13,7 @@ import { spacing } from '../../constants/Index';
 import { updateUserData } from '../../actions/User';
 import { withTheme } from '../../utils/Themes';
 import { RootView } from '../../styles/Screens';
+import { getInputLabels } from '../../utils/Localization';
 import { ModalHeader, ModalTitleText, ModalBody } from '../../styles/Modals';
 import { getEditProfileInputs } from '../../constants/Inputs';
 
@@ -40,14 +41,9 @@ function mapDispatchToProps(dispatch) {
 class EditProfileModal extends ModalBase {
     constructor(props, context) {
         super(props, context);
-        const { name, location, t } = this.props;
-
-        const editProfileInputs = getEditProfileInputs(
-            t('name'),
-            t('location'),
-            name,
-            location,
-        );
+        const { t } = this.props;
+        const labels = getInputLabels(t);
+        const editProfileInputs = getEditProfileInputs(labels);
 
         this.state = {
             modalVisible: false,
@@ -60,29 +56,41 @@ class EditProfileModal extends ModalBase {
     }
 
     hideModal() {
-        const {
-            name,
-            location,
-            modalCloseAction,
-            dispatchUserData,
-        } = this.props;
-
-        const { updatedName, updatedLocation } = this.state;
+        const { name, location, modalCloseAction } = this.props;
         const userData = { location, name };
 
         if (modalCloseAction === 'updateUserData') {
-            if (updatedName !== name) {
-                userData.name = updatedName;
-                dispatchUserData(userData);
-            }
-
-            if (updatedLocation !== location) {
-                userData.location = updatedLocation;
-                dispatchUserData(userData);
-            }
+            this.maybeUpdateName(userData);
+            this.maybeUpdateLocation(userData);
         }
 
         this.setState({ modalVisible: false });
+    }
+
+    maybeUpdateName(userData) {
+        const { dispatchUserData } = this.props;
+        const { editProfileInputs, updatedName } = this.state;
+
+        if (updatedName) {
+            userData.name = updatedName;
+            editProfileInputs[0].defaultValue = updatedName;
+
+            this.setState({ editProfileInputs });
+            dispatchUserData(userData);
+        }
+    }
+
+    maybeUpdateLocation(userData) {
+        const { dispatchUserData } = this.props;
+        const { editProfileInputs, updatedLocation } = this.state;
+
+        if (updatedLocation) {
+            userData.location = updatedLocation;
+            editProfileInputs[1].defaultValue = updatedLocation;
+
+            this.setState({ editProfileInputs });
+            dispatchUserData(userData);
+        }
     }
 
     extraActions() {

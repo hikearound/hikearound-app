@@ -12,6 +12,7 @@ import LegalText from '../components/LegalText';
 import { updateUserData } from '../actions/User';
 import { RootView } from '../styles/Screens';
 import { withTheme } from '../utils/Themes';
+import { getInputLabels } from '../utils/Localization';
 import { getCreateAccountInputs } from '../constants/Inputs';
 
 const propTypes = {
@@ -41,11 +42,8 @@ class CreateAccountScreen extends React.Component {
     constructor(props) {
         super(props);
         const { t } = this.props;
-        const createAccountInputs = getCreateAccountInputs(
-            t('name'),
-            t('email'),
-            t('password'),
-        );
+        const labels = getInputLabels(t);
+        const createAccountInputs = getCreateAccountInputs(labels);
 
         this.state = {
             email: '',

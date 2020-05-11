@@ -17,4 +17,15 @@ export function initializeLocalization() {
     });
 }
 
+export function getInputLabels(t) {
+    const inputLabels = {
+        name: t('name'),
+        email: t('email'),
+        password: t('password'),
+        location: t('location'),
+    };
+
+    return inputLabels;
+}
+
 export default { initializeLocalization };

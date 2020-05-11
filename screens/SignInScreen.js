@@ -8,13 +8,15 @@ import LoadingOverlay from '../components/LoadingOverlay';
 import InputLabelGroup from '../components/InputLabelGroup';
 import { RootView } from '../styles/Screens';
 import { withTheme } from '../utils/Themes';
+import { getInputLabels } from '../utils/Localization';
 import { getSignInInputs } from '../constants/Inputs';
 
 class SignInScreen extends React.Component {
     constructor(props) {
         super(props);
         const { t } = this.props;
-        const signInInputs = getSignInInputs(t('email'), t('password'));
+        const labels = getInputLabels(t);
+        const signInInputs = getSignInInputs(labels);
 
         this.state = {
             email: '',
