@@ -13,23 +13,15 @@ import { updateUserData } from '../actions/User';
 import { RootView } from '../styles/Screens';
 import { withTheme } from '../utils/Themes';
 import { getInputLabels } from '../utils/Localization';
+import { createUserProfile } from '../utils/User';
 import { getCreateAccountInputs } from '../constants/Inputs';
 
 const propTypes = {
     dispatchUserData: PropTypes.func.isRequired,
-    map: PropTypes.string.isRequired,
-    location: PropTypes.string.isRequired,
-    darkMode: PropTypes.bool.isRequired,
-    notifs: PropTypes.object.isRequired,
 };
 
-function mapStateToProps(state) {
-    return {
-        map: state.userReducer.map,
-        location: state.userReducer.location,
-        darkMode: state.userReducer.darkMode,
-        notifs: state.userReducer.notifs,
-    };
+function mapStateToProps() {
+    return {};
 }
 
 function mapDispatchToProps(dispatch) {
@@ -60,14 +52,7 @@ class CreateAccountScreen extends React.Component {
 
     handleCreateAccount = async () => {
         const { email, password, name } = this.state;
-        const {
-            navigation,
-            dispatchUserData,
-            location,
-            darkMode,
-            map,
-            notifs,
-        } = this.props;
+        const { navigation, dispatchUserData } = this.props;
 
         const resetAction = CommonActions.reset({
             index: 0,
@@ -85,16 +70,8 @@ class CreateAccountScreen extends React.Component {
             })
             .then((response) => {
                 if (response) {
-                    response.user.updateProfile({
-                        displayName: name,
-                    });
-                    dispatchUserData({
-                        name,
-                        location,
-                        darkMode,
-                        map,
-                        notifs,
-                    });
+                    createUserProfile(dispatchUserData, name);
+                    response.user.updateProfile({ displayName: name });
                     navigation.dispatch(resetAction);
                 }
             });

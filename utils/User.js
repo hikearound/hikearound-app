@@ -1,6 +1,5 @@
 import { cacheImages } from './Image';
 import { db, storage, auth } from '../lib/Fire';
-import { notifs } from '../constants/Reducers';
 import store from '../store/Store';
 
 export async function writeUserData(userData) {
@@ -104,13 +103,12 @@ export async function getUserProfileData(dispatchUserData, dispatchAvatar) {
     cacheImages([avatarUri]);
 }
 
-export function patchUserData(userData) {
-    userData.notifs = {
-        email: notifs,
-        push: notifs,
-    };
+export function createUserProfile(dispatchUserData, name) {
+    const state = store.getState();
+    const { map, location, darkMode, notifs } = state.userReducer;
+    const userData = { map, location, darkMode, notifs, name };
 
-    return userData;
+    dispatchUserData(userData);
 }
 
 export default {
@@ -122,5 +120,5 @@ export default {
     getUserData,
     getUserProfileData,
     writeNotifData,
-    patchUserData,
+    createUserProfile,
 };
