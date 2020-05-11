@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Modal } from 'react-native';
 import { connect } from 'react-redux';
+import { withTranslation } from 'react-i18next';
 import ModalDismiss from '../ModalDismiss';
 import ModalContinue from '../ModalContinue';
 import ModalBase from './ModalBase';
@@ -13,7 +14,7 @@ import { updateUserData } from '../../actions/User';
 import { withTheme } from '../../utils/Themes';
 import { RootView } from '../../styles/Screens';
 import { ModalHeader, ModalTitleText, ModalBody } from '../../styles/Modals';
-import { editProfileInputs } from '../../constants/Inputs';
+import { getEditProfileInputs } from '../../constants/Inputs';
 
 const propTypes = {
     dispatchUserData: PropTypes.func.isRequired,
@@ -39,15 +40,19 @@ function mapDispatchToProps(dispatch) {
 class EditProfileModal extends ModalBase {
     constructor(props, context) {
         super(props, context);
+        const { name, location, t } = this.props;
 
-        const { name, location } = this.props;
+        const editProfileInputs = getEditProfileInputs(
+            t('name'),
+            t('location'),
+            name,
+            location,
+        );
 
         this.state = {
             modalVisible: false,
+            editProfileInputs,
         };
-
-        editProfileInputs[0].defaultValue = name;
-        editProfileInputs[1].defaultValue = location;
     }
 
     setValue(name, text) {
@@ -68,13 +73,11 @@ class EditProfileModal extends ModalBase {
         if (modalCloseAction === 'updateUserData') {
             if (updatedName !== name) {
                 userData.name = updatedName;
-                editProfileInputs[0].defaultValue = updatedName;
                 dispatchUserData(userData);
             }
 
             if (updatedLocation !== location) {
                 userData.location = updatedLocation;
-                editProfileInputs[1].defaultValue = updatedLocation;
                 dispatchUserData(userData);
             }
         }
@@ -117,7 +120,7 @@ class EditProfileModal extends ModalBase {
         this[`${name}Input`] = ref;
     };
 
-    renderModalBody = () => (
+    renderModalBody = (editProfileInputs) => (
         <ModalBody>
             <AvatarWrapper>
                 <Avatar isEditable size={60} />
@@ -161,7 +164,7 @@ class EditProfileModal extends ModalBase {
     );
 
     render() {
-        const { modalVisible } = this.state;
+        const { modalVisible, editProfileInputs } = this.state;
         const { animationType, transparent, fullScreen } = this.props;
 
         return (
@@ -173,7 +176,7 @@ class EditProfileModal extends ModalBase {
             >
                 <RootView>
                     {this.renderModalHeader()}
-                    {this.renderModalBody()}
+                    {this.renderModalBody(editProfileInputs)}
                 </RootView>
             </Modal>
         );
@@ -185,7 +188,7 @@ EditProfileModal.propTypes = propTypes;
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(withTheme(EditProfileModal));
+)(withTranslation()(withTheme(EditProfileModal)));
 
 const AvatarWrapper = styled.View`
     width: 100%;

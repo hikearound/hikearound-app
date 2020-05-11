@@ -1,5 +1,3 @@
-import i18n from 'i18next';
-
 const nameInput = {
     name: 'name',
     autoCorrect: false,
@@ -28,7 +26,6 @@ const passwordInput = {
 };
 
 const updateLocationInput = {
-    placeholder: i18n.t('location'),
     name: 'location',
     value: 'updatedLocation',
     autoCapitalize: 'words',
@@ -39,8 +36,6 @@ const updateLocationInput = {
 
 const updateNameInput = nameInput;
 updateNameInput.value = 'updatedName';
-
-export const editProfileInputs = [updateNameInput, updateLocationInput];
 
 export function getSignInInputs(emailLabel, passwordLabel) {
     emailInput.placeholder = emailLabel;
@@ -55,4 +50,16 @@ export function getCreateAccountInputs(nameLabel, emailLabel, passwordLabel) {
     return [nameInput, emailInput, passwordInput];
 }
 
-export default { getSignInInputs, getCreateAccountInputs, editProfileInputs };
+export function getEditProfileInputs(nameLabel, locationLabel, name, location) {
+    updateNameInput.placeholder = nameLabel;
+    updateNameInput.defaultValue = name;
+    updateLocationInput.placeholder = locationLabel;
+    updateLocationInput.defaultValue = location;
+    return [updateNameInput, updateLocationInput];
+}
+
+export default {
+    getSignInInputs,
+    getCreateAccountInputs,
+    getEditProfileInputs,
+};
