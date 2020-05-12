@@ -15,7 +15,10 @@ import { withTheme } from '../../utils/Themes';
 import { RootView } from '../../styles/Screens';
 import { getInputLabels } from '../../utils/Localization';
 import { ModalHeader, ModalTitleText, ModalBody } from '../../styles/Modals';
-import { getEditProfileInputs } from '../../constants/Inputs';
+import {
+    getEditProfileInputs,
+    setEditProfileRefs,
+} from '../../constants/Inputs';
 
 const propTypes = {
     dispatchUserData: PropTypes.func.isRequired,
@@ -27,8 +30,6 @@ function mapStateToProps(state) {
         modalCloseAction: state.modalReducer.modalCloseAction,
         name: state.userReducer.name,
         location: state.userReducer.location,
-        map: state.userReducer.map,
-        avatar: state.userReducer.avatar,
     };
 }
 
@@ -44,10 +45,12 @@ class EditProfileModal extends ModalBase {
         const { t } = this.props;
         const labels = getInputLabels(t);
         const editProfileInputs = getEditProfileInputs(labels);
+        const refs = setEditProfileRefs(editProfileInputs);
 
         this.state = {
             modalVisible: false,
             editProfileInputs,
+            refs,
         };
     }
 
@@ -69,11 +72,11 @@ class EditProfileModal extends ModalBase {
 
     maybeUpdateName(userData) {
         const { dispatchUserData } = this.props;
-        const { editProfileInputs, updatedName } = this.state;
+        const { editProfileInputs, updatedName, refs } = this.state;
 
         if (updatedName) {
             userData.name = updatedName;
-            editProfileInputs[0].defaultValue = updatedName;
+            refs.name.defaultValue = updatedName;
 
             this.setState({ editProfileInputs });
             dispatchUserData(userData);
@@ -82,11 +85,11 @@ class EditProfileModal extends ModalBase {
 
     maybeUpdateLocation(userData) {
         const { dispatchUserData } = this.props;
-        const { editProfileInputs, updatedLocation } = this.state;
+        const { editProfileInputs, updatedLocation, refs } = this.state;
 
         if (updatedLocation) {
             userData.location = updatedLocation;
-            editProfileInputs[1].defaultValue = updatedLocation;
+            refs.location.defaultValue = updatedLocation;
 
             this.setState({ editProfileInputs });
             dispatchUserData(userData);

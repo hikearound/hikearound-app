@@ -66,8 +66,16 @@ export function getEditProfileInputs(labels) {
     return [updateNameInput, updateLocationInput];
 }
 
+export function setEditProfileRefs(editProfileInputs) {
+    return {
+        name: editProfileInputs[0],
+        location: editProfileInputs[1],
+    };
+}
+
 export default {
     getSignInInputs,
     getCreateAccountInputs,
     getEditProfileInputs,
+    setEditProfileRefs,
 };

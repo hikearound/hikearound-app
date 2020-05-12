@@ -10,6 +10,7 @@ import { RootView } from '../styles/Screens';
 import { withTheme } from '../utils/Themes';
 import { getInputLabels } from '../utils/Localization';
 import { getSignInInputs } from '../constants/Inputs';
+import { defaultState } from '../constants/states/SignIn';
 
 class SignInScreen extends React.Component {
     constructor(props) {
@@ -18,12 +19,8 @@ class SignInScreen extends React.Component {
         const labels = getInputLabels(t);
         const signInInputs = getSignInInputs(labels);
 
-        this.state = {
-            email: '',
-            password: '',
-            loading: false,
-            signInInputs,
-        };
+        defaultState.signInInputs = signInInputs;
+        this.state = defaultState;
     }
 
     setValue(name, text) {

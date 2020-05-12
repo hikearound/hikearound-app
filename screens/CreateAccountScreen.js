@@ -15,6 +15,7 @@ import { withTheme } from '../utils/Themes';
 import { getInputLabels } from '../utils/Localization';
 import { createUserProfile } from '../utils/User';
 import { getCreateAccountInputs } from '../constants/Inputs';
+import { defaultState } from '../constants/states/CreateAccount';
 
 const propTypes = {
     dispatchUserData: PropTypes.func.isRequired,
@@ -37,13 +38,8 @@ class CreateAccountScreen extends React.Component {
         const labels = getInputLabels(t);
         const createAccountInputs = getCreateAccountInputs(labels);
 
-        this.state = {
-            email: '',
-            password: '',
-            name: '',
-            loading: false,
-            createAccountInputs,
-        };
+        defaultState.createAccountInputs = createAccountInputs;
+        this.state = defaultState;
     }
 
     setValue(name, text) {
