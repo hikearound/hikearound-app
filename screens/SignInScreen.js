@@ -8,18 +8,16 @@ import LoadingOverlay from '../components/LoadingOverlay';
 import InputLabelGroup from '../components/InputLabelGroup';
 import { RootView } from '../styles/Screens';
 import { withTheme } from '../utils/Themes';
-import { getInputLabels } from '../utils/Localization';
-import { getSignInInputs } from '../constants/Inputs';
+import { getInputs } from '../utils/Inputs';
 import { defaultState } from '../constants/states/SignIn';
 
 class SignInScreen extends React.Component {
     constructor(props) {
         super(props);
         const { t } = this.props;
-        const labels = getInputLabels(t);
-        const signInInputs = getSignInInputs(labels);
+        const inputs = getInputs(t, 'signIn');
 
-        defaultState.signInInputs = signInInputs;
+        defaultState.inputs = inputs;
         this.state = defaultState;
     }
 
@@ -66,7 +64,7 @@ class SignInScreen extends React.Component {
     };
 
     render() {
-        const { loading, signInInputs } = this.state;
+        const { loading, inputs } = this.state;
         const { t } = this.props;
 
         return (
@@ -76,7 +74,7 @@ class SignInScreen extends React.Component {
                     scrollEnabled={false}
                     contentContainerStyle={{ flexGrow: 1 }}
                 >
-                    {signInInputs.map(
+                    {inputs.map(
                         (
                             {
                                 name,

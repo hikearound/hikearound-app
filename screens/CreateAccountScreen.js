@@ -12,9 +12,8 @@ import LegalText from '../components/LegalText';
 import { updateUserData } from '../actions/User';
 import { RootView } from '../styles/Screens';
 import { withTheme } from '../utils/Themes';
-import { getInputLabels } from '../utils/Localization';
 import { createUserProfile } from '../utils/User';
-import { getCreateAccountInputs } from '../constants/Inputs';
+import { getInputs } from '../utils/Inputs';
 import { defaultState } from '../constants/states/CreateAccount';
 
 const propTypes = {
@@ -35,10 +34,9 @@ class CreateAccountScreen extends React.Component {
     constructor(props) {
         super(props);
         const { t } = this.props;
-        const labels = getInputLabels(t);
-        const createAccountInputs = getCreateAccountInputs(labels);
+        const inputs = getInputs(t, 'createAccount');
 
-        defaultState.createAccountInputs = createAccountInputs;
+        defaultState.inputs = inputs;
         this.state = defaultState;
     }
 
@@ -88,12 +86,12 @@ class CreateAccountScreen extends React.Component {
     };
 
     render() {
-        const { loading, createAccountInputs } = this.state;
+        const { loading, inputs } = this.state;
         const { t } = this.props;
 
         return (
             <RootView>
-                {createAccountInputs.map(
+                {inputs.map(
                     (
                         {
                             name,

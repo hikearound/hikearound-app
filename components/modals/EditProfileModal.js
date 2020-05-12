@@ -13,12 +13,8 @@ import { spacing } from '../../constants/Index';
 import { updateUserData } from '../../actions/User';
 import { withTheme } from '../../utils/Themes';
 import { RootView } from '../../styles/Screens';
-import { getInputLabels } from '../../utils/Localization';
 import { ModalHeader, ModalTitleText, ModalBody } from '../../styles/Modals';
-import {
-    getEditProfileInputs,
-    setEditProfileRefs,
-} from '../../constants/Inputs';
+import { getInputs, setInputRefs } from '../../utils/Inputs';
 
 const propTypes = {
     dispatchUserData: PropTypes.func.isRequired,
@@ -43,13 +39,12 @@ class EditProfileModal extends ModalBase {
     constructor(props, context) {
         super(props, context);
         const { t } = this.props;
-        const labels = getInputLabels(t);
-        const editProfileInputs = getEditProfileInputs(labels);
-        const refs = setEditProfileRefs(editProfileInputs);
+        const inputs = getInputs(t, 'editProfile');
+        const refs = setInputRefs(inputs, 'editProfile');
 
         this.state = {
             modalVisible: false,
-            editProfileInputs,
+            inputs,
             refs,
         };
     }
@@ -72,26 +67,26 @@ class EditProfileModal extends ModalBase {
 
     maybeUpdateName(userData) {
         const { dispatchUserData } = this.props;
-        const { editProfileInputs, updatedName, refs } = this.state;
+        const { inputs, updatedName, refs } = this.state;
 
         if (updatedName) {
             userData.name = updatedName;
             refs.name.defaultValue = updatedName;
 
-            this.setState({ editProfileInputs });
+            this.setState({ inputs });
             dispatchUserData(userData);
         }
     }
 
     maybeUpdateLocation(userData) {
         const { dispatchUserData } = this.props;
-        const { editProfileInputs, updatedLocation, refs } = this.state;
+        const { inputs, updatedLocation, refs } = this.state;
 
         if (updatedLocation) {
             userData.location = updatedLocation;
             refs.location.defaultValue = updatedLocation;
 
-            this.setState({ editProfileInputs });
+            this.setState({ inputs });
             dispatchUserData(userData);
         }
     }
@@ -131,12 +126,12 @@ class EditProfileModal extends ModalBase {
         this[`${name}Input`] = ref;
     };
 
-    renderModalBody = (editProfileInputs) => (
+    renderModalBody = (inputs) => (
         <ModalBody>
             <AvatarWrapper>
                 <Avatar isEditable size={60} />
             </AvatarWrapper>
-            {editProfileInputs.map(
+            {inputs.map(
                 (
                     {
                         name,
@@ -175,7 +170,7 @@ class EditProfileModal extends ModalBase {
     );
 
     render() {
-        const { modalVisible, editProfileInputs } = this.state;
+        const { modalVisible, inputs } = this.state;
         const { animationType, transparent, fullScreen } = this.props;
 
         return (
@@ -187,7 +182,7 @@ class EditProfileModal extends ModalBase {
             >
                 <RootView>
                     {this.renderModalHeader()}
-                    {this.renderModalBody(editProfileInputs)}
+                    {this.renderModalBody(inputs)}
                 </RootView>
             </Modal>
         );
