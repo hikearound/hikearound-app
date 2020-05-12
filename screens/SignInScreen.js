@@ -113,7 +113,10 @@ class SignInScreen extends React.Component {
                             />
                         ),
                     )}
-                    <InputButton text={t('signIn')} action={this.handleLogin} />
+                    <InputButton
+                        text={t('label.nav.signIn')}
+                        action={this.handleLogin}
+                    />
                     <LoadingOverlay loading={loading} />
                 </ScrollView>
             </RootView>

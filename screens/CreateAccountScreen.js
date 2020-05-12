@@ -131,7 +131,7 @@ class CreateAccountScreen extends React.Component {
                     ),
                 )}
                 <InputButton
-                    text={t('createAccount')}
+                    text={t('label.nav.createAccount')}
                     action={this.handleCreateAccount}
                 />
                 <LegalText />

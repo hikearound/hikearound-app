@@ -19,10 +19,10 @@ export function initializeLocalization() {
 
 export function getInputLabels(t) {
     const inputLabels = {
-        name: t('name'),
-        email: t('email'),
-        password: t('password'),
-        location: t('location'),
+        name: t('label.input.name'),
+        email: t('label.input.email'),
+        password: t('label.input.password'),
+        location: t('label.input.location'),
     };
 
     return inputLabels;

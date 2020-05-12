@@ -1,4 +1,5 @@
 import React from 'react';
+import { withTranslation } from 'react-i18next';
 import { createStackNavigator } from '@react-navigation/stack';
 import {
     ProfileScreen,
@@ -12,32 +13,48 @@ import { withTheme } from '../utils/Themes';
 const Stack = createStackNavigator();
 
 class ProfileStack extends React.PureComponent {
-    renderProfileScreen = () => {
-        return <Stack.Screen name='Profile' component={ProfileScreen} />;
+    renderProfileScreen = (t) => {
+        return (
+            <Stack.Screen
+                name='Profile'
+                component={ProfileScreen}
+                options={{
+                    headerTitle: t('label.nav.you'),
+                }}
+            />
+        );
     };
 
     renderHikeScreen = () => {
         return <Stack.Screen name='Hike' component={HikeScreen} />;
     };
 
-    renderSettingsScreen = () => {
-        return <Stack.Screen name='Settings' component={SettingsScreen} />;
+    renderSettingsScreen = (t) => {
+        return (
+            <Stack.Screen
+                name='Settings'
+                component={SettingsScreen}
+                options={{
+                    headerTitle: t('label.nav.settings'),
+                }}
+            />
+        );
     };
 
-    renderNotificationSettingsScreen = () => {
+    renderNotificationSettingsScreen = (t) => {
         return (
             <Stack.Screen
                 name='NotificationSettings'
                 component={NotificationSettingsScreen}
                 options={{
-                    headerTitle: 'Notifications',
+                    headerTitle: t('label.nav.notifications'),
                 }}
             />
         );
     };
 
     render() {
-        const { theme } = this.props;
+        const { theme, t } = this.props;
 
         return (
             <Stack.Navigator
@@ -46,13 +63,13 @@ class ProfileStack extends React.PureComponent {
                 headerMode={headerMode}
                 mode={mode}
             >
-                {this.renderProfileScreen()}
+                {this.renderProfileScreen(t)}
                 {this.renderHikeScreen()}
-                {this.renderSettingsScreen()}
-                {this.renderNotificationSettingsScreen()}
+                {this.renderSettingsScreen(t)}
+                {this.renderNotificationSettingsScreen(t)}
             </Stack.Navigator>
         );
     }
 }
 
-export default withTheme(ProfileStack);
+export default withTranslation()(withTheme(ProfileStack));

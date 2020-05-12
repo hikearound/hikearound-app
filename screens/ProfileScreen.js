@@ -41,7 +41,6 @@ class ProfileScreen extends React.Component {
         };
 
         navigation.setOptions({
-            title: 'You',
             headerRight: () => <Settings navigation={navigation} />,
         });
 

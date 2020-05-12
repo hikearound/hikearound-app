@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { withTranslation } from 'react-i18next';
 import {
     spacing,
     colors,
@@ -21,33 +22,36 @@ const defaultProps = {
     route: '',
 };
 
-const InfoBar = ({ distance, elevation, route }) => (
-    <CardContent>
-        <ContentItem>
-            <MetaDataType>Distance</MetaDataType>
-            <MetaData>
-                {distance}
-                {' miles'}
-            </MetaData>
-        </ContentItem>
-        <ContentItem>
-            <MetaDataType>Elevation</MetaDataType>
-            <MetaData>
-                {elevation}
-                {' feet'}
-            </MetaData>
-        </ContentItem>
-        <ContentItem>
-            <MetaDataType>Route</MetaDataType>
-            <MetaData>{route}</MetaData>
-        </ContentItem>
-    </CardContent>
-);
+const InfoBar = ({ distance, elevation, route, t }) => {
+    if (route === '') {
+        route = 'loop';
+    }
+    return (
+        <CardContent>
+            <ContentItem>
+                <MetaDataType>{t('hike.data.distance')}</MetaDataType>
+                <MetaData>
+                    {distance} {t('hike.data.miles')}
+                </MetaData>
+            </ContentItem>
+            <ContentItem>
+                <MetaDataType>{t('hike.data.elevation')}</MetaDataType>
+                <MetaData>
+                    {elevation} {t('hike.data.feet')}
+                </MetaData>
+            </ContentItem>
+            <ContentItem>
+                <MetaDataType>{t('hike.data.route')}</MetaDataType>
+                <MetaData capitalize>{t(`hike.data.${route}`)}</MetaData>
+            </ContentItem>
+        </CardContent>
+    );
+};
 
 InfoBar.propTypes = propTypes;
 InfoBar.defaultProps = defaultProps;
 
-export default InfoBar;
+export default withTranslation()(InfoBar);
 
 const CardContent = styled.View`
     flex-direction: row;
@@ -77,4 +81,6 @@ const MetaDataType = styled.Text`
 const MetaData = styled.Text`
     color: ${(props) => props.theme.text};
     font-size: ${fontSizes.small}px;
+    text-transform: ${(props) =>
+        props.capitalize ? 'capitalize' : 'lowercase'};
 `;

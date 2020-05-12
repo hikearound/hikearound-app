@@ -1,18 +1,32 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { withTranslation } from 'react-i18next';
 import { fontWeights, fontSizes, spacing } from '../constants/Index';
+
+const propTypes = {
+    city: PropTypes.string,
+};
+
+const defaultProps = {
+    city: 'San Francisco',
+};
 
 class FeedHeader extends React.PureComponent {
     render() {
+        const { t, city } = this.props;
         return (
             <View>
-                <Text>Hikes Near San Francisco</Text>
+                <Text>{t('feed.header', { cityName: city })}</Text>
             </View>
         );
     }
 }
 
-export default FeedHeader;
+FeedHeader.propTypes = propTypes;
+FeedHeader.defaultProps = defaultProps;
+
+export default withTranslation()(FeedHeader);
 
 const View = styled.View`
     padding: ${spacing.tiny}px;

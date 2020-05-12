@@ -61,7 +61,7 @@ class HomeStack extends React.Component {
                 name='CreateAccount'
                 component={CreateAccountScreen}
                 options={{
-                    headerTitle: t('createAccount'),
+                    headerTitle: t('label.nav.createAccount'),
                 }}
             />
         );
@@ -73,7 +73,7 @@ class HomeStack extends React.Component {
                 name='SignIn'
                 component={SignInScreen}
                 options={{
-                    headerTitle: t('signIn'),
+                    headerTitle: t('label.nav.signIn'),
                 }}
             />
         );

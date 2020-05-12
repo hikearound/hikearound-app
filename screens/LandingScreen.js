@@ -60,13 +60,13 @@ class LandingScreen extends React.Component {
                 <ButtonWrapper>
                     <LandingButton
                         primary
-                        text={t('createAccount')}
+                        text={t('label.nav.createAccount')}
                         action={() => {
                             navigation.push('CreateAccount');
                         }}
                     />
                     <LandingButton
-                        text={t('signIn')}
+                        text={t('label.nav.signIn')}
                         margin={
                             `${spacing.tiny}px ${spacing.medium}px ` +
                             `0 ${spacing.medium}px`

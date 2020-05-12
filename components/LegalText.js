@@ -10,7 +10,7 @@ class LegalText extends React.PureComponent {
         return (
             <TextLink
                 url='https://www.tryhikearound.com/terms?contentOnly=true'
-                text={t('termsOfService')}
+                text={t('label.common.termsOfService')}
             />
         );
     };
@@ -19,19 +19,19 @@ class LegalText extends React.PureComponent {
         return (
             <TextLink
                 url='https://www.tryhikearound.com/privacy?contentOnly=true'
-                text={t('privacyPolicy')}
+                text={t('label.common.privacyPolicy')}
             />
         );
     };
 
     render() {
         const { t } = this.props;
-        const createAccount = t('createAccount');
-        const appName = t('appName', { count: 0 });
+        const createAccount = t('label.nav.createAccount');
+        const appName = t('common.appName', { count: 0 });
 
         return (
             <Text>
-                <Trans i18nKey='legal'>
+                <Trans i18nKey='screen.createAccount.legal'>
                     {/* eslint-disable-next-line */}
                     By clicking {{ createAccount }}, you agree to {{ appName }} {this.renderTermsOfServiceLink(t)} and {this.renderPrivacyPolicyLink(t)}.
                 </Trans>

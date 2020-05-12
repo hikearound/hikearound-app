@@ -1,6 +1,7 @@
 import React from 'react';
 import * as Haptics from 'expo-haptics';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { withTranslation } from 'react-i18next';
 import HomeStack from '../stacks/HomeStack';
 import NotificationStack from '../stacks/NotificationStack';
 import ProfileStack from '../stacks/ProfileStack';
@@ -11,13 +12,13 @@ import { tabBarOptions } from '../constants/Navigation';
 const Tab = createBottomTabNavigator();
 
 class TabNavigator extends React.PureComponent {
-    renderHomeStack = () => {
+    renderHomeStack = (t) => {
         return (
             <Tab.Screen
                 name='Home'
                 component={HomeStack}
                 options={() => ({
-                    tabBarLabel: 'Home',
+                    tabBarLabel: t('label.nav.home'),
                     tabBarIcon: ({ focused }) => (
                         <HomeIcon size={26} fill={this.setFill(focused)} />
                     ),
@@ -31,13 +32,13 @@ class TabNavigator extends React.PureComponent {
         );
     };
 
-    renderNotificationStack = () => {
+    renderNotificationStack = (t) => {
         return (
             <Tab.Screen
                 name='Notification'
                 component={NotificationStack}
                 options={() => ({
-                    tabBarLabel: 'Notifications',
+                    tabBarLabel: t('label.nav.notifications'),
                     tabBarIcon: ({ focused }) => (
                         <BellIcon fill={this.setFill(focused)} />
                     ),
@@ -51,13 +52,13 @@ class TabNavigator extends React.PureComponent {
         );
     };
 
-    renderProfileStack = () => {
+    renderProfileStack = (t) => {
         return (
             <Tab.Screen
                 name='Profile'
                 component={ProfileStack}
                 options={() => ({
-                    tabBarLabel: 'You',
+                    tabBarLabel: t('label.nav.you'),
                     tabBarIcon: ({ focused }) => (
                         <PersonIcon height={25} fill={this.setFill(focused)} />
                     ),
@@ -84,7 +85,7 @@ class TabNavigator extends React.PureComponent {
     };
 
     render() {
-        const { theme } = this.props;
+        const { theme, t } = this.props;
 
         return (
             <Tab.Navigator
@@ -93,12 +94,12 @@ class TabNavigator extends React.PureComponent {
                     theme.colors.navInactive,
                 )}
             >
-                {this.renderHomeStack()}
-                {this.renderNotificationStack()}
-                {this.renderProfileStack()}
+                {this.renderHomeStack(t)}
+                {this.renderNotificationStack(t)}
+                {this.renderProfileStack(t)}
             </Tab.Navigator>
         );
     }
 }
 
-export default withTheme(TabNavigator);
+export default withTranslation()(withTheme(TabNavigator));
