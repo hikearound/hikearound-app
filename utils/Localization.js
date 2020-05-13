@@ -30,10 +30,10 @@ export function getInputLabels(t) {
 
 export function mapCodeToTranslation(t, errorCode) {
     if (errorCode === 'auth/email-already-in-use') {
-        return t('error.auth.exists');
+        return t('error.auth.account.exists');
     }
     if (errorCode === 'auth/invalid-email') {
-        return t('error.auth.invalid');
+        return t('error.auth.account.invalid');
     }
     if (errorCode === 'auth/weak-password') {
         return t('error.auth.password.weak');
@@ -42,9 +42,9 @@ export function mapCodeToTranslation(t, errorCode) {
         return t('error.auth.password.wrong');
     }
     if (errorCode === 'auth/user-not-found') {
-        return t('error.auth.notFound');
+        return t('error.auth.account.notFound');
     }
     return null;
 }
 
-export default { initializeLocalization, mapCodeToTranslation };
+export default { initializeLocalization, getInputLabels, mapCodeToTranslation };
