@@ -10,6 +10,7 @@ import { RootView } from '../styles/Screens';
 import { withTheme } from '../utils/Themes';
 import { getInputs } from '../utils/Inputs';
 import { defaultState } from '../constants/states/SignIn';
+import { mapCodeToTranslation } from '../utils/Localization';
 
 class SignInScreen extends React.Component {
     constructor(props) {
@@ -27,7 +28,7 @@ class SignInScreen extends React.Component {
 
     handleLogin = async () => {
         const { email, password } = this.state;
-        const { navigation } = this.props;
+        const { navigation, t } = this.props;
 
         const resetAction = CommonActions.reset({
             index: 0,
@@ -41,7 +42,10 @@ class SignInScreen extends React.Component {
             .auth()
             .signInWithEmailAndPassword(email, password)
             .catch((error) => {
-                Alert.alert('Error', error.message);
+                Alert.alert(
+                    t('error.label'),
+                    mapCodeToTranslation(t, error.code),
+                );
                 this.setState({ loading: false });
             })
             .then((response) => {

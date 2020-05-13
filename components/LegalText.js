@@ -10,7 +10,7 @@ class LegalText extends React.PureComponent {
         return (
             <TextLink
                 url='https://www.tryhikearound.com/terms?contentOnly=true'
-                text={t('label.common.termsOfService')}
+                text={t('label.common.terms')}
             />
         );
     };
@@ -19,7 +19,7 @@ class LegalText extends React.PureComponent {
         return (
             <TextLink
                 url='https://www.tryhikearound.com/privacy?contentOnly=true'
-                text={t('label.common.privacyPolicy')}
+                text={t('label.common.privacy')}
             />
         );
     };

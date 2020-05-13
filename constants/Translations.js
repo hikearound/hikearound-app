@@ -2,8 +2,8 @@ export const enTranslations = {
     translation: {
         label: {
             common: {
-                termsOfService: 'Terms of Service',
-                privacyPolicy: 'Privacy Policy',
+                terms: 'Terms of Service',
+                privacy: 'Privacy Policy',
             },
             input: {
                 name: 'Name',
@@ -43,6 +43,22 @@ export const enTranslations = {
         feed: {
             header: 'Hikes near {{cityName}}',
         },
+        error: {
+            label: 'Error',
+            auth: {
+                exists:
+                    'It looks like an account has already been created with this email address.',
+                invalid:
+                    'The email address you provided is not correctly formatted.',
+                password: {
+                    weak:
+                        'The password you provided is not sufficiently strong.',
+                    incorrect: 'The password you provided is incorrect.',
+                },
+                notFound:
+                    'There is no account associated with this email address.',
+            },
+        },
     },
 };
 
@@ -50,8 +66,8 @@ export const esTranslations = {
     translation: {
         label: {
             common: {
-                termsOfService: 'Términos de servicio',
-                privacyPolicy: 'Política de privacidad',
+                terms: 'Términos de servicio',
+                privacy: 'Política de privacidad',
             },
             input: {
                 name: 'Nombre',
@@ -90,6 +106,22 @@ export const esTranslations = {
         },
         feed: {
             header: 'Caminatas cerca de {{cityName}}',
+        },
+        error: {
+            label: 'Error',
+            auth: {
+                exists:
+                    'Parece que ya se ha creado una cuenta con esta dirección de correo electrónico.',
+                invalid:
+                    'La dirección de correo electrónico que proporcionó no está formateada correctamente.',
+                password: {
+                    weak:
+                        'La contraseña que proporcionó no es lo suficientemente segura.',
+                    incorrect: 'La contraseña que proporcionó es incorrecta.',
+                },
+                notFound:
+                    'No hay una cuenta asociada con esta dirección de correo electrónico.',
+            },
         },
     },
 };

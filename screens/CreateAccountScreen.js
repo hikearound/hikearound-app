@@ -12,6 +12,7 @@ import LegalText from '../components/LegalText';
 import { updateUserData } from '../actions/User';
 import { RootView } from '../styles/Screens';
 import { withTheme } from '../utils/Themes';
+import { mapCodeToTranslation } from '../utils/Localization';
 import { createUserProfile } from '../utils/User';
 import { getInputs } from '../utils/Inputs';
 import { defaultState } from '../constants/states/CreateAccount';
@@ -46,7 +47,7 @@ class CreateAccountScreen extends React.Component {
 
     handleCreateAccount = async () => {
         const { email, password, name } = this.state;
-        const { navigation, dispatchUserData } = this.props;
+        const { navigation, dispatchUserData, t } = this.props;
 
         const resetAction = CommonActions.reset({
             index: 0,
@@ -59,7 +60,10 @@ class CreateAccountScreen extends React.Component {
             .auth()
             .createUserWithEmailAndPassword(email, password)
             .catch((error) => {
-                Alert.alert('Error', error.message);
+                Alert.alert(
+                    t('error.label'),
+                    mapCodeToTranslation(t, error.code),
+                );
                 this.setState({ loading: false });
             })
             .then((response) => {

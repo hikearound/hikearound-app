@@ -28,4 +28,23 @@ export function getInputLabels(t) {
     return inputLabels;
 }
 
-export default { initializeLocalization };
+export function mapCodeToTranslation(t, errorCode) {
+    if (errorCode === 'auth/email-already-in-use') {
+        return t('error.auth.exists');
+    }
+    if (errorCode === 'auth/invalid-email') {
+        return t('error.auth.invalid');
+    }
+    if (errorCode === 'auth/weak-password') {
+        return t('error.auth.password.weak');
+    }
+    if (errorCode === 'auth/wrong-password') {
+        return t('error.auth.password.wrong');
+    }
+    if (errorCode === 'auth/user-not-found') {
+        return t('error.auth.notFound');
+    }
+    return null;
+}
+
+export default { initializeLocalization, mapCodeToTranslation };
