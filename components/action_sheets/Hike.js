@@ -1,13 +1,22 @@
 import { ActionSheetIOS } from 'react-native';
 
-const SHEET_ITEMS = ['Share', 'Get Directions', 'Cancel'];
-const SHEET_CANCEL_INDEX = 2;
+const cancelButtonIndex = 2;
 
-export function hikeActionSheet() {
+export function getSheetOptions(t) {
+    return [
+        t('sheet.hike.item.share'),
+        t('sheet.hike.item.directions'),
+        t('label.common.cancel'),
+    ];
+}
+
+export function hikeActionSheet(t) {
+    const options = getSheetOptions(t);
+
     ActionSheetIOS.showActionSheetWithOptions(
         {
-            options: SHEET_ITEMS,
-            cancelButtonIndex: SHEET_CANCEL_INDEX,
+            options,
+            cancelButtonIndex,
         },
 
         (buttonIndex) => {

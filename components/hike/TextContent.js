@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { withTranslation } from 'react-i18next';
 import { colors, fontWeights, fontSizes } from '../../constants/Index';
 import Subtitle from '../Subtitle';
 import FavoriteButton from '../FavoriteButton';
@@ -43,7 +44,7 @@ class TextContent extends React.PureComponent {
     }
 
     render() {
-        const { name, city, id, distance } = this.props;
+        const { name, city, id, distance, t } = this.props;
         const { description } = this.state;
 
         return (
@@ -56,7 +57,7 @@ class TextContent extends React.PureComponent {
                     distance={distance}
                     city={city}
                 />
-                <Subtitle text='Description' />
+                <Subtitle text={t('description')} />
                 <DescriptionText>{description}</DescriptionText>
             </>
         );
@@ -66,7 +67,7 @@ class TextContent extends React.PureComponent {
 TextContent.propTypes = propTypes;
 TextContent.defaultProps = defaultProps;
 
-export default TextContent;
+export default withTranslation()(TextContent);
 
 const DescriptionText = styled.Text`
     color: ${(props) => props.theme.text};

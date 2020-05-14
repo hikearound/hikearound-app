@@ -1,14 +1,23 @@
 import { ActionSheetIOS } from 'react-native';
 
-const SHEET_ITEMS = ['Newest first', 'Oldest first', 'Cancel'];
-const SHEET_CANCEL_INDEX = 2;
+const cancelButtonIndex = 2;
 
-export function feedActionSheet() {
+export function getSheetOptions(t) {
+    return [
+        t('sheet.feed.item.new'),
+        t('sheet.feed.item.old'),
+        t('label.common.cancel'),
+    ];
+}
+
+export function feedActionSheet(t) {
+    const options = getSheetOptions(t);
+
     ActionSheetIOS.showActionSheetWithOptions(
         {
-            title: 'Sort by',
-            options: SHEET_ITEMS,
-            cancelButtonIndex: SHEET_CANCEL_INDEX,
+            title: t('sheet.feed.title'),
+            options,
+            cancelButtonIndex,
         },
 
         (buttonIndex) => {

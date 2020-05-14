@@ -1,19 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
+import { withTranslation } from 'react-i18next';
 import { fontWeights, fontSizes, colors, spacing } from '../constants/Index';
 
 class FeedFooter extends React.PureComponent {
     render() {
+        const { t } = this.props;
+
         return (
             <View>
-                <Text>New Hikes Every Week</Text>
+                <Text>{t('feed.footer')}</Text>
                 <Circle />
             </View>
         );
     }
 }
 
-export default FeedFooter;
+export default withTranslation()(FeedFooter);
 
 const Circle = styled.View`
     background-color: ${colors.gray};

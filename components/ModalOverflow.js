@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withTranslation } from 'react-i18next';
 import { TouchableOpacity, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors, opacities } from '../constants/Index';
@@ -23,11 +24,13 @@ const propTypes = {
 class ModalOverflow extends React.PureComponent {
     constructor(props, context) {
         super(props, context);
+        const { t } = this.props;
 
         this.state = {
             imageAttribution: '',
         };
-        this.showLightboxActionSheet = lightboxActionSheet.bind(this);
+
+        this.showLightboxActionSheet = lightboxActionSheet.bind(this, t);
     }
 
     componentDidMount() {
@@ -66,4 +69,4 @@ class ModalOverflow extends React.PureComponent {
 
 ModalOverflow.propTypes = propTypes;
 
-export default ModalOverflow;
+export default withTranslation()(ModalOverflow);

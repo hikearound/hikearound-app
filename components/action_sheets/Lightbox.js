@@ -1,13 +1,18 @@
 import { ActionSheetIOS } from 'react-native';
 
-const SHEET_ITEMS = ['Image Attribution', 'Cancel'];
-const SHEET_CANCEL_INDEX = 1;
+const cancelButtonIndex = 1;
 
-export function lightboxActionSheet() {
+export function getSheetOptions(t) {
+    return [t('sheet.lightbox.item.attribution'), t('label.common.cancel')];
+}
+
+export function lightboxActionSheet(t) {
+    const options = getSheetOptions(t);
+
     ActionSheetIOS.showActionSheetWithOptions(
         {
-            options: SHEET_ITEMS,
-            cancelButtonIndex: SHEET_CANCEL_INDEX,
+            options,
+            cancelButtonIndex,
         },
 
         (buttonIndex) => {

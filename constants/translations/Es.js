@@ -1,69 +1,3 @@
-export const enTranslations = {
-    translation: {
-        label: {
-            common: {
-                terms: 'Terms of Service',
-                privacy: 'Privacy Policy',
-            },
-            input: {
-                name: 'Name',
-                email: 'Email',
-                password: 'Password',
-                location: 'Location',
-            },
-            nav: {
-                you: 'You',
-                settings: 'Settings',
-                home: 'Home',
-                notifications: 'Notifications',
-                createAccount: 'Create Account',
-                signIn: 'Sign In',
-            },
-        },
-        common: {
-            appName: 'Hikearound',
-            appName_plural: "Hikearound's",
-        },
-        hike: {
-            data: {
-                distance: 'Distance',
-                elevation: 'Elevation',
-                route: 'Route',
-                miles: 'Miles',
-                feet: 'Feet',
-                loop: 'Loop',
-            },
-        },
-        screen: {
-            createAccount: {
-                legal:
-                    "By clicking '{{createAccount}}' you agree to {{appName}} <5>Terms of Service</5> and <7>Privacy Policy</7>.",
-            },
-        },
-        feed: {
-            header: 'Hikes near {{cityName}}',
-        },
-        error: {
-            label: 'Error',
-            auth: {
-                account: {
-                    exists:
-                        'It looks like an account has already been created with this email address.',
-                    invalid:
-                        'The email address you provided is not correctly formatted.',
-                    notFound:
-                        'There is no account associated with this email address.',
-                },
-                password: {
-                    weak:
-                        'The password you provided is not sufficiently strong.',
-                    incorrect: 'The password you provided is incorrect.',
-                },
-            },
-        },
-    },
-};
-
 export const esTranslations = {
     translation: {
         label: {
@@ -130,4 +64,4 @@ export const esTranslations = {
     },
 };
 
-export default { enTranslations, esTranslations };
+export default { esTranslations };

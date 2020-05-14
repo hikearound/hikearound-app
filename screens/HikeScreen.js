@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Share } from 'react-native';
 import openMap from 'react-native-open-maps';
+import { withTranslation } from 'react-i18next';
 import { HikeBody, Overflow, Toast, MapModal } from '../components/Index';
 import { hikeActionSheet } from '../components/action_sheets/Hike';
 import { getMapSetting } from '../utils/Settings';
@@ -38,7 +39,7 @@ function mapDispatchToProps(dispatch) {
 class HikeScreen extends React.Component {
     constructor(props, context) {
         super(props, context);
-        const { navigation, route } = this.props;
+        const { navigation, route, t } = this.props;
         const { hike } = route.params;
 
         this.state = {
@@ -47,7 +48,7 @@ class HikeScreen extends React.Component {
             toastText: '',
         };
 
-        this.hikeActionSheet = hikeActionSheet.bind(this);
+        this.hikeActionSheet = hikeActionSheet.bind(this, t);
 
         navigation.setOptions({
             title: hike.name || 'Hike',
@@ -176,4 +177,4 @@ HikeScreen.propTypes = propTypes;
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(withTheme(HikeScreen));
+)(withTranslation()(withTheme(HikeScreen)));

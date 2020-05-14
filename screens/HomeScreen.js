@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { withTranslation } from 'react-i18next';
 import HomeLoadingState from '../components/loading/Home';
 import MapScreen from './MapScreen';
 import HomeActions from '../components/HomeActions';
@@ -49,11 +50,11 @@ function mapDispatchToProps(dispatch) {
 class HomeScreen extends React.Component {
     constructor(props) {
         super(props);
-        const { navigation } = this.props;
+        const { navigation, t } = this.props;
 
         this.state = defaultState;
 
-        this.feedActionSheet = feedActionSheet.bind(this);
+        this.feedActionSheet = feedActionSheet.bind(this, t);
         navigation.setOptions({
             headerRight: () => (
                 <HomeActions
@@ -205,4 +206,4 @@ HomeScreen.propTypes = propTypes;
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(withTheme(HomeScreen));
+)(withTranslation()(withTheme(HomeScreen)));

@@ -2,6 +2,7 @@ import React from 'react';
 import { ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { withTranslation } from 'react-i18next';
 import { withScrollToTop } from '../utils/Navigation';
 import { spacing } from '../constants/Index';
 import Subtitle from './Subtitle';
@@ -39,7 +40,7 @@ class HikeBody extends React.PureComponent {
     }
 
     render() {
-        const { coordinates, region, scrollRef } = this.props;
+        const { coordinates, region, scrollRef, t } = this.props;
         const {
             description,
             name,
@@ -73,7 +74,7 @@ class HikeBody extends React.PureComponent {
                             distance={distance}
                             description={description}
                         />
-                        <Subtitle text='Images' />
+                        <Subtitle text={t('images')} />
                         <PhotoLightboxGroup id={id} images={images} />
                     </BodyContent>
                 </ScrollView>
@@ -85,7 +86,7 @@ class HikeBody extends React.PureComponent {
 HikeBody.propTypes = propTypes;
 HikeBody.defaultProps = defaultProps;
 
-export default withScrollToTop(HikeBody);
+export default withTranslation()(withScrollToTop(HikeBody));
 
 const BodyContent = styled.View`
     padding: ${spacing.tiny}px ${spacing.small}px;
