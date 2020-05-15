@@ -1,14 +1,20 @@
 import * as Localization from 'expo-localization';
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import { esTranslations } from '../constants/translations/Es';
-import { enTranslations } from '../constants/translations/En';
+import { db } from '../lib/Fire';
 
-export function initializeLocalization() {
+const enTranslations = require('../constants/translations/En.json');
+const esTranslations = require('../constants/translations/Es.json');
+
+export async function getLocalizationData(languageCode) {
+    return db.collection('i18n').doc(languageCode).get();
+}
+
+export async function initializeLocalization() {
     i18n.use(initReactI18next).init({
         resources: {
-            en: enTranslations,
-            es: esTranslations,
+            en: { translation: enTranslations },
+            es: { translation: esTranslations },
         },
         lng: Localization.locale,
         fallbackLng: 'en',

@@ -2,7 +2,7 @@ import { settingsItems, settingsControls } from '../Settings';
 
 export function getEmailSection(t) {
     return {
-        title: t('label.common.email'),
+        title: t('label.input.email'),
         data: [
             {
                 name: t('screen.settings.item.notification.email'),

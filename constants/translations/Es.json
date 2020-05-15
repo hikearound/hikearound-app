@@ -1,0 +1,127 @@
+{
+    "label": {
+        "common": {
+            "cancel": "Cancelar",
+            "logout": "Cerrar sesión",
+            "terms": "Términos de servicio",
+            "privacy": "Política de privacidad",
+        },
+        "input": {
+            "name": "Nombre",
+            "email": "Correo electrónico",
+            "password": "Contraseña",
+            "location": "Ubicación"
+        },
+        "heading": {
+            "description": "Descripción",
+            "images": "Imágenes"
+        },
+        "nav": {
+            "you": "Yo",
+            "settings": "Configuraciones",
+            "home": "Casa",
+            "notifications": "Notificaciones",
+            "createAccount": "Crear una cuenta",
+            "signIn": "Registrarse"
+        },
+        "modal": {
+            "save": "Salvar",
+            "close": "Cerca"
+        }
+    },
+    "sheet": {
+        "feed": {
+            "title": "Ordenar por",
+            "item": {
+                "new": "El más nuevo primero",
+                "old": "Los más viejos primero"
+            }
+        },
+        "hike": {
+            "title": "Caminata",
+            "item": {
+                "share": "Compartir",
+                "directions": "Obtener las direcciones"
+            }
+        },
+        "lightbox": {
+            "title": "Foto",
+            "item": {
+                "attribution": "Atribución de fotos"
+            }
+        }
+    },
+    "common": {
+        "appName": "Hikearound",
+        "appName_plural": "Hikearound"
+    },
+    "hike": {
+        "data": {
+            "distance": "Distancia",
+            "elevation": "Elevación",
+            "route": "Ruta",
+            "miles": "Millas",
+            "feet": "Pies",
+            "loop": "Lazo"
+        }
+    },
+    "screen": {
+        "createAccount": {
+            "legal": "Al hacer clic en '{{createAccount}}' acepta los <5>Términos de servicio</5> y la <7>Política de privacidad</7> de {{appName}}."
+        },
+        "notifications": {
+            "empty": "No hay notificaciones nuevas"
+        },
+        "profile": {
+            "edit": "Editar perfil",
+            "add": "Añade una ubicación",
+            "header": "Tus caminatas",
+            "empty": "Las caminatas que prefieras aparecerán aquí."
+        },
+        "settings": {
+            "header": {
+                "map": "Mapa predeterminado",
+                "display": "Monitor",
+                "notifications": "Notificaciones",
+                "terms": "Términos y privacidad",
+                "account": "Cuenta",
+                "version": "Versión",
+                "push": "Notificaciones push"
+            },
+            "item": {
+                "map": {
+                    "apple": "Mapas de Apple",
+                    "google": "Mapas de Google"
+                },
+                "dark": "Modo oscuro",
+                "notification": {
+                    "combined": "Correo electrónico y notificaciones push",
+                    "email": "Habilitar correos electrónicos",
+                    "push": "Habilitar notificaciones push"
+                }
+            }
+        }
+    },
+    "feed": {
+        "header": "Caminatas cerca de {{cityName}}",
+        "footer": "Nuevas caminatas cada semana"
+    },
+    "toast": {
+        "favorite": "Usted favoreció {{hikeName}}.",
+        "share": "Link copiado al portapapeles."
+    },
+    "error": {
+        "label": "Error",
+        "auth": {
+            "account": {
+                "exists": "Parece que ya se ha creado una cuenta con esta dirección de correo electrónico.",
+                "invalid": "La dirección de correo electrónico que proporcionó no está formateada correctamente.",
+                "notFound": "No hay una cuenta asociada con esta dirección de correo electrónico."
+            },
+            "password": {
+                "weak": "La contraseña que proporcionó no es lo suficientemente segura.",
+                "incorrect": "La contraseña que proporcionó es incorrecta."
+            }
+        }
+    }
+}
