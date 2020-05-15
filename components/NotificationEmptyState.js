@@ -1,25 +1,28 @@
 import React from 'react';
 import styled from 'styled-components';
+import { withTranslation } from 'react-i18next';
 import { fontSizes, spacing } from '../constants/Index';
 import { BellEmptyState } from '../icons/Index';
 import { withTheme } from '../utils/Themes';
 
 class NotificationEmptyState extends React.PureComponent {
     render() {
-        const { theme } = this.props;
+        const { theme, t } = this.props;
 
         return (
             <RootView>
                 <BellWrapper>
                     <BellEmptyState fill={theme.colors.emptyStateFill} />
                 </BellWrapper>
-                <EmptyStateText>No new notifications</EmptyStateText>
+                <EmptyStateText>
+                    {t('screen.notifications.empty')}
+                </EmptyStateText>
             </RootView>
         );
     }
 }
 
-export default withTheme(NotificationEmptyState);
+export default withTranslation()(withTheme(NotificationEmptyState));
 
 const RootView = styled.View`
     flex: 1;

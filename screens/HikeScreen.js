@@ -61,11 +61,11 @@ class HikeScreen extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        const { action } = this.props;
+        const { action, t } = this.props;
         const { name } = this.state;
 
         if (prevProps.action !== action) {
-            const toastText = getToastText(action, { name });
+            const toastText = getToastText(action, t, { name });
             this.setToastText(toastText);
         }
     }

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FlatList } from 'react-native';
+import { withTranslation } from 'react-i18next';
 import { withScrollToTop } from '../utils/Navigation';
 import HikeListItem from './HikeListItem';
 import { colors, fontSizes, fontWeights, spacing } from '../constants/Index';
@@ -13,19 +14,24 @@ const propTypes = {
 };
 
 class HikeList extends React.Component {
-    renderListHeader = () => (
-        <HeaderContainer>
-            <HeaderText>Your Hikes</HeaderText>
-        </HeaderContainer>
-    );
+    renderListHeader = () => {
+        const { t } = this.props;
+
+        return (
+            <HeaderContainer>
+                <HeaderText>{t('screen.profile.header')}</HeaderText>
+            </HeaderContainer>
+        );
+    };
 
     renderEmptyList = () => {
-        const { maybeShowEmptyState } = this.props;
+        const { maybeShowEmptyState, t } = this.props;
+
         if (maybeShowEmptyState) {
             return (
                 <EmptyContainer>
                     <EmptyContainerText>
-                        Hikes that you favorite will appear here.
+                        {t('screen.profile.empty')}
                     </EmptyContainerText>
                 </EmptyContainer>
             );
@@ -68,7 +74,7 @@ class HikeList extends React.Component {
 HikeList.propTypes = propTypes;
 HikeList.propTypes = propTypes;
 
-export default withScrollToTop(HikeList);
+export default withTranslation()(withScrollToTop(HikeList));
 
 const RootView = styled.View`
     margin-left: ${spacing.small}px;

@@ -103,12 +103,12 @@ class EditProfileModal extends ModalBase {
         }
     }
 
-    renderModalHeader = () => (
+    renderModalHeader = (t) => (
         <ModalHeader>
-            <ModalTitleText>Edit Profile</ModalTitleText>
+            <ModalTitleText>{t('screen.profile.edit')}</ModalTitleText>
             <ModalDismiss textDismiss />
             <ModalContinue
-                continueText='Save'
+                continueText={t('label.modal.save')}
                 modalCloseAction='updateUserData'
             />
         </ModalHeader>
@@ -171,7 +171,7 @@ class EditProfileModal extends ModalBase {
 
     render() {
         const { modalVisible, inputs } = this.state;
-        const { animationType, transparent, fullScreen } = this.props;
+        const { animationType, transparent, fullScreen, t } = this.props;
 
         return (
             <Modal
@@ -181,7 +181,7 @@ class EditProfileModal extends ModalBase {
                 fullScreen={fullScreen}
             >
                 <RootView>
-                    {this.renderModalHeader()}
+                    {this.renderModalHeader(t)}
                     {this.renderModalBody(inputs)}
                 </RootView>
             </Modal>

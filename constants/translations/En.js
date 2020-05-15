@@ -3,8 +3,10 @@ export const enTranslations = {
         label: {
             common: {
                 cancel: 'Cancel',
+                logout: 'Logout',
                 terms: 'Terms of Service',
                 privacy: 'Privacy Policy',
+                email: 'Email',
             },
             input: {
                 name: 'Name',
@@ -23,6 +25,10 @@ export const enTranslations = {
                 notifications: 'Notifications',
                 createAccount: 'Create Account',
                 signIn: 'Sign In',
+            },
+            modal: {
+                save: 'Save',
+                close: 'Close',
             },
         },
         sheet: {
@@ -66,10 +72,46 @@ export const enTranslations = {
                 legal:
                     "By clicking '{{createAccount}}' you agree to {{appName}} <5>Terms of Service</5> and <7>Privacy Policy</7>.",
             },
+            notifications: {
+                empty: 'No new notifications',
+            },
+            profile: {
+                edit: 'Edit Profile',
+                add: 'Add Location',
+                header: 'Your Hikes',
+                empty: 'Hikes that you favorite will appear here.',
+            },
+            settings: {
+                header: {
+                    map: 'Default Map',
+                    display: 'Display',
+                    notifications: 'Notifications',
+                    terms: 'Terms & Privacy',
+                    account: 'Account',
+                    version: 'Version',
+                    push: 'Push Notifications',
+                },
+                item: {
+                    map: {
+                        apple: 'Apple Maps',
+                        google: 'Google Maps',
+                    },
+                    dark: 'Dark Mode',
+                    notification: {
+                        combined: 'Email & Push Notifications',
+                        email: 'Enable emails',
+                        push: 'Enable push notifications',
+                    },
+                },
+            },
         },
         feed: {
             header: 'Hikes near {{cityName}}',
             footer: 'New hikes every week',
+        },
+        toast: {
+            favorite: 'You favorited {{hikeName}}.',
+            share: 'Link copied to clipboard.',
         },
         error: {
             label: 'Error',

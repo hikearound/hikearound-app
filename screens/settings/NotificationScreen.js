@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { SectionList } from 'react-native';
+import { withTranslation } from 'react-i18next';
 import { NotificationSwitchItem } from '../../components/Index';
-import { listData } from '../../constants/lists/NotificationSettings';
+import { getSettingsData } from '../../constants/lists/NotificationSettings';
 import {
     StyledRootView,
     HeaderContainer,
@@ -26,6 +27,9 @@ class NotificationSettingsScreen extends React.Component {
     );
 
     render() {
+        const { t } = this.props;
+        const settingsData = getSettingsData(t);
+
         return (
             <StyledRootView>
                 <SectionList
@@ -33,7 +37,7 @@ class NotificationSettingsScreen extends React.Component {
                     renderItem={this.renderItem}
                     stickySectionHeadersEnabled={false}
                     renderSectionHeader={this.renderSectionHeader}
-                    sections={listData}
+                    sections={settingsData}
                     keyExtractor={(item, index) => item + index}
                 />
             </StyledRootView>
@@ -41,4 +45,6 @@ class NotificationSettingsScreen extends React.Component {
     }
 }
 
-export default connect(mapStateToProps)(withTheme(NotificationSettingsScreen));
+export default connect(mapStateToProps)(
+    withTranslation()(withTheme(NotificationSettingsScreen)),
+);

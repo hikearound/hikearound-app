@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { SectionList } from 'react-native';
+import { withTranslation } from 'react-i18next';
 import {
     GroupItem,
     SwitchItem,
@@ -10,7 +11,7 @@ import {
     ActionItem,
 } from '../components/Index';
 import { settingsControls } from '../constants/Index';
-import { listData } from '../constants/lists/Settings';
+import { getSettingsData } from '../constants/lists/Settings';
 import { StyledRootView, HeaderContainer, HeaderText } from '../styles/Screens';
 import { withTheme } from '../utils/Themes';
 
@@ -53,6 +54,9 @@ class SettingsScreen extends React.Component {
     );
 
     render() {
+        const { t } = this.props;
+        const settingsData = getSettingsData(t);
+
         return (
             <StyledRootView>
                 <SectionList
@@ -60,7 +64,7 @@ class SettingsScreen extends React.Component {
                     renderItem={this.renderItem}
                     stickySectionHeadersEnabled={false}
                     renderSectionHeader={this.renderSectionHeader}
-                    sections={listData}
+                    sections={settingsData}
                     keyExtractor={(item, index) => item + index}
                 />
             </StyledRootView>
@@ -68,4 +72,6 @@ class SettingsScreen extends React.Component {
     }
 }
 
-export default connect(mapStateToProps)(withTheme(SettingsScreen));
+export default connect(mapStateToProps)(
+    withTranslation()(withTheme(SettingsScreen)),
+);

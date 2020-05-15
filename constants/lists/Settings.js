@@ -1,89 +1,108 @@
 import Constants from 'expo-constants';
 import { settingsItems, settingsControls } from '../Settings';
 
-export const mapSection = {
-    title: 'Default Map',
-    data: [
-        {
-            name: 'Apple Maps',
-            type: settingsItems.map,
-            control: settingsControls.groupSelection,
-        },
-        {
-            name: 'Google Maps',
-            type: settingsItems.map,
-            control: settingsControls.groupSelection,
-        },
-    ],
-};
+export function getMapSection(t) {
+    return {
+        title: t('screen.settings.header.map'),
+        data: [
+            {
+                name: t('screen.settings.item.map.apple'),
+                type: settingsItems.map,
+                control: settingsControls.groupSelection,
+            },
+            {
+                name: t('screen.settings.item.map.google'),
+                type: settingsItems.map,
+                control: settingsControls.groupSelection,
+            },
+        ],
+    };
+}
 
-export const displaySection = {
-    title: 'Display',
-    data: [
-        {
-            name: 'Dark Mode',
-            type: settingsItems.darkMode,
-            control: settingsControls.switch,
-        },
-    ],
-};
+export function getDisplaySection(t) {
+    return {
+        title: t('screen.settings.header.display'),
+        data: [
+            {
+                name: t('screen.settings.item.dark'),
+                type: settingsItems.darkMode,
+                control: settingsControls.switch,
+            },
+        ],
+    };
+}
 
-export const notificationSection = {
-    title: 'Notifications',
-    data: [
-        {
-            name: 'Email & Push Notifications',
-            type: settingsItems.notificationScreen,
-            control: settingsControls.push,
-        },
-    ],
-};
+export function getNotificationSection(t) {
+    return {
+        title: t('screen.settings.header.notifications'),
+        data: [
+            {
+                name: t('screen.settings.item.notification.combined'),
+                type: settingsItems.notificationScreen,
+                control: settingsControls.push,
+            },
+        ],
+    };
+}
 
-export const termsSection = {
-    title: 'Terms & Privacy',
-    data: [
-        {
-            name: 'Terms of Service',
-            type: settingsItems.termsOfService,
-            control: settingsControls.link,
-        },
-        {
-            name: 'Privacy Policy',
-            type: settingsItems.privacyPolicy,
-            control: settingsControls.link,
-        },
-    ],
-};
+export function getTermsSection(t) {
+    return {
+        title: t('screen.settings.header.terms'),
+        data: [
+            {
+                name: t('label.common.terms'),
+                type: settingsItems.termsOfService,
+                control: settingsControls.link,
+            },
+            {
+                name: t('label.common.privacy'),
+                type: settingsItems.privacyPolicy,
+                control: settingsControls.link,
+            },
+        ],
+    };
+}
 
-export const accountSection = {
-    title: 'Account',
-    data: [
-        {
-            name: 'Logout',
-            type: settingsItems.logout,
-            control: settingsControls.action,
-        },
-    ],
-};
+export function getAccountSection(t) {
+    return {
+        title: t('screen.settings.header.account'),
+        data: [
+            {
+                name: t('label.common.logout'),
+                type: settingsItems.logout,
+                control: settingsControls.action,
+            },
+        ],
+    };
+}
 
-export const versionSection = {
-    title: 'Version',
-    data: [
-        {
-            name: Constants.manifest.version,
-            type: settingsItems.version,
-            control: settingsControls.static,
-        },
-    ],
-};
+export function getVersionSection(t) {
+    return {
+        title: t('screen.settings.header.version'),
+        data: [
+            {
+                name: Constants.manifest.version,
+                type: settingsItems.version,
+                control: settingsControls.static,
+            },
+        ],
+    };
+}
 
-export const listData = [
-    mapSection,
-    displaySection,
-    notificationSection,
-    termsSection,
-    accountSection,
-    versionSection,
-];
+export function getSettingsData(t) {
+    const mapSection = getMapSection(t);
+    const displaySection = getDisplaySection(t);
+    const notificationSection = getNotificationSection(t);
+    const termsSection = getTermsSection(t);
+    const accountSection = getAccountSection(t);
+    const versionSection = getVersionSection(t);
 
-export default { listData };
+    return [
+        mapSection,
+        displaySection,
+        notificationSection,
+        termsSection,
+        accountSection,
+        versionSection,
+    ];
+}

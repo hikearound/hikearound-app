@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { withTranslation } from 'react-i18next';
 import { TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { connect } from 'react-redux';
@@ -40,7 +41,7 @@ class ModalDismiss extends React.PureComponent {
     };
 
     render() {
-        const { includeBackground, textDismiss } = this.props;
+        const { includeBackground, textDismiss, t } = this.props;
 
         let iconStyle = (
             <Ionicons
@@ -75,7 +76,7 @@ class ModalDismiss extends React.PureComponent {
                         bottom: parseInt(spacing.small, 10),
                     }}
                 >
-                    <DismissText>Close</DismissText>
+                    <DismissText>{t('label.modal.close')}</DismissText>
                 </TouchableOpacity>
             );
         }
@@ -102,7 +103,10 @@ class ModalDismiss extends React.PureComponent {
 ModalDismiss.propTypes = propTypes;
 ModalDismiss.defaultProps = defaultProps;
 
-export default connect(null, mapDispatchToProps)(ModalDismiss);
+export default connect(
+    null,
+    mapDispatchToProps,
+)(withTranslation()(ModalDismiss));
 
 const DismissIconWrapper = styled.View`
     border-radius: ${DISMISS_ICON_SIZE}px;

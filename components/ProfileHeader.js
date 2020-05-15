@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
+import { withTranslation } from 'react-i18next';
 import Avatar from './Avatar';
 import {
     spacing,
@@ -80,28 +81,28 @@ class ProfileHeader extends React.PureComponent {
         dispatchModalFlag(modalType);
     };
 
-    editProfileLink = () => (
+    editProfileLink = (t) => (
         <TouchableOpacity
             activeOpacity={opacities.regular}
             onPress={this.editProfile}
             style={editProfileStyle}
         >
-            <ActionLink primary>Edit Profile</ActionLink>
+            <ActionLink primary>{t('screen.profile.edit')}</ActionLink>
         </TouchableOpacity>
     );
 
-    addLocationLink = () => (
+    addLocationLink = (t) => (
         <TouchableOpacity
             activeOpacity={opacities.regular}
             onPress={this.editProfile}
             style={addLocationStyle}
         >
-            <ActionLink>Add Location</ActionLink>
+            <ActionLink>{t('screen.profile.add')}</ActionLink>
         </TouchableOpacity>
     );
 
     render() {
-        const { name, location } = this.props;
+        const { name, location, t } = this.props;
         const { bgImage } = this.state;
 
         return (
@@ -110,7 +111,7 @@ class ProfileHeader extends React.PureComponent {
                 <NameText>{name}</NameText>
                 {location === '' && this.addLocationLink()}
                 {location !== '' && <LocationText>{location}</LocationText>}
-                {this.editProfileLink()}
+                {this.editProfileLink(t)}
             </HeaderWrapper>
         );
     }
@@ -122,7 +123,7 @@ ProfileHeader.defaultProps = defaultProps;
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(withTheme(ProfileHeader));
+)(withTranslation()(withTheme(ProfileHeader)));
 
 const HeaderWrapper = styled.ImageBackground`
     padding-left: ${spacing.small}px;
