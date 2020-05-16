@@ -1,11 +1,22 @@
 import { db } from '../lib/Fire';
 import { cacheHikeImage } from './Image';
+import { getGeohashRange } from './Location';
 
-export async function pageFeed(pageSize, lastKey, sortDirection) {
-    let hikeRef = db
+export function getHikeRef(range, sortDirection, pageSize) {
+    return db
         .collection('hikes')
+        .where('geohash', '>=', range.lower)
+        .where('geohash', '<=', range.upper)
+        .orderBy('geohash')
         .orderBy('timestamp', sortDirection)
         .limit(pageSize);
+}
+
+export async function pageFeed(pageSize, lastKey, position, sortDirection) {
+    const { latitude, longitude } = position.coords;
+    const range = getGeohashRange(latitude, longitude, 100);
+
+    let hikeRef = getHikeRef(range, sortDirection, pageSize);
 
     if (lastKey) {
         hikeRef = hikeRef.startAfter(lastKey);
@@ -26,8 +37,7 @@ export async function pageFeed(pageSize, lastKey, sortDirection) {
         }
     });
 
-    const lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
-    return { data, cursor: lastVisible };
+    return { data, cursor: querySnapshot.docs[querySnapshot.docs.length - 1] };
 }
 
 export function sortHikes(previousState, hikes, sortDirection) {

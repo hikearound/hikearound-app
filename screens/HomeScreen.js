@@ -74,10 +74,11 @@ class HomeScreen extends React.Component {
             scheme,
         } = this.props;
 
+        await this.getAndSetPosition();
+
         this.setFirstLoad();
         this.getHikeFeedData();
         this.setFeedHikeCount();
-        this.getAndSetPosition();
 
         handleAppBadge();
         checkInitialUrl(navigation);
@@ -112,10 +113,11 @@ class HomeScreen extends React.Component {
     };
 
     getHikeFeedData = async (lastKey) => {
-        const { sortDirection, pageSize } = this.state;
+        const { sortDirection, pageSize, position } = this.state;
         const { data, cursor } = await pageFeed(
             pageSize,
             lastKey,
+            position,
             sortDirection,
         );
 
