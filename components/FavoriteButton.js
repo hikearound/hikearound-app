@@ -17,6 +17,10 @@ const propTypes = {
     city: PropTypes.string.isRequired,
 };
 
+function mapStateToProps() {
+    return {};
+}
+
 function mapDispatchToProps(dispatch) {
     return {
         dispatchFavorite: (updatedHikeData) =>
@@ -145,4 +149,4 @@ class FavoriteButton extends React.Component {
 
 FavoriteButton.propTypes = propTypes;
 
-export default connect(null, mapDispatchToProps)(FavoriteButton);
+export default connect(mapStateToProps, mapDispatchToProps)(FavoriteButton);

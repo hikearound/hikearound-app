@@ -1,18 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { LinearGradient } from 'expo-linear-gradient';
+import { transparentColors } from '../constants/Index';
 
 const propTypes = {
     imageDidLoad: PropTypes.string,
+    height: PropTypes.number,
 };
 
 const defaultProps = {
     imageDidLoad: true,
+    height: 75,
 };
 
-const FeedCardGradient = ({ imageDidLoad }) => (
+const FeedCardGradient = ({ imageDidLoad, height }) => (
     <LinearGradient
-        colors={['rgba(0,0,0,0.6)', 'transparent']}
+        colors={[transparentColors.grayDarker, 'transparent']}
         start={{ x: 1, y: 1 }}
         end={{ x: 1, y: 0 }}
         style={{
@@ -20,7 +23,7 @@ const FeedCardGradient = ({ imageDidLoad }) => (
             left: 0,
             right: 0,
             bottom: 0,
-            height: imageDidLoad ? 75 : 0,
+            height: imageDidLoad ? height : 0,
         }}
     />
 );

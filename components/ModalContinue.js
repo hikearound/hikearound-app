@@ -17,6 +17,10 @@ const defaultProps = {
     modalCloseAction: 'closeAndContinue',
 };
 
+function mapStateToProps() {
+    return {};
+}
+
 function mapDispatchToProps(dispatch) {
     return {
         dispatchModalFlag: (modalCloseAction) =>
@@ -54,7 +58,7 @@ class ModalDismiss extends React.PureComponent {
 ModalDismiss.propTypes = propTypes;
 ModalDismiss.defaultProps = defaultProps;
 
-export default connect(null, mapDispatchToProps)(ModalDismiss);
+export default connect(mapStateToProps, mapDispatchToProps)(ModalDismiss);
 
 const DismissText = styled.Text`
     color: ${colors.white};

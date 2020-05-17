@@ -5,14 +5,18 @@ import { connect } from 'react-redux';
 import ImageZoom from 'react-native-image-pan-zoom';
 import { closeModal } from '../actions/Modal';
 
-const IMAGE_HEIGHT = Dimensions.get('window').height;
-const IMAGE_WIDTH = Dimensions.get('window').width;
+const { height, width } = Dimensions.get('window');
+const AnimatedImage = Animated.createAnimatedComponent(Image);
 
 const propTypes = {
     images: PropTypes.array.isRequired,
     dispatchModalFlag: PropTypes.func.isRequired,
     imageIndex: PropTypes.number.isRequired,
 };
+
+function mapStateToProps() {
+    return {};
+}
 
 function mapDispatchToProps(dispatch) {
     return {
@@ -51,18 +55,18 @@ class LightboxImage extends React.Component {
                 onSwipeDown={() => {
                     this.hideModal();
                 }}
-                cropWidth={IMAGE_WIDTH}
-                cropHeight={IMAGE_HEIGHT}
-                imageWidth={IMAGE_WIDTH}
-                imageHeight={IMAGE_HEIGHT}
+                cropWidth={width}
+                cropHeight={height}
+                imageWidth={width}
+                imageHeight={height}
             >
                 <AnimatedImage
                     source={images[imageIndex]}
                     resizeMode='contain'
                     style={{
                         opacity: fadeAnim,
-                        width: IMAGE_WIDTH,
-                        height: IMAGE_HEIGHT,
+                        width,
+                        height,
                         marginTop: -25,
                     }}
                 />
@@ -73,6 +77,4 @@ class LightboxImage extends React.Component {
 
 LightboxImage.propTypes = propTypes;
 
-export default connect(null, mapDispatchToProps)(LightboxImage);
-
-const AnimatedImage = Animated.createAnimatedComponent(Image);
+export default connect(mapStateToProps, mapDispatchToProps)(LightboxImage);

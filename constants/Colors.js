@@ -27,6 +27,7 @@ export const transparentColors = {
     grayLight: 'rgba(0, 0, 0, 0.1)',
     gray: 'rgba(0, 0, 0, 0.2)',
     grayDark: 'rgba(0, 0, 0, 0.4)',
+    grayDarker: 'rgba(0, 0,0 , 0.6)',
 
     // Blacks
     blackLight: 'rgba(18, 18, 18, 0.9)',

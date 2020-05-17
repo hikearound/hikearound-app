@@ -110,6 +110,12 @@
         "favorite": "You favorited {{hikeName}}.",
         "share": "Link copied to clipboard."
     },
+    "alert": {
+        "attribution": {
+            "title": "Attribution",
+            "body": "Photo by {{name}}."
+        }
+    },
     "error": {
         "label": "Error",
         "auth": {

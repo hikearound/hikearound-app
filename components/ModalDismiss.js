@@ -14,18 +14,19 @@ import {
 } from '../constants/Index';
 import { closeModal } from '../actions/Modal';
 
-const DISMISS_ICON_OFFSET = 25;
-const DISMISS_ICON_SIZE = 35;
-
 const propTypes = {
     dispatchModalFlag: PropTypes.func.isRequired,
     includeBackground: PropTypes.bool,
     textDismiss: PropTypes.bool,
+    iconOffset: PropTypes.number,
+    iconSize: PropTypes.number,
 };
 
 const defaultProps = {
     includeBackground: false,
     textDismiss: false,
+    iconOffset: 25,
+    iconSize: 35,
 };
 
 function mapDispatchToProps(dispatch) {
@@ -41,23 +42,29 @@ class ModalDismiss extends React.PureComponent {
     };
 
     render() {
-        const { includeBackground, textDismiss, t } = this.props;
+        const {
+            includeBackground,
+            iconSize,
+            iconOffset,
+            textDismiss,
+            t,
+        } = this.props;
 
         let iconStyle = (
             <Ionicons
                 name='ios-close'
                 color={colors.white}
-                size={DISMISS_ICON_SIZE + 5}
+                size={iconSize + 5}
             />
         );
 
         if (includeBackground) {
             iconStyle = (
-                <DismissIconWrapper>
+                <DismissIconWrapper iconSize={iconSize}>
                     <Ionicons
                         name='ios-close'
                         color={colors.purple}
-                        size={DISMISS_ICON_SIZE}
+                        size={iconSize}
                     />
                 </DismissIconWrapper>
             );
@@ -89,8 +96,8 @@ class ModalDismiss extends React.PureComponent {
                 activeOpacity={opacities.regular}
                 style={{
                     position: 'absolute',
-                    right: DISMISS_ICON_OFFSET,
-                    top: DISMISS_ICON_OFFSET,
+                    right: iconOffset,
+                    top: iconOffset,
                     zIndex: 1,
                 }}
             >
@@ -109,9 +116,9 @@ export default connect(
 )(withTranslation()(ModalDismiss));
 
 const DismissIconWrapper = styled.View`
-    border-radius: ${DISMISS_ICON_SIZE}px;
-    height: ${DISMISS_ICON_SIZE}px;
-    width: ${DISMISS_ICON_SIZE}px;
+    border-radius: ${(props) => props.iconSize}px;
+    height: ${(props) => props.iconSize}px;
+    width: ${(props) => props.iconSize}px;
     box-shadow: 0 4px 4px ${transparentColors.gray};
     background-color: ${colors.white};
     padding-left: 11px;

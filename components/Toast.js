@@ -14,15 +14,21 @@ import {
     opacities,
 } from '../constants/Index';
 
-const SCREEN_HEIGHT = Dimensions.get('window').height;
+const { height } = Dimensions.get('window');
 
 const propTypes = {
     text: PropTypes.string,
     action: PropTypes.string.isRequired,
+    duration: PropTypes.number,
+    timeout: PropTypes.number,
+    iconSize: PropTypes.number,
 };
 
 const defaultProps = {
     text: '',
+    duration: 500,
+    timeout: 3500,
+    iconSize: 30,
 };
 
 function mapStateToProps(state) {
@@ -36,7 +42,7 @@ class Toast extends React.Component {
         super(props);
 
         this.state = {
-            top: new Animated.Value(SCREEN_HEIGHT),
+            top: new Animated.Value(height),
         };
     }
 
@@ -45,33 +51,34 @@ class Toast extends React.Component {
     }
 
     showToast = () => {
-        const { action } = this.props;
+        const { action, duration, timeout } = this.props;
         const { top } = this.state;
 
         if (action === 'favoriteHike' || action === 'copyLink') {
             Animated.timing(top, {
-                toValue: SCREEN_HEIGHT - 230,
-                duration: 500,
+                toValue: height - 230,
+                duration,
             }).start();
         }
 
         this.timeout = setTimeout(() => {
             this.hideToast();
-        }, 3500);
+        }, timeout);
     };
 
     hideToast = () => {
         const { top } = this.state;
+        const { duration } = this.props;
         clearTimeout(this.timeout);
 
         Animated.timing(top, {
-            toValue: SCREEN_HEIGHT,
-            duration: 500,
+            toValue: height,
+            duration,
         }).start();
     };
 
     render() {
-        const { text } = this.props;
+        const { text, iconSize } = this.props;
         const { top } = this.state;
 
         return (
@@ -86,7 +93,11 @@ class Toast extends React.Component {
                         top: 5,
                     }}
                 >
-                    <Ionicons name='ios-close' color={colors.white} size={30} />
+                    <Ionicons
+                        name='ios-close'
+                        color={colors.white}
+                        size={iconSize}
+                    />
                 </TouchableOpacity>
             </AnimatedContainer>
         );

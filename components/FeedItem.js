@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { useNavigation } from '@react-navigation/native';
 import FeedCard from './FeedCard';
 import { spacing, opacities } from '../constants/Index';
+import { defaultProps } from '../constants/states/FeedItem';
 
 const propTypes = {
     coverPhoto: PropTypes.string,
@@ -16,18 +17,6 @@ const propTypes = {
     route: PropTypes.string,
     description: PropTypes.string,
     city: PropTypes.string,
-};
-
-const defaultProps = {
-    id: '',
-    images: [],
-    name: '',
-    route: '',
-    description: '',
-    city: '',
-    coverPhoto: undefined,
-    distance: 0,
-    elevation: 0,
 };
 
 class FeedItem extends React.Component {

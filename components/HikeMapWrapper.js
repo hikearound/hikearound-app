@@ -27,6 +27,10 @@ const defaultProps = {
     modalType: 'map',
 };
 
+function mapStateToProps() {
+    return {};
+}
+
 function mapDispatchToProps(dispatch) {
     return {
         dispatchModalFlag: (modalType) => dispatch(showModal(modalType)),
@@ -88,7 +92,10 @@ class HikeMapWrapper extends React.Component {
 HikeMapWrapper.propTypes = propTypes;
 HikeMapWrapper.defaultProps = defaultProps;
 
-export default connect(null, mapDispatchToProps)(withTheme(HikeMapWrapper));
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(withTheme(HikeMapWrapper));
 
 const MapViewWrapper = styled.View`
     flex: 1;

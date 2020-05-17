@@ -1,26 +1,12 @@
-import { db } from '../lib/Fire';
 import { cacheHikeImage } from './Image';
-import { getGeohashRange } from './Location';
-
-export function getHikeRef(range, sortDirection, pageSize) {
-    return db
-        .collection('hikes')
-        .where('geohash', '>=', range.lower)
-        .where('geohash', '<=', range.upper)
-        .orderBy('geohash')
-        .orderBy('timestamp', sortDirection)
-        .limit(pageSize);
-}
+import { getRange } from './Location';
+import { getHikeRef } from './Hike';
 
 export async function pageFeed(pageSize, lastKey, position, sortDirection) {
     const { latitude, longitude } = position.coords;
-    const range = getGeohashRange(latitude, longitude, 100);
 
-    let hikeRef = getHikeRef(range, sortDirection, pageSize);
-
-    if (lastKey) {
-        hikeRef = hikeRef.startAfter(lastKey);
-    }
+    const range = getRange(latitude, longitude, 15);
+    const hikeRef = getHikeRef('geo', range, sortDirection, pageSize);
 
     const querySnapshot = await hikeRef.get();
     const data = [];
@@ -28,11 +14,14 @@ export async function pageFeed(pageSize, lastKey, position, sortDirection) {
     querySnapshot.forEach((hike) => {
         if (hike.exists) {
             const hikeData = hike.data() || {};
+
             hikeData.id = hike.id;
+
             const reduced = {
                 key: hike.id,
                 ...hikeData,
             };
+
             data.push(reduced);
         }
     });
@@ -62,6 +51,7 @@ export async function buildHikeData(data) {
     /* eslint-disable-next-line */
     for (const hike of data) {
         const imageUrl = await cacheHikeImage(hike);
+
         hike.coverPhoto = imageUrl;
         hikes[hike.key] = hike;
     }

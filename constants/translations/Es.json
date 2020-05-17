@@ -110,6 +110,12 @@
         "favorite": "Usted favoreció {{hikeName}}.",
         "share": "Link copiado al portapapeles."
     },
+    "alert": {
+        "attribution": {
+            "title": "Atribución",
+            "body": "Foto por {{name}}."
+        }
+    },
     "error": {
         "label": "Error",
         "auth": {

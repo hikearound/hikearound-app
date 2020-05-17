@@ -5,8 +5,7 @@ import styled from 'styled-components';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { connect } from 'react-redux';
 import { colors, borderRadius } from '../constants/Index';
-
-const DEFAULT_MAP_HEIGHT = 200;
+import { defaultProps } from '../constants/states/HikeMap';
 
 const propTypes = {
     mapRef: PropTypes.func.isRequired,
@@ -17,14 +16,7 @@ const propTypes = {
     maxZoom: PropTypes.number,
     fullHeight: PropTypes.bool,
     mapPadding: PropTypes.object,
-};
-
-const defaultProps = {
-    maxZoom: 20,
-    fullHeight: false,
-    region: undefined,
-    coordinates: [],
-    mapPadding: {},
+    mapHeight: PropTypes.number,
 };
 
 function mapStateToProps(state) {
@@ -64,6 +56,7 @@ class HikeMap extends React.Component {
             mapType,
             mapPadding,
             mapStyle,
+            mapHeight,
         } = this.props;
         const { maxZoom, fullHeight, mapDidLoad } = this.state;
 
@@ -78,7 +71,7 @@ class HikeMap extends React.Component {
                     customMapStyle={mapStyle}
                     provider={PROVIDER_GOOGLE}
                     style={{
-                        height: fullHeight ? '100%' : DEFAULT_MAP_HEIGHT,
+                        height: fullHeight ? '100%' : mapHeight,
                         zIndex: 1,
                         overflow: 'hidden',
                         borderRadius: parseInt(borderRadius.medium, 10),
@@ -102,7 +95,7 @@ class HikeMap extends React.Component {
                 </MapView>
             );
         }
-        return <EmptyMapView />;
+        return <EmptyMapView fullHeight={fullHeight} mapHeight={mapHeight} />;
     }
 }
 
@@ -114,7 +107,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(HikeMap);
 const EmptyMapView = styled.View`
     border-color: ${colors.grayMedium};
     border-radius: ${borderRadius.medium}px;
-    height: ${(props) =>
-        props.fullHeight ? '100%' : `${DEFAULT_MAP_HEIGHT}px`};
+    height: ${(props) => (props.fullHeight ? '100%' : `${props.mapHeight}px`)};
     background-color: ${(props) => props.theme.loadingPrimary};
 `;

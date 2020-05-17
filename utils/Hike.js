@@ -5,6 +5,19 @@ export async function getHikeSnapshot(id) {
     return db.collection('hikes').doc(id).get();
 }
 
+export function getHikeRef(type, range, sortDirection, pageSize) {
+    let hikeRef = db.collection('hikes');
+
+    if (type === 'geo') {
+        hikeRef = hikeRef
+            .where('geohash', '>=', range.lower)
+            .where('geohash', '<=', range.upper)
+            .orderBy('geohash');
+    }
+
+    return hikeRef.orderBy('timestamp', sortDirection).limit(pageSize);
+}
+
 export async function getFeedHikeCount() {
     const snap = await db.collection('hikes').get();
     return snap.size;
@@ -70,6 +83,7 @@ export async function openHikeScreen(id, navigation) {
 
 export default {
     getHikeSnapshot,
+    getHikeRef,
     getFeedHikeCount,
     getHikeImage,
     getHikeXmlUrl,
