@@ -9,6 +9,10 @@ export async function reduceImageAsync(uri) {
     });
 }
 
+export async function clearCache() {
+    await CacheManager.clearCache();
+}
+
 export function cacheImages(images) {
     return images.map((image) => {
         if (typeof image === 'string') {
@@ -18,9 +22,9 @@ export function cacheImages(images) {
     });
 }
 
-export async function cacheHikeImage(hike) {
+export async function cacheHikeImage(hike, photoIndex) {
     let imageUrl = null;
-    imageUrl = await getHikeImage(hike.id, 0);
+    imageUrl = await getHikeImage(hike.id, photoIndex);
 
     if (imageUrl) {
         await CacheManager.get(imageUrl).getPath();

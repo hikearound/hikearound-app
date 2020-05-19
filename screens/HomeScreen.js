@@ -122,6 +122,7 @@ class HomeScreen extends React.Component {
         );
 
         this.lastKnownKey = cursor;
+
         const hikes = await buildHikeData(data);
 
         this.addhikes(hikes);

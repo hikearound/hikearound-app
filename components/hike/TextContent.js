@@ -31,7 +31,13 @@ class TextContent extends React.PureComponent {
     }
 
     renderTruncatedFooter = (handlePress) => {
-        return <ActionText onPress={handlePress}>Read more</ActionText>;
+        const { t } = this.props;
+
+        return (
+            <ActionText onPress={handlePress}>
+                {t('label.common.read')}
+            </ActionText>
+        );
     };
 
     renderRevealedFooter = () => {
@@ -61,7 +67,7 @@ class TextContent extends React.PureComponent {
                     distance={distance}
                     city={city}
                 />
-                <Subtitle text={t('description')} />
+                <Subtitle text={t('label.heading.description')} />
                 <ReadMore
                     numberOfLines={numberOfLines}
                     renderTruncatedFooter={this.renderTruncatedFooter}
