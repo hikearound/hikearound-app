@@ -166,6 +166,7 @@ class HikeScreen extends React.Component {
                     region={region}
                     animationType='push'
                     modalAction='showMap'
+                    hideStatusBar
                 />
             </RootView>
         );

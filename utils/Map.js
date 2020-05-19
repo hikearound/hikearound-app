@@ -1,4 +1,4 @@
-import { darkTheme } from '../constants/Maps';
+import { darkTheme, defaultTheme } from '../constants/Maps';
 import store from '../store/Store';
 
 export async function getMapData(dispatchMapData, scheme) {
@@ -17,8 +17,8 @@ export async function getMapData(dispatchMapData, scheme) {
         };
     } else {
         mapData = {
-            mapType: 'terrain',
-            mapStyle: [],
+            mapType: 'standard',
+            mapStyle: defaultTheme,
             selectedHike,
         };
     }

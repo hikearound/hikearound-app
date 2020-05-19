@@ -23,9 +23,7 @@ class ModalOverflow extends React.PureComponent {
         super(props, context);
         const { t } = this.props;
 
-        this.state = {
-            imageAttribution: '',
-        };
+        this.state = { attribution: '' };
 
         this.showLightboxActionSheet = lightboxActionSheet.bind(this, t);
     }
@@ -36,16 +34,17 @@ class ModalOverflow extends React.PureComponent {
 
     setImageAttribution = async () => {
         const { images, imageIndex } = this.props;
-        const imageAttribution = images[imageIndex].attribution;
-        this.setState({ imageAttribution });
+        const { attribution } = images[imageIndex];
+
+        this.setState({ attribution });
     };
 
     showAttributionAlert = () => {
         const { t } = this.props;
-        const { imageAttribution } = this.state;
+        const { attribution } = this.state;
         Alert.alert(
             t('alert.attribution.title'),
-            t('alert.attribution.body', { name: imageAttribution }),
+            t('alert.attribution.body', { name: attribution.name }),
         );
     };
 

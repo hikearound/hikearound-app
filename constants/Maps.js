@@ -1,4 +1,57 @@
-export const defaultTheme = [];
+export const defaultTheme = [
+    {
+        featureType: 'administrative.land_parcel',
+        elementType: 'labels',
+        stylers: [
+            {
+                visibility: 'off',
+            },
+        ],
+    },
+    {
+        featureType: 'administrative.neighborhood',
+        stylers: [
+            {
+                visibility: 'off',
+            },
+        ],
+    },
+    {
+        featureType: 'poi',
+        elementType: 'labels.text',
+        stylers: [
+            {
+                visibility: 'off',
+            },
+        ],
+    },
+    {
+        featureType: 'poi.business',
+        stylers: [
+            {
+                visibility: 'off',
+            },
+        ],
+    },
+    {
+        featureType: 'poi.park',
+        elementType: 'labels.text',
+        stylers: [
+            {
+                visibility: 'off',
+            },
+        ],
+    },
+    {
+        featureType: 'road.local',
+        elementType: 'labels',
+        stylers: [
+            {
+                visibility: 'off',
+            },
+        ],
+    },
+];
 
 export const darkTheme = [
     {
@@ -265,14 +318,6 @@ export const darkTheme = [
         stylers: [
             {
                 color: '#023e58',
-            },
-        ],
-    },
-    {
-        featureType: 'road.local',
-        stylers: [
-            {
-                visibility: 'off',
             },
         ],
     },

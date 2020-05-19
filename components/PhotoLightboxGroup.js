@@ -13,9 +13,7 @@ const propTypes = {
 class PhotoLightboxGroup extends React.PureComponent {
     constructor(props, context) {
         super(props, context);
-        this.state = {
-            imageArray: [],
-        };
+        this.state = { imageArray: [] };
     }
 
     componentDidMount() {
@@ -33,7 +31,7 @@ class PhotoLightboxGroup extends React.PureComponent {
             const imageUrl = await getHikeImage(id, i);
             imageArray.push({
                 uri: imageUrl,
-                attribution: hikeImages[i],
+                attribution: hikeImages[i].attribution,
             });
         }
 
