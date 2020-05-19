@@ -1,10 +1,9 @@
 export const defaultProps = {
-    maxZoom: 16,
-    fullHeight: false,
     region: undefined,
     coordinates: [],
-    mapPadding: {},
-    mapHeight: 200,
+    elevation: 0,
+    route: '',
+    modalType: 'map',
 };
 
 export default { defaultProps };

@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import InfoBar from './InfoBar';
 import HikeMap from './HikeMap';
 import { spacing, borderRadius, opacities } from '../constants/Index';
+import { defaultProps } from '../constants/states/HikeMapWrapper';
 import { showModal } from '../actions/Modal';
 import { withTheme } from '../utils/Themes';
 
@@ -17,14 +18,6 @@ const propTypes = {
     coordinates: PropTypes.array,
     region: PropTypes.object,
     modalType: PropTypes.string,
-};
-
-const defaultProps = {
-    region: undefined,
-    coordinates: [],
-    elevation: 0,
-    route: '',
-    modalType: 'map',
 };
 
 function mapStateToProps() {

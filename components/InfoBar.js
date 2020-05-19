@@ -23,9 +23,6 @@ const defaultProps = {
 };
 
 const InfoBar = ({ distance, elevation, route, t }) => {
-    if (route === '') {
-        route = 'loop';
-    }
     return (
         <CardContent>
             <ContentItem>
@@ -42,7 +39,9 @@ const InfoBar = ({ distance, elevation, route, t }) => {
             </ContentItem>
             <ContentItem>
                 <MetaDataType>{t('hike.data.route')}</MetaDataType>
-                <MetaData capitalize>{t(`hike.data.${route}`)}</MetaData>
+                <MetaData capitalize>
+                    {t(`hike.data.${route.toLowerCase()}`)}
+                </MetaData>
             </ContentItem>
         </CardContent>
     );

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Modal } from 'react-native';
 import { connect } from 'react-redux';
@@ -13,10 +14,24 @@ function mapStateToProps(state) {
     };
 }
 
+const propTypes = {
+    maxZoom: PropTypes.number,
+};
+
+const defaultProps = {
+    maxZoom: 16,
+};
+
 class MapModal extends ModalBase {
     render() {
         const { modalVisible } = this.state;
-        const { animationType, mapRef, coordinates, region } = this.props;
+        const {
+            animationType,
+            mapRef,
+            coordinates,
+            region,
+            maxZoom,
+        } = this.props;
 
         return (
             <Modal
@@ -30,7 +45,7 @@ class MapModal extends ModalBase {
                         mapRef={mapRef}
                         coordinates={coordinates}
                         region={region}
-                        maxZoom={12.5}
+                        maxZoom={maxZoom}
                         mapPadding={{
                             left: parseInt(spacing.tiny, 10),
                         }}
@@ -41,6 +56,9 @@ class MapModal extends ModalBase {
         );
     }
 }
+
+MapModal.propTypes = propTypes;
+MapModal.defaultProps = defaultProps;
 
 export default connect(mapStateToProps)(MapModal);
 

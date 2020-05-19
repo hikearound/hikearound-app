@@ -43,7 +43,6 @@ class HikeMap extends React.Component {
 
     onMapReady = () => {
         this.setState({
-            maxZoom: 20,
             mapDidLoad: true,
         });
     };

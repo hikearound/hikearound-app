@@ -6,7 +6,11 @@ export async function pageFeed(pageSize, lastKey, position, sortDirection) {
     const { latitude, longitude } = position.coords;
 
     const range = getRange(latitude, longitude, 15);
-    const hikeRef = getHikeRef('geo', range, sortDirection, pageSize);
+    let hikeRef = getHikeRef('geo', range, sortDirection, pageSize);
+
+    if (lastKey) {
+        hikeRef = hikeRef.startAfter(lastKey);
+    }
 
     const querySnapshot = await hikeRef.get();
     const data = [];
@@ -26,19 +30,20 @@ export async function pageFeed(pageSize, lastKey, position, sortDirection) {
         }
     });
 
-    return { data, cursor: querySnapshot.docs[querySnapshot.docs.length - 1] };
+    const lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
+    return { data, cursor: lastVisible };
 }
 
 export function sortHikes(previousState, hikes, sortDirection) {
     const data = { ...previousState.data, ...hikes };
 
     let sortedHikes = Object.values(data).sort(
-        (a, b) => a.timestamp < b.timestamp,
+        (a, b) => a.dateCreated < b.dateCreated,
     );
 
     if (sortDirection === 'asc') {
         sortedHikes = Object.values(data).sort(
-            (a, b) => a.timestamp > b.timestamp,
+            (a, b) => a.dateCreated > b.dateCreated,
         );
     }
 

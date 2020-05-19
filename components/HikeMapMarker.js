@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Marker } from 'react-native-maps';
+import { defaultProps } from '../constants/states/HikeMapMarker';
 import { colors, fontSizes, fontWeights } from '../constants/Index';
 
 const propTypes = {
@@ -11,14 +12,6 @@ const propTypes = {
     coordinate: PropTypes.object,
     markerRef: PropTypes.func,
     onPress: PropTypes.func,
-};
-
-const defaultProps = {
-    distance: 0,
-    size: 40,
-    coordinate: {},
-    markerRef: () => {},
-    onPress: () => {},
 };
 
 class HikeMapMarker extends React.PureComponent {

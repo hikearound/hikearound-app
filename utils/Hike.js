@@ -15,7 +15,7 @@ export function getHikeRef(type, range, sortDirection, pageSize) {
             .orderBy('geohash');
     }
 
-    return hikeRef.orderBy('timestamp', sortDirection).limit(pageSize);
+    return hikeRef.orderBy('createdOn', sortDirection).limit(pageSize);
 }
 
 export async function getFeedHikeCount() {

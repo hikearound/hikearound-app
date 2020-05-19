@@ -8,7 +8,7 @@ import { getHikeImage } from '../utils/Hike';
 
 const propTypes = {
     id: PropTypes.string.isRequired,
-    images: PropTypes.array,
+    images: PropTypes.object,
 };
 
 const defaultProps = {
@@ -31,7 +31,7 @@ class PhotoLightboxGroup extends React.PureComponent {
         const { id, images } = this.props;
         const imageArray = [];
 
-        for (let i = 0; i < images.length; i += 1) {
+        for (let i = 0; i < images.attribution.length; i += 1) {
             const imageUrl = await getHikeImage(id, i);
             imageArray.push({
                 uri: imageUrl,

@@ -9,7 +9,7 @@ import { defaultProps } from '../constants/states/FeedItem';
 
 const propTypes = {
     coverPhoto: PropTypes.string,
-    images: PropTypes.array,
+    images: PropTypes.object,
     id: PropTypes.string,
     name: PropTypes.string,
     distance: PropTypes.number,
