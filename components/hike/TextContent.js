@@ -34,10 +34,17 @@ class TextContent extends React.PureComponent {
         const { t } = this.props;
 
         return (
-            <ActionText onPress={handlePress}>
+            <ActionText onPress={() => this.expandText(handlePress)}>
                 {t('label.common.read')}
             </ActionText>
         );
+    };
+
+    expandText = (handlePress) => {
+        const { description } = this.props;
+
+        handlePress();
+        this.setState({ description });
     };
 
     renderRevealedFooter = () => {
@@ -46,9 +53,11 @@ class TextContent extends React.PureComponent {
 
     updateDescription() {
         const { description } = this.props;
+        const truncatedDescription = description.replace(/(\n)/gm, ' ');
+
         if (description) {
             this.setState({
-                description: description.replace('\\n\\n', '\n\n'),
+                description: truncatedDescription,
             });
         }
     }
