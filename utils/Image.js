@@ -20,12 +20,12 @@ export function cacheImages(images) {
 
 export async function cacheHikeImage(hike) {
     let imageUrl = null;
-    if (hike.images) {
-        imageUrl = await getHikeImage(hike.id, 0);
-        if (imageUrl) {
-            await CacheManager.get(imageUrl).getPath();
-        }
+    imageUrl = await getHikeImage(hike.id, 0);
+
+    if (imageUrl) {
+        await CacheManager.get(imageUrl).getPath();
     }
+
     return imageUrl;
 }
 

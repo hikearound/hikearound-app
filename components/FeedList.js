@@ -18,7 +18,6 @@ class FeedList extends React.Component {
     renderItem = ({ item }) => (
         <FeedItem
             id={item.id}
-            images={item.images}
             name={item.name}
             distance={item.distance}
             elevation={item.elevation}

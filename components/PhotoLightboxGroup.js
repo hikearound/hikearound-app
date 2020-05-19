@@ -4,15 +4,10 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Thumbnail from './Thumbnail';
 import LightboxModal from './modals/LightboxModal';
-import { getHikeImage } from '../utils/Hike';
+import { getHikeImage, getHikeImageGallery } from '../utils/Hike';
 
 const propTypes = {
     id: PropTypes.string.isRequired,
-    images: PropTypes.object,
-};
-
-const defaultProps = {
-    images: [],
 };
 
 class PhotoLightboxGroup extends React.PureComponent {
@@ -28,14 +23,17 @@ class PhotoLightboxGroup extends React.PureComponent {
     }
 
     buildHikeImageArray = async () => {
-        const { id, images } = this.props;
+        const { id } = this.props;
         const imageArray = [];
 
-        for (let i = 0; i < images.attribution.length; i += 1) {
+        const hikeImages = await getHikeImageGallery(id);
+        const photoCount = Object.keys(hikeImages).length;
+
+        for (let i = 0; i < photoCount; i += 1) {
             const imageUrl = await getHikeImage(id, i);
             imageArray.push({
                 uri: imageUrl,
-                attribution: images[i],
+                attribution: hikeImages[i],
             });
         }
 
@@ -66,7 +64,6 @@ class PhotoLightboxGroup extends React.PureComponent {
 }
 
 PhotoLightboxGroup.propTypes = propTypes;
-PhotoLightboxGroup.defaultProps = defaultProps;
 
 export default PhotoLightboxGroup;
 

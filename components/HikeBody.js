@@ -35,7 +35,6 @@ class HikeBody extends React.PureComponent {
             city: hike.city,
             description: hike.description,
             id: hike.id,
-            images: hike.images,
         };
     }
 
@@ -46,7 +45,6 @@ class HikeBody extends React.PureComponent {
             name,
             city,
             id,
-            images,
             distance,
             elevation,
             route,
@@ -75,7 +73,7 @@ class HikeBody extends React.PureComponent {
                             description={description}
                         />
                         <Subtitle text={t('images')} />
-                        <PhotoLightboxGroup id={id} images={images} />
+                        <PhotoLightboxGroup id={id} />
                     </BodyContent>
                 </ScrollView>
             </>

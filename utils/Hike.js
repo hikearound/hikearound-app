@@ -23,6 +23,11 @@ export async function getFeedHikeCount() {
     return snap.size;
 }
 
+export async function getHikeImageGallery(id) {
+    const imageSnapshot = await db.collection('images').doc(id).get();
+    return imageSnapshot.data();
+}
+
 export async function getHikeImage(id, index) {
     return storage.ref(`hikes/${id}/images/${index}.jpg`).getDownloadURL();
 }
@@ -85,6 +90,7 @@ export default {
     getHikeSnapshot,
     getHikeRef,
     getFeedHikeCount,
+    getHikeImageGallery,
     getHikeImage,
     getHikeXmlUrl,
     openHikeScreen,

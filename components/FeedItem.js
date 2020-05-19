@@ -9,7 +9,6 @@ import { defaultProps } from '../constants/states/FeedItem';
 
 const propTypes = {
     coverPhoto: PropTypes.string,
-    images: PropTypes.object,
     id: PropTypes.string,
     name: PropTypes.string,
     distance: PropTypes.number,
@@ -31,7 +30,6 @@ class FeedItem extends React.Component {
         const {
             navigation,
             id,
-            images,
             name,
             distance,
             elevation,
@@ -52,7 +50,6 @@ class FeedItem extends React.Component {
                             navigation.push('Hike', {
                                 hike: {
                                     id,
-                                    images,
                                     name,
                                     distance,
                                     elevation,
