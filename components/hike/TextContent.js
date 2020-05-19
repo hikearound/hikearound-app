@@ -2,9 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { withTranslation } from 'react-i18next';
+import ReadMore from 'react-native-read-more-text';
 import { colors, fontWeights, fontSizes } from '../../constants/Index';
 import Subtitle from '../Subtitle';
 import FavoriteButton from '../FavoriteButton';
+import { defaultProps } from '../../constants/states/TextContent';
 
 const propTypes = {
     name: PropTypes.string,
@@ -12,13 +14,7 @@ const propTypes = {
     description: PropTypes.string,
     id: PropTypes.string.isRequired,
     distance: PropTypes.number,
-};
-
-const defaultProps = {
-    name: '',
-    city: '',
-    description: '',
-    distance: 0,
+    numberOfLines: PropTypes.number,
 };
 
 class TextContent extends React.PureComponent {
@@ -34,6 +30,14 @@ class TextContent extends React.PureComponent {
         this.updateDescription();
     }
 
+    renderTruncatedFooter = (handlePress) => {
+        return <ActionText onPress={handlePress}>Read more</ActionText>;
+    };
+
+    renderRevealedFooter = () => {
+        return null;
+    };
+
     updateDescription() {
         const { description } = this.props;
         if (description) {
@@ -44,7 +48,7 @@ class TextContent extends React.PureComponent {
     }
 
     render() {
-        const { name, city, id, distance, t } = this.props;
+        const { name, city, id, distance, numberOfLines, t } = this.props;
         const { description } = this.state;
 
         return (
@@ -58,7 +62,13 @@ class TextContent extends React.PureComponent {
                     city={city}
                 />
                 <Subtitle text={t('description')} />
-                <DescriptionText>{description}</DescriptionText>
+                <ReadMore
+                    numberOfLines={numberOfLines}
+                    renderTruncatedFooter={this.renderTruncatedFooter}
+                    renderRevealedFooter={this.renderRevealedFooter}
+                >
+                    <DescriptionText>{description}</DescriptionText>
+                </ReadMore>
             </>
         );
     }
@@ -68,6 +78,12 @@ TextContent.propTypes = propTypes;
 TextContent.defaultProps = defaultProps;
 
 export default withTranslation()(TextContent);
+
+const ActionText = styled.Text`
+    color: ${colors.purple};
+    font-size: ${fontSizes.medium}px;
+    margin-top: 2px;
+`;
 
 const DescriptionText = styled.Text`
     color: ${(props) => props.theme.text};
