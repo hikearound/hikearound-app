@@ -5,4 +5,4 @@ export function getMapSetting(map) {
     return 'apple';
 }
 
-export default { getMapSetting };
+export default getMapSetting;

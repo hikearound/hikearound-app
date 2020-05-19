@@ -10,4 +10,4 @@ export const defaultProps = {
     elevation: 0,
 };
 
-export default { defaultProps };
+export default defaultProps;

@@ -11,4 +11,4 @@ export function withTheme(Component) {
     };
 }
 
-export default { withTheme };
+export default withTheme;

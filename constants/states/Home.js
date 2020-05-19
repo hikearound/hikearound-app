@@ -10,4 +10,4 @@ export const defaultState = {
     data: {},
 };
 
-export default { defaultState };
+export default defaultState;

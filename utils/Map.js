@@ -26,4 +26,4 @@ export async function getMapData(dispatchMapData, scheme) {
     dispatchMapData(mapData);
 }
 
-export default { getMapData };
+export default getMapData;

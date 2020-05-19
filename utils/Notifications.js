@@ -32,10 +32,3 @@ export async function handleAppBadge() {
         this.clearBadge();
     }
 }
-
-export default {
-    registerForPushNotifications,
-    clearBadge,
-    getBadgeNumber,
-    handleAppBadge,
-};

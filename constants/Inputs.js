@@ -36,11 +36,3 @@ export const updateLocationInput = {
 
 nameInput.value = 'updatedName';
 export const updateNameInput = nameInput;
-
-export default {
-    nameInput,
-    emailInput,
-    passwordInput,
-    updateLocationInput,
-    updateNameInput,
-};

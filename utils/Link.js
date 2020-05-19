@@ -35,11 +35,3 @@ export async function removeUrlListener(navigation) {
         handleOpenURL(event.url, navigation),
     );
 }
-
-export default {
-    getHikeIdFromUrl,
-    handleOpenURL,
-    checkInitialUrl,
-    addUrlListener,
-    removeUrlListener,
-};

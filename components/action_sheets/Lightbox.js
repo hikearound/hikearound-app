@@ -22,5 +22,3 @@ export function lightboxActionSheet(t) {
         },
     );
 }
-
-export default { lightboxActionSheet };

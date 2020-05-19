@@ -26,5 +26,3 @@ export const ModalBody = styled.View`
     flex-direction: column;
     height: 100%;
 `;
-
-export default { ModalHeader, ModalTitleText, ModalBody };

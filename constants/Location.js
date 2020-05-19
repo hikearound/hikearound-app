@@ -3,4 +3,4 @@ export const degreesPerMile = {
     lon: 0.0181818181818182,
 };
 
-export default { degreesPerMile };
+export default degreesPerMile;

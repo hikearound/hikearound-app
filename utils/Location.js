@@ -33,5 +33,3 @@ export function getRange(latitude, longitude, distance) {
         upper: geohash.encode(upperLat, upperLon),
     };
 }
-
-export default { getCurrentPosition, getRange };

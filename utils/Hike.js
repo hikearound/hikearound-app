@@ -24,8 +24,8 @@ export async function getFeedHikeCount() {
 }
 
 export async function getHikeImageGallery(id) {
-    const imageSnapshot = await db.collection('images').doc(id).get();
-    return imageSnapshot.data();
+    const gallerySnapshot = await db.collection('images').doc(id).get();
+    return gallerySnapshot.data();
 }
 
 export async function getHikeImage(id, index) {
@@ -85,13 +85,3 @@ export async function openHikeScreen(id, navigation) {
         },
     });
 }
-
-export default {
-    getHikeSnapshot,
-    getHikeRef,
-    getFeedHikeCount,
-    getHikeImageGallery,
-    getHikeImage,
-    getHikeXmlUrl,
-    openHikeScreen,
-};

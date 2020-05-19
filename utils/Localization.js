@@ -53,5 +53,3 @@ export function mapCodeToTranslation(t, errorCode) {
     }
     return null;
 }
-
-export default { initializeLocalization, getInputLabels, mapCodeToTranslation };

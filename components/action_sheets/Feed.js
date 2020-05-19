@@ -29,5 +29,3 @@ export function feedActionSheet(t) {
         },
     );
 }
-
-export default { feedActionSheet };

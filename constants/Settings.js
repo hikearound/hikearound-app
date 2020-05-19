@@ -18,5 +18,3 @@ export const settingsControls = {
     push: 4,
     action: 5,
 };
-
-export default { settingsItems, settingsControls };

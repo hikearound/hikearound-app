@@ -11,5 +11,3 @@ export const ItemText = styled.Text`
     font-size: ${fontSizes.large}px;
     padding: 12px 0;
 `;
-
-export default { ItemContainer, ItemText };

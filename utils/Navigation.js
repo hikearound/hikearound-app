@@ -18,4 +18,4 @@ export function withScrollToTop(Component) {
     return WrappedComponent;
 }
 
-export default { withScrollToTop };
+export default withScrollToTop;

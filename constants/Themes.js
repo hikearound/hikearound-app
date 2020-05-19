@@ -117,5 +117,3 @@ export const darkTheme = {
         mapViewBackground: colors.black,
     },
 };
-
-export default { darkTheme, defaultTheme };

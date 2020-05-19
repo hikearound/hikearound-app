@@ -21,5 +21,3 @@ export const HeaderText = styled.Text`
     font-weight: ${fontWeights.medium};
     text-transform: uppercase;
 `;
-
-export default { RootView, StyledRootView, HeaderContainer, HeaderText };

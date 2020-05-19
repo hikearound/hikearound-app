@@ -73,5 +73,3 @@ export function setFeed(view) {
 
     return nextView;
 }
-
-export default { pageFeed, sortHikes, buildHikeData, setFeed };

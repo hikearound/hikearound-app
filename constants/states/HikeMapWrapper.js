@@ -6,4 +6,4 @@ export const defaultProps = {
     modalType: 'map',
 };
 
-export default { defaultProps };
+export default defaultProps;

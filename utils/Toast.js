@@ -8,4 +8,4 @@ export function getToastText(action, t, data) {
     return null;
 }
 
-export default { getToastText };
+export default getToastText;

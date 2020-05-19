@@ -110,15 +110,3 @@ export function createUserProfile(dispatchUserData, name) {
 
     dispatchUserData(userData);
 }
-
-export default {
-    writeUserData,
-    writePhotoData,
-    logoutUser,
-    getUserFavoriteHikes,
-    getAvatarUri,
-    getUserData,
-    getUserProfileData,
-    writeNotifData,
-    createUserProfile,
-};

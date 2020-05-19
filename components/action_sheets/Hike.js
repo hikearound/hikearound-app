@@ -28,5 +28,3 @@ export function hikeActionSheet(t) {
         },
     );
 }
-
-export default { hikeActionSheet };

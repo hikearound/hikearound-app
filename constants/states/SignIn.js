@@ -4,4 +4,4 @@ export const defaultState = {
     loading: false,
 };
 
-export default { defaultState };
+export default defaultState;

@@ -393,5 +393,3 @@ export const darkTheme = [
         ],
     },
 ];
-
-export default { defaultTheme, darkTheme };

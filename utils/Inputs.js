@@ -61,5 +61,3 @@ export function setInputRefs(inputs, inputType) {
 
     return null;
 }
-
-export default { setInputRefs, getInputs };

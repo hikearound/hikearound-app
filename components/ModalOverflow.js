@@ -24,7 +24,6 @@ class ModalOverflow extends React.PureComponent {
         const { t } = this.props;
 
         this.state = { attribution: '' };
-
         this.showLightboxActionSheet = lightboxActionSheet.bind(this, t);
     }
 

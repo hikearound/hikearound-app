@@ -7,4 +7,4 @@ export const defaultProps = {
     mapHeight: 200,
 };
 
-export default { defaultProps };
+export default defaultProps;

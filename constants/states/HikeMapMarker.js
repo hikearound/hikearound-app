@@ -6,4 +6,4 @@ export const defaultProps = {
     onPress: () => {},
 };
 
-export default { defaultProps };
+export default defaultProps;

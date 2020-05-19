@@ -61,11 +61,3 @@ export function tabBarOptions(activeTintColor, inactiveTintColor) {
         },
     };
 }
-
-export default {
-    mode,
-    headerMode,
-    screenOptions,
-    tabBarOptions,
-    forCustomHeaderAnimation,
-};

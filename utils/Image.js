@@ -41,5 +41,3 @@ export async function getBlob(uri) {
     });
     return blob;
 }
-
-export default { reduceImageAsync, cacheImages, cacheHikeImage, getBlob };
