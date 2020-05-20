@@ -51,6 +51,23 @@ export const defaultTheme = [
             },
         ],
     },
+    {
+        featureType: 'road.highway',
+        elementType: 'labels',
+        stylers: [
+            {
+                visibility: 'off',
+            },
+        ],
+    },
+    {
+        featureType: 'transit',
+        stylers: [
+            {
+                visibility: 'off',
+            },
+        ],
+    },
 ];
 
 export const darkTheme = [

@@ -53,11 +53,10 @@ class TextContent extends React.PureComponent {
 
     updateDescription() {
         const { description } = this.props;
-        const truncatedDescription = description.replace(/(\n)/gm, ' ');
 
         if (description) {
             this.setState({
-                description: truncatedDescription,
+                description: description.replace(/(\n)/gm, ' '),
             });
         }
     }

@@ -72,7 +72,7 @@ class HikeBody extends React.PureComponent {
                             distance={distance}
                             description={description}
                         />
-                        <Subtitle text={t('images')} />
+                        <Subtitle text={t('label.heading.images')} />
                         <PhotoLightboxGroup id={id} />
                     </BodyContent>
                 </ScrollView>

@@ -129,11 +129,11 @@ class HikeScreen extends React.Component {
 
     plotCoordinates() {
         const { hikeData } = this.state;
-        const coordinateCount = hikeData.gpx.rte[0].rtept.length;
+        const coordinateCount = hikeData.gpx.trk[0].trkseg[0].trkpt.length;
         const coordinates = [];
 
         for (let i = 0, len = coordinateCount; i < len; i += 1) {
-            const coordinate = hikeData.gpx.rte[0].rtept[i].$;
+            const coordinate = hikeData.gpx.trk[0].trkseg[0].trkpt[i].$;
             coordinates.push({
                 latitude: parseFloat(coordinate.lat),
                 longitude: parseFloat(coordinate.lon),
