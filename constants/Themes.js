@@ -22,7 +22,7 @@ export const defaultTheme = {
         refreshControlTint: colors.grayLight,
         itemBorder: colors.grayUltraLight,
         sheetBackground: transparentColors.white,
-        headerText: colors.grayDark,
+        feedText: colors.grayDark,
 
         // Cards
         cardBackground: colors.gray,
@@ -81,7 +81,7 @@ export const darkTheme = {
         refreshControlTint: colors.white,
         itemBorder: DarkTheme.colors.border,
         sheetBackground: transparentColors.blackLight,
-        headerText: colors.grayLight,
+        feedText: colors.grayLight,
 
         // Cards
         cardBackground: colors.blackText,

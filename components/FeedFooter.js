@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { withTranslation } from 'react-i18next';
-import { fontWeights, fontSizes, colors, spacing } from '../constants/Index';
+import { fontWeights, fontSizes, spacing } from '../constants/Index';
 
 class FeedFooter extends React.PureComponent {
     render() {
@@ -19,7 +19,7 @@ class FeedFooter extends React.PureComponent {
 export default withTranslation()(FeedFooter);
 
 const Circle = styled.View`
-    background-color: ${colors.gray};
+    background-color: ${(props) => props.theme.feedText};
     opacity: 0.8;
     border-radius: 7px;
     height: 7px;
@@ -32,7 +32,7 @@ const View = styled.View`
 `;
 
 const Text = styled.Text`
-    color: ${colors.gray};
+    color: ${(props) => props.theme.feedText};
     font-size: ${fontSizes.extraSmall}px;
     font-weight: ${fontWeights.medium};
     text-transform: uppercase;

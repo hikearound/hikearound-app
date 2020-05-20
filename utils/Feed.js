@@ -5,7 +5,7 @@ import { getHikeRef } from './Hike';
 export async function pageFeed(pageSize, lastKey, position, sortDirection) {
     const { latitude, longitude } = position.coords;
 
-    const range = getRange(latitude, longitude, 15);
+    const range = getRange(latitude, longitude, 50);
     let hikeRef = getHikeRef('geo', range, sortDirection, pageSize);
 
     if (lastKey) {

@@ -30,7 +30,7 @@ const View = styled.View`
 `;
 
 const Text = styled.Text`
-    color: ${(props) => props.theme.headerText};
+    color: ${(props) => props.theme.feedText};
     font-size: ${fontSizes.extraSmall}px;
     font-weight: ${fontWeights.medium};
     text-transform: uppercase;

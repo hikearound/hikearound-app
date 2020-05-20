@@ -19,11 +19,12 @@ const propTypes = {
     distance: PropTypes.number.isRequired,
     elevation: PropTypes.number.isRequired,
     route: PropTypes.string.isRequired,
+    city: PropTypes.string.isRequired,
 };
 
 class FeedCard extends React.PureComponent {
     render() {
-        const { image, name, distance, elevation, route } = this.props;
+        const { image, name, distance, elevation, route, city } = this.props;
 
         return (
             <View>
@@ -40,6 +41,9 @@ class FeedCard extends React.PureComponent {
                         }}
                     />
                     <HikeName>{name}</HikeName>
+                    <DataPill>
+                        <Location>{city}</Location>
+                    </DataPill>
                     <FeedCardGradient imageDidLoad={image.uri} />
                 </Cover>
                 <InfoBar
@@ -69,6 +73,20 @@ const Cover = styled.View`
     border-top-left-radius: ${borderRadius.medium}px;
     border-top-right-radius: ${borderRadius.medium}px;
     overflow: hidden;
+`;
+
+const DataPill = styled.View`
+    position: absolute;
+    right: ${spacing.tiny}px;
+    top: ${spacing.tiny}px;
+    background-color: ${transparentColors.white};
+    border-radius: ${borderRadius.medium}px;
+`;
+
+const Location = styled.Text`
+    color: ${colors.blackText};
+    font-size: ${fontSizes.extraSmall}px;
+    padding: 4px 6px;
 `;
 
 const HikeName = styled.Text`

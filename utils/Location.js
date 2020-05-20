@@ -1,6 +1,18 @@
 import * as Location from 'expo-location';
 import geohash from 'ngeohash';
+import Constants from 'expo-constants';
+import Geocoder from 'react-native-geocoding';
 import { degreesPerMile } from '../constants/Location';
+
+export async function initializeGeolocation() {
+    Geocoder.init(Constants.manifest.extra.googleGeoApiKey);
+}
+
+export async function getNearestCity(coords) {
+    const { latitude, longitude } = coords;
+    const geocode = await Geocoder.from({ lat: latitude, lng: longitude });
+    return geocode.results[0].address_components[4].long_name;
+}
 
 export async function getCurrentPosition() {
     const { status } = await Location.requestPermissionsAsync();

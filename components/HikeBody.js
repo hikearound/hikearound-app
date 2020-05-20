@@ -92,7 +92,7 @@ const BodyContent = styled.View`
 `;
 
 const BlockView = styled.View`
-    height: 500px;
+    height: 300px;
     background-color: ${(props) => props.theme.blockView};
     position: absolute;
     left: 0;

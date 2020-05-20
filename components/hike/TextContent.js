@@ -56,7 +56,7 @@ class TextContent extends React.PureComponent {
 
         if (description) {
             this.setState({
-                description: description.replace(/(\n)/gm, ' '),
+                description: description.replace(/(\n\n)/gm, ' '),
             });
         }
     }

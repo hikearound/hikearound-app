@@ -9,9 +9,11 @@ import { getUserData } from '../utils/User';
 import { initializeUserData } from '../actions/User';
 import { cacheImages } from '../utils/Image';
 import { initializeLocalization } from '../utils/Localization';
+import { initializeGeolocation } from '../utils/Location';
 import { localImages } from '../constants/Images';
 
 initializeLocalization();
+initializeGeolocation();
 
 const propTypes = {
     dispatchUserData: PropTypes.func.isRequired,

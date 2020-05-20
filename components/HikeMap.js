@@ -89,7 +89,7 @@ class HikeMap extends React.Component {
                     <MapView.Polyline
                         coordinates={coordinates}
                         strokeColor={colors.purple}
-                        strokeWidth={4}
+                        strokeWidth={3}
                     />
                 </MapView>
             );

@@ -63,7 +63,8 @@
             "route": "Route",
             "miles": "Miles",
             "feet": "Feet",
-            "loop": "Loop"
+            "loop": "Loop",
+            "out": "Out & Back"
         }
     },
     "screen": {

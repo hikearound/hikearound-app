@@ -63,7 +63,8 @@
             "route": "Ruta",
             "miles": "Millas",
             "feet": "Pies",
-            "loop": "Lazo"
+            "loop": "Lazo",
+            "out": "Afuera"
         }
     },
     "screen": {

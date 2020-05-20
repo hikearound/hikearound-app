@@ -2,8 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
-import Geocoder from 'react-native-geocoding';
-import Constants from 'expo-constants';
 import HomeLoadingState from '../components/loading/Home';
 import MapScreen from './MapScreen';
 import HomeActions from '../components/HomeActions';
@@ -21,15 +19,13 @@ import { getFeedHikeCount } from '../utils/Hike';
 import { handleAppBadge } from '../utils/Notifications';
 import { withTheme } from '../utils/Themes';
 import { getMapData } from '../utils/Map';
-import { getCurrentPosition } from '../utils/Location';
+import { getCurrentPosition, getNearestCity } from '../utils/Location';
 import { pageFeed, sortHikes, buildHikeData, setFeed } from '../utils/Feed';
 import {
     checkInitialUrl,
     addUrlListener,
     removeUrlListener,
 } from '../utils/Link';
-
-Geocoder.init(Constants.manifest.extra.googleGeoApiKey);
 
 const propTypes = {
     dispatchUserData: PropTypes.func.isRequired,
@@ -173,10 +169,7 @@ class HomeScreen extends React.Component {
 
     getAndSetPosition = async () => {
         const position = await getCurrentPosition();
-        const { latitude, longitude } = position.coords;
-
-        const result = await Geocoder.from({ lat: latitude, lng: longitude });
-        const city = result.results[0].address_components[4].long_name;
+        const city = await getNearestCity(position.coords);
 
         this.setState({ position, city });
     };
