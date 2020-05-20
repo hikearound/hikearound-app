@@ -15,7 +15,7 @@ import { withTheme } from '../utils/Themes';
 
 const shareAction = 'CopyToPasteboard';
 const baseUrl = 'https://tryhikearound.com/hike';
-const latModifier = 0.005;
+const latModifier = 0.003;
 
 const propTypes = {
     map: PropTypes.string.isRequired,
