@@ -32,6 +32,12 @@ export async function getHikeImage(id, index) {
     return storage.ref(`hikes/${id}/images/${index}.jpg`).getDownloadURL();
 }
 
+export async function getHikeThumbnail(id, index) {
+    return storage
+        .ref(`hikes/${id}/images/thumbnails/${index}_200x200.jpg`)
+        .getDownloadURL();
+}
+
 export async function getHikeXmlUrl(id) {
     return storage.ref(`gpx/${id}.gpx`).getDownloadURL();
 }

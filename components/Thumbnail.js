@@ -53,7 +53,7 @@ class Thumbnail extends React.PureComponent {
                 onPress={this.thumbnailPress}
             >
                 <ThumbnailImage
-                    source={image}
+                    source={{ uri: image.thumbnailUri }}
                     resizeMode='cover'
                     dimension={dimension}
                 />

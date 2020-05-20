@@ -4,7 +4,11 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Thumbnail from './Thumbnail';
 import LightboxModal from './modals/LightboxModal';
-import { getHikeImage, getHikeImageGallery } from '../utils/Hike';
+import {
+    getHikeThumbnail,
+    getHikeImage,
+    getHikeImageGallery,
+} from '../utils/Hike';
 
 const propTypes = {
     id: PropTypes.string.isRequired,
@@ -28,8 +32,11 @@ class PhotoLightboxGroup extends React.PureComponent {
         const photoCount = Object.keys(hikeImages).length;
 
         for (let i = 0; i < photoCount; i += 1) {
+            const thumbnailUrl = await getHikeThumbnail(id, i);
             const imageUrl = await getHikeImage(id, i);
+
             imageArray.push({
+                thumbnailUri: thumbnailUrl,
                 uri: imageUrl,
                 attribution: hikeImages[i].attribution,
             });
