@@ -12,6 +12,7 @@ const propTypes = {
     refreshControl: PropTypes.object.isRequired,
     hikes: PropTypes.array.isRequired,
     scrollRef: PropTypes.object.isRequired,
+    city: PropTypes.string.isRequired,
 };
 
 class FeedList extends React.Component {
@@ -37,6 +38,7 @@ class FeedList extends React.Component {
             hikes,
             theme,
             scrollRef,
+            city,
         } = this.props;
 
         return (
@@ -45,7 +47,7 @@ class FeedList extends React.Component {
                     ref={scrollRef}
                     data={hikes}
                     extraData={hikes}
-                    CollapsibleHeaderComponent={<FeedHeader />}
+                    CollapsibleHeaderComponent={<FeedHeader city={city} />}
                     headerHeight={35}
                     showsVerticalScrollIndicator={false}
                     keyExtractor={(item) => item.key}

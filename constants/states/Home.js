@@ -8,6 +8,7 @@ export const defaultState = {
     hikes: [],
     position: {},
     data: {},
+    city: '',
 };
 
 export default defaultState;

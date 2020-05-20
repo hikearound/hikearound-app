@@ -5,11 +5,7 @@ import { withTranslation } from 'react-i18next';
 import { fontWeights, fontSizes, spacing } from '../constants/Index';
 
 const propTypes = {
-    city: PropTypes.string,
-};
-
-const defaultProps = {
-    city: 'San Francisco',
+    city: PropTypes.string.isRequired,
 };
 
 class FeedHeader extends React.PureComponent {
@@ -24,7 +20,6 @@ class FeedHeader extends React.PureComponent {
 }
 
 FeedHeader.propTypes = propTypes;
-FeedHeader.defaultProps = defaultProps;
 
 export default withTranslation()(FeedHeader);
 
