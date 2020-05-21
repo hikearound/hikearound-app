@@ -6,7 +6,7 @@ import { withTranslation } from 'react-i18next';
 import { fontSizes, spacing, colors, fontWeights } from '../../constants/Index';
 import { withTheme } from '../../utils/Themes';
 import InputButton from '../../components/InputButton';
-import Location from '../../components/header/Location';
+import SkipLocation from '../../components/header/SkipLocation';
 import { requestLocationPermission } from '../../utils/Location';
 
 class LocationPermissionScreen extends React.Component {
@@ -16,7 +16,7 @@ class LocationPermissionScreen extends React.Component {
 
         navigation.setOptions({
             headerRight: () => (
-                <Location
+                <SkipLocation
                     t={t}
                     openHomeScreen={this.openHomeScreen}
                     permissionAction={this.getLocationPermissions}
@@ -76,6 +76,7 @@ const RootView = styled.View`
     align-items: center;
     background-color: ${(props) => props.theme.rootBackground};
     margin-top: -${spacing.header}px;
+    width: 100%;
 `;
 
 const ButtonWrapper = styled.View`
