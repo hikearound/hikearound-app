@@ -8,10 +8,31 @@ export async function initializeGeolocation() {
     Geocoder.init(Constants.manifest.extra.googleGeoApiKey);
 }
 
-export async function getNearestCity(coords) {
+export async function getNearestCity(coords, objectType) {
     const { latitude, longitude } = coords;
     const geocode = await Geocoder.from({ lat: latitude, lng: longitude });
-    return geocode.results[0].address_components[4].long_name;
+    const resultsLength = geocode.results[0].address_components.length;
+
+    for (let ac = 0; ac < resultsLength; ac += 1) {
+        const component = geocode.results[0].address_components[ac];
+
+        switch (component.types[0]) {
+            case 'locality':
+                if (objectType === 'cityName') {
+                    return component.long_name;
+                }
+                break;
+            case 'administrative_area_level_2':
+                if (objectType === 'countyName') {
+                    return component.long_name;
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    return null;
 }
 
 export async function requestLocationPermission() {
