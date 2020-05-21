@@ -9,7 +9,7 @@ const propTypes = {
     openHomeScreen: PropTypes.func.isRequired,
 };
 
-class Location extends React.PureComponent {
+class SkipLocation extends React.PureComponent {
     showAlert = () => {
         const { openHomeScreen, permissionAction, t } = this.props;
 
@@ -44,9 +44,9 @@ class Location extends React.PureComponent {
     }
 }
 
-Location.propTypes = propTypes;
+SkipLocation.propTypes = propTypes;
 
-export default Location;
+export default SkipLocation;
 
 const Text = styled.Text`
     margin-right: ${spacing.micro}px;
