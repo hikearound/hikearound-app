@@ -8,6 +8,7 @@ import {
     HikeScreen,
     CreateAccountScreen,
     AuthScreen,
+    LocationPermissionScreen,
 } from '../screens/Index';
 import { mode, headerMode, screenOptions } from '../constants/Navigation';
 import { Logo } from '../components/Index';
@@ -96,6 +97,18 @@ class HomeStack extends React.Component {
         return <Stack.Screen name='Hike' component={HikeScreen} />;
     };
 
+    renderLocationPermissionScreen = (t) => {
+        return (
+            <Stack.Screen
+                name='LocationPermission'
+                component={LocationPermissionScreen}
+                options={{
+                    headerTitle: t('label.nav.locationPermission'),
+                }}
+            />
+        );
+    };
+
     render() {
         const { theme, t } = this.props;
 
@@ -112,6 +125,7 @@ class HomeStack extends React.Component {
                 {this.renderCreateAccountScreen(t)}
                 {this.renderHomeScreen()}
                 {this.renderHikeScreen()}
+                {this.renderLocationPermissionScreen(t)}
             </Stack.Navigator>
         );
     }

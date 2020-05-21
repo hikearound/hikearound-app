@@ -57,6 +57,10 @@ export const defaultTheme = {
 
         // Maps
         mapViewBackground: colors.grayUltraLight,
+
+        // Onboarding
+        onboardTitle: colors.blackLight,
+        onboardDescription: colors.grayDark,
     },
 };
 
@@ -115,5 +119,9 @@ export const darkTheme = {
 
         // Maps
         mapViewBackground: colors.black,
+
+        // Onboarding
+        onboardTitle: colors.white,
+        onboardDescription: colors.grayDark,
     },
 };

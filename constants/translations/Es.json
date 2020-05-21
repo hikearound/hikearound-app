@@ -5,7 +5,10 @@
             "logout": "Cerrar sesión",
             "terms": "Términos de servicio",
             "privacy": "Política de privacidad",
-            "read": "Lee mas"
+            "read": "Lee mas",
+            "skip": "Omitir",
+            "warning": "Advertencia",
+            "continue": "Seguir"
         },
         "input": {
             "name": "Nombre",
@@ -23,7 +26,8 @@
             "home": "Casa",
             "notifications": "Notificaciones",
             "createAccount": "Crear una cuenta",
-            "signIn": "Registrarse"
+            "signIn": "Registrarse",
+            "locationPermission": "Comparte ubicacion"
         },
         "modal": {
             "save": "Salvar",
@@ -68,6 +72,14 @@
         }
     },
     "screen": {
+        "onboard": {
+            "permission": {
+                "title": "Comparte tu ubicación",
+                "description": "¡Compartir su ubicación nos permite recomendar grandes caminatas cerca de usted!",
+                "button": "Permitir compartir ubicación",
+                "warning": "{{appName}} no funcionará correctamente si elige no compartir su ubicación."
+            }
+        },
         "createAccount": {
             "legal": "Al hacer clic en '{{createAccount}}' acepta los <5>Términos de servicio</5> y la <7>Política de privacidad</7> de {{appName}}."
         },

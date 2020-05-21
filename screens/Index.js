@@ -8,6 +8,7 @@ import AuthScreen from './AuthScreen';
 import SettingsScreen from './SettingsScreen';
 import CreateAccountScreen from './CreateAccountScreen';
 import NotificationSettingsScreen from './settings/NotificationScreen';
+import LocationPermissionScreen from './onboard/LocationPermissionScreen';
 
 export {
     LandingScreen,
@@ -20,4 +21,5 @@ export {
     SettingsScreen,
     CreateAccountScreen,
     NotificationSettingsScreen,
+    LocationPermissionScreen,
 };

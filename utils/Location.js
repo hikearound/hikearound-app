@@ -14,6 +14,14 @@ export async function getNearestCity(coords) {
     return geocode.results[0].address_components[4].long_name;
 }
 
+export async function requestLocationPermission() {
+    const { status } = await Location.requestPermissionsAsync();
+    if (status !== 'granted') {
+        return null;
+    }
+    return status;
+}
+
 export async function getCurrentPosition() {
     const { status } = await Location.requestPermissionsAsync();
     if (status !== 'granted') {

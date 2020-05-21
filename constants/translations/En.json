@@ -5,7 +5,10 @@
             "logout": "Logout",
             "terms": "Terms of Service",
             "privacy": "Privacy Policy",
-            "read": "Read More"
+            "read": "Read More",
+            "skip": "Skip",
+            "warning": "Warning",
+            "continue": "Continue"
         },
         "input": {
             "name": "Name",
@@ -23,7 +26,8 @@
             "home": "Home",
             "notifications": "Notifications",
             "createAccount": "Create Account",
-            "signIn": "Sign In"
+            "signIn": "Sign In",
+            "locationPermission": "Share Location"
         },
         "modal": {
             "save": "Save",
@@ -68,6 +72,14 @@
         }
     },
     "screen": {
+        "onboard": {
+            "permission": {
+                "title": "Share your location",
+                "description": "Sharing your location allows us to recommend great hikes that are close to you!",
+                "button": "Allow Location Sharing",
+                "warning": "{{appName}} won't work properly if you choose not to share your location."
+            }
+        },
         "createAccount": {
             "legal": "By clicking '{{createAccount}}' you agree to {{appName}} <5>Terms of Service</5> and <7>Privacy Policy</7>."
         },

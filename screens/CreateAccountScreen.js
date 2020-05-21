@@ -51,7 +51,7 @@ class CreateAccountScreen extends React.Component {
 
         const resetAction = CommonActions.reset({
             index: 0,
-            routes: [{ name: 'Home' }],
+            routes: [{ name: 'LocationPermission' }],
         });
 
         this.setState({ loading: true });

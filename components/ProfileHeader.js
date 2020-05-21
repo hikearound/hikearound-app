@@ -109,7 +109,7 @@ class ProfileHeader extends React.PureComponent {
             <HeaderWrapper source={bgImage}>
                 <Avatar />
                 <NameText>{name}</NameText>
-                {location === '' && this.addLocationLink()}
+                {location === '' && this.addLocationLink(t)}
                 {location !== '' && <LocationText>{location}</LocationText>}
                 {this.editProfileLink(t)}
             </HeaderWrapper>
