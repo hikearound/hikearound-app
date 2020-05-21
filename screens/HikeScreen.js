@@ -12,10 +12,7 @@ import { getToastText } from '../utils/Toast';
 import { copyLink } from '../actions/Hike';
 import { RootView } from '../styles/Screens';
 import { withTheme } from '../utils/Themes';
-
-const shareAction = 'CopyToPasteboard';
-const baseUrl = 'https://tryhikearound.com/hike';
-const latModifier = 0.003;
+import { shareAction, baseUrl, latModifier } from '../constants/Common';
 
 const propTypes = {
     map: PropTypes.string.isRequired,

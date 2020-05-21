@@ -77,14 +77,14 @@ const Cover = styled.View`
 
 const DataPill = styled.View`
     position: absolute;
-    right: ${spacing.tiny}px;
+    left: ${spacing.tiny}px;
     top: ${spacing.tiny}px;
-    background-color: ${transparentColors.white};
+    background-color: ${(props) => props.theme.sheetBackground};
     border-radius: ${borderRadius.medium}px;
 `;
 
 const Location = styled.Text`
-    color: ${colors.blackText};
+    color: ${(props) => props.theme.metaDataText};
     font-size: ${fontSizes.extraSmall}px;
     padding: 4px 6px;
 `;
