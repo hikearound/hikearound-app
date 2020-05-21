@@ -74,9 +74,9 @@ class HomeScreen extends React.Component {
             scheme,
         } = this.props;
 
+        this.setFirstLoad();
         await this.getAndSetPosition();
 
-        this.setFirstLoad();
         this.getHikeFeedData();
         this.setFeedHikeCount();
 
