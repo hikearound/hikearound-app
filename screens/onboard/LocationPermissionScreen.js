@@ -41,7 +41,11 @@ class LocationPermissionScreen extends React.Component {
     };
 
     render() {
-        return <LocationUpsell />;
+        return (
+            <LocationUpsell
+                getLocationPermissions={this.getLocationPermissions}
+            />
+        );
     }
 }
 
