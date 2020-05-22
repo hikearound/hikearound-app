@@ -9,7 +9,7 @@ const propTypes = {
     distance: PropTypes.number,
     size: PropTypes.number,
     identifier: PropTypes.string.isRequired,
-    coordinate: PropTypes.object,
+    coordinates: PropTypes.object,
     markerRef: PropTypes.func,
     onPress: PropTypes.func,
 };
@@ -22,9 +22,9 @@ class HikeMapMarker extends React.Component {
 
     componentDidUpdate(prevProps) {
         const { tracksViewChanges } = this.state;
-        const { coordinate } = this.props;
+        const { coordinates } = this.props;
 
-        if (prevProps.coordinate !== coordinate) {
+        if (prevProps.coordinates !== coordinates) {
             this.toggleTrackViewChanges(true);
         } else if (tracksViewChanges) {
             this.toggleTrackViewChanges(false);
@@ -35,25 +35,34 @@ class HikeMapMarker extends React.Component {
         this.setState({ tracksViewChanges: state });
     };
 
+    getShortDistance = () => {
+        const { distance } = this.props;
+        return Math.round(distance * 10) / 10;
+    };
+
     renderMarkerIcon = () => {
-        const { distance, size } = this.props;
+        const { size } = this.props;
+        const shortDistance = this.getShortDistance();
 
         return (
             <MapMarker size={size}>
-                <MarkerLabel>{distance}m</MarkerLabel>
+                <MarkerLabel>{shortDistance}m</MarkerLabel>
             </MapMarker>
         );
     };
 
     render() {
-        const { identifier, coordinate, markerRef, onPress } = this.props;
+        const { identifier, coordinates, markerRef, onPress } = this.props;
         const { tracksViewChanges } = this.state;
 
         return (
             <Marker
                 ref={markerRef}
                 identifier={identifier}
-                coordinate={coordinate}
+                coordinate={{
+                    latitude: coordinates.startingLat,
+                    longitude: coordinates.startingLng,
+                }}
                 onPress={onPress}
                 tracksViewChanges={tracksViewChanges}
             >

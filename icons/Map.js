@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { colors } from '../constants/Index';
 
 const propTypes = {
@@ -16,7 +16,13 @@ const defaultProps = {
 class MapIcon extends React.PureComponent {
     render() {
         const { size, fill } = this.props;
-        return <MaterialIcons name='map' size={size} color={fill} />;
+        return (
+            <MaterialCommunityIcons
+                name='map-search'
+                size={size}
+                color={fill}
+            />
+        );
     }
 }
 

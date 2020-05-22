@@ -5,7 +5,8 @@ import BottomSheet from 'reanimated-bottom-sheet';
 import { connect } from 'react-redux';
 import GlobalMap from '../components/GlobalMap';
 import { withTheme } from '../utils/Themes';
-import { colors, spacing, fontSizes } from '../constants/Index';
+import { spacing, fontSizes } from '../constants/Index';
+import { pageFeed } from '../utils/Feed';
 
 const handleWidth = '30px';
 const handleHeight = '5px';
@@ -31,6 +32,20 @@ function mapDispatchToProps() {
 }
 
 class MapScreen extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            hikeData: [],
+            sortDirection: 'desc',
+            pageSize: 20,
+        };
+    }
+
+    async componentDidMount() {
+        this.getHikeData();
+    }
+
     renderContent = () => {
         const { theme, selectedHike } = this.props;
 
@@ -53,12 +68,27 @@ class MapScreen extends React.Component {
         );
     };
 
+    getHikeData = async (lastKey) => {
+        const { sortDirection, pageSize } = this.state;
+        const { position } = this.props;
+
+        const { data } = await pageFeed(
+            pageSize,
+            lastKey,
+            position,
+            sortDirection,
+        );
+
+        this.setState({ hikeData: data });
+    };
+
     render() {
         const { position } = this.props;
+        const { hikeData } = this.state;
 
         return (
             <>
-                <GlobalMap position={position} />
+                <GlobalMap position={position} hikeData={hikeData} />
                 <BottomSheet
                     snapPoints={[35, 100, 35]}
                     renderContent={this.renderContent}
@@ -102,5 +132,5 @@ const HeaderHandle = styled.View`
     height: ${handleHeight};
     border-radius: ${spacing.micro}px;
     margin-bottom: ${spacing.micro}px;
-    background-color: ${colors.gray};
+    background-color: ${(props) => props.theme.sheetHandle};
 `;

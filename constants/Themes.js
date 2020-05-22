@@ -21,7 +21,8 @@ export const defaultTheme = {
         blockView: colors.purple,
         refreshControlTint: colors.grayLight,
         itemBorder: colors.grayUltraLight,
-        sheetBackground: transparentColors.white,
+        sheetBackground: DefaultTheme.colors.card,
+        sheetHandle: colors.gray,
         feedText: colors.grayDark,
 
         // Cards
@@ -84,7 +85,8 @@ export const darkTheme = {
         blockView: DarkTheme.colors.card,
         refreshControlTint: colors.white,
         itemBorder: DarkTheme.colors.border,
-        sheetBackground: transparentColors.blackLight,
+        sheetBackground: DarkTheme.colors.card,
+        sheetHandle: colors.grayDark,
         feedText: colors.grayLight,
 
         // Cards

@@ -14,6 +14,7 @@ const propTypes = {
     position: PropTypes.object.isRequired,
     duration: PropTypes.number,
     zoom: PropTypes.number,
+    hikeData: PropTypes.array.isRequired,
 };
 
 const defaultProps = {
@@ -22,17 +23,6 @@ const defaultProps = {
     duration: 250,
     zoom: 14,
 };
-
-const hikeMarkers = [
-    {
-        hid: 'zvXj5WRBdxrlRTLm65SD',
-        coordinate: {
-            latitude: 37.7784649,
-            longitude: -122.4258831,
-        },
-        distance: 2.3,
-    },
-];
 
 function mapStateToProps(state) {
     return {
@@ -50,19 +40,12 @@ function mapDispatchToProps(dispatch) {
 class GlobalMap extends React.Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            region: null,
-        };
+        this.state = { region: null };
     }
 
     async componentDidMount() {
         this.setRegion();
     }
-
-    onMapReady = () => {
-        // todo
-    };
 
     setRegion = () => {
         const { delta, position } = this.props;
@@ -104,7 +87,7 @@ class GlobalMap extends React.Component {
     };
 
     render() {
-        const { mapType, mapPadding, mapStyle } = this.props;
+        const { mapType, mapPadding, mapStyle, hikeData } = this.props;
         const { region } = this.state;
 
         if (region) {
@@ -126,13 +109,13 @@ class GlobalMap extends React.Component {
                     onMapReady={this.onMapReady}
                     mapPadding={mapPadding}
                 >
-                    {hikeMarkers.map(({ hid, coordinate, distance }, index) => (
+                    {hikeData.map(({ id, coordinates, distance }, index) => (
                         <HikeMapMarker
                             key={index}
-                            identifier={hid}
+                            identifier={id}
                             distance={distance}
                             markerRef={(ref) => this.assignRef(ref, index)}
-                            coordinate={coordinate}
+                            coordinates={coordinates}
                             onPress={this.markerPress}
                         />
                     ))}
