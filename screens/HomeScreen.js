@@ -9,7 +9,6 @@ import FeedRefreshControl from '../components/FeedRefreshControl';
 import { feedActionSheet } from '../components/action_sheets/Feed';
 import { initializeUserData, initializeAvatar } from '../actions/User';
 import { initializeMapData } from '../actions/Map';
-import toggleScreen from '../actions/Home';
 import { timings } from '../constants/Index';
 import { defaultState } from '../constants/states/Home';
 import { RootView } from '../styles/Screens';
@@ -19,7 +18,8 @@ import { handleAppBadge } from '../utils/Notifications';
 import { withTheme } from '../utils/Themes';
 import { getMapData } from '../utils/Map';
 import { getPosition, getNearestCity } from '../utils/Location';
-import { pageFeed, sortHikes, buildHikeData, setFeed } from '../utils/Feed';
+import SearchModal from '../components/modals/SearchModal';
+import { pageFeed, sortHikes, buildHikeData } from '../utils/Feed';
 import {
     checkInitialUrl,
     addUrlListener,
@@ -30,7 +30,6 @@ const propTypes = {
     dispatchUserData: PropTypes.func.isRequired,
     dispatchMapData: PropTypes.func.isRequired,
     dispatchAvatar: PropTypes.func.isRequired,
-    dispatchScreenType: PropTypes.func.isRequired,
 };
 
 function mapStateToProps() {
@@ -42,7 +41,6 @@ function mapDispatchToProps(dispatch) {
         dispatchUserData: (userData) => dispatch(initializeUserData(userData)),
         dispatchMapData: (mapData) => dispatch(initializeMapData(mapData)),
         dispatchAvatar: (avatarUri) => dispatch(initializeAvatar(avatarUri)),
-        dispatchScreenType: (screenType) => dispatch(toggleScreen(screenType)),
     };
 }
 
@@ -56,10 +54,7 @@ class HomeScreen extends React.Component {
         this.feedActionSheet = feedActionSheet.bind(this, t);
         navigation.setOptions({
             headerRight: () => (
-                <HomeActions
-                    feedAction={this.feedActionSheet}
-                    toggleAction={this.toggleScreenType}
-                />
+                <HomeActions feedAction={this.feedActionSheet} />
             ),
         });
     }
@@ -157,15 +152,6 @@ class HomeScreen extends React.Component {
         }
     };
 
-    toggleScreenType = () => {
-        const { dispatchScreenType } = this.props;
-        const { view } = this.state;
-        const nextView = setFeed(view);
-
-        this.setState({ view: nextView });
-        dispatchScreenType(nextView);
-    };
-
     getAndSetPosition = async () => {
         const lastKnownPosition = await getPosition('lastKnown');
         const { coords } = lastKnownPosition;
@@ -183,18 +169,21 @@ class HomeScreen extends React.Component {
         }
 
         return (
-            <FeedList
-                refreshControl={
-                    <FeedRefreshControl
-                        refreshing={loading}
-                        onRefresh={this.onRefresh}
-                    />
-                }
-                scrollRef={scrollRef}
-                onEndReached={this.onEndReached}
-                hikes={hikes}
-                city={city}
-            />
+            <>
+                <FeedList
+                    refreshControl={
+                        <FeedRefreshControl
+                            refreshing={loading}
+                            onRefresh={this.onRefresh}
+                        />
+                    }
+                    scrollRef={scrollRef}
+                    onEndReached={this.onEndReached}
+                    hikes={hikes}
+                    city={city}
+                />
+                <SearchModal modalAction='showSearch' />
+            </>
         );
     };
 

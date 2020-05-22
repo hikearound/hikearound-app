@@ -1,10 +1,6 @@
 import { avatar } from './Images';
 import { defaultTheme } from './Maps';
 
-export const homeState = {
-    screenType: 'feed',
-};
-
 export const mapState = {
     mapType: 'standard',
     mapStyle: defaultTheme,

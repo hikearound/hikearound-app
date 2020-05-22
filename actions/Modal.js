@@ -16,5 +16,8 @@ export const showModal = (modalType) => {
     if (modalType === 'editProfile') {
         return { type: 'SHOW_EDIT_PROFILE' };
     }
+    if (modalType === 'search') {
+        return { type: 'SHOW_SEARCH' };
+    }
     return {};
 };

@@ -64,13 +64,3 @@ export async function buildHikeData(data) {
 
     return hikes;
 }
-
-export function setFeed(view) {
-    let nextView = 'search';
-
-    if (view === nextView) {
-        nextView = 'feed';
-    }
-
-    return nextView;
-}

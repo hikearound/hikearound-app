@@ -19,7 +19,7 @@ const propTypes = {
 
 const defaultProps = {
     mapPadding: { bottom: 35 },
-    delta: 0.05,
+    delta: 0.3,
     duration: 250,
     zoom: 14,
 };
@@ -40,6 +40,7 @@ function mapDispatchToProps(dispatch) {
 class GlobalMap extends React.Component {
     constructor(props) {
         super(props);
+
         this.state = { region: null };
     }
 

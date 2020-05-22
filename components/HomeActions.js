@@ -10,17 +10,16 @@ const maxHeight = '26px';
 
 const propTypes = {
     feedAction: PropTypes.func.isRequired,
-    toggleAction: PropTypes.func.isRequired,
 };
 
 class HomeActions extends React.PureComponent {
     render() {
-        const { feedAction, toggleAction } = this.props;
+        const { feedAction } = this.props;
 
         return (
             <ActionsWrapper>
                 <Sort onPress={feedAction} />
-                <Search onPress={toggleAction} />
+                <Search />
             </ActionsWrapper>
         );
     }
