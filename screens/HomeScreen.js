@@ -19,7 +19,7 @@ import { getFeedHikeCount } from '../utils/Hike';
 import { handleAppBadge } from '../utils/Notifications';
 import { withTheme } from '../utils/Themes';
 import { getMapData } from '../utils/Map';
-import { getCurrentPosition, getNearestCity } from '../utils/Location';
+import { getPosition, getNearestCity } from '../utils/Location';
 import { pageFeed, sortHikes, buildHikeData, setFeed } from '../utils/Feed';
 import {
     checkInitialUrl,
@@ -113,11 +113,11 @@ class HomeScreen extends React.Component {
     };
 
     getHikeFeedData = async (lastKey) => {
-        const { sortDirection, pageSize, position } = this.state;
+        const { sortDirection, pageSize, lastKnownPosition } = this.state;
         const { data, cursor } = await pageFeed(
             pageSize,
             lastKey,
-            position,
+            lastKnownPosition,
             sortDirection,
         );
 
@@ -168,14 +168,24 @@ class HomeScreen extends React.Component {
     };
 
     getAndSetPosition = async () => {
-        const position = await getCurrentPosition();
-        const city = await getNearestCity(position.coords, 'cityName');
+        const lastKnownPosition = await getPosition('lastKnown');
+        const currentPosition = await getPosition('current');
 
-        this.setState({ position, city });
+        const { coords } = lastKnownPosition;
+        const city = await getNearestCity(coords, 'cityName');
+
+        this.setState({ lastKnownPosition, currentPosition, city });
     };
 
     renderHome = () => {
-        const { hikes, view, position, firstLoad, loading, city } = this.state;
+        const {
+            hikes,
+            view,
+            currentPosition,
+            firstLoad,
+            loading,
+            city,
+        } = this.state;
         const scrollRef = React.createRef();
 
         if (firstLoad) {
@@ -183,7 +193,7 @@ class HomeScreen extends React.Component {
         }
 
         if (view === 'map') {
-            return <MapScreen position={position} />;
+            return <MapScreen position={currentPosition} />;
         }
 
         return (

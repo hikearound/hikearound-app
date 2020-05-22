@@ -14,6 +14,7 @@ import { RootView } from '../styles/Screens';
 import { withTheme } from '../utils/Themes';
 import { mapCodeToTranslation } from '../utils/Localization';
 import { createUserProfile } from '../utils/User';
+import { getPermissionStatus } from '../utils/Permissions';
 import { getInputs } from '../utils/Inputs';
 import { defaultState } from '../constants/states/CreateAccount';
 
@@ -45,13 +46,22 @@ class CreateAccountScreen extends React.Component {
         this.setState({ [name]: text });
     }
 
+    setNextScreen = async () => {
+        const status = await getPermissionStatus('location');
+        if (status === 'granted') {
+            return 'Home';
+        }
+        return 'LocationPermission';
+    };
+
     handleCreateAccount = async () => {
         const { email, password, name } = this.state;
         const { navigation, dispatchUserData, t } = this.props;
+        const screen = await this.setNextScreen();
 
         const resetAction = CommonActions.reset({
             index: 0,
-            routes: [{ name: 'LocationPermission' }],
+            routes: [{ name: screen }],
         });
 
         this.setState({ loading: true });

@@ -6,8 +6,8 @@ export const defaultState = {
     pageSize: 5,
     view: 'feed',
     hikes: [],
-    position: {},
-    data: {},
+    currentPosition: {},
+    lastKnownPosition: {},
     city: '',
 };
 

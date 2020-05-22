@@ -3,6 +3,7 @@ import geohash from 'ngeohash';
 import Constants from 'expo-constants';
 import Geocoder from 'react-native-geocoding';
 import { degreesPerMile } from '../constants/Location';
+import { getPermissionStatus } from './Permissions';
 
 export async function initializeGeolocation() {
     Geocoder.init(Constants.manifest.extra.googleGeoApiKey);
@@ -43,12 +44,23 @@ export async function requestLocationPermission() {
     return status;
 }
 
-export async function getCurrentPosition() {
-    const { status } = await Location.requestPermissionsAsync();
+export async function getPosition(type) {
+    let position = {};
+    let status = await getPermissionStatus('location');
+
     if (status !== 'granted') {
-        return null;
+        status = await requestLocationPermission();
+        if (status !== 'granted') {
+            return position;
+        }
     }
-    const position = await Location.getCurrentPositionAsync({});
+
+    if (type === 'current') {
+        position = await Location.getCurrentPositionAsync();
+    } else {
+        position = await Location.getLastKnownPositionAsync();
+    }
+
     return position;
 }
 
