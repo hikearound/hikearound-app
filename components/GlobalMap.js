@@ -125,7 +125,6 @@ class GlobalMap extends React.Component {
                     showsCompass
                     onMapReady={this.onMapReady}
                     mapPadding={mapPadding}
-                    tracksViewChanges={false}
                 >
                     {hikeMarkers.map(({ hid, coordinate, distance }, index) => (
                         <HikeMapMarker

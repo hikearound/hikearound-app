@@ -14,7 +14,27 @@ const propTypes = {
     onPress: PropTypes.func,
 };
 
-class HikeMapMarker extends React.PureComponent {
+class HikeMapMarker extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { tracksViewChanges: false };
+    }
+
+    componentDidUpdate(prevProps) {
+        const { tracksViewChanges } = this.state;
+        const { coordinate } = this.props;
+
+        if (prevProps.coordinate !== coordinate) {
+            this.toggleTrackViewChanges(true);
+        } else if (tracksViewChanges) {
+            this.toggleTrackViewChanges(false);
+        }
+    }
+
+    toggleTrackViewChanges = (state) => {
+        this.setState({ tracksViewChanges: state });
+    };
+
     renderMarkerIcon = () => {
         const { distance, size } = this.props;
 
@@ -27,6 +47,7 @@ class HikeMapMarker extends React.PureComponent {
 
     render() {
         const { identifier, coordinate, markerRef, onPress } = this.props;
+        const { tracksViewChanges } = this.state;
 
         return (
             <Marker
@@ -34,6 +55,7 @@ class HikeMapMarker extends React.PureComponent {
                 identifier={identifier}
                 coordinate={coordinate}
                 onPress={onPress}
+                tracksViewChanges={tracksViewChanges}
             >
                 {this.renderMarkerIcon()}
             </Marker>
