@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Sort from './header/Sort';
-import Toggle from './header/Toggle';
+import Search from './header/Search';
 import { spacing } from '../constants/Index';
 
 const marginBottom = '6px';
@@ -20,7 +20,7 @@ class HomeActions extends React.PureComponent {
         return (
             <ActionsWrapper>
                 <Sort onPress={feedAction} />
-                <Toggle onPress={toggleAction} />
+                <Search onPress={toggleAction} />
             </ActionsWrapper>
         );
     }

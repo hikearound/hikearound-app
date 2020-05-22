@@ -28,7 +28,7 @@ import Logo from './header/Logo';
 import Overflow from './header/Overflow';
 import Sort from './header/Sort';
 import Settings from './header/Settings';
-import Toggle from './header/Toggle';
+import Search from './header/Search';
 
 // Feed
 import FeedCard from './FeedCard';
@@ -94,5 +94,5 @@ export {
     LinkItem,
     PushItem,
     NotificationSwitchItem,
-    Toggle,
+    Search,
 };

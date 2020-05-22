@@ -3,9 +3,10 @@ import * as Haptics from 'expo-haptics';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { withTranslation } from 'react-i18next';
 import HomeStack from '../stacks/HomeStack';
+import MapStack from '../stacks/MapStack';
 import NotificationStack from '../stacks/NotificationStack';
 import ProfileStack from '../stacks/ProfileStack';
-import { HomeIcon, BellIcon, PersonIcon } from '../icons/Index';
+import { HomeIcon, BellIcon, PersonIcon, MapIcon } from '../icons/Index';
 import { withTheme } from '../utils/Themes';
 import { tabBarOptions } from '../constants/Navigation';
 
@@ -21,6 +22,26 @@ class TabNavigator extends React.PureComponent {
                     tabBarLabel: t('label.nav.home'),
                     tabBarIcon: ({ focused }) => (
                         <HomeIcon size={26} fill={this.setFill(focused)} />
+                    ),
+                })}
+                listeners={{
+                    tabPress: () => {
+                        this.onPress();
+                    },
+                }}
+            />
+        );
+    };
+
+    renderMapStack = (t) => {
+        return (
+            <Tab.Screen
+                name='Map'
+                component={MapStack}
+                options={() => ({
+                    tabBarLabel: t('label.nav.map'),
+                    tabBarIcon: ({ focused }) => (
+                        <MapIcon size={32} fill={this.setFill(focused)} />
                     ),
                 })}
                 listeners={{
@@ -95,6 +116,7 @@ class TabNavigator extends React.PureComponent {
                 )}
             >
                 {this.renderHomeStack(t)}
+                {this.renderMapStack(t)}
                 {this.renderNotificationStack(t)}
                 {this.renderProfileStack(t)}
             </Tab.Navigator>

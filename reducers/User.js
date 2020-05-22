@@ -10,6 +10,7 @@ export default function userReducer(state = userState, action) {
                 map: action.userData.map,
                 darkMode: action.userData.darkMode,
                 notifs: action.userData.notifs,
+                currentPosition: action.userData.currentPosition,
             };
         case 'INITIALIZE_AVATAR':
             return {

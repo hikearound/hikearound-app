@@ -27,7 +27,8 @@
             "notifications": "Notifications",
             "createAccount": "Create Account",
             "signIn": "Sign In",
-            "locationPermission": "Share Location"
+            "locationPermission": "Share Location",
+            "map": "Map",
         },
         "modal": {
             "save": "Save",

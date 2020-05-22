@@ -33,6 +33,7 @@ export const user = {
     name: '',
     location: '',
     notifs: {},
+    currentPosition: {},
     map: 'Apple Maps',
     darkMode: false,
 };

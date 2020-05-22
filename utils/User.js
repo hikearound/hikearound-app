@@ -1,6 +1,7 @@
 import { cacheImages } from './Image';
 import { db, storage, auth } from '../lib/Fire';
 import store from '../store/Store';
+import { getPosition } from './Location';
 
 export async function writeUserData(userData) {
     const user = auth.currentUser;
@@ -80,18 +81,11 @@ export function logoutUser(navigation) {
     });
 }
 
-export async function getUserProfileData(dispatchUserData, dispatchAvatar) {
-    let userData = await getUserData();
-    let avatarUri = await getAvatarUri();
-
+export async function maybeSetAvatar(dispatchAvatar) {
     const state = store.getState();
     const { avatar } = state.userReducer;
 
-    userData = userData.data();
-
-    if (!userData.notifs) {
-        userData = this.patchUserData(userData);
-    }
+    let avatarUri = await getAvatarUri();
 
     if (avatarUri) {
         dispatchAvatar(avatarUri);
@@ -99,8 +93,19 @@ export async function getUserProfileData(dispatchUserData, dispatchAvatar) {
         avatarUri = avatar;
     }
 
-    dispatchUserData(userData);
     cacheImages([avatarUri]);
+}
+
+export async function getUserProfileData(dispatchUserData, dispatchAvatar) {
+    const currentPosition = await getPosition('current');
+
+    let userData = await getUserData();
+    userData = userData.data();
+    userData.currentPosition = currentPosition;
+
+    await maybeSetAvatar(dispatchAvatar);
+
+    dispatchUserData(userData);
 }
 
 export function createUserProfile(dispatchUserData, name) {

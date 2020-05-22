@@ -66,7 +66,7 @@ export async function buildHikeData(data) {
 }
 
 export function setFeed(view) {
-    let nextView = 'map';
+    let nextView = 'search';
 
     if (view === nextView) {
         nextView = 'feed';

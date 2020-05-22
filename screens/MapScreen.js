@@ -22,6 +22,7 @@ const defaultProps = {
 function mapStateToProps(state) {
     return {
         selectedHike: state.mapReducer.selectedHike,
+        position: state.userReducer.currentPosition,
     };
 }
 

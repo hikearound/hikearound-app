@@ -7,6 +7,7 @@ import ProfileScreen from './ProfileScreen';
 import AuthScreen from './AuthScreen';
 import SettingsScreen from './SettingsScreen';
 import CreateAccountScreen from './CreateAccountScreen';
+import MapScreen from './MapScreen';
 import NotificationSettingsScreen from './settings/NotificationScreen';
 import LocationPermissionScreen from './onboard/LocationPermissionScreen';
 
@@ -20,6 +21,7 @@ export {
     AuthScreen,
     SettingsScreen,
     CreateAccountScreen,
+    MapScreen,
     NotificationSettingsScreen,
     LocationPermissionScreen,
 };

@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
 import HomeLoadingState from '../components/loading/Home';
-import MapScreen from './MapScreen';
 import HomeActions from '../components/HomeActions';
 import FeedList from '../components/FeedList';
 import FeedRefreshControl from '../components/FeedRefreshControl';
@@ -169,31 +168,18 @@ class HomeScreen extends React.Component {
 
     getAndSetPosition = async () => {
         const lastKnownPosition = await getPosition('lastKnown');
-        const currentPosition = await getPosition('current');
-
         const { coords } = lastKnownPosition;
         const city = await getNearestCity(coords, 'cityName');
 
-        this.setState({ lastKnownPosition, currentPosition, city });
+        this.setState({ lastKnownPosition, city });
     };
 
     renderHome = () => {
-        const {
-            hikes,
-            view,
-            currentPosition,
-            firstLoad,
-            loading,
-            city,
-        } = this.state;
+        const { hikes, firstLoad, loading, city } = this.state;
         const scrollRef = React.createRef();
 
         if (firstLoad) {
             return <HomeLoadingState />;
-        }
-
-        if (view === 'map') {
-            return <MapScreen position={currentPosition} />;
         }
 
         return (

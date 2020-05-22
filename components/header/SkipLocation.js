@@ -10,16 +10,20 @@ const propTypes = {
 };
 
 class SkipLocation extends React.PureComponent {
-    showAlert = () => {
-        const { openHomeScreen, permissionAction, t } = this.props;
+    getTitle = (t) => {
+        return t('label.common.warning');
+    };
 
-        const title = t('label.common.warning');
-
-        const message = t('screen.onboard.permission.warning', {
+    getMessage = (t) => {
+        return t('screen.onboard.permission.warning', {
             appName: t('common.appName', { count: 1 }),
         });
+    };
 
-        const options = [
+    getOptions = (t) => {
+        const { openHomeScreen, permissionAction } = this.props;
+
+        return [
             {
                 text: t('label.common.continue'),
                 onPress: () => openHomeScreen(),
@@ -29,6 +33,13 @@ class SkipLocation extends React.PureComponent {
                 onPress: () => permissionAction(),
             },
         ];
+    };
+
+    showAlert = () => {
+        const { t } = this.props;
+        const title = this.getTitle(t);
+        const message = this.getMessage(t);
+        const options = this.getOptions(t);
 
         Alert.alert(title, message, options, { cancelable: false });
     };
