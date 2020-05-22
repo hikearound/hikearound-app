@@ -13,23 +13,24 @@ class SkipLocation extends React.PureComponent {
     showAlert = () => {
         const { openHomeScreen, permissionAction, t } = this.props;
 
-        Alert.alert(
-            t('label.common.warning'),
-            t('screen.onboard.permission.warning', {
-                appName: t('common.appName', { count: 1 }),
-            }),
-            [
-                {
-                    text: t('label.common.continue'),
-                    onPress: () => openHomeScreen(),
-                },
-                {
-                    text: t('screen.onboard.permission.button'),
-                    onPress: () => permissionAction(),
-                },
-            ],
-            { cancelable: false },
-        );
+        const title = t('label.common.warning');
+
+        const message = t('screen.onboard.permission.warning', {
+            appName: t('common.appName', { count: 1 }),
+        });
+
+        const options = [
+            {
+                text: t('label.common.continue'),
+                onPress: () => openHomeScreen(),
+            },
+            {
+                text: t('screen.onboard.permission.button'),
+                onPress: () => permissionAction(),
+            },
+        ];
+
+        Alert.alert(title, message, options, { cancelable: false });
     };
 
     render() {
