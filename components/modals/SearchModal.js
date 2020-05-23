@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Modal } from 'react-native';
@@ -22,6 +23,22 @@ function mapStateToProps(state) {
     };
 }
 
+const propTypes = {
+    iconStyle: PropTypes.object,
+    iconName: PropTypes.string,
+    iconSize: PropTypes.number,
+};
+
+const defaultProps = {
+    iconStyle: {
+        display: 'flex',
+        marginLeft: 8,
+        marginTop: 4,
+    },
+    iconName: 'md-search',
+    iconSize: 22,
+};
+
 class SearchModal extends ModalBase {
     handleSubmitEditing = () => {
         // todo
@@ -32,19 +49,17 @@ class SearchModal extends ModalBase {
     };
 
     renderModalHeader = () => {
+        const { iconStyle, iconName, iconSize, t } = this.props;
+
         return (
             <ModalHeader>
                 <SearchContainer>
                     <InputView>
                         <Ionicons
-                            name='md-search'
-                            size={22}
+                            name={iconName}
+                            size={iconSize}
                             color={colors.gray}
-                            style={{
-                                display: 'flex',
-                                marginLeft: 8,
-                                marginTop: 4,
-                            }}
+                            style={iconStyle}
                         />
                         <SearchInput
                             autoFocus
@@ -53,7 +68,7 @@ class SearchModal extends ModalBase {
                             enablesReturnKeyAutomatically={false}
                             returnKeyType='search'
                             clearButtonMode='while-editing'
-                            placeholder='Search'
+                            placeholder={t('label.nav.search')}
                         />
                     </InputView>
                     <SearchCancel />
@@ -84,6 +99,9 @@ class SearchModal extends ModalBase {
         );
     }
 }
+
+SearchModal.propTypes = propTypes;
+SearchModal.defaultProps = defaultProps;
 
 export default connect(mapStateToProps)(
     withTranslation()(withTheme(SearchModal)),
