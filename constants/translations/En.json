@@ -29,6 +29,7 @@
             "signIn": "Sign In",
             "locationPermission": "Share Location",
             "map": "Map",
+            "search": "Search"
         },
         "modal": {
             "save": "Save",

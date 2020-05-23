@@ -11,9 +11,7 @@ class NotificationEmptyState extends React.PureComponent {
 
         return (
             <RootView>
-                <BellWrapper>
-                    <BellEmptyState fill={theme.colors.emptyStateFill} />
-                </BellWrapper>
+                <BellEmptyState fill={theme.colors.emptyStateFill} />
                 <EmptyStateText>
                     {t('screen.notifications.empty')}
                 </EmptyStateText>
@@ -28,10 +26,6 @@ const RootView = styled.View`
     flex: 1;
     justify-content: center;
     align-items: center;
-`;
-
-const BellWrapper = styled.View`
-    opacity: 0.8;
 `;
 
 const EmptyStateText = styled.Text`

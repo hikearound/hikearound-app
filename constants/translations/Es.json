@@ -28,7 +28,8 @@
             "createAccount": "Crear una cuenta",
             "signIn": "Registrarse",
             "locationPermission": "Comparte ubicacion",
-            "map": "Mapa"
+            "map": "Mapa",
+            "search": "Buscar"
         },
         "modal": {
             "save": "Salvar",
