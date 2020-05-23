@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import { PROVIDER_GOOGLE } from 'react-native-maps';
 import { connect } from 'react-redux';
+import MapView from 'react-native-map-clustering';
 import { updateMapData } from '../actions/Map';
 import HikeMapMarker from './HikeMapMarker';
+import { colors } from '../constants/Index';
 
 const propTypes = {
     dispatchMapData: PropTypes.func.isRequired,
@@ -15,13 +17,15 @@ const propTypes = {
     duration: PropTypes.number,
     zoom: PropTypes.number,
     hikeData: PropTypes.array.isRequired,
+    radius: PropTypes.number,
 };
 
 const defaultProps = {
     mapPadding: { bottom: 35 },
-    delta: 0.3,
+    delta: 1,
     duration: 250,
     zoom: 14,
+    radius: 32,
 };
 
 function mapStateToProps(state) {
@@ -40,8 +44,8 @@ function mapDispatchToProps(dispatch) {
 class GlobalMap extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = { region: null };
+        this.mapRef = React.createRef();
     }
 
     async componentDidMount() {
@@ -80,7 +84,7 @@ class GlobalMap extends React.Component {
         };
 
         dispatchMapData({ mapType, mapStyle, selectedHike: id });
-        this.mapView.animateCamera(camera, { duration });
+        this.mapRef.current.animateCamera(camera, { duration });
     };
 
     assignRef = (ref, index) => {
@@ -88,15 +92,13 @@ class GlobalMap extends React.Component {
     };
 
     render() {
-        const { mapType, mapPadding, mapStyle, hikeData } = this.props;
+        const { mapType, mapPadding, mapStyle, hikeData, radius } = this.props;
         const { region } = this.state;
 
         if (region) {
             return (
                 <MapView
-                    ref={(ref) => {
-                        this.mapView = ref;
-                    }}
+                    ref={this.mapRef}
                     customMapStyle={mapStyle}
                     provider={PROVIDER_GOOGLE}
                     style={{ height: '100%' }}
@@ -109,6 +111,8 @@ class GlobalMap extends React.Component {
                     showsCompass
                     onMapReady={this.onMapReady}
                     mapPadding={mapPadding}
+                    clusterColor={colors.purple}
+                    radius={radius}
                 >
                     {hikeData.map(({ id, coordinates, distance }, index) => (
                         <HikeMapMarker
@@ -116,7 +120,10 @@ class GlobalMap extends React.Component {
                             identifier={id}
                             distance={distance}
                             markerRef={(ref) => this.assignRef(ref, index)}
-                            coordinates={coordinates}
+                            coordinate={{
+                                latitude: coordinates.startingLat,
+                                longitude: coordinates.startingLng,
+                            }}
                             onPress={this.markerPress}
                         />
                     ))}

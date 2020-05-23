@@ -9,7 +9,7 @@ const propTypes = {
     distance: PropTypes.number,
     size: PropTypes.number,
     identifier: PropTypes.string.isRequired,
-    coordinates: PropTypes.object,
+    coordinate: PropTypes.object,
     markerRef: PropTypes.func,
     onPress: PropTypes.func,
 };
@@ -22,9 +22,9 @@ class HikeMapMarker extends React.Component {
 
     componentDidUpdate(prevProps) {
         const { tracksViewChanges } = this.state;
-        const { coordinates } = this.props;
+        const { coordinate } = this.props;
 
-        if (prevProps.coordinates !== coordinates) {
+        if (prevProps.coordinate !== coordinate) {
             this.toggleTrackViewChanges(true);
         } else if (tracksViewChanges) {
             this.toggleTrackViewChanges(false);
@@ -52,17 +52,14 @@ class HikeMapMarker extends React.Component {
     };
 
     render() {
-        const { identifier, coordinates, markerRef, onPress } = this.props;
+        const { identifier, coordinate, markerRef, onPress } = this.props;
         const { tracksViewChanges } = this.state;
 
         return (
             <Marker
                 ref={markerRef}
                 identifier={identifier}
-                coordinate={{
-                    latitude: coordinates.startingLat,
-                    longitude: coordinates.startingLng,
-                }}
+                coordinate={coordinate}
                 onPress={onPress}
                 tracksViewChanges={tracksViewChanges}
             >

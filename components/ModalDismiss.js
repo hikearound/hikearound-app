@@ -79,8 +79,8 @@ class ModalDismiss extends React.PureComponent {
                     activeOpacity={opacities.regular}
                     style={{
                         position: 'absolute',
-                        left: parseInt(spacing.medium, 10),
                         bottom: parseInt(spacing.small, 10),
+                        left: parseInt(spacing.small, 10),
                     }}
                 >
                     <DismissText>{t('label.modal.close')}</DismissText>
@@ -126,5 +126,5 @@ const DismissIconWrapper = styled.View`
 
 const DismissText = styled.Text`
     color: ${colors.white};
-    font-size: ${fontSizes.extraLarge}px;
+    font-size: ${fontSizes.large}px;
 `;

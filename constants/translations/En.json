@@ -32,7 +32,8 @@
         },
         "modal": {
             "save": "Save",
-            "close": "Close"
+            "close": "Close",
+            "cancel": "Cancel"
         }
     },
     "sheet": {

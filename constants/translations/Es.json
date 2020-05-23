@@ -27,11 +27,13 @@
             "notifications": "Notificaciones",
             "createAccount": "Crear una cuenta",
             "signIn": "Registrarse",
-            "locationPermission": "Comparte ubicacion"
+            "locationPermission": "Comparte ubicacion",
+            "map": "Mapa"
         },
         "modal": {
             "save": "Salvar",
-            "close": "Cerca"
+            "close": "Cerca",
+            "cancel": "Cancelar"
         }
     },
     "sheet": {

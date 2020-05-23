@@ -45,7 +45,7 @@ class ModalDismiss extends React.PureComponent {
                 activeOpacity={opacities.regular}
                 style={{
                     position: 'absolute',
-                    right: parseInt(spacing.medium, 10),
+                    right: parseInt(spacing.small, 10),
                     bottom: parseInt(spacing.small, 10),
                 }}
             >
@@ -62,5 +62,5 @@ export default connect(mapStateToProps, mapDispatchToProps)(ModalDismiss);
 
 const DismissText = styled.Text`
     color: ${colors.white};
-    font-size: ${fontSizes.extraLarge}px;
+    font-size: ${fontSizes.large}px;
 `;

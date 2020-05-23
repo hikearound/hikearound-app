@@ -182,7 +182,7 @@ class HomeScreen extends React.Component {
                     hikes={hikes}
                     city={city}
                 />
-                <SearchModal modalAction='showSearch' />
+                <SearchModal modalAction='showSearch' hideStatusBar={false} />
             </>
         );
     };
