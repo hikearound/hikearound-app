@@ -18,14 +18,16 @@ const propTypes = {
     zoom: PropTypes.number,
     hikeData: PropTypes.array.isRequired,
     radius: PropTypes.number,
+    latModifier: PropTypes.number,
 };
 
 const defaultProps = {
     mapPadding: { bottom: 35 },
-    delta: 1,
+    delta: 0.3,
     duration: 250,
     zoom: 14,
     radius: 32,
+    latModifier: 0.0015,
 };
 
 function mapStateToProps(state) {
@@ -72,12 +74,13 @@ class GlobalMap extends React.Component {
             dispatchMapData,
             mapType,
             mapStyle,
+            latModifier,
         } = this.props;
         const { coordinate, id } = event.nativeEvent;
 
         const camera = {
             center: {
-                latitude: coordinate.latitude,
+                latitude: coordinate.latitude + latModifier,
                 longitude: coordinate.longitude,
             },
             zoom,
@@ -113,6 +116,7 @@ class GlobalMap extends React.Component {
                     mapPadding={mapPadding}
                     clusterColor={colors.purple}
                     radius={radius}
+                    animationEnabled={false}
                 >
                     {hikeData.map(({ id, coordinates, distance }, index) => (
                         <HikeMapMarker
