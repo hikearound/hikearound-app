@@ -18,7 +18,7 @@ class StateResults extends React.PureComponent {
         return <Text>Empty State</Text>;
     };
 
-    renderNoResultsState = () => {
+    renderNoResults = () => {
         return <Text>No results</Text>;
     };
 
@@ -36,7 +36,7 @@ class StateResults extends React.PureComponent {
             return this.renderResults(children);
         }
 
-        return this.renderNoResultsState();
+        return this.renderNoResults();
     }
 }
 

@@ -42,6 +42,7 @@ class SearchBox extends React.PureComponent {
                             placeholder={t('label.nav.search')}
                             onChangeText={(text) => refine(text)}
                             value={currentRefinement}
+                            autoCorrect={false}
                         />
                     </InputView>
                     <Cancel />
