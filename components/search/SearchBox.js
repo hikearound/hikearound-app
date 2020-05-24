@@ -1,56 +1,37 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { withTranslation } from 'react-i18next';
-import { Ionicons } from '@expo/vector-icons';
-import { withTheme } from '../utils/Themes';
-import SearchCancel from './SearchCancel';
-import { ModalHeader } from '../styles/Modals';
-import { fontSizes, colors, spacing, borderRadius } from '../constants/Index';
-
-function mapStateToProps() {
-    return {};
-}
+import { connectSearchBox } from 'react-instantsearch-native';
+import { withTheme } from '../../utils/Themes';
+import SearchIcon from '../../icons/Search';
+import Cancel from './Cancel';
+import { ModalHeader } from '../../styles/Modals';
+import {
+    fontSizes,
+    colors,
+    spacing,
+    borderRadius,
+} from '../../constants/Index';
 
 const propTypes = {
-    iconStyle: PropTypes.object,
-    iconName: PropTypes.string,
-    iconSize: PropTypes.number,
+    refine: PropTypes.func.isRequired,
+    currentRefinement: PropTypes.string.isRequired,
 };
 
-const defaultProps = {
-    iconStyle: {
-        display: 'flex',
-        marginLeft: 8,
-        marginTop: 4,
-    },
-    iconName: 'md-search',
-    iconSize: 22,
-};
-
-class SearchHeader extends React.PureComponent {
-    handleSubmitEditing = () => {
-        // todo
-    };
-
+class SearchBox extends React.PureComponent {
     assignRef = (ref) => {
         this.searchInput = ref;
     };
 
     render() {
-        const { iconStyle, iconName, iconSize, t } = this.props;
+        const { refine, currentRefinement, t } = this.props;
 
         return (
             <ModalHeader>
                 <SearchContainer>
                     <InputView>
-                        <Ionicons
-                            name={iconName}
-                            size={iconSize}
-                            color={colors.gray}
-                            style={iconStyle}
-                        />
+                        <SearchIcon />
                         <SearchInput
                             autoFocus
                             onSubmitEditing={() => this.handleSubmitEditing()}
@@ -59,21 +40,20 @@ class SearchHeader extends React.PureComponent {
                             returnKeyType='search'
                             clearButtonMode='while-editing'
                             placeholder={t('label.nav.search')}
+                            onChangeText={(text) => refine(text)}
+                            value={currentRefinement}
                         />
                     </InputView>
-                    <SearchCancel />
+                    <Cancel />
                 </SearchContainer>
             </ModalHeader>
         );
     }
 }
 
-SearchHeader.propTypes = propTypes;
-SearchHeader.defaultProps = defaultProps;
+SearchBox.propTypes = propTypes;
 
-export default connect(mapStateToProps)(
-    withTranslation()(withTheme(SearchHeader)),
-);
+export default withTranslation()(withTheme(connectSearchBox(SearchBox)));
 
 const SearchContainer = styled.View`
     display: flex;

@@ -1,12 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Modal } from 'react-native';
 import { withTranslation } from 'react-i18next';
-import ModalBase from './ModalBase';
+import { Modal } from 'react-native';
+import { InstantSearch } from 'react-instantsearch-native';
+import SearchBox from '../search/SearchBox';
+import StateResults from '../search/StateResults';
 import { withTheme } from '../../utils/Themes';
-import { RootView } from '../../styles/Screens';
-import SearchHeader from '../SearchHeader';
+import InfiniteHits from '../search/InfiniteHits';
 import { ModalBody } from '../../styles/Modals';
+import { RootView } from '../../styles/Screens';
+import ModalBase from './ModalBase';
+import { searchClient } from '../../constants/Search';
 
 function mapStateToProps(state) {
     return {
@@ -15,35 +19,58 @@ function mapStateToProps(state) {
 }
 
 class SearchModal extends ModalBase {
-    handleSubmitEditing = () => {
-        // todo
-    };
+    constructor(props) {
+        super(props);
+        const { searchState } = this.props;
 
-    assignRef = (ref) => {
-        this.searchInput = ref;
+        this.state = {
+            modalVisible: false,
+            searchState: searchState || {},
+        };
+    }
+
+    onSearchStateChange = (nextState) => {
+        const { searchState } = this.state;
+
+        this.setState({
+            searchState: { ...searchState, ...nextState },
+        });
     };
 
     renderModalHeader = () => {
-        return <SearchHeader />;
+        return <SearchBox />;
     };
 
     renderModalBody = () => {
-        return <ModalBody />;
+        return (
+            <ModalBody>
+                <StateResults>
+                    <InfiniteHits />
+                </StateResults>
+            </ModalBody>
+        );
     };
 
     render() {
-        const { modalVisible } = this.state;
-        const { animationType } = this.props;
+        const { modalVisible, searchState } = this.state;
+        const { animationType, t } = this.props;
 
         return (
             <Modal
                 animationType={animationType}
                 transparent={false}
-                visible={modalVisible}
+                visible={true}
             >
                 <RootView>
-                    {this.renderModalHeader()}
-                    {this.renderModalBody()}
+                    <InstantSearch
+                        searchClient={searchClient}
+                        indexName='hikes'
+                        searchState={searchState}
+                        onSearchStateChange={this.onSearchStateChange}
+                    >
+                        {this.renderModalHeader(t)}
+                        {this.renderModalBody()}
+                    </InstantSearch>
                 </RootView>
             </Modal>
         );

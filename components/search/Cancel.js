@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import { withTranslation } from 'react-i18next';
 import { TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-import { colors, opacities, spacing, fontSizes } from '../constants/Index';
-import { closeModal } from '../actions/Modal';
+import { colors, opacities, spacing, fontSizes } from '../../constants/Index';
+import { closeModal } from '../../actions/Modal';
 
 const propTypes = {
     dispatchModalFlag: PropTypes.func.isRequired,
@@ -17,7 +17,7 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-class SearchCancel extends React.PureComponent {
+class Cancel extends React.PureComponent {
     close = () => {
         const { dispatchModalFlag } = this.props;
         dispatchModalFlag();
@@ -39,12 +39,9 @@ class SearchCancel extends React.PureComponent {
     }
 }
 
-SearchCancel.propTypes = propTypes;
+Cancel.propTypes = propTypes;
 
-export default connect(
-    null,
-    mapDispatchToProps,
-)(withTranslation()(SearchCancel));
+export default connect(null, mapDispatchToProps)(withTranslation()(Cancel));
 
 const CancelText = styled.Text`
     display: flex;

@@ -21,7 +21,7 @@ class App extends React.Component {
 }
 
 Sentry.init({
-    dsn: Constants.manifest.extra.sentryDsn,
+    dsn: Constants.manifest.extra.sentry.dsn,
     enableInExpoDevelopment: false,
     debug: true,
 });

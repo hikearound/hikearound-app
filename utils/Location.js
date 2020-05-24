@@ -6,7 +6,7 @@ import { degreesPerMile } from '../constants/Location';
 import { getPermissionStatus } from './Permissions';
 
 export async function initializeGeolocation() {
-    Geocoder.init(Constants.manifest.extra.googleGeoApiKey);
+    Geocoder.init(Constants.manifest.extra.googleGeolocation.apiKey);
 }
 
 export async function getNearestCity(coords, objectType) {
