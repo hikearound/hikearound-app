@@ -22,7 +22,6 @@ import LoadingOverlay from './LoadingOverlay';
 // Modals
 import MapModal from './modals/MapModal';
 import LightboxModal from './modals/LightboxModal';
-import SearchModal from './modals/SearchModal';
 
 // Header
 import Logo from './header/Logo';
@@ -84,7 +83,6 @@ export {
     Thumbnail,
     MapModal,
     LightboxModal,
-    SearchModal,
     ModalDismiss,
     LightboxImage,
     HikeMapWrapper,

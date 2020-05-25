@@ -10,6 +10,7 @@ import CreateAccountScreen from './CreateAccountScreen';
 import MapScreen from './MapScreen';
 import NotificationSettingsScreen from './settings/NotificationScreen';
 import LocationPermissionScreen from './onboard/LocationPermissionScreen';
+import SearchScreen from './SearchScreen';
 
 export {
     LandingScreen,
@@ -24,4 +25,5 @@ export {
     MapScreen,
     NotificationSettingsScreen,
     LocationPermissionScreen,
+    SearchScreen,
 };

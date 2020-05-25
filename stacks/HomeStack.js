@@ -9,12 +9,19 @@ import {
     CreateAccountScreen,
     AuthScreen,
     LocationPermissionScreen,
+    SearchScreen,
 } from '../screens/Index';
 import { mode, headerMode, screenOptions } from '../constants/Navigation';
 import { Logo } from '../components/Index';
 import { withTheme } from '../utils/Themes';
 
 const Stack = createStackNavigator();
+
+const forFade = ({ current }) => ({
+    cardStyle: {
+        opacity: current.progress,
+    },
+});
 
 class HomeStack extends React.Component {
     componentDidUpdate() {
@@ -109,6 +116,20 @@ class HomeStack extends React.Component {
         );
     };
 
+    renderSearchScreen = () => {
+        return (
+            <Stack.Screen
+                name='Search'
+                component={SearchScreen}
+                options={{
+                    cardStyleInterpolator: forFade,
+                    headerShown: false,
+                    animationEnabled: false,
+                }}
+            />
+        );
+    };
+
     render() {
         const { theme, t } = this.props;
 
@@ -126,6 +147,7 @@ class HomeStack extends React.Component {
                 {this.renderHomeScreen()}
                 {this.renderHikeScreen()}
                 {this.renderLocationPermissionScreen(t)}
+                {this.renderSearchScreen()}
             </Stack.Navigator>
         );
     }

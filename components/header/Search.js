@@ -2,35 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Ionicons } from '@expo/vector-icons';
 import styled from 'styled-components';
-import { connect } from 'react-redux';
-import { showModal } from '../../actions/Modal';
+import { useNavigation } from '@react-navigation/native';
 import { colors, opacities } from '../../constants/Index';
 
 const propTypes = {
     color: PropTypes.string,
-    dispatchModalFlag: PropTypes.func.isRequired,
-    modalType: PropTypes.string,
 };
 
 const defaultProps = {
     color: colors.white,
-    modalType: 'search',
 };
-
-function mapStateToProps() {
-    return {};
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-        dispatchModalFlag: (modalType) => dispatch(showModal(modalType)),
-    };
-}
 
 class Search extends React.PureComponent {
     onPress = () => {
-        const { dispatchModalFlag, modalType } = this.props;
-        dispatchModalFlag(modalType);
+        const { navigation } = this.props;
+        navigation.push('Search');
     };
 
     render() {
@@ -50,8 +36,13 @@ class Search extends React.PureComponent {
 Search.propTypes = propTypes;
 Search.defaultProps = defaultProps;
 
-export default connect(mapStateToProps, mapDispatchToProps)(Search);
+// export default connect(mapStateToProps, mapDispatchToProps)(Search);
 
 const StyledOpacity = styled.TouchableOpacity`
     margin-top: 1px;
 `;
+
+export default function (props) {
+    const navigation = useNavigation();
+    return <Search {...props} navigation={navigation} />;
+}

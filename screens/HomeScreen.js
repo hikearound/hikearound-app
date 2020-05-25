@@ -18,7 +18,6 @@ import { handleAppBadge } from '../utils/Notifications';
 import { withTheme } from '../utils/Themes';
 import { getMapData } from '../utils/Map';
 import { getPosition, getNearestCity } from '../utils/Location';
-import SearchModal from '../components/modals/SearchModal';
 import { pageFeed, sortHikes, buildHikeData } from '../utils/Feed';
 import {
     checkInitialUrl,
@@ -182,7 +181,6 @@ class HomeScreen extends React.Component {
                     hikes={hikes}
                     city={city}
                 />
-                <SearchModal modalAction='showSearch' hideStatusBar={false} />
             </>
         );
     };

@@ -6,7 +6,6 @@ import { connectSearchBox } from 'react-instantsearch-native';
 import { withTheme } from '../../utils/Themes';
 import SearchIcon from '../../icons/Search';
 import Cancel from './Cancel';
-import { ModalHeader } from '../../styles/Modals';
 import {
     fontSizes,
     colors,
@@ -54,6 +53,14 @@ class SearchBox extends React.PureComponent {
 SearchBox.propTypes = propTypes;
 
 export default withTranslation()(withTheme(connectSearchBox(SearchBox)));
+
+export const ModalHeader = styled.View`
+    background-color: ${(props) => props.theme.headerStyle};
+    border-bottom-color: ${colors.gray};
+    height: ${spacing.header}px;
+    width: 100%;
+    position: relative;
+`;
 
 const SearchContainer = styled.View`
     display: flex;

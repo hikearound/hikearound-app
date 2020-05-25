@@ -1,26 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { withTranslation } from 'react-i18next';
 import { TouchableOpacity } from 'react-native';
-import { connect } from 'react-redux';
+import { CommonActions, useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 import { colors, opacities, spacing, fontSizes } from '../../constants/Index';
-import { closeModal } from '../../actions/Modal';
-
-const propTypes = {
-    dispatchModalFlag: PropTypes.func.isRequired,
-};
-
-function mapDispatchToProps(dispatch) {
-    return {
-        dispatchModalFlag: () => dispatch(closeModal()),
-    };
-}
 
 class Cancel extends React.PureComponent {
     close = () => {
-        const { dispatchModalFlag } = this.props;
-        dispatchModalFlag();
+        const { navigation } = this.props;
+        navigation.dispatch(CommonActions.goBack());
     };
 
     render() {
@@ -39,9 +27,13 @@ class Cancel extends React.PureComponent {
     }
 }
 
-Cancel.propTypes = propTypes;
+// export default connect(null, mapDispatchToProps)(withTranslation()(Cancel));
 
-export default connect(null, mapDispatchToProps)(withTranslation()(Cancel));
+export default function (props) {
+    const navigation = useNavigation();
+    const { t } = useTranslation();
+    return <Cancel {...props} navigation={navigation} t={t} />;
+}
 
 const CancelText = styled.Text`
     display: flex;

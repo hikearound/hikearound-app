@@ -1,14 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View, Text, FlatList } from 'react-native';
+import { TouchableOpacity, Text, FlatList } from 'react-native';
 import { connectInfiniteHits } from 'react-instantsearch-native';
+import { useNavigation } from '@react-navigation/native';
+import { connect } from 'react-redux';
 import Highlight from './Highlight';
+import { opacities } from '../../constants/Index';
+import { openHikeScreen } from '../../utils/Hike';
 
 const propTypes = {
     hits: PropTypes.array.isRequired,
     refine: PropTypes.func.isRequired,
     hasMore: PropTypes.bool.isRequired,
 };
+
+function mapDispatchToProps() {
+    return {};
+}
 
 class InfiniteHits extends React.Component {
     onEndReached = () => {
@@ -18,12 +26,22 @@ class InfiniteHits extends React.Component {
         }
     };
 
+    getHikeData = async (objectID) => {
+        const { navigation } = this.props;
+        openHikeScreen(objectID, navigation);
+    };
+
     renderRow = ({ item }) => {
         return (
-            <View>
+            <TouchableOpacity
+                activeOpacity={opacities.regular}
+                onPress={() => {
+                    this.getHikeData(item.objectID);
+                }}
+            >
                 <Highlight attribute='name' hit={item} />
                 <Text>{item.city}</Text>
-            </View>
+            </TouchableOpacity>
         );
     };
 
@@ -47,4 +65,12 @@ class InfiniteHits extends React.Component {
 
 InfiniteHits.propTypes = propTypes;
 
-export default connectInfiniteHits(InfiniteHits);
+export function ConnectedInfiniteHits(props) {
+    const navigation = useNavigation();
+    return <InfiniteHits {...props} navigation={navigation} />;
+}
+
+export default connect(
+    null,
+    mapDispatchToProps,
+)(connectInfiniteHits(ConnectedInfiniteHits));
