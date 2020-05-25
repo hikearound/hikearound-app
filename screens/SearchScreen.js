@@ -22,9 +22,7 @@ class SearchScreen extends React.Component {
         super(props);
         const { searchState } = this.props;
 
-        this.state = {
-            searchState: searchState || {},
-        };
+        this.state = { searchState };
     }
 
     onSearchStateChange = (nextState) => {
@@ -35,11 +33,11 @@ class SearchScreen extends React.Component {
         });
     };
 
-    renderModalHeader = () => {
+    renderSearchBox = () => {
         return <SearchBox />;
     };
 
-    renderModalBody = () => {
+    renderSearchResults = () => {
         return (
             <StateResults>
                 <InfiniteHits />
@@ -59,8 +57,8 @@ class SearchScreen extends React.Component {
                     searchState={searchState}
                     onSearchStateChange={this.onSearchStateChange}
                 >
-                    {this.renderModalHeader(t)}
-                    {this.renderModalBody()}
+                    {this.renderSearchBox(t)}
+                    {this.renderSearchResults()}
                 </InstantSearch>
             </RootView>
         );
