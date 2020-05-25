@@ -79,6 +79,14 @@
             "results": {
                 "header": "{{count}} result",
                 "header_plural": "{{count}} results"
+            },
+            "emptyState": {
+                "header": "Recent searches",
+                "label": "No recent searches. Try searching for a hike by name or by city."
+            },
+            "noResults": {
+                "header": "No results",
+                "label": "Sorry, we couldn't find any matches for that search."
             }
         },
         "onboard": {

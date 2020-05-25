@@ -81,6 +81,8 @@ const DataPill = styled.View`
     top: ${spacing.tiny}px;
     background-color: ${(props) => props.theme.sheetBackground};
     border-radius: ${borderRadius.medium}px;
+    border-width: 1px;
+    border-color: ${(props) => props.theme.pillBorder};
 `;
 
 const Location = styled.Text`

@@ -5,7 +5,8 @@ import { connectInfiniteHits } from 'react-instantsearch-native';
 import { openHikeScreen } from '../../utils/Hike';
 import { withNavigation } from '../../utils/Navigation';
 import HikeListItem from '../HikeListItem';
-import Header from './Header';
+import Stats from './Stats';
+import { withTheme } from '../../utils/Themes';
 
 const propTypes = {
     hits: PropTypes.array.isRequired,
@@ -40,7 +41,7 @@ class InfiniteHits extends React.Component {
     };
 
     render() {
-        const { hits, hasMore, refine } = this.props;
+        const { hits, hasMore, theme, refine } = this.props;
 
         if (hits.length > 0) {
             return (
@@ -50,7 +51,8 @@ class InfiniteHits extends React.Component {
                     data={hits}
                     renderItem={this.renderItem}
                     onEndReached={() => hasMore && refine()}
-                    CollapsibleHeaderComponent={<Header />}
+                    CollapsibleHeaderComponent={<Stats hideBorder />}
+                    headerContainerBackgroundColor={theme.colors.rootBackground}
                     headerHeight={35}
                 />
             );
@@ -62,4 +64,4 @@ class InfiniteHits extends React.Component {
 
 InfiniteHits.propTypes = propTypes;
 
-export default withNavigation(connectInfiniteHits(InfiniteHits));
+export default withNavigation(withTheme(connectInfiniteHits(InfiniteHits)));

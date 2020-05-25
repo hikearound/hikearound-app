@@ -75,6 +75,20 @@
         }
     },
     "screen": {
+        "search": {
+            "results": {
+                "header": "{{count}} resultado",
+                "header_plural": "{{count}} resultados"
+            },
+            "emptyState": {
+                "header": "Búsquedas recientes",
+                "label": "No hay búsquedas recientes. Intente buscar una caminata por nombre o por ciudad."
+            },
+            "noResults": {
+                "header": "No hay resultados",
+                "label": "Lo sentimos, no pudimos encontrar coincidencias para esa búsqueda."
+            }
+        },
         "onboard": {
             "permission": {
                 "title": "Comparte tu ubicación",

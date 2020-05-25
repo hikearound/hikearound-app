@@ -37,7 +37,7 @@ class SearchBox extends React.PureComponent {
                             ref={(ref) => this.assignRef(ref)}
                             enablesReturnKeyAutomatically={false}
                             returnKeyType='search'
-                            clearButtonMode='while-editing'
+                            clearButtonMode='always'
                             placeholder={t('label.nav.search')}
                             onChangeText={(text) => refine(text)}
                             value={currentRefinement}
@@ -76,9 +76,9 @@ const InputView = styled.View`
     margin-bottom: ${spacing.tiny}px;
     margin-left: ${spacing.tiny}px;
     margin-right: ${spacing.tiny}px;
-    background-color: ${colors.white};
     border-radius: ${borderRadius.medium}px;
     flex-direction: row;
+    background-color: ${(props) => props.theme.searchBackground};
 `;
 
 const SearchInput = styled.TextInput.attrs((props) => ({

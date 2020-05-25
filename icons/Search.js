@@ -14,7 +14,7 @@ const defaultProps = {
     style: {
         display: 'flex',
         marginLeft: 8,
-        marginTop: 4,
+        marginTop: 5,
     },
     name: 'md-search',
     size: 22,

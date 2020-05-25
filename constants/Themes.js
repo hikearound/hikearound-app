@@ -31,6 +31,7 @@ export const defaultTheme = {
         cardShadow: transparentColors.grayLight,
         metaDataTypeText: colors.grayDark,
         metaDataText: colors.blackText,
+        pillBorder: colors.white,
 
         // Hikes
         mapBackground: colors.purple,
@@ -62,6 +63,9 @@ export const defaultTheme = {
         // Onboarding
         onboardTitle: colors.blackLight,
         onboardDescription: colors.grayDark,
+
+        // Search
+        searchBackground: colors.white,
     },
 };
 
@@ -94,6 +98,7 @@ export const darkTheme = {
         cardContentBackground: colors.blackText,
         metaDataTypeText: colors.grayDark,
         metaDataText: colors.white,
+        pillBorder: colors.grayLight,
 
         // Hikes
         mapBackground: DarkTheme.colors.card,
@@ -125,5 +130,8 @@ export const darkTheme = {
         // Onboarding
         onboardTitle: colors.white,
         onboardDescription: colors.grayDark,
+
+        // Search
+        searchBackground: colors.blackText,
     },
 };
