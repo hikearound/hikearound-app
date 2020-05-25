@@ -2,28 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { LayoutAnimation } from 'react-native';
 import styled from 'styled-components';
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView from 'react-native-maps';
 import { connect } from 'react-redux';
 import { colors, borderRadius } from '../constants/Index';
 import { defaultProps } from '../constants/states/HikeMap';
 
 const propTypes = {
     mapRef: PropTypes.func.isRequired,
-    mapType: PropTypes.string.isRequired,
-    mapStyle: PropTypes.array.isRequired,
     coordinates: PropTypes.array,
     region: PropTypes.object,
     maxZoom: PropTypes.number,
     fullHeight: PropTypes.bool,
-    mapPadding: PropTypes.object,
     mapHeight: PropTypes.number,
 };
 
-function mapStateToProps(state) {
-    return {
-        mapType: state.mapReducer.mapType,
-        mapStyle: state.mapReducer.mapStyle,
-    };
+function mapStateToProps() {
+    return {};
 }
 
 function mapDispatchToProps() {
@@ -48,15 +42,7 @@ class HikeMap extends React.Component {
     };
 
     render() {
-        const {
-            coordinates,
-            mapRef,
-            region,
-            mapType,
-            mapPadding,
-            mapStyle,
-            mapHeight,
-        } = this.props;
+        const { coordinates, mapRef, region, mapHeight } = this.props;
         const { maxZoom, fullHeight, mapDidLoad } = this.state;
 
         if (!fullHeight && !mapDidLoad) {
@@ -67,24 +53,20 @@ class HikeMap extends React.Component {
             return (
                 <MapView
                     ref={mapRef}
-                    customMapStyle={mapStyle}
-                    provider={PROVIDER_GOOGLE}
+                    provider={null}
                     style={{
                         height: fullHeight ? '100%' : mapHeight,
                         zIndex: 1,
                         overflow: 'hidden',
                         borderRadius: parseInt(borderRadius.medium, 10),
                     }}
-                    mapType={mapType}
                     showsUserLocation
-                    loadingEnabled
                     initialRegion={region}
                     showsMyLocationButton={false}
                     showsPointsOfInterest={false}
                     showsCompass={false}
                     maxZoomLevel={maxZoom}
                     onMapReady={this.onMapReady}
-                    mapPadding={mapPadding}
                 >
                     <MapView.Polyline
                         coordinates={coordinates}

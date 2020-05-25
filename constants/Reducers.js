@@ -1,9 +1,6 @@
 import { avatar } from './Images';
-import { defaultTheme } from './Maps';
 
 export const mapState = {
-    mapType: 'standard',
-    mapStyle: defaultTheme,
     selectedHike: null,
 };
 

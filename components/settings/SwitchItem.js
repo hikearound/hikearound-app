@@ -31,11 +31,11 @@ function mapDispatchToProps(dispatch) {
 
 class SwitchItem extends React.PureComponent {
     handleToggleSwitch = (value) => {
-        const { item, scheme, dispatchDarkMode, dispatchMapData } = this.props;
+        const { item, dispatchDarkMode, dispatchMapData } = this.props;
 
         if (item.type === settingsItems.darkMode) {
             dispatchDarkMode(value);
-            getMapData(dispatchMapData, scheme);
+            getMapData(dispatchMapData);
         }
     };
 

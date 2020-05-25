@@ -5,15 +5,11 @@ export default function mapReducer(state = mapState, action) {
         case 'INITIALIZE_MAP_DATA':
             return {
                 ...state,
-                mapStyle: action.mapData.mapStyle,
-                mapType: action.mapData.mapType,
                 selectedHike: action.mapData.selectedHike,
             };
         case 'UPDATE_MAP_DATA':
             return {
                 ...state,
-                mapStyle: action.mapData.mapStyle,
-                mapType: action.mapData.mapType,
                 selectedHike: action.mapData.selectedHike,
             };
         default:

@@ -64,7 +64,6 @@ class HomeScreen extends React.Component {
             dispatchUserData,
             dispatchAvatar,
             dispatchMapData,
-            scheme,
         } = this.props;
 
         this.setFirstLoad();
@@ -78,7 +77,7 @@ class HomeScreen extends React.Component {
         addUrlListener(navigation);
 
         await getUserProfileData(dispatchUserData, dispatchAvatar);
-        await getMapData(dispatchMapData, scheme);
+        await getMapData(dispatchMapData);
     }
 
     componentWillUnmount() {
