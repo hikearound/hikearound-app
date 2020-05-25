@@ -11,17 +11,16 @@ import {
     LocationPermissionScreen,
     SearchScreen,
 } from '../screens/Index';
-import { mode, headerMode, screenOptions } from '../constants/Navigation';
+import {
+    mode,
+    headerMode,
+    screenOptions,
+    forFade,
+} from '../constants/Navigation';
 import { Logo } from '../components/Index';
 import { withTheme } from '../utils/Themes';
 
 const Stack = createStackNavigator();
-
-const forFade = ({ current }) => ({
-    cardStyle: {
-        opacity: current.progress,
-    },
-});
 
 class HomeStack extends React.Component {
     componentDidUpdate() {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useScrollToTop } from '@react-navigation/native';
+import { useScrollToTop, useNavigation } from '@react-navigation/native';
 import PropTypes from 'prop-types';
 
 const propTypes = {
@@ -9,8 +9,8 @@ const propTypes = {
 export function withScrollToTop(Component) {
     function WrappedComponent(props) {
         const { scrollRef } = props;
-
         useScrollToTop(scrollRef);
+
         return <Component {...props} />;
     }
 
@@ -18,4 +18,10 @@ export function withScrollToTop(Component) {
     return WrappedComponent;
 }
 
-export default withScrollToTop;
+export function withNavigation(Component) {
+    return function WrappedComponent(props) {
+        const navigation = useNavigation();
+
+        return <Component {...props} navigation={navigation} />;
+    };
+}

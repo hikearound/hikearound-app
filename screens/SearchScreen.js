@@ -11,7 +11,11 @@ import { RootView } from '../styles/Screens';
 import { searchClient } from '../constants/Search';
 
 const propTypes = {
-    searchState: PropTypes.object.isRequired,
+    searchState: PropTypes.object,
+};
+
+const defaultProps = {
+    searchState: {},
 };
 
 class SearchScreen extends React.Component {
@@ -67,5 +71,6 @@ class SearchScreen extends React.Component {
 }
 
 SearchScreen.propTypes = propTypes;
+SearchScreen.defaultProps = defaultProps;
 
 export default withTranslation()(withTheme(SearchScreen));

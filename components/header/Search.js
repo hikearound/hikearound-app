@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Ionicons } from '@expo/vector-icons';
 import styled from 'styled-components';
-import { useNavigation } from '@react-navigation/native';
 import { colors, opacities } from '../../constants/Index';
+import { withNavigation } from '../../utils/Navigation';
 
 const propTypes = {
     color: PropTypes.string,
@@ -36,13 +36,8 @@ class Search extends React.PureComponent {
 Search.propTypes = propTypes;
 Search.defaultProps = defaultProps;
 
-// export default connect(mapStateToProps, mapDispatchToProps)(Search);
-
 const StyledOpacity = styled.TouchableOpacity`
     margin-top: 1px;
 `;
 
-export default function (props) {
-    const navigation = useNavigation();
-    return <Search {...props} navigation={navigation} />;
-}
+export default withNavigation(Search);

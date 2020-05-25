@@ -8,8 +8,6 @@ export default function modalReducer(state = modalState, action) {
             return { ...state, action: 'showMap' };
         case 'SHOW_EDIT_PROFILE':
             return { ...state, action: 'showEditProfile' };
-        case 'SHOW_SEARCH':
-            return { ...state, action: 'showSearch' };
         case 'HIDE_MODAL':
             return {
                 ...state,

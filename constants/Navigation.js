@@ -61,3 +61,9 @@ export function tabBarOptions(activeTintColor, inactiveTintColor) {
         },
     };
 }
+
+export const forFade = ({ current }) => ({
+    cardStyle: {
+        opacity: current.progress,
+    },
+});

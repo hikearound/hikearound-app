@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import { opacities, settingsItems } from '../../constants/Index';
 import { ItemContainer, ItemText } from '../../styles/Settings';
 import { logoutUser } from '../../utils/User';
+import { withNavigation } from '../../utils/Navigation';
 
 const propTypes = {
     item: PropTypes.object.isRequired,
@@ -37,7 +37,4 @@ class ActionItem extends React.Component {
 
 ActionItem.propTypes = propTypes;
 
-export default function (props) {
-    const navigation = useNavigation();
-    return <ActionItem {...props} navigation={navigation} />;
-}
+export default withNavigation(ActionItem);

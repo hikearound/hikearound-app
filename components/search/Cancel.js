@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { TouchableOpacity } from 'react-native';
-import { CommonActions, useNavigation } from '@react-navigation/native';
-import { useTranslation } from 'react-i18next';
+import { CommonActions } from '@react-navigation/native';
+import { withTranslation } from 'react-i18next';
 import { colors, opacities, spacing, fontSizes } from '../../constants/Index';
+import { withNavigation } from '../../utils/Navigation';
 
 class Cancel extends React.PureComponent {
     close = () => {
@@ -27,13 +28,7 @@ class Cancel extends React.PureComponent {
     }
 }
 
-// export default connect(null, mapDispatchToProps)(withTranslation()(Cancel));
-
-export default function (props) {
-    const navigation = useNavigation();
-    const { t } = useTranslation();
-    return <Cancel {...props} navigation={navigation} t={t} />;
-}
+export default withTranslation()(withNavigation(Cancel));
 
 const CancelText = styled.Text`
     display: flex;
