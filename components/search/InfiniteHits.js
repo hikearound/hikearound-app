@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TouchableOpacity, Text, FlatList } from 'react-native';
+import { CollapsibleHeaderFlatList } from 'react-native-collapsible-header-views';
 import { connectInfiniteHits } from 'react-instantsearch-native';
-import Highlight from './Highlight';
-import { opacities } from '../../constants/Index';
 import { openHikeScreen } from '../../utils/Hike';
 import { withNavigation } from '../../utils/Navigation';
+import HikeListItem from '../HikeListItem';
+import Header from './Header';
 
 const propTypes = {
     hits: PropTypes.array.isRequired,
@@ -26,17 +26,16 @@ class InfiniteHits extends React.Component {
         openHikeScreen(objectID, navigation);
     };
 
-    renderRow = ({ item }) => {
+    renderItem = ({ item }) => {
         return (
-            <TouchableOpacity
-                activeOpacity={opacities.regular}
-                onPress={() => {
-                    this.getHikeData(item.objectID);
-                }}
-            >
-                <Highlight attribute='name' hit={item} />
-                <Text>{item.city}</Text>
-            </TouchableOpacity>
+            <HikeListItem
+                id={item.objectID}
+                name={item.name}
+                location={item.city}
+                distance={item.distance}
+                item={item}
+                shouldHighlight
+            />
         );
     };
 
@@ -45,12 +44,14 @@ class InfiniteHits extends React.Component {
 
         if (hits.length > 0) {
             return (
-                <FlatList
+                <CollapsibleHeaderFlatList
                     keyExtractor={(item) => item.objectID}
                     keyboardShouldPersistTaps='handled'
                     data={hits}
-                    renderItem={this.renderRow}
+                    renderItem={this.renderItem}
                     onEndReached={() => hasMore && refine()}
+                    CollapsibleHeaderComponent={<Header />}
+                    headerHeight={35}
                 />
             );
         }

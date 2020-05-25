@@ -5,6 +5,7 @@ import MapView from 'react-native-map-clustering';
 import { updateMapData } from '../actions/Map';
 import HikeMapMarker from './HikeMapMarker';
 import { colors } from '../constants/Index';
+import { withTheme } from '../utils/Themes';
 
 const propTypes = {
     dispatchMapData: PropTypes.func.isRequired,
@@ -95,7 +96,7 @@ class GlobalMap extends React.Component {
     };
 
     render() {
-        const { hikeData, radius } = this.props;
+        const { hikeData, radius, theme } = this.props;
         const { region } = this.state;
 
         if (region) {
@@ -111,6 +112,8 @@ class GlobalMap extends React.Component {
                     clusterColor={colors.purple}
                     radius={radius}
                     animationEnabled={false}
+                    loadingIndicatorColor={theme.colors.loadingSpinner}
+                    loadingBackgroundColor={theme.colors.mapViewBackground}
                 >
                     {hikeData.map(({ id, coordinates, distance }, index) => (
                         <HikeMapMarker
@@ -135,4 +138,7 @@ class GlobalMap extends React.Component {
 GlobalMap.propTypes = propTypes;
 GlobalMap.defaultProps = defaultProps;
 
-export default connect(mapStateToProps, mapDispatchToProps)(GlobalMap);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(withTheme(GlobalMap));

@@ -29,7 +29,7 @@ class LoadingOverlay extends React.Component {
                 <ActivityView>
                     <ActivityIndicator
                         size='small'
-                        color={theme.loadingSpinner}
+                        color={theme.colors.loadingSpinner}
                         style={{
                             zIndex: 1,
                             transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }],

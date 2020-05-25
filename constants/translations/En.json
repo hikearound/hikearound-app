@@ -75,6 +75,12 @@
         }
     },
     "screen": {
+        "search": {
+            "results": {
+                "header": "{{count}} result",
+                "header_plural": "{{count}} results"
+            }
+        },
         "onboard": {
             "permission": {
                 "title": "Share your location",

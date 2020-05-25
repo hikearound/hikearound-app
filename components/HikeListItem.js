@@ -1,22 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import { TouchableOpacity } from 'react-native';
-import {
-    colors,
-    fontSizes,
-    fontWeights,
-    spacing,
-    opacities,
-} from '../constants/Index';
 import { openHikeScreen } from '../utils/Hike';
+import { View, Name, MetaData } from '../styles/Lists';
 import { withNavigation } from '../utils/Navigation';
+import { opacities } from '../constants/Index';
+import Highlight from './search/Highlight';
 
 const propTypes = {
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     location: PropTypes.string.isRequired,
     distance: PropTypes.number.isRequired,
+    shouldHighlight: PropTypes.bool,
+    item: PropTypes.object,
+};
+
+const defaultProps = {
+    shouldHighlight: false,
+    item: {},
 };
 
 class HikeListItem extends React.PureComponent {
@@ -25,18 +27,28 @@ class HikeListItem extends React.PureComponent {
         openHikeScreen(id, navigation);
     };
 
+    renderName = () => {
+        const { shouldHighlight, name, item } = this.props;
+
+        if (shouldHighlight) {
+            return <Highlight attribute='name' hit={item} />;
+        }
+
+        return <Name>{name}</Name>;
+    };
+
     render() {
-        const { name, location, distance } = this.props;
+        const { location, distance, shouldHighlight } = this.props;
 
         return (
-            <View>
+            <View shouldHighlight={shouldHighlight}>
                 <TouchableOpacity
                     activeOpacity={opacities.regular}
                     onPress={() => {
                         this.getHikeData();
                     }}
                 >
-                    <Name>{name}</Name>
+                    {this.renderName()}
                     <MetaData>
                         {location}
                         {' · '}
@@ -50,22 +62,6 @@ class HikeListItem extends React.PureComponent {
 }
 
 HikeListItem.propTypes = propTypes;
+HikeListItem.defaultProps = defaultProps;
 
 export default withNavigation(HikeListItem);
-
-const View = styled.View`
-    border-color: ${(props) => props.theme.itemBorder};
-    border-top-width: 1px;
-    padding: ${spacing.small}px 0;
-`;
-
-const Name = styled.Text`
-    color: ${(props) => props.theme.text};
-    font-size: ${fontSizes.large}px;
-    font-weight: ${fontWeights.bold};
-`;
-
-const MetaData = styled.Text`
-    color: ${colors.grayMedium};
-    font-size: ${fontSizes.medium}px;
-`;

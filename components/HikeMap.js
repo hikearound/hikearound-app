@@ -6,6 +6,7 @@ import MapView from 'react-native-maps';
 import { connect } from 'react-redux';
 import { colors, borderRadius } from '../constants/Index';
 import { defaultProps } from '../constants/states/HikeMap';
+import { withTheme } from '../utils/Themes';
 
 const propTypes = {
     mapRef: PropTypes.func.isRequired,
@@ -42,7 +43,7 @@ class HikeMap extends React.Component {
     };
 
     render() {
-        const { coordinates, mapRef, region, mapHeight } = this.props;
+        const { coordinates, mapRef, region, mapHeight, theme } = this.props;
         const { maxZoom, fullHeight, mapDidLoad } = this.state;
 
         if (!fullHeight && !mapDidLoad) {
@@ -67,6 +68,8 @@ class HikeMap extends React.Component {
                     showsCompass={false}
                     maxZoomLevel={maxZoom}
                     onMapReady={this.onMapReady}
+                    loadingIndicatorColor={theme.colors.loadingSpinner}
+                    loadingBackgroundColor={theme.colors.mapViewBackground}
                 >
                     <MapView.Polyline
                         coordinates={coordinates}
@@ -83,7 +86,7 @@ class HikeMap extends React.Component {
 HikeMap.propTypes = propTypes;
 HikeMap.defaultProps = defaultProps;
 
-export default connect(mapStateToProps, mapDispatchToProps)(HikeMap);
+export default connect(mapStateToProps, mapDispatchToProps)(withTheme(HikeMap));
 
 const EmptyMapView = styled.View`
     border-color: ${colors.grayMedium};

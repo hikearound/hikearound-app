@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { Text } from 'react-native';
 import { connectHighlight } from 'react-instantsearch-native';
-import { colors, fontWeights } from '../../constants/Index';
+import { colors, fontWeights, fontSizes } from '../../constants/Index';
 
 const propTypes = {
     attribute: PropTypes.string.isRequired,
@@ -49,7 +49,8 @@ export default connectHighlight(Highlight);
 
 const HighlightedText = styled.Text`
     color: ${(props) =>
-        props.showHighlight ? colors.purple : colors.blackText};
+        props.showHighlight ? colors.purple : props.theme.text};
     font-weight: ${(props) =>
-        props.showHighlight ? fontWeights.bold : fontWeights.regular};
+        props.showHighlight ? fontWeights.bold : fontWeights.bold};
+    font-size: ${fontSizes.large}px;
 `;
