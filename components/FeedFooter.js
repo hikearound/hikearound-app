@@ -24,11 +24,12 @@ const Circle = styled.View`
     border-radius: 7px;
     height: 7px;
     width: 7px;
-    margin: ${spacing.micro}px auto;
+    margin: ${spacing.micro}px auto 0;
 `;
 
 const View = styled.View`
-    padding: ${spacing.large}px;
+    padding: ${spacing.small}px;
+    opacity: 0.7;
 `;
 
 const Text = styled.Text`

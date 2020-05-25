@@ -37,9 +37,11 @@ class AuthScreen extends React.Component {
     }
 
     getUserAuth = async () => {
-        this.authSubscription = firebase.auth().onAuthStateChanged((user) => {
-            this.navToApp(user);
-        });
+        this.authSubscription = await firebase
+            .auth()
+            .onAuthStateChanged((user) => {
+                this.navToApp(user);
+            });
     };
 
     finishLoading = () => {};
@@ -47,15 +49,15 @@ class AuthScreen extends React.Component {
     navToApp = async (user) => {
         const { navigation } = this.props;
 
+        await this.cacheLocalImages();
+        await this.getUserProfileData(user);
+
         navigation.dispatch(
             CommonActions.reset({
                 index: 0,
                 routes: [{ name: user ? 'Home' : 'Landing' }],
             }),
         );
-
-        await this.cacheLocalImages();
-        await this.getUserProfileData(user);
 
         SplashScreen.hide();
     };
@@ -69,7 +71,7 @@ class AuthScreen extends React.Component {
 
         if (user) {
             const userData = await getUserData();
-            dispatchUserData(userData.data());
+            await dispatchUserData(userData.data());
         }
     };
 
