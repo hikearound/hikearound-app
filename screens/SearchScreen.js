@@ -6,7 +6,6 @@ import SearchBox from '../components/search/SearchBox';
 import StateResults from '../components/search/StateResults';
 import { withTheme } from '../utils/Themes';
 import InfiniteHits from '../components/search/InfiniteHits';
-import { ModalBody } from '../styles/Modals';
 import { RootView } from '../styles/Screens';
 import { searchClient } from '../constants/Search';
 
@@ -42,11 +41,9 @@ class SearchScreen extends React.Component {
 
     renderModalBody = () => {
         return (
-            <ModalBody>
-                <StateResults>
-                    <InfiniteHits />
-                </StateResults>
-            </ModalBody>
+            <StateResults>
+                <InfiniteHits />
+            </StateResults>
         );
     };
 

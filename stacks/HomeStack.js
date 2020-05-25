@@ -21,6 +21,7 @@ import { Logo } from '../components/Index';
 import { withTheme } from '../utils/Themes';
 
 const Stack = createStackNavigator();
+const tabBarScreens = ['Home', 'Hike', 'Search'];
 
 class HomeStack extends React.Component {
     componentDidUpdate() {
@@ -29,7 +30,7 @@ class HomeStack extends React.Component {
 
         if (route.state) {
             const { name } = route.state.routes[route.state.index];
-            if (name === 'Home' || name === 'Hike') {
+            if (tabBarScreens.includes(name)) {
                 tabBarVisible = true;
             }
         }
