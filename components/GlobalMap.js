@@ -18,6 +18,7 @@ const propTypes = {
     googleLatModifier: PropTypes.number,
     appleLatModifier: PropTypes.number,
     altitude: PropTypes.number,
+    showHikeSheet: PropTypes.func.isRequired,
 };
 
 const defaultProps = {

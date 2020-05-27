@@ -6,7 +6,13 @@ import BottomSheet from 'reanimated-bottom-sheet';
 import { connect } from 'react-redux';
 import GlobalMap from '../components/GlobalMap';
 import { withTheme } from '../utils/Themes';
-import { spacing, fontSizes, opacities, bottomSheet } from '../constants/Index';
+import {
+    spacing,
+    fontSizes,
+    opacities,
+    bottomSheet,
+    transparentColors,
+} from '../constants/Index';
 import { pageFeed } from '../utils/Feed';
 import { openHikeScreen } from '../utils/Hike';
 import { withNavigation } from '../utils/Navigation';
@@ -144,6 +150,7 @@ const Header = styled.View`
     padding-top: ${spacing.small}px;
     border-top-left-radius: ${spacing.tiny}px;
     border-top-right-radius: ${spacing.tiny}px;
+    box-shadow: 0 -4px 3px ${transparentColors.grayLight};
 `;
 
 const HeaderPanel = styled.View`
