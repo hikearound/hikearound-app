@@ -6,13 +6,10 @@ import BottomSheet from 'reanimated-bottom-sheet';
 import { connect } from 'react-redux';
 import GlobalMap from '../components/GlobalMap';
 import { withTheme } from '../utils/Themes';
-import { spacing, fontSizes, opacities } from '../constants/Index';
+import { spacing, fontSizes, opacities, bottomSheet } from '../constants/Index';
 import { pageFeed } from '../utils/Feed';
 import { openHikeScreen } from '../utils/Hike';
 import { withNavigation } from '../utils/Navigation';
-
-const handleWidth = '30px';
-const handleHeight = '5px';
 
 const propTypes = {
     position: PropTypes.object.isRequired,
@@ -37,6 +34,8 @@ function mapDispatchToProps() {
 class MapScreen extends React.Component {
     constructor(props) {
         super(props);
+        this.bottomSheetRef = React.createRef();
+        this.showHikeSheet = this.showHikeSheet.bind(this);
 
         this.state = {
             hikeData: [],
@@ -48,6 +47,10 @@ class MapScreen extends React.Component {
     async componentDidMount() {
         this.getHikeData();
     }
+
+    showHikeSheet = () => {
+        this.bottomSheetRef.current.snapTo(bottomSheet.expanded);
+    };
 
     renderContent = () => {
         const { theme, selectedHike, navigation } = this.props;
@@ -98,11 +101,21 @@ class MapScreen extends React.Component {
 
         return (
             <>
-                <GlobalMap position={position} hikeData={hikeData} />
+                <GlobalMap
+                    position={position}
+                    hikeData={hikeData}
+                    showHikeSheet={this.showHikeSheet}
+                />
                 <BottomSheet
-                    snapPoints={[35, 100, 35]}
+                    snapPoints={[
+                        bottomSheet.starting,
+                        bottomSheet.expanded,
+                        bottomSheet.collapsed,
+                    ]}
                     renderContent={this.renderContent}
                     renderHeader={this.renderHeader}
+                    enabledInnerScrolling={false}
+                    ref={this.bottomSheetRef}
                 />
             </>
         );
@@ -118,7 +131,7 @@ export default connect(
 )(withNavigation(withTheme(MapScreen)));
 
 const Body = styled.View`
-    height: 100px;
+    height: ${bottomSheet.expanded}px;
     padding: ${spacing.small}px;
 `;
 
@@ -138,8 +151,8 @@ const HeaderPanel = styled.View`
 `;
 
 const HeaderHandle = styled.View`
-    width: ${handleWidth};
-    height: ${handleHeight};
+    width: 35px;
+    height: 5px;
     border-radius: ${spacing.micro}px;
     margin-bottom: ${spacing.micro}px;
     background-color: ${(props) => props.theme.sheetHandle};

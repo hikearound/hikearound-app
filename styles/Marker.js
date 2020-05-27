@@ -13,7 +13,9 @@ export const triangle = {
     borderBottomColor: colors.purple,
     transform: [{ rotate: '180deg' }],
     position: 'absolute',
-    top: 36,
+    top: 22,
+    left: 10,
+    zIndex: 1,
 };
 
 export default triangle;

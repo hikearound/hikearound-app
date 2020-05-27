@@ -72,6 +72,7 @@ class GlobalMap extends React.Component {
             googleLatModifier,
             appleLatModifier,
             altitude,
+            showHikeSheet,
         } = this.props;
         const { coordinate, id } = event.nativeEvent;
 
@@ -88,7 +89,10 @@ class GlobalMap extends React.Component {
         };
 
         dispatchMapData({ selectedHike: id });
+
         this.mapRef.current.animateCamera(camera, { duration });
+
+        showHikeSheet();
     };
 
     assignRef = (ref, index) => {

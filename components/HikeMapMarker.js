@@ -4,7 +4,12 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Marker } from 'react-native-maps';
 import { defaultProps } from '../constants/states/HikeMapMarker';
-import { colors, fontSizes, fontWeights } from '../constants/Index';
+import {
+    colors,
+    transparentColors,
+    fontSizes,
+    fontWeights,
+} from '../constants/Index';
 import { triangle } from '../styles/Marker';
 
 const propTypes = {
@@ -48,10 +53,12 @@ class HikeMapMarker extends React.Component {
         const shortDistance = this.getShortDistance();
 
         return (
-            <MapMarker size={size}>
-                <MarkerLabel>{shortDistance}m</MarkerLabel>
+            <View>
+                <MapMarker size={size}>
+                    <MarkerLabel>{shortDistance.toFixed(1)}</MarkerLabel>
+                </MapMarker>
                 <View style={triangle} />
-            </MapMarker>
+            </View>
         );
     };
 
@@ -95,10 +102,13 @@ const MapMarker = styled.View`
     display: flex;
     align-items: center;
     justify-content: center;
+    border: 2px solid ${colors.white};
+    z-index: 1;
+    box-shadow: 0 0 4px ${transparentColors.grayLight};
 `;
 
 const MarkerLabel = styled.Text`
-    font-size: ${fontSizes.small}px;
+    font-size: ${fontSizes.extraSmall}px;
     color: ${colors.white};
-    font-weight: ${fontWeights.medium};
+    font-weight: ${fontWeights.bold};
 `;

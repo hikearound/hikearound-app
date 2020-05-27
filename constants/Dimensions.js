@@ -3,4 +3,8 @@ export const borderRadius = {
     medium: '6',
 };
 
-export default borderRadius;
+export const bottomSheet = {
+    starting: 100,
+    expanded: 250,
+    collapsed: 35,
+};
