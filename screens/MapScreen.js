@@ -1,12 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { TouchableOpacity } from 'react-native';
 import BottomSheet from 'reanimated-bottom-sheet';
 import { connect } from 'react-redux';
 import GlobalMap from '../components/GlobalMap';
 import { withTheme } from '../utils/Themes';
-import { spacing, fontSizes } from '../constants/Index';
+import { spacing, fontSizes, opacities } from '../constants/Index';
 import { pageFeed } from '../utils/Feed';
+import { openHikeScreen } from '../utils/Hike';
+import { withNavigation } from '../utils/Navigation';
 
 const handleWidth = '30px';
 const handleHeight = '5px';
@@ -47,11 +50,18 @@ class MapScreen extends React.Component {
     }
 
     renderContent = () => {
-        const { theme, selectedHike } = this.props;
+        const { theme, selectedHike, navigation } = this.props;
 
         return (
             <Body style={{ backgroundColor: theme.colors.sheetBackground }}>
-                <Text>{selectedHike}</Text>
+                <TouchableOpacity
+                    onPress={() => {
+                        openHikeScreen(selectedHike, navigation);
+                    }}
+                    activeOpacity={opacities.regular}
+                >
+                    <Text>{selectedHike}</Text>
+                </TouchableOpacity>
             </Body>
         );
     };
@@ -105,7 +115,7 @@ MapScreen.defaultProps = defaultProps;
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(withTheme(MapScreen));
+)(withNavigation(withTheme(MapScreen)));
 
 const Body = styled.View`
     height: 100px;
