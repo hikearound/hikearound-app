@@ -29,6 +29,6 @@ export async function getBadgeNumber() {
 export async function handleAppBadge() {
     const badgeNumber = await getBadgeNumber();
     if (badgeNumber > 0) {
-        this.clearBadge();
+        clearBadge();
     }
 }
