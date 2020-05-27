@@ -21,13 +21,13 @@ const propTypes = {
 };
 
 const defaultProps = {
-    delta: 1,
-    duration: 250,
+    delta: 0.5,
+    duration: 1000,
     zoom: 14,
     radius: 32,
     googleLatModifier: 0.0015,
     appleLatModifier: 0.0001,
-    altitude: 1000,
+    altitude: 20000,
 };
 
 function mapStateToProps() {
@@ -122,8 +122,8 @@ class GlobalMap extends React.Component {
                             distance={distance}
                             markerRef={(ref) => this.assignRef(ref, index)}
                             coordinate={{
-                                latitude: coordinates.startingLat,
-                                longitude: coordinates.startingLng,
+                                latitude: coordinates.center.lat,
+                                longitude: coordinates.center.lng,
                             }}
                             onPress={this.markerPress}
                         />

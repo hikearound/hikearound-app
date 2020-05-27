@@ -1,9 +1,11 @@
 import React from 'react';
+import { View } from 'react-native';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Marker } from 'react-native-maps';
 import { defaultProps } from '../constants/states/HikeMapMarker';
 import { colors, fontSizes, fontWeights } from '../constants/Index';
+import { triangle } from '../styles/Marker';
 
 const propTypes = {
     distance: PropTypes.number,
@@ -12,6 +14,7 @@ const propTypes = {
     coordinate: PropTypes.object,
     markerRef: PropTypes.func,
     onPress: PropTypes.func,
+    offset: PropTypes.object,
 };
 
 class HikeMapMarker extends React.Component {
@@ -47,24 +50,34 @@ class HikeMapMarker extends React.Component {
         return (
             <MapMarker size={size}>
                 <MarkerLabel>{shortDistance}m</MarkerLabel>
+                <View style={triangle} />
             </MapMarker>
         );
     };
 
     render() {
-        const { identifier, coordinate, markerRef, onPress } = this.props;
+        const {
+            identifier,
+            coordinate,
+            markerRef,
+            onPress,
+            offset,
+        } = this.props;
         const { tracksViewChanges } = this.state;
 
         return (
-            <Marker
-                ref={markerRef}
-                identifier={identifier}
-                coordinate={coordinate}
-                onPress={onPress}
-                tracksViewChanges={tracksViewChanges}
-            >
-                {this.renderMarkerIcon()}
-            </Marker>
+            <View>
+                <Marker
+                    ref={markerRef}
+                    identifier={identifier}
+                    coordinate={coordinate}
+                    onPress={onPress}
+                    tracksViewChanges={tracksViewChanges}
+                    centerOffset={offset}
+                >
+                    {this.renderMarkerIcon()}
+                </Marker>
+            </View>
         );
     }
 }
