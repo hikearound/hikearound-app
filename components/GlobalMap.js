@@ -25,7 +25,7 @@ const defaultProps = {
     delta: 0.5,
     duration: 1000,
     zoom: 14,
-    radius: 32,
+    radius: 30,
     googleLatModifier: 0.0015,
     appleLatModifier: 0.0001,
     altitude: 20000,

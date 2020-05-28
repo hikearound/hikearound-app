@@ -16,13 +16,26 @@ function mapStateToProps(state) {
 
 const propTypes = {
     maxZoom: PropTypes.number,
+    modifier: PropTypes.number,
 };
 
 const defaultProps = {
     maxZoom: 16,
+    modifier: 0.01,
 };
 
 class MapModal extends ModalBase {
+    setRegion = (region) => {
+        const { modifier } = this.props;
+
+        return {
+            latitude: region.latitude,
+            longitude: region.longitude,
+            latitudeDelta: region.latitudeDelta + modifier,
+            longitudeDelta: region.longitudeDelta + modifier,
+        };
+    };
+
     render() {
         const { modalVisible } = this.state;
         const {
@@ -32,6 +45,8 @@ class MapModal extends ModalBase {
             region,
             maxZoom,
         } = this.props;
+
+        const initialRegion = this.setRegion(region);
 
         return (
             <Modal
@@ -44,7 +59,7 @@ class MapModal extends ModalBase {
                         fullHeight
                         mapRef={mapRef}
                         coordinates={coordinates}
-                        region={region}
+                        region={initialRegion}
                         maxZoom={maxZoom}
                         mapPadding={{
                             left: parseInt(spacing.tiny, 10),

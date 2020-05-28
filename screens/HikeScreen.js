@@ -146,6 +146,8 @@ class HikeScreen extends React.Component {
         const { hike } = route.params;
         const scrollRef = React.createRef();
 
+        console.log(region)
+
         return (
             <RootView>
                 <Toast text={toastText} />
@@ -155,7 +157,7 @@ class HikeScreen extends React.Component {
                     region={region}
                     scrollRef={scrollRef}
                 />
-                <MapModal
+                {region && <MapModal
                     mapRef={(ref) => {
                         this.mapView = ref;
                     }}
@@ -164,11 +166,13 @@ class HikeScreen extends React.Component {
                     animationType='push'
                     modalAction='showMap'
                     hideStatusBar
-                />
+                />}
+
             </RootView>
         );
     }
 }
+
 
 HikeScreen.propTypes = propTypes;
 
