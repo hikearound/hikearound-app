@@ -1,63 +1,41 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, ImageBackground } from 'react-native';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Marker } from 'react-native-maps';
 import { defaultProps } from '../constants/states/HikeMapMarker';
-import {
-    colors,
-    transparentColors,
-    fontSizes,
-    fontWeights,
-} from '../constants/Index';
-import { triangle } from '../styles/Marker';
+import { colors, fontSizes, fontWeights } from '../constants/Index';
+import { withTheme } from '../utils/Themes';
+
+export const markerBg = require('../assets/default/map-marker.png');
 
 const propTypes = {
     distance: PropTypes.number,
-    size: PropTypes.number,
     identifier: PropTypes.string.isRequired,
     coordinate: PropTypes.object,
     markerRef: PropTypes.func,
     onPress: PropTypes.func,
     offset: PropTypes.object,
+    tracksViewChanges: PropTypes.bool.isRequired,
 };
 
 class HikeMapMarker extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { tracksViewChanges: false };
-    }
-
-    componentDidUpdate(prevProps) {
-        const { tracksViewChanges } = this.state;
-        const { coordinate } = this.props;
-
-        if (prevProps.coordinate !== coordinate) {
-            this.toggleTrackViewChanges(true);
-        } else if (tracksViewChanges) {
-            this.toggleTrackViewChanges(false);
-        }
-    }
-
-    toggleTrackViewChanges = (state) => {
-        this.setState({ tracksViewChanges: state });
-    };
-
     getShortDistance = () => {
         const { distance } = this.props;
         return Math.round(distance * 10) / 10;
     };
 
     renderMarkerIcon = () => {
-        const { size } = this.props;
         const shortDistance = this.getShortDistance();
 
         return (
-            <View>
-                <MapMarker size={size}>
+            <View style={{ flex: 1, flexDirection: 'column' }}>
+                <ImageBackground
+                    source={markerBg}
+                    style={{ width: 38, height: 44 }}
+                >
                     <MarkerLabel>{shortDistance.toFixed(1)}</MarkerLabel>
-                </MapMarker>
-                <View style={triangle} />
+                </ImageBackground>
             </View>
         );
     };
@@ -69,12 +47,13 @@ class HikeMapMarker extends React.Component {
             markerRef,
             onPress,
             offset,
+            tracksViewChanges,
         } = this.props;
-        const { tracksViewChanges } = this.state;
 
         return (
             <View>
                 <Marker
+                    key={identifier || Math.random()}
                     ref={markerRef}
                     identifier={identifier}
                     coordinate={coordinate}
@@ -92,23 +71,12 @@ class HikeMapMarker extends React.Component {
 HikeMapMarker.propTypes = propTypes;
 HikeMapMarker.defaultProps = defaultProps;
 
-export default HikeMapMarker;
-
-const MapMarker = styled.View`
-    height: ${(props) => props.size}px;
-    width: ${(props) => props.size}px;
-    border-radius: ${(props) => props.size}px;
-    background: ${colors.purple};
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 2px solid ${colors.white};
-    z-index: 1;
-    box-shadow: 0 0 4px ${transparentColors.grayLight};
-`;
+export default withTheme(HikeMapMarker);
 
 const MarkerLabel = styled.Text`
     font-size: ${fontSizes.extraSmall}px;
     color: ${colors.white};
     font-weight: ${fontWeights.bold};
+    text-align: center;
+    padding-top: 10px;
 `;

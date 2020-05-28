@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import MapView from 'react-native-map-clustering';
+import MapView from 'react-native-maps';
 import { updateMapData } from '../actions/Map';
 import HikeMapMarker from './HikeMapMarker';
-import { colors } from '../constants/Index';
 import { withTheme } from '../utils/Themes';
 
 const propTypes = {
@@ -14,7 +13,6 @@ const propTypes = {
     duration: PropTypes.number,
     zoom: PropTypes.number,
     hikeData: PropTypes.array.isRequired,
-    radius: PropTypes.number,
     googleLatModifier: PropTypes.number,
     appleLatModifier: PropTypes.number,
     altitude: PropTypes.number,
@@ -25,7 +23,6 @@ const defaultProps = {
     delta: 0.5,
     duration: 1000,
     zoom: 14,
-    radius: 30,
     googleLatModifier: 0.0015,
     appleLatModifier: 0.0001,
     altitude: 20000,
@@ -44,7 +41,7 @@ function mapDispatchToProps(dispatch) {
 class GlobalMap extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { region: null };
+        this.state = { region: null, tracksViewChanges: false };
         this.mapRef = React.createRef();
     }
 
@@ -90,10 +87,17 @@ class GlobalMap extends React.Component {
         };
 
         dispatchMapData({ selectedHike: id });
+        showHikeSheet();
 
         this.mapRef.current.animateCamera(camera, { duration });
+    };
 
-        showHikeSheet();
+    onRegionChange = () => {
+        this.setState({ tracksViewChanges: true });
+    };
+
+    onRegionChangeComplete = (region) => {
+        this.setState({ tracksViewChanges: false });
     };
 
     assignRef = (ref, index) => {
@@ -101,8 +105,8 @@ class GlobalMap extends React.Component {
     };
 
     render() {
-        const { hikeData, radius, theme } = this.props;
-        const { region } = this.state;
+        const { hikeData, theme } = this.props;
+        const { region, tracksViewChanges } = this.state;
 
         if (region) {
             return (
@@ -114,15 +118,15 @@ class GlobalMap extends React.Component {
                     showsMyLocationButton={false}
                     showsPointsOfInterest={false}
                     showsCompass
-                    clusterColor={colors.purple}
-                    radius={radius}
                     animationEnabled={false}
+                    onRegionChange={this.onRegionChange}
+                    onRegionChangeComplete={this.onRegionChangeComplete}
                     loadingIndicatorColor={theme.colors.loadingSpinner}
                     loadingBackgroundColor={theme.colors.mapViewBackground}
                 >
                     {hikeData.map(({ id, coordinates, distance }, index) => (
                         <HikeMapMarker
-                            key={index}
+                            key={id}
                             identifier={id}
                             distance={distance}
                             markerRef={(ref) => this.assignRef(ref, index)}
@@ -131,6 +135,7 @@ class GlobalMap extends React.Component {
                                 longitude: coordinates.center.lng,
                             }}
                             onPress={this.markerPress}
+                            tracksViewChanges={tracksViewChanges}
                         />
                     ))}
                 </MapView>
