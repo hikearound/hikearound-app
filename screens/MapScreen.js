@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import BottomSheet from 'reanimated-bottom-sheet';
 import { connect } from 'react-redux';
 import GlobalMap from '../components/GlobalMap';
-import { withTheme } from '../utils/Themes';
+import MapSearch from '../components/MapSearch';
+import { withTheme, SetBarStyle } from '../utils/Themes';
 import {
     spacing,
     fontSizes,
@@ -14,7 +15,7 @@ import {
     transparentColors,
 } from '../constants/Index';
 import { pageFeed } from '../utils/Feed';
-import { openHikeScreen } from '../utils/Hike';
+import { openHikeScreen, getHikeData } from '../utils/Hike';
 import { withNavigation } from '../utils/Navigation';
 
 const propTypes = {
@@ -41,12 +42,14 @@ class MapScreen extends React.Component {
     constructor(props) {
         super(props);
         this.bottomSheetRef = React.createRef();
+        this.searchInputRef = React.createRef();
         this.showHikeSheet = this.showHikeSheet.bind(this);
 
         this.state = {
             hikeData: [],
             sortDirection: 'desc',
             pageSize: 20,
+            sheetData: {},
         };
     }
 
@@ -54,32 +57,52 @@ class MapScreen extends React.Component {
         this.getHikeData();
     }
 
+    async componentDidUpdate(prevProps) {
+        const { selectedHike } = this.props;
+
+        if (prevProps.selectedHike !== selectedHike && selectedHike) {
+            const sheetData = await getHikeData(selectedHike);
+            this.setSheetData(sheetData);
+        }
+    }
+
+    setSheetData = (sheetData) => {
+        this.setState({ sheetData });
+    };
+
     showHikeSheet = () => {
-        this.bottomSheetRef.current.snapTo(bottomSheet.expanded);
+        this.bottomSheetRef.current.snapTo(1);
+        // this.searchInputRef.current.refs.textInput.blur();
+    };
+
+    hideHikeSheet = () => {
+        this.bottomSheetRef.current.snapTo(2);
     };
 
     renderContent = () => {
-        const { theme, selectedHike, navigation } = this.props;
+        const { selectedHike, navigation } = this.props;
+        const { sheetData } = this.state;
 
-        return (
-            <Body style={{ backgroundColor: theme.colors.sheetBackground }}>
-                <TouchableOpacity
-                    onPress={() => {
-                        openHikeScreen(selectedHike, navigation);
-                    }}
-                    activeOpacity={opacities.regular}
-                >
-                    <Text>{selectedHike}</Text>
-                </TouchableOpacity>
-            </Body>
-        );
+        if (sheetData) {
+            return (
+                <Body>
+                    <TouchableOpacity
+                        onPress={() => {
+                            openHikeScreen(selectedHike, navigation);
+                        }}
+                        activeOpacity={opacities.regular}
+                    >
+                        <Text>{sheetData.name}</Text>
+                    </TouchableOpacity>
+                </Body>
+            );
+        }
+        return null;
     };
 
     renderHeader = () => {
-        const { theme } = this.props;
-
         return (
-            <Header style={{ backgroundColor: theme.colors.sheetBackground }}>
+            <Header>
                 <HeaderPanel>
                     <HeaderHandle />
                 </HeaderPanel>
@@ -106,7 +129,12 @@ class MapScreen extends React.Component {
         const { hikeData } = this.state;
 
         return (
-            <>
+            <View>
+                <SetBarStyle barStyle='dark-content' />
+                <MapSearch
+                    searchInputRef={this.searchInputRef}
+                    hideHikeSheet={this.hideHikeSheet}
+                />
                 <GlobalMap
                     position={position}
                     hikeData={hikeData}
@@ -123,7 +151,7 @@ class MapScreen extends React.Component {
                     enabledInnerScrolling={false}
                     ref={this.bottomSheetRef}
                 />
-            </>
+            </View>
         );
     }
 }
@@ -139,6 +167,7 @@ export default connect(
 const Body = styled.View`
     height: ${bottomSheet.expanded}px;
     padding: ${spacing.small}px;
+    background-color: ${(props) => props.theme.sheetBackground};
 `;
 
 const Text = styled.Text`
@@ -151,6 +180,7 @@ const Header = styled.View`
     border-top-left-radius: ${spacing.tiny}px;
     border-top-right-radius: ${spacing.tiny}px;
     box-shadow: 0 -4px 3px ${transparentColors.grayLight};
+    background-color: ${(props) => props.theme.sheetBackground};
 `;
 
 const HeaderPanel = styled.View`

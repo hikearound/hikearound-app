@@ -1,6 +1,7 @@
 import React from 'react';
-import { useTheme } from '@react-navigation/native';
+import { useTheme, useFocusEffect } from '@react-navigation/native';
 import { useColorScheme } from 'react-native-appearance';
+import { StatusBar } from 'react-native';
 
 export function withTheme(Component) {
     return function WrappedComponent(props) {
@@ -11,4 +12,11 @@ export function withTheme(Component) {
     };
 }
 
-export default withTheme;
+export function SetBarStyle({ barStyle }) {
+    useFocusEffect(
+        React.useCallback(() => {
+            StatusBar.setBarStyle(barStyle);
+        }, [barStyle]),
+    );
+    return null;
+}

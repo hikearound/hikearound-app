@@ -15,6 +15,7 @@ class HomeStack extends React.Component {
                 component={MapScreen}
                 options={{
                     headerTitle: t('label.nav.map'),
+                    headerShown: false,
                 }}
             />
         );

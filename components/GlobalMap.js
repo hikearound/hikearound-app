@@ -1,35 +1,39 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { Keyboard } from 'react-native';
 import MapView from 'react-native-maps';
+import { connect } from 'react-redux';
 import { updateMapData } from '../actions/Map';
 import HikeMapMarker from './HikeMapMarker';
 import { withTheme } from '../utils/Themes';
+import { colors } from '../constants/Index';
 
 const propTypes = {
     dispatchMapData: PropTypes.func.isRequired,
     delta: PropTypes.number,
     position: PropTypes.object.isRequired,
     duration: PropTypes.number,
-    zoom: PropTypes.number,
     hikeData: PropTypes.array.isRequired,
-    googleLatModifier: PropTypes.number,
-    appleLatModifier: PropTypes.number,
-    altitude: PropTypes.number,
+    latModifier: PropTypes.number,
+    hikeAlt: PropTypes.number,
+    cityAlt: PropTypes.number,
     showHikeSheet: PropTypes.func.isRequired,
+    selectedCity: PropTypes.object,
 };
 
 const defaultProps = {
     delta: 0.5,
     duration: 1000,
-    zoom: 14,
-    googleLatModifier: 0.0015,
-    appleLatModifier: 0.0001,
-    altitude: 20000,
+    latModifier: 0.0001,
+    hikeAlt: 20000,
+    cityAlt: 80000,
+    selectedCity: null,
 };
 
-function mapStateToProps() {
-    return {};
+function mapStateToProps(state) {
+    return {
+        selectedCity: state.mapReducer.selectedCity,
+    };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -46,12 +50,27 @@ class GlobalMap extends React.Component {
     }
 
     async componentDidMount() {
-        this.setRegion();
+        const { delta, position } = this.props;
+        this.setRegion(delta, position);
     }
 
-    setRegion = () => {
-        const { delta, position } = this.props;
+    componentDidUpdate(prevProps) {
+        const { selectedCity, cityAlt } = this.props;
 
+        if (prevProps.selectedCity !== selectedCity && selectedCity) {
+            const { lat, lng } = selectedCity.geometry.location;
+
+            this.animateToPoint({
+                center: {
+                    latitude: lat,
+                    longitude: lng,
+                },
+                altitude: cityAlt,
+            });
+        }
+    }
+
+    setRegion = (delta, position) => {
         this.setState({
             region: {
                 latitude: position.coords.latitude,
@@ -62,34 +81,30 @@ class GlobalMap extends React.Component {
         });
     };
 
+    animateToPoint = (camera) => {
+        const { duration } = this.props;
+        this.mapRef.current.animateCamera(camera, { duration });
+    };
+
     markerPress = (event) => {
         const {
-            duration,
-            zoom,
             dispatchMapData,
-            googleLatModifier,
-            appleLatModifier,
-            altitude,
+            latModifier,
+            hikeAlt,
             showHikeSheet,
         } = this.props;
         const { coordinate, id } = event.nativeEvent;
 
-        let latitude = coordinate.latitude + googleLatModifier;
-        latitude = coordinate.latitude - appleLatModifier;
-
-        const camera = {
-            center: {
-                latitude,
-                longitude: coordinate.longitude,
-            },
-            altitude,
-            zoom,
-        };
-
-        dispatchMapData({ selectedHike: id });
+        dispatchMapData({ selectedHike: id, selectedCity: null });
         showHikeSheet();
 
-        this.mapRef.current.animateCamera(camera, { duration });
+        this.animateToPoint({
+            center: {
+                latitude: coordinate.latitude - latModifier,
+                longitude: coordinate.longitude,
+            },
+            altitude: hikeAlt,
+        });
     };
 
     onRegionChange = () => {
@@ -98,6 +113,11 @@ class GlobalMap extends React.Component {
 
     onRegionChangeComplete = (region) => {
         this.setState({ tracksViewChanges: false });
+        console.log(region);
+    };
+
+    onPress = () => {
+        Keyboard.dismiss();
     };
 
     assignRef = (ref, index) => {
@@ -112,17 +132,20 @@ class GlobalMap extends React.Component {
             return (
                 <MapView
                     ref={this.mapRef}
-                    style={{ height: '100%' }}
+                    style={{ height: '100%', zIndex: -1 }}
                     initialRegion={region}
                     showsUserLocation
                     showsMyLocationButton={false}
                     showsPointsOfInterest={false}
                     showsCompass
-                    animationEnabled={false}
                     onRegionChange={this.onRegionChange}
                     onRegionChangeComplete={this.onRegionChangeComplete}
                     loadingIndicatorColor={theme.colors.loadingSpinner}
                     loadingBackgroundColor={theme.colors.mapViewBackground}
+                    clusterColor={colors.purple}
+                    radius={22}
+                    animationEnabled={false}
+                    onPress={this.onPress}
                 >
                     {hikeData.map(({ id, coordinates, distance }, index) => (
                         <HikeMapMarker

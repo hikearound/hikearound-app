@@ -6,11 +6,13 @@ export default function mapReducer(state = mapState, action) {
             return {
                 ...state,
                 selectedHike: action.mapData.selectedHike,
+                selectedCity: action.mapData.selectedCity,
             };
         case 'UPDATE_MAP_DATA':
             return {
                 ...state,
                 selectedHike: action.mapData.selectedHike,
+                selectedCity: action.mapData.selectedCity,
             };
         default:
             return state;

@@ -15,7 +15,7 @@ import { RootView } from '../styles/Screens';
 import { getUserProfileData } from '../utils/User';
 import { getFeedHikeCount } from '../utils/Hike';
 import { handleAppBadge } from '../utils/Notifications';
-import { withTheme } from '../utils/Themes';
+import { withTheme, SetBarStyle } from '../utils/Themes';
 import { getMapData } from '../utils/Map';
 import { getPosition, getNearestCity } from '../utils/Location';
 import { pageFeed, sortHikes, buildHikeData } from '../utils/Feed';
@@ -168,6 +168,7 @@ class HomeScreen extends React.Component {
 
         return (
             <>
+                <SetBarStyle barStyle='light-content' />
                 <FeedList
                     refreshControl={
                         <FeedRefreshControl

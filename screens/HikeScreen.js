@@ -11,7 +11,7 @@ import { getHikeXmlUrl, parseHikeXml } from '../utils/Hike';
 import { getToastText } from '../utils/Toast';
 import { copyLink } from '../actions/Hike';
 import { RootView } from '../styles/Screens';
-import { withTheme } from '../utils/Themes';
+import { withTheme, SetBarStyle } from '../utils/Themes';
 import { shareAction, baseUrl, latModifier } from '../constants/Common';
 
 const propTypes = {
@@ -148,6 +148,7 @@ class HikeScreen extends React.Component {
 
         return (
             <RootView>
+                <SetBarStyle barStyle='light-content' />
                 <Toast text={toastText} />
                 <HikeBody
                     hike={hike}

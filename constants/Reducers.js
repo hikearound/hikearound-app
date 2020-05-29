@@ -2,6 +2,7 @@ import { avatar } from './Images';
 
 export const mapState = {
     selectedHike: null,
+    selectedCity: null,
 };
 
 export const hikeState = {

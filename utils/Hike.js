@@ -80,9 +80,13 @@ export async function parseHikeXml(hikeXmlUrl) {
     return hikeData;
 }
 
-export async function openHikeScreen(id, navigation) {
+export async function getHikeData(id) {
     const hikeSnapshot = await getHikeSnapshot(id);
-    const hikeData = hikeSnapshot.data();
+    return hikeSnapshot.data();
+}
+
+export async function openHikeScreen(id, navigation) {
+    const hikeData = await getHikeData(id);
 
     navigation.push('Hike', {
         hike: {
