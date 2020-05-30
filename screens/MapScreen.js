@@ -55,6 +55,7 @@ class MapScreen extends React.Component {
 
     async componentDidMount() {
         this.getHikeData();
+        this.setBarStyle();
     }
 
     async componentDidUpdate(prevProps) {
@@ -65,6 +66,16 @@ class MapScreen extends React.Component {
             this.setSheetData(sheetData);
         }
     }
+
+    setBarStyle = () => {
+        const { theme } = this.props;
+
+        if (theme.dark) {
+            this.setState({ barStyle: 'light-content' });
+        } else {
+            this.setState({ barStyle: 'dark-content' });
+        }
+    };
 
     setSheetData = (sheetData) => {
         this.setState({ sheetData });
@@ -126,11 +137,11 @@ class MapScreen extends React.Component {
 
     render() {
         const { position } = this.props;
-        const { hikeData } = this.state;
+        const { hikeData, barStyle } = this.state;
 
         return (
             <View>
-                <SetBarStyle barStyle='dark-content' />
+                <SetBarStyle barStyle={barStyle} />
                 <MapSearch
                     searchInputRef={this.searchInputRef}
                     hideHikeSheet={this.hideHikeSheet}
