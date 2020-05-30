@@ -87,7 +87,7 @@ class MapScreen extends React.Component {
     };
 
     hideHikeSheet = () => {
-        this.bottomSheetRef.current.snapTo(2);
+        this.bottomSheetRef.current.snapTo(0);
     };
 
     renderContent = () => {

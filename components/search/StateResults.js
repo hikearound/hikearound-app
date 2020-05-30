@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { withTranslation } from 'react-i18next';
 import Stats from './Stats';
 import { fontSizes, spacing } from '../../constants/Index';
+import { SearchStat, StatText } from '../../styles/Search';
 
 const propTypes = {
     searchState: PropTypes.object.isRequired,
@@ -20,12 +21,13 @@ const defaultProps = {
 class StateResults extends React.PureComponent {
     renderEmptyState = () => {
         const { t } = this.props;
-        const label = t('screen.search.emptyState.label');
 
         return (
             <View>
-                <Stats emptyState />
-                <SearchLabel>{label}</SearchLabel>
+                <SearchStat hideBorder>
+                    <StatText>{t('screen.search.emptyState.header')}</StatText>
+                </SearchStat>
+                <SearchLabel>{t('screen.search.emptyState.label')}</SearchLabel>
             </View>
         );
     };

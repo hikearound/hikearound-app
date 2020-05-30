@@ -10,6 +10,10 @@ export const landingBgDark = require('../assets/dark/landing-bg.png');
 export const profileBgDefault = require('../assets/default/profile-bg.png');
 export const profileBgDark = require('../assets/dark/profile-bg.png');
 
+// Map Market
+export const markerBgDefault = require('../assets/default/map-marker.png');
+export const markerBgDark = require('../assets/dark/map-marker.png');
+
 // Global
 export const localImages = [
     avatar,
@@ -17,4 +21,6 @@ export const localImages = [
     landingBgDark,
     profileBgDefault,
     profileBgDark,
+    markerBgDefault,
+    markerBgDark,
 ];

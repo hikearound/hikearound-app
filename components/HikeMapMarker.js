@@ -6,8 +6,7 @@ import { Marker } from 'react-native-maps';
 import { defaultProps } from '../constants/states/HikeMapMarker';
 import { colors, fontSizes, fontWeights } from '../constants/Index';
 import { withTheme } from '../utils/Themes';
-
-export const markerBg = require('../assets/default/map-marker.png');
+import { markerBgDefault, markerBgDark } from '../constants/Images';
 
 const propTypes = {
     distance: PropTypes.number,
@@ -20,6 +19,26 @@ const propTypes = {
 };
 
 class HikeMapMarker extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
+
+    componentDidMount() {
+        this.setHeaderImage();
+    }
+
+    setHeaderImage = () => {
+        const { theme } = this.props;
+        let bgImage = markerBgDefault;
+
+        if (theme.dark) {
+            bgImage = markerBgDark;
+        }
+
+        this.setState({ bgImage });
+    };
+
     getShortDistance = () => {
         const { distance } = this.props;
         return Math.round(distance * 10) / 10;
@@ -27,11 +46,12 @@ class HikeMapMarker extends React.Component {
 
     renderMarkerIcon = () => {
         const shortDistance = this.getShortDistance();
+        const { bgImage } = this.state;
 
         return (
             <View style={{ flex: 1, flexDirection: 'column' }}>
                 <ImageBackground
-                    source={markerBg}
+                    source={bgImage}
                     style={{ width: 38, height: 44 }}
                 >
                     <MarkerLabel>{shortDistance.toFixed(1)}</MarkerLabel>

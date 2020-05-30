@@ -89,7 +89,7 @@ export const darkTheme = {
         blockView: DarkTheme.colors.card,
         refreshControlTint: colors.white,
         itemBorder: DarkTheme.colors.border,
-        sheetBackground: DarkTheme.colors.card,
+        sheetBackground: colors.blackMedium,
         sheetHandle: colors.grayDark,
         feedText: colors.grayLight,
 
@@ -132,6 +132,6 @@ export const darkTheme = {
         onboardDescription: colors.grayDark,
 
         // Search
-        searchBackground: colors.blackText,
+        searchBackground: colors.blackMedium,
     },
 };

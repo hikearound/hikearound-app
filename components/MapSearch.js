@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import Constants from 'expo-constants';
+import { withTranslation } from 'react-i18next';
 import { withTheme } from '../utils/Themes';
 import { getMapSearchStyle } from '../styles/Search';
 import { withNavigation } from '../utils/Navigation';
@@ -43,12 +44,12 @@ class MapSearch extends React.Component {
     };
 
     render() {
-        const { searchInputRef, theme } = this.props;
+        const { searchInputRef, theme, t } = this.props;
         const mapSearchStyle = getMapSearchStyle(theme);
 
         return (
             <GooglePlacesAutocomplete
-                placeholder='Search for hikes by city'
+                placeholder={t('screen.map.search')}
                 ref={searchInputRef}
                 query={{
                     key: Constants.manifest.extra.googlePlaces.apiKey,
@@ -65,9 +66,11 @@ class MapSearch extends React.Component {
                     enablesReturnKeyAutomatically: false,
                     returnKeyType: 'search',
                     clearButtonMode: 'always',
+                    placeholderTextColor: theme.colors.inputPlaceholderText,
                 }}
                 onPress={(data, details = null) => this.onPress(details)}
                 styles={mapSearchStyle}
+                listUnderlayColor={theme.colors.border}
             />
         );
     }
@@ -79,4 +82,4 @@ MapSearch.defaultProps = defaultProps;
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(withNavigation(withTheme(MapSearch)));
+)(withTranslation()(withNavigation(withTheme(MapSearch))));

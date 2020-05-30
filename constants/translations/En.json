@@ -89,6 +89,9 @@
                 "label": "Sorry, we couldn't find any matches for that search."
             }
         },
+        "map": {
+            "search": "Search for hikes by city"
+        },
         "onboard": {
             "permission": {
                 "title": "Share your location",
