@@ -4,7 +4,7 @@ import { InstantSearch } from 'react-instantsearch-native';
 import PropTypes from 'prop-types';
 import SearchBox from '../components/search/SearchBox';
 import StateResults from '../components/search/StateResults';
-import { withTheme } from '../utils/Themes';
+import { withTheme, SetBarStyle } from '../utils/Themes';
 import InfiniteHits from '../components/search/InfiniteHits';
 import { RootView } from '../styles/Screens';
 import { searchClient } from '../constants/Search';
@@ -51,6 +51,7 @@ class SearchScreen extends React.Component {
 
         return (
             <RootView>
+                <SetBarStyle barStyle='light-content' />
                 <InstantSearch
                     searchClient={searchClient}
                     indexName='hikes'

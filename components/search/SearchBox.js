@@ -12,6 +12,9 @@ import {
     spacing,
     borderRadius,
 } from '../../constants/Index';
+import { getHeaderHeight } from '../../utils/Navigation';
+
+const headerHeight = getHeaderHeight();
 
 const propTypes = {
     refine: PropTypes.func.isRequired,
@@ -58,7 +61,7 @@ export default withTranslation()(withTheme(connectSearchBox(SearchBox)));
 export const ModalHeader = styled.View`
     background-color: ${(props) => props.theme.headerStyle};
     border-bottom-color: ${colors.gray};
-    height: ${spacing.header}px;
+    height: ${headerHeight}px;
     width: 100%;
     position: relative;
 `;

@@ -6,6 +6,9 @@ import { withTranslation } from 'react-i18next';
 import { fontSizes, spacing, colors, fontWeights } from '../constants/Index';
 import { withTheme } from '../utils/Themes';
 import InputButton from './InputButton';
+import { getHeaderHeight } from '../utils/Navigation';
+
+const headerHeight = getHeaderHeight();
 
 const propTypes = {
     getLocationPermissions: PropTypes.func.isRequired,
@@ -62,7 +65,7 @@ const RootView = styled.View`
     justify-content: center;
     align-items: center;
     background-color: ${(props) => props.theme.rootBackground};
-    margin-top: -${spacing.header}px;
+    margin-top: -${headerHeight}px;
     width: 100%;
 `;
 

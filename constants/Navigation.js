@@ -2,6 +2,7 @@ import React from 'react';
 import { HeaderStyleInterpolators } from '@react-navigation/stack';
 import { colors } from './Colors';
 import { fontSizes } from './Fonts';
+import { getHeaderHeight } from '../utils/Navigation';
 import spacing from './Spacing';
 import Back from '../components/header/Back';
 
@@ -26,7 +27,7 @@ export function screenOptions(backgroundColor) {
     return {
         headerStyle: {
             backgroundColor,
-            height: parseInt(spacing.header, 10),
+            height: getHeaderHeight(),
             borderBottomWidth: 0,
             shadowColor,
         },
@@ -54,10 +55,15 @@ export function tabBarOptions(activeTintColor, inactiveTintColor) {
         activeTintColor,
         inactiveTintColor,
         labelStyle: {
-            marginBottom: 0,
+            marginBottom: 5,
         },
         tabStyle: {
-            marginTop: 6,
+            paddingTop: 5,
+        },
+        style: {
+            display: 'flex',
+            flexDirection: 'column',
+            safeAreaInset: { bottom: 'never', top: 'never' },
         },
     };
 }

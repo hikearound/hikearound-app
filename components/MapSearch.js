@@ -12,6 +12,11 @@ const propTypes = {
     searchInputRef: PropTypes.object.isRequired,
     hideHikeSheet: PropTypes.func.isRequired,
     dispatchMapData: PropTypes.func.isRequired,
+    selectedHike: PropTypes.string,
+};
+
+const defaultProps = {
+    selectedHike: null,
 };
 
 function mapStateToProps() {
@@ -26,9 +31,10 @@ function mapDispatchToProps(dispatch) {
 
 class MapSearch extends React.Component {
     onPress = (details) => {
-        const { dispatchMapData } = this.props;
+        const { dispatchMapData, selectedHike } = this.props;
         const selectedCity = details;
-        dispatchMapData({ selectedHike: null, selectedCity });
+
+        dispatchMapData({ selectedHike, selectedCity });
     };
 
     searchFocus = () => {
@@ -68,6 +74,7 @@ class MapSearch extends React.Component {
 }
 
 MapSearch.propTypes = propTypes;
+MapSearch.defaultProps = defaultProps;
 
 export default connect(
     mapStateToProps,

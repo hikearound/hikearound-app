@@ -1,6 +1,7 @@
 import React from 'react';
 import { useScrollToTop, useNavigation } from '@react-navigation/native';
 import PropTypes from 'prop-types';
+import Constants from 'expo-constants';
 
 const propTypes = {
     scrollRef: PropTypes.object.isRequired,
@@ -24,4 +25,9 @@ export function withNavigation(Component) {
 
         return <Component {...props} navigation={navigation} />;
     };
+}
+
+export function getHeaderHeight() {
+    const baseHeight = 44;
+    return baseHeight + Constants.statusBarHeight;
 }

@@ -1,10 +1,13 @@
 import styled from 'styled-components';
 import { colors, fontSizes, spacing, fontWeights } from '../constants/Index';
+import { getHeaderHeight } from '../utils/Navigation';
+
+const headerHeight = getHeaderHeight();
 
 export const ModalHeader = styled.View`
     background-color: ${(props) => props.theme.headerStyle};
     border-bottom-color: ${colors.gray};
-    height: ${spacing.header}px;
+    height: ${headerHeight}px;
     width: 100%;
     position: relative;
 `;

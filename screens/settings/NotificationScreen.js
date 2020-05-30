@@ -9,7 +9,7 @@ import {
     HeaderContainer,
     HeaderText,
 } from '../../styles/Screens';
-import { withTheme } from '../../utils/Themes';
+import { withTheme, SetBarStyle } from '../../utils/Themes';
 
 function mapStateToProps() {
     return {};
@@ -32,6 +32,7 @@ class NotificationSettingsScreen extends React.Component {
 
         return (
             <StyledRootView>
+                <SetBarStyle barStyle='light-content' />
                 <SectionList
                     extraData={this.state}
                     renderItem={this.renderItem}

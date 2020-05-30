@@ -1,4 +1,5 @@
-import { colors, spacing, borderRadius } from '../constants/Index';
+import Constants from 'expo-constants';
+import { colors, spacing } from '../constants/Index';
 
 export function getMapSearchStyle(theme) {
     return {
@@ -7,7 +8,7 @@ export function getMapSearchStyle(theme) {
             position: 'absolute',
             left: parseInt(spacing.tiny, 10),
             right: parseInt(spacing.tiny, 10),
-            top: 35,
+            top: Constants.statusBarHeight - 5,
             borderTopWidth: 0,
             borderBottomWidth: 0,
         },
@@ -25,14 +26,14 @@ export function getMapSearchStyle(theme) {
             right: 0,
             position: 'absolute',
             backgroundColor: colors.white,
-            borderBottomLeftRadius: parseInt(borderRadius.medium, 10),
-            borderBottomRightRadius: parseInt(borderRadius.medium, 10),
+            borderBottomLeftRadius: parseInt(spacing.tiny, 10),
+            borderBottomRightRadius: parseInt(spacing.tiny, 10),
         },
         poweredContainer: {
             display: 'none',
         },
         listView: {
-            marginTop: 85,
+            marginTop: Constants.statusBarHeight + 45,
         },
         separator: {
             marginLeft: parseInt(spacing.tiny, 10),

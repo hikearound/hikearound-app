@@ -26,7 +26,7 @@ const defaultProps = {
     duration: 1000,
     latModifier: 0.0001,
     hikeAlt: 20000,
-    cityAlt: 80000,
+    cityAlt: 160000,
     selectedCity: null,
 };
 
@@ -49,26 +49,31 @@ class GlobalMap extends React.Component {
         this.mapRef = React.createRef();
     }
 
-    async componentDidMount() {
+    componentDidMount() {
         const { delta, position } = this.props;
         this.setRegion(delta, position);
     }
 
     componentDidUpdate(prevProps) {
-        const { selectedCity, cityAlt } = this.props;
+        const { selectedCity } = this.props;
 
         if (prevProps.selectedCity !== selectedCity && selectedCity) {
-            const { lat, lng } = selectedCity.geometry.location;
-
-            this.animateToPoint({
-                center: {
-                    latitude: lat,
-                    longitude: lng,
-                },
-                altitude: cityAlt,
-            });
+            this.animateToCity(selectedCity);
         }
     }
+
+    animateToCity = (selectedCity) => {
+        const { cityAlt } = this.props;
+        const { lat, lng } = selectedCity.geometry.location;
+
+        this.animateToPoint({
+            center: {
+                latitude: lat,
+                longitude: lng,
+            },
+            altitude: cityAlt,
+        });
+    };
 
     setRegion = (delta, position) => {
         this.setState({

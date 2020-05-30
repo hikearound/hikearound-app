@@ -8,7 +8,7 @@ import ProfileLoadingState from '../components/loading/Profile';
 import { initializeHikeData } from '../actions/Hike';
 import { timings } from '../constants/Index';
 import { RootView } from '../styles/Screens';
-import { withTheme } from '../utils/Themes';
+import { withTheme, SetBarStyle } from '../utils/Themes';
 
 const propTypes = {
     dispatchHikeData: PropTypes.func.isRequired,
@@ -100,6 +100,7 @@ class ProfileScreen extends React.Component {
 
         return (
             <RootView>
+                <SetBarStyle barStyle='light-content' />
                 {firstLoad && shouldLoad && <ProfileLoadingState />}
                 {!firstLoad && (
                     <>

@@ -13,7 +13,7 @@ import {
 import { settingsControls } from '../constants/Index';
 import { getSettingsData } from '../constants/lists/Settings';
 import { StyledRootView, HeaderContainer, HeaderText } from '../styles/Screens';
-import { withTheme } from '../utils/Themes';
+import { withTheme, SetBarStyle } from '../utils/Themes';
 
 function mapStateToProps() {
     return {};
@@ -59,6 +59,7 @@ class SettingsScreen extends React.Component {
 
         return (
             <StyledRootView>
+                <SetBarStyle barStyle='light-content' />
                 <SectionList
                     extraData={this.state}
                     renderItem={this.renderItem}

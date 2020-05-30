@@ -2,7 +2,7 @@ import React from 'react';
 import { registerForPushNotifications } from '../utils/Notifications';
 import { NotificationEmptyState } from '../components/Index';
 import { RootView } from '../styles/Screens';
-import { withTheme } from '../utils/Themes';
+import { withTheme, SetBarStyle } from '../utils/Themes';
 
 class NotificationScreen extends React.Component {
     constructor(props) {
@@ -25,6 +25,7 @@ class NotificationScreen extends React.Component {
 
         return (
             <RootView>
+                <SetBarStyle barStyle='light-content' />
                 {notifications.length === 0 && <NotificationEmptyState />}
             </RootView>
         );

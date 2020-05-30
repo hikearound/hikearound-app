@@ -21,7 +21,10 @@ class TabNavigator extends React.PureComponent {
                 options={() => ({
                     tabBarLabel: t('label.nav.home'),
                     tabBarIcon: ({ focused }) => (
-                        <HomeIcon size={26} fill={this.setFill(focused)} />
+                        <HomeIcon
+                            fill={this.setFill(focused)}
+                            focused={focused}
+                        />
                     ),
                 })}
                 listeners={{
@@ -41,7 +44,11 @@ class TabNavigator extends React.PureComponent {
                 options={() => ({
                     tabBarLabel: t('label.nav.map'),
                     tabBarIcon: ({ focused }) => (
-                        <MapIcon size={32} fill={this.setFill(focused)} />
+                        <MapIcon
+                            size={30}
+                            fill={this.setFill(focused)}
+                            focused={focused}
+                        />
                     ),
                 })}
                 listeners={{
@@ -61,7 +68,10 @@ class TabNavigator extends React.PureComponent {
                 options={() => ({
                     tabBarLabel: t('label.nav.notifications'),
                     tabBarIcon: ({ focused }) => (
-                        <BellIcon fill={this.setFill(focused)} />
+                        <BellIcon
+                            fill={this.setFill(focused)}
+                            focused={focused}
+                        />
                     ),
                 })}
                 listeners={{
@@ -81,7 +91,10 @@ class TabNavigator extends React.PureComponent {
                 options={() => ({
                     tabBarLabel: t('label.nav.you'),
                     tabBarIcon: ({ focused }) => (
-                        <PersonIcon height={25} fill={this.setFill(focused)} />
+                        <PersonIcon
+                            fill={this.setFill(focused)}
+                            focused={focused}
+                        />
                     ),
                 })}
                 listeners={{
