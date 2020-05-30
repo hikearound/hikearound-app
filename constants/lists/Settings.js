@@ -91,7 +91,6 @@ export function getVersionSection(t) {
 
 export function getSettingsData(t) {
     const mapSection = getMapSection(t);
-    const displaySection = getDisplaySection(t);
     const notificationSection = getNotificationSection(t);
     const termsSection = getTermsSection(t);
     const accountSection = getAccountSection(t);
@@ -99,7 +98,6 @@ export function getSettingsData(t) {
 
     return [
         mapSection,
-        displaySection,
         notificationSection,
         termsSection,
         accountSection,

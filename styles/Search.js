@@ -51,6 +51,7 @@ export function getMapSearchStyle(theme) {
         description: {
             color: theme.colors.text,
             fontSize: parseInt(fontSizes.small, 10),
+            paddingLeft: 0,
         },
     };
 }

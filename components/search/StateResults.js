@@ -24,7 +24,7 @@ class StateResults extends React.PureComponent {
 
         return (
             <View>
-                <SearchStat hideBorder>
+                <SearchStat>
                     <StatText>{t('screen.search.emptyState.header')}</StatText>
                 </SearchStat>
                 <SearchLabel>{t('screen.search.emptyState.label')}</SearchLabel>

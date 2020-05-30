@@ -25,10 +25,18 @@ class HikeMapMarker extends React.Component {
     }
 
     componentDidMount() {
-        this.setHeaderImage();
+        this.setMarkerStyle();
     }
 
-    setHeaderImage = () => {
+    async componentDidUpdate(prevProps) {
+        const { theme } = this.props;
+
+        if (prevProps.theme.dark !== theme.dark) {
+            this.setMarkerStyle();
+        }
+    }
+
+    setMarkerStyle = () => {
         const { theme } = this.props;
         let bgImage = markerBgDefault;
 

@@ -59,11 +59,15 @@ class MapScreen extends React.Component {
     }
 
     async componentDidUpdate(prevProps) {
-        const { selectedHike } = this.props;
+        const { selectedHike, theme } = this.props;
 
         if (prevProps.selectedHike !== selectedHike && selectedHike) {
             const sheetData = await getHikeData(selectedHike);
             this.setSheetData(sheetData);
+        }
+
+        if (prevProps.theme.dark !== theme.dark) {
+            this.setBarStyle();
         }
     }
 
