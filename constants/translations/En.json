@@ -104,7 +104,10 @@
             "legal": "By clicking '{{createAccount}}' you agree to {{appName}} <5>Terms of Service</5> and <7>Privacy Policy</7>."
         },
         "notifications": {
-            "empty": "No new notifications"
+            "empty": {
+                "title": "No notifications",
+                "description": "Notifications about new and trending hikes will appear here."
+            }
         },
         "profile": {
             "edit": "Edit Profile",

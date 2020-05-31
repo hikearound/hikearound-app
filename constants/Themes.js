@@ -54,9 +54,6 @@ export const defaultTheme = {
         loadingSecondary: colors.white,
         loadingSpinner: colors.grayDark,
 
-        // Empty States
-        emptyStateFill: colors.grayMedium,
-
         // Maps
         mapViewBackground: colors.grayUltraLight,
 
@@ -120,9 +117,6 @@ export const darkTheme = {
         loadingPrimary: colors.blackText,
         loadingSecondary: colors.blackLight,
         loadingSpinner: colors.white,
-
-        // Empty States
-        emptyStateFill: colors.white,
 
         // Maps
         mapViewBackground: colors.black,

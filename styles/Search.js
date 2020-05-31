@@ -1,6 +1,11 @@
 import Constants from 'expo-constants';
 import styled from 'styled-components';
-import { fontSizes, spacing, fontWeights } from '../constants/Index';
+import {
+    fontSizes,
+    spacing,
+    fontWeights,
+    transparentColors,
+} from '../constants/Index';
 
 export function getMapSearchStyle(theme) {
     return {
@@ -9,7 +14,7 @@ export function getMapSearchStyle(theme) {
             position: 'absolute',
             left: parseInt(spacing.tiny, 10),
             right: parseInt(spacing.tiny, 10),
-            top: Constants.statusBarHeight - 5,
+            top: Constants.statusBarHeight,
             borderTopWidth: 0,
             borderBottomWidth: 0,
         },
@@ -22,6 +27,13 @@ export function getMapSearchStyle(theme) {
             borderColor: theme.colors.border,
             height: 38,
             backgroundColor: theme.colors.searchBackground,
+            shadowColor: transparentColors.grayLight,
+            shadowOpacity: 1,
+            shadowRadius: 3,
+            shadowOffset: {
+                width: 0,
+                height: 2,
+            },
         },
         container: {
             left: 0,
@@ -35,7 +47,7 @@ export function getMapSearchStyle(theme) {
             display: 'none',
         },
         listView: {
-            marginTop: Constants.statusBarHeight + 40,
+            marginTop: Constants.statusBarHeight + 45,
             marginLeft: parseInt(spacing.tiny, 10),
             marginRight: parseInt(spacing.tiny, 10),
         },

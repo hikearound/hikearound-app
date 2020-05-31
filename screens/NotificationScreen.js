@@ -1,6 +1,6 @@
 import React from 'react';
 import { registerForPushNotifications } from '../utils/Notifications';
-import { NotificationEmptyState } from '../components/Index';
+import NotificationEmptyState from '../components/NotificationEmptyState';
 import { RootView } from '../styles/Screens';
 import { withTheme, SetBarStyle } from '../utils/Themes';
 
