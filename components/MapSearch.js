@@ -5,7 +5,7 @@ import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplet
 import Constants from 'expo-constants';
 import { withTranslation } from 'react-i18next';
 import { withTheme } from '../utils/Themes';
-import { getMapSearchStyle } from '../styles/Search';
+import { getMapSearchStyle } from '../styles/Map';
 import { withNavigation } from '../utils/Navigation';
 import { updateMapData } from '../actions/Map';
 

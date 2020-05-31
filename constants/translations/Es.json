@@ -89,6 +89,9 @@
                 "label": "Lo sentimos, no pudimos encontrar coincidencias para esa búsqueda."
             }
         },
+        "map": {
+            "search": "Buscar caminatas por ciudad"
+        },
         "onboard": {
             "permission": {
                 "title": "Comparte tu ubicación",
@@ -101,7 +104,10 @@
             "legal": "Al hacer clic en '{{createAccount}}' acepta los <5>Términos de servicio</5> y la <7>Política de privacidad</7> de {{appName}}."
         },
         "notifications": {
-            "empty": "No hay notificaciones nuevas"
+            "empty": {
+                "title": "No notificaciones",
+                "description": "Las notificaciones sobre nuevas y tendencias de alzas aparecerán aquí."
+            }
         },
         "profile": {
             "edit": "Editar perfil",

@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import { MaterialIcons } from '@expo/vector-icons';
 import styled from 'styled-components';
 import { withTranslation } from 'react-i18next';
-import { fontSizes, spacing, colors, fontWeights } from '../constants/Index';
+import { colors } from '../constants/Index';
 import { withTheme } from '../utils/Themes';
 import InputButton from './InputButton';
 import { getHeaderHeight } from '../utils/Navigation';
+import { Title, Description } from '../styles/Callouts';
 
 const headerHeight = getHeaderHeight();
 
@@ -71,19 +72,4 @@ const RootView = styled.View`
 
 const ButtonWrapper = styled.View`
     width: 100%;
-`;
-
-const Title = styled.Text`
-    margin-top: ${spacing.micro}px;
-    color: ${(props) => props.theme.onboardTitle};
-    font-size: ${fontSizes.extraLarge}px;
-    font-weight: ${fontWeights.medium};
-`;
-
-const Description = styled.Text`
-    margin-top: ${spacing.micro}px;
-    color: ${(props) => props.theme.onboardDescription};
-    font-size: ${fontSizes.medium}px;
-    text-align: center;
-    padding: 0 ${spacing.small}px;
 `;
