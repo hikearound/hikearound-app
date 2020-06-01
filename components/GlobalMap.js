@@ -7,6 +7,7 @@ import { updateMapData } from '../actions/Map';
 import HikeMapMarker from './HikeMapMarker';
 import { withTheme } from '../utils/Themes';
 import { colors } from '../constants/Index';
+import { deltaMiles } from '../constants/Location';
 import { pageFeed } from '../utils/Feed';
 
 const propTypes = {
@@ -22,6 +23,7 @@ const propTypes = {
     selectedCity: PropTypes.object,
     pageSize: PropTypes.number.isRequired,
     sortDirection: PropTypes.string.isRequired,
+    radius: PropTypes.number,
 };
 
 const defaultProps = {
@@ -31,6 +33,7 @@ const defaultProps = {
     hikeAlt: 20000,
     cityAlt: 160000,
     selectedCity: null,
+    radius: 22,
 };
 
 function mapStateToProps(state) {
@@ -67,8 +70,10 @@ class GlobalMap extends React.Component {
         const { selectedCity, markers } = this.props;
         const { region } = this.state;
 
-        if (prevProps.selectedCity !== selectedCity && selectedCity) {
-            this.animateToCity(selectedCity);
+        if (prevProps.selectedCity !== selectedCity) {
+            if (selectedCity) {
+                this.animateToCity(selectedCity);
+            }
         }
 
         if (prevProps.markers !== markers) {
@@ -114,6 +119,7 @@ class GlobalMap extends React.Component {
             null,
             position,
             sortDirection,
+            deltaMiles.lat * region.latitudeDelta,
         );
 
         const markerIds = new Set(visibleMarkers.map((marker) => marker.id));
@@ -180,7 +186,7 @@ class GlobalMap extends React.Component {
     };
 
     render() {
-        const { theme } = this.props;
+        const { theme, radius } = this.props;
         const { region, tracksViewChanges, visibleMarkers } = this.state;
 
         if (region) {
@@ -198,7 +204,7 @@ class GlobalMap extends React.Component {
                     loadingIndicatorColor={theme.colors.loadingSpinner}
                     loadingBackgroundColor={theme.colors.mapViewBackground}
                     clusterColor={colors.purple}
-                    radius={22}
+                    radius={radius}
                     animationEnabled={false}
                     onPress={this.onPress}
                 >

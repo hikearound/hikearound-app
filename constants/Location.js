@@ -3,4 +3,6 @@ export const degreesPerMile = {
     lon: 0.0181818181818182,
 };
 
-export default degreesPerMile;
+export const deltaMiles = {
+    lat: 69,
+};

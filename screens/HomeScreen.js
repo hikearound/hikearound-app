@@ -105,12 +105,19 @@ class HomeScreen extends React.Component {
     };
 
     getHikeFeedData = async (lastKey) => {
-        const { sortDirection, pageSize, lastKnownPosition } = this.state;
+        const {
+            sortDirection,
+            distance,
+            pageSize,
+            lastKnownPosition,
+        } = this.state;
+
         const { data, cursor } = await pageFeed(
             pageSize,
             lastKey,
             lastKnownPosition,
             sortDirection,
+            distance,
         );
 
         this.lastKnownKey = cursor;

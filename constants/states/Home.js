@@ -9,6 +9,7 @@ export const defaultState = {
     currentPosition: {},
     lastKnownPosition: {},
     city: '',
+    distance: 50,
 };
 
 export default defaultState;

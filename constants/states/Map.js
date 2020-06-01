@@ -3,6 +3,7 @@ export const defaultState = {
     sortDirection: 'desc',
     pageSize: 20,
     sheetData: {},
+    distance: 50,
 };
 
 export default defaultState;

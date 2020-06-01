@@ -64,7 +64,7 @@ class MapScreen extends React.Component {
     };
 
     getInitialMarkers = async () => {
-        const { sortDirection, pageSize } = this.state;
+        const { sortDirection, pageSize, distance } = this.state;
         const { position } = this.props;
 
         const { data } = await pageFeed(
@@ -72,6 +72,7 @@ class MapScreen extends React.Component {
             null,
             position,
             sortDirection,
+            distance,
         );
 
         this.setState({ markers: data });

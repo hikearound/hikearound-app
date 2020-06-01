@@ -2,10 +2,16 @@ import { cacheHikeImage } from './Image';
 import { getRange } from './Location';
 import { getHikeRef } from './Hike';
 
-export async function pageFeed(pageSize, lastKey, position, sortDirection) {
+export async function pageFeed(
+    pageSize,
+    lastKey,
+    position,
+    sortDirection,
+    distance,
+) {
     const { latitude, longitude } = position.coords;
 
-    const range = getRange(latitude, longitude, 50);
+    const range = getRange(latitude, longitude, distance);
     let hikeRef = getHikeRef('geo', range, sortDirection, pageSize);
 
     if (lastKey) {
