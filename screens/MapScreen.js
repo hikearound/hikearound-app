@@ -42,7 +42,7 @@ class MapScreen extends React.Component {
     async componentDidMount() {
         const { theme } = this.props;
 
-        this.getHikeData();
+        this.getInitialMarkers();
         setBarStyleWithTheme(theme, this.setState);
     }
 
@@ -63,23 +63,29 @@ class MapScreen extends React.Component {
         this.setState({ sheetData });
     };
 
-    getHikeData = async (lastKey) => {
+    getInitialMarkers = async () => {
         const { sortDirection, pageSize } = this.state;
         const { position } = this.props;
 
         const { data } = await pageFeed(
             pageSize,
-            lastKey,
+            null,
             position,
             sortDirection,
         );
 
-        this.setState({ hikeData: data });
+        this.setState({ markers: data });
     };
 
     render() {
         const { position, selectedHike } = this.props;
-        const { hikeData, barStyle, sheetData } = this.state;
+        const {
+            markers,
+            barStyle,
+            sheetData,
+            pageSize,
+            sortDirection,
+        } = this.state;
 
         return (
             <View>
@@ -91,7 +97,9 @@ class MapScreen extends React.Component {
                 />
                 <GlobalMap
                     position={position}
-                    hikeData={hikeData}
+                    pageSize={pageSize}
+                    sortDirection={sortDirection}
+                    markers={markers}
                     showHikeSheet={() => {
                         this.bottomSheetRef.current.snapTo(1);
                     }}

@@ -1,5 +1,5 @@
 export const defaultState = {
-    hikeData: [],
+    markers: [],
     sortDirection: 'desc',
     pageSize: 20,
     sheetData: {},

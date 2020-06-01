@@ -7,18 +7,21 @@ import { updateMapData } from '../actions/Map';
 import HikeMapMarker from './HikeMapMarker';
 import { withTheme } from '../utils/Themes';
 import { colors } from '../constants/Index';
+import { pageFeed } from '../utils/Feed';
 
 const propTypes = {
     dispatchMapData: PropTypes.func.isRequired,
     delta: PropTypes.number,
     position: PropTypes.object.isRequired,
     duration: PropTypes.number,
-    hikeData: PropTypes.array.isRequired,
+    markers: PropTypes.array.isRequired,
     latModifier: PropTypes.number,
     hikeAlt: PropTypes.number,
     cityAlt: PropTypes.number,
     showHikeSheet: PropTypes.func.isRequired,
     selectedCity: PropTypes.object,
+    pageSize: PropTypes.number.isRequired,
+    sortDirection: PropTypes.string.isRequired,
 };
 
 const defaultProps = {
@@ -45,7 +48,13 @@ function mapDispatchToProps(dispatch) {
 class GlobalMap extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { region: null, tracksViewChanges: false };
+
+        this.state = {
+            region: null,
+            tracksViewChanges: false,
+            visibleMarkers: [],
+        };
+
         this.mapRef = React.createRef();
     }
 
@@ -54,11 +63,20 @@ class GlobalMap extends React.Component {
         this.setRegion(delta, position);
     }
 
-    componentDidUpdate(prevProps) {
-        const { selectedCity } = this.props;
+    async componentDidUpdate(prevProps, prevState) {
+        const { selectedCity, markers } = this.props;
+        const { region } = this.state;
 
         if (prevProps.selectedCity !== selectedCity && selectedCity) {
             this.animateToCity(selectedCity);
+        }
+
+        if (prevProps.markers !== markers) {
+            this.setInitialMarkers();
+        }
+
+        if (prevState.region !== region) {
+            await this.maybeAddMarkers();
         }
     }
 
@@ -72,6 +90,39 @@ class GlobalMap extends React.Component {
                 longitude: lng,
             },
             altitude: cityAlt,
+        });
+    };
+
+    setInitialMarkers = () => {
+        const { markers } = this.props;
+        this.setState({ visibleMarkers: markers });
+    };
+
+    maybeAddMarkers = async () => {
+        const { pageSize, sortDirection } = this.props;
+        const { region, visibleMarkers } = this.state;
+
+        const position = {
+            coords: {
+                latitude: region.latitude,
+                longitude: region.longitude,
+            },
+        };
+
+        const { data } = await pageFeed(
+            pageSize,
+            null,
+            position,
+            sortDirection,
+        );
+
+        const markerIds = new Set(visibleMarkers.map((marker) => marker.id));
+
+        this.setState({
+            visibleMarkers: [
+                ...visibleMarkers,
+                ...data.filter((marker) => !markerIds.has(marker.id)),
+            ],
         });
     };
 
@@ -117,8 +168,7 @@ class GlobalMap extends React.Component {
     };
 
     onRegionChangeComplete = (region) => {
-        this.setState({ tracksViewChanges: false });
-        console.log(region);
+        this.setState({ tracksViewChanges: false, region });
     };
 
     onPress = () => {
@@ -130,8 +180,8 @@ class GlobalMap extends React.Component {
     };
 
     render() {
-        const { hikeData, theme } = this.props;
-        const { region, tracksViewChanges } = this.state;
+        const { theme } = this.props;
+        const { region, tracksViewChanges, visibleMarkers } = this.state;
 
         if (region) {
             return (
@@ -152,20 +202,22 @@ class GlobalMap extends React.Component {
                     animationEnabled={false}
                     onPress={this.onPress}
                 >
-                    {hikeData.map(({ id, coordinates, distance }, index) => (
-                        <HikeMapMarker
-                            key={id}
-                            identifier={id}
-                            distance={distance}
-                            markerRef={(ref) => this.assignRef(ref, index)}
-                            coordinate={{
-                                latitude: coordinates.center.lat,
-                                longitude: coordinates.center.lng,
-                            }}
-                            onPress={this.markerPress}
-                            tracksViewChanges={tracksViewChanges}
-                        />
-                    ))}
+                    {visibleMarkers.map(
+                        ({ id, coordinates, distance }, index) => (
+                            <HikeMapMarker
+                                key={id}
+                                identifier={id}
+                                distance={distance}
+                                markerRef={(ref) => this.assignRef(ref, index)}
+                                coordinate={{
+                                    latitude: coordinates.center.lat,
+                                    longitude: coordinates.center.lng,
+                                }}
+                                onPress={this.markerPress}
+                                tracksViewChanges={tracksViewChanges}
+                            />
+                        ),
+                    )}
                 </MapView>
             );
         }
