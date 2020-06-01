@@ -86,7 +86,7 @@ class MapScreen extends React.Component {
                 <SetBarStyle barStyle={barStyle} />
                 <MapSearch
                     hideHikeSheet={() => {
-                        this.bottomSheetRef.current.snapTo(0);
+                        this.bottomSheetRef.current.snapTo(2);
                     }}
                 />
                 <GlobalMap

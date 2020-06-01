@@ -15,6 +15,7 @@ const propTypes = {
     maxZoom: PropTypes.number,
     fullHeight: PropTypes.bool,
     mapHeight: PropTypes.number,
+    cacheEnabled: PropTypes.bool,
 };
 
 function mapStateToProps() {
@@ -43,7 +44,14 @@ class HikeMap extends React.Component {
     };
 
     render() {
-        const { coordinates, mapRef, region, mapHeight, theme } = this.props;
+        const {
+            coordinates,
+            mapRef,
+            region,
+            mapHeight,
+            theme,
+            cacheEnabled,
+        } = this.props;
         const { maxZoom, fullHeight, mapDidLoad } = this.state;
 
         if (!fullHeight && !mapDidLoad) {
@@ -70,6 +78,7 @@ class HikeMap extends React.Component {
                     onMapReady={this.onMapReady}
                     loadingIndicatorColor={theme.colors.loadingSpinner}
                     loadingBackgroundColor={theme.colors.mapViewBackground}
+                    cacheEnabled={cacheEnabled}
                 >
                     <MapView.Polyline
                         coordinates={coordinates}

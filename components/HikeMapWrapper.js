@@ -55,6 +55,7 @@ class HikeMapWrapper extends React.Component {
                         }}
                         coordinates={coordinates}
                         region={region}
+                        cacheEnabled
                     />
                     <InfoBar
                         distance={distance}
