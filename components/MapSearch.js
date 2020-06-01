@@ -11,7 +11,6 @@ import { updateMapData } from '../actions/Map';
 import { transparentColors } from '../constants/Index';
 
 const propTypes = {
-    searchInputRef: PropTypes.object.isRequired,
     hideHikeSheet: PropTypes.func.isRequired,
     dispatchMapData: PropTypes.func.isRequired,
     selectedHike: PropTypes.string,
@@ -46,6 +45,7 @@ function mapDispatchToProps(dispatch) {
 class MapSearch extends React.Component {
     constructor(props, context) {
         super(props, context);
+        this.searchInputRef = React.createRef();
         this.state = { city: '' };
     }
 
@@ -68,29 +68,24 @@ class MapSearch extends React.Component {
     };
 
     onChange = (change) => {
-        const { searchInputRef } = this.props;
-
         if (change) {
             const city = change.nativeEvent.text;
             this.setState({ city });
         }
 
-        searchInputRef.current.refs.textInput.setNativeProps({
+        this.searchInputRef.current.refs.textInput.setNativeProps({
             style: { shadowColor: 'transparent' },
         });
     };
 
     onBlur = () => {
-        const { searchInputRef } = this.props;
-
-        searchInputRef.current.refs.textInput.setNativeProps({
+        this.searchInputRef.current.refs.textInput.setNativeProps({
             style: { shadowColor: transparentColors.grayLight },
         });
     };
 
     render() {
         const {
-            searchInputRef,
             language,
             types,
             components,
@@ -105,7 +100,7 @@ class MapSearch extends React.Component {
         return (
             <GooglePlacesAutocomplete
                 placeholder={t('screen.map.search')}
-                ref={searchInputRef}
+                ref={this.searchInputRef}
                 query={{
                     key: Constants.manifest.extra.googlePlaces.apiKey,
                     language,

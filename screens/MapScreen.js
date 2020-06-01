@@ -35,8 +35,6 @@ class MapScreen extends React.Component {
     constructor(props) {
         super(props);
         this.bottomSheetRef = React.createRef();
-        this.searchInputRef = React.createRef();
-
         this.setState = this.setState.bind(this);
         this.state = defaultState;
     }
@@ -87,7 +85,6 @@ class MapScreen extends React.Component {
             <View>
                 <SetBarStyle barStyle={barStyle} />
                 <MapSearch
-                    searchInputRef={this.searchInputRef}
                     hideHikeSheet={() => {
                         this.bottomSheetRef.current.snapTo(0);
                     }}
