@@ -6,7 +6,7 @@ import BottomSheet from 'reanimated-bottom-sheet';
 import { connect } from 'react-redux';
 import GlobalMap from '../components/GlobalMap';
 import MapSearch from '../components/MapSearch';
-import { withTheme, SetBarStyle } from '../utils/Themes';
+import { withTheme, SetBarStyle, setBarStyleWithTheme } from '../utils/Themes';
 import {
     spacing,
     fontSizes,
@@ -43,7 +43,9 @@ class MapScreen extends React.Component {
         super(props);
         this.bottomSheetRef = React.createRef();
         this.searchInputRef = React.createRef();
+
         this.showHikeSheet = this.showHikeSheet.bind(this);
+        this.setState = this.setState.bind(this);
 
         this.state = {
             hikeData: [],
@@ -54,8 +56,10 @@ class MapScreen extends React.Component {
     }
 
     async componentDidMount() {
+        const { theme } = this.props;
+
         this.getHikeData();
-        this.setBarStyle();
+        setBarStyleWithTheme(theme, this.setState);
     }
 
     async componentDidUpdate(prevProps) {
@@ -67,19 +71,9 @@ class MapScreen extends React.Component {
         }
 
         if (prevProps.theme.dark !== theme.dark) {
-            this.setBarStyle();
+            setBarStyleWithTheme(theme, this.setState);
         }
     }
-
-    setBarStyle = () => {
-        const { theme } = this.props;
-
-        if (theme.dark) {
-            this.setState({ barStyle: 'light-content' });
-        } else {
-            this.setState({ barStyle: 'dark-content' });
-        }
-    };
 
     setSheetData = (sheetData) => {
         this.setState({ sheetData });
@@ -87,7 +81,6 @@ class MapScreen extends React.Component {
 
     showHikeSheet = () => {
         this.bottomSheetRef.current.snapTo(1);
-        // this.searchInputRef.current.refs.textInput.blur();
     };
 
     hideHikeSheet = () => {

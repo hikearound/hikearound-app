@@ -8,16 +8,29 @@ import { withTheme } from '../utils/Themes';
 import { getMapSearchStyle } from '../styles/Map';
 import { withNavigation } from '../utils/Navigation';
 import { updateMapData } from '../actions/Map';
+import { transparentColors } from '../constants/Index';
 
 const propTypes = {
     searchInputRef: PropTypes.object.isRequired,
     hideHikeSheet: PropTypes.func.isRequired,
     dispatchMapData: PropTypes.func.isRequired,
     selectedHike: PropTypes.string,
+    language: PropTypes.string,
+    types: PropTypes.string,
+    components: PropTypes.string,
+    fields: PropTypes.string,
+    returnKeyType: PropTypes.string,
+    clearButtonMode: PropTypes.string,
 };
 
 const defaultProps = {
     selectedHike: null,
+    language: 'en',
+    types: '(cities)',
+    components: 'country:us',
+    fields: 'formatted_address,geometry',
+    returnKeyType: 'search',
+    clearButtonMode: 'always',
 };
 
 function mapStateToProps() {
@@ -38,13 +51,40 @@ class MapSearch extends React.Component {
         dispatchMapData({ selectedHike, selectedCity });
     };
 
-    searchFocus = () => {
+    onFocus = () => {
         const { hideHikeSheet } = this.props;
+
         hideHikeSheet();
     };
 
+    onChange = () => {
+        const { searchInputRef } = this.props;
+
+        searchInputRef.current.refs.textInput.setNativeProps({
+            style: { shadowColor: 'transparent' },
+        });
+    };
+
+    onBlur = () => {
+        const { searchInputRef } = this.props;
+
+        searchInputRef.current.refs.textInput.setNativeProps({
+            style: { shadowColor: transparentColors.grayLight },
+        });
+    };
+
     render() {
-        const { searchInputRef, theme, t } = this.props;
+        const {
+            searchInputRef,
+            language,
+            types,
+            components,
+            fields,
+            returnKeyType,
+            clearButtonMode,
+            theme,
+            t,
+        } = this.props;
         const mapSearchStyle = getMapSearchStyle(theme);
 
         return (
@@ -53,19 +93,19 @@ class MapSearch extends React.Component {
                 ref={searchInputRef}
                 query={{
                     key: Constants.manifest.extra.googlePlaces.apiKey,
-                    language: 'en',
-                    types: '(cities)',
-                    components: 'country:us',
+                    language,
+                    types,
+                    components,
                 }}
                 fetchDetails
-                GooglePlacesDetailsQuery={{
-                    fields: 'formatted_address,geometry',
-                }}
+                GooglePlacesDetailsQuery={{ fields }}
                 textInputProps={{
-                    onFocus: () => this.searchFocus(),
+                    onFocus: () => this.onFocus(),
+                    onChange: () => this.onChange(),
+                    onBlur: () => this.onBlur(),
                     enablesReturnKeyAutomatically: false,
-                    returnKeyType: 'search',
-                    clearButtonMode: 'always',
+                    returnKeyType,
+                    clearButtonMode,
                     placeholderTextColor: theme.colors.inputPlaceholderText,
                 }}
                 onPress={(data, details = null) => this.onPress(details)}

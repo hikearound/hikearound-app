@@ -20,3 +20,11 @@ export function SetBarStyle({ barStyle }) {
     );
     return null;
 }
+
+export function setBarStyleWithTheme(theme, setState) {
+    if (theme.dark) {
+        setState({ barStyle: 'light-content' });
+    } else {
+        setState({ barStyle: 'dark-content' });
+    }
+}
