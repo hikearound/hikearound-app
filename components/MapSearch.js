@@ -44,6 +44,11 @@ function mapDispatchToProps(dispatch) {
 }
 
 class MapSearch extends React.Component {
+    constructor(props, context) {
+        super(props, context);
+        this.state = { city: '' };
+    }
+
     onPress = (details) => {
         const { dispatchMapData, selectedHike } = this.props;
         const selectedCity = details;
@@ -53,12 +58,22 @@ class MapSearch extends React.Component {
 
     onFocus = () => {
         const { hideHikeSheet } = this.props;
+        const { city } = this.state;
+
+        if (city.length > 0) {
+            this.onChange();
+        }
 
         hideHikeSheet();
     };
 
-    onChange = () => {
+    onChange = (change) => {
         const { searchInputRef } = this.props;
+
+        if (change) {
+            const city = change.nativeEvent.text;
+            this.setState({ city });
+        }
 
         searchInputRef.current.refs.textInput.setNativeProps({
             style: { shadowColor: 'transparent' },
@@ -101,7 +116,7 @@ class MapSearch extends React.Component {
                 GooglePlacesDetailsQuery={{ fields }}
                 textInputProps={{
                     onFocus: () => this.onFocus(),
-                    onChange: () => this.onChange(),
+                    onChange: (change) => this.onChange(change),
                     onBlur: () => this.onBlur(),
                     enablesReturnKeyAutomatically: false,
                     returnKeyType,
