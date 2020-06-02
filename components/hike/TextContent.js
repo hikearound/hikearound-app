@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { withTranslation } from 'react-i18next';
 import ReadMore from 'react-native-read-more-text';
-import { colors, fontWeights, fontSizes } from '../../constants/Index';
+import { colors, fontWeights, fontSizes, spacing } from '../../constants/Index';
 import Subtitle from '../Subtitle';
 import FavoriteButton from '../FavoriteButton';
 import { defaultProps } from '../../constants/states/TextContent';
@@ -108,6 +108,9 @@ const TitleText = styled.Text`
     color: ${(props) => props.theme.text};
     font-weight: ${fontWeights.bold};
     font-size: ${fontSizes.big}px;
+    line-height: ${fontSizes.big}px;
+    padding-top: ${spacing.micro}px;
+    width: 75%;
 `;
 
 const LocationText = styled.Text`
