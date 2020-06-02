@@ -1,5 +1,5 @@
 export const opacities = {
-    regular: 0.4,
+    regular: 0.8,
 };
 
 export default opacities;

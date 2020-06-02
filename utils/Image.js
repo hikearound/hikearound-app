@@ -1,7 +1,7 @@
 import * as ImageManipulator from 'expo-image-manipulator';
 import { CacheManager } from 'react-native-expo-image-cache';
 import { Asset } from 'expo-asset';
-import { getHikeCoverImage } from './Hike';
+import { getHikeImage } from './Hike';
 
 export async function reduceImageAsync(uri) {
     return ImageManipulator.manipulateAsync(uri, [{ resize: { width: 250 } }], {
@@ -24,7 +24,7 @@ export function cacheImages(images) {
 
 export async function cacheHikeImage(hike, photoIndex) {
     let imageUrl = null;
-    imageUrl = await getHikeCoverImage(hike.id, photoIndex);
+    imageUrl = await getHikeImage(hike.id, photoIndex);
 
     if (imageUrl) {
         await CacheManager.get(imageUrl).getPath();

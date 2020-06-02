@@ -29,10 +29,6 @@ export async function getHikeImageGallery(id) {
 }
 
 export async function getHikeImage(id, index) {
-    return storage.ref(`hikes/${id}/images/${index}.jpg`).getDownloadURL();
-}
-
-export async function getHikeCoverImage(id, index) {
     return storage
         .ref(`hikes/${id}/images/covers/${index}_750x750.jpg`)
         .getDownloadURL();

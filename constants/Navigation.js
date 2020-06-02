@@ -36,6 +36,7 @@ export function screenOptions(backgroundColor) {
         },
         headerTitleContainerStyle: {
             marginBottom: parseInt(spacing.micro, 10),
+            width: '70%',
         },
         headerRightContainerStyle: {
             right: parseInt(spacing.micro, 10),

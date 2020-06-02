@@ -44,7 +44,7 @@ export function getMapSearchStyle(theme) {
             marginTop: Constants.statusBarHeight + 45,
             marginLeft: parseInt(spacing.tiny, 10),
             marginRight: parseInt(spacing.tiny, 10),
-            minHeight: 200,
+            minHeight: 40,
         },
         separator: {
             backgroundColor: theme.colors.border,
