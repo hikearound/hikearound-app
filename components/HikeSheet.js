@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import BottomSheet from 'reanimated-bottom-sheet';
 import { withTheme } from '../utils/Themes';
+import TextContent from './hike/TextContent';
 import {
     spacing,
     fontSizes,
@@ -16,33 +17,44 @@ import { withNavigation } from '../utils/Navigation';
 
 const propTypes = {
     sheetRef: PropTypes.object.isRequired,
-    sheetData: PropTypes.object.isRequired,
-    selectedHike: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    sheetData: PropTypes.object,
+    selectedHike: PropTypes.string,
 };
 
 const defaultProps = {
     selectedHike: null,
+    sheetData: null,
 };
 
 class HikeSheet extends React.Component {
     renderContent = () => {
         const { selectedHike, navigation, sheetData } = this.props;
 
-        if (sheetData) {
-            return (
-                <Body>
-                    <TouchableOpacity
-                        onPress={() => {
-                            openHikeScreen(selectedHike, navigation);
-                        }}
-                        activeOpacity={opacities.regular}
-                    >
-                        <Text>{sheetData.name}</Text>
-                    </TouchableOpacity>
-                </Body>
-            );
-        }
-        return null;
+        return (
+            <Body>
+                {sheetData && selectedHike && (
+                    <View>
+                        <TextContent
+                            name={sheetData.name}
+                            city={sheetData.city}
+                            id={selectedHike}
+                            distance={sheetData.distance}
+                            description={sheetData.description}
+                            numberOfLines={4}
+                            placement='sheet'
+                        />
+                        <TouchableOpacity
+                            onPress={() => {
+                                openHikeScreen(selectedHike, navigation);
+                            }}
+                            activeOpacity={opacities.regular}
+                        >
+                            <Text>{sheetData.name}</Text>
+                        </TouchableOpacity>
+                    </View>
+                )}
+            </Body>
+        );
     };
 
     renderHeader = () => {

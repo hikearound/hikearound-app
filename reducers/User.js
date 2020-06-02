@@ -11,6 +11,7 @@ export default function userReducer(state = userState, action) {
                 darkMode: action.userData.darkMode,
                 notifs: action.userData.notifs,
                 currentPosition: action.userData.currentPosition,
+                favoriteHikes: action.userData.favoriteHikes,
             };
         case 'INITIALIZE_AVATAR':
             return {

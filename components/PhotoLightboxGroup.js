@@ -28,7 +28,6 @@ class PhotoLightboxGroup extends React.PureComponent {
         const { id } = this.props;
         const imageArray = [];
 
-
         const hikeImages = await getHikeImageGallery(id);
         const photoCount = Object.keys(hikeImages).length;
 

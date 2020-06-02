@@ -18,35 +18,48 @@ export async function writeUserData(userData) {
 export function writeMapData(map) {
     const { uid } = auth.currentUser;
     const mapData = { map };
-
     db.collection('users').doc(uid).set(mapData, { merge: true });
 }
 
 export function writeDarkMode(darkMode) {
     const { uid } = auth.currentUser;
     const darkModeData = { darkMode };
-
     db.collection('users').doc(uid).set(darkModeData, { merge: true });
 }
 
 export function writeNotifData(notifData) {
     const { uid } = auth.currentUser;
-
     db.collection('users').doc(uid).set({ notifs: notifData }, { merge: true });
 }
 
 export async function writePhotoData(photoData) {
     const { uid } = auth.currentUser;
-
     await storage.ref().child(`images/users/${uid}.jpg`).put(photoData.blob);
-
     photoData.blob.close();
 }
 
 export async function getUserFavoriteHikes() {
     const { uid } = auth.currentUser;
+    const favoriteHikeSnapshot = db
+        .collection('favoritedHikes')
+        .doc(uid)
+        .collection('hikes')
+        .get();
 
-    return db.collection('favoritedHikes').doc(uid).collection('hikes').get();
+    return favoriteHikeSnapshot;
+}
+
+export async function getFavoriteHikes() {
+    const hikes = [];
+    const favoriteHikes = await getUserFavoriteHikes();
+
+    favoriteHikes.forEach((hike) => {
+        if (hike.exists) {
+            hikes.push(hike.id);
+        }
+    });
+
+    return hikes;
 }
 
 export async function getAvatarUri() {
@@ -98,10 +111,12 @@ export async function maybeSetAvatar(dispatchAvatar) {
 
 export async function getUserProfileData(dispatchUserData, dispatchAvatar) {
     const currentPosition = await getPosition('current');
+    const favoriteHikes = await getFavoriteHikes();
 
     let userData = await getUserData();
     userData = userData.data();
     userData.currentPosition = currentPosition;
+    userData.favoriteHikes = favoriteHikes;
 
     await maybeSetAvatar(dispatchAvatar);
 

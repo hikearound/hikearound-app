@@ -15,9 +15,10 @@ const propTypes = {
     id: PropTypes.string.isRequired,
     distance: PropTypes.number,
     numberOfLines: PropTypes.number,
+    placement: PropTypes.string,
 };
 
-class TextContent extends React.PureComponent {
+class TextContent extends React.Component {
     constructor(props, context) {
         super(props, context);
 
@@ -28,6 +29,14 @@ class TextContent extends React.PureComponent {
 
     componentDidMount() {
         this.updateDescription();
+    }
+
+    componentDidUpdate(prevProps) {
+        const { description } = this.props;
+
+        if (prevProps.description !== description) {
+            this.updateDescription();
+        }
     }
 
     renderTruncatedFooter = (handlePress) => {
@@ -62,7 +71,15 @@ class TextContent extends React.PureComponent {
     }
 
     render() {
-        const { name, city, id, distance, numberOfLines, t } = this.props;
+        const {
+            name,
+            city,
+            id,
+            distance,
+            numberOfLines,
+            placement,
+            t,
+        } = this.props;
         const { description } = this.state;
 
         return (
@@ -74,6 +91,7 @@ class TextContent extends React.PureComponent {
                     id={id}
                     distance={distance}
                     city={city}
+                    placement={placement}
                 />
                 <Subtitle text={t('label.heading.description')} />
                 <ReadMore

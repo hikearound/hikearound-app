@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
 import { opacities, colors, spacing } from '../constants/Index';
 import { favoriteHike, unfavoriteHike } from '../actions/Hike';
-import { getUserFavoriteHikes } from '../utils/User';
 
 const propTypes = {
     id: PropTypes.string.isRequired,
@@ -15,10 +14,14 @@ const propTypes = {
     name: PropTypes.string.isRequired,
     distance: PropTypes.number.isRequired,
     city: PropTypes.string.isRequired,
+    placement: PropTypes.string.isRequired,
+    favoriteHikes: PropTypes.array.isRequired,
 };
 
-function mapStateToProps() {
-    return {};
+function mapStateToProps(state) {
+    return {
+        favoriteHikes: state.userReducer.favoriteHikes,
+    };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -33,113 +36,117 @@ function mapDispatchToProps(dispatch) {
 class FavoriteButton extends React.Component {
     constructor(props) {
         super(props);
+        const { favoriteHikes } = this.props;
 
         this.state = {
             iconColor: colors.gray,
             iconName: 'ios-heart-empty',
             iconSize: 30,
+            hikes: favoriteHikes,
         };
-
-        this.state.hikes = [];
     }
 
-    componentDidMount = async () => {
-        await this.getFavoriteHikes();
-        this.setFavoriteHike();
+    componentDidMount = () => {
+        this.setInitialStyle();
     };
 
-    getFavoriteHikes = async () => {
-        const favoritedHikes = await getUserFavoriteHikes();
-        const hikes = [];
+    componentDidUpdate(prevProps) {
+        const { id } = this.props;
 
-        favoritedHikes.forEach((hike) => {
-            if (hike.exists) {
-                hikes.push(hike.id);
-            }
-        });
+        if (prevProps.id !== id) {
+            this.setInitialStyle();
+        }
+    }
 
-        this.setState({
-            hikes,
-        });
-    };
-
-    setFavoriteHike = async () => {
+    setInitialStyle = () => {
         const { id } = this.props;
         const { hikes } = this.state;
 
         if (hikes.includes(id)) {
-            this.setHeartFilled();
+            this.setState({
+                hikes,
+                iconColor: colors.purple,
+                iconName: 'ios-heart',
+            });
+        } else {
+            this.setState({
+                hikes,
+                iconColor: colors.gray,
+                iconName: 'ios-heart-empty',
+            });
         }
     };
 
-    setHeartFilled() {
+    setFavoriteHike = async () => {
+        const { id, dispatchFavorite, distance, name, city } = this.props;
+        const { hikes } = this.state;
+
+        hikes.push(id);
+
         this.setState({
+            hikes,
             iconColor: colors.purple,
             iconName: 'ios-heart',
         });
-    }
 
-    setHeartEmpty() {
+        dispatchFavorite({ id, distance, name, city });
+    };
+
+    removeFavoriteHike = async () => {
+        const { id, dispatchUnfavorite } = this.props;
+        const { hikes } = this.state;
+
+        const index = hikes.indexOf(id);
+        hikes.splice(index, index);
+
         this.setState({
+            hikes,
             iconColor: colors.gray,
             iconName: 'ios-heart-empty',
         });
-    }
 
-    removeFavoriteHike = async () => {
-        const { id } = this.props;
-        const { hikes } = this.state;
-        const index = hikes.indexOf(id);
-
-        delete hikes[index];
+        dispatchUnfavorite({ id });
     };
 
-    buttonPress = () => {
-        this.updateButtonStyle();
+    onPress = () => {
+        this.updateButton();
         Haptics.selectionAsync();
     };
 
-    updateButtonStyle() {
-        const { iconName } = this.state;
-        const {
-            dispatchFavorite,
-            dispatchUnfavorite,
-            id,
-            distance,
-            name,
-            city,
-        } = this.props;
+    updateButton() {
+        const { hikes } = this.state;
+        const { id } = this.props;
 
-        const updatedHikeData = {
-            id,
-            distance,
-            name,
-            city,
-        };
-
-        if (iconName === 'ios-heart-empty') {
-            this.setHeartFilled();
-            this.setFavoriteHike();
-            dispatchFavorite(updatedHikeData);
-        } else {
-            this.setHeartEmpty();
+        if (hikes.includes(id)) {
             this.removeFavoriteHike();
-            dispatchUnfavorite(updatedHikeData);
+        } else {
+            this.setFavoriteHike();
         }
     }
 
     render() {
         const { iconName, iconColor, iconSize } = this.state;
+        const { placement } = this.props;
+
+        let buttonStyle = {
+            position: 'absolute',
+            right: 0,
+            top: parseInt(spacing.micro, 10),
+        };
+
+        if (placement === 'screen') {
+            buttonStyle = {
+                position: 'absolute',
+                right: parseInt(spacing.small, 10),
+                top: parseInt(spacing.small, 10),
+            };
+        }
 
         return (
             <TouchableOpacity
                 activeOpacity={opacities.regular}
-                onPress={this.buttonPress}
-                style={{
-                    position: 'absolute',
-                    right: parseInt(spacing.small, 10),
-                    top: parseInt(spacing.small, 10),
-                }}
+                onPress={this.onPress}
+                style={buttonStyle}
             >
                 <Ionicons name={iconName} color={iconColor} size={iconSize} />
             </TouchableOpacity>

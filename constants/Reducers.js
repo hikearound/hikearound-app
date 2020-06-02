@@ -30,6 +30,7 @@ export const user = {
     currentPosition: {},
     map: 'Apple Maps',
     darkMode: false,
+    favoriteHikes: [],
 };
 
 user.avatar = avatar;
