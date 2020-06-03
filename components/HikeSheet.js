@@ -1,18 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { TouchableOpacity, View } from 'react-native';
+import { View } from 'react-native';
 import BottomSheet from 'reanimated-bottom-sheet';
 import { withTheme } from '../utils/Themes';
 import TextContent from './hike/TextContent';
-import {
-    spacing,
-    fontSizes,
-    opacities,
-    bottomSheet,
-    transparentColors,
-} from '../constants/Index';
-import { openHikeScreen } from '../utils/Hike';
+import SheetActions from './SheetActions';
+import { spacing, bottomSheet, transparentColors } from '../constants/Index';
 import { withNavigation } from '../utils/Navigation';
 
 const propTypes = {
@@ -28,7 +22,7 @@ const defaultProps = {
 
 class HikeSheet extends React.Component {
     renderContent = () => {
-        const { selectedHike, navigation, sheetData } = this.props;
+        const { selectedHike, sheetData } = this.props;
 
         return (
             <Body>
@@ -42,15 +36,13 @@ class HikeSheet extends React.Component {
                             description={sheetData.description}
                             numberOfLines={4}
                             placement='sheet'
+                            isExpandable={false}
+                            truncateName
                         />
-                        <TouchableOpacity
-                            onPress={() => {
-                                openHikeScreen(selectedHike, navigation);
-                            }}
-                            activeOpacity={opacities.regular}
-                        >
-                            <Text>{sheetData.name}</Text>
-                        </TouchableOpacity>
+                        <SheetActions
+                            selectedHike={selectedHike}
+                            coordinates={sheetData.coordinates.starting}
+                        />
                     </View>
                 )}
             </Body>
@@ -73,7 +65,7 @@ class HikeSheet extends React.Component {
         return (
             <BottomSheet
                 snapPoints={[
-                    bottomSheet.starting,
+                    bottomSheet.collapsed,
                     bottomSheet.expanded,
                     bottomSheet.collapsed,
                 ]}
@@ -97,11 +89,6 @@ const Body = styled.View`
     background-color: ${(props) => props.theme.sheetBackground};
 `;
 
-const Text = styled.Text`
-    color: ${(props) => props.theme.text};
-    font-size: ${fontSizes.small}px;
-`;
-
 const Header = styled.View`
     padding-top: ${spacing.small}px;
     border-top-left-radius: ${spacing.tiny}px;
@@ -116,7 +103,7 @@ const HeaderPanel = styled.View`
 
 const HeaderHandle = styled.View`
     width: 35px;
-    height: 5px;
+    height: ${spacing.micro}px;
     border-radius: ${spacing.micro}px;
     margin-bottom: ${spacing.micro}px;
     background-color: ${(props) => props.theme.sheetHandle};

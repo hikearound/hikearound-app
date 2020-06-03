@@ -1,5 +1,5 @@
 import { parseString } from 'react-native-xml2js';
-import { db, storage, auth } from '../lib/Fire';
+import { db, storage, auth, timestamp } from '../lib/Fire';
 
 export async function getHikeSnapshot(id) {
     return db.collection('hikes').doc(id).get();
@@ -46,6 +46,8 @@ export async function getHikeXmlUrl(id) {
 
 export function writeFavoriteHike(hikeData) {
     const { uid } = auth.currentUser;
+    hikeData.savedOn = timestamp;
+
     db.collection('favoritedHikes')
         .doc(uid)
         .collection('hikes')
@@ -94,6 +96,7 @@ export async function openHikeScreen(id, navigation) {
             route: hikeData.route,
             city: hikeData.city,
             description: hikeData.description,
+            coordinates: hikeData.coordinates,
         },
     });
 }

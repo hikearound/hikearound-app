@@ -57,6 +57,11 @@
             "item": {
                 "attribution": "Atribución de fotos"
             }
+        },
+        "map": {
+            "actions": {
+                "hike": "Ver caminata"
+            }
         }
     },
     "common": {

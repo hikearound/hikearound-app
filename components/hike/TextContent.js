@@ -7,6 +7,7 @@ import { colors, fontWeights, fontSizes, spacing } from '../../constants/Index';
 import Subtitle from '../Subtitle';
 import FavoriteButton from '../FavoriteButton';
 import { defaultProps } from '../../constants/states/TextContent';
+import { truncateText } from '../../utils/Text';
 
 const propTypes = {
     name: PropTypes.string,
@@ -16,37 +17,47 @@ const propTypes = {
     distance: PropTypes.number,
     numberOfLines: PropTypes.number,
     placement: PropTypes.string,
+    isExpandable: PropTypes.bool,
+    truncateName: PropTypes.bool,
 };
 
 class TextContent extends React.Component {
     constructor(props, context) {
         super(props, context);
+        const { name } = this.props;
 
         this.state = {
             description: undefined,
+            hikeName: name,
         };
     }
 
     componentDidMount() {
         this.updateDescription();
+        this.maybeTruncateName();
     }
 
     componentDidUpdate(prevProps) {
-        const { description } = this.props;
+        const { name } = this.props;
 
-        if (prevProps.description !== description) {
+        if (prevProps.name !== name) {
+            this.maybeTruncateName();
             this.updateDescription();
         }
     }
 
     renderTruncatedFooter = (handlePress) => {
-        const { t } = this.props;
+        const { t, isExpandable } = this.props;
 
-        return (
-            <ActionText onPress={() => this.expandText(handlePress)}>
-                {t('label.common.read')}
-            </ActionText>
-        );
+        if (isExpandable) {
+            return (
+                <ActionText onPress={() => this.expandText(handlePress)}>
+                    {t('label.common.read')}
+                </ActionText>
+            );
+        }
+
+        return null;
     };
 
     expandText = (handlePress) => {
@@ -70,21 +81,33 @@ class TextContent extends React.Component {
         }
     }
 
+    maybeTruncateName() {
+        const { name, truncateName } = this.props;
+
+        this.setState({ hikeName: name });
+
+        if (truncateName) {
+            if (name.length >= 25) {
+                this.setState({ hikeName: truncateText(name, 25) });
+            }
+        }
+    }
+
     render() {
         const {
-            name,
             city,
             id,
             distance,
             numberOfLines,
             placement,
+            name,
             t,
         } = this.props;
-        const { description } = this.state;
+        const { description, hikeName } = this.state;
 
         return (
             <>
-                <TitleText>{name}</TitleText>
+                <TitleText>{hikeName}</TitleText>
                 <LocationText>{city}</LocationText>
                 <FavoriteButton
                     name={name}
@@ -128,7 +151,7 @@ const TitleText = styled.Text`
     font-size: ${fontSizes.big}px;
     line-height: ${fontSizes.big}px;
     padding-top: ${spacing.micro}px;
-    width: 75%;
+    width: 80%;
 `;
 
 const LocationText = styled.Text`

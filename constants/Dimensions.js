@@ -5,6 +5,6 @@ export const borderRadius = {
 
 export const bottomSheet = {
     starting: 100,
-    expanded: 250,
+    expanded: 340,
     collapsed: 35,
 };

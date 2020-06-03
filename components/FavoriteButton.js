@@ -26,10 +26,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        dispatchFavorite: (updatedHikeData) =>
-            dispatch(favoriteHike(updatedHikeData)),
-        dispatchUnfavorite: (updatedHikeData) =>
-            dispatch(unfavoriteHike(updatedHikeData)),
+        dispatchFavorite: (hike) => dispatch(favoriteHike(hike)),
+        dispatchUnfavorite: (hike) => dispatch(unfavoriteHike(hike)),
     };
 }
 

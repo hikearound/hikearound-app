@@ -40,10 +40,12 @@ export async function writePhotoData(photoData) {
 
 export async function getUserFavoriteHikes() {
     const { uid } = auth.currentUser;
+
     const favoriteHikeSnapshot = db
         .collection('favoritedHikes')
         .doc(uid)
         .collection('hikes')
+        .orderBy('savedOn', 'desc')
         .get();
 
     return favoriteHikeSnapshot;
@@ -81,7 +83,6 @@ export async function getAvatarUri() {
 
 export async function getUserData() {
     const { uid } = auth.currentUser;
-
     return db.collection('users').doc(uid).get();
 }
 

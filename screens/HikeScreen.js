@@ -2,27 +2,24 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Share } from 'react-native';
-import openMap from 'react-native-open-maps';
 import { withTranslation } from 'react-i18next';
 import { HikeBody, Overflow, Toast, MapModal } from '../components/Index';
 import { hikeActionSheet } from '../components/action_sheets/Hike';
-import { getMapSetting } from '../utils/Settings';
 import { getHikeXmlUrl, parseHikeXml } from '../utils/Hike';
 import { getToastText } from '../utils/Toast';
 import { copyLink } from '../actions/Hike';
 import { RootView } from '../styles/Screens';
 import { withTheme, SetBarStyle } from '../utils/Themes';
+import { getDrivingDirections } from '../utils/Map';
 import { shareAction, baseUrl, latModifier } from '../constants/Common';
 
 const propTypes = {
-    map: PropTypes.string.isRequired,
     dispatchCopyLink: PropTypes.func.isRequired,
     action: PropTypes.string.isRequired,
 };
 
 function mapStateToProps(state) {
     return {
-        map: state.userReducer.map,
         action: state.hikeReducer.action,
     };
 }
@@ -87,7 +84,7 @@ class HikeScreen extends React.Component {
             longitudeDelta,
         };
 
-        this.setState({ region, hikeData, latitude, longitude });
+        this.setState({ region, hikeData });
     }
 
     initializeMap = async () => {
@@ -100,15 +97,11 @@ class HikeScreen extends React.Component {
     };
 
     getDirections = async () => {
-        const { latitude, longitude } = this.state;
-        const { map } = this.props;
-        const mapProvider = getMapSetting(map);
+        const { route } = this.props;
+        const { hike } = route.params;
+        const { lat, lng } = hike.coordinates.starting;
 
-        openMap({
-            provider: mapProvider,
-            travelType: 'drive',
-            query: `${latitude}, ${longitude}`,
-        });
+        getDrivingDirections(lat, lng);
     };
 
     shareHike = async () => {

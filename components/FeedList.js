@@ -26,6 +26,7 @@ class FeedList extends React.Component {
             description={item.description}
             city={item.city}
             coverPhoto={item.coverPhoto}
+            coordinates={item.coordinates}
         />
     );
 

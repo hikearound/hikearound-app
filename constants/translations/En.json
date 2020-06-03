@@ -7,7 +7,7 @@
             "privacy": "Privacy Policy",
             "read": "Read More",
             "skip": "Skip",
-            "warning": "Warning",
+            "warning": "Hold On",
             "continue": "Continue"
         },
         "input": {
@@ -56,6 +56,11 @@
             "title": "Photo",
             "item": {
                 "attribution": "Photo attribution"
+            }
+        },
+        "map": {
+            "actions": {
+                "hike": "View Hike"
             }
         }
     },

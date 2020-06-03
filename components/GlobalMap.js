@@ -29,7 +29,7 @@ const propTypes = {
 const defaultProps = {
     delta: 0.5,
     duration: 1000,
-    latModifier: 0.0001,
+    latModifier: 0.018,
     hikeAlt: 20000,
     cityAlt: 160000,
     selectedCity: null,
