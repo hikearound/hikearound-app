@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-import { Image } from 'react-native-expo-image-cache';
+import ImageBlurLoading from 'react-native-image-blur-loading';
 import { spacing, borderRadius, opacities } from '../constants/Index';
 import { showModal, setLightboxImage } from '../actions/Modal';
 import { withTheme } from '../utils/Themes';
@@ -51,15 +51,14 @@ class Thumbnail extends React.PureComponent {
 
     render() {
         const { image, dimension, theme, resizeMode, tint } = this.props;
-
         return (
             <TouchableOpacity
                 activeOpacity={opacities.regular}
                 onPress={this.thumbnailPress}
             >
-                <Image
-                    uri={image.thumbnailUri}
-                    preview={image.thumbnailUri}
+                <ImageBlurLoading
+                    source={{ uri: image.thumbnailUri }}
+                    thumbnailSource={{ uri: image.thumbnailUri }}
                     resizeMode={resizeMode}
                     tint={tint}
                     dimension={dimension}

@@ -51,7 +51,6 @@ class LightboxImage extends React.Component {
             >
                 <Image
                     uri={images[imageIndex].uri}
-                    preview={images[imageIndex].thumbnailUri}
                     resizeMode={resizeMode}
                     style={{
                         width,

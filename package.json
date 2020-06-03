@@ -50,6 +50,7 @@
     "react-native-geocoding": "^0.4.0",
     "react-native-gesture-handler": "~1.6.0",
     "react-native-google-places-autocomplete": "^1.7.1",
+    "react-native-image-blur-loading": "^1.0.5",
     "react-native-image-pan-zoom": "^2.1.12",
     "react-native-map-clustering": "^3.3.9",
     "react-native-maps": "0.26.1",
