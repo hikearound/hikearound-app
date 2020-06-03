@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Dimensions, Image, Animated } from 'react-native';
+import { Dimensions } from 'react-native';
+import { Image } from 'react-native-expo-image-cache';
 import { connect } from 'react-redux';
 import ImageZoom from 'react-native-image-pan-zoom';
 import { closeModal } from '../actions/Modal';
 
 const { height, width } = Dimensions.get('window');
-const AnimatedImage = Animated.createAnimatedComponent(Image);
 
 const propTypes = {
     images: PropTypes.array.isRequired,
@@ -25,21 +25,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 class LightboxImage extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            fadeAnim: new Animated.Value(0),
-        };
-    }
-
-    componentDidMount() {
-        const { fadeAnim } = this.state;
-        Animated.timing(fadeAnim, {
-            toValue: 1,
-            duration: 650,
-        }).start();
-    }
-
     hideModal = () => {
         const { dispatchModalFlag } = this.props;
         dispatchModalFlag();
@@ -47,7 +32,6 @@ class LightboxImage extends React.Component {
 
     render() {
         const { images, imageIndex } = this.props;
-        const { fadeAnim } = this.state;
 
         return (
             <ImageZoom
@@ -60,11 +44,11 @@ class LightboxImage extends React.Component {
                 imageWidth={width}
                 imageHeight={height}
             >
-                <AnimatedImage
-                    source={images[imageIndex]}
+                <Image
+                    uri={images[imageIndex].uri}
+                    preview={images[imageIndex].thumbnailUri}
                     resizeMode='contain'
                     style={{
-                        opacity: fadeAnim,
                         width,
                         height,
                         marginTop: -25,

@@ -77,7 +77,8 @@
             "feet": "Pies",
             "loop": "Lazo",
             "out": "Afuera"
-        }
+        },
+        "list" : "{{location}} · {{distance}} millas",
     },
     "screen": {
         "search": {

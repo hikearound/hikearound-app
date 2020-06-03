@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import { TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
+import { Image } from 'react-native-expo-image-cache';
 import { spacing, borderRadius, opacities } from '../constants/Index';
 import { showModal, setLightboxImage } from '../actions/Modal';
+import { withTheme } from '../utils/Themes';
 
 const propTypes = {
     dispatchImage: PropTypes.func.isRequired,
@@ -45,17 +46,27 @@ class Thumbnail extends React.PureComponent {
     };
 
     render() {
-        const { image, dimension } = this.props;
+        const { image, dimension, theme } = this.props;
 
         return (
             <TouchableOpacity
                 activeOpacity={opacities.regular}
                 onPress={this.thumbnailPress}
             >
-                <ThumbnailImage
-                    source={{ uri: image.thumbnailUri }}
+                <Image
+                    uri={image.thumbnailUri}
+                    preview={image.thumbnailUri}
                     resizeMode='cover'
+                    tint='light'
                     dimension={dimension}
+                    style={{
+                        height: dimension,
+                        width: dimension,
+                        borderRadius: parseInt(borderRadius.small, 10),
+                        marginRight: parseInt(spacing.tiny, 10),
+                        marginBottom: parseInt(spacing.micro, 10),
+                        backgroundColor: theme.thumbnailBackground,
+                    }}
                 />
             </TouchableOpacity>
         );
@@ -65,13 +76,7 @@ class Thumbnail extends React.PureComponent {
 Thumbnail.propTypes = propTypes;
 Thumbnail.defaultProps = defaultProps;
 
-export default connect(mapStateToProps, mapDispatchToProps)(Thumbnail);
-
-const ThumbnailImage = styled.Image`
-    display: flex;
-    background-color: ${(props) => props.theme.thumbnailBackground};
-    width: ${(props) => props.dimension}px;
-    height: ${(props) => props.dimension}px;
-    border-radius: ${borderRadius.small}px;
-    margin: 0 ${spacing.tiny}px ${spacing.micro}px 0;
-`;
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(withTheme(Thumbnail));

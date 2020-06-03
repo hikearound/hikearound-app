@@ -129,7 +129,7 @@ class FavoriteButton extends React.Component {
         let buttonStyle = {
             position: 'absolute',
             right: 0,
-            top: parseInt(spacing.micro, 10),
+            top: 6,
         };
 
         if (placement === 'screen') {

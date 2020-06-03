@@ -65,7 +65,7 @@ class HikeSheet extends React.Component {
         return (
             <BottomSheet
                 snapPoints={[
-                    bottomSheet.collapsed,
+                    bottomSheet.starting,
                     bottomSheet.expanded,
                     bottomSheet.collapsed,
                 ]}

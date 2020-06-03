@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { TouchableOpacity } from 'react-native';
+import { withTranslation } from 'react-i18next';
 import { openHikeScreen } from '../utils/Hike';
 import { View, Name, MetaData } from '../styles/Lists';
 import { withNavigation } from '../utils/Navigation';
@@ -38,7 +39,7 @@ class HikeListItem extends React.PureComponent {
     };
 
     render() {
-        const { location, distance, shouldHighlight } = this.props;
+        const { location, distance, shouldHighlight, t } = this.props;
 
         return (
             <View shouldHighlight={shouldHighlight}>
@@ -50,10 +51,10 @@ class HikeListItem extends React.PureComponent {
                 >
                     {this.renderName()}
                     <MetaData>
-                        {location}
-                        {' · '}
-                        {distance}
-                        {'m'}
+                        {t('hike.list', {
+                            location,
+                            distance: distance.toFixed(1),
+                        })}
                     </MetaData>
                 </TouchableOpacity>
             </View>
@@ -64,4 +65,4 @@ class HikeListItem extends React.PureComponent {
 HikeListItem.propTypes = propTypes;
 HikeListItem.defaultProps = defaultProps;
 
-export default withNavigation(HikeListItem);
+export default withTranslation()(withNavigation(HikeListItem));

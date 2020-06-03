@@ -77,7 +77,8 @@
             "feet": "Feet",
             "loop": "Loop",
             "out": "Out & Back"
-        }
+        },
+        "list" : "{{location}} · {{distance}} miles",
     },
     "screen": {
         "search": {
