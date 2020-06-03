@@ -12,6 +12,11 @@ const propTypes = {
     images: PropTypes.array.isRequired,
     dispatchModalFlag: PropTypes.func.isRequired,
     imageIndex: PropTypes.number.isRequired,
+    resizeMode: PropTypes.string,
+};
+
+const defaultProps = {
+    resizeMode: 'contain',
 };
 
 function mapStateToProps() {
@@ -31,7 +36,7 @@ class LightboxImage extends React.Component {
     };
 
     render() {
-        const { images, imageIndex } = this.props;
+        const { images, imageIndex, resizeMode } = this.props;
 
         return (
             <ImageZoom
@@ -47,7 +52,7 @@ class LightboxImage extends React.Component {
                 <Image
                     uri={images[imageIndex].uri}
                     preview={images[imageIndex].thumbnailUri}
-                    resizeMode='contain'
+                    resizeMode={resizeMode}
                     style={{
                         width,
                         height,
@@ -60,5 +65,6 @@ class LightboxImage extends React.Component {
 }
 
 LightboxImage.propTypes = propTypes;
+LightboxImage.defaultProps = defaultProps;
 
 export default connect(mapStateToProps, mapDispatchToProps)(LightboxImage);

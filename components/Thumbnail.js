@@ -14,11 +14,15 @@ const propTypes = {
     image: PropTypes.object.isRequired,
     modalType: PropTypes.string,
     dimension: PropTypes.number,
+    resizeMode: PropTypes.string,
+    tint: PropTypes.string,
 };
 
 const defaultProps = {
     modalType: 'lightbox',
     dimension: 75,
+    resizeMode: 'cover',
+    tint: 'light',
 };
 
 function mapStateToProps() {
@@ -46,7 +50,7 @@ class Thumbnail extends React.PureComponent {
     };
 
     render() {
-        const { image, dimension, theme } = this.props;
+        const { image, dimension, theme, resizeMode, tint } = this.props;
 
         return (
             <TouchableOpacity
@@ -56,8 +60,8 @@ class Thumbnail extends React.PureComponent {
                 <Image
                     uri={image.thumbnailUri}
                     preview={image.thumbnailUri}
-                    resizeMode='cover'
-                    tint='light'
+                    resizeMode={resizeMode}
+                    tint={tint}
                     dimension={dimension}
                     style={{
                         height: dimension,
