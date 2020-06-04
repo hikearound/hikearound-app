@@ -86,7 +86,7 @@
                 "header": "{{count}} result",
                 "header_plural": "{{count}} results"
             },
-            "emptyState": {
+            "empty": {
                 "header": "Recent searches",
                 "label": "No recent searches. Try searching for a hike by name or by city."
             },
@@ -96,7 +96,11 @@
             }
         },
         "map": {
-            "search": "Search for hikes by city"
+            "search": "Search for hikes by city",
+            "empty": {
+                "title": "Adventure awaits",
+                "description": "Get started by selecting a hike from the map above."
+            }
         },
         "onboard": {
             "permission": {

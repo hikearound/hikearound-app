@@ -86,7 +86,7 @@
                 "header": "{{count}} resultado",
                 "header_plural": "{{count}} resultados"
             },
-            "emptyState": {
+            "empty": {
                 "header": "Búsquedas recientes",
                 "label": "No hay búsquedas recientes. Intente buscar una caminata por nombre o por ciudad."
             },
@@ -96,7 +96,11 @@
             }
         },
         "map": {
-            "search": "Buscar caminatas por ciudad"
+            "search": "Buscar caminatas por ciudad",
+            "empty": {
+                "title": "La aventura espera",
+                "description": "Comience seleccionando una caminata del mapa de arriba."
+            }
         },
         "onboard": {
             "permission": {

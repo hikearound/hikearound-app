@@ -5,6 +5,7 @@ import { View } from 'react-native';
 import BottomSheet from 'reanimated-bottom-sheet';
 import { withTheme } from '../utils/Themes';
 import TextContent from './hike/TextContent';
+import MapEmptyState from './empty/MapEmptyState';
 import SheetActions from './SheetActions';
 import { spacing, bottomSheet, transparentColors } from '../constants/Index';
 import { withNavigation } from '../utils/Navigation';
@@ -26,6 +27,7 @@ class HikeSheet extends React.Component {
 
         return (
             <Body>
+                {!selectedHike && <MapEmptyState />}
                 {sheetData && selectedHike && (
                     <View>
                         <TextContent
@@ -65,7 +67,7 @@ class HikeSheet extends React.Component {
         return (
             <BottomSheet
                 snapPoints={[
-                    bottomSheet.starting,
+                    bottomSheet.collapsed,
                     bottomSheet.expanded,
                     bottomSheet.collapsed,
                 ]}
@@ -84,7 +86,7 @@ HikeSheet.defaultProps = defaultProps;
 export default withNavigation(withTheme(HikeSheet));
 
 const Body = styled.View`
-    height: ${bottomSheet.expanded}px;
+    height: 320px;
     padding: ${spacing.small}px;
     background-color: ${(props) => props.theme.sheetBackground};
 `;

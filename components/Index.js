@@ -16,7 +16,6 @@ import Toast from './Toast';
 import Thumbnail from './Thumbnail';
 import ModalDismiss from './ModalDismiss';
 import LightboxImage from './LightboxImage';
-import NotificationEmptyState from './NotificationEmptyState';
 import LoadingOverlay from './LoadingOverlay';
 
 // Modals
@@ -86,7 +85,6 @@ export {
     ModalDismiss,
     LightboxImage,
     HikeMapWrapper,
-    NotificationEmptyState,
     SwitchItem,
     InputButton,
     LoadingOverlay,

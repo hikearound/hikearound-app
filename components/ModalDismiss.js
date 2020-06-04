@@ -120,7 +120,7 @@ const DismissIconWrapper = styled.View`
     height: ${(props) => props.iconSize}px;
     width: ${(props) => props.iconSize}px;
     box-shadow: 0 4px 4px ${transparentColors.gray};
-    background-color: ${colors.white};
+    background-color: ${(props) => props.theme.sheetBackground};
     padding-left: 11px;
 `;
 

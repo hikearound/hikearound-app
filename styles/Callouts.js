@@ -5,7 +5,10 @@ export const RootView = styled.View`
     flex: 1;
     justify-content: center;
     align-items: center;
-    background-color: ${(props) => props.theme.rootBackground};
+    background-color: ${(props) =>
+        props.isSheet
+            ? props.theme.sheetBackground
+            : props.theme.rootBackground};
     width: 100%;
 `;
 
