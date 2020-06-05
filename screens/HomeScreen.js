@@ -6,6 +6,7 @@ import HomeLoadingState from '../components/loading/Home';
 import HomeActions from '../components/HomeActions';
 import FeedList from '../components/FeedList';
 import FeedRefreshControl from '../components/FeedRefreshControl';
+import HomeEmptyState from '../components/empty/HomeEmptyState';
 import { feedActionSheet } from '../components/action_sheets/Feed';
 import { initializeUserData, initializeAvatar } from '../actions/User';
 import { initializeMapData } from '../actions/Map';
@@ -165,9 +166,15 @@ class HomeScreen extends React.Component {
         this.setState({ lastKnownPosition, city });
     };
 
+    shouldShowEmptyState = () => {
+        const { hikes } = this.state;
+        return hikes.length === 0;
+    };
+
     renderHome = () => {
         const { hikes, firstLoad, loading, city } = this.state;
         const scrollRef = React.createRef();
+        const showEmptyState = this.shouldShowEmptyState();
 
         if (firstLoad) {
             return <HomeLoadingState />;
@@ -176,18 +183,21 @@ class HomeScreen extends React.Component {
         return (
             <>
                 <SetBarStyle barStyle='light-content' />
-                <FeedList
-                    refreshControl={
-                        <FeedRefreshControl
-                            refreshing={loading}
-                            onRefresh={this.onRefresh}
-                        />
-                    }
-                    scrollRef={scrollRef}
-                    onEndReached={this.onEndReached}
-                    hikes={hikes}
-                    city={city}
-                />
+                {showEmptyState && <HomeEmptyState city={city} />}
+                {!showEmptyState && (
+                    <FeedList
+                        refreshControl={
+                            <FeedRefreshControl
+                                refreshing={loading}
+                                onRefresh={this.onRefresh}
+                            />
+                        }
+                        scrollRef={scrollRef}
+                        onEndReached={this.onEndReached}
+                        hikes={hikes}
+                        city={city}
+                    />
+                )}
             </>
         );
     };

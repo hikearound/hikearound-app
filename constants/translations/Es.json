@@ -102,6 +102,12 @@
                 "description": "Comience seleccionando una caminata del mapa de arriba."
             }
         },
+        "home": {
+            "empty": {
+                "title": "No pudimos encontrar ninguna caminata cercana",
+                "description": "Esto probablemente significa que aún no hemos agregado ninguna caminata cerca de {{cityName}}. Intente <3>buscar una caminata</3> o <5>explore el mapa</5>."
+            }
+        },
         "onboard": {
             "permission": {
                 "title": "Comparte tu ubicación",

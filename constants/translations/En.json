@@ -102,6 +102,12 @@
                 "description": "Get started by selecting a hike from the map above."
             }
         },
+        "home": {
+            "empty": {
+                "title": "We couldn't find any nearby hikes",
+                "description": "This probably means we haven't added any hikes near {{cityName}} yet. Try <3>searching for a hike</3> or <5>browse the map</5>."
+            }
+        },
         "onboard": {
             "permission": {
                 "title": "Share your location",
