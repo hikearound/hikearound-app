@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Dimensions } from 'react-native';
-import { Image } from 'react-native-expo-image-cache';
+import { Dimensions, Image } from 'react-native';
+// import { Image } from 'react-native-expo-image-cache';
 import { connect } from 'react-redux';
 import ImageZoom from 'react-native-image-pan-zoom';
+import LoadingOverlay from './LoadingOverlay';
 import { closeModal } from '../actions/Modal';
 
 const { height, width } = Dimensions.get('window');
@@ -30,35 +31,50 @@ function mapDispatchToProps(dispatch) {
 }
 
 class LightboxImage extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = { loading: true };
+    }
+
     hideModal = () => {
         const { dispatchModalFlag } = this.props;
         dispatchModalFlag();
     };
 
+    imageDidLoad = async () => {
+        this.setState({ loading: false });
+    };
+
     render() {
         const { images, imageIndex, resizeMode } = this.props;
+        const { loading } = this.state;
 
         return (
-            <ImageZoom
-                enableSwipeDown
-                onSwipeDown={() => {
-                    this.hideModal();
-                }}
-                cropWidth={width}
-                cropHeight={height}
-                imageWidth={width}
-                imageHeight={height}
-            >
-                <Image
-                    uri={images[imageIndex].uri}
-                    resizeMode={resizeMode}
-                    style={{
-                        width,
-                        height,
-                        marginTop: -25,
+            <>
+                <ImageZoom
+                    enableSwipeDown
+                    onSwipeDown={() => {
+                        this.hideModal();
                     }}
-                />
-            </ImageZoom>
+                    cropWidth={width}
+                    cropHeight={height}
+                    imageWidth={width}
+                    imageHeight={height}
+                >
+                    <Image
+                        source={{ uri: images[imageIndex].uri }}
+                        resizeMode={resizeMode}
+                        onLoad={this.imageDidLoad}
+                        style={{
+                            width,
+                            height,
+                            marginTop: -40,
+                        }}
+                    />
+                </ImageZoom>
+                <LoadingOverlay loading={loading} />
+            </>
         );
     }
 }

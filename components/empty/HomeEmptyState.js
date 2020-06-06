@@ -45,7 +45,7 @@ class HomeEmptyState extends React.PureComponent {
         const { iconSize, iconColor, iconType, city, t } = this.props;
 
         return (
-            <RootView isSheet>
+            <RootView>
                 <MaterialIcons
                     name={iconType}
                     color={iconColor}
