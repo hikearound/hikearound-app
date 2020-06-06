@@ -17,6 +17,7 @@ export const Title = styled.Text`
     color: ${(props) => props.theme.onboardTitle};
     font-size: ${fontSizes.extraLarge}px;
     font-weight: ${fontWeights.medium};
+    padding: 0 ${spacing.large}px;
 `;
 
 export const Description = styled.Text`

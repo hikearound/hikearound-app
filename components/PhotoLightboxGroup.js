@@ -9,6 +9,7 @@ import {
     getHikeImage,
     getHikeImageGallery,
 } from '../utils/Hike';
+import { withTheme } from '../utils/Themes';
 
 const propTypes = {
     id: PropTypes.string.isRequired,
@@ -17,12 +18,33 @@ const propTypes = {
 class PhotoLightboxGroup extends React.PureComponent {
     constructor(props, context) {
         super(props, context);
+
         this.state = { imageArray: [] };
     }
 
     componentDidMount() {
         this.buildHikeImageArray();
+        this.setAnimationType();
     }
+
+    componentDidUpdate(prevProps) {
+        const { theme } = this.props;
+
+        if (prevProps.theme !== theme) {
+            this.setAnimationType();
+        }
+    }
+
+    setAnimationType = async () => {
+        const { theme } = this.props;
+        let animationType = 'fade';
+
+        if (theme.dark) {
+            animationType = 'none';
+        }
+
+        this.setState({ animationType });
+    };
 
     buildHikeImageArray = async () => {
         const { id } = this.props;
@@ -46,7 +68,7 @@ class PhotoLightboxGroup extends React.PureComponent {
     };
 
     render() {
-        const { imageArray } = this.state;
+        const { imageArray, animationType } = this.state;
         return (
             <View>
                 <PhotoGroup>
@@ -60,7 +82,7 @@ class PhotoLightboxGroup extends React.PureComponent {
                 </PhotoGroup>
                 <LightboxModal
                     images={imageArray}
-                    animationType='fade'
+                    animationType={animationType}
                     modalAction='showLightbox'
                 />
             </View>
@@ -70,7 +92,7 @@ class PhotoLightboxGroup extends React.PureComponent {
 
 PhotoLightboxGroup.propTypes = propTypes;
 
-export default PhotoLightboxGroup;
+export default withTheme(PhotoLightboxGroup);
 
 const PhotoGroup = styled.View`
     display: flex;

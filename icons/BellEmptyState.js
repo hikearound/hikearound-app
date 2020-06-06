@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Svg, { Path } from 'react-native-svg';
+import styled from 'styled-components';
 import { colors } from '../constants/Index';
 
 const propTypes = {
@@ -10,8 +11,8 @@ const propTypes = {
 };
 
 const defaultProps = {
-    width: 43,
-    height: 50,
+    width: 39,
+    height: 45,
     fill: colors.purple,
 };
 
@@ -21,13 +22,15 @@ class BellEmptyState extends React.PureComponent {
         const viewBox = `0 0 ${width} ${height}`;
 
         return (
-            <Svg width={width} height={height} viewBox={viewBox}>
-                <Path
-                    d='M16.183 42.337l10.111.03c.338.681.548 1.434.57 2.236.083 2.989-2.342 5.41-5.418 5.397-3.074-.008-5.632-2.437-5.712-5.43a5.139 5.139 0 01.45-2.233zM20.043 0c3.075.008 5.631 2.442 5.715 5.428.007.283-.038.554-.077.825 5.465 2.196 9.471 7.635 9.98 14.212 0 0 .267 10.888 4.507 13.545.137.066 2.553 1.16 2.572 3.184.017 1.912-2.345 3.46-5.3 3.433l-31.996-.293c-2.952-.027-5.549-1.62-5.44-3.525.105-1.879 2.034-2.848 2.213-2.93 4.176-2.699 3.714-13.605 3.714-13.605C5.992 13.4 9.59 8.35 14.755 6.242c-.056-.282-.12-.55-.126-.85C14.546 2.404 16.97-.009 20.044 0z'
-                    fill={fill}
-                    fillRule='nonzero'
-                />
-            </Svg>
+            <BellWrapper>
+                <Svg width={width} height={height} viewBox={viewBox}>
+                    <Path
+                        d='M14.565 38.103l9.1.027c.304.613.493 1.291.513 2.012.074 2.69-2.108 4.869-4.877 4.858-2.766-.007-5.069-2.194-5.14-4.886a4.625 4.625 0 01.404-2.011zM18.039 0c2.767.007 5.068 2.198 5.143 4.885.007.255-.034.498-.07.742 4.92 1.977 8.525 6.872 8.983 12.791 0 0 .24 9.8 4.056 12.19.124.06 2.298 1.046 2.315 2.866.015 1.722-2.11 3.115-4.77 3.09L4.9 36.3c-2.656-.023-4.993-1.458-4.896-3.172.095-1.69 1.832-2.563 1.993-2.638 3.758-2.428 3.342-12.244 3.342-12.244.055-6.185 3.292-10.73 7.941-12.628-.05-.254-.108-.496-.113-.765C13.09 2.163 15.273-.008 18.039 0z'
+                        fill={fill}
+                        fillRule='nonzero'
+                    />
+                </Svg>
+            </BellWrapper>
         );
     }
 }
@@ -36,3 +39,7 @@ BellEmptyState.propTypes = propTypes;
 BellEmptyState.defaultProps = defaultProps;
 
 export default BellEmptyState;
+
+const BellWrapper = styled.View`
+    margin-bottom: 2px;
+`;

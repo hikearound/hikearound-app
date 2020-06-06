@@ -180,30 +180,33 @@ class HomeScreen extends React.Component {
             return <HomeLoadingState />;
         }
 
+        if (showEmptyState) {
+            return <HomeEmptyState city={city} />;
+        }
+
         return (
-            <>
-                <SetBarStyle barStyle='light-content' />
-                {showEmptyState && <HomeEmptyState city={city} />}
-                {!showEmptyState && (
-                    <FeedList
-                        refreshControl={
-                            <FeedRefreshControl
-                                refreshing={loading}
-                                onRefresh={this.onRefresh}
-                            />
-                        }
-                        scrollRef={scrollRef}
-                        onEndReached={this.onEndReached}
-                        hikes={hikes}
-                        city={city}
+            <FeedList
+                refreshControl={
+                    <FeedRefreshControl
+                        refreshing={loading}
+                        onRefresh={this.onRefresh}
                     />
-                )}
-            </>
+                }
+                scrollRef={scrollRef}
+                onEndReached={this.onEndReached}
+                hikes={hikes}
+                city={city}
+            />
         );
     };
 
     render() {
-        return <RootView>{this.renderHome()}</RootView>;
+        return (
+            <RootView>
+                <SetBarStyle barStyle='light-content' />
+                {this.renderHome()}
+            </RootView>
+        );
     }
 }
 

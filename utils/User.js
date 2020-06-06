@@ -111,7 +111,7 @@ export async function maybeSetAvatar(dispatchAvatar) {
 }
 
 export async function getUserProfileData(dispatchUserData, dispatchAvatar) {
-    const currentPosition = await getPosition('current');
+    const currentPosition = await getPosition('lastKnown');
     const favoriteHikes = await getFavoriteHikes();
 
     let userData = await getUserData();

@@ -40,14 +40,21 @@ class MapScreen extends React.Component {
     }
 
     async componentDidMount() {
-        const { theme } = this.props;
+        const { theme, position } = this.props;
 
-        this.getInitialMarkers();
+        if ('coords' in position) {
+            this.getInitialMarkers();
+        }
+
         setBarStyleWithTheme(theme, this.setState);
     }
 
     async componentDidUpdate(prevProps) {
-        const { selectedHike, theme } = this.props;
+        const { selectedHike, position, theme } = this.props;
+
+        if (prevProps.position !== position) {
+            this.getInitialMarkers();
+        }
 
         if (prevProps.selectedHike !== selectedHike && selectedHike) {
             const sheetData = await getHikeData(selectedHike);
