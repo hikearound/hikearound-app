@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Dimensions, Image } from 'react-native';
-// import { Image } from 'react-native-expo-image-cache';
 import { connect } from 'react-redux';
 import ImageZoom from 'react-native-image-pan-zoom';
 import LoadingOverlay from './LoadingOverlay';
@@ -73,7 +72,7 @@ class LightboxImage extends React.Component {
                         }}
                     />
                 </ImageZoom>
-                <LoadingOverlay loading={loading} />
+                <LoadingOverlay loading={loading} isLightbox />
             </>
         );
     }
