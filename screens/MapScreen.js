@@ -12,12 +12,13 @@ import { withNavigation } from '../utils/Navigation';
 import { defaultState } from '../constants/states/Map';
 
 const propTypes = {
-    position: PropTypes.object.isRequired,
+    position: PropTypes.object,
     selectedHike: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 const defaultProps = {
     selectedHike: null,
+    position: null,
 };
 
 function mapStateToProps(state) {
@@ -40,11 +41,7 @@ class MapScreen extends React.Component {
     }
 
     async componentDidMount() {
-        const { theme, position } = this.props;
-
-        if ('coords' in position) {
-            this.getInitialMarkers();
-        }
+        const { theme } = this.props;
 
         setBarStyleWithTheme(theme, this.setState);
     }
@@ -103,15 +100,17 @@ class MapScreen extends React.Component {
                         this.bottomSheetRef.current.snapTo(2);
                     }}
                 />
-                <GlobalMap
-                    position={position}
-                    pageSize={pageSize}
-                    sortDirection={sortDirection}
-                    markers={markers}
-                    showHikeSheet={() => {
-                        this.bottomSheetRef.current.snapTo(1);
-                    }}
-                />
+                {position && (
+                    <GlobalMap
+                        position={position}
+                        pageSize={pageSize}
+                        sortDirection={sortDirection}
+                        markers={markers}
+                        showHikeSheet={() => {
+                            this.bottomSheetRef.current.snapTo(1);
+                        }}
+                    />
+                )}
                 <HikeSheet
                     sheetRef={this.bottomSheetRef}
                     sheetData={sheetData}

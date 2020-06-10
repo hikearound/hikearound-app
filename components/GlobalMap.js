@@ -133,14 +133,16 @@ class GlobalMap extends React.Component {
     };
 
     setRegion = (delta, position) => {
-        this.setState({
-            region: {
-                latitude: position.coords.latitude,
-                longitude: position.coords.longitude,
-                latitudeDelta: delta,
-                longitudeDelta: delta,
-            },
-        });
+        if ('coords' in position) {
+            this.setState({
+                region: {
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude,
+                    latitudeDelta: delta,
+                    longitudeDelta: delta,
+                },
+            });
+        }
     };
 
     animateToPoint = (camera) => {
