@@ -1,16 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View, Dimensions, LayoutAnimation } from 'react-native';
+import { View, LayoutAnimation } from 'react-native';
 import SvgAnimatedLinearGradient from 'react-native-svg-animated-linear-gradient';
 import { Rect } from 'react-native-svg';
 import { timings, borderRadius, spacing } from '../../constants/Index';
 import { withTheme } from '../../utils/Themes';
-
-const screenWidth = Math.round(Dimensions.get('window').width);
-const screenHeight = Math.round(Dimensions.get('window').height);
+import { getScreenHeight, getScreenWidth } from '../../utils/Screen';
 
 const header = { height: parseInt(spacing.small, 10), width: 175 };
 const border = { yOffset: 34, height: 1 };
+
 const cards = [
     { yOffset: 45 },
     { yOffset: 275 },
@@ -27,8 +26,8 @@ const propTypes = {
 };
 
 const defaultProps = {
-    width: screenWidth,
-    height: screenHeight,
+    width: getScreenWidth(),
+    height: getScreenHeight(),
     cardBorderRadius: parseInt(borderRadius.medium, 10),
     cardSpacing: parseInt(spacing.tiny, 10),
     cardHeight: 220,

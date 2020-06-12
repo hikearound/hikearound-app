@@ -1,12 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Dimensions } from 'react-native';
 import SvgAnimatedLinearGradient from 'react-native-svg-animated-linear-gradient';
 import { Rect } from 'react-native-svg';
 import { timings, borderRadius } from '../../constants/Index';
 import { withTheme } from '../../utils/Themes';
-
-const screenWidth = Math.round(Dimensions.get('window').width);
+import { getScreenWidth } from '../../utils/Screen';
 
 const thumbnails = [{ xOffset: 0 }, { xOffset: 85 }];
 
@@ -17,7 +15,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-    width: screenWidth,
+    width: getScreenWidth(),
     cardBorderRadius: parseInt(borderRadius.medium, 10),
     dimension: 75,
 };

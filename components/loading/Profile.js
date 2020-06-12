@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View, Dimensions, LayoutAnimation } from 'react-native';
+import { View, LayoutAnimation } from 'react-native';
 import SvgAnimatedLinearGradient from 'react-native-svg-animated-linear-gradient';
 import { Circle, Rect } from 'react-native-svg';
 import { timings } from '../../constants/Index';
 import { withTheme } from '../../utils/Themes';
-
-const SCREEN_WIDTH = Math.round(Dimensions.get('window').width);
+import { getScreenWidth } from '../../utils/Screen';
 
 const propTypes = {
     width: PropTypes.number,
@@ -15,7 +14,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-    width: SCREEN_WIDTH,
+    width: getScreenWidth(),
     height: 300,
     circleDimension: 30,
 };
