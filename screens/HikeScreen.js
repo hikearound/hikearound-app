@@ -13,6 +13,7 @@ import { withTheme, SetBarStyle } from '../utils/Themes';
 import { getDrivingDirections } from '../utils/Map';
 import { shareAction, baseUrl, latModifier } from '../constants/Common';
 import { truncateText } from '../utils/Text';
+import { timings } from '../constants/Index';
 
 const propTypes = {
     dispatchCopyLink: PropTypes.func.isRequired,
@@ -53,8 +54,10 @@ class HikeScreen extends React.Component {
     }
 
     async componentDidMount() {
-        await this.initializeMap();
-        this.didLoad();
+        this.timeout = setTimeout(async () => {
+            await this.initializeMap();
+            this.didLoad();
+        }, timings.medium);
     }
 
     componentDidUpdate(prevProps) {

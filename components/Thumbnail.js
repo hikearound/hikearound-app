@@ -65,7 +65,7 @@ class Thumbnail extends React.PureComponent {
                         borderRadius: parseInt(borderRadius.small, 10),
                         marginRight: parseInt(spacing.tiny, 10),
                         marginBottom: parseInt(spacing.micro, 10),
-                        backgroundColor: theme.colors.loadingPrimary,
+                        backgroundColor: theme.colors.thumbnailBackground,
                     }}
                 />
             </TouchableOpacity>
