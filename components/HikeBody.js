@@ -15,6 +15,7 @@ const propTypes = {
     coordinates: PropTypes.array,
     region: PropTypes.object,
     hike: PropTypes.object.isRequired,
+    isLoading: PropTypes.bool.isRequired,
 };
 
 const defaultProps = {
@@ -39,7 +40,7 @@ class HikeBody extends React.PureComponent {
     }
 
     render() {
-        const { coordinates, region, scrollRef, t } = this.props;
+        const { coordinates, region, scrollRef, isLoading, t } = this.props;
         const {
             description,
             name,
@@ -63,6 +64,7 @@ class HikeBody extends React.PureComponent {
                         distance={distance}
                         elevation={elevation}
                         route={route}
+                        isLoading={isLoading}
                     />
                     <BodyContent>
                         <TextContent

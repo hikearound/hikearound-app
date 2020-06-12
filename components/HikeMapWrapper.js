@@ -9,6 +9,7 @@ import { spacing, borderRadius, opacities } from '../constants/Index';
 import { defaultProps } from '../constants/states/HikeMapWrapper';
 import { showModal } from '../actions/Modal';
 import { withTheme } from '../utils/Themes';
+import MapLoadingState from './loading/Map';
 
 const propTypes = {
     dispatchModalFlag: PropTypes.func.isRequired,
@@ -18,6 +19,7 @@ const propTypes = {
     coordinates: PropTypes.array,
     region: PropTypes.object,
     modalType: PropTypes.string,
+    isLoading: PropTypes.bool.isRequired,
 };
 
 function mapStateToProps() {
@@ -44,19 +46,23 @@ class HikeMapWrapper extends React.Component {
             elevation,
             route,
             theme,
+            isLoading,
         } = this.props;
 
         return (
             <MapViewWrapper isDark={theme.dark}>
                 <InnerMapViewWrapper>
-                    <HikeMap
-                        mapRef={(ref) => {
-                            this.mapView = ref;
-                        }}
-                        coordinates={coordinates}
-                        region={region}
-                        cacheEnabled
-                    />
+                    {isLoading && <MapLoadingState />}
+                    {!isLoading && (
+                        <HikeMap
+                            mapRef={(ref) => {
+                                this.mapView = ref;
+                            }}
+                            coordinates={coordinates}
+                            region={region}
+                            cacheEnabled
+                        />
+                    )}
                     <InfoBar
                         distance={distance}
                         elevation={elevation}

@@ -12,6 +12,7 @@ import { RootView } from '../styles/Screens';
 import { withTheme, SetBarStyle } from '../utils/Themes';
 import { getDrivingDirections } from '../utils/Map';
 import { shareAction, baseUrl, latModifier } from '../constants/Common';
+import { truncateText } from '../utils/Text';
 
 const propTypes = {
     dispatchCopyLink: PropTypes.func.isRequired,
@@ -40,18 +41,20 @@ class HikeScreen extends React.Component {
             id: hike.id,
             name: hike.name,
             toastText: '',
+            isLoading: true,
         };
 
         this.hikeActionSheet = hikeActionSheet.bind(this, t);
 
         navigation.setOptions({
-            title: hike.name || 'Hike',
+            title: truncateText(hike.name, 23) || 'Hike',
             headerRight: () => <Overflow onPress={this.hikeActionSheet} />,
         });
     }
 
     async componentDidMount() {
         await this.initializeMap();
+        this.didLoad();
     }
 
     componentDidUpdate(prevProps) {
@@ -86,6 +89,10 @@ class HikeScreen extends React.Component {
 
         this.setState({ region, hikeData });
     }
+
+    didLoad = () => {
+        this.setState({ isLoading: false });
+    };
 
     initializeMap = async () => {
         const { id } = this.state;
@@ -134,7 +141,7 @@ class HikeScreen extends React.Component {
     }
 
     render() {
-        const { coordinates, region, toastText } = this.state;
+        const { coordinates, region, toastText, isLoading } = this.state;
         const { route } = this.props;
         const { hike } = route.params;
         const scrollRef = React.createRef();
@@ -148,6 +155,7 @@ class HikeScreen extends React.Component {
                     coordinates={coordinates}
                     region={region}
                     scrollRef={scrollRef}
+                    isLoading={isLoading}
                 />
                 {region && (
                     <MapModal

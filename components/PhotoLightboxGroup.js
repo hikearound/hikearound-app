@@ -10,6 +10,7 @@ import {
     getHikeImageGallery,
 } from '../utils/Hike';
 import { withTheme } from '../utils/Themes';
+import ThumbnailLoadingState from './loading/Thumbnail';
 
 const propTypes = {
     id: PropTypes.string.isRequired,
@@ -19,7 +20,7 @@ class PhotoLightboxGroup extends React.PureComponent {
     constructor(props, context) {
         super(props, context);
 
-        this.state = { imageArray: [] };
+        this.state = { imageArray: [], isLoading: true };
     }
 
     componentDidMount() {
@@ -64,22 +65,25 @@ class PhotoLightboxGroup extends React.PureComponent {
             });
         }
 
-        this.setState({ imageArray });
+        this.setState({ imageArray, isLoading: false });
     };
 
     render() {
-        const { imageArray, animationType } = this.state;
+        const { imageArray, animationType, isLoading } = this.state;
         return (
             <View>
-                <PhotoGroup>
-                    {imageArray.map((image, index) => (
-                        <Thumbnail
-                            image={image}
-                            imageIndex={index}
-                            key={index}
-                        />
-                    ))}
-                </PhotoGroup>
+                {isLoading && <ThumbnailLoadingState />}
+                {!isLoading && (
+                    <PhotoGroup>
+                        {imageArray.map((image, index) => (
+                            <Thumbnail
+                                image={image}
+                                imageIndex={index}
+                                key={index}
+                            />
+                        ))}
+                    </PhotoGroup>
+                )}
                 <LightboxModal
                     images={imageArray}
                     animationType={animationType}
