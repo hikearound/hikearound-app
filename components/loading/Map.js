@@ -17,7 +17,7 @@ const defaultProps = {
     cardBorderRadius: parseInt(borderRadius.medium, 10),
 };
 
-class MapLoadingState extends React.PureComponent {
+class MapLoadingState extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};

@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { LayoutAnimation } from 'react-native';
 import styled from 'styled-components';
 import MapView from 'react-native-maps';
-import { connect } from 'react-redux';
 import { colors, borderRadius } from '../constants/Index';
 import { defaultProps } from '../constants/states/HikeMap';
 import { withTheme } from '../utils/Themes';
@@ -17,38 +15,18 @@ const propTypes = {
     mapHeight: PropTypes.number,
 };
 
-function mapStateToProps() {
-    return {};
-}
-
-function mapDispatchToProps() {
-    return {};
-}
-
 class HikeMap extends React.Component {
     constructor(props) {
         super(props);
         const { maxZoom, fullHeight } = this.props;
-        this.state = {
-            mapDidLoad: false,
-            maxZoom,
-            fullHeight,
-        };
+        this.state = { maxZoom, fullHeight };
     }
 
-    onMapReady = () => {
-        this.setState({
-            mapDidLoad: true,
-        });
-    };
+    onMapReady = () => {};
 
     render() {
         const { coordinates, mapRef, region, mapHeight, theme } = this.props;
-        const { maxZoom, fullHeight, mapDidLoad } = this.state;
-
-        if (!fullHeight && !mapDidLoad) {
-            LayoutAnimation.easeInEaseOut();
-        }
+        const { maxZoom, fullHeight } = this.state;
 
         if (region) {
             return (
@@ -86,7 +64,7 @@ class HikeMap extends React.Component {
 HikeMap.propTypes = propTypes;
 HikeMap.defaultProps = defaultProps;
 
-export default connect(mapStateToProps, mapDispatchToProps)(withTheme(HikeMap));
+export default withTheme(HikeMap);
 
 const EmptyMapView = styled.View`
     border-color: ${colors.grayMedium};

@@ -7,9 +7,6 @@ import { timings, borderRadius, spacing } from '../../constants/Index';
 import { withTheme } from '../../utils/Themes';
 import { getScreenHeight, getScreenWidth } from '../../utils/Screen';
 
-const header = { height: parseInt(spacing.small, 10), width: 175 };
-const border = { yOffset: 34, height: 1 };
-
 const cards = [
     { yOffset: 45 },
     { yOffset: 275 },
@@ -23,14 +20,18 @@ const propTypes = {
     cardBorderRadius: PropTypes.number,
     cardSpacing: PropTypes.number,
     cardHeight: PropTypes.number,
+    border: PropTypes.object,
+    header: PropTypes.object,
 };
 
 const defaultProps = {
+    cardHeight: 220,
     width: getScreenWidth(),
     height: getScreenHeight(),
-    cardBorderRadius: parseInt(borderRadius.medium, 10),
     cardSpacing: parseInt(spacing.tiny, 10),
-    cardHeight: 220,
+    cardBorderRadius: parseInt(borderRadius.medium, 10),
+    border: { yOffset: 34, height: 1 },
+    header: { height: parseInt(spacing.small, 10), width: 175 },
 };
 
 class HomeLoadingState extends React.PureComponent {
@@ -62,6 +63,8 @@ class HomeLoadingState extends React.PureComponent {
             cardBorderRadius,
             cardSpacing,
             cardHeight,
+            border,
+            header,
         } = this.props;
         const { primaryColor, secondaryColor, showLoadingState } = this.state;
 

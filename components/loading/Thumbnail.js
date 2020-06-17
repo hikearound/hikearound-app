@@ -6,18 +6,18 @@ import { timings, borderRadius } from '../../constants/Index';
 import { withTheme } from '../../utils/Themes';
 import { getScreenWidth } from '../../utils/Screen';
 
-const thumbnails = [{ xOffset: 0 }, { xOffset: 85 }];
-
 const propTypes = {
     width: PropTypes.number,
     cardBorderRadius: PropTypes.number,
     dimension: PropTypes.number,
+    thumbnails: PropTypes.array,
 };
 
 const defaultProps = {
+    dimension: 75,
     width: getScreenWidth(),
     cardBorderRadius: parseInt(borderRadius.medium, 10),
-    dimension: 75,
+    thumbnails: [{ xOffset: 0 }, { xOffset: 85 }],
 };
 
 class ThumbnailLoadingState extends React.PureComponent {
@@ -36,7 +36,7 @@ class ThumbnailLoadingState extends React.PureComponent {
     }
 
     render() {
-        const { width, cardBorderRadius, dimension } = this.props;
+        const { width, cardBorderRadius, dimension, thumbnails } = this.props;
         const { primaryColor, secondaryColor } = this.state;
 
         return (

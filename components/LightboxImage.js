@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Dimensions, Image } from 'react-native';
+import { Dimensions, Image, LayoutAnimation } from 'react-native';
 import { connect } from 'react-redux';
 import ImageZoom from 'react-native-image-pan-zoom';
 import LoadingOverlay from './LoadingOverlay';
@@ -42,6 +42,7 @@ class LightboxImage extends React.Component {
     };
 
     imageDidLoad = async () => {
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
         this.setState({ loading: false });
     };
 
