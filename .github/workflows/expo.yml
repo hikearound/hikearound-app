@@ -27,7 +27,7 @@ jobs:
         ALGOLIA_SEARCH_KEY: ${{ secrets.ALGOLIA_SEARCH_KEY }}
         GOOGLE_GEO_KEY: ${{ secrets.GOOGLE_GEO_KEY }}
         GOOGLE_PLACES_KEY: ${{ secrets.GOOGLE_PLACES_KEY }}
-        FIREBASE_KEY: 'AIzaSyDzhRGewrBXqU6XPG5Bdl29JpPRPNtdilY'
+        FIREBASE_KEY: ${{ secrets.FIREBASE_KEY }}
     
     - run: npm ci
     - run: npm run build --if-present
