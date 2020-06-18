@@ -1,12 +1,12 @@
 import * as Location from 'expo-location';
 import geohash from 'ngeohash';
 import Geocoder from 'react-native-geocoding';
-import { GOOGLE_GEO_KEY } from 'react-native-dotenv';
+import Constants from 'expo-constants';
 import { degreesPerMile } from '../constants/Location';
 import { getPermissionStatus } from './Permissions';
 
 export async function initializeGeolocation() {
-    Geocoder.init(GOOGLE_GEO_KEY);
+    Geocoder.init(Constants.manifest.extra.googleGeo.apiKey);
 }
 
 export async function getNearestCity(coords, objectType) {
