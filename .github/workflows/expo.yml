@@ -18,20 +18,15 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     
-    - name: set environment variables
+    - name: Set environment variables
       uses: allenevans/set-env@v1.0.0
       with:
         ALGOLIA_SEARCH_KEY: ${{ secrets.ALGOLIA_SEARCH_KEY }}
         GOOGLE_GEO_KEY: ${{ secrets.GOOGLE_GEO_KEY }}
         GOOGLE_PLACES_KEY: ${{ secrets.GOOGLE_PLACES_KEY }}
-        FIREBASE_KEY: 'AIzaSyDzhRGewrBXqU6XPG5Bdl29JpPRPNtdilY'
-
-    - name: Printenv
-      run: |
-        echo "FIREBASE_KEY=${FIREBASE_KEY}"
-        printenv
+        FIREBASE_KEY: ${{ secrets.FIREBASE_KEY }}
   
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Setup node.js
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
