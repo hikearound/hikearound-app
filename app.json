@@ -36,18 +36,6 @@
         "applinks:url8422.tryhikearound.com"
       ],
     },
-    "hooks": {
-      "postPublish": [
-        {
-          "file": "sentry-expo/upload-sourcemaps",
-          "config": {
-            "organization": "hikearound",
-            "project": "hikearound-app",
-            "authToken": "c179a1d9a3864968bde7635d7108b0236d570c5cc3b34a9c92ce1dd9267612e8"
-          }
-        }
-      ]
-    },
     "description": "An iOS app that offers curated and personalized hikes.",
     "githubUrl": "https://github.com/pdugan20/hikearound-app"
   }
