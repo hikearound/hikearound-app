@@ -35,9 +35,6 @@
         "applinks:tryhikearound.com",
         "applinks:url8422.tryhikearound.com"
       ],
-      "config": {
-        "googleMapsApiKey": "INSERT_GOOGLE_MAPS_KEY"
-      }
     },
     "hooks": {
       "postPublish": [
@@ -46,14 +43,14 @@
           "config": {
             "organization": "hikearound",
             "project": "hikearound-app",
-            "authToken": "INSERT_SENTRY_TOKEN"
+            "authToken": "c179a1d9a3864968bde7635d7108b0236d570c5cc3b34a9c92ce1dd9267612e8"
           }
         }
       ]
     },
-    "extra" : {
+    "extra": {
       "firebase": {
-        "apiKey": "INSERT_FIREBASE_KEY",
+        "apiKey": "AIzaSyDzhRGewrBXqU6XPG5Bdl29JpPRPNtdilY",
         "authDomain": "hikearound-14dad.firebaseapp.com",
         "databaseURL": "https://hikearound-14dad.firebaseio.com",
         "projectId": "hikearound-14dad",
@@ -64,12 +61,8 @@
       "sentry": {
           "dsn": "https://5c8352d2c1f6437c9f678277bfc5528d@sentry.io/1811790"
       },
-      "googleGeolocation": {
-          "apiKey": "INSERT_GEOLOCATION_KEY"
-      },
       "algolia": {
           "appId": "18BA5IWUAQ",
-          "searchKey": "INSERT_SEARCH_KEY"
       }
     },
     "description": "An iOS app that offers curated and personalized hikes.",

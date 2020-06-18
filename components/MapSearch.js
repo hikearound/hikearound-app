@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import Constants from 'expo-constants';
 import { withTranslation } from 'react-i18next';
+import { GOOGLE_PLACES_KEY } from 'react-native-dotenv'
 import { withTheme } from '../utils/Themes';
 import { getMapSearchStyle } from '../styles/Map';
 import { withNavigation } from '../utils/Navigation';
@@ -102,7 +103,7 @@ class MapSearch extends React.Component {
                 placeholder={t('screen.map.search')}
                 ref={this.searchInputRef}
                 query={{
-                    key: Constants.manifest.extra.googlePlaces.apiKey,
+                    key: GOOGLE_PLACES_KEY,
                     language,
                     types,
                     components,
