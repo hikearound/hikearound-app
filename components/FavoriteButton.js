@@ -95,7 +95,7 @@ class FavoriteButton extends React.Component {
         const { hikes } = this.state;
 
         const index = hikes.indexOf(id);
-        hikes.splice(index, index);
+        hikes.splice(index, 1);
 
         this.setState({
             hikes,
