@@ -6,10 +6,16 @@ export async function getHikeSnapshot(id) {
 }
 
 export function getHikeRef(type, range, sortDirection, pageSize) {
-    return db
-        .collection('hikes')
-        .orderBy('createdOn', sortDirection)
-        .limit(pageSize);
+    let hikeRef = db.collection('hikes');
+
+    if (type === 'geo') {
+        hikeRef = hikeRef
+            .where('geohash', '>=', range.lower)
+            .where('geohash', '<=', range.upper)
+            .orderBy('geohash');
+    }
+
+    return hikeRef.orderBy('createdOn', sortDirection).limit(pageSize);
 }
 
 export async function getFeedHikeCount() {

@@ -2,6 +2,20 @@ import { cacheHikeImage } from './Image';
 import { getRange } from './Location';
 import { getHikeRef } from './Hike';
 
+export function sortHikeData(data, sortDirection) {
+    let sortedHikes = data.sort(
+        (a, b) => b.createdOn.toDate() - a.createdOn.toDate(),
+    );
+
+    if (sortDirection === 'asc') {
+        sortedHikes = data.sort(
+            (a, b) => a.createdOn.toDate() - b.createdOn.toDate(),
+        );
+    }
+
+    return sortedHikes;
+}
+
 export async function pageFeed(
     pageSize,
     lastKey,
@@ -21,7 +35,7 @@ export async function pageFeed(
     const querySnapshot = await hikeRef.get();
     const data = [];
 
-    querySnapshot.forEach((hike) => {
+    await querySnapshot.forEach((hike) => {
         if (hike.exists) {
             const hikeData = hike.data() || {};
 
@@ -32,17 +46,14 @@ export async function pageFeed(
                 ...hikeData,
             };
 
-            if (
-                hikeData.geohash >= range.lower &&
-                hikeData.geohash <= range.upper
-            ) {
-                data.push(reduced);
-            }
+            data.push(reduced);
         }
     });
 
+    const sortedData = sortHikeData(data, sortDirection);
     const lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
-    return { data, cursor: lastVisible };
+
+    return { data: sortedData, cursor: lastVisible };
 }
 
 export function sortHikes(previousState, hikes, sortDirection) {
