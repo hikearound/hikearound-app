@@ -32,7 +32,12 @@ export async function pageFeed(
                 ...hikeData,
             };
 
-            data.push(reduced);
+            if (
+                hikeData.geohash >= range.lower &&
+                hikeData.geohash <= range.upper
+            ) {
+                data.push(reduced);
+            }
         }
     });
 

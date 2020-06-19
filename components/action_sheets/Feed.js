@@ -22,9 +22,9 @@ export function feedActionSheet(t) {
 
         (buttonIndex) => {
             if (buttonIndex === 0) {
-                this.sortFeed('desc');
-            } else if (buttonIndex === 1) {
                 this.sortFeed('asc');
+            } else if (buttonIndex === 1) {
+                this.sortFeed('desc');
             }
         },
     );
