@@ -162,7 +162,7 @@ class HomeScreen extends React.Component {
     getAndSetPosition = async () => {
         const lastKnownPosition = await getPosition('lastKnown');
         const { coords } = lastKnownPosition;
-        const city = await getNearestCity(coords, 'cityName');
+        const city = await getNearestCity(coords);
 
         this.setState({ lastKnownPosition, city });
     };
