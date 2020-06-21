@@ -90,7 +90,7 @@ class HikeScreen extends React.Component {
             longitudeDelta,
         };
 
-        this.setState({ region, hikeData });
+        this.setState({ region });
     }
 
     didLoad = () => {
@@ -103,7 +103,7 @@ class HikeScreen extends React.Component {
         const hikeData = await parseHikeXml(hikeXmlUrl);
 
         this.setHikeData(hikeData);
-        this.plotCoordinates();
+        this.plotCoordinates(hikeData);
     };
 
     getDirections = async () => {
@@ -127,8 +127,7 @@ class HikeScreen extends React.Component {
         }
     };
 
-    plotCoordinates() {
-        const { hikeData } = this.state;
+    plotCoordinates(hikeData) {
         const coordinateCount = hikeData.gpx.trk[0].trkseg[0].trkpt.length;
         const coordinates = [];
 

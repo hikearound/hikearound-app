@@ -67,9 +67,6 @@ class HomeScreen extends React.Component {
             dispatchMapData,
         } = this.props;
 
-        checkInitialUrl(navigation);
-        addUrlListener(navigation);
-
         this.setFirstLoad();
         await this.getAndSetPosition();
 
@@ -80,6 +77,9 @@ class HomeScreen extends React.Component {
 
         await getUserProfileData(dispatchUserData, dispatchAvatar);
         await getMapData(dispatchMapData);
+
+        checkInitialUrl(navigation);
+        addUrlListener(navigation);
     }
 
     componentWillUnmount() {
