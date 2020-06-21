@@ -86,17 +86,19 @@ export async function getHikeData(id) {
 export async function openHikeScreen(id, navigation) {
     const hikeData = await getHikeData(id);
 
-    navigation.push('Hike', {
-        hike: {
-            id,
-            images: hikeData.images,
-            name: hikeData.name,
-            distance: hikeData.distance,
-            elevation: hikeData.elevation,
-            route: hikeData.route,
-            city: hikeData.city,
-            description: hikeData.description,
-            coordinates: hikeData.coordinates,
-        },
-    });
+    if (hikeData) {
+        navigation.push('Hike', {
+            hike: {
+                id,
+                images: hikeData.images,
+                name: hikeData.name,
+                distance: hikeData.distance,
+                elevation: hikeData.elevation,
+                route: hikeData.route,
+                city: hikeData.city,
+                description: hikeData.description,
+                coordinates: hikeData.coordinates,
+            },
+        });
+    }
 }

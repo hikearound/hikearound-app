@@ -45,6 +45,8 @@ class AppNavigator extends React.PureComponent {
             theme = darkTheme;
         }
 
+        console.log(scheme)
+
         return (
             <SafeAreaProvider>
                 <AppearanceProvider>
