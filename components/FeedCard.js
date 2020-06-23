@@ -95,7 +95,6 @@ const HikeName = styled.Text`
     color: ${colors.white};
     font-size: ${fontSizes.big}px;
     font-weight: bold;
-    width: 65%;
     position: absolute;
     left: ${spacing.tiny}px;
     bottom: 12px;

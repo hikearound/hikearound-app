@@ -5,6 +5,7 @@ import MapView from 'react-native-maps';
 import { colors, borderRadius } from '../constants/Index';
 import { defaultProps } from '../constants/states/HikeMap';
 import { withTheme } from '../utils/Themes';
+import GenericMapMarker from './GenericMapMarker';
 
 const propTypes = {
     mapRef: PropTypes.func.isRequired,
@@ -13,6 +14,7 @@ const propTypes = {
     maxZoom: PropTypes.number,
     fullHeight: PropTypes.bool,
     mapHeight: PropTypes.number,
+    startingCoordinates: PropTypes.object,
 };
 
 class HikeMap extends React.Component {
@@ -25,8 +27,15 @@ class HikeMap extends React.Component {
     onMapReady = () => {};
 
     render() {
-        const { coordinates, mapRef, region, mapHeight, theme } = this.props;
-        const { maxZoom, fullHeight } = this.state;
+        const {
+            coordinates,
+            startingCoordinates,
+            mapRef,
+            region,
+            mapHeight,
+            theme,
+        } = this.props;
+        const { maxZoom, fullHeight, markerZoom } = this.state;
 
         if (region) {
             return (
@@ -49,6 +58,16 @@ class HikeMap extends React.Component {
                     loadingIndicatorColor={theme.colors.loadingSpinner}
                     loadingBackgroundColor={theme.colors.mapViewBackground}
                 >
+                    {startingCoordinates && (
+                        <GenericMapMarker
+                            coordinate={{
+                                latitude: startingCoordinates.lat,
+                                longitude: startingCoordinates.lng,
+                            }}
+                            tracksViewChanges={false}
+                            markerZoom={markerZoom}
+                        />
+                    )}
                     <MapView.Polyline
                         coordinates={coordinates}
                         strokeColor={colors.purple}

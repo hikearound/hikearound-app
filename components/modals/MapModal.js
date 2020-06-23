@@ -17,11 +17,13 @@ function mapStateToProps(state) {
 const propTypes = {
     maxZoom: PropTypes.number,
     modifier: PropTypes.number,
+    startingCoordinates: PropTypes.object,
 };
 
 const defaultProps = {
     maxZoom: 16,
     modifier: 0.01,
+    startingCoordinates: null,
 };
 
 class MapModal extends ModalBase {
@@ -44,6 +46,7 @@ class MapModal extends ModalBase {
             coordinates,
             region,
             maxZoom,
+            startingCoordinates,
         } = this.props;
 
         const initialRegion = this.setRegion(region);
@@ -59,6 +62,7 @@ class MapModal extends ModalBase {
                         fullHeight
                         mapRef={mapRef}
                         coordinates={coordinates}
+                        startingCoordinates={startingCoordinates}
                         region={initialRegion}
                         maxZoom={maxZoom}
                         mapPadding={{

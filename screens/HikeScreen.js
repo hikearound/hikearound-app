@@ -41,6 +41,7 @@ class HikeScreen extends React.Component {
         this.state = {
             id: hike.id,
             name: hike.name,
+            startingCoordinates: hike.coordinates.starting,
             toastText: '',
             isLoading: true,
         };
@@ -129,21 +130,27 @@ class HikeScreen extends React.Component {
 
     plotCoordinates(hikeData) {
         const coordinateCount = hikeData.gpx.trk[0].trkseg[0].trkpt.length;
-        const coordinates = [];
+        const polyCoordinates = [];
 
         for (let i = 0, len = coordinateCount; i < len; i += 1) {
             const coordinate = hikeData.gpx.trk[0].trkseg[0].trkpt[i].$;
-            coordinates.push({
+            polyCoordinates.push({
                 latitude: parseFloat(coordinate.lat),
                 longitude: parseFloat(coordinate.lon),
             });
         }
 
-        this.setState({ coordinates });
+        this.setState({ polyCoordinates });
     }
 
     render() {
-        const { coordinates, region, toastText, isLoading } = this.state;
+        const {
+            polyCoordinates,
+            startingCoordinates,
+            region,
+            toastText,
+            isLoading,
+        } = this.state;
         const { route } = this.props;
         const { hike } = route.params;
         const scrollRef = React.createRef();
@@ -154,7 +161,7 @@ class HikeScreen extends React.Component {
                 <Toast text={toastText} />
                 <HikeBody
                     hike={hike}
-                    coordinates={coordinates}
+                    coordinates={polyCoordinates}
                     region={region}
                     scrollRef={scrollRef}
                     isLoading={isLoading}
@@ -164,7 +171,8 @@ class HikeScreen extends React.Component {
                         mapRef={(ref) => {
                             this.mapView = ref;
                         }}
-                        coordinates={coordinates}
+                        coordinates={polyCoordinates}
+                        startingCoordinates={startingCoordinates}
                         region={region}
                         animationType='push'
                         modalAction='showMap'

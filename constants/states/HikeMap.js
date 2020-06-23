@@ -6,6 +6,7 @@ export const defaultProps = {
     mapPadding: {},
     mapHeight: 200,
     cacheEnabled: false,
+    startingCoordinates: null,
 };
 
 export default defaultProps;
