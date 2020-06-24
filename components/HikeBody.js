@@ -65,6 +65,7 @@ class HikeBody extends React.PureComponent {
                         elevation={elevation}
                         route={route}
                         isLoading={isLoading}
+                        id={id}
                     />
                     <BodyContent>
                         <TextContent

@@ -47,32 +47,38 @@ class MapModal extends ModalBase {
             region,
             maxZoom,
             startingCoordinates,
+            hid,
+            mapHike,
         } = this.props;
 
         const initialRegion = this.setRegion(region);
 
-        return (
-            <Modal
-                animationType={animationType}
-                transparent={false}
-                visible={modalVisible}
-            >
-                <ModalRoot>
-                    <HikeMap
-                        fullHeight
-                        mapRef={mapRef}
-                        coordinates={coordinates}
-                        startingCoordinates={startingCoordinates}
-                        region={initialRegion}
-                        maxZoom={maxZoom}
-                        mapPadding={{
-                            left: parseInt(spacing.tiny, 10),
-                        }}
-                    />
-                    <ModalDismiss includeBackground />
-                </ModalRoot>
-            </Modal>
-        );
+        if (hid === mapHike) {
+            return (
+                <Modal
+                    animationType={animationType}
+                    transparent={false}
+                    visible={modalVisible}
+                >
+                    <ModalRoot>
+                        <HikeMap
+                            fullHeight
+                            mapRef={mapRef}
+                            coordinates={coordinates}
+                            startingCoordinates={startingCoordinates}
+                            region={initialRegion}
+                            maxZoom={maxZoom}
+                            mapPadding={{
+                                left: parseInt(spacing.tiny, 10),
+                            }}
+                        />
+                        <ModalDismiss includeBackground />
+                    </ModalRoot>
+                </Modal>
+            );
+        }
+
+        return null;
     }
 }
 

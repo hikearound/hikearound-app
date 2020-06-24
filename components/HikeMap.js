@@ -21,10 +21,20 @@ class HikeMap extends React.Component {
     constructor(props) {
         super(props);
         const { maxZoom, fullHeight } = this.props;
-        this.state = { maxZoom, fullHeight };
+
+        this.state = {
+            maxZoom,
+            fullHeight,
+            position: {},
+        };
     }
 
     onMapReady = () => {};
+
+    mapPress = (e) => {
+        const { position } = e.nativeEvent;
+        this.setState({ position });
+    };
 
     render() {
         const {
@@ -35,7 +45,7 @@ class HikeMap extends React.Component {
             mapHeight,
             theme,
         } = this.props;
-        const { maxZoom, fullHeight, markerZoom } = this.state;
+        const { maxZoom, fullHeight, position } = this.state;
 
         if (region) {
             return (
@@ -57,6 +67,7 @@ class HikeMap extends React.Component {
                     onMapReady={this.onMapReady}
                     loadingIndicatorColor={theme.colors.loadingSpinner}
                     loadingBackgroundColor={theme.colors.mapViewBackground}
+                    onPress={this.mapPress}
                 >
                     {startingCoordinates && (
                         <GenericMapMarker
@@ -65,7 +76,7 @@ class HikeMap extends React.Component {
                                 longitude: startingCoordinates.lng,
                             }}
                             tracksViewChanges={false}
-                            markerZoom={markerZoom}
+                            position={position}
                         />
                     )}
                     <MapView.Polyline

@@ -10,10 +10,13 @@ export const landingBgDark = require('../assets/dark/landing-bg.png');
 export const profileBgDefault = require('../assets/default/profile-bg.png');
 export const profileBgDark = require('../assets/dark/profile-bg.png');
 
-// Map Marker
-export const genericMarkerBgDefault = require('../assets/default/generic-map-marker.png');
+// Hike Marker
 export const markerBgDefault = require('../assets/default/map-marker.png');
 export const markerBgDark = require('../assets/dark/map-marker.png');
+
+// Map Marker
+export const markerFocused = require('../assets/marker/focused.png');
+export const markerUnfocused = require('../assets/marker/unfocused.png');
 
 // Global
 export const localImages = [
@@ -22,7 +25,8 @@ export const localImages = [
     landingBgDark,
     profileBgDefault,
     profileBgDark,
-    genericMarkerBgDefault,
     markerBgDefault,
     markerBgDark,
+    markerFocused,
+    markerUnfocused,
 ];

@@ -12,7 +12,7 @@ const defaultProps = {
     hideStatusBar: true,
 };
 
-class ModalBase extends React.PureComponent {
+class ModalBase extends React.Component {
     constructor(props, context) {
         super(props, context);
 

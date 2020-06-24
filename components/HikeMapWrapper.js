@@ -7,12 +7,13 @@ import InfoBar from './InfoBar';
 import HikeMap from './HikeMap';
 import { spacing, borderRadius, opacities } from '../constants/Index';
 import { defaultProps } from '../constants/states/HikeMapWrapper';
-import { showModal } from '../actions/Modal';
+import { showModal, setMapHike } from '../actions/Modal';
 import { withTheme } from '../utils/Themes';
 import MapLoadingState from './loading/Map';
 
 const propTypes = {
     dispatchModalFlag: PropTypes.func.isRequired,
+    dispatchMapHike: PropTypes.func.isRequired,
     distance: PropTypes.number.isRequired,
     elevation: PropTypes.number,
     route: PropTypes.string,
@@ -20,6 +21,7 @@ const propTypes = {
     region: PropTypes.object,
     modalType: PropTypes.string,
     isLoading: PropTypes.bool.isRequired,
+    id: PropTypes.string.isRequired,
 };
 
 function mapStateToProps() {
@@ -29,13 +31,20 @@ function mapStateToProps() {
 function mapDispatchToProps(dispatch) {
     return {
         dispatchModalFlag: (modalType) => dispatch(showModal(modalType)),
+        dispatchMapHike: (mapHike) => dispatch(setMapHike(mapHike)),
     };
 }
 
 class HikeMapWrapper extends React.Component {
     mapPress = () => {
-        const { dispatchModalFlag, modalType } = this.props;
+        const {
+            dispatchModalFlag,
+            dispatchMapHike,
+            id,
+            modalType,
+        } = this.props;
         dispatchModalFlag(modalType);
+        dispatchMapHike(id);
     };
 
     render() {

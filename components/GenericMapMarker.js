@@ -3,17 +3,19 @@ import { View, ImageBackground } from 'react-native';
 import PropTypes from 'prop-types';
 import { Marker } from 'react-native-maps';
 import { withTheme } from '../utils/Themes';
-import { genericMarkerBgDefault } from '../constants/Images';
+import { markerUnfocused, markerFocused } from '../constants/Images';
 
 const propTypes = {
     coordinate: PropTypes.object,
     offset: PropTypes.object,
     tracksViewChanges: PropTypes.bool.isRequired,
+    position: PropTypes.object,
 };
 
 const defaultProps = {
     coordinate: {},
-    offset: { x: 0, y: -18 },
+    position: {},
+    offset: { x: 0, y: -38 },
 };
 
 class GenericMapMarker extends React.Component {
@@ -24,8 +26,23 @@ class GenericMapMarker extends React.Component {
 
         this.state = {
             offset,
-            bgImage: genericMarkerBgDefault,
+            bgImage: markerUnfocused,
         };
+    }
+
+    componentDidUpdate(prevProps) {
+        const { position } = this.props;
+
+        const positionDidChange = prevProps.position !== position;
+        const objectIsEmpty = Object.keys(position).length === 0;
+
+        if (positionDidChange) {
+            this.unfocusMarker();
+        }
+
+        if (objectIsEmpty && positionDidChange) {
+            this.focusMarker();
+        }
     }
 
     renderMarkerIcon = () => {
@@ -35,13 +52,23 @@ class GenericMapMarker extends React.Component {
             <View>
                 <ImageBackground
                     source={bgImage}
-                    style={{ width: 40, height: 42 }}
+                    style={{ width: 61, height: 74 }}
                 />
             </View>
         );
     };
 
-    markerPress = () => {};
+    markerPress = () => {
+        this.focusMarker();
+    };
+
+    focusMarker = () => {
+        this.setState({ bgImage: markerFocused });
+    };
+
+    unfocusMarker = () => {
+        this.setState({ bgImage: markerUnfocused });
+    };
 
     render() {
         const { coordinate, tracksViewChanges } = this.props;

@@ -18,11 +18,16 @@ import { timings } from '../constants/Index';
 const propTypes = {
     dispatchCopyLink: PropTypes.func.isRequired,
     action: PropTypes.string.isRequired,
+    mapHike: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+        .isRequired,
 };
+
+const scrollRef = React.createRef();
 
 function mapStateToProps(state) {
     return {
         action: state.hikeReducer.action,
+        mapHike: state.modalReducer.mapHike,
     };
 }
 
@@ -150,10 +155,11 @@ class HikeScreen extends React.Component {
             region,
             toastText,
             isLoading,
+            id,
         } = this.state;
-        const { route } = this.props;
+
+        const { route, mapHike } = this.props;
         const { hike } = route.params;
-        const scrollRef = React.createRef();
 
         return (
             <RootView>
@@ -171,6 +177,8 @@ class HikeScreen extends React.Component {
                         mapRef={(ref) => {
                             this.mapView = ref;
                         }}
+                        hid={id}
+                        mapHike={mapHike}
                         coordinates={polyCoordinates}
                         startingCoordinates={startingCoordinates}
                         region={region}
