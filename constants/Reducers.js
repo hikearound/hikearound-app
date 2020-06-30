@@ -14,7 +14,7 @@ export const hikeState = {
 export const modalState = {
     action: '',
     imageIndex: 0,
-    mapHike: null,
+    selectedHike: null,
 };
 
 export const notifs = {

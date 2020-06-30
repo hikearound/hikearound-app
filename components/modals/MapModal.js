@@ -48,12 +48,12 @@ class MapModal extends ModalBase {
             maxZoom,
             startingCoordinates,
             hid,
-            mapHike,
+            selectedHike,
         } = this.props;
 
         const initialRegion = this.setRegion(region);
 
-        if (hid === mapHike) {
+        if (hid === selectedHike) {
             return (
                 <Modal
                     animationType={animationType}

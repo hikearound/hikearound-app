@@ -6,8 +6,8 @@ export const setLightboxImage = (imageIndex) => {
     return { type: 'SET_LIGHTBOX_IMAGE_INDEX', imageIndex };
 };
 
-export const setMapHike = (mapHike) => {
-    return { type: 'SET_MAP_HIKE', mapHike };
+export const setSelectedHike = (hid) => {
+    return { type: 'SET_SELECTED_HIKE', hid };
 };
 
 export const showModal = (modalType) => {

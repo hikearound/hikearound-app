@@ -15,7 +15,6 @@ import Subtitle from './Subtitle';
 import Toast from './Toast';
 import Thumbnail from './Thumbnail';
 import ModalDismiss from './ModalDismiss';
-import LightboxImage from './LightboxImage';
 import LoadingOverlay from './LoadingOverlay';
 
 // Modals
@@ -83,7 +82,6 @@ export {
     MapModal,
     LightboxModal,
     ModalDismiss,
-    LightboxImage,
     HikeMapWrapper,
     SwitchItem,
     InputButton,

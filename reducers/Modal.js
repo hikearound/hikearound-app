@@ -26,10 +26,10 @@ export default function modalReducer(state = modalState, action) {
                 imageIndex: action.imageIndex,
             };
 
-        case 'SET_MAP_HIKE':
+        case 'SET_SELECTED_HIKE':
             return {
                 ...state,
-                mapHike: action.mapHike,
+                selectedHike: action.hid,
             };
 
         case 'HIDE_MODAL':

@@ -18,12 +18,13 @@ const propTypes = {
 class PhotoLightboxGroup extends React.PureComponent {
     constructor(props, context) {
         super(props, context);
-
         this.state = { imageArray: [] };
     }
 
     async componentDidMount() {
-        this.buildHikeImageArray();
+        const { id } = this.props;
+
+        this.buildHikeImageArray(id);
         this.setAnimationType();
     }
 
@@ -46,8 +47,7 @@ class PhotoLightboxGroup extends React.PureComponent {
         this.setState({ animationType });
     };
 
-    buildHikeImageArray = async () => {
-        const { id } = this.props;
+    buildHikeImageArray = async (id) => {
         const imageArray = [];
 
         const hikeImages = await getHikeImageGallery(id);
@@ -59,7 +59,7 @@ class PhotoLightboxGroup extends React.PureComponent {
 
             imageArray.push({
                 thumbnailUri: thumbnailUrl,
-                uri: imageUrl,
+                url: imageUrl,
                 attribution: hikeImages[i].attribution,
             });
         }
@@ -68,7 +68,9 @@ class PhotoLightboxGroup extends React.PureComponent {
     };
 
     render() {
+        const { id } = this.props;
         const { imageArray, animationType } = this.state;
+
         return (
             <View>
                 <PhotoGroup>
@@ -77,10 +79,12 @@ class PhotoLightboxGroup extends React.PureComponent {
                             image={image}
                             imageIndex={index}
                             key={index}
+                            id={id}
                         />
                     ))}
                 </PhotoGroup>
                 <LightboxModal
+                    id={id}
                     images={imageArray}
                     animationType={animationType}
                     modalAction='showLightbox'

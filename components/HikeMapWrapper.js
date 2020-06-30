@@ -7,13 +7,13 @@ import InfoBar from './InfoBar';
 import HikeMap from './HikeMap';
 import { spacing, borderRadius, opacities } from '../constants/Index';
 import { defaultProps } from '../constants/states/HikeMapWrapper';
-import { showModal, setMapHike } from '../actions/Modal';
+import { showModal, setSelectedHike } from '../actions/Modal';
 import { withTheme } from '../utils/Themes';
 import MapLoadingState from './loading/Map';
 
 const propTypes = {
     dispatchModalFlag: PropTypes.func.isRequired,
-    dispatchMapHike: PropTypes.func.isRequired,
+    dispatchSelectedHike: PropTypes.func.isRequired,
     distance: PropTypes.number.isRequired,
     elevation: PropTypes.number,
     route: PropTypes.string,
@@ -31,7 +31,7 @@ function mapStateToProps() {
 function mapDispatchToProps(dispatch) {
     return {
         dispatchModalFlag: (modalType) => dispatch(showModal(modalType)),
-        dispatchMapHike: (mapHike) => dispatch(setMapHike(mapHike)),
+        dispatchSelectedHike: (hid) => dispatch(setSelectedHike(hid)),
     };
 }
 
@@ -39,12 +39,12 @@ class HikeMapWrapper extends React.Component {
     mapPress = () => {
         const {
             dispatchModalFlag,
-            dispatchMapHike,
+            dispatchSelectedHike,
             id,
             modalType,
         } = this.props;
         dispatchModalFlag(modalType);
-        dispatchMapHike(id);
+        dispatchSelectedHike(id);
     };
 
     render() {

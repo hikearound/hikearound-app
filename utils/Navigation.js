@@ -1,5 +1,9 @@
 import React from 'react';
-import { useScrollToTop, useNavigation } from '@react-navigation/native';
+import {
+    useScrollToTop,
+    useNavigation,
+    useFocusEffect,
+} from '@react-navigation/native';
 import PropTypes from 'prop-types';
 import Constants from 'expo-constants';
 
@@ -30,4 +34,14 @@ export function withNavigation(Component) {
 export function getHeaderHeight() {
     const baseHeight = 44;
     return baseHeight + Constants.statusBarHeight;
+}
+
+export function UpdateLightboxGroup({ id, handleFocus }) {
+    useFocusEffect(
+        React.useCallback(() => {
+            return handleFocus(id);
+        }, [id, handleFocus]),
+    );
+
+    return null;
 }

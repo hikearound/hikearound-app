@@ -18,8 +18,11 @@ import { timings } from '../constants/Index';
 const propTypes = {
     dispatchCopyLink: PropTypes.func.isRequired,
     action: PropTypes.string.isRequired,
-    mapHike: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-        .isRequired,
+    selectedHike: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+};
+
+const defaultProps = {
+    selectedHike: null,
 };
 
 const scrollRef = React.createRef();
@@ -27,7 +30,7 @@ const scrollRef = React.createRef();
 function mapStateToProps(state) {
     return {
         action: state.hikeReducer.action,
-        mapHike: state.modalReducer.mapHike,
+        selectedHike: state.modalReducer.selectedHike,
     };
 }
 
@@ -40,6 +43,7 @@ function mapDispatchToProps(dispatch) {
 class HikeScreen extends React.Component {
     constructor(props, context) {
         super(props, context);
+
         const { navigation, route, t } = this.props;
         const { hike } = route.params;
 
@@ -54,7 +58,7 @@ class HikeScreen extends React.Component {
         this.hikeActionSheet = hikeActionSheet.bind(this, t);
 
         navigation.setOptions({
-            title: truncateText(hike.name, 23) || 'Hike',
+            title: truncateText(hike.name, 23),
             headerRight: () => <Overflow onPress={this.hikeActionSheet} />,
         });
     }
@@ -81,17 +85,19 @@ class HikeScreen extends React.Component {
     }
 
     setHikeData(hikeData) {
+        const { route } = this.props;
+        const { hike } = route.params;
+        const { lat, lng } = hike.coordinates.center;
+
         const hikeMetaData = hikeData.gpx.metadata[0].bounds[0].$;
         const { maxlat, minlat, minlon, maxlon } = hikeMetaData;
 
-        const latitude = (parseFloat(maxlat) + parseFloat(minlat)) / 2;
-        const longitude = (parseFloat(maxlon) + parseFloat(minlon)) / 2;
         const latitudeDelta = maxlat - minlat + latModifier;
         const longitudeDelta = maxlon - minlon;
 
         const region = {
-            latitude,
-            longitude,
+            latitude: lat,
+            longitude: lng,
             latitudeDelta,
             longitudeDelta,
         };
@@ -123,6 +129,7 @@ class HikeScreen extends React.Component {
     shareHike = async () => {
         const { id } = this.state;
         const { dispatchCopyLink } = this.props;
+
         const url = `${baseUrl}/${id}`;
         const result = await Share.share({ url });
 
@@ -158,7 +165,7 @@ class HikeScreen extends React.Component {
             id,
         } = this.state;
 
-        const { route, mapHike } = this.props;
+        const { route, selectedHike } = this.props;
         const { hike } = route.params;
 
         return (
@@ -171,6 +178,7 @@ class HikeScreen extends React.Component {
                     region={region}
                     scrollRef={scrollRef}
                     isLoading={isLoading}
+                    selectedHike={selectedHike}
                 />
                 {region && (
                     <MapModal
@@ -178,7 +186,7 @@ class HikeScreen extends React.Component {
                             this.mapView = ref;
                         }}
                         hid={id}
-                        mapHike={mapHike}
+                        selectedHike={selectedHike}
                         coordinates={polyCoordinates}
                         startingCoordinates={startingCoordinates}
                         region={region}
@@ -193,6 +201,7 @@ class HikeScreen extends React.Component {
 }
 
 HikeScreen.propTypes = propTypes;
+HikeScreen.defaultProps = defaultProps;
 
 export default connect(
     mapStateToProps,

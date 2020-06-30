@@ -4,17 +4,19 @@ import { TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import ImageBlurLoading from 'react-native-image-blur-loading';
 import { spacing, borderRadius, opacities } from '../constants/Index';
-import { showModal, setLightboxImage } from '../actions/Modal';
+import { showModal, setLightboxImage, setSelectedHike } from '../actions/Modal';
 import { withTheme } from '../utils/Themes';
 
 const propTypes = {
     dispatchImage: PropTypes.func.isRequired,
     dispatchModalFlag: PropTypes.func.isRequired,
+    dispatchSelectedHike: PropTypes.func.isRequired,
     imageIndex: PropTypes.number.isRequired,
     image: PropTypes.object.isRequired,
     modalType: PropTypes.string,
     dimension: PropTypes.number,
     resizeMode: PropTypes.string,
+    id: PropTypes.string.isRequired,
 };
 
 const defaultProps = {
@@ -31,6 +33,7 @@ function mapDispatchToProps(dispatch) {
     return {
         dispatchImage: (imageIndex) => dispatch(setLightboxImage(imageIndex)),
         dispatchModalFlag: (modalType) => dispatch(showModal(modalType)),
+        dispatchSelectedHike: (hid) => dispatch(setSelectedHike(hid)),
     };
 }
 
@@ -39,12 +42,15 @@ class Thumbnail extends React.PureComponent {
         const {
             dispatchImage,
             dispatchModalFlag,
+            dispatchSelectedHike,
             imageIndex,
             modalType,
+            id,
         } = this.props;
 
         dispatchImage(imageIndex);
         dispatchModalFlag(modalType);
+        dispatchSelectedHike(id);
     };
 
     render() {
