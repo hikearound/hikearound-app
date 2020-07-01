@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Settings, ProfileHeader, ProfileBody } from '../components/Index';
-import EditProfileModal from '../components/modals/EditProfileModal';
+import EditProfileModal from '../components/modal/EditProfileModal';
 import { getUserFavoriteHikes } from '../utils/User';
 import ProfileLoadingState from '../components/loading/Profile';
 import { initializeHikeData } from '../actions/Hike';

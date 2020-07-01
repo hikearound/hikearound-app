@@ -11,8 +11,8 @@ import {
     opacities,
     spacing,
     fontSizes,
-} from '../constants/Index';
-import { closeModal } from '../actions/Modal';
+} from '../../../constants/Index';
+import { closeModal } from '../../../actions/Modal';
 
 const propTypes = {
     dispatchModalFlag: PropTypes.func.isRequired,

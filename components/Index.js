@@ -14,12 +14,11 @@ import Avatar from './Avatar';
 import Subtitle from './Subtitle';
 import Toast from './Toast';
 import Thumbnail from './Thumbnail';
-import ModalDismiss from './ModalDismiss';
 import LoadingOverlay from './LoadingOverlay';
 
 // Modals
-import MapModal from './modals/MapModal';
-import LightboxModal from './modals/LightboxModal';
+import MapModal from './modal/MapModal';
+import LightboxModal from './modal/LightboxModal';
 
 // Header
 import Logo from './header/Logo';
@@ -81,7 +80,6 @@ export {
     Thumbnail,
     MapModal,
     LightboxModal,
-    ModalDismiss,
     MapWrapper,
     SwitchItem,
     InputButton,

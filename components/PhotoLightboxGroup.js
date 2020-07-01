@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Thumbnail from './Thumbnail';
-import LightboxModal from './modals/LightboxModal';
+import LightboxModal from './modal/LightboxModal';
 import {
     getHikeThumbnail,
     getHikeImage,

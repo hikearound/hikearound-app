@@ -3,8 +3,13 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-import { colors, opacities, spacing, fontSizes } from '../constants/Index';
-import { closeModal } from '../actions/Modal';
+import {
+    colors,
+    opacities,
+    spacing,
+    fontSizes,
+} from '../../../constants/Index';
+import { closeModal } from '../../../actions/Modal';
 
 const propTypes = {
     dispatchModalFlag: PropTypes.func.isRequired,

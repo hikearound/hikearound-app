@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
 import { TouchableOpacity, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { colors, opacities } from '../constants/Index';
-import { lightboxActionSheet } from './action_sheets/Lightbox';
+import { colors, opacities } from '../../../constants/Index';
+import { lightboxActionSheet } from '../../action_sheets/Lightbox';
 
 const propTypes = {
     images: PropTypes.array.isRequired,

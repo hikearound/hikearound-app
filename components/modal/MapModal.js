@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Modal } from 'react-native';
 import { connect } from 'react-redux';
-import ModalDismiss from '../ModalDismiss';
+import ModalDismiss from './header/Dismiss';
 import ModalBase from './ModalBase';
 import HikeMap from '../map/Hike';
 import { spacing } from '../../constants/Index';
