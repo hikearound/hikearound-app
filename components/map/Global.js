@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { Keyboard } from 'react-native';
 import MapView from 'react-native-maps';
 import { connect } from 'react-redux';
-import { updateMapData } from '../actions/Map';
-import HikeMapMarker from './HikeMapMarker';
-import { withTheme } from '../utils/Themes';
-import { colors } from '../constants/Index';
-import { deltaMiles } from '../constants/Location';
-import { pageFeed } from '../utils/Feed';
+import { updateMapData } from '../../actions/Map';
+import GlobalMarker from '../marker/Global';
+import { withTheme } from '../../utils/Themes';
+import { colors } from '../../constants/Index';
+import { deltaMiles } from '../../constants/Location';
+import { pageFeed } from '../../utils/Feed';
 
 const propTypes = {
     dispatchMapData: PropTypes.func.isRequired,
@@ -212,7 +212,7 @@ class GlobalMap extends React.Component {
                 >
                     {visibleMarkers.map(
                         ({ id, coordinates, distance }, index) => (
-                            <HikeMapMarker
+                            <GlobalMarker
                                 key={id}
                                 identifier={id}
                                 distance={distance}

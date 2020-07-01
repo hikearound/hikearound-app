@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { withTranslation } from 'react-i18next';
 import Constants from 'expo-constants';
-import { withTheme } from '../utils/Themes';
-import { getMapSearchStyle } from '../styles/Map';
-import { withNavigation } from '../utils/Navigation';
-import { updateMapData } from '../actions/Map';
-import { transparentColors } from '../constants/Index';
+import { withTheme } from '../../utils/Themes';
+import { getMapSearchStyle } from '../../styles/Map';
+import { withNavigation } from '../../utils/Navigation';
+import { updateMapData } from '../../actions/Map';
+import { transparentColors } from '../../constants/Index';
 
 const propTypes = {
     hideHikeSheet: PropTypes.func.isRequired,

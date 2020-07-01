@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-import InfoBar from './InfoBar';
-import HikeMap from './HikeMap';
-import { spacing, borderRadius, opacities } from '../constants/Index';
-import { defaultProps } from '../constants/states/HikeMapWrapper';
-import { showModal, setSelectedHike } from '../actions/Modal';
-import { withTheme } from '../utils/Themes';
-import MapLoadingState from './loading/Map';
+import InfoBar from '../InfoBar';
+import HikeMap from './Hike';
+import { spacing, borderRadius, opacities } from '../../constants/Index';
+import { defaultProps } from '../../constants/states/MapWrapper';
+import { showModal, setSelectedHike } from '../../actions/Modal';
+import { withTheme } from '../../utils/Themes';
+import MapLoadingState from '../loading/Map';
 
 const propTypes = {
     dispatchModalFlag: PropTypes.func.isRequired,
@@ -35,7 +35,7 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-class HikeMapWrapper extends React.Component {
+class MapWrapper extends React.Component {
     mapPress = () => {
         const {
             dispatchModalFlag,
@@ -98,13 +98,13 @@ class HikeMapWrapper extends React.Component {
     }
 }
 
-HikeMapWrapper.propTypes = propTypes;
-HikeMapWrapper.defaultProps = defaultProps;
+MapWrapper.propTypes = propTypes;
+MapWrapper.defaultProps = defaultProps;
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(withTheme(HikeMapWrapper));
+)(withTheme(MapWrapper));
 
 const MapViewWrapper = styled.View`
     flex: 1;

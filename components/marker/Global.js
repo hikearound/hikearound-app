@@ -3,10 +3,10 @@ import { View, ImageBackground } from 'react-native';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Marker } from 'react-native-maps';
-import { defaultProps } from '../constants/states/HikeMapMarker';
-import { colors, fontSizes, fontWeights } from '../constants/Index';
-import { withTheme } from '../utils/Themes';
-import { markerBgDefault, markerBgDark } from '../constants/Images';
+import { defaultProps } from '../../constants/states/HikeMapMarker';
+import { colors, fontSizes, fontWeights } from '../../constants/Index';
+import { withTheme } from '../../utils/Themes';
+import { markerBgDefault, markerBgDark } from '../../constants/Images';
 
 const propTypes = {
     distance: PropTypes.number,
@@ -18,7 +18,7 @@ const propTypes = {
     tracksViewChanges: PropTypes.bool.isRequired,
 };
 
-class HikeMapMarker extends React.Component {
+class GlobalMarker extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
@@ -96,10 +96,10 @@ class HikeMapMarker extends React.Component {
     }
 }
 
-HikeMapMarker.propTypes = propTypes;
-HikeMapMarker.defaultProps = defaultProps;
+GlobalMarker.propTypes = propTypes;
+GlobalMarker.defaultProps = defaultProps;
 
-export default withTheme(HikeMapMarker);
+export default withTheme(GlobalMarker);
 
 const MarkerLabel = styled.Text`
     font-size: ${fontSizes.extraSmall}px;

@@ -1,8 +1,8 @@
 // Hike
 import InfoBar from './InfoBar';
 import HikeBody from './HikeBody';
-import HikeMap from './HikeMap';
-import HikeMapWrapper from './HikeMapWrapper';
+import HikeMap from './map/Hike';
+import MapWrapper from './map/Wrapper';
 
 // Buttons
 import LandingButton from './LandingButton';
@@ -82,7 +82,7 @@ export {
     MapModal,
     LightboxModal,
     ModalDismiss,
-    HikeMapWrapper,
+    MapWrapper,
     SwitchItem,
     InputButton,
     LoadingOverlay,

@@ -5,7 +5,7 @@ import { Modal } from 'react-native';
 import { connect } from 'react-redux';
 import ModalDismiss from '../ModalDismiss';
 import ModalBase from './ModalBase';
-import HikeMap from '../HikeMap';
+import HikeMap from '../map/Hike';
 import { spacing } from '../../constants/Index';
 
 function mapStateToProps(state) {

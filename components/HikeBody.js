@@ -7,7 +7,7 @@ import { withScrollToTop } from '../utils/Navigation';
 import { spacing } from '../constants/Index';
 import Subtitle from './Subtitle';
 import PhotoLightboxGroup from './PhotoLightboxGroup';
-import HikeMapWrapper from './HikeMapWrapper';
+import MapWrapper from './map/Wrapper';
 import TextContent from './hike/TextContent';
 
 const propTypes = {
@@ -58,7 +58,7 @@ class HikeBody extends React.PureComponent {
                     showsVerticalScrollIndicator={false}
                     ref={scrollRef}
                 >
-                    <HikeMapWrapper
+                    <MapWrapper
                         coordinates={coordinates}
                         region={region}
                         distance={distance}

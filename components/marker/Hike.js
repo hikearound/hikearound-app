@@ -2,8 +2,8 @@ import React from 'react';
 import { View, ImageBackground } from 'react-native';
 import PropTypes from 'prop-types';
 import { Marker } from 'react-native-maps';
-import { withTheme } from '../utils/Themes';
-import { markerUnfocused, markerFocused } from '../constants/Images';
+import { withTheme } from '../../utils/Themes';
+import { markerUnfocused, markerFocused } from '../../constants/Images';
 
 const propTypes = {
     coordinate: PropTypes.object,
@@ -15,10 +15,10 @@ const propTypes = {
 const defaultProps = {
     coordinate: {},
     position: {},
-    offset: { x: 0, y: -38 },
+    offset: { x: 1, y: -36 },
 };
 
-class GenericMapMarker extends React.Component {
+class HikeMarker extends React.Component {
     constructor(props) {
         super(props);
 
@@ -102,7 +102,7 @@ class GenericMapMarker extends React.Component {
     }
 }
 
-GenericMapMarker.propTypes = propTypes;
-GenericMapMarker.defaultProps = defaultProps;
+HikeMarker.propTypes = propTypes;
+HikeMarker.defaultProps = defaultProps;
 
-export default withTheme(GenericMapMarker);
+export default withTheme(HikeMarker);
