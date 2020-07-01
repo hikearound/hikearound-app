@@ -26,6 +26,7 @@ class GenericMapMarker extends React.Component {
 
         this.state = {
             offset,
+            isFocused: false,
             bgImage: markerUnfocused,
         };
     }
@@ -59,15 +60,27 @@ class GenericMapMarker extends React.Component {
     };
 
     markerPress = () => {
-        this.focusMarker();
+        const { isFocused } = this.state;
+
+        if (isFocused) {
+            this.unfocusMarker();
+        } else {
+            this.focusMarker();
+        }
     };
 
     focusMarker = () => {
-        this.setState({ bgImage: markerFocused });
+        this.setState({
+            bgImage: markerFocused,
+            isFocused: true,
+        });
     };
 
     unfocusMarker = () => {
-        this.setState({ bgImage: markerUnfocused });
+        this.setState({
+            bgImage: markerUnfocused,
+            isFocused: false,
+        });
     };
 
     render() {
