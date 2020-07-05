@@ -2,11 +2,26 @@ import React from 'react';
 import styled from 'styled-components';
 import { Animated, Easing } from 'react-native';
 import { withTranslation } from 'react-i18next';
+import PropTypes from 'prop-types';
 import { LandingButton } from '../components/Index';
 import { spacing } from '../constants/Index';
 import { RootView } from '../styles/Screens';
 import { withTheme } from '../utils/Themes';
 import { landingBgDefault, landingBgDark } from '../constants/Images';
+
+const propTypes = {
+    toValue: PropTypes.number,
+    duration: PropTypes.number,
+    easing: PropTypes.func,
+    useNativeDriver: PropTypes.bool,
+};
+
+const defaultProps = {
+    toValue: -500,
+    duration: 60000,
+    easing: Easing.linear,
+    useNativeDriver: false,
+};
 
 class LandingScreen extends React.Component {
     constructor(props) {
@@ -23,13 +38,16 @@ class LandingScreen extends React.Component {
     }
 
     componentDidMount() {
+        const { toValue, duration, easing, useNativeDriver } = this.props;
         const { left } = this.state;
+
         Animated.loop(
             Animated.sequence([
                 Animated.timing(left, {
-                    toValue: -500,
-                    duration: 60000,
-                    easing: Easing.linear,
+                    toValue,
+                    duration,
+                    easing,
+                    useNativeDriver,
                 }),
             ]),
         ).start();
@@ -80,6 +98,9 @@ class LandingScreen extends React.Component {
         );
     }
 }
+
+LandingScreen.defaultProps = defaultProps;
+LandingScreen.propTypes = propTypes;
 
 export default withTranslation()(withTheme(LandingScreen));
 

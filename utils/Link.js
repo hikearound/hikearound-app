@@ -1,4 +1,4 @@
-import { Linking } from 'expo';
+import * as Linking from 'expo-linking';
 import { openHikeScreen } from './Hike';
 
 export function getHikeIdFromUrl(url) {

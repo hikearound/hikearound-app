@@ -22,6 +22,7 @@ const propTypes = {
     duration: PropTypes.number,
     timeout: PropTypes.number,
     iconSize: PropTypes.number,
+    useNativeDriver: PropTypes.bool,
 };
 
 const defaultProps = {
@@ -29,6 +30,7 @@ const defaultProps = {
     duration: 500,
     timeout: 3500,
     iconSize: 30,
+    useNativeDriver: true,
 };
 
 function mapStateToProps(state) {
@@ -68,12 +70,14 @@ class Toast extends React.Component {
 
     hideToast = () => {
         const { top } = this.state;
-        const { duration } = this.props;
+        const { duration, useNativeDriver } = this.props;
+
         clearTimeout(this.timeout);
 
         Animated.timing(top, {
             toValue: height,
             duration,
+            useNativeDriver,
         }).start();
     };
 

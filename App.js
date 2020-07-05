@@ -5,6 +5,9 @@ import Constants from 'expo-constants';
 import AppNavigator from './navigators/AppNavigator';
 import store from './store/Store';
 import Fire from './lib/Fire';
+import { ignoreWarnings } from './utils/Warnings';
+
+ignoreWarnings();
 
 class App extends React.Component {
     async componentDidMount() {

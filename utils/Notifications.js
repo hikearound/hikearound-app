@@ -1,10 +1,9 @@
-import { Notifications } from 'expo';
+import * as Notifications from 'expo-notifications';
 import * as Permissions from 'expo-permissions';
 import { db, auth } from '../lib/Fire';
 
 export async function registerForPushNotifications() {
     const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-
     if (status !== 'granted') {
         return;
     }
@@ -18,11 +17,11 @@ export async function registerForPushNotifications() {
 }
 
 export async function clearBadge() {
-    await Notifications.setBadgeNumberAsync(0);
+    await Notifications.setBadgeCountAsync(0);
 }
 
 export async function getBadgeNumber() {
-    const badgeNumber = await Notifications.getBadgeNumberAsync();
+    const badgeNumber = await Notifications.getBadgeCountAsync();
     return badgeNumber;
 }
 
