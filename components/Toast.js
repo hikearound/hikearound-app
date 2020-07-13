@@ -30,7 +30,7 @@ const defaultProps = {
     duration: 500,
     timeout: 3500,
     iconSize: 30,
-    useNativeDriver: true,
+    useNativeDriver: false,
 };
 
 function mapStateToProps(state) {

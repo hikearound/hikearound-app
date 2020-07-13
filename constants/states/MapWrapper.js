@@ -4,6 +4,7 @@ export const defaultProps = {
     elevation: 0,
     route: '',
     modalType: 'map',
+    mapPadding: { bottom: 5 },
 };
 
 export default defaultProps;

@@ -9,6 +9,7 @@ import { withTheme } from '../../utils/Themes';
 import { colors } from '../../constants/Index';
 import { deltaMiles } from '../../constants/Location';
 import { pageFeed } from '../../utils/Feed';
+import { defaultProps } from '../../constants/states/GlobalMap';
 
 const propTypes = {
     dispatchMapData: PropTypes.func.isRequired,
@@ -16,7 +17,6 @@ const propTypes = {
     position: PropTypes.object.isRequired,
     duration: PropTypes.number,
     markers: PropTypes.array.isRequired,
-    latModifier: PropTypes.number,
     hikeAlt: PropTypes.number,
     cityAlt: PropTypes.number,
     showHikeSheet: PropTypes.func.isRequired,
@@ -24,16 +24,10 @@ const propTypes = {
     pageSize: PropTypes.number.isRequired,
     sortDirection: PropTypes.string.isRequired,
     radius: PropTypes.number,
-};
-
-const defaultProps = {
-    delta: 0.5,
-    duration: 1000,
-    latModifier: 0.018,
-    hikeAlt: 20000,
-    cityAlt: 160000,
-    selectedCity: null,
-    radius: 22,
+    mapPadding: PropTypes.object,
+    latModifier: PropTypes.number,
+    pitch: PropTypes.number,
+    heading: PropTypes.number,
 };
 
 function mapStateToProps(state) {
@@ -86,10 +80,12 @@ class GlobalMap extends React.Component {
     }
 
     animateToCity = (selectedCity) => {
-        const { cityAlt } = this.props;
+        const { cityAlt, pitch, heading } = this.props;
         const { lat, lng } = selectedCity.geometry.location;
 
         this.animateToPoint({
+            pitch,
+            heading,
             center: {
                 latitude: lat,
                 longitude: lng,
@@ -153,9 +149,11 @@ class GlobalMap extends React.Component {
     markerPress = (event) => {
         const {
             dispatchMapData,
-            latModifier,
             hikeAlt,
             showHikeSheet,
+            latModifier,
+            pitch,
+            heading,
         } = this.props;
         const { coordinate, id } = event.nativeEvent;
 
@@ -163,6 +161,8 @@ class GlobalMap extends React.Component {
         showHikeSheet();
 
         this.animateToPoint({
+            pitch,
+            heading,
             center: {
                 latitude: coordinate.latitude - latModifier,
                 longitude: coordinate.longitude,
@@ -188,7 +188,7 @@ class GlobalMap extends React.Component {
     };
 
     render() {
-        const { theme, radius } = this.props;
+        const { theme, radius, mapPadding } = this.props;
         const { region, tracksViewChanges, visibleMarkers } = this.state;
 
         if (region) {
@@ -198,9 +198,10 @@ class GlobalMap extends React.Component {
                     style={{ height: '100%', zIndex: -1 }}
                     initialRegion={region}
                     showsUserLocation
-                    showsMyLocationButton={false}
+                    showsMyLocationButton
+                    showsScale
                     showsPointsOfInterest={false}
-                    showsCompass
+                    showsCompass={false}
                     onRegionChange={this.onRegionChange}
                     onRegionChangeComplete={this.onRegionChangeComplete}
                     loadingIndicatorColor={theme.colors.loadingSpinner}
@@ -209,6 +210,7 @@ class GlobalMap extends React.Component {
                     radius={radius}
                     animationEnabled={false}
                     onPress={this.onPress}
+                    mapPadding={mapPadding}
                 >
                     {visibleMarkers.map(
                         ({ id, coordinates, distance }, index) => (

@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { Modal } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import ImageViewer from 'react-native-image-zoom-viewer';
 import ModalOverflow from './header/Overflow';
 import ModalDismiss from './header/Dismiss';
@@ -50,27 +49,25 @@ class LightboxModal extends ModalBase {
                     visible={modalVisible}
                 >
                     <ModalRoot>
-                        <SafeAreaView style={{ flex: 1 }}>
-                            <ModalOverflow
-                                images={images}
-                                imageIndex={imageIndex}
+                        <ModalOverflow
+                            images={images}
+                            imageIndex={imageIndex}
+                        />
+                        <ModalDismiss />
+                        {!(action === 'hideModal') && (
+                            <ImageViewer
+                                imageUrls={images}
+                                index={imageIndex}
+                                loadingRender={() => (
+                                    <LoadingOverlay loading isLightbox />
+                                )}
+                                renderIndicator={() => null}
+                                enablePreload
+                                enableSwipeDown
+                                useNativeDriver
+                                onSwipeDown={() => this.hideLightbox()}
                             />
-                            <ModalDismiss />
-                            {!(action === 'hideModal') && (
-                                <ImageViewer
-                                    imageUrls={images}
-                                    index={imageIndex}
-                                    loadingRender={() => (
-                                        <LoadingOverlay loading isLightbox />
-                                    )}
-                                    renderIndicator={() => null}
-                                    enablePreload
-                                    enableSwipeDown
-                                    useNativeDriver
-                                    onSwipeDown={() => this.hideLightbox()}
-                                />
-                            )}
-                        </SafeAreaView>
+                        )}
                     </ModalRoot>
                 </Modal>
             );

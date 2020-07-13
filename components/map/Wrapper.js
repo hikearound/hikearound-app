@@ -22,6 +22,7 @@ const propTypes = {
     modalType: PropTypes.string,
     isLoading: PropTypes.bool.isRequired,
     id: PropTypes.string.isRequired,
+    mapPadding: PropTypes.object,
 };
 
 function mapStateToProps() {
@@ -56,6 +57,7 @@ class MapWrapper extends React.Component {
             route,
             theme,
             isLoading,
+            mapPadding,
         } = this.props;
 
         return (
@@ -70,6 +72,7 @@ class MapWrapper extends React.Component {
                             coordinates={coordinates}
                             region={region}
                             cacheEnabled
+                            mapPadding={mapPadding}
                         />
                     )}
                     <InfoBar

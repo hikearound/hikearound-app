@@ -120,7 +120,7 @@ class MapSearch extends React.Component {
                 }}
                 onPress={(data, details = null) => this.onPress(details)}
                 styles={mapSearchStyle}
-                listUnderlayColor={theme.colors.border}
+                listUnderlayColor={theme.colors.searchBackground}
             />
         );
     }
