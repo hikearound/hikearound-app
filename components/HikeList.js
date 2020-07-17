@@ -61,7 +61,7 @@ class HikeList extends React.Component {
                         ListHeaderComponent={this.renderListHeader}
                         ListEmptyComponent={this.renderEmptyList}
                         data={hikeData}
-                        extraData={this.props}
+                        extraData={hikeData}
                         keyExtractor={extractKey}
                         scrollEnabled={false}
                     />
