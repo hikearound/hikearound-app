@@ -26,6 +26,11 @@ class SearchBox extends React.PureComponent {
         this.searchInput = ref;
     };
 
+    handleSubmitEditing = () => {
+        // const { currentRefinement } = this.props;
+        // console.log(currentRefinement)
+    };
+
     render() {
         const { refine, currentRefinement, t } = this.props;
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { LayoutAnimation } from 'react-native';
 import SvgAnimatedLinearGradient from 'react-native-svg-animated-linear-gradient';
 import { Rect } from 'react-native-svg';
 import { timings, borderRadius } from '../../constants/Index';
@@ -30,10 +29,6 @@ class MapLoadingState extends React.Component {
             primaryColor: theme.colors.loadingPrimary,
             secondaryColor: theme.colors.loadingSecondary,
         });
-    }
-
-    componentWillUnmount() {
-        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     }
 
     render() {

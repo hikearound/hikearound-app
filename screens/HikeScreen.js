@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Share } from 'react-native';
+import { Share, LayoutAnimation } from 'react-native';
 import { withTranslation } from 'react-i18next';
 import { HikeBody, Overflow, Toast, MapModal } from '../components/Index';
 import { hikeActionSheet } from '../components/action_sheets/Hike';
@@ -167,6 +167,8 @@ class HikeScreen extends React.Component {
 
         const { route, selectedHike } = this.props;
         const { hike } = route.params;
+
+        LayoutAnimation.easeInEaseOut();
 
         return (
             <RootView>
