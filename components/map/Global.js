@@ -125,6 +125,7 @@ class GlobalMap extends React.Component {
                 ...visibleMarkers,
                 ...data.filter((marker) => !markerIds.has(marker.id)),
             ],
+            tracksViewChanges: false,
         });
     };
 
@@ -176,7 +177,7 @@ class GlobalMap extends React.Component {
     };
 
     onRegionChangeComplete = (region) => {
-        this.setState({ tracksViewChanges: false, region });
+        this.setState({ region });
     };
 
     onPress = () => {
