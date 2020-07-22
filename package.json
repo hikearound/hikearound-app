@@ -72,6 +72,7 @@
     "redux": "^4.0.5",
     "sentry-expo": "^2.1.2",
     "styled-components": "^5.1.1",
+    "supercluster": "4.1.1",
     "webpack": "^4.43.0"
   },
   "devDependencies": {

@@ -1,15 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Keyboard } from 'react-native';
-import MapView from 'react-native-maps';
+import MapView, { Marker } from 'react-native-maps';
 import { connect } from 'react-redux';
 import { updateMapData } from '../../actions/Map';
 import GlobalMarker from '../marker/Global';
+import ClusterMarker from '../marker/Cluster';
 import { withTheme } from '../../utils/Themes';
 import { colors } from '../../constants/Index';
 import { deltaMiles } from '../../constants/Location';
 import { pageFeed } from '../../utils/Feed';
 import { defaultProps } from '../../constants/states/GlobalMap';
+import { getCluster } from '../../utils/Map';
 
 const propTypes = {
     dispatchMapData: PropTypes.func.isRequired,
@@ -172,13 +174,16 @@ class GlobalMap extends React.Component {
         });
     };
 
-    onRegionChange = () => {
+    onRegionChange = (newRegion) => {
+        const { region } = this.state;
+
         this.setState({ tracksViewChanges: true });
+        if (newRegion !== region) {
+            this.setState({ region: newRegion });
+        }
     };
 
-    onRegionChangeComplete = (region) => {
-        this.setState({ region });
-    };
+    onRegionChangeComplete = () => {};
 
     onPress = () => {
         Keyboard.dismiss();
@@ -188,11 +193,61 @@ class GlobalMap extends React.Component {
         this[`marker${index}`] = ref;
     };
 
+    renderMarker = (marker, index, tracksViewChanges) => {
+        const key = index + marker.geometry.coordinates[0];
+
+        if (marker.properties) {
+            return (
+                <Marker
+                    key={key}
+                    coordinate={{
+                        latitude: marker.geometry.coordinates[1],
+                        longitude: marker.geometry.coordinates[0],
+                    }}
+                >
+                    <ClusterMarker count={marker.properties.point_count} />
+                </Marker>
+            );
+        }
+
+        return (
+            <GlobalMarker
+                key={key}
+                markerKey={key}
+                identifier={marker.id}
+                distance={marker.distance}
+                markerRef={(ref) => this.assignRef(ref, index)}
+                coordinate={{
+                    latitude: marker.geometry.coordinates[1],
+                    longitude: marker.geometry.coordinates[0],
+                }}
+                onPress={this.markerPress}
+                tracksViewChanges={tracksViewChanges}
+            />
+        );
+    };
+
     render() {
         const { theme, radius, mapPadding } = this.props;
         const { region, tracksViewChanges, visibleMarkers } = this.state;
 
         if (region) {
+            const coords = visibleMarkers.map((c) => ({
+                geometry: {
+                    coordinates: [
+                        c.coordinates.center.lng,
+                        c.coordinates.center.lat,
+                    ],
+                },
+                distance: c.distance,
+                id: c.id,
+            }));
+
+            let cluster = null;
+            if (coords.length !== 0) {
+                cluster = getCluster(coords, region);
+            }
+
             return (
                 <MapView
                     ref={this.mapRef}
@@ -213,22 +268,10 @@ class GlobalMap extends React.Component {
                     onPress={this.onPress}
                     mapPadding={mapPadding}
                 >
-                    {visibleMarkers.map(
-                        ({ id, coordinates, distance }, index) => (
-                            <GlobalMarker
-                                key={id}
-                                identifier={id}
-                                distance={distance}
-                                markerRef={(ref) => this.assignRef(ref, index)}
-                                coordinate={{
-                                    latitude: coordinates.center.lat,
-                                    longitude: coordinates.center.lng,
-                                }}
-                                onPress={this.markerPress}
-                                tracksViewChanges={tracksViewChanges}
-                            />
-                        ),
-                    )}
+                    {cluster &&
+                        cluster.markers.map((marker, index) =>
+                            this.renderMarker(marker, index, tracksViewChanges),
+                        )}
                 </MapView>
             );
         }
