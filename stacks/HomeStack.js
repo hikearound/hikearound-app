@@ -93,7 +93,6 @@ class HomeStack extends React.Component {
                 name='Home'
                 component={HomeScreen}
                 options={() => ({
-                    headerTitle: () => <Logo />,
                     animationEnabled: false,
                 })}
             />

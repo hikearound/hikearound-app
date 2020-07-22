@@ -25,6 +25,7 @@ import {
     addUrlListener,
     removeUrlListener,
 } from '../utils/Link';
+import Logo from '../components/header/Logo';
 
 const propTypes = {
     dispatchUserData: PropTypes.func.isRequired,
@@ -44,15 +45,18 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
+const scrollRef = React.createRef();
+
 class HomeScreen extends React.Component {
     constructor(props) {
         super(props);
         const { navigation, t } = this.props;
 
         this.state = defaultState;
-
         this.feedActionSheet = feedActionSheet.bind(this, t);
+
         navigation.setOptions({
+            headerTitle: () => <Logo scrollRef={scrollRef} />,
             headerRight: () => (
                 <HomeActions feedAction={this.feedActionSheet} />
             ),
@@ -174,7 +178,6 @@ class HomeScreen extends React.Component {
 
     renderHome = () => {
         const { hikes, firstLoad, loading, city } = this.state;
-        const scrollRef = React.createRef();
         const showEmptyState = this.shouldShowEmptyState();
 
         if (firstLoad) {
