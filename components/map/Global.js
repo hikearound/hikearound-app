@@ -16,18 +16,15 @@ const propTypes = {
     dispatchMapData: PropTypes.func.isRequired,
     delta: PropTypes.number,
     position: PropTypes.object.isRequired,
-    duration: PropTypes.number,
     markers: PropTypes.array.isRequired,
-    hikeAlt: PropTypes.number,
-    cityAlt: PropTypes.number,
     showHikeSheet: PropTypes.func.isRequired,
     selectedCity: PropTypes.object,
     pageSize: PropTypes.number.isRequired,
     sortDirection: PropTypes.string.isRequired,
     mapPadding: PropTypes.object,
     latModifier: PropTypes.number,
-    pitch: PropTypes.number,
-    heading: PropTypes.number,
+    altitude: PropTypes.object,
+    animationConfig: PropTypes.object,
 };
 
 function mapStateToProps(state) {
@@ -48,7 +45,6 @@ class GlobalMap extends React.Component {
 
         this.state = {
             region: null,
-            tracksViewChanges: false,
             visibleMarkers: [],
         };
 
@@ -64,10 +60,8 @@ class GlobalMap extends React.Component {
         const { selectedCity, markers } = this.props;
         const { region } = this.state;
 
-        if (prevProps.selectedCity !== selectedCity) {
-            if (selectedCity) {
-                this.animateToCity(selectedCity);
-            }
+        if (prevProps.selectedCity !== selectedCity && selectedCity) {
+            this.animateToCity(selectedCity);
         }
 
         if (prevProps.markers !== markers) {
@@ -80,25 +74,25 @@ class GlobalMap extends React.Component {
     }
 
     animateToCity = (selectedCity) => {
-        const { cityAlt, pitch, heading } = this.props;
+        const { altitude, animationConfig, delta } = this.props;
         const { lat, lng } = selectedCity.geometry.location;
 
         this.animateToPoint({
-            pitch,
-            heading,
+            pitch: animationConfig.pitch,
+            heading: animationConfig.heading,
             center: {
                 latitude: lat,
                 longitude: lng,
             },
-            altitude: cityAlt,
+            altitude: altitude.city,
         });
 
         this.setState({
             region: {
                 latitude: lat,
-                latitudeDelta: 0.6,
+                latitudeDelta: delta,
                 longitude: lng,
-                longitudeDelta: 0.5,
+                longitudeDelta: delta,
             },
         });
     };
@@ -134,7 +128,6 @@ class GlobalMap extends React.Component {
                 ...visibleMarkers,
                 ...data.filter((marker) => !markerIds.has(marker.id)),
             ],
-            tracksViewChanges: false,
         });
     };
 
@@ -152,18 +145,20 @@ class GlobalMap extends React.Component {
     };
 
     animateToPoint = (camera) => {
-        const { duration } = this.props;
-        this.mapRef.current.animateCamera(camera, { duration });
+        const { animationConfig } = this.props;
+
+        this.mapRef.current.animateCamera(camera, {
+            duration: animationConfig.duration,
+        });
     };
 
     markerPress = (event) => {
         const {
             dispatchMapData,
-            hikeAlt,
+            altitude,
             showHikeSheet,
             latModifier,
-            pitch,
-            heading,
+            animationConfig,
         } = this.props;
         const { coordinate, id } = event.nativeEvent;
 
@@ -171,20 +166,19 @@ class GlobalMap extends React.Component {
         showHikeSheet();
 
         this.animateToPoint({
-            pitch,
-            heading,
+            pitch: animationConfig.pitch,
+            heading: animationConfig.heading,
             center: {
                 latitude: coordinate.latitude - latModifier,
                 longitude: coordinate.longitude,
             },
-            altitude: hikeAlt,
+            altitude: altitude.hike,
         });
     };
 
     onRegionChange = (newRegion) => {
         const { region } = this.state;
 
-        this.setState({ tracksViewChanges: true });
         if (newRegion !== region) {
             this.setState({ region: newRegion });
         }
@@ -198,7 +192,7 @@ class GlobalMap extends React.Component {
         Keyboard.dismiss();
     };
 
-    renderMarker = (marker, index, tracksViewChanges) => {
+    renderMarker = (marker, index) => {
         const key = index + marker.geometry.coordinates[0];
 
         if (marker.properties) {
@@ -209,6 +203,7 @@ class GlobalMap extends React.Component {
                         latitude: marker.geometry.coordinates[1],
                         longitude: marker.geometry.coordinates[0],
                     }}
+                    tracksViewChanges={false}
                 >
                     <ClusterMarker count={marker.properties.point_count} />
                 </Marker>
@@ -224,7 +219,7 @@ class GlobalMap extends React.Component {
                     longitude: marker.geometry.coordinates[0],
                 }}
                 onPress={this.markerPress}
-                tracksViewChanges={tracksViewChanges}
+                tracksViewChanges={false}
             >
                 <GlobalMarker distance={marker.distance} />
             </Marker>
@@ -233,7 +228,7 @@ class GlobalMap extends React.Component {
 
     render() {
         const { theme, mapPadding } = this.props;
-        const { region, tracksViewChanges, visibleMarkers } = this.state;
+        const { region, visibleMarkers } = this.state;
 
         if (region) {
             const coords = visibleMarkers.map((c) => ({
@@ -271,7 +266,7 @@ class GlobalMap extends React.Component {
                 >
                     {cluster &&
                         cluster.markers.map((marker, index) =>
-                            this.renderMarker(marker, index, tracksViewChanges),
+                            this.renderMarker(marker, index),
                         )}
                 </MapView>
             );

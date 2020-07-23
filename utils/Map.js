@@ -25,19 +25,18 @@ export function getDrivingDirections(latitude, longitude) {
 }
 
 export function getZoomLevel(longitudeDelta) {
-    const angle = longitudeDelta;
-
-    return Math.round(Math.log(360 / angle) / Math.LN2);
+    return Math.round(Math.log(360 / longitudeDelta) / Math.LN2);
 }
 
 export function getBoundingBox(region) {
     const { padding } = config;
+    const { longitude, longitudeDelta, latitude, latitudeDelta } = region;
 
     return [
-        region.longitude - region.longitudeDelta * padding,
-        region.latitude - region.latitudeDelta * padding,
-        region.longitude + region.longitudeDelta * padding,
-        region.latitude + region.latitudeDelta * padding,
+        longitude - longitudeDelta * padding,
+        latitude - latitudeDelta * padding,
+        longitude + longitudeDelta * padding,
+        latitude + latitudeDelta * padding,
     ];
 }
 
