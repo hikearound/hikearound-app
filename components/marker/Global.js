@@ -2,7 +2,6 @@ import React from 'react';
 import { View, ImageBackground } from 'react-native';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Marker } from 'react-native-maps';
 import { defaultProps } from '../../constants/states/HikeMapMarker';
 import { colors, fontSizes, fontWeights } from '../../constants/Index';
 import { withTheme } from '../../utils/Themes';
@@ -10,12 +9,6 @@ import { markerBgDefault, markerBgDark } from '../../constants/Images';
 
 const propTypes = {
     distance: PropTypes.number,
-    identifier: PropTypes.string.isRequired,
-    coordinate: PropTypes.object,
-    markerRef: PropTypes.func,
-    onPress: PropTypes.func,
-    offset: PropTypes.object,
-    tracksViewChanges: PropTypes.bool.isRequired,
 };
 
 class GlobalMarker extends React.Component {
@@ -52,7 +45,7 @@ class GlobalMarker extends React.Component {
         return Math.round(distance * 10) / 10;
     };
 
-    renderMarkerIcon = () => {
+    render() {
         const shortDistance = this.getShortDistance();
         const { bgImage } = this.state;
 
@@ -64,33 +57,6 @@ class GlobalMarker extends React.Component {
                 >
                     <MarkerLabel>{shortDistance.toFixed(1)}</MarkerLabel>
                 </ImageBackground>
-            </View>
-        );
-    };
-
-    render() {
-        const {
-            identifier,
-            coordinate,
-            markerRef,
-            onPress,
-            offset,
-            tracksViewChanges,
-        } = this.props;
-
-        return (
-            <View>
-                <Marker
-                    key={identifier || Math.random()}
-                    ref={markerRef}
-                    identifier={identifier}
-                    coordinate={coordinate}
-                    onPress={onPress}
-                    tracksViewChanges={tracksViewChanges}
-                    centerOffset={offset}
-                >
-                    {this.renderMarkerIcon()}
-                </Marker>
             </View>
         );
     }

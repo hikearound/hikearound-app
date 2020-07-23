@@ -4,7 +4,6 @@ export const defaultProps = {
     hikeAlt: 20000,
     cityAlt: 160000,
     selectedCity: null,
-    radius: 22,
     mapPadding: { bottom: 40, top: 50 },
     latModifier: 0.018,
     pitch: 0,

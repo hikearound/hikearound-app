@@ -7,7 +7,6 @@ import { updateMapData } from '../../actions/Map';
 import GlobalMarker from '../marker/Global';
 import ClusterMarker from '../marker/Cluster';
 import { withTheme } from '../../utils/Themes';
-import { colors } from '../../constants/Index';
 import { deltaMiles } from '../../constants/Location';
 import { pageFeed } from '../../utils/Feed';
 import { defaultProps } from '../../constants/states/GlobalMap';
@@ -25,7 +24,6 @@ const propTypes = {
     selectedCity: PropTypes.object,
     pageSize: PropTypes.number.isRequired,
     sortDirection: PropTypes.string.isRequired,
-    radius: PropTypes.number,
     mapPadding: PropTypes.object,
     latModifier: PropTypes.number,
     pitch: PropTypes.number,
@@ -93,6 +91,15 @@ class GlobalMap extends React.Component {
                 longitude: lng,
             },
             altitude: cityAlt,
+        });
+
+        this.setState({
+            region: {
+                latitude: lat,
+                latitudeDelta: 0.6,
+                longitude: lng,
+                longitudeDelta: 0.5,
+            },
         });
     };
 
@@ -183,14 +190,12 @@ class GlobalMap extends React.Component {
         }
     };
 
-    onRegionChangeComplete = () => {};
+    onRegionChangeComplete = (region) => {
+        this.setState({ region });
+    };
 
     onPress = () => {
         Keyboard.dismiss();
-    };
-
-    assignRef = (ref, index) => {
-        this[`marker${index}`] = ref;
     };
 
     renderMarker = (marker, index, tracksViewChanges) => {
@@ -211,24 +216,23 @@ class GlobalMap extends React.Component {
         }
 
         return (
-            <GlobalMarker
+            <Marker
                 key={key}
-                markerKey={key}
                 identifier={marker.id}
-                distance={marker.distance}
-                markerRef={(ref) => this.assignRef(ref, index)}
                 coordinate={{
                     latitude: marker.geometry.coordinates[1],
                     longitude: marker.geometry.coordinates[0],
                 }}
                 onPress={this.markerPress}
                 tracksViewChanges={tracksViewChanges}
-            />
+            >
+                <GlobalMarker distance={marker.distance} />
+            </Marker>
         );
     };
 
     render() {
-        const { theme, radius, mapPadding } = this.props;
+        const { theme, mapPadding } = this.props;
         const { region, tracksViewChanges, visibleMarkers } = this.state;
 
         if (region) {
@@ -262,9 +266,6 @@ class GlobalMap extends React.Component {
                     onRegionChangeComplete={this.onRegionChangeComplete}
                     loadingIndicatorColor={theme.colors.loadingSpinner}
                     loadingBackgroundColor={theme.colors.mapViewBackground}
-                    clusterColor={colors.purple}
-                    radius={radius}
-                    animationEnabled={false}
                     onPress={this.onPress}
                     mapPadding={mapPadding}
                 >

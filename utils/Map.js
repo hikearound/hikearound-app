@@ -2,6 +2,7 @@ import openMap from 'react-native-open-maps';
 import supercluster from 'supercluster';
 import store from '../store/Store';
 import { getMapSetting } from './Settings';
+import { config } from '../constants/Map';
 
 export async function getMapData(dispatchMapData) {
     const state = store.getState();
@@ -25,23 +26,29 @@ export function getDrivingDirections(latitude, longitude) {
 
 export function getZoomLevel(longitudeDelta) {
     const angle = longitudeDelta;
+
     return Math.round(Math.log(360 / angle) / Math.LN2);
 }
 
-export function getCluster(coords, region) {
-    const cluster = supercluster({ radius: 25, maxZoom: 8 });
-    const padding = 0;
+export function getBoundingBox(region) {
+    const { padding } = config;
 
-    cluster.load(coords);
+    return [
+        region.longitude - region.longitudeDelta * padding,
+        region.latitude - region.latitudeDelta * padding,
+        region.longitude + region.longitudeDelta * padding,
+        region.latitude + region.latitudeDelta * padding,
+    ];
+}
+
+export function getCluster(coords, region) {
     let markers = [];
 
+    const cluster = supercluster(config);
+    cluster.load(coords);
+
     markers = cluster.getClusters(
-        [
-            region.longitude - region.longitudeDelta * (0.5 + padding),
-            region.latitude - region.latitudeDelta * (0.5 + padding),
-            region.longitude + region.longitudeDelta * (0.5 + padding),
-            region.latitude + region.latitudeDelta * (0.5 + padding),
-        ],
+        getBoundingBox(region),
         getZoomLevel(region.longitudeDelta),
     );
 
