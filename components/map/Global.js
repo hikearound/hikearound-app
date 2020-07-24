@@ -8,9 +8,8 @@ import GlobalMarker from '../marker/Global';
 import ClusterMarker from '../marker/Cluster';
 import { withTheme } from '../../utils/Themes';
 import { deltaMiles } from '../../constants/Location';
-import { pageFeed } from '../../utils/Feed';
 import { defaultProps } from '../../constants/states/GlobalMap';
-import { getCluster } from '../../utils/Map';
+import { filterMarkers, getMapMarkers } from '../../utils/Map';
 
 const propTypes = {
     dispatchMapData: PropTypes.func.isRequired,
@@ -19,12 +18,10 @@ const propTypes = {
     markers: PropTypes.array.isRequired,
     showHikeSheet: PropTypes.func.isRequired,
     selectedCity: PropTypes.object,
-    pageSize: PropTypes.number.isRequired,
-    sortDirection: PropTypes.string.isRequired,
-    mapPadding: PropTypes.object,
     latModifier: PropTypes.number,
     altitude: PropTypes.object,
     animationConfig: PropTypes.object,
+    mapPadding: PropTypes.object,
 };
 
 function mapStateToProps(state) {
@@ -103,7 +100,6 @@ class GlobalMap extends React.Component {
     };
 
     maybeAddMarkers = async () => {
-        const { pageSize, sortDirection } = this.props;
         const { region, visibleMarkers } = this.state;
 
         const position = {
@@ -113,20 +109,14 @@ class GlobalMap extends React.Component {
             },
         };
 
-        const { data } = await pageFeed(
-            pageSize,
-            null,
-            position,
-            sortDirection,
-            deltaMiles.lat * region.latitudeDelta,
-        );
-
+        const distance = deltaMiles.lat * region.latitudeDelta;
+        const markers = await getMapMarkers(position, distance);
         const markerIds = new Set(visibleMarkers.map((marker) => marker.id));
 
         this.setState({
             visibleMarkers: [
                 ...visibleMarkers,
-                ...data.filter((marker) => !markerIds.has(marker.id)),
+                ...markers.filter((marker) => !markerIds.has(marker.id)),
             ],
         });
     };
@@ -194,15 +184,16 @@ class GlobalMap extends React.Component {
 
     renderMarker = (marker, index) => {
         const key = index + marker.geometry.coordinates[0];
+        const coordinate = {
+            latitude: marker.geometry.coordinates[1],
+            longitude: marker.geometry.coordinates[0],
+        };
 
         if (marker.properties) {
             return (
                 <Marker
                     key={key}
-                    coordinate={{
-                        latitude: marker.geometry.coordinates[1],
-                        longitude: marker.geometry.coordinates[0],
-                    }}
+                    coordinate={coordinate}
                     tracksViewChanges={false}
                 >
                     <ClusterMarker count={marker.properties.point_count} />
@@ -214,10 +205,7 @@ class GlobalMap extends React.Component {
             <Marker
                 key={key}
                 identifier={marker.id}
-                coordinate={{
-                    latitude: marker.geometry.coordinates[1],
-                    longitude: marker.geometry.coordinates[0],
-                }}
+                coordinate={coordinate}
                 onPress={this.markerPress}
                 tracksViewChanges={false}
             >
@@ -231,21 +219,7 @@ class GlobalMap extends React.Component {
         const { region, visibleMarkers } = this.state;
 
         if (region) {
-            const coords = visibleMarkers.map((c) => ({
-                geometry: {
-                    coordinates: [
-                        c.coordinates.center.lng,
-                        c.coordinates.center.lat,
-                    ],
-                },
-                distance: c.distance,
-                id: c.id,
-            }));
-
-            let cluster = null;
-            if (coords.length !== 0) {
-                cluster = getCluster(coords, region);
-            }
+            const filteredMarkers = filterMarkers(region, visibleMarkers);
 
             return (
                 <MapView
@@ -259,18 +233,18 @@ class GlobalMap extends React.Component {
                     showsCompass={false}
                     onRegionChange={this.onRegionChange}
                     onRegionChangeComplete={this.onRegionChangeComplete}
-                    loadingIndicatorColor={theme.colors.loadingSpinner}
                     loadingBackgroundColor={theme.colors.mapViewBackground}
                     onPress={this.onPress}
                     mapPadding={mapPadding}
                 >
-                    {cluster &&
-                        cluster.markers.map((marker, index) =>
+                    {filteredMarkers &&
+                        filteredMarkers.markers.map((marker, index) =>
                             this.renderMarker(marker, index),
                         )}
                 </MapView>
             );
         }
+
         return null;
     }
 }

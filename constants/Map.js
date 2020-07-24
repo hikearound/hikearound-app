@@ -4,4 +4,8 @@ export const config = {
     padding: 10.5,
 };
 
-export default config;
+export const queryParams = {
+    sortDirection: 'desc',
+    pageSize: 20,
+    distance: 50,
+};

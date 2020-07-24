@@ -2,13 +2,28 @@ import openMap from 'react-native-open-maps';
 import supercluster from 'supercluster';
 import store from '../store/Store';
 import { getMapSetting } from './Settings';
-import { config } from '../constants/Map';
+import { config, queryParams } from '../constants/Map';
+import { pageFeed } from './Feed';
 
 export async function getMapData(dispatchMapData) {
     const state = store.getState();
     const { selectedHike } = state.mapReducer;
 
     dispatchMapData({ selectedHike });
+}
+
+export async function getMapMarkers(position, distance) {
+    const { pageSize, sortDirection } = queryParams;
+
+    const { data } = await pageFeed(
+        pageSize,
+        null,
+        position,
+        sortDirection,
+        distance,
+    );
+
+    return data;
 }
 
 export function getDrivingDirections(latitude, longitude) {
@@ -52,4 +67,21 @@ export function getCluster(coords, region) {
     );
 
     return { markers, cluster };
+}
+export function filterMarkers(region, visibleMarkers) {
+    let markers = null;
+
+    const coords = visibleMarkers.map((c) => ({
+        geometry: {
+            coordinates: [c.coordinates.center.lng, c.coordinates.center.lat],
+        },
+        distance: c.distance,
+        id: c.id,
+    }));
+
+    if (coords.length !== 0) {
+        markers = getCluster(coords, region);
+    }
+
+    return markers;
 }
