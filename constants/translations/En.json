@@ -64,6 +64,9 @@
             }
         }
     },
+    "card": {
+        "metadata": "{{distance}} miles · {{elevation}} ft"
+    },
     "common": {
         "appName": "Hikearound",
         "appName_plural": "Hikearound's"

@@ -52,7 +52,7 @@ class ProfileLoadingState extends React.PureComponent {
                         style={{
                             position: 'absolute',
                             left: 16,
-                            top: 40,
+                            top: 43,
                         }}
                     >
                         <SvgAnimatedLinearGradient

@@ -9,9 +9,9 @@ import { getScreenHeight, getScreenWidth } from '../../utils/Screen';
 
 const cards = [
     { yOffset: 45 },
-    { yOffset: 275 },
-    { yOffset: 505 },
-    { yOffset: 735 },
+    { yOffset: 255 },
+    { yOffset: 465 },
+    { yOffset: 675 },
 ];
 
 const propTypes = {
@@ -25,7 +25,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-    cardHeight: 220,
+    cardHeight: 200,
     width: getScreenWidth(),
     height: getScreenHeight(),
     cardSpacing: parseInt(spacing.tiny, 10),

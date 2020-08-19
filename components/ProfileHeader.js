@@ -107,10 +107,12 @@ class ProfileHeader extends React.PureComponent {
 
         return (
             <HeaderWrapper source={bgImage}>
-                <Avatar />
-                <NameText>{name}</NameText>
-                {location === '' && this.addLocationLink(t)}
-                {location !== '' && <LocationText>{location}</LocationText>}
+                <ProfileBlock>
+                    <Avatar />
+                    <NameText>{name}</NameText>
+                    {location === '' && this.addLocationLink(t)}
+                    {location !== '' && <LocationText>{location}</LocationText>}
+                </ProfileBlock>
                 {this.editProfileLink(t)}
             </HeaderWrapper>
         );
@@ -127,9 +129,13 @@ export default connect(
 
 const HeaderWrapper = styled.ImageBackground`
     padding-left: ${spacing.small}px;
-    padding-top: 40px;
-    padding-bottom: ${spacing.medium}px;
     min-height: 175px;
+`;
+
+const ProfileBlock = styled.View`
+    position: absolute;
+    bottom: ${spacing.medium}px;
+    left: ${spacing.small}px;
 `;
 
 const NameText = styled.Text`

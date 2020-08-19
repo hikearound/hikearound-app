@@ -13,7 +13,7 @@ import { initializeMapData } from '../actions/Map';
 import { timings } from '../constants/Index';
 import { defaultState } from '../constants/states/Home';
 import { RootView } from '../styles/Screens';
-import { getUserProfileData } from '../utils/User';
+import { getUserData } from '../utils/User';
 import { getFeedHikeCount } from '../utils/Hike';
 import { handleAppBadge } from '../utils/Notifications';
 import { withTheme, SetBarStyle } from '../utils/Themes';
@@ -79,7 +79,7 @@ class HomeScreen extends React.Component {
 
         handleAppBadge();
 
-        await getUserProfileData(dispatchUserData, dispatchAvatar);
+        await getUserData(dispatchUserData, dispatchAvatar);
         await getMapData(dispatchMapData);
 
         checkInitialUrl(navigation);

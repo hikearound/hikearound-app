@@ -1,5 +1,6 @@
 import {
     writeUserData,
+    writeUserLocation,
     writePhotoData,
     writeMapData,
     writeDarkMode,
@@ -7,6 +8,7 @@ import {
 } from '../utils/User';
 
 export const initializeUserData = (userData) => {
+    writeUserLocation(userData);
     return { type: 'INITIALIZE_USER_DATA', userData };
 };
 

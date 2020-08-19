@@ -1,7 +1,7 @@
 import { cacheImages } from './Image';
 import { db, storage, auth } from '../lib/Fire';
 import store from '../store/Store';
-import { getPosition } from './Location';
+import { getPosition, getRange, getNearestCity } from './Location';
 
 export async function writeUserData(userData) {
     const user = auth.currentUser;
@@ -15,25 +15,44 @@ export async function writeUserData(userData) {
     db.collection('users').doc(user.uid).set(userData, { merge: true });
 }
 
+export async function writeUserLocation(userData) {
+    const distance = 50;
+    const user = auth.currentUser;
+    const { coords } = userData.currentPosition;
+
+    const range = getRange(coords.latitude, coords.longitude, distance);
+    const location = await getNearestCity(coords);
+
+    const lastKnownLocation = { range, location };
+
+    db.collection('users')
+        .doc(user.uid)
+        .set({ lastKnownLocation }, { merge: true });
+}
+
 export function writeMapData(map) {
     const { uid } = auth.currentUser;
     const mapData = { map };
+
     db.collection('users').doc(uid).set(mapData, { merge: true });
 }
 
 export function writeDarkMode(darkMode) {
     const { uid } = auth.currentUser;
     const darkModeData = { darkMode };
+
     db.collection('users').doc(uid).set(darkModeData, { merge: true });
 }
 
 export function writeNotifData(notifData) {
     const { uid } = auth.currentUser;
+
     db.collection('users').doc(uid).set({ notifs: notifData }, { merge: true });
 }
 
 export async function writePhotoData(photoData) {
     const { uid } = auth.currentUser;
+
     await storage.ref().child(`images/users/${uid}.jpg`).put(photoData.blob);
     photoData.blob.close();
 }
@@ -81,11 +100,6 @@ export async function getAvatarUri() {
     return avatarUri;
 }
 
-export async function getUserData() {
-    const { uid } = auth.currentUser;
-    return db.collection('users').doc(uid).get();
-}
-
 export function logoutUser(navigation) {
     auth.signOut().then(() => {
         navigation.navigate('Home', {
@@ -110,17 +124,17 @@ export async function maybeSetAvatar(dispatchAvatar) {
     cacheImages([avatarUri]);
 }
 
-export async function getUserProfileData(dispatchUserData, dispatchAvatar) {
+export async function getUserData(dispatchUserData, dispatchAvatar) {
     const currentPosition = await getPosition('lastKnown');
     const favoriteHikes = await getFavoriteHikes();
 
-    let userData = await getUserData();
+    let userData = await db.collection('users').doc(auth.currentUser.uid).get();
+
     userData = userData.data();
     userData.currentPosition = currentPosition;
     userData.favoriteHikes = favoriteHikes;
 
     await maybeSetAvatar(dispatchAvatar);
-
     dispatchUserData(userData);
 }
 

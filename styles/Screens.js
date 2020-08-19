@@ -17,7 +17,7 @@ export const HeaderContainer = styled.View`
 
 export const HeaderText = styled.Text`
     color: ${colors.grayMedium};
-    font-size: ${fontSizes.small}px;
+    font-size: ${fontSizes.extraSmall}px;
     font-weight: ${fontWeights.medium};
     text-transform: uppercase;
 `;
