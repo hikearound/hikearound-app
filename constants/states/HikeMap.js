@@ -7,6 +7,7 @@ export const defaultProps = {
     mapHeight: 200,
     cacheEnabled: false,
     startingCoordinates: null,
+    mapType: 'mutedStandard',
 };
 
 export default defaultProps;

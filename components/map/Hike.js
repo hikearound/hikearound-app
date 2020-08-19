@@ -16,6 +16,7 @@ const propTypes = {
     mapHeight: PropTypes.number,
     startingCoordinates: PropTypes.object,
     mapPadding: PropTypes.object,
+    mapType: PropTypes.string,
 };
 
 class HikeMap extends React.Component {
@@ -46,6 +47,7 @@ class HikeMap extends React.Component {
             mapHeight,
             theme,
             mapPadding,
+            mapType,
         } = this.props;
         const { maxZoom, fullHeight, position } = this.state;
 
@@ -71,6 +73,7 @@ class HikeMap extends React.Component {
                     loadingBackgroundColor={theme.colors.mapViewBackground}
                     onPress={this.mapPress}
                     mapPadding={mapPadding}
+                    mapType={mapType}
                     showsScale
                 >
                     {startingCoordinates && (
