@@ -3,7 +3,7 @@ import supercluster from 'supercluster';
 import store from '../store/Store';
 import { getMapSetting } from './Settings';
 import { config, queryParams } from '../constants/Map';
-import { pageFeed } from './Feed';
+import { queryHikes } from './Feed';
 
 export async function getMapData(dispatchMapData) {
     const state = store.getState();
@@ -13,10 +13,10 @@ export async function getMapData(dispatchMapData) {
 }
 
 export async function getMapMarkers(position, distance) {
-    const { pageSize, sortDirection } = queryParams;
+    const { querySize, sortDirection } = queryParams;
 
-    const { data } = await pageFeed(
-        pageSize,
+    const { data } = await queryHikes(
+        querySize,
         null,
         position,
         sortDirection,

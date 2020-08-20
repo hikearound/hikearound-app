@@ -6,6 +6,6 @@ export const config = {
 
 export const queryParams = {
     sortDirection: 'desc',
-    pageSize: 20,
+    querySize: 10,
     distance: 50,
 };

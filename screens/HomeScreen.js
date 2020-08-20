@@ -19,7 +19,7 @@ import { handleAppBadge } from '../utils/Notifications';
 import { withTheme, SetBarStyle } from '../utils/Themes';
 import { getMapData } from '../utils/Map';
 import { getPosition, getNearestCity } from '../utils/Location';
-import { pageFeed, sortHikes, buildHikeData } from '../utils/Feed';
+import { queryHikes, sortHikes, buildHikeData } from '../utils/Feed';
 import {
     checkInitialUrl,
     addUrlListener,
@@ -130,12 +130,12 @@ class HomeScreen extends React.Component {
         const {
             sortDirection,
             distance,
-            pageSize,
+            querySize,
             lastKnownPosition,
         } = this.state;
 
-        const { data, cursor } = await pageFeed(
-            pageSize,
+        const { data, cursor } = await queryHikes(
+            querySize,
             lastKey,
             lastKnownPosition,
             sortDirection,
