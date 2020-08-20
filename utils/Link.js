@@ -1,4 +1,5 @@
 import * as Linking from 'expo-linking';
+import * as Notifications from 'expo-notifications';
 import { openHikeScreen } from './Hike';
 
 export function getHikeIdFromUrl(url) {
@@ -34,4 +35,24 @@ export async function removeUrlListener(navigation) {
     Linking.removeEventListener('url', (event) =>
         handleOpenURL(event.url, navigation),
     );
+}
+
+export function handleOpenNotification(hid, navigation) {
+    if (hid && navigation) {
+        openHikeScreen(hid, navigation);
+    }
+}
+
+export async function addNotificationListener(navigation) {
+    Notifications.addNotificationResponseReceivedListener((response) => {
+        const { hid } = response.notification.request.content.data;
+        handleOpenNotification(hid, navigation);
+    });
+}
+
+export async function removeNotificationListener(navigation) {
+    Notifications.removeAllNotificationListeners((response) => {
+        const { hid } = response.notification.request.content.data;
+        handleOpenNotification(hid, navigation);
+    });
 }

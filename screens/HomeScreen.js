@@ -24,6 +24,8 @@ import {
     checkInitialUrl,
     addUrlListener,
     removeUrlListener,
+    addNotificationListener,
+    removeNotificationListener,
 } from '../utils/Link';
 import Logo from '../components/header/Logo';
 
@@ -83,13 +85,27 @@ class HomeScreen extends React.Component {
         await getMapData(dispatchMapData);
 
         checkInitialUrl(navigation);
-        addUrlListener(navigation);
+
+        this.addListeners();
     }
 
     componentWillUnmount() {
-        const { navigation } = this.props;
-        removeUrlListener(navigation);
+        this.removeListeners();
     }
+
+    addListeners = () => {
+        const { navigation } = this.props;
+
+        addUrlListener(navigation);
+        addNotificationListener(navigation);
+    };
+
+    removeListeners = () => {
+        const { navigation } = this.props;
+
+        removeUrlListener(navigation);
+        removeNotificationListener(navigation);
+    };
 
     setFirstLoad = () => {
         this.setState({ firstLoad: true });
