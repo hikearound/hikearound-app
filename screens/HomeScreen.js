@@ -100,7 +100,7 @@ class HomeScreen extends React.Component {
         const { navigation } = this.props;
 
         removeUrlListener(navigation);
-        removeNotificationListener(navigation, listenerRef);
+        removeNotificationListener(listenerRef);
     };
 
     setFirstLoad = () => {
