@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { CollapsibleHeaderFlatList } from 'react-native-collapsible-header-views';
 import { connectInfiniteHits } from 'react-instantsearch-native';
+import { Keyboard } from 'react-native';
 import { openHikeScreen } from '../../utils/Hike';
 import { withNavigation } from '../../utils/Navigation';
 import HikeListItem from '../HikeListItem';
@@ -12,6 +13,13 @@ const propTypes = {
     hits: PropTypes.array.isRequired,
     refine: PropTypes.func.isRequired,
     hasMore: PropTypes.bool.isRequired,
+    headerHeight: PropTypes.number,
+    paddingBottom: PropTypes.number,
+};
+
+const defaultProps = {
+    headerHeight: 35,
+    paddingBottom: 150,
 };
 
 class InfiniteHits extends React.Component {
@@ -41,11 +49,20 @@ class InfiniteHits extends React.Component {
     };
 
     render() {
-        const { hits, hasMore, theme, refine } = this.props;
+        const {
+            hits,
+            hasMore,
+            theme,
+            refine,
+            headerHeight,
+            paddingBottom,
+        } = this.props;
 
         if (hits.length > 0) {
             return (
                 <CollapsibleHeaderFlatList
+                    clipHeader
+                    disableHeaderSnap
                     keyExtractor={(item) => item.objectID}
                     keyboardShouldPersistTaps='handled'
                     data={hits}
@@ -53,7 +70,10 @@ class InfiniteHits extends React.Component {
                     onEndReached={() => hasMore && refine()}
                     CollapsibleHeaderComponent={<Stats hideBorder />}
                     headerContainerBackgroundColor={theme.colors.rootBackground}
-                    headerHeight={35}
+                    headerHeight={headerHeight}
+                    contentContainerStyle={{ paddingBottom }}
+                    showsVerticalScrollIndicator={false}
+                    onScrollBeginDrag={() => Keyboard.dismiss()}
                 />
             );
         }
@@ -63,5 +83,6 @@ class InfiniteHits extends React.Component {
 }
 
 InfiniteHits.propTypes = propTypes;
+InfiniteHits.defaultProps = defaultProps;
 
 export default withNavigation(withTheme(connectInfiniteHits(InfiniteHits)));
