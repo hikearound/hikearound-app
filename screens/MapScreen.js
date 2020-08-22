@@ -44,7 +44,6 @@ class MapScreen extends React.Component {
 
     async componentDidMount() {
         const { theme } = this.props;
-
         setBarStyleWithTheme(theme, this.setState);
     }
 

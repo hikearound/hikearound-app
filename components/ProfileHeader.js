@@ -16,17 +16,6 @@ import { showModal } from '../actions/Modal';
 import { withTheme } from '../utils/Themes';
 import { profileBgDefault, profileBgDark } from '../constants/Images';
 
-const linkStyle = {
-    position: 'absolute',
-    bottom: parseInt(spacing.medium, 10),
-};
-
-const editProfileStyle = { ...linkStyle };
-editProfileStyle.right = parseInt(spacing.small, 10);
-
-const addLocationStyle = { ...linkStyle };
-addLocationStyle.left = parseInt(spacing.small, 10);
-
 const propTypes = {
     dispatchModalFlag: PropTypes.func.isRequired,
     modalType: PropTypes.string,
@@ -85,7 +74,11 @@ class ProfileHeader extends React.PureComponent {
         <TouchableOpacity
             activeOpacity={opacities.regular}
             onPress={this.editProfile}
-            style={editProfileStyle}
+            style={{
+                position: 'absolute',
+                bottom: parseInt(spacing.medium, 10),
+                right: parseInt(spacing.small, 10),
+            }}
         >
             <ActionLink primary>{t('screen.profile.edit')}</ActionLink>
         </TouchableOpacity>
@@ -95,7 +88,7 @@ class ProfileHeader extends React.PureComponent {
         <TouchableOpacity
             activeOpacity={opacities.regular}
             onPress={this.editProfile}
-            style={addLocationStyle}
+            style={{ display: 'flex' }}
         >
             <ActionLink>{t('screen.profile.add')}</ActionLink>
         </TouchableOpacity>

@@ -2,6 +2,7 @@ import { cacheImages } from './Image';
 import { db, storage, auth } from '../lib/Fire';
 import store from '../store/Store';
 import { getPosition, getRange, getNearestCity } from './Location';
+import { getPermissionStatus } from './Permissions';
 
 export async function writeUserData(userData) {
     const user = auth.currentUser;
@@ -19,6 +20,10 @@ export async function writeUserLocation(userData) {
     const distance = 50;
     const user = auth.currentUser;
     const { coords } = userData.currentPosition;
+
+    if (!coords) {
+        return;
+    }
 
     const range = getRange(coords.latitude, coords.longitude, distance);
     const location = await getNearestCity(coords);
@@ -125,14 +130,19 @@ export async function maybeSetAvatar(dispatchAvatar) {
 }
 
 export async function getUserData(dispatchUserData, dispatchAvatar) {
-    const currentPosition = await getPosition('lastKnown');
+    const status = await getPermissionStatus('location');
     const favoriteHikes = await getFavoriteHikes();
 
+    let currentPosition = {};
     let userData = await db.collection('users').doc(auth.currentUser.uid).get();
 
+    if (status === 'granted') {
+        currentPosition = await getPosition('lastKnown');
+    }
+
     userData = userData.data();
-    userData.currentPosition = currentPosition;
     userData.favoriteHikes = favoriteHikes;
+    userData.currentPosition = currentPosition;
 
     await maybeSetAvatar(dispatchAvatar);
     dispatchUserData(userData);

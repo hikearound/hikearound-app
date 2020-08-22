@@ -43,16 +43,15 @@ export function handleOpenNotification(hid, navigation) {
     }
 }
 
-export async function addNotificationListener(navigation) {
-    Notifications.addNotificationResponseReceivedListener((response) => {
-        const { hid } = response.notification.request.content.data;
-        handleOpenNotification(hid, navigation);
-    });
+export async function addNotificationListener(navigation, listenerRef) {
+    listenerRef.current = Notifications.addNotificationResponseReceivedListener(
+        (response) => {
+            const { hid } = response.notification.request.content.data;
+            handleOpenNotification(hid, navigation);
+        },
+    );
 }
 
-export async function removeNotificationListener(navigation) {
-    Notifications.removeAllNotificationListeners((response) => {
-        const { hid } = response.notification.request.content.data;
-        handleOpenNotification(hid, navigation);
-    });
+export async function removeNotificationListener(navigation, listenerRef) {
+    Notifications.removeNotificationSubscription(listenerRef);
 }

@@ -48,6 +48,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 const scrollRef = React.createRef();
+const listenerRef = React.createRef();
 
 class HomeScreen extends React.Component {
     constructor(props) {
@@ -74,19 +75,14 @@ class HomeScreen extends React.Component {
         } = this.props;
 
         this.setFirstLoad();
-        await this.getAndSetPosition();
-
-        this.getHikeFeedData();
-        this.setFeedHikeCount();
-
-        handleAppBadge();
+        this.getAndSetPosition();
+        this.addListeners();
 
         await getUserData(dispatchUserData, dispatchAvatar);
         await getMapData(dispatchMapData);
 
         checkInitialUrl(navigation);
-
-        this.addListeners();
+        handleAppBadge();
     }
 
     componentWillUnmount() {
@@ -97,14 +93,14 @@ class HomeScreen extends React.Component {
         const { navigation } = this.props;
 
         addUrlListener(navigation);
-        addNotificationListener(navigation);
+        addNotificationListener(navigation, listenerRef);
     };
 
     removeListeners = () => {
         const { navigation } = this.props;
 
         removeUrlListener(navigation);
-        removeNotificationListener(navigation);
+        removeNotificationListener(navigation, listenerRef);
     };
 
     setFirstLoad = () => {
@@ -181,10 +177,28 @@ class HomeScreen extends React.Component {
 
     getAndSetPosition = async () => {
         const lastKnownPosition = await getPosition('lastKnown');
+        this.setState({ lastKnownPosition });
+
+        if (Object.keys(lastKnownPosition).length !== 0) {
+            this.getAndSetCity();
+        } else {
+            this.setState({ firstLoad: false });
+        }
+    };
+
+    getAndSetCity = async () => {
+        const { lastKnownPosition } = this.state;
         const { coords } = lastKnownPosition;
+
         const city = await getNearestCity(coords);
 
-        this.setState({ lastKnownPosition, city });
+        this.setState({ city });
+        this.setHikeData();
+    };
+
+    setHikeData = () => {
+        this.getHikeFeedData();
+        this.setFeedHikeCount();
     };
 
     shouldShowEmptyState = () => {

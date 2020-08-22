@@ -10,6 +10,7 @@ import { withTheme } from '../../utils/Themes';
 import { deltaMiles } from '../../constants/Location';
 import { defaultProps } from '../../constants/states/GlobalMap';
 import { filterMarkers, getMapMarkers } from '../../utils/Map';
+import { regions } from '../../constants/Regions';
 
 const propTypes = {
     dispatchMapData: PropTypes.func.isRequired,
@@ -122,6 +123,10 @@ class GlobalMap extends React.Component {
     };
 
     setRegion = (delta, position) => {
+        if (Object.keys(position).length === 0) {
+            this.setState({ region: regions.sanFrancisco });
+        }
+
         if ('coords' in position) {
             this.setState({
                 region: {
