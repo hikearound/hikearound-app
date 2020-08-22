@@ -29,7 +29,7 @@ const defaultProps = {
     components: 'country:us',
     fields: 'formatted_address,geometry',
     returnKeyType: 'search',
-    clearButtonMode: 'always',
+    clearButtonMode: 'while-editing',
 };
 
 function mapStateToProps() {

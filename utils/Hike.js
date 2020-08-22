@@ -5,7 +5,7 @@ export async function getHikeSnapshot(id) {
     return db.collection('hikes').doc(id).get();
 }
 
-export function getHikeRef(type, range, sortDirection, pageSize) {
+export function getHikeRef(type, range, sortDirection, querySize) {
     let hikeRef = db.collection('hikes');
 
     if (type === 'geo') {
@@ -15,7 +15,7 @@ export function getHikeRef(type, range, sortDirection, pageSize) {
             .orderBy('geohash');
     }
 
-    return hikeRef.orderBy('createdOn', sortDirection).limit(pageSize);
+    return hikeRef.orderBy('createdOn', sortDirection).limit(querySize);
 }
 
 export async function getFeedHikeCount() {

@@ -43,23 +43,19 @@ export async function requestLocationPermission() {
 }
 
 export async function getPosition(type) {
-    let position = {};
-    let status = await getPermissionStatus('location');
+    const currentStatus = await getPermissionStatus('location');
 
-    if (status !== 'granted') {
-        status = await requestLocationPermission();
-        if (status !== 'granted') {
-            return position;
+    if (currentStatus !== 'granted') {
+        const requestedStatus = await requestLocationPermission();
+        if (requestedStatus !== 'granted') {
+            return {};
         }
     }
 
     if (type === 'current') {
-        position = await Location.getCurrentPositionAsync();
-    } else {
-        position = await Location.getLastKnownPositionAsync();
+        return Location.getCurrentPositionAsync();
     }
-
-    return position;
+    return Location.getLastKnownPositionAsync();
 }
 
 export function getModifier(type, distance) {

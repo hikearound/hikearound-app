@@ -13,17 +13,19 @@ import { initializeMapData } from '../actions/Map';
 import { timings } from '../constants/Index';
 import { defaultState } from '../constants/states/Home';
 import { RootView } from '../styles/Screens';
-import { getUserProfileData } from '../utils/User';
+import { getUserData } from '../utils/User';
 import { getFeedHikeCount } from '../utils/Hike';
 import { handleAppBadge } from '../utils/Notifications';
 import { withTheme, SetBarStyle } from '../utils/Themes';
 import { getMapData } from '../utils/Map';
 import { getPosition, getNearestCity } from '../utils/Location';
-import { pageFeed, sortHikes, buildHikeData } from '../utils/Feed';
+import { queryHikes, sortHikes, buildHikeData } from '../utils/Feed';
 import {
     checkInitialUrl,
     addUrlListener,
     removeUrlListener,
+    addNotificationListener,
+    removeNotificationListener,
 } from '../utils/Link';
 import Logo from '../components/header/Logo';
 
@@ -46,6 +48,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 const scrollRef = React.createRef();
+const listenerRef = React.createRef();
 
 class HomeScreen extends React.Component {
     constructor(props) {
@@ -72,24 +75,33 @@ class HomeScreen extends React.Component {
         } = this.props;
 
         this.setFirstLoad();
-        await this.getAndSetPosition();
+        this.getAndSetPosition();
+        this.addListeners();
 
-        this.getHikeFeedData();
-        this.setFeedHikeCount();
-
-        handleAppBadge();
-
-        await getUserProfileData(dispatchUserData, dispatchAvatar);
+        await getUserData(dispatchUserData, dispatchAvatar);
         await getMapData(dispatchMapData);
 
         checkInitialUrl(navigation);
-        addUrlListener(navigation);
+        handleAppBadge();
     }
 
     componentWillUnmount() {
-        const { navigation } = this.props;
-        removeUrlListener(navigation);
+        this.removeListeners();
     }
+
+    addListeners = () => {
+        const { navigation } = this.props;
+
+        addUrlListener(navigation);
+        addNotificationListener(navigation, listenerRef);
+    };
+
+    removeListeners = () => {
+        const { navigation } = this.props;
+
+        removeUrlListener(navigation);
+        removeNotificationListener(navigation, listenerRef);
+    };
 
     setFirstLoad = () => {
         this.setState({ firstLoad: true });
@@ -114,12 +126,12 @@ class HomeScreen extends React.Component {
         const {
             sortDirection,
             distance,
-            pageSize,
+            querySize,
             lastKnownPosition,
         } = this.state;
 
-        const { data, cursor } = await pageFeed(
-            pageSize,
+        const { data, cursor } = await queryHikes(
+            querySize,
             lastKey,
             lastKnownPosition,
             sortDirection,
@@ -165,10 +177,28 @@ class HomeScreen extends React.Component {
 
     getAndSetPosition = async () => {
         const lastKnownPosition = await getPosition('lastKnown');
+        this.setState({ lastKnownPosition });
+
+        if (Object.keys(lastKnownPosition).length !== 0) {
+            this.getAndSetCity();
+        } else {
+            this.setState({ firstLoad: false });
+        }
+    };
+
+    getAndSetCity = async () => {
+        const { lastKnownPosition } = this.state;
         const { coords } = lastKnownPosition;
+
         const city = await getNearestCity(coords);
 
-        this.setState({ lastKnownPosition, city });
+        this.setState({ city });
+        this.setHikeData();
+    };
+
+    setHikeData = () => {
+        this.getHikeFeedData();
+        this.setFeedHikeCount();
     };
 
     shouldShowEmptyState = () => {

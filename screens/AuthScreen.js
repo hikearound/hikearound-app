@@ -1,12 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { AppLoading, SplashScreen } from 'expo';
 import { CommonActions } from '@react-navigation/native';
 import { connect } from 'react-redux';
 import firebase from 'firebase';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { getUserData } from '../utils/User';
-import { initializeUserData } from '../actions/User';
 import { cacheImages } from '../utils/Image';
 import { initializeLocalization } from '../utils/Localization';
 import { initializeGeolocation } from '../utils/Location';
@@ -15,20 +12,14 @@ import { localImages } from '../constants/Images';
 initializeLocalization();
 initializeGeolocation();
 
-const propTypes = {
-    dispatchUserData: PropTypes.func.isRequired,
-};
-
 function mapStateToProps(state) {
     return {
         darkMode: state.userReducer.darkMode,
     };
 }
 
-function mapDispatchToProps(dispatch) {
-    return {
-        dispatchUserData: (userData) => dispatch(initializeUserData(userData)),
-    };
+function mapDispatchToProps() {
+    return {};
 }
 
 class AuthScreen extends React.Component {
@@ -50,7 +41,6 @@ class AuthScreen extends React.Component {
         const { navigation } = this.props;
 
         await this.cacheLocalImages();
-        await this.getUserProfileData(user);
 
         navigation.dispatch(
             CommonActions.reset({
@@ -66,15 +56,6 @@ class AuthScreen extends React.Component {
         cacheImages(localImages);
     };
 
-    getUserProfileData = async (user) => {
-        const { dispatchUserData } = this.props;
-
-        if (user) {
-            const userData = await getUserData();
-            await dispatchUserData(userData.data());
-        }
-    };
-
     render() {
         return (
             <SafeAreaView style={{ flex: 1 }}>
@@ -87,7 +68,5 @@ class AuthScreen extends React.Component {
         );
     }
 }
-
-AuthScreen.propTypes = propTypes;
 
 export default connect(mapStateToProps, mapDispatchToProps)(AuthScreen);

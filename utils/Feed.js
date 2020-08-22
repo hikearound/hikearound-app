@@ -16,8 +16,8 @@ export function sortHikeData(data, sortDirection) {
     return sortedHikes;
 }
 
-export async function pageFeed(
-    pageSize,
+export async function queryHikes(
+    querySize,
     lastKey,
     position,
     sortDirection,
@@ -26,7 +26,7 @@ export async function pageFeed(
     const { latitude, longitude } = position.coords;
 
     const range = getRange(latitude, longitude, distance);
-    let hikeRef = getHikeRef('geo', range, sortDirection, pageSize);
+    let hikeRef = getHikeRef('geo', range, sortDirection, querySize);
 
     if (lastKey) {
         hikeRef = hikeRef.startAfter(lastKey);

@@ -17,6 +17,7 @@ const propTypes = {
     description: PropTypes.string,
     city: PropTypes.string,
     coordinates: PropTypes.object,
+    difficulty: PropTypes.string,
 };
 
 class FeedItem extends React.Component {
@@ -39,6 +40,7 @@ class FeedItem extends React.Component {
             description,
             coverPhoto,
             coordinates,
+            difficulty,
         } = this.props;
 
         const { showCard } = this.state;
@@ -59,6 +61,7 @@ class FeedItem extends React.Component {
                                     city,
                                     description,
                                     coordinates,
+                                    difficulty,
                                 },
                             });
                         }}
@@ -71,6 +74,7 @@ class FeedItem extends React.Component {
                             route={route}
                             city={city}
                             description={description}
+                            difficulty={difficulty}
                         />
                     </TouchableOpacity>
                 </CardsContainer>

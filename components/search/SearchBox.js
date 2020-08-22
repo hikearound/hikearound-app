@@ -12,7 +12,7 @@ import {
     spacing,
     borderRadius,
 } from '../../constants/Index';
-import { getHeaderHeight } from '../../utils/Navigation';
+import { getHeaderHeight, withNavigation } from '../../utils/Navigation';
 
 const headerHeight = getHeaderHeight();
 
@@ -22,6 +22,18 @@ const propTypes = {
 };
 
 class SearchBox extends React.PureComponent {
+    componentDidMount() {
+        const { navigation } = this.props;
+
+        this.unsubscribe = navigation.addListener('blur', () => {
+            this.searchInput.blur();
+        });
+    }
+
+    componentWillUnmount() {
+        this.unsubscribe();
+    }
+
     assignRef = (ref) => {
         this.searchInput = ref;
     };
@@ -61,7 +73,9 @@ class SearchBox extends React.PureComponent {
 
 SearchBox.propTypes = propTypes;
 
-export default withTranslation()(withTheme(connectSearchBox(SearchBox)));
+export default withTranslation()(
+    withTheme(withNavigation(connectSearchBox(SearchBox))),
+);
 
 export const ModalHeader = styled.View`
     background-color: ${(props) => props.theme.headerStyle};

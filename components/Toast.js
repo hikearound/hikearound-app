@@ -53,13 +53,14 @@ class Toast extends React.Component {
     }
 
     showToast = () => {
-        const { action, duration, timeout } = this.props;
+        const { action, duration, timeout, useNativeDriver } = this.props;
         const { top } = this.state;
 
         if (action === 'favoriteHike' || action === 'copyLink') {
             Animated.timing(top, {
                 toValue: height - 230,
                 duration,
+                useNativeDriver,
             }).start();
         }
 

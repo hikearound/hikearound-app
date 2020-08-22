@@ -41,8 +41,48 @@ class HomeEmptyState extends React.PureComponent {
         return <TextLink onPress={this.mapPress} />;
     };
 
+    renderMessage = () => {
+        const { city } = this.props;
+        if (city) {
+            return this.renderDefaultMessage();
+        }
+        return this.renderPermissionMessage();
+    };
+
+    renderDefaultMessage = () => {
+        const { city, t } = this.props;
+
+        return (
+            <>
+                <Title>{t('screen.home.empty.default.title')}</Title>
+                <Description>
+                    <Trans i18nKey='screen.home.empty.default.description'>
+                        {/* eslint-disable-next-line */}
+                        This probably just means we haven't added any hikes near {{cityName: city}} yet. Try {this.renderSearchLink()} or {this.renderMapLink()}.
+                    </Trans>
+                </Description>
+            </>
+        );
+    };
+
+    renderPermissionMessage = () => {
+        const { t } = this.props;
+
+        return (
+            <>
+                <Title>{t('screen.home.empty.permission.title')}</Title>
+                <Description>
+                    <Trans i18nKey='screen.home.empty.permission.description'>
+                        {/* eslint-disable-next-line */}
+                        The Home tab only works if you've enabled location sharing. Try {this.renderSearchLink()} or {this.renderMapLink()} instead.
+                    </Trans>
+                </Description>
+            </>
+        );
+    };
+
     render() {
-        const { iconSize, iconColor, iconType, city, t } = this.props;
+        const { iconSize, iconColor, iconType } = this.props;
 
         return (
             <RootView>
@@ -51,13 +91,7 @@ class HomeEmptyState extends React.PureComponent {
                     color={iconColor}
                     size={iconSize}
                 />
-                <Title>{t('screen.home.empty.title')}</Title>
-                <Description>
-                    <Trans i18nKey='screen.home.empty.description'>
-                        {/* eslint-disable-next-line */}
-                        This probably just means we haven't added any hikes near {{cityName: city}} yet. Try {this.renderSearchLink(t)} for a hike or browse the {this.renderMapLink(t)}.
-                    </Trans>
-                </Description>
+                {this.renderMessage()}
             </RootView>
         );
     }

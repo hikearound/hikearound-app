@@ -1,14 +1,20 @@
 export const defaultProps = {
     delta: 0.5,
-    duration: 1000,
-    hikeAlt: 20000,
-    cityAlt: 160000,
+    altitude: {
+        city: 160000,
+        hike: 20000,
+    },
     selectedCity: null,
-    radius: 22,
-    mapPadding: { bottom: 40, top: 50 },
+    mapPadding: {
+        bottom: 40,
+        top: 50,
+    },
     latModifier: 0.018,
-    pitch: 0,
-    heading: 0,
+    animationConfig: {
+        pitch: 0,
+        heading: 0,
+        duration: 1000,
+    },
 };
 
 export default defaultProps;

@@ -16,19 +16,22 @@ const propTypes = {
 };
 
 class FeedList extends React.Component {
-    renderItem = ({ item }) => (
-        <FeedItem
-            id={item.id}
-            name={item.name}
-            distance={item.distance}
-            elevation={item.elevation}
-            route={item.route}
-            description={item.description}
-            city={item.city}
-            coverPhoto={item.coverPhoto}
-            coordinates={item.coordinates}
-        />
-    );
+    renderItem = ({ item }) => {
+        return (
+            <FeedItem
+                id={item.id}
+                name={item.name}
+                distance={item.distance}
+                elevation={item.elevation}
+                route={item.route}
+                description={item.description}
+                city={item.city}
+                coverPhoto={item.coverPhoto}
+                coordinates={item.coordinates}
+                difficulty={item.difficulty}
+            />
+        );
+    };
 
     renderFooter = () => <FeedFooter />;
 

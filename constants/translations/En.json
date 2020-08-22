@@ -64,6 +64,9 @@
             }
         }
     },
+    "card": {
+        "metadata": "{{distance}} miles · {{elevation}} ft"
+    },
     "common": {
         "appName": "Hikearound",
         "appName_plural": "Hikearound's"
@@ -104,8 +107,14 @@
         },
         "home": {
             "empty": {
-                "title": "We couldn't find any nearby hikes",
-                "description": "This probably means we haven't added any hikes near {{cityName}} yet. Try <3>searching for a hike</3> or <5>browse the map</5>."
+                "default": {
+                    "title": "We couldn't find any nearby hikes",
+                    "description": "This probably means we haven't added any hikes near {{cityName}} yet. Try <3>searching for a hike</3> or <5>browse the map</5>."
+                },
+                "permission": {
+                    "title": "Location sharing disabled",
+                    "description": "The Home tab only works if you've enabled location sharing. Try <1>searching for a hike</1> or <3>browse the map</3> instead."
+                },
             }
         },
         "onboard": {

@@ -6,10 +6,11 @@ import GlobalMap from '../components/map/Global';
 import MapSearch from '../components/map/Search';
 import HikeSheet from '../components/HikeSheet';
 import { withTheme, SetBarStyle, setBarStyleWithTheme } from '../utils/Themes';
-import { pageFeed } from '../utils/Feed';
+import { getMapMarkers } from '../utils/Map';
 import { getHikeData } from '../utils/Hike';
 import { withNavigation } from '../utils/Navigation';
 import { defaultState } from '../constants/states/Map';
+import { queryParams } from '../constants/Map';
 
 const propTypes = {
     position: PropTypes.object,
@@ -35,6 +36,7 @@ function mapDispatchToProps() {
 class MapScreen extends React.Component {
     constructor(props) {
         super(props);
+
         this.bottomSheetRef = React.createRef();
         this.setState = this.setState.bind(this);
         this.state = defaultState;
@@ -42,7 +44,6 @@ class MapScreen extends React.Component {
 
     async componentDidMount() {
         const { theme } = this.props;
-
         setBarStyleWithTheme(theme, this.setState);
     }
 
@@ -68,29 +69,15 @@ class MapScreen extends React.Component {
     };
 
     getInitialMarkers = async () => {
-        const { sortDirection, pageSize, distance } = this.state;
         const { position } = this.props;
+        const markers = await getMapMarkers(position, queryParams.distance);
 
-        const { data } = await pageFeed(
-            pageSize,
-            null,
-            position,
-            sortDirection,
-            distance,
-        );
-
-        this.setState({ markers: data });
+        this.setState({ markers });
     };
 
     render() {
         const { position, selectedHike } = this.props;
-        const {
-            markers,
-            barStyle,
-            sheetData,
-            pageSize,
-            sortDirection,
-        } = this.state;
+        const { markers, barStyle, sheetData } = this.state;
 
         return (
             <View>
@@ -103,8 +90,6 @@ class MapScreen extends React.Component {
                 {position && (
                     <GlobalMap
                         position={position}
-                        pageSize={pageSize}
-                        sortDirection={sortDirection}
                         markers={markers}
                         showHikeSheet={() => {
                             this.bottomSheetRef.current.snapTo(1);
