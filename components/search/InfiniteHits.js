@@ -14,12 +14,10 @@ const propTypes = {
     refine: PropTypes.func.isRequired,
     hasMore: PropTypes.bool.isRequired,
     headerHeight: PropTypes.number,
-    paddingBottom: PropTypes.number,
 };
 
 const defaultProps = {
     headerHeight: 35,
-    paddingBottom: 150,
 };
 
 class InfiniteHits extends React.Component {
@@ -49,20 +47,14 @@ class InfiniteHits extends React.Component {
     };
 
     render() {
-        const {
-            hits,
-            hasMore,
-            theme,
-            refine,
-            headerHeight,
-            paddingBottom,
-        } = this.props;
+        const { hits, hasMore, theme, refine, headerHeight } = this.props;
 
         if (hits.length > 0) {
             return (
                 <CollapsibleHeaderFlatList
                     clipHeader
                     disableHeaderSnap
+                    bounces
                     keyExtractor={(item) => item.objectID}
                     keyboardShouldPersistTaps='handled'
                     data={hits}
@@ -71,7 +63,6 @@ class InfiniteHits extends React.Component {
                     CollapsibleHeaderComponent={<Stats hideBorder />}
                     headerContainerBackgroundColor={theme.colors.rootBackground}
                     headerHeight={headerHeight}
-                    contentContainerStyle={{ paddingBottom }}
                     showsVerticalScrollIndicator={false}
                     onScrollBeginDrag={() => Keyboard.dismiss()}
                 />
