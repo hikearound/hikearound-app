@@ -17,8 +17,8 @@ export const markerBgDark = require('../assets/dark/map-marker.png');
 // Map Marker
 export const markerFocused = require('../assets/marker/focused.png');
 export const markerUnfocused = require('../assets/marker/unfocused.png');
+export const clusterMarker = require('../assets/marker/cluster.png');
 
-// Global
 export const localImages = [
     avatar,
     landingBgDefault,
@@ -29,4 +29,5 @@ export const localImages = [
     markerBgDark,
     markerFocused,
     markerUnfocused,
+    clusterMarker,
 ];

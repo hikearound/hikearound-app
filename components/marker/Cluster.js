@@ -1,46 +1,34 @@
 import React from 'react';
+import { ImageBackground } from 'react-native';
 import PropTypes from 'prop-types';
-import { StyleSheet, View, Text } from 'react-native';
+import styled from 'styled-components';
+import { colors, fontSizes, fontWeights } from '../../constants/Index';
+import { withTheme } from '../../utils/Themes';
+import { clusterMarker } from '../../constants/Images';
 
 const propTypes = {
     count: PropTypes.number,
+    size: PropTypes.number,
 };
 
 const defaultProps = {
     count: 0,
+    size: 45,
 };
-
-const Style = StyleSheet.create({
-    container: {
-        flexDirection: 'column',
-        alignSelf: 'flex-start',
-    },
-    bubble: {
-        flex: 0,
-        flexDirection: 'row',
-        alignSelf: 'flex-start',
-        backgroundColor: '#ffbbbb',
-        padding: 4,
-        borderRadius: 4,
-        borderColor: '#ffbbbb',
-        borderWidth: 1,
-    },
-    count: {
-        color: '#fff',
-        fontSize: 13,
-    },
-});
 
 class ClusterMarker extends React.PureComponent {
     render() {
-        const { count } = this.props;
+        const { count, size } = this.props;
 
         return (
-            <View style={Style.container}>
-                <View style={Style.bubble}>
-                    <Text style={Style.count}>{count}</Text>
-                </View>
-            </View>
+            <MarkerView>
+                <ImageBackground
+                    source={clusterMarker}
+                    style={{ width: size, height: size }}
+                >
+                    <MarkerLabel>{count}</MarkerLabel>
+                </ImageBackground>
+            </MarkerView>
         );
     }
 }
@@ -48,4 +36,16 @@ class ClusterMarker extends React.PureComponent {
 ClusterMarker.propTypes = propTypes;
 ClusterMarker.defaultProps = defaultProps;
 
-export default ClusterMarker;
+export default withTheme(ClusterMarker);
+
+const MarkerView = styled.View`
+    display: flex;
+`;
+
+const MarkerLabel = styled.Text`
+    font-size: ${fontSizes.extraSmall}px;
+    color: ${colors.white};
+    font-weight: ${fontWeights.bold};
+    text-align: center;
+    padding-top: 14px;
+`;
