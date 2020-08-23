@@ -15,10 +15,14 @@ const propTypes = {
     distance: PropTypes.number.isRequired,
     shouldHighlight: PropTypes.bool,
     item: PropTypes.object,
+    showTopBorder: PropTypes.bool,
+    showBottomBorder: PropTypes.bool,
 };
 
 const defaultProps = {
     shouldHighlight: false,
+    showTopBorder: true,
+    showBottomBorder: false,
     item: {},
 };
 
@@ -39,10 +43,21 @@ class HikeListItem extends React.PureComponent {
     };
 
     render() {
-        const { location, distance, shouldHighlight, t } = this.props;
+        const {
+            location,
+            distance,
+            shouldHighlight,
+            showTopBorder,
+            showBottomBorder,
+            t,
+        } = this.props;
 
         return (
-            <View shouldHighlight={shouldHighlight}>
+            <View
+                shouldHighlight={shouldHighlight}
+                showTopBorder={showTopBorder}
+                showBottomBorder={showBottomBorder}
+            >
                 <TouchableOpacity
                     activeOpacity={opacities.regular}
                     onPress={() => {

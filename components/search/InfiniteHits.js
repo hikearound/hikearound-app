@@ -14,10 +14,16 @@ const propTypes = {
     refine: PropTypes.func.isRequired,
     hasMore: PropTypes.bool.isRequired,
     headerHeight: PropTypes.number,
+    paddingBottom: PropTypes.number,
+    showsVerticalScrollIndicator: PropTypes.bool,
+    keyboardShouldPersistTaps: PropTypes.string,
 };
 
 const defaultProps = {
     headerHeight: 35,
+    paddingBottom: 25,
+    showsVerticalScrollIndicator: false,
+    keyboardShouldPersistTaps: 'handled',
 };
 
 class InfiniteHits extends React.Component {
@@ -42,12 +48,23 @@ class InfiniteHits extends React.Component {
                 distance={item.distance}
                 item={item}
                 shouldHighlight
+                showBottomBorder
+                showTopBorder={false}
             />
         );
     };
 
     render() {
-        const { hits, hasMore, theme, refine, headerHeight } = this.props;
+        const {
+            hits,
+            hasMore,
+            theme,
+            refine,
+            headerHeight,
+            paddingBottom,
+            showsVerticalScrollIndicator,
+            keyboardShouldPersistTaps,
+        } = this.props;
 
         if (hits.length > 0) {
             return (
@@ -56,15 +73,16 @@ class InfiniteHits extends React.Component {
                     disableHeaderSnap
                     bounces
                     keyExtractor={(item) => item.objectID}
-                    keyboardShouldPersistTaps='handled'
+                    keyboardShouldPersistTaps={keyboardShouldPersistTaps}
                     data={hits}
                     renderItem={this.renderItem}
                     onEndReached={() => hasMore && refine()}
-                    CollapsibleHeaderComponent={<Stats hideBorder />}
+                    CollapsibleHeaderComponent={<Stats />}
                     headerContainerBackgroundColor={theme.colors.rootBackground}
                     headerHeight={headerHeight}
-                    showsVerticalScrollIndicator={false}
+                    showsVerticalScrollIndicator={showsVerticalScrollIndicator}
                     onScrollBeginDrag={() => Keyboard.dismiss()}
+                    contentContainerStyle={{ paddingBottom }}
                 />
             );
         }

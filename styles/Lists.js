@@ -3,7 +3,8 @@ import { fontSizes, fontWeights, colors, spacing } from '../constants/Index';
 
 export const View = styled.View`
     border-color: ${(props) => props.theme.itemBorder};
-    border-top-width: 1px;
+    border-top-width: ${(props) => (props.showTopBorder ? `1px` : 0)};
+    border-bottom-width: ${(props) => (props.showBottomBorder ? `1px` : 0)};
     padding: ${spacing.small}px 0;
     padding-left: ${(props) =>
         props.shouldHighlight ? `${spacing.tiny}px` : 0};
