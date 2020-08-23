@@ -21,6 +21,7 @@ const propTypes = {
 function mapStateToProps(state) {
     return {
         favoriteHikes: state.userReducer.favoriteHikes,
+        updatedHikeData: state.hikeReducer.updatedHikeData,
     };
 }
 

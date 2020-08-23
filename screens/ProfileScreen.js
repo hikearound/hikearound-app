@@ -59,7 +59,9 @@ class ProfileScreen extends React.Component {
         const { updatedHikeData } = this.props;
 
         if (prevProps.updatedHikeData !== updatedHikeData) {
-            await this.getHikeData();
+            this.timeout = setTimeout(async () => {
+                await this.getHikeData();
+            }, timings.extraLong);
         }
     }
 
@@ -72,7 +74,7 @@ class ProfileScreen extends React.Component {
             this.setState({ firstLoad: false });
         }
 
-        favoritedHikes.forEach((hike) => {
+        await favoritedHikes.forEach((hike) => {
             if (hike.exists) {
                 const favoriteHike = hike.data() || {};
                 favoriteHike.id = hike.id;

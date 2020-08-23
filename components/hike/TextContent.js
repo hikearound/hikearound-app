@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { withTranslation } from 'react-i18next';
 import ReadMore from 'react-native-read-more-text';
+import { connect } from 'react-redux';
 import { colors, fontWeights, fontSizes, spacing } from '../../constants/Index';
 import Subtitle from '../Subtitle';
 import FavoriteButton from '../FavoriteButton';
@@ -20,6 +21,16 @@ const propTypes = {
     isExpandable: PropTypes.bool,
     truncateName: PropTypes.bool,
 };
+
+function mapStateToProps(state) {
+    return {
+        favoriteHikes: state.userReducer.favoriteHikes,
+    };
+}
+
+function mapDispatchToProps() {
+    return {};
+}
 
 class TextContent extends React.Component {
     constructor(props, context) {
@@ -132,7 +143,10 @@ class TextContent extends React.Component {
 TextContent.propTypes = propTypes;
 TextContent.defaultProps = defaultProps;
 
-export default withTranslation()(TextContent);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(withTranslation()(TextContent));
 
 const ActionText = styled.Text`
     color: ${colors.purple};
