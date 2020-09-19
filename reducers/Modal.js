@@ -20,6 +20,12 @@ export default function modalReducer(state = modalState, action) {
                 action: 'showEditProfile',
             };
 
+        case 'SHOW_RESET_PASSWORD':
+            return {
+                ...state,
+                action: 'showResetPassword',
+            };
+
         case 'SET_LIGHTBOX_IMAGE_INDEX':
             return {
                 ...state,

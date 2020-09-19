@@ -20,6 +20,7 @@ const propTypes = {
     textDismiss: PropTypes.bool,
     iconOffset: PropTypes.number,
     iconSize: PropTypes.number,
+    dismissLanguage: PropTypes.string,
 };
 
 const defaultProps = {
@@ -27,6 +28,7 @@ const defaultProps = {
     textDismiss: false,
     iconOffset: 25,
     iconSize: 35,
+    dismissLanguage: 'close',
 };
 
 function mapDispatchToProps(dispatch) {
@@ -44,6 +46,7 @@ class ModalDismiss extends React.PureComponent {
     render() {
         const {
             includeBackground,
+            dismissLanguage,
             iconSize,
             iconOffset,
             textDismiss,
@@ -83,7 +86,9 @@ class ModalDismiss extends React.PureComponent {
                         left: parseInt(spacing.small, 10),
                     }}
                 >
-                    <DismissText>{t('label.modal.close')}</DismissText>
+                    <DismissText>
+                        {t(`label.modal.${dismissLanguage}`)}
+                    </DismissText>
                 </TouchableOpacity>
             );
         }

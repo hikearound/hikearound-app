@@ -11,6 +11,8 @@ import { withTheme } from '../utils/Themes';
 import { getInputs } from '../utils/Inputs';
 import { defaultState } from '../constants/states/SignIn';
 import { mapCodeToTranslation } from '../utils/Localization';
+import ResetPasswordModal from '../components/modal/ResetPasswordModal';
+import PasswordReset from '../components/PasswordReset';
 
 class SignInScreen extends React.Component {
     constructor(props) {
@@ -121,8 +123,16 @@ class SignInScreen extends React.Component {
                         text={t('label.nav.signIn')}
                         action={this.handleLogin}
                     />
+                    <PasswordReset />
                     <LoadingOverlay loading={loading} />
                 </ScrollView>
+                <ResetPasswordModal
+                    animationType='push'
+                    modalAction='showResetPassword'
+                    transparent
+                    hideStatusBar={false}
+                    fullScreen={false}
+                />
             </RootView>
         );
     }

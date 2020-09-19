@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { CollapsibleHeaderFlatList } from 'react-native-collapsible-header-views';
 import { connectInfiniteHits } from 'react-instantsearch-native';
 import { Keyboard } from 'react-native';
-import { openHikeScreen } from '../../utils/Hike';
 import { withNavigation } from '../../utils/Navigation';
 import HikeListItem from '../HikeListItem';
 import Stats from './Stats';
@@ -32,11 +31,6 @@ class InfiniteHits extends React.Component {
         if (hasMore) {
             refine();
         }
-    };
-
-    getHikeData = async (objectID) => {
-        const { navigation } = this.props;
-        openHikeScreen(objectID, navigation);
     };
 
     renderItem = ({ item }) => {

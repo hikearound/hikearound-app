@@ -8,7 +8,8 @@
             "read": "Read More",
             "skip": "Skip",
             "warning": "Hold On",
-            "continue": "Continue"
+            "continue": "Continue",
+            "ok": "OK"
         },
         "input": {
             "name": "Name",
@@ -34,7 +35,8 @@
         "modal": {
             "save": "Save",
             "close": "Close",
-            "cancel": "Cancel"
+            "cancel": "Cancel",
+            "send": "Send"
         }
     },
     "sheet": {
@@ -62,6 +64,12 @@
             "actions": {
                 "hike": "View Hike"
             }
+        }
+    },
+    "modal": {
+        "reset": {
+            "title": "Forgot Password",
+            "help": "We will send you an email with further instructions to reset your password."
         }
     },
     "card": {
@@ -128,6 +136,9 @@
         "createAccount": {
             "legal": "By clicking '{{createAccount}}' you agree to {{appName}} <5>Terms of Service</5> and <7>Privacy Policy</7>."
         },
+        "signIn": {
+            "reset": "Forgot password?"
+        },
         "notifications": {
             "empty": {
                 "title": "No notifications",
@@ -176,6 +187,12 @@
         "attribution": {
             "title": "Attribution",
             "body": "Photo by {{name}}."
+        },
+        "reset": {
+            "success": {
+                "title": "Recovery Email Sent",
+                "body": "If a {{appName}} account exists for {{email}}, a email will be sent with additional instructions."
+            }
         }
     },
     "error": {

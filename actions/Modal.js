@@ -27,6 +27,11 @@ export const showModal = (modalType) => {
                 type: 'SHOW_EDIT_PROFILE',
             };
 
+        case 'resetPassword':
+            return {
+                type: 'SHOW_RESET_PASSWORD',
+            };
+
         default:
             return {};
     }

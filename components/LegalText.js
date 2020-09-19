@@ -1,9 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
 import { Trans, withTranslation } from 'react-i18next';
 import TextLink from './TextLink';
 import { withTheme } from '../utils/Themes';
-import { colors, fontSizes, spacing } from '../constants/Index';
+import { SubText } from '../styles/Screens';
 
 class LegalText extends React.PureComponent {
     renderTermsOfServiceLink = (t) => {
@@ -30,20 +29,14 @@ class LegalText extends React.PureComponent {
         const appName = t('common.appName', { count: 0 });
 
         return (
-            <Text>
+            <SubText>
                 <Trans i18nKey='screen.createAccount.legal'>
                     {/* eslint-disable-next-line */}
                     By clicking {{ createAccount }}, you agree to {{ appName }} {this.renderTermsOfServiceLink(t)} and {this.renderPrivacyPolicyLink(t)}.
                 </Trans>
-            </Text>
+            </SubText>
         );
     }
 }
 
 export default withTranslation()(withTheme(LegalText));
-
-const Text = styled.Text`
-    color: ${colors.grayMedium};
-    font-size: ${fontSizes.small}px;
-    margin: ${spacing.small}px;
-`;

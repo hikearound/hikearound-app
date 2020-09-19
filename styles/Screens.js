@@ -21,3 +21,9 @@ export const HeaderText = styled.Text`
     font-weight: ${fontWeights.medium};
     text-transform: uppercase;
 `;
+
+export const SubText = styled.Text`
+    color: ${colors.grayMedium};
+    font-size: ${fontSizes.small}px;
+    margin: ${spacing.small}px;
+`;
