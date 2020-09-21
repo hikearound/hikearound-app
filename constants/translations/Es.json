@@ -182,7 +182,7 @@
             },
             "password": {
                 "weak": "La contraseña que proporcionó no es lo suficientemente segura.",
-                "incorrect": "La contraseña que proporcionó es incorrecta."
+                "wrong": "La contraseña que proporcionó es incorrecta."
             }
         }
     }

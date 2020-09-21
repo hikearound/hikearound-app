@@ -205,7 +205,7 @@
             },
             "password": {
                 "weak": "The password you provided is not sufficiently strong.",
-                "incorrect": "The password you provided is incorrect."
+                "wrong": "The password you provided is incorrect."
             }
         }
     }
