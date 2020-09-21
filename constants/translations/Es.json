@@ -34,7 +34,8 @@
         "modal": {
             "save": "Salvar",
             "close": "Cerca",
-            "cancel": "Cancelar"
+            "cancel": "Cancelar",
+            "send": "Enviar"
         }
     },
     "sheet": {
@@ -64,6 +65,12 @@
             }
         }
     },
+    "modal": {
+        "reset": {
+            "title": "Se te olvidó tu contraseña",
+            "help": "Le enviaremos un correo electrónico con más instrucciones para restablecer su contraseña."
+        }
+    },
     "card": {
         "metadata": "{{distance}} millas · {{elevation}} pies"
     },
@@ -80,6 +87,11 @@
             "feet": "Pies",
             "loop": "Lazo",
             "out": "Afuera"
+        },
+        "difficulty": {
+            "easy": "Fácil",
+            "moderate": "Moderado",
+            "difficult": "Difícil"
         },
         "list" : "{{location}} · {{distance}} millas",
     },
@@ -121,6 +133,9 @@
         },
         "createAccount": {
             "legal": "Al hacer clic en '{{createAccount}}' acepta los <5>Términos de servicio</5> y la <7>Política de privacidad</7> de {{appName}}."
+        },
+        "signIn": {
+            "reset": "¿Se te olvidó tu contraseña?"
         },
         "notifications": {
             "empty": {

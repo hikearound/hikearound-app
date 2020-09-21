@@ -89,6 +89,11 @@
             "loop": "Loop",
             "out": "Out & Back"
         },
+        "difficulty": {
+            "easy": "Easy",
+            "moderate": "Moderate",
+            "difficult": "Difficult"
+        },
         "list" : "{{location}} · {{distance}} miles",
     },
     "screen": {
