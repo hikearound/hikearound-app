@@ -16,7 +16,7 @@ class DifficultyPill extends React.PureComponent {
 
         return (
             <Pill>
-                <Text>{t(`hike.${label.toLowerCase()}`)}</Text>
+                <Text>{t(`hike.difficulty.${label.toLowerCase()}`)}</Text>
             </Pill>
         );
     };
