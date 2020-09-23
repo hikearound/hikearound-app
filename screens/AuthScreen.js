@@ -1,5 +1,6 @@
 import React from 'react';
-import { AppLoading, SplashScreen } from 'expo';
+import { AppLoading } from 'expo';
+import * as SplashScreen from 'expo-splash-screen';
 import { CommonActions } from '@react-navigation/native';
 import { connect } from 'react-redux';
 import firebase from 'firebase';
@@ -49,7 +50,7 @@ class AuthScreen extends React.Component {
             }),
         );
 
-        SplashScreen.hide();
+        await SplashScreen.hideAsync();
     };
 
     cacheLocalImages = async () => {

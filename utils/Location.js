@@ -11,6 +11,7 @@ export async function initializeGeolocation() {
 
 export async function getNearestCity(coords) {
     const { latitude, longitude } = coords;
+
     const geocode = await Geocoder.from({ lat: latitude, lng: longitude });
     const resultsLength = geocode.results[0].address_components.length;
 
@@ -31,14 +32,17 @@ export async function getNearestCity(coords) {
                 break;
         }
     }
+
     return `${city}, ${state}`;
 }
 
 export async function requestLocationPermission() {
     const { status } = await Location.requestPermissionsAsync();
+
     if (status !== 'granted') {
         return null;
     }
+
     return status;
 }
 
@@ -55,6 +59,7 @@ export async function getPosition(type) {
     if (type === 'current') {
         return Location.getCurrentPositionAsync();
     }
+
     return Location.getLastKnownPositionAsync();
 }
 
@@ -62,6 +67,7 @@ export function getModifier(type, distance) {
     if (type === 'lat') {
         return degreesPerMile.lat * distance;
     }
+
     return degreesPerMile.lon * distance;
 }
 
