@@ -1,6 +1,10 @@
 export const degreesPerMile = {
     lat: 0.0144927536231884,
-    lon: 0.0181818181818182,
+};
+
+export const geoDistances = {
+    latMilesPerDegree: 69,
+    lonMilesPerDegreeAtEquator: 69.172,
 };
 
 export const deltaMiles = {

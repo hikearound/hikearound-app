@@ -60,12 +60,12 @@ export function sortHikes(previousState, hikes, sortDirection) {
     const data = { ...previousState.data, ...hikes };
 
     let sortedHikes = Object.values(data).sort(
-        (a, b) => a.dateCreated < b.dateCreated,
+        (a, b) => a.createdOn < b.createdOn,
     );
 
-    if (sortDirection === 'asc') {
+    if (sortDirection === 'desc') {
         sortedHikes = Object.values(data).sort(
-            (a, b) => a.dateCreated > b.dateCreated,
+            (a, b) => a.createdOn > b.createdOn,
         );
     }
 
