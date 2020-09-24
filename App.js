@@ -31,6 +31,4 @@ Sentry.init({
     debug: true,
 });
 
-Sentry.setRelease(Constants.manifest.revisionId);
-
 export default App;
