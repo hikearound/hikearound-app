@@ -20,6 +20,7 @@ export const colors = {
 
     // Greens
     green: '#30C731',
+    greenDark: '#009180',
 
     // Blues
     blue: '#00AAFF',

@@ -47,6 +47,7 @@ export async function requestLocationPermission() {
 }
 
 export async function getPosition(type) {
+    let location;
     const currentStatus = await getPermissionStatus('location');
 
     if (currentStatus !== 'granted') {
@@ -56,11 +57,15 @@ export async function getPosition(type) {
         }
     }
 
-    if (type === 'current') {
-        return Location.getCurrentPositionAsync();
+    if (type !== 'current') {
+        location = await Location.getLastKnownPositionAsync();
     }
 
-    return Location.getLastKnownPositionAsync();
+    if (location == null) {
+        location = await Location.getCurrentPositionAsync();
+    }
+
+    return location;
 }
 
 export function getModifier(type, distance, latitude) {
@@ -68,11 +73,11 @@ export function getModifier(type, distance, latitude) {
         return degreesPerMile.lat * distance;
     }
 
-    const latRadians = (latitude * Math.PI) / 180;
-    const latCosine = Math.cos(latRadians);
+    const milesPerDegreeAtLon =
+        Math.cos((latitude * Math.PI) / 180) *
+        geoDistances.lonMilesPerDegreeAtEquator;
 
-    const latDistance = latCosine * geoDistances.lonMilesPerDegreeAtEquator;
-    degreesPerMile.lon = 1 / latDistance;
+    degreesPerMile.lon = 1 / milesPerDegreeAtLon;
 
     return degreesPerMile.lon * distance;
 }
