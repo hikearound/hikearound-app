@@ -9,6 +9,7 @@ import MapEmptyState from './empty/MapEmptyState';
 import SheetActions from './SheetActions';
 import { spacing, bottomSheet, transparentColors } from '../constants/Index';
 import { withNavigation } from '../utils/Navigation';
+import LoadingOverlay from './LoadingOverlay';
 
 const propTypes = {
     sheetRef: PropTypes.object.isRequired,
@@ -24,10 +25,12 @@ const defaultProps = {
 class HikeSheet extends React.Component {
     renderContent = () => {
         const { selectedHike, sheetData } = this.props;
+        //
 
         return (
             <Body>
                 {!selectedHike && <MapEmptyState />}
+                {!sheetData && selectedHike && <LoadingOverlay loading />}
                 {sheetData && selectedHike && (
                     <View>
                         <TextContent
