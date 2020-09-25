@@ -2,7 +2,7 @@ import * as Location from 'expo-location';
 import geohash from 'ngeohash';
 import Geocoder from 'react-native-geocoding';
 import Constants from 'expo-constants';
-import { degreesPerMile, geoDistances } from '../constants/Location';
+import { geoDistances } from '../constants/Location';
 import { getPermissionStatus } from './Permissions';
 
 export async function initializeGeolocation() {
@@ -69,17 +69,16 @@ export async function getPosition(type) {
 }
 
 export function getModifier(type, distance, latitude) {
+    const { latMilesPerDegree, lonMilesPerDegreeAtEquator } = geoDistances;
+
     if (type === 'lat') {
-        return degreesPerMile.lat * distance;
+        return (1 / latMilesPerDegree) * distance;
     }
 
-    const milesPerDegreeAtLon =
-        Math.cos((latitude * Math.PI) / 180) *
-        geoDistances.lonMilesPerDegreeAtEquator;
+    const lonMilesPerDegree =
+        Math.cos((latitude * Math.PI) / 180) * lonMilesPerDegreeAtEquator;
 
-    degreesPerMile.lon = 1 / milesPerDegreeAtLon;
-
-    return degreesPerMile.lon * distance;
+    return (1 / lonMilesPerDegree) * distance;
 }
 
 export function getRange(latitude, longitude, distance) {

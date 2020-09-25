@@ -19,14 +19,11 @@ export const colors = {
     purple: '#935DFF',
 
     // Greens
-    green: '#30C731',
-    greenDark: '#009180',
+    green: '#16A085',
 
     // Blues
-    blue: '#00AAFF',
-
-    // Reds
-    red: '#CE1212',
+    blue: '#2980B9',
+    blueDark: '#34495E',
 };
 
 export const transparentColors = {
