@@ -38,7 +38,7 @@ class InfiniteHits extends React.Component {
             <HikeListItem
                 id={item.objectID}
                 name={item.name}
-                location={item.city}
+                location={`${item.city}, ${item.state}`}
                 distance={item.distance}
                 item={item}
                 shouldHighlight

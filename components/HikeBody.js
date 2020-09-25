@@ -34,6 +34,7 @@ class HikeBody extends React.PureComponent {
             elevation: hike.elevation,
             route: hike.route,
             city: hike.city,
+            state: hike.state,
             description: hike.description,
             id: hike.id,
         };
@@ -45,6 +46,7 @@ class HikeBody extends React.PureComponent {
             description,
             name,
             city,
+            state,
             id,
             distance,
             elevation,
@@ -71,6 +73,7 @@ class HikeBody extends React.PureComponent {
                         <TextContent
                             name={name}
                             city={city}
+                            state={state}
                             id={id}
                             distance={distance}
                             description={description}

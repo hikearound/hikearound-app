@@ -21,6 +21,7 @@ const propTypes = {
     distance: PropTypes.number.isRequired,
     elevation: PropTypes.number.isRequired,
     city: PropTypes.string.isRequired,
+    state: PropTypes.string.isRequired,
     difficulty: PropTypes.string.isRequired,
 };
 
@@ -44,11 +45,11 @@ class FeedCard extends React.PureComponent {
     };
 
     renderHeader = () => {
-        const { city, difficulty } = this.props;
+        const { city, state, difficulty } = this.props;
 
         return (
             <Header>
-                <LocationPill label={city} />
+                <LocationPill label={`${city}, ${state}`} />
                 <DifficultyPill label={difficulty} />
             </Header>
         );

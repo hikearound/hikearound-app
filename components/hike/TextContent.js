@@ -13,6 +13,7 @@ import { truncateText } from '../../utils/Text';
 const propTypes = {
     name: PropTypes.string,
     city: PropTypes.string,
+    state: PropTypes.string,
     description: PropTypes.string,
     id: PropTypes.string.isRequired,
     distance: PropTypes.number,
@@ -107,6 +108,7 @@ class TextContent extends React.Component {
     render() {
         const {
             city,
+            state,
             id,
             distance,
             numberOfLines,
@@ -115,11 +117,12 @@ class TextContent extends React.Component {
             t,
         } = this.props;
         const { description, hikeName } = this.state;
+        const location = `${city}, ${state}`;
 
         return (
             <>
                 <TitleText>{hikeName}</TitleText>
-                <LocationText>{city}</LocationText>
+                <LocationText>{location}</LocationText>
                 <FavoriteButton
                     name={name}
                     id={id}

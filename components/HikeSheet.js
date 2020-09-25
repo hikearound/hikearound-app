@@ -25,7 +25,6 @@ const defaultProps = {
 class HikeSheet extends React.Component {
     renderContent = () => {
         const { selectedHike, sheetData } = this.props;
-        //
 
         return (
             <Body>
@@ -36,6 +35,7 @@ class HikeSheet extends React.Component {
                         <TextContent
                             name={sheetData.name}
                             city={sheetData.city}
+                            state={sheetData.state}
                             id={selectedHike}
                             distance={sheetData.distance}
                             description={sheetData.description}

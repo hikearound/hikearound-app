@@ -26,6 +26,7 @@ class FeedList extends React.Component {
                 route={item.route}
                 description={item.description}
                 city={item.city}
+                state={item.state}
                 coverPhoto={item.coverPhoto}
                 coordinates={item.coordinates}
                 difficulty={item.difficulty}

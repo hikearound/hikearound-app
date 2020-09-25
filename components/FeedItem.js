@@ -16,6 +16,7 @@ const propTypes = {
     route: PropTypes.string,
     description: PropTypes.string,
     city: PropTypes.string,
+    state: PropTypes.string,
     coordinates: PropTypes.object,
     difficulty: PropTypes.string,
 };
@@ -37,6 +38,7 @@ class FeedItem extends React.Component {
             elevation,
             route,
             city,
+            state,
             description,
             coverPhoto,
             coordinates,
@@ -59,6 +61,7 @@ class FeedItem extends React.Component {
                                     elevation,
                                     route,
                                     city,
+                                    state,
                                     description,
                                     coordinates,
                                     difficulty,
@@ -73,6 +76,7 @@ class FeedItem extends React.Component {
                             elevation={elevation}
                             route={route}
                             city={city}
+                            state={state}
                             description={description}
                             difficulty={difficulty}
                         />

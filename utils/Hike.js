@@ -96,6 +96,7 @@ export async function openHikeScreen(id, navigation) {
                 elevation: hikeData.elevation,
                 route: hikeData.route,
                 city: hikeData.city,
+                state: hikeData.state,
                 description: hikeData.description,
                 coordinates: hikeData.coordinates,
             },
