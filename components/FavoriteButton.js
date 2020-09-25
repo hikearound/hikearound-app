@@ -14,6 +14,7 @@ const propTypes = {
     name: PropTypes.string.isRequired,
     distance: PropTypes.number.isRequired,
     city: PropTypes.string.isRequired,
+    state: PropTypes.string.isRequired,
     placement: PropTypes.string.isRequired,
     favoriteHikes: PropTypes.array.isRequired,
 };
@@ -77,7 +78,14 @@ class FavoriteButton extends React.Component {
     };
 
     setFavoriteHike = async () => {
-        const { id, dispatchFavorite, distance, name, city } = this.props;
+        const {
+            id,
+            dispatchFavorite,
+            distance,
+            name,
+            city,
+            state,
+        } = this.props;
         const { hikes } = this.state;
 
         hikes.push(id);
@@ -88,7 +96,7 @@ class FavoriteButton extends React.Component {
             iconName: 'ios-heart',
         });
 
-        dispatchFavorite({ id, distance, name, city });
+        dispatchFavorite({ id, distance, name, city, state });
     };
 
     removeFavoriteHike = async () => {

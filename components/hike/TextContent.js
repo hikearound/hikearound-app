@@ -128,6 +128,7 @@ class TextContent extends React.Component {
                     id={id}
                     distance={distance}
                     city={city}
+                    state={state}
                     placement={placement}
                 />
                 <Subtitle text={t('label.heading.description')} />

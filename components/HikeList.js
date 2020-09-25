@@ -43,7 +43,7 @@ class HikeList extends React.Component {
         <HikeListItem
             id={item.id}
             name={item.name}
-            location={item.city}
+            location={`${item.city}, ${item.state}`}
             distance={item.distance}
         />
     );
