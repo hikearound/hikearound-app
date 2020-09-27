@@ -10,15 +10,18 @@ import Graph from '../graph/Graph';
 
 const propTypes = {
     sheetRef: PropTypes.object.isRequired,
+    elevationArray: PropTypes.array.isRequired,
 };
 
 const defaultProps = {};
 
 class GraphSheet extends React.Component {
     renderContent = () => {
+        const { elevationArray } = this.props;
+
         return (
             <Body>
-                <Graph />
+                <Graph elevationArray={elevationArray} />
             </Body>
         );
     };

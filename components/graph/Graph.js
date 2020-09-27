@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Dimensions, StyleSheet } from 'react-native';
-import Svg, { Path, Defs, Stop, LinearGradient } from 'react-native-svg';
+import Svg, { Path } from 'react-native-svg';
 import * as shape from 'd3-shape';
 import {
     useSharedValue,
@@ -61,7 +61,12 @@ const styles = StyleSheet.create({
     },
 });
 
-const Graph = () => {
+const Graph = ({ elevationArray }) => {
+    console.log(elevationArray)
+    // console.log(data)
+
+    elevationArray = elevationArray.map((p) => [p.x, p.y]);
+
     const length = useSharedValue(0);
     const point = useDerivedValue(() => {
         const p = getPointAtLength(path, length.value);
@@ -71,7 +76,7 @@ const Graph = () => {
                 x: p.x,
                 y: p.y,
             },
-            data: {
+            elevationArray: {
                 x: scaleInvert(p.x, domain.x, range.x),
                 y: scaleInvert(p.y, domain.y, range.y),
             },
@@ -80,26 +85,13 @@ const Graph = () => {
 
     return (
         <View style={styles.container}>
-            <Label {...{ data, point }} />
+            <Label {...{ elevationArray, point }} />
             <View>
                 <Svg {...{ width, height }}>
-                    <Defs>
-                        <LinearGradient
-                            x1='50%'
-                            y1='0%'
-                            x2='50%'
-                            y2='100%'
-                            id='gradient'
-                        >
-                            <Stop stopColor='#CDE3F8' offset='0%' />
-                            <Stop stopColor='#eef6fd' offset='80%' />
-                            <Stop stopColor='#FEFFFF' offset='100%' />
-                        </LinearGradient>
-                    </Defs>
                     <Path
                         fill='transparent'
                         stroke='#367be2'
-                        strokeWidth={5}
+                        strokeWidth={3}
                         {...{ d }}
                     />
                     <Path

@@ -18,12 +18,14 @@ const propTypes = {
     maxZoom: PropTypes.number,
     modifier: PropTypes.number,
     startingCoordinates: PropTypes.object,
+    elevationArray: PropTypes.array,
 };
 
 const defaultProps = {
     maxZoom: 16,
     modifier: 0.01,
     startingCoordinates: null,
+    elevationArray: [],
 };
 
 class MapModal extends ModalBase {
@@ -59,6 +61,7 @@ class MapModal extends ModalBase {
             startingCoordinates,
             hid,
             selectedHike,
+            elevationArray,
         } = this.props;
 
         const initialRegion = this.setRegion(region);
@@ -81,7 +84,10 @@ class MapModal extends ModalBase {
                         />
                         <ModalDismiss includeBackground />
                     </ModalRoot>
-                    <GraphSheet sheetRef={this.bottomSheetRef} />
+                    <GraphSheet
+                        sheetRef={this.bottomSheetRef}
+                        elevationArray={elevationArray}
+                    />
                 </Modal>
             );
         }

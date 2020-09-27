@@ -140,18 +140,48 @@ class HikeScreen extends React.Component {
         }
     };
 
+    buildElevationArray = (elevationData) => {
+        const { route } = this.props;
+        const { hike } = route.params;
+
+        const { distance } = hike;
+        const increment = distance / (elevationData.length - 1);
+
+        const elevationArray = [];
+        let mileMarker = 0;
+
+        for (let i = 0; i < elevationData.length; i += 1) {
+            elevationArray.push({ x: mileMarker, y: elevationData[i] });
+            mileMarker += increment;
+        }
+
+        this.setState({ elevationArray });
+    };
+
     plotCoordinates(hikeData) {
-        const coordinateCount = hikeData.gpx.trk[0].trkseg[0].trkpt.length;
+        const data = hikeData.gpx.trk[0].trkseg[0].trkpt;
+        const coordinateCount = data.length;
+
         const polyCoordinates = [];
+        const elevationData = [];
 
         for (let i = 0, len = coordinateCount; i < len; i += 1) {
-            const coordinate = hikeData.gpx.trk[0].trkseg[0].trkpt[i].$;
+            const item = data[i];
+
+            const coordinate = item.$;
+            const elevation = item.ele;
+
             polyCoordinates.push({
                 latitude: parseFloat(coordinate.lat),
                 longitude: parseFloat(coordinate.lon),
             });
+
+            if (elevation) {
+                elevationData.push(elevation[0]);
+            }
         }
 
+        this.buildElevationArray(elevationData);
         this.setState({ polyCoordinates });
     }
 
@@ -163,6 +193,7 @@ class HikeScreen extends React.Component {
             toastText,
             isLoading,
             id,
+            elevationArray,
         } = this.state;
 
         const { route, selectedHike } = this.props;
@@ -182,7 +213,7 @@ class HikeScreen extends React.Component {
                     isLoading={isLoading}
                     selectedHike={selectedHike}
                 />
-                {region && (
+                {region && elevationArray && (
                     <MapModal
                         mapRef={(ref) => {
                             this.mapView = ref;
@@ -191,6 +222,7 @@ class HikeScreen extends React.Component {
                         selectedHike={selectedHike}
                         coordinates={polyCoordinates}
                         startingCoordinates={startingCoordinates}
+                        elevationArray={elevationArray}
                         region={region}
                         animationType='push'
                         modalAction='showMap'
