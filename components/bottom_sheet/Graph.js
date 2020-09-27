@@ -6,7 +6,6 @@ import { withTheme } from '../../utils/Themes';
 import { spacing, bottomSheet } from '../../constants/Index';
 import { withNavigation } from '../../utils/Navigation';
 import SheetHeader from './Header';
-import Graph from '../graph/Graph';
 
 const propTypes = {
     sheetRef: PropTypes.object.isRequired,
@@ -18,12 +17,8 @@ const defaultProps = {};
 class GraphSheet extends React.Component {
     renderContent = () => {
         const { elevationArray } = this.props;
-
-        return (
-            <Body>
-                <Graph elevationArray={elevationArray} />
-            </Body>
-        );
+        console.log(elevationArray);
+        return <Body />;
     };
 
     renderHeader = () => {
