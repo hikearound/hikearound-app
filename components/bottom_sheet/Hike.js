@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { View } from 'react-native';
 import BottomSheet from 'reanimated-bottom-sheet';
-import { withTheme } from '../utils/Themes';
-import TextContent from './hike/TextContent';
-import MapEmptyState from './empty/MapEmptyState';
-import SheetActions from './SheetActions';
-import { spacing, bottomSheet, transparentColors } from '../constants/Index';
-import { withNavigation } from '../utils/Navigation';
-import LoadingOverlay from './LoadingOverlay';
+import { withTheme } from '../../utils/Themes';
+import TextContent from '../hike/TextContent';
+import MapEmptyState from '../empty/MapEmptyState';
+import SheetActions from '../SheetActions';
+import { spacing, bottomSheet } from '../../constants/Index';
+import { withNavigation } from '../../utils/Navigation';
+import LoadingOverlay from '../LoadingOverlay';
+import SheetHeader from './Header';
 
 const propTypes = {
     sheetRef: PropTypes.object.isRequired,
@@ -55,13 +56,7 @@ class HikeSheet extends React.Component {
     };
 
     renderHeader = () => {
-        return (
-            <Header>
-                <HeaderPanel>
-                    <HeaderHandle />
-                </HeaderPanel>
-            </Header>
-        );
+        return <SheetHeader />;
     };
 
     render() {
@@ -70,9 +65,9 @@ class HikeSheet extends React.Component {
         return (
             <BottomSheet
                 snapPoints={[
-                    bottomSheet.collapsed,
-                    bottomSheet.expanded,
-                    bottomSheet.collapsed,
+                    bottomSheet.hike.collapsed,
+                    bottomSheet.hike.expanded,
+                    bottomSheet.hike.collapsed,
                 ]}
                 renderContent={this.renderContent}
                 renderHeader={this.renderHeader}
@@ -92,24 +87,4 @@ const Body = styled.View`
     height: 320px;
     padding: ${spacing.small}px;
     background-color: ${(props) => props.theme.sheetBackground};
-`;
-
-const Header = styled.View`
-    padding-top: ${spacing.small}px;
-    border-top-left-radius: ${spacing.tiny}px;
-    border-top-right-radius: ${spacing.tiny}px;
-    box-shadow: 0 -4px 3px ${transparentColors.grayLight};
-    background-color: ${(props) => props.theme.sheetBackground};
-`;
-
-const HeaderPanel = styled.View`
-    align-items: center;
-`;
-
-const HeaderHandle = styled.View`
-    width: 35px;
-    height: ${spacing.micro}px;
-    border-radius: ${spacing.micro}px;
-    margin-bottom: ${spacing.micro}px;
-    background-color: ${(props) => props.theme.sheetHandle};
 `;

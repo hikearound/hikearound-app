@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import ModalDismiss from './header/Dismiss';
 import ModalBase from './ModalBase';
 import HikeMap from '../map/Hike';
+import GraphSheet from '../bottom_sheet/Graph';
 
 function mapStateToProps(state) {
     return {
@@ -26,6 +27,16 @@ const defaultProps = {
 };
 
 class MapModal extends ModalBase {
+    constructor(props, context) {
+        super(props, context);
+
+        this.bottomSheetRef = React.createRef();
+
+        this.state = {
+            modalVisible: true,
+        };
+    }
+
     setRegion = (region) => {
         const { modifier } = this.props;
 
@@ -70,6 +81,7 @@ class MapModal extends ModalBase {
                         />
                         <ModalDismiss includeBackground />
                     </ModalRoot>
+                    <GraphSheet sheetRef={this.bottomSheetRef} />
                 </Modal>
             );
         }

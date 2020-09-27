@@ -4,7 +4,7 @@ import { View } from 'react-native';
 import { connect } from 'react-redux';
 import GlobalMap from '../components/map/Global';
 import MapSearch from '../components/map/Search';
-import HikeSheet from '../components/HikeSheet';
+import HikeSheet from '../components/bottom_sheet/Hike';
 import { withTheme, SetBarStyle, setBarStyleWithTheme } from '../utils/Themes';
 import { getMapMarkers } from '../utils/Map';
 import { getHikeData } from '../utils/Hike';

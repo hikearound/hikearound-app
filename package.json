@@ -21,6 +21,7 @@
     "@react-navigation/stack": "^5.9.1",
     "algoliasearch": "^4.5.1",
     "base-64": "^0.1.0",
+    "d3-shape": "^2.0.0",
     "expo": "^39.0.0",
     "expo-asset": "~8.2.0",
     "expo-blur": "~8.2.0",
@@ -59,7 +60,8 @@
     "react-native-maps": "0.27.1",
     "react-native-open-maps": "^0.3.5",
     "react-native-read-more-text": "^1.1.2",
-    "react-native-reanimated": "2.0.0-alpha.6",
+    "react-native-reanimated": "^2.0.0-alpha.6.1",
+    "react-native-redash": "^15.4.0",
     "react-native-safe-area-context": "3.1.4",
     "react-native-safe-area-view": "^1.1.1",
     "react-native-screens": "~2.10.1",
@@ -76,6 +78,7 @@
     "webpack": "^4.44.2"
   },
   "devDependencies": {
+    "@react-native-community/eslint-config": "^2.0.0",
     "babel-eslint": "^10.1.0",
     "babel-plugin-inline-dotenv": "^1.6.0",
     "babel-preset-expo": "^8.3.0",
@@ -94,7 +97,8 @@
     "prettier": "^2.1.2",
     "react": "16.13.1",
     "react-test-renderer": "16.9.0",
-    "redux-mock-store": "^1.5.4"
+    "redux-mock-store": "^1.5.4",
+    "typescript": "^4.0.3"
   },
   "lint": "eslint *.js **/*.js",
   "private": true

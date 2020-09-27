@@ -19,7 +19,7 @@ module.exports = {
         'import/resolver': {
             'node': {
                 'extensions': [
-                    '.js', '.jsx', '.ts', '.tsx'
+                    '.js', '.jsx', '.ts', '.tsx', '.d.ts',
                 ],
             }
         }
@@ -41,6 +41,7 @@ module.exports = {
         'import/no-extraneous-dependencies': 'off',
         'react/jsx-filename-extension': 'off',
         'react/jsx-props-no-spreading': 'off',
+        'lines-around-directive': 'off',
         'react-hooks/rules-of-hooks': 'off',
         'react/forbid-prop-types': 'off',
         'react/no-array-index-key': 'off',
