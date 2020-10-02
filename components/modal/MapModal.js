@@ -19,6 +19,7 @@ const propTypes = {
     modifier: PropTypes.number,
     startingCoordinates: PropTypes.object,
     elevationArray: PropTypes.array,
+    hike: PropTypes.object,
 };
 
 const defaultProps = {
@@ -26,6 +27,7 @@ const defaultProps = {
     modifier: 0.01,
     startingCoordinates: null,
     elevationArray: [],
+    distance: {},
 };
 
 class MapModal extends ModalBase {
@@ -35,7 +37,7 @@ class MapModal extends ModalBase {
         this.bottomSheetRef = React.createRef();
 
         this.state = {
-            modalVisible: true,
+            modalVisible: false,
         };
     }
 
@@ -62,6 +64,7 @@ class MapModal extends ModalBase {
             hid,
             selectedHike,
             elevationArray,
+            hike,
         } = this.props;
 
         const initialRegion = this.setRegion(region);
@@ -87,6 +90,7 @@ class MapModal extends ModalBase {
                     <GraphSheet
                         sheetRef={this.bottomSheetRef}
                         elevationArray={elevationArray}
+                        hike={hike}
                     />
                 </Modal>
             );

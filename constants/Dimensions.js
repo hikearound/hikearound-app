@@ -9,7 +9,7 @@ export const bottomSheet = {
         collapsed: 35,
     },
     chart: {
-        expanded: 500,
-        collapsed: 0,
+        expanded: 320,
+        collapsed: 100,
     },
 };

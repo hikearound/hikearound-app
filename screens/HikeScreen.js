@@ -141,18 +141,10 @@ class HikeScreen extends React.Component {
     };
 
     buildElevationArray = (elevationData) => {
-        const { route } = this.props;
-        const { hike } = route.params;
-
-        const { distance } = hike;
-        const increment = distance / (elevationData.length - 1);
-
         const elevationArray = [];
-        let mileMarker = 0;
 
         for (let i = 0; i < elevationData.length; i += 1) {
-            elevationArray.push({ x: mileMarker, y: elevationData[i] });
-            mileMarker += increment;
+            elevationArray.push(parseFloat(elevationData[i]).toFixed(2));
         }
 
         this.setState({ elevationArray });
@@ -223,6 +215,7 @@ class HikeScreen extends React.Component {
                         coordinates={polyCoordinates}
                         startingCoordinates={startingCoordinates}
                         elevationArray={elevationArray}
+                        hike={hike}
                         region={region}
                         animationType='push'
                         modalAction='showMap'

@@ -63,6 +63,9 @@ export const defaultTheme = {
 
         // Search
         searchBackground: colors.white,
+
+        // Sheets
+        sheetDataLabel: colors.blackLight,
     },
 };
 
@@ -127,5 +130,8 @@ export const darkTheme = {
 
         // Search
         searchBackground: colors.blackMedium,
+
+        // Sheets
+        sheetDataLabel: colors.white,
     },
 };
