@@ -84,6 +84,7 @@ class MapModal extends ModalBase {
                             startingCoordinates={startingCoordinates}
                             region={initialRegion}
                             maxZoom={maxZoom}
+                            mapPadding={{ bottom: 70 }}
                         />
                         <ModalDismiss includeBackground />
                     </ModalRoot>

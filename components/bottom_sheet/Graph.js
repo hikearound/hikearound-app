@@ -76,10 +76,12 @@ function GraphSheet({
 
     const renderContentHeaderItem = (label, subtext) => {
         return (
-            <HeaderItem>
-                <HeaderLabel>{label}</HeaderLabel>
-                <HeaderSubtext>{subtext}</HeaderSubtext>
-            </HeaderItem>
+            <React.Fragment key={label}>
+                <HeaderItem>
+                    <HeaderLabel>{label}</HeaderLabel>
+                    <HeaderSubtext>{subtext}</HeaderSubtext>
+                </HeaderItem>
+            </React.Fragment>
         );
     };
 

@@ -63,6 +63,17 @@
             "actions": {
                 "hike": "Ver caminata"
             }
+        },
+        "elevation": {
+            "unit": {
+                "miles": "mi",
+                "feet": "pie",
+            },
+            "label": {
+                "distance": "Distancia",
+                "elevation": "Elevación neta"
+            },
+            "distance": "{{distance}} {{unit}}"
         }
     },
     "modal": {
