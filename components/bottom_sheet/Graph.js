@@ -51,10 +51,10 @@ function GraphSheet({
     const { distance, elevation } = hike;
 
     const buildDistanceArray = () => {
+        let currentIncrement = 0;
+
         const distanceArray = [];
         const increment = distance / axisIncrement;
-
-        let currentIncrement = 0;
 
         for (let i = 0; i < axisIncrement; i += 1) {
             distanceArray.push(parseFloat(currentIncrement).toFixed(1));

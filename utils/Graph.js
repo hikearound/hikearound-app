@@ -20,6 +20,7 @@ export const chartConfig = (theme) => {
         decimalPlaces: 2,
         propsForBackgroundLines: {
             stroke: colors.grayMedium,
+            opacity: 0.5,
         },
         color: () => colors.purple,
         labelColor: () => theme.colors.text,
