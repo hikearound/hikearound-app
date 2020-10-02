@@ -4,7 +4,12 @@ export const borderRadius = {
 };
 
 export const bottomSheet = {
-    starting: 100,
-    expanded: 340,
-    collapsed: 35,
+    hike: {
+        expanded: 340,
+        collapsed: 35,
+    },
+    chart: {
+        expanded: 320,
+        collapsed: 100,
+    },
 };

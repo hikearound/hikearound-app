@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import ModalDismiss from './header/Dismiss';
 import ModalBase from './ModalBase';
 import HikeMap from '../map/Hike';
+import GraphSheet from '../bottom_sheet/Graph';
 
 function mapStateToProps(state) {
     return {
@@ -17,15 +18,29 @@ const propTypes = {
     maxZoom: PropTypes.number,
     modifier: PropTypes.number,
     startingCoordinates: PropTypes.object,
+    elevationArray: PropTypes.array,
+    hike: PropTypes.object,
 };
 
 const defaultProps = {
     maxZoom: 16,
     modifier: 0.01,
     startingCoordinates: null,
+    elevationArray: [],
+    distance: {},
 };
 
 class MapModal extends ModalBase {
+    constructor(props, context) {
+        super(props, context);
+
+        this.bottomSheetRef = React.createRef();
+
+        this.state = {
+            modalVisible: false,
+        };
+    }
+
     setRegion = (region) => {
         const { modifier } = this.props;
 
@@ -48,6 +63,8 @@ class MapModal extends ModalBase {
             startingCoordinates,
             hid,
             selectedHike,
+            elevationArray,
+            hike,
         } = this.props;
 
         const initialRegion = this.setRegion(region);
@@ -67,9 +84,15 @@ class MapModal extends ModalBase {
                             startingCoordinates={startingCoordinates}
                             region={initialRegion}
                             maxZoom={maxZoom}
+                            mapPadding={{ bottom: 70 }}
                         />
                         <ModalDismiss includeBackground />
                     </ModalRoot>
+                    <GraphSheet
+                        sheetRef={this.bottomSheetRef}
+                        elevationArray={elevationArray}
+                        hike={hike}
+                    />
                 </Modal>
             );
         }

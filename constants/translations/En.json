@@ -64,6 +64,17 @@
             "actions": {
                 "hike": "View Hike"
             }
+        },
+        "elevation": {
+            "unit": {
+                "miles": "mi",
+                "feet": "ft",
+            },
+            "label": {
+                "distance": "Distance",
+                "elevation": "Net Elevation"
+            },
+            "distance": "{{distance}} {{unit}}"
         }
     },
     "modal": {
