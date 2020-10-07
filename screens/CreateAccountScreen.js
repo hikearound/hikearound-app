@@ -17,6 +17,7 @@ import { createUserProfile } from '../utils/User';
 import { getPermissionStatus } from '../utils/Permissions';
 import { getInputs } from '../utils/Inputs';
 import { defaultState } from '../constants/states/CreateAccount';
+import { logEvent } from '../utils/Analytics';
 
 const propTypes = {
     dispatchUserData: PropTypes.func.isRequired,
@@ -78,6 +79,7 @@ class CreateAccountScreen extends React.Component {
             })
             .then((response) => {
                 if (response) {
+                    logEvent('create_account', {});
                     createUserProfile(dispatchUserData, name);
                     response.user.updateProfile({ displayName: name });
                     navigation.dispatch(resetAction);

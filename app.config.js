@@ -39,6 +39,13 @@ export default ({ config }) => {
                 searchKey: process.env.ALGOLIA_SEARCH_KEY,
             },
         },
+        web: {
+            config: {
+                firebase: {
+                    measurementId: process.env.FIREBASE_MEASUREMENT_ID,
+                },
+            },
+        },
         ...config,
     };
 };

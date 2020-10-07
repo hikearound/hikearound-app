@@ -10,6 +10,7 @@ import { ThemeProvider } from 'styled-components';
 import TabNavigator from './TabNavigator';
 import { defaultTheme, darkTheme } from '../constants/Themes';
 import { withTheme } from '../utils/Themes';
+import { setCurrentScreen } from '../utils/Analytics';
 
 const propTypes = {
     darkMode: PropTypes.bool,
@@ -29,6 +30,9 @@ function mapDispatchToProps() {
     return {};
 }
 
+const routeNameRef = React.createRef();
+const navigationRef = React.createRef();
+
 class AppNavigator extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -43,6 +47,21 @@ class AppNavigator extends React.PureComponent {
         }
     }
 
+    onNavigationStateChange = () => {
+        const previousRouteName = routeNameRef.current;
+        const currentRouteName = navigationRef.current.getCurrentRoute().name;
+
+        if (previousRouteName !== currentRouteName) {
+            setCurrentScreen(currentRouteName, {});
+        }
+
+        routeNameRef.current = currentRouteName;
+    };
+
+    setRouteNameRef = () => {
+        routeNameRef.current = navigationRef.current.getCurrentRoute().name;
+    };
+
     render() {
         const { scheme, darkMode } = this.props;
 
@@ -54,7 +73,12 @@ class AppNavigator extends React.PureComponent {
         return (
             <SafeAreaProvider>
                 <AppearanceProvider>
-                    <NavigationContainer theme={theme}>
+                    <NavigationContainer
+                        ref={navigationRef}
+                        onReady={() => this.setRouteNameRef()}
+                        onStateChange={() => this.onNavigationStateChange()}
+                        theme={theme}
+                    >
                         <ThemeProvider theme={theme.colors}>
                             <TabNavigator />
                         </ThemeProvider>

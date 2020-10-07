@@ -33,6 +33,7 @@
       "backgroundColor": "#FFF",
       "userInterfaceStyle": "automatic",
       "bundleIdentifier": "com.tryhikearound",
+      "googleServicesFile": "./keys/GoogleService-Info.plist",
       "associatedDomains": [
         "applinks:www.tryhikearound.com",
         "applinks:tryhikearound.com",

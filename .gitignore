@@ -8,3 +8,4 @@ npm-debug.*
 *.p12
 *.key
 *.mobileprovision
+keys/*

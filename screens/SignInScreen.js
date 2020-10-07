@@ -13,6 +13,7 @@ import { defaultState } from '../constants/states/SignIn';
 import { mapCodeToTranslation } from '../utils/Localization';
 import ResetPasswordModal from '../components/modal/ResetPasswordModal';
 import PasswordReset from '../components/PasswordReset';
+import { logEvent } from '../utils/Analytics';
 
 class SignInScreen extends React.Component {
     constructor(props) {
@@ -52,6 +53,7 @@ class SignInScreen extends React.Component {
             })
             .then((response) => {
                 if (response) {
+                    logEvent('sign_in', {});
                     navigation.dispatch(resetAction);
                 }
             });
