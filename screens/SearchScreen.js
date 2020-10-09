@@ -47,7 +47,6 @@ class SearchScreen extends React.Component {
 
     render() {
         const { searchState } = this.state;
-        const { t } = this.props;
 
         return (
             <RootView>
@@ -58,7 +57,7 @@ class SearchScreen extends React.Component {
                     searchState={searchState}
                     onSearchStateChange={this.onSearchStateChange}
                 >
-                    {this.renderSearchBox(t)}
+                    {this.renderSearchBox()}
                     {this.renderSearchResults()}
                 </InstantSearch>
             </RootView>
