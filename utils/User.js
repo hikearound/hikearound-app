@@ -114,7 +114,14 @@ export function logoutUser(navigation) {
     });
 }
 
-export async function maybeSetAvatar(dispatchAvatar) {
+export async function writeAvatar(photoURL) {
+    const user = auth.currentUser;
+
+    user.updateProfile({ photoURL });
+    db.collection('users').doc(user.uid).set({ photoURL }, { merge: true });
+}
+
+export async function setAvatar(dispatchAvatar) {
     const state = store.getState();
     const { avatar } = state.userReducer;
 
@@ -122,6 +129,7 @@ export async function maybeSetAvatar(dispatchAvatar) {
 
     if (avatarUri) {
         dispatchAvatar(avatarUri);
+        writeAvatar(avatarUri);
     } else {
         avatarUri = avatar;
     }
@@ -144,14 +152,14 @@ export async function getUserData(dispatchUserData, dispatchAvatar) {
     userData.favoriteHikes = favoriteHikes;
     userData.currentPosition = currentPosition;
 
-    await maybeSetAvatar(dispatchAvatar);
+    await setAvatar(dispatchAvatar);
     dispatchUserData(userData);
 }
 
 export function createUserProfile(dispatchUserData, name) {
     const state = store.getState();
-    const { map, location, darkMode, notifs } = state.userReducer;
-    const userData = { map, location, darkMode, notifs, name };
+    const { map, location, darkMode, notifs, photoURL } = state.userReducer;
+    const userData = { map, location, darkMode, notifs, name, photoURL };
 
     dispatchUserData(userData);
 }

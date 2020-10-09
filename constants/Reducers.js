@@ -27,6 +27,7 @@ export const notifs = {
 export const user = {
     name: '',
     location: '',
+    photoURL: '',
     notifs: {},
     currentPosition: {},
     map: 'Apple Maps',

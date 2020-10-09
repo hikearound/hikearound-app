@@ -80,18 +80,20 @@ class Avatar extends React.Component {
         }
     };
 
-    avatar = (avatar, avatarResizeMode, size) => (
-        <Image
-            uri={avatar}
-            resizeMode={avatarResizeMode}
-            style={{
-                height: size,
-                width: size,
-                borderRadius: size / 2,
-                backgroundColor: colors.gray,
-            }}
-        />
-    );
+    avatar = (avatar, avatarResizeMode, size) => {
+        return (
+            <Image
+                uri={avatar}
+                resizeMode={avatarResizeMode}
+                style={{
+                    height: size,
+                    width: size,
+                    borderRadius: size / 2,
+                    backgroundColor: colors.gray,
+                }}
+            />
+        );
+    };
 
     cameraGradientOverlay = (size) => (
         <View
