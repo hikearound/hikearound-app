@@ -42,6 +42,17 @@ class HikeListItem extends React.PureComponent {
         return <Name>{name}</Name>;
     };
 
+    renderLocationHighlight = () => {
+        const { item } = this.props;
+
+        return (
+            <>
+                <Highlight attribute='city' hit={item} />
+                <Highlight attribute='state' hit={item} />
+            </>
+        );
+    };
+
     render() {
         const {
             location,
@@ -66,8 +77,9 @@ class HikeListItem extends React.PureComponent {
                 >
                     {this.renderName()}
                     <MetaData>
+                        {shouldHighlight && this.renderLocationHighlight()}
+                        {!shouldHighlight && location}
                         {t('hike.list', {
-                            location,
                             distance: distance.toFixed(1),
                         })}
                     </MetaData>

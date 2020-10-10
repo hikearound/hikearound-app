@@ -17,14 +17,7 @@ const defaultProps = {
 };
 
 class Highlight extends React.PureComponent {
-    render() {
-        const { attribute, hit, highlight, highlightProperty } = this.props;
-        const highlights = highlight({
-            highlightProperty,
-            attribute,
-            hit,
-        });
-
+    renderNameHighlight = (highlights) => {
         return (
             <Text>
                 {highlights.map(({ value, isHighlighted }, index) => {
@@ -39,6 +32,56 @@ class Highlight extends React.PureComponent {
                 })}
             </Text>
         );
+    };
+
+    renderCityHighlight = (highlights) => {
+        return (
+            <Text>
+                {highlights.map(({ value, isHighlighted }, index) => {
+                    return (
+                        <HighlightedSubText
+                            key={index}
+                            showHighlight={isHighlighted}
+                        >
+                            {value}
+                        </HighlightedSubText>
+                    );
+                })}
+            </Text>
+        );
+    };
+
+    renderStateHighlight = (highlights) => {
+        return (
+            <Text>
+                <HighlightedSubText>, </HighlightedSubText>
+                {highlights.map(({ value, isHighlighted }, index) => {
+                    return (
+                        <HighlightedSubText
+                            key={index}
+                            showHighlight={isHighlighted}
+                        >
+                            {`${value}`}
+                        </HighlightedSubText>
+                    );
+                })}
+            </Text>
+        );
+    };
+
+    render() {
+        const { attribute, hit, highlight, highlightProperty } = this.props;
+        const highlights = highlight({ highlightProperty, attribute, hit });
+
+        if (attribute === 'city') {
+            return this.renderCityHighlight(highlights);
+        }
+
+        if (attribute === 'state') {
+            return this.renderStateHighlight(highlights);
+        }
+
+        return this.renderNameHighlight(highlights);
     }
 }
 
@@ -53,4 +96,9 @@ const HighlightedText = styled.Text`
     font-weight: ${(props) =>
         props.showHighlight ? fontWeights.bold : fontWeights.bold};
     font-size: ${fontSizes.large}px;
+`;
+
+const HighlightedSubText = styled.Text`
+    color: ${(props) =>
+        props.showHighlight ? colors.purple : colors.grayMedium};
 `;

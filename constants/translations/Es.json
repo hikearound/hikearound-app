@@ -104,7 +104,7 @@
             "moderate": "Moderado",
             "difficult": "Difícil"
         },
-        "list" : "{{location}} · {{distance}} millas",
+        "list" : " · {{distance}} millas",
     },
     "screen": {
         "search": {
