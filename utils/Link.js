@@ -46,7 +46,7 @@ export function handleOpenNotification(hid, navigation) {
 export async function addNotificationListener(navigation, listenerRef) {
     listenerRef.current = Notifications.addNotificationResponseReceivedListener(
         (response) => {
-            const { hid } = response.notification.request.content.data.body;
+            const { hid } = response.notification.request.content.data;
             handleOpenNotification(hid, navigation);
         },
     );
