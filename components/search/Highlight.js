@@ -1,9 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { Text } from 'react-native';
 import { connectHighlight } from 'react-instantsearch-native';
-import { colors, fontWeights, fontSizes } from '../../constants/Index';
+import { HighlightedText, HighlightedSubText } from '../../styles/Highlight';
 
 const propTypes = {
     attribute: PropTypes.string.isRequired,
@@ -34,9 +33,12 @@ class Highlight extends React.PureComponent {
         );
     };
 
-    renderCityHighlight = (highlights) => {
+    renderLocationHighlight = (highlights, attribute) => {
         return (
             <Text>
+                {attribute === 'state' && (
+                    <HighlightedSubText>, </HighlightedSubText>
+                )}
                 {highlights.map(({ value, isHighlighted }, index) => {
                     return (
                         <HighlightedSubText
@@ -51,34 +53,17 @@ class Highlight extends React.PureComponent {
         );
     };
 
-    renderStateHighlight = (highlights) => {
-        return (
-            <Text>
-                <HighlightedSubText>, </HighlightedSubText>
-                {highlights.map(({ value, isHighlighted }, index) => {
-                    return (
-                        <HighlightedSubText
-                            key={index}
-                            showHighlight={isHighlighted}
-                        >
-                            {`${value}`}
-                        </HighlightedSubText>
-                    );
-                })}
-            </Text>
-        );
-    };
-
     render() {
         const { attribute, hit, highlight, highlightProperty } = this.props;
-        const highlights = highlight({ highlightProperty, attribute, hit });
 
-        if (attribute === 'city') {
-            return this.renderCityHighlight(highlights);
-        }
+        const highlights = highlight({
+            highlightProperty,
+            attribute,
+            hit,
+        });
 
-        if (attribute === 'state') {
-            return this.renderStateHighlight(highlights);
+        if (attribute === 'city' || attribute === 'state') {
+            return this.renderLocationHighlight(highlights, attribute);
         }
 
         return this.renderNameHighlight(highlights);
@@ -89,16 +74,3 @@ Highlight.propTypes = propTypes;
 Highlight.defaultProps = defaultProps;
 
 export default connectHighlight(Highlight);
-
-const HighlightedText = styled.Text`
-    color: ${(props) =>
-        props.showHighlight ? colors.purple : props.theme.text};
-    font-weight: ${(props) =>
-        props.showHighlight ? fontWeights.bold : fontWeights.bold};
-    font-size: ${fontSizes.large}px;
-`;
-
-const HighlightedSubText = styled.Text`
-    color: ${(props) =>
-        props.showHighlight ? colors.purple : colors.grayMedium};
-`;
