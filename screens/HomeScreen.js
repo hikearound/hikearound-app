@@ -5,6 +5,7 @@ import { withTranslation } from 'react-i18next';
 import HomeLoadingState from '../components/loading/Home';
 import HomeActions from '../components/HomeActions';
 import FeedList from '../components/FeedList';
+import Promotion from '../components/Promotion';
 import FeedRefreshControl from '../components/FeedRefreshControl';
 import HomeEmptyState from '../components/empty/HomeEmptyState';
 import { feedActionSheet } from '../components/action_sheets/Feed';
@@ -235,9 +236,12 @@ class HomeScreen extends React.Component {
     };
 
     render() {
+        const { loading } = this.state;
+
         return (
             <RootView>
                 <SetBarStyle barStyle='light-content' />
+                {!loading && <Promotion />}
                 {this.renderHome()}
             </RootView>
         );

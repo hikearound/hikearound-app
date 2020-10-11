@@ -19,6 +19,9 @@ export const markerFocused = require('../assets/marker/focused.png');
 export const markerUnfocused = require('../assets/marker/unfocused.png');
 export const clusterMarker = require('../assets/marker/cluster.png');
 
+// Promotions
+export const availabiltyMap = require('../assets/neutral/availability-map.png');
+
 export const localImages = [
     avatar,
     landingBgDefault,
@@ -30,4 +33,5 @@ export const localImages = [
     markerFocused,
     markerUnfocused,
     clusterMarker,
+    availabiltyMap,
 ];

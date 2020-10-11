@@ -224,5 +224,12 @@
                 "wrong": "The password you provided is incorrect."
             }
         }
+    },
+    "promotion": {
+        "welcome": {
+            "title": "Welcome to Hikearound!",
+            "description": "While we are in Beta, we currently offer hikes only in Seattle and the San Francisco Bay Area.\n\nAs we continue expanding to more locations, we'll let you know when when we begin adding hikes near you.",
+            "cta": "Got It"
+        }
     }
 }
