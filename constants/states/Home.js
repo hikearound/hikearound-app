@@ -10,6 +10,7 @@ export const defaultState = {
     lastKnownPosition: {},
     city: '',
     distance: 25,
+    promotion: { shouldShow: false },
 };
 
 export default defaultState;

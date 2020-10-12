@@ -20,6 +20,7 @@ import { handleAppBadge } from '../utils/Notifications';
 import { withTheme, SetBarStyle } from '../utils/Themes';
 import { getMapData } from '../utils/Map';
 import { getPosition, getNearestCity } from '../utils/Location';
+import { getPromotionStatus } from '../utils/Promotions';
 import { queryHikes, sortHikes, buildHikeData } from '../utils/Feed';
 import {
     checkInitialUrl,
@@ -79,6 +80,7 @@ class HomeScreen extends React.Component {
         this.getAndSetPosition();
         this.addListeners();
 
+        await this.getAndSetPromotions();
         await getUserData(dispatchUserData, dispatchAvatar);
         await getMapData(dispatchMapData);
 
@@ -102,6 +104,11 @@ class HomeScreen extends React.Component {
 
         removeUrlListener(navigation);
         removeNotificationListener(listenerRef);
+    };
+
+    getAndSetPromotions = async () => {
+        const promotion = await getPromotionStatus('welcome');
+        this.setState({ promotion });
     };
 
     setFirstLoad = () => {
@@ -235,13 +242,16 @@ class HomeScreen extends React.Component {
         );
     };
 
-    render() {
-        const { loading } = this.state;
+    maybeRenderPromotion = () => {
+        const { firstLoad, promotion } = this.state;
+        return !firstLoad && promotion.shouldShow && <Promotion />;
+    };
 
+    render() {
         return (
             <RootView>
                 <SetBarStyle barStyle='light-content' />
-                {!loading && <Promotion />}
+                {this.maybeRenderPromotion()}
                 {this.renderHome()}
             </RootView>
         );

@@ -9,7 +9,9 @@ export async function registerForPushNotifications() {
     }
 
     const user = auth.currentUser;
-    const notificationToken = await Notifications.getExpoPushTokenAsync();
+
+    let notificationToken = await Notifications.getExpoPushTokenAsync();
+    notificationToken = notificationToken.data;
 
     db.collection('users')
         .doc(user.uid)

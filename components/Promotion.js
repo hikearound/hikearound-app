@@ -12,9 +12,11 @@ import {
     fontSizes,
 } from '../constants/Index';
 import { withTheme } from '../utils/Themes';
+import { dismissPromotion } from '../utils/Promotions';
 import { availabiltyMap } from '../constants/Images';
 
 const propTypes = {
+    imageSize: PropTypes.number,
     animationInTiming: PropTypes.number,
     animationIn: PropTypes.string,
     animationOut: PropTypes.string,
@@ -22,6 +24,7 @@ const propTypes = {
 };
 
 const defaultProps = {
+    imageSize: 150,
     animationInTiming: 500,
     animationIn: 'slideInUp',
     animationOut: 'slideOutDown',
@@ -29,6 +32,7 @@ const defaultProps = {
 };
 
 function Promotion({
+    imageSize,
     animationIn,
     animationInTiming,
     animationOut,
@@ -39,6 +43,7 @@ function Promotion({
 
     const dismissModal = () => {
         setModalVisible(false);
+        dismissPromotion('welcome');
     };
 
     const renderDismissButton = () => {
@@ -65,7 +70,7 @@ function Promotion({
                 onSwipeComplete={() => dismissModal()}
             >
                 <Wrapper>
-                    <PromoImage source={availabiltyMap} />
+                    <PromoImage source={availabiltyMap} imageSize={imageSize} />
                     <PromoTextHeading>
                         {t('promotion.welcome.title')}
                     </PromoTextHeading>
@@ -119,8 +124,7 @@ const PromoTextDescription = styled.Text`
 `;
 
 const PromoImage = styled.Image`
-    text-align: center;
-    height: 175px;
-    width: 175px;
+    height: ${(props) => props.imageSize}px;
+    width: ${(props) => props.imageSize}px;
     margin: 24px auto ${spacing.tiny}px auto;
 `;

@@ -6,9 +6,7 @@ import { getPermissionStatus } from './Permissions';
 
 export async function writeUserData(userData) {
     const user = auth.currentUser;
-    const idToken = await user.getIdToken(true);
 
-    userData.idToken = idToken;
     user.updateProfile({
         displayName: userData.name,
     });
