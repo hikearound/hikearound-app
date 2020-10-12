@@ -24,6 +24,7 @@ export const defaultTheme = {
         sheetBackground: DefaultTheme.colors.card,
         sheetHandle: colors.gray,
         feedText: colors.grayDark,
+        modalButtonBorder: colors.grayLight,
 
         // Cards
         cardBackground: colors.gray,
@@ -92,6 +93,7 @@ export const darkTheme = {
         sheetBackground: colors.blackMedium,
         sheetHandle: colors.grayDark,
         feedText: colors.grayLight,
+        modalButtonBorder: DarkTheme.colors.border,
 
         // Cards
         cardBackground: colors.blackText,

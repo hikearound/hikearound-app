@@ -24,7 +24,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-    imageSize: 150,
+    imageSize: 125,
     animationInTiming: 500,
     animationIn: 'slideInUp',
     animationOut: 'slideOutDown',
@@ -95,16 +95,18 @@ const Wrapper = styled.View`
 `;
 
 const ButtonView = styled.View`
+    border-color: ${(props) => props.theme.modalButtonBorder};
     border-top-width: 1px;
-    border-top-color: ${(props) => props.theme.itemBorder};
     margin-top: 24px;
-    padding: 12px;
 `;
 
 const ButtonText = styled.Text`
     color: ${(props) => props.theme.buttonInputText};
     text-align: center;
-    font-size: ${fontSizes.medium}px;
+    font-size: ${fontSizes.large}px;
+    font-weight: ${fontWeights.medium};
+    line-height: ${fontSizes.large}px;
+    padding: ${spacing.small}px;
 `;
 
 const PromoTextHeading = styled.Text`
