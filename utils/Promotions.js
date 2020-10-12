@@ -7,9 +7,7 @@ export async function getPromotionStatus(promotionType) {
     userData = userData.data();
 
     if (!userData.promotions) {
-        userData.promotions = {
-            [promotionType]: { shouldShow: true },
-        };
+        userData.promotions = { [promotionType]: { shouldShow: true } };
     } else if (!userData.promotions[promotionType]) {
         userData.promotions[promotionType] = { shouldShow: true };
     }
@@ -31,5 +29,3 @@ export async function dismissPromotion(promotionType) {
 
     db.collection('users').doc(user.uid).set({ promotions }, { merge: true });
 }
-
-export default getPromotionStatus;
