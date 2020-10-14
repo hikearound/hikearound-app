@@ -106,18 +106,17 @@ export async function getAvatarUri() {
 
 export function logoutUser(navigation) {
     auth.signOut().then(() => {
-        // navigation.navigate('Home', { screen: 'Landing' });
         navigation.dispatch(
             CommonActions.reset({
                 index: 0,
-                routes: [{
-                    name: 'Home',
-                    state: {
-                        routes: [{
-                            name: 'Landing',
-                        }]
-                    }
-                }],
+                routes: [
+                    {
+                        name: 'Home',
+                        state: {
+                            routes: [{ name: 'Landing' }],
+                        },
+                    },
+                ],
             }),
         );
     });
