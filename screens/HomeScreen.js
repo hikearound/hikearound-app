@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
+import * as SplashScreen from 'expo-splash-screen';
 import HomeLoadingState from '../components/loading/Home';
 import HomeActions from '../components/HomeActions';
 import FeedList from '../components/FeedList';
@@ -80,6 +81,7 @@ class HomeScreen extends React.Component {
         this.getAndSetPosition();
         this.addListeners();
 
+        await SplashScreen.hideAsync();
         await this.getAndSetPromotions();
         await getUserData(dispatchUserData, dispatchAvatar);
         await getMapData(dispatchMapData);

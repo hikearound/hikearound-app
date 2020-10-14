@@ -1,3 +1,4 @@
+import { CommonActions } from '@react-navigation/native';
 import { cacheImages } from './Image';
 import { db, storage, auth } from '../lib/Fire';
 import store from '../store/Store';
@@ -105,10 +106,20 @@ export async function getAvatarUri() {
 
 export function logoutUser(navigation) {
     auth.signOut().then(() => {
-        navigation.navigate('Home', {
-            screen: 'Landing',
-            params: { isLogout: true },
-        });
+        // navigation.navigate('Home', { screen: 'Landing' });
+        navigation.dispatch(
+            CommonActions.reset({
+                index: 0,
+                routes: [{
+                    name: 'Home',
+                    state: {
+                        routes: [{
+                            name: 'Landing',
+                        }]
+                    }
+                }],
+            }),
+        );
     });
 }
 

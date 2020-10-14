@@ -1,6 +1,5 @@
 import React from 'react';
 import { AppLoading } from 'expo';
-import * as SplashScreen from 'expo-splash-screen';
 import { CommonActions } from '@react-navigation/native';
 import { connect } from 'react-redux';
 import firebase from 'firebase';
@@ -43,14 +42,12 @@ class AuthScreen extends React.Component {
 
         await this.cacheLocalImages();
 
-        navigation.dispatch(
+        await navigation.dispatch(
             CommonActions.reset({
                 index: 0,
                 routes: [{ name: user ? 'Home' : 'Landing' }],
             }),
         );
-
-        await SplashScreen.hideAsync();
     };
 
     cacheLocalImages = async () => {

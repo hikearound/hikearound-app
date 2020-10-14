@@ -24,6 +24,18 @@ const Stack = createStackNavigator();
 const tabBarScreens = ['Home', 'Hike', 'Search'];
 
 class HomeStack extends React.Component {
+    componentDidMount() {
+        const { navigation, route } = this.props;
+
+        if (route.state) {
+            const { name } = route.state.routes[0];
+
+            if (name === 'Landing') {
+                navigation.setOptions({ tabBarVisible: false });
+            }
+        }
+    }
+
     componentDidUpdate() {
         const { navigation, route } = this.props;
         let tabBarVisible = false;
@@ -45,6 +57,7 @@ class HomeStack extends React.Component {
                 component={AuthScreen}
                 options={{
                     tabBarVisible: false,
+                    headerShown: false,
                 }}
             />
         );
