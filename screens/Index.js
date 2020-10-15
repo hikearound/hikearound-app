@@ -4,7 +4,6 @@ import HomeScreen from './HomeScreen';
 import HikeScreen from './HikeScreen';
 import NotificationScreen from './NotificationScreen';
 import ProfileScreen from './ProfileScreen';
-import AuthScreen from './AuthScreen';
 import SettingsScreen from './SettingsScreen';
 import CreateAccountScreen from './CreateAccountScreen';
 import MapScreen from './MapScreen';
@@ -19,7 +18,6 @@ export {
     HikeScreen,
     NotificationScreen,
     ProfileScreen,
-    AuthScreen,
     SettingsScreen,
     CreateAccountScreen,
     MapScreen,

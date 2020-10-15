@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import * as Sentry from 'sentry-expo';
 import Constants from 'expo-constants';
 import { enableScreens } from 'react-native-screens';
-import AppNavigator from './navigators/AppNavigator';
+import Splash from './components/Splash';
 import store from './store/Store';
 import Fire from './lib/Fire';
 import { ignoreWarnings } from './utils/Warnings';
@@ -19,7 +19,7 @@ class App extends React.Component {
     render() {
         return (
             <Provider store={store}>
-                <AppNavigator />
+                <Splash />
             </Provider>
         );
     }

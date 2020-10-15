@@ -1,13 +1,13 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { withTranslation } from 'react-i18next';
+import { auth } from '../lib/Fire';
 import {
     LandingScreen,
     SignInScreen,
     HomeScreen,
     HikeScreen,
     CreateAccountScreen,
-    AuthScreen,
     LocationPermissionScreen,
     SearchScreen,
 } from '../screens/Index';
@@ -24,7 +24,15 @@ const Stack = createStackNavigator();
 const tabBarScreens = ['Home', 'Hike', 'Search'];
 
 class HomeStack extends React.Component {
-    componentDidMount() {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            initialRoute: null,
+        };
+    }
+
+    async componentDidMount() {
         const { navigation, route } = this.props;
 
         if (route.state) {
@@ -34,6 +42,8 @@ class HomeStack extends React.Component {
                 navigation.setOptions({ tabBarVisible: false });
             }
         }
+
+        await this.setInitialRoute();
     }
 
     componentDidUpdate() {
@@ -41,26 +51,35 @@ class HomeStack extends React.Component {
         let tabBarVisible = false;
 
         if (route.state) {
-            const { name } = route.state.routes[route.state.index];
-            if (tabBarScreens.includes(name)) {
+            if (route.state.routes[0].name === 'Landing') {
+                navigation.setOptions({ tabBarVisible });
+            } else {
+                const { name } = route.state.routes[route.state.index];
                 tabBarVisible = true;
+
+                if (tabBarScreens.includes(name)) {
+                    tabBarVisible = true;
+                }
             }
         }
 
         navigation.setOptions({ tabBarVisible });
     }
 
-    renderAuthScreen = () => {
-        return (
-            <Stack.Screen
-                name='Auth'
-                component={AuthScreen}
-                options={{
-                    tabBarVisible: false,
-                    headerShown: false,
-                }}
-            />
-        );
+    componentWillUnmount() {
+        this.authSubscription();
+    }
+
+    setInitialRoute = async () => {
+        this.authSubscription = await auth.onAuthStateChanged((user) => {
+            let initialRoute = 'Landing';
+
+            if (user) {
+                initialRoute = 'Home';
+            }
+
+            this.setState({ initialRoute });
+        });
     };
 
     renderLandingScreen = () => {
@@ -144,24 +163,27 @@ class HomeStack extends React.Component {
 
     render() {
         const { theme, t } = this.props;
+        const { initialRoute } = this.state;
 
-        return (
-            <Stack.Navigator
-                initialRouteName='Auth'
-                screenOptions={screenOptions(theme.colors.headerStyle)}
-                headerMode={headerMode}
-                mode={mode}
-            >
-                {this.renderAuthScreen()}
-                {this.renderLandingScreen()}
-                {this.renderSignInScreen(t)}
-                {this.renderCreateAccountScreen(t)}
-                {this.renderHomeScreen()}
-                {this.renderHikeScreen()}
-                {this.renderLocationPermissionScreen(t)}
-                {this.renderSearchScreen()}
-            </Stack.Navigator>
-        );
+        if (initialRoute) {
+            return (
+                <Stack.Navigator
+                    initialRouteName={initialRoute}
+                    screenOptions={screenOptions(theme.colors.headerStyle)}
+                    headerMode={headerMode}
+                    mode={mode}
+                >
+                    {this.renderLandingScreen()}
+                    {this.renderSignInScreen(t)}
+                    {this.renderCreateAccountScreen(t)}
+                    {this.renderHomeScreen()}
+                    {this.renderHikeScreen()}
+                    {this.renderLocationPermissionScreen(t)}
+                    {this.renderSearchScreen()}
+                </Stack.Navigator>
+            );
+        }
+        return null;
     }
 }
 

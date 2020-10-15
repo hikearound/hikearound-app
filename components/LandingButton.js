@@ -44,14 +44,15 @@ const Button = styled.View`
             : props.theme.buttonBackgroundSecondary};
     border-radius: ${borderRadius.medium}px;
     margin: ${(props) => props.buttonMargin || `0 ${spacing.medium}px`};
-    border: 1px solid ${colors.grayUltraLight};
+    border: 1px solid;
+    border-color: ${(props) => props.theme.itemBorder};
     box-shadow: 0 2px 8px ${transparentColors.grayLight};
 `;
 
 const ButtonText = styled.Text`
     color: ${(props) => (props.primary ? colors.white : props.theme.text)};
     font-weight: ${fontWeights.bold};
-    font-size: ${fontSizes.extraLarge}px;
+    font-size: ${fontSizes.large}px;
     text-align: center;
     padding: ${spacing.small}px 0;
 `;

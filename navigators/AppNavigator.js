@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import { AppearanceProvider } from 'react-native-appearance';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'react-native';
 import { ThemeProvider } from 'styled-components';
 import TabNavigator from './TabNavigator';
@@ -37,14 +36,6 @@ class AppNavigator extends React.PureComponent {
     constructor(props) {
         super(props);
         StatusBar.setBarStyle('light-content', true);
-    }
-
-    async componentDidMount() {
-        try {
-            await SplashScreen.preventAutoHideAsync();
-        } catch (e) {
-            // Already hidden
-        }
     }
 
     onNavigationStateChange = () => {

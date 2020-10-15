@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { Animated, Easing } from 'react-native';
 import { withTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
-import * as SplashScreen from 'expo-splash-screen';
 import { LandingButton } from '../components/Index';
 import { spacing } from '../constants/Index';
 import { RootView } from '../styles/Screens';
@@ -54,7 +53,6 @@ class LandingScreen extends React.Component {
         ).start();
 
         this.setBackgroundImage();
-        await SplashScreen.hideAsync();
     }
 
     setBackgroundImage = () => {
