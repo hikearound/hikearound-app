@@ -48,10 +48,6 @@ class Splash extends React.Component {
         this.loadAsync();
     }
 
-    componentWillUnmount() {
-        // this.authSubscription();
-    }
-
     loadAsync = async () => {
         await this.loadResourcesAsync();
         this.handleFinishLoading();
@@ -135,11 +131,11 @@ class Splash extends React.Component {
         const { isLoadingComplete } = this.state;
 
         return (
-            <SplashWrapper>
+            <View>
                 <StatusBar barStyle='light-content' />
                 <AppNavigator />
                 {isLoadingComplete && this.maybeRenderLoadingImage()}
-            </SplashWrapper>
+            </View>
         );
     }
 }
@@ -148,7 +144,7 @@ Splash.propTypes = propTypes;
 
 export default connect(mapStateToProps, mapDispatchToProps)(withTheme(Splash));
 
-const SplashWrapper = styled.View`
+const View = styled.View`
     flex: 1;
     background-color: ${colors.purple};
 `;

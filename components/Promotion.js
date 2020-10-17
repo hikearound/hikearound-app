@@ -101,7 +101,7 @@ const ButtonView = styled.View`
 `;
 
 const ButtonText = styled.Text`
-    color: ${(props) => props.theme.buttonInputText};
+    color: ${(props) => props.theme.modalCtaText};
     text-align: center;
     font-size: ${fontSizes.large}px;
     font-weight: ${fontWeights.medium};
