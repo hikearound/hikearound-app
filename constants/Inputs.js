@@ -16,7 +16,7 @@ export const emailInput = {
     textContentType: 'emailAddress',
     enablesReturnKeyAutomatically: true,
     returnKeyType: 'next',
-    autoCompleteType: 'email',
+    autoCompleteType: 'username',
 };
 
 export const passwordInput = {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { CommonActions } from '@react-navigation/native';
-import { Alert } from 'react-native';
+import { Alert, ScrollView, Keyboard } from 'react-native';
 import firebase from 'firebase';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -65,6 +65,7 @@ class CreateAccountScreen extends React.Component {
             routes: [{ name: screen }],
         });
 
+        Keyboard.dismiss();
         this.setState({ loading: true });
 
         await firebase
@@ -107,53 +108,59 @@ class CreateAccountScreen extends React.Component {
 
         return (
             <RootView>
-                {inputs.map(
-                    (
-                        {
-                            name,
-                            placeholder,
-                            keyboardType,
-                            secureTextEntry,
-                            autoCorrect,
-                            autoCapitalize,
-                            textContentType,
-                            enablesReturnKeyAutomatically,
-                            returnKeyType,
-                            autoCompleteType,
-                        },
-                        index,
-                    ) => (
-                        <InputLabelGroup
-                            key={index}
-                            placeholder={placeholder}
-                            keyboardType={keyboardType}
-                            secureTextEntry={secureTextEntry}
-                            autoCorrect={autoCorrect}
-                            autoCapitalize={autoCapitalize}
-                            autoFocus={index === 0}
-                            onChangeText={(text) =>
-                                this.setValue(name, text, index)
-                            }
-                            labelName={placeholder}
-                            textContentType={textContentType}
-                            enablesReturnKeyAutomatically={
-                                enablesReturnKeyAutomatically
-                            }
-                            returnKeyType={returnKeyType}
-                            onSubmitEditing={() =>
-                                this.handleSubmitEditing(index)
-                            }
-                            inputRef={(ref) => this.assignRef(ref, name)}
-                            autoCompleteType={autoCompleteType}
-                        />
-                    ),
-                )}
-                <InputButton
-                    text={t('label.nav.createAccount')}
-                    action={this.handleCreateAccount}
-                />
-                <LegalText />
-                <LoadingOverlay loading={loading} />
+                <ScrollView
+                    keyboardShouldPersistTaps='handled'
+                    scrollEnabled={false}
+                    contentContainerStyle={{ flexGrow: 1 }}
+                >
+                    {inputs.map(
+                        (
+                            {
+                                name,
+                                placeholder,
+                                keyboardType,
+                                secureTextEntry,
+                                autoCorrect,
+                                autoCapitalize,
+                                textContentType,
+                                enablesReturnKeyAutomatically,
+                                returnKeyType,
+                                autoCompleteType,
+                            },
+                            index,
+                        ) => (
+                            <InputLabelGroup
+                                key={index}
+                                placeholder={placeholder}
+                                keyboardType={keyboardType}
+                                secureTextEntry={secureTextEntry}
+                                autoCorrect={autoCorrect}
+                                autoCapitalize={autoCapitalize}
+                                autoFocus={index === 0}
+                                onChangeText={(text) =>
+                                    this.setValue(name, text, index)
+                                }
+                                labelName={placeholder}
+                                textContentType={textContentType}
+                                enablesReturnKeyAutomatically={
+                                    enablesReturnKeyAutomatically
+                                }
+                                returnKeyType={returnKeyType}
+                                onSubmitEditing={() =>
+                                    this.handleSubmitEditing(index)
+                                }
+                                inputRef={(ref) => this.assignRef(ref, name)}
+                                autoCompleteType={autoCompleteType}
+                            />
+                        ),
+                    )}
+                    <InputButton
+                        text={t('label.nav.createAccount')}
+                        action={this.handleCreateAccount}
+                    />
+                    <LegalText />
+                    <LoadingOverlay loading={loading} />
+                </ScrollView>
             </RootView>
         );
     }

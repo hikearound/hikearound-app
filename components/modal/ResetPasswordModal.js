@@ -90,6 +90,7 @@ class ResetPasswordModal extends ModalBase {
                         autoCapitalize,
                         textContentType,
                         enablesReturnKeyAutomatically,
+                        autoCompleteType,
                         returnKeyType,
                     },
                     index,
@@ -111,6 +112,7 @@ class ResetPasswordModal extends ModalBase {
                         returnKeyType={returnKeyType}
                         onSubmitEditing={() => this.handleSubmitEditing(index)}
                         inputRef={(ref) => this.assignRef(ref, name)}
+                        autoCompleteType={autoCompleteType}
                     />
                 ),
             )}
