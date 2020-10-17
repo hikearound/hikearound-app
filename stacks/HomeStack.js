@@ -1,7 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { createStackNavigator } from '@react-navigation/stack';
 import { withTranslation } from 'react-i18next';
-import { auth } from '../lib/Fire';
 import {
     LandingScreen,
     SignInScreen,
@@ -21,29 +22,32 @@ import { Logo } from '../components/Index';
 import { withTheme } from '../utils/Themes';
 
 const Stack = createStackNavigator();
+
 const tabBarScreens = ['Home', 'Hike', 'Search'];
+const nonTabBarScreens = ['Landing'];
+
+const propTypes = {
+    user: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
+};
+
+const defaultProps = {
+    user: null,
+};
+
+function mapStateToProps(state) {
+    return {
+        user: state.authReducer.user,
+    };
+}
+
+function mapDispatchToProps() {
+    return {};
+}
 
 class HomeStack extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            initialRoute: null,
-        };
-    }
-
-    async componentDidMount() {
-        const { navigation, route } = this.props;
-
-        if (route.state) {
-            const { name } = route.state.routes[0];
-
-            if (name === 'Landing') {
-                navigation.setOptions({ tabBarVisible: false });
-            }
-        }
-
-        await this.setInitialRoute();
+    componentDidMount() {
+        const { navigation } = this.props;
+        navigation.setOptions({ tabBarVisible: false });
     }
 
     componentDidUpdate() {
@@ -51,12 +55,10 @@ class HomeStack extends React.Component {
         let tabBarVisible = false;
 
         if (route.state) {
-            if (route.state.routes[0].name === 'Landing') {
+            if (nonTabBarScreens.includes(route.state.routes[0].name)) {
                 navigation.setOptions({ tabBarVisible });
             } else {
                 const { name } = route.state.routes[route.state.index];
-                tabBarVisible = true;
-
                 if (tabBarScreens.includes(name)) {
                     tabBarVisible = true;
                 }
@@ -66,20 +68,15 @@ class HomeStack extends React.Component {
         navigation.setOptions({ tabBarVisible });
     }
 
-    componentWillUnmount() {
-        this.authSubscription();
-    }
+    getInitialRoute = () => {
+        const { user } = this.props;
+        let initialRoute = 'Landing';
 
-    setInitialRoute = async () => {
-        this.authSubscription = await auth.onAuthStateChanged((user) => {
-            let initialRoute = 'Landing';
+        if (user && user.uid) {
+            initialRoute = 'Home';
+        }
 
-            if (user) {
-                initialRoute = 'Home';
-            }
-
-            this.setState({ initialRoute });
-        });
+        return initialRoute;
     };
 
     renderLandingScreen = () => {
@@ -162,10 +159,10 @@ class HomeStack extends React.Component {
     };
 
     render() {
-        const { theme, t } = this.props;
-        const { initialRoute } = this.state;
+        const { theme, user, t } = this.props;
+        const initialRoute = this.getInitialRoute();
 
-        if (initialRoute) {
+        if (user && initialRoute) {
             return (
                 <Stack.Navigator
                     initialRouteName={initialRoute}
@@ -183,8 +180,15 @@ class HomeStack extends React.Component {
                 </Stack.Navigator>
             );
         }
+
         return null;
     }
 }
 
-export default withTranslation()(withTheme(HomeStack));
+HomeStack.propTypes = propTypes;
+HomeStack.defaultProps = defaultProps;
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(withTranslation()(withTheme(HomeStack)));

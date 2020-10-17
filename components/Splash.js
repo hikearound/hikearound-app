@@ -1,29 +1,43 @@
 import React from 'react';
-import { Animated, StatusBar, StyleSheet, View } from 'react-native';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Animated, StatusBar } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
-import { colors } from '../constants/Index';
+import styled from 'styled-components';
+import { colors, timings } from '../constants/Index';
 import AppNavigator from '../navigators/AppNavigator';
 import { cacheImages } from '../utils/Image';
 import { initializeLocalization } from '../utils/Localization';
 import { initializeGeolocation } from '../utils/Location';
 import { localImages } from '../constants/Images';
+import { withTheme } from '../utils/Themes';
+import { auth } from '../lib/Fire';
+import { initializeAuthSubscription } from '../actions/Auth';
 
 initializeLocalization();
 initializeGeolocation();
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: colors.purple,
-    },
-});
+function mapStateToProps() {
+    return {};
+}
 
-class Splash extends React.PureComponent {
+function mapDispatchToProps(dispatch) {
+    return {
+        dispatchAuthSubscription: (user) =>
+            dispatch(initializeAuthSubscription(user)),
+    };
+}
+
+const propTypes = {
+    dispatchAuthSubscription: PropTypes.func.isRequired,
+};
+
+class Splash extends React.Component {
     constructor(props, context) {
         super(props, context);
 
         this.state = {
-            isLoadingComplete: true,
+            isLoadingComplete: false,
             splashAnimation: new Animated.Value(0),
             splashAnimationComplete: false,
         };
@@ -32,6 +46,10 @@ class Splash extends React.PureComponent {
     async componentDidMount() {
         await SplashScreen.preventAutoHideAsync();
         this.loadAsync();
+    }
+
+    componentWillUnmount() {
+        // this.authSubscription();
     }
 
     loadAsync = async () => {
@@ -96,28 +114,41 @@ class Splash extends React.PureComponent {
     };
 
     loadResourcesAsync = async () => {
-        cacheImages(localImages);
+        await this.setAuthSubscription();
+        await cacheImages(localImages);
+    };
+
+    setAuthSubscription = async () => {
+        const { dispatchAuthSubscription } = this.props;
+        await auth.onAuthStateChanged((user) => {
+            dispatchAuthSubscription(user);
+        });
     };
 
     handleFinishLoading = () => {
-        this.setState({ isLoadingComplete: true });
+        this.timeout = setTimeout(async () => {
+            this.setState({ isLoadingComplete: true });
+        }, timings.regular);
     };
 
     render() {
         const { isLoadingComplete } = this.state;
 
-        if (!isLoadingComplete) {
-            return <View />;
-        }
-
         return (
-            <View style={styles.container}>
+            <SplashWrapper>
                 <StatusBar barStyle='light-content' />
                 <AppNavigator />
-                {this.maybeRenderLoadingImage()}
-            </View>
+                {isLoadingComplete && this.maybeRenderLoadingImage()}
+            </SplashWrapper>
         );
     }
 }
 
-export default Splash;
+Splash.propTypes = propTypes;
+
+export default connect(mapStateToProps, mapDispatchToProps)(withTheme(Splash));
+
+const SplashWrapper = styled.View`
+    flex: 1;
+    background-color: ${colors.purple};
+`;

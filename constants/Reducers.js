@@ -40,3 +40,7 @@ user.notifs.email = notifs;
 user.notifs.push = notifs;
 
 export const userState = user;
+
+export const authState = {
+    user: null,
+};

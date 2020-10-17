@@ -119,6 +119,7 @@ class CreateAccountScreen extends React.Component {
                             textContentType,
                             enablesReturnKeyAutomatically,
                             returnKeyType,
+                            autoCompleteType,
                         },
                         index,
                     ) => (
@@ -143,6 +144,7 @@ class CreateAccountScreen extends React.Component {
                                 this.handleSubmitEditing(index)
                             }
                             inputRef={(ref) => this.assignRef(ref, name)}
+                            autoCompleteType={autoCompleteType}
                         />
                     ),
                 )}

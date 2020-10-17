@@ -9,7 +9,7 @@ export const defaultState = {
     currentPosition: {},
     lastKnownPosition: {},
     city: '',
-    distance: 25,
+    distance: 50,
     promotion: { shouldShow: false },
 };
 

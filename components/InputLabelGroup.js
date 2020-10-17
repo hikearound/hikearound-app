@@ -14,6 +14,7 @@ const propTypes = {
     secureTextEntry: PropTypes.bool,
     autoCorrect: PropTypes.bool,
     autoCapitalize: PropTypes.string,
+    autoCompleteType: PropTypes.string,
     autoFocus: PropTypes.bool,
     blurOnSubmit: PropTypes.bool,
     enablesReturnKeyAutomatically: PropTypes.bool,
@@ -30,6 +31,7 @@ const defaultProps = {
     secureTextEntry: false,
     autoCorrect: false,
     autoCapitalize: 'none',
+    autoCompleteType: 'off',
     autoFocus: false,
     blurOnSubmit: true,
     enablesReturnKeyAutomatically: false,
@@ -64,6 +66,7 @@ class InputLabelGroup extends React.Component {
             secureTextEntry,
             autoCorrect,
             autoCapitalize,
+            autoCompleteType,
             autoFocus,
             blurOnSubmit,
             enablesReturnKeyAutomatically,
@@ -83,6 +86,7 @@ class InputLabelGroup extends React.Component {
                     secureTextEntry={secureTextEntry}
                     autoCorrect={autoCorrect}
                     autoCapitalize={autoCapitalize}
+                    autoCompleteType={autoCompleteType}
                     autoFocus={autoFocus}
                     textContentType={textContentType}
                     maxLength={inputMaxLegnth}

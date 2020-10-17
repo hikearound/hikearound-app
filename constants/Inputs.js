@@ -5,6 +5,7 @@ export const nameInput = {
     autoCapitalize: 'words',
     enablesReturnKeyAutomatically: true,
     returnKeyType: 'next',
+    autoCompleteType: 'name',
 };
 
 export const emailInput = {
@@ -15,6 +16,7 @@ export const emailInput = {
     textContentType: 'emailAddress',
     enablesReturnKeyAutomatically: true,
     returnKeyType: 'next',
+    autoCompleteType: 'email',
 };
 
 export const passwordInput = {
@@ -23,6 +25,7 @@ export const passwordInput = {
     textContentType: 'password',
     enablesReturnKeyAutomatically: true,
     returnKeyType: 'done',
+    autoCompleteType: 'password',
 };
 
 export const updateLocationInput = {
