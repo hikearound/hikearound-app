@@ -10,9 +10,9 @@ import {
     transparentColors,
     opacities,
     spacing,
-    fontSizes,
 } from '../../../constants/Index';
 import { closeModal } from '../../../actions/Modal';
+import HeaderText from '../../../styles/Header';
 
 const propTypes = {
     dispatchModalFlag: PropTypes.func.isRequired,
@@ -86,9 +86,9 @@ class ModalDismiss extends React.PureComponent {
                         left: parseInt(spacing.small, 10),
                     }}
                 >
-                    <DismissText>
+                    <HeaderText>
                         {t(`label.modal.${dismissLanguage}`)}
-                    </DismissText>
+                    </HeaderText>
                 </TouchableOpacity>
             );
         }
@@ -127,9 +127,4 @@ const DismissIconWrapper = styled.View`
     box-shadow: 0 4px 4px ${transparentColors.gray};
     background-color: ${(props) => props.theme.sheetBackground};
     padding-left: 11px;
-`;
-
-const DismissText = styled.Text`
-    color: ${colors.white};
-    font-size: ${fontSizes.large}px;
 `;

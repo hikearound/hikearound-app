@@ -1,15 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import { TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-import {
-    colors,
-    opacities,
-    spacing,
-    fontSizes,
-} from '../../../constants/Index';
+import { opacities, spacing } from '../../../constants/Index';
 import { closeModal } from '../../../actions/Modal';
+import HeaderText from '../../../styles/Header';
 
 const propTypes = {
     dispatchModalFlag: PropTypes.func.isRequired,
@@ -54,7 +49,7 @@ class ModalDismiss extends React.PureComponent {
                     bottom: parseInt(spacing.small, 10),
                 }}
             >
-                <DismissText>{continueText}</DismissText>
+                <HeaderText>{continueText}</HeaderText>
             </TouchableOpacity>
         );
     }
@@ -64,8 +59,3 @@ ModalDismiss.propTypes = propTypes;
 ModalDismiss.defaultProps = defaultProps;
 
 export default connect(mapStateToProps, mapDispatchToProps)(ModalDismiss);
-
-const DismissText = styled.Text`
-    color: ${colors.white};
-    font-size: ${fontSizes.large}px;
-`;

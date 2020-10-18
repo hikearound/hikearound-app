@@ -24,6 +24,9 @@ export const colors = {
     // Blues
     blue: '#2980B9',
     blueDark: '#34495E',
+
+    // Reds
+    red: '#FF3B30',
 };
 
 export const transparentColors = {

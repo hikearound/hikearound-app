@@ -9,9 +9,10 @@ import { withTheme, SetBarStyle } from '../../utils/Themes';
 import LoadingOverlay from '../../components/LoadingOverlay';
 import InputLabelGroup from '../../components/InputLabelGroup';
 import { getInputs } from '../../utils/Inputs';
-import { spacing, opacities, colors, fontSizes } from '../../constants/Index';
+import { spacing, opacities } from '../../constants/Index';
 import { auth } from '../../lib/Fire';
 import { mapCodeToTranslation } from '../../utils/Localization';
+import HeaderText from '../../styles/Header';
 
 function mapStateToProps() {
     return {};
@@ -198,9 +199,7 @@ export default connect(mapStateToProps)(
     withTranslation()(withTheme(PasswordScreen)),
 );
 
-const Text = styled.Text`
+const Text = styled(HeaderText)`
     margin-right: ${spacing.micro}px;
-    color: ${colors.white};
-    font-size: ${fontSizes.large}px;
     opacity: ${(props) => (props.disabled ? '0.7' : '1')};
 `;

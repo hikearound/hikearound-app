@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { TouchableOpacity } from 'react-native';
 import styled from 'styled-components';
 import { showAlert } from '../../utils/alert/Location';
-import { spacing, opacities, colors, fontSizes } from '../../constants/Index';
+import { spacing, opacities } from '../../constants/Index';
+import HeaderText from '../../styles/Header';
 
 const propTypes = {
     permissionAction: PropTypes.func.isRequired,
@@ -39,8 +40,6 @@ SkipLocation.propTypes = propTypes;
 
 export default SkipLocation;
 
-const Text = styled.Text`
+const Text = styled(HeaderText)`
     margin-right: ${spacing.micro}px;
-    color: ${colors.white};
-    font-size: ${fontSizes.extraLarge}px;
 `;

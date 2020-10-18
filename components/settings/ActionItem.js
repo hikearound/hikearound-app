@@ -14,7 +14,6 @@ class ActionItem extends React.Component {
     itemPress = async () => {
         const { item, navigation } = this.props;
 
-        // console.log(item)
         if (item.type === settingsItems.logout) {
             logoutUser(navigation);
         }
