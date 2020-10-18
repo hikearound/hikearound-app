@@ -25,8 +25,7 @@ export default ({ config }) => {
                 messagingSenderId: '175063732296',
             },
             sentry: {
-                dsn:
-                    'https://5c8352d2c1f6437c9f678277bfc5528d@sentry.io/1811790',
+                dsn: process.env.SENTRY_DSN,
             },
             googlePlaces: {
                 apiKey: process.env.GOOGLE_PLACES_KEY,
