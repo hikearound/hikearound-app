@@ -20,6 +20,7 @@ import {
 } from '../constants/Navigation';
 import { Logo } from '../components/Index';
 import { withTheme } from '../utils/Themes';
+import LoadingOverlay from '../components/LoadingOverlay';
 
 const Stack = createStackNavigator();
 
@@ -181,7 +182,7 @@ class HomeStack extends React.Component {
             );
         }
 
-        return null;
+        return <LoadingOverlay loading />;
     }
 }
 

@@ -117,8 +117,8 @@ class Splash extends React.Component {
     getAuthSubscription = async () => {
         const { dispatchAuthSubscription } = this.props;
 
-        await auth.onAuthStateChanged((user) => {
-            dispatchAuthSubscription(user);
+        await auth.onAuthStateChanged(async (user) => {
+            await dispatchAuthSubscription(user);
         });
     };
 
