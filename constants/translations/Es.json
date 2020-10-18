@@ -14,6 +14,8 @@
             "name": "Nombre",
             "email": "Correo electrónico",
             "password": "Contraseña",
+            "currentPassword": "Contraseña Actual",
+            "newPassword": "Nueva Contraseña",
             "location": "Ubicación"
         },
         "heading": {
@@ -29,7 +31,8 @@
             "signIn": "Registrarse",
             "locationPermission": "Comparte ubicacion",
             "map": "Mapa",
-            "search": "Buscar"
+            "search": "Buscar",
+            "password": "Actualiza Contraseña"
         },
         "modal": {
             "save": "Salvar",
@@ -196,6 +199,18 @@
         "attribution": {
             "title": "Atribución",
             "body": "Foto por {{name}}."
+        },
+        "reset": {
+            "success": {
+                "title": "Correo electrónico de recuperación enviado",
+                "body": "Si existe una cuenta de {{appName}} para {{email}}, se enviará un correo electrónico con instrucciones adicionales."
+            }
+        },
+        "password": {
+            "success": {
+                "title": "Éxito",
+                "body": "Su contraseña se actualizó correctamente."
+            }
         }
     },
     "error": {
@@ -204,7 +219,8 @@
             "account": {
                 "exists": "Parece que ya se ha creado una cuenta con esta dirección de correo electrónico.",
                 "invalid": "La dirección de correo electrónico que proporcionó no está formateada correctamente.",
-                "notFound": "No hay una cuenta asociada con esta dirección de correo electrónico."
+                "notFound": "No hay una cuenta asociada con esta dirección de correo electrónico.",
+                "tooMany": "Ha ingresado una contraseña incorrecta demasiadas veces."
             },
             "password": {
                 "weak": "La contraseña que proporcionó no es lo suficientemente segura.",

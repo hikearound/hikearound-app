@@ -6,6 +6,7 @@ import {
     SettingsScreen,
     HikeScreen,
     NotificationSettingsScreen,
+    PasswordScreen,
 } from '../screens/Index';
 import { mode, headerMode, screenOptions } from '../constants/Navigation';
 import { withTheme } from '../utils/Themes';
@@ -53,6 +54,18 @@ class ProfileStack extends React.PureComponent {
         );
     };
 
+    renderPasswordScreen = (t) => {
+        return (
+            <Stack.Screen
+                name='Password'
+                component={PasswordScreen}
+                options={{
+                    headerTitle: t('label.nav.password'),
+                }}
+            />
+        );
+    };
+
     render() {
         const { theme, t } = this.props;
 
@@ -67,6 +80,7 @@ class ProfileStack extends React.PureComponent {
                 {this.renderHikeScreen()}
                 {this.renderSettingsScreen(t)}
                 {this.renderNotificationSettingsScreen(t)}
+                {this.renderPasswordScreen(t)}
             </Stack.Navigator>
         );
     }

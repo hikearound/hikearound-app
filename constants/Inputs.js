@@ -39,3 +39,21 @@ export const updateLocationInput = {
 
 nameInput.value = 'updatedName';
 export const updateNameInput = nameInput;
+
+export const currentPasswordInput = {
+    name: 'currentPassword',
+    secureTextEntry: true,
+    textContentType: 'password',
+    enablesReturnKeyAutomatically: true,
+    returnKeyType: 'next',
+    autoCompleteType: 'password',
+};
+
+export const newPasswordInput = {
+    name: 'newPassword',
+    secureTextEntry: true,
+    textContentType: 'password',
+    enablesReturnKeyAutomatically: true,
+    returnKeyType: 'done',
+    autoCompleteType: 'password',
+};

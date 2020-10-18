@@ -4,6 +4,8 @@ import {
     nameInput,
     emailInput,
     passwordInput,
+    currentPasswordInput,
+    newPasswordInput,
     updateLocationInput,
     updateNameInput,
 } from '../constants/Inputs';
@@ -42,6 +44,13 @@ function getForgotPasswordInputs(labels) {
     return [emailInput];
 }
 
+function getChangePasswordInputs(labels) {
+    currentPasswordInput.placeholder = labels.currentPassword;
+    newPasswordInput.placeholder = labels.newPassword;
+
+    return [currentPasswordInput, newPasswordInput];
+}
+
 export function getInputs(t, inputType) {
     const labels = getInputLabels(t);
 
@@ -56,6 +65,9 @@ export function getInputs(t, inputType) {
     }
     if (inputType === 'forgotPassword') {
         return getForgotPasswordInputs(labels);
+    }
+    if (inputType === 'changePassword') {
+        return getChangePasswordInputs(labels);
     }
 
     return null;

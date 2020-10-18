@@ -30,6 +30,8 @@ export function getInputLabels(t) {
         email: t('label.input.email'),
         password: t('label.input.password'),
         location: t('label.input.location'),
+        currentPassword: t('label.input.currentPassword'),
+        newPassword: t('label.input.newPassword'),
     };
 
     return inputLabels;
@@ -47,6 +49,9 @@ export function mapCodeToTranslation(t, errorCode) {
     }
     if (errorCode === 'auth/wrong-password') {
         return t('error.auth.password.wrong');
+    }
+    if (errorCode === 'auth/too-many-requests') {
+        return t('error.auth.account.tooMany');
     }
     if (errorCode === 'auth/user-not-found') {
         return t('error.auth.account.notFound');

@@ -21,6 +21,10 @@ class PushItem extends React.Component {
         if (item.type === settingsItems.notificationScreen) {
             navigation.push('NotificationSettings');
         }
+
+        if (item.type === settingsItems.passwordScreen) {
+            navigation.push('Password');
+        }
     };
 
     render() {

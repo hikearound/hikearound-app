@@ -6,8 +6,9 @@ export const settingsItems = {
     notificationScreen: 4,
     termsOfService: 5,
     privacyPolicy: 6,
-    logout: 7,
-    version: 8,
+    passwordScreen: 7,
+    logout: 8,
+    version: 9,
 };
 
 export const settingsControls = {

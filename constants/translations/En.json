@@ -15,6 +15,8 @@
             "name": "Name",
             "email": "Email",
             "password": "Password",
+            "currentPassword": "Current Password",
+            "newPassword": "New Password",
             "location": "Location"
         },
         "heading": {
@@ -30,7 +32,8 @@
             "signIn": "Sign In",
             "locationPermission": "Share Location",
             "map": "Map",
-            "search": "Search"
+            "search": "Search",
+            "password": "Update Password"
         },
         "modal": {
             "save": "Save",
@@ -209,6 +212,12 @@
                 "title": "Recovery Email Sent",
                 "body": "If a {{appName}} account exists for {{email}}, a email will be sent with additional instructions."
             }
+        },
+        "password": {
+            "success": {
+                "title": "Success",
+                "body": "Your password was successfully updated."
+            }
         }
     },
     "error": {
@@ -217,7 +226,8 @@
             "account": {
                 "exists": "It looks like an account has already been created with this email address.",
                 "invalid": "The email address you provided is not correctly formatted.",
-                "notFound": "There is no account associated with this email address."
+                "notFound": "There is no account associated with this email address.",
+                "tooMany": "You have entered an incorrect password too many times."
             },
             "password": {
                 "weak": "The password you provided is not sufficiently strong.",

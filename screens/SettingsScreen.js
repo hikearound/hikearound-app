@@ -37,28 +37,26 @@ class SettingsScreen extends React.Component {
         this.state = { settingsData };
     }
 
-    renderItem = ({ item, index }) => {
+    renderItem = ({ item }) => {
         const { navigation } = this.props;
 
         if (item.control === settingsControls.switch) {
-            return <SwitchItem item={item} index={index} />;
+            return <SwitchItem item={item} />;
         }
         if (item.control === settingsControls.link) {
-            return <LinkItem item={item} index={index} />;
+            return <LinkItem item={item} />;
         }
         if (item.control === settingsControls.static) {
-            return <StaticItem item={item} index={index} />;
+            return <StaticItem item={item} />;
         }
         if (item.control === settingsControls.push) {
-            return (
-                <PushItem item={item} index={index} navigation={navigation} />
-            );
+            return <PushItem item={item} navigation={navigation} />;
         }
         if (item.control === settingsControls.action) {
-            return <ActionItem item={item} index={index} />;
+            return <ActionItem item={item} />;
         }
         if (item.control === settingsControls.groupSelection) {
-            return <GroupItem item={item} index={index} />;
+            return <GroupItem item={item} />;
         }
 
         return null;

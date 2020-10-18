@@ -22,6 +22,7 @@ const propTypes = {
     onChange: PropTypes.func,
     onSubmitEditing: PropTypes.func,
     inputRef: PropTypes.func,
+    labelPadding: PropTypes.bool,
 };
 
 const defaultProps = {
@@ -39,6 +40,7 @@ const defaultProps = {
     onChange: () => {},
     onSubmitEditing: () => {},
     inputRef: () => {},
+    labelPadding: false,
 };
 
 class InputLabelGroup extends React.Component {
@@ -74,12 +76,15 @@ class InputLabelGroup extends React.Component {
             onChange,
             onSubmitEditing,
             inputRef,
+            labelPadding,
         } = this.props;
         const { keyboardTheme } = this.state;
 
         return (
             <LabelInputGroup>
-                <InputLabel>{placeholder}</InputLabel>
+                <InputLabel labelPadding={labelPadding}>
+                    {placeholder}
+                </InputLabel>
                 <Input
                     placeholder={placeholder}
                     keyboardType={keyboardType}
@@ -127,7 +132,7 @@ const InputLabel = styled.Text`
     font-weight: ${fontWeights.bold};
     display: flex;
     padding: ${spacing.small}px 0 ${spacing.small}px ${spacing.small}px;
-    width: 105px;
+    width: ${(props) => (props.labelPadding ? '145px' : '105px')};
 `;
 
 const Input = styled.TextInput.attrs((props) => ({

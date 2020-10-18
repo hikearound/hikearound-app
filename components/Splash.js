@@ -110,12 +110,13 @@ class Splash extends React.Component {
     };
 
     loadResourcesAsync = async () => {
-        await this.setAuthSubscription();
+        await this.getAuthSubscription();
         await cacheImages(localImages);
     };
 
-    setAuthSubscription = async () => {
+    getAuthSubscription = async () => {
         const { dispatchAuthSubscription } = this.props;
+
         await auth.onAuthStateChanged((user) => {
             dispatchAuthSubscription(user);
         });

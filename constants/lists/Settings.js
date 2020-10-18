@@ -68,6 +68,11 @@ export function getAccountSection(t) {
         title: t('screen.settings.header.account'),
         data: [
             {
+                name: t('label.input.password'),
+                type: settingsItems.passwordScreen,
+                control: settingsControls.push,
+            },
+            {
                 name: t('label.common.logout'),
                 type: settingsItems.logout,
                 control: settingsControls.action,
