@@ -1,7 +1,6 @@
 import React from 'react';
 import firebase from 'firebase';
 import { ScrollView, Keyboard, TouchableOpacity, Alert } from 'react-native';
-import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { RootView } from '../../styles/Screens';
@@ -14,14 +13,10 @@ import { auth } from '../../lib/Fire';
 import { mapCodeToTranslation } from '../../utils/Localization';
 import HeaderText from '../../styles/Header';
 
-function mapStateToProps() {
-    return {};
-}
-
 class PasswordScreen extends React.Component {
     constructor(props) {
         super(props);
-        const { navigation, t } = this.props;
+        const { t } = this.props;
         const inputs = getInputs(t, 'changePassword');
 
         this.state = {
@@ -32,25 +27,28 @@ class PasswordScreen extends React.Component {
             saveButtonDisabled: true,
         };
 
-        navigation.setOptions({
-            headerRight: () => this.renderSubmitButton(),
-        });
+        this.setNavigationOptions();
     }
 
     async setValue(name, text) {
         await this.setState({ [name]: text });
-        this.maybeEnableSaveButton();
+        this.maybeToggleSaveButton();
     }
 
-    maybeEnableSaveButton = () => {
-        const { navigation } = this.props;
+    maybeToggleSaveButton = () => {
         const { currentPassword, newPassword } = this.state;
 
+        let saveButtonDisabled = true;
         if (currentPassword && newPassword) {
-            this.setState({ saveButtonDisabled: false });
-        } else {
-            this.setState({ saveButtonDisabled: true });
+            saveButtonDisabled = false;
         }
+
+        this.setState({ saveButtonDisabled });
+        this.setNavigationOptions();
+    };
+
+    setNavigationOptions = () => {
+        const { navigation } = this.props;
 
         navigation.setOptions({
             headerRight: () => this.renderSubmitButton(),
@@ -70,52 +68,56 @@ class PasswordScreen extends React.Component {
     };
 
     handleUpdatePassword = async () => {
-        const { t, navigation } = this.props;
         const { currentPassword, newPassword } = this.state;
         const user = auth.currentUser;
 
         Keyboard.dismiss();
+        this.setState({ loading: true });
 
-        if (currentPassword && newPassword) {
-            this.setState({ loading: true });
+        const credential = firebase.auth.EmailAuthProvider.credential(
+            user.email,
+            currentPassword,
+        );
 
-            const credential = firebase.auth.EmailAuthProvider.credential(
-                user.email,
-                currentPassword,
-            );
+        user.reauthenticateWithCredential(credential)
+            .then(() => {
+                user.updatePassword(newPassword)
+                    .then(() => {
+                        this.renderSuccessAlert();
+                    })
+                    .catch((error) => {
+                        this.renderErrorAlert(error);
+                    });
+            })
+            .catch((error) => {
+                this.renderErrorAlert(error);
+            });
+    };
 
-            user.reauthenticateWithCredential(credential)
-                .then(() => {
-                    user.updatePassword(newPassword)
-                        .then(() => {
-                            Alert.alert(
-                                t('alert.password.success.title'),
-                                t('alert.password.success.body'),
-                                [
-                                    {
-                                        text: t('label.common.ok'),
-                                        onPress: () => navigation.goBack(),
-                                    },
-                                ],
-                            );
-                            this.setState({ loading: false });
-                        })
-                        .catch((error) => {
-                            Alert.alert(
-                                t('error.label'),
-                                mapCodeToTranslation(t, error.code),
-                            );
-                            this.setState({ loading: false });
-                        });
-                })
-                .catch((error) => {
-                    Alert.alert(
-                        t('error.label'),
-                        mapCodeToTranslation(t, error.code),
-                    );
-                    this.setState({ loading: false });
-                });
-        }
+    renderSuccessAlert = () => {
+        const { t, navigation } = this.props;
+
+        const title = t('alert.password.success.title');
+        const message = t('alert.password.success.body');
+        const options = [
+            {
+                text: t('label.common.ok'),
+                onPress: () => navigation.goBack(),
+            },
+        ];
+
+        Alert.alert(title, message, options);
+        this.setState({ loading: false });
+    };
+
+    renderErrorAlert = (error) => {
+        const { t } = this.props;
+
+        const title = t('error.label');
+        const message = mapCodeToTranslation(t, error.code);
+
+        Alert.alert(title, message);
+        this.setState({ loading: false });
     };
 
     renderSubmitButton() {
@@ -195,11 +197,8 @@ class PasswordScreen extends React.Component {
     }
 }
 
-export default connect(mapStateToProps)(
-    withTranslation()(withTheme(PasswordScreen)),
-);
+export default withTranslation()(withTheme(PasswordScreen));
 
 const Text = styled(HeaderText)`
     margin-right: ${spacing.micro}px;
-    opacity: ${(props) => (props.disabled ? '0.7' : '1')};
 `;
