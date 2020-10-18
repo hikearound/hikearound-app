@@ -50,7 +50,26 @@ class Splash extends React.Component {
 
     loadAsync = async () => {
         await this.loadResourcesAsync();
-        this.handleFinishLoading();
+    };
+
+    loadResourcesAsync = async () => {
+        await this.getAuthSubscription();
+        await cacheImages(localImages);
+    };
+
+    getAuthSubscription = async () => {
+        const { dispatchAuthSubscription } = this.props;
+
+        await auth.onAuthStateChanged(async (user) => {
+            await dispatchAuthSubscription(user);
+            this.handleFinishLoading();
+        });
+    };
+
+    handleFinishLoading = () => {
+        this.timeout = setTimeout(async () => {
+            this.setState({ isLoadingComplete: true });
+        }, timings.regular);
     };
 
     maybeRenderLoadingImage = () => {
@@ -99,7 +118,6 @@ class Splash extends React.Component {
         const { splashAnimation } = this.state;
 
         SplashScreen.hideAsync();
-
         Animated.timing(splashAnimation, {
             toValue: 1,
             duration: 500,
@@ -107,25 +125,6 @@ class Splash extends React.Component {
         }).start(() => {
             this.setState({ splashAnimationComplete: true });
         });
-    };
-
-    loadResourcesAsync = async () => {
-        await this.getAuthSubscription();
-        await cacheImages(localImages);
-    };
-
-    getAuthSubscription = async () => {
-        const { dispatchAuthSubscription } = this.props;
-
-        await auth.onAuthStateChanged(async (user) => {
-            await dispatchAuthSubscription(user);
-        });
-    };
-
-    handleFinishLoading = () => {
-        this.timeout = setTimeout(async () => {
-            this.setState({ isLoadingComplete: true });
-        }, timings.regular);
     };
 
     render() {
