@@ -72,7 +72,7 @@ class Splash extends React.Component {
         }, timings.regular);
     };
 
-    maybeRenderLoadingImage = () => {
+    maybeRenderTransition = () => {
         const { splashAnimationComplete, splashAnimation } = this.state;
 
         if (splashAnimationComplete) {
@@ -134,7 +134,7 @@ class Splash extends React.Component {
             <View>
                 <StatusBar barStyle='light-content' />
                 <AppNavigator />
-                {isLoadingComplete && this.maybeRenderLoadingImage()}
+                {isLoadingComplete && this.maybeRenderTransition()}
             </View>
         );
     }
