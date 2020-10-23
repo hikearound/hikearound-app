@@ -7,5 +7,7 @@ export const config = {
 export const queryParams = {
     sortDirection: 'desc',
     querySize: 10,
+    queryType: 'map',
+    lastKey: null,
     distance: 50,
 };

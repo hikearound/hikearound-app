@@ -13,7 +13,7 @@ export async function getMapData(dispatchMapData) {
 }
 
 export async function getMapMarkers(position, distance) {
-    const { querySize, sortDirection } = queryParams;
+    const { querySize, queryType, lastKey, sortDirection } = queryParams;
 
     if (Object.keys(position).length === 0) {
         return [];
@@ -21,7 +21,8 @@ export async function getMapMarkers(position, distance) {
 
     const { data } = await queryHikes(
         querySize,
-        null,
+        queryType,
+        lastKey,
         position,
         sortDirection,
         distance,

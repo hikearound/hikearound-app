@@ -83,7 +83,7 @@ export function getModifier(type, distance, latitude) {
 
 export function getRange(latitude, longitude, distance) {
     const latModifier = getModifier('lat', distance, latitude);
-    const lonModifier = getModifier('lon', distance, latitude);
+    const lonModifier = getModifier('lon', distance, null);
 
     const lowerLat = latitude - latModifier;
     const upperLat = latitude + latModifier;
@@ -95,4 +95,24 @@ export function getRange(latitude, longitude, distance) {
         lower: geohash.encode(lowerLat, lowerLon),
         upper: geohash.encode(upperLat, upperLon),
     };
+}
+
+export function maybeShowHikeInFeed(
+    distance,
+    userLat,
+    userLng,
+    hikeLat,
+    hikeLng,
+) {
+    const latModifier = getModifier('lat', distance, userLat);
+    const lngModifier = getModifier('lon', distance, null);
+
+    const latDiff = Math.abs(userLat - hikeLat);
+    const lngDiff = Math.abs(userLng - hikeLng);
+
+    if (latDiff >= latModifier || lngDiff >= lngModifier) {
+        return false;
+    }
+
+    return true;
 }

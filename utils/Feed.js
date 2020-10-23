@@ -1,5 +1,5 @@
 import { cacheHikeImage } from './Image';
-import { getRange } from './Location';
+import { getRange, maybeShowHikeInFeed } from './Location';
 import { getHikeRef } from './Hike';
 
 export function sortHikeData(data, sortDirection) {
@@ -18,6 +18,7 @@ export function sortHikeData(data, sortDirection) {
 
 export async function queryHikes(
     querySize,
+    queryType,
     lastKey,
     position,
     sortDirection,
@@ -46,7 +47,23 @@ export async function queryHikes(
                 ...hikeData,
             };
 
-            data.push(reduced);
+            const { lat, lng } = hikeData.coordinates.center;
+
+            const addHikeToFeed = maybeShowHikeInFeed(
+                distance,
+                latitude,
+                longitude,
+                lat,
+                lng,
+            );
+
+            if (queryType === 'feed') {
+                if (addHikeToFeed) {
+                    data.push(reduced);
+                }
+            } else {
+                data.push(reduced);
+            }
         }
     });
 

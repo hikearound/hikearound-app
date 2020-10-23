@@ -4,6 +4,7 @@ export const defaultState = {
     firstLoad: false,
     sortDirection: 'asc',
     querySize: 10,
+    queryType: 'feed',
     view: 'feed',
     hikes: [],
     currentPosition: {},

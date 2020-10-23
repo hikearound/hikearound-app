@@ -135,11 +135,13 @@ class HomeScreen extends React.Component {
             sortDirection,
             distance,
             querySize,
+            queryType,
             lastKnownPosition,
         } = this.state;
 
         const { data, cursor } = await queryHikes(
             querySize,
+            queryType,
             lastKey,
             lastKnownPosition,
             sortDirection,
