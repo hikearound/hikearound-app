@@ -29,3 +29,12 @@ export const ModalBody = styled.View`
     flex-direction: column;
     height: 100%;
 `;
+
+export const PageSheetModalHeader = styled(ModalHeader)`
+    height: 55px;
+    background-color: ${(props) => props.theme.rootBackground};
+`;
+
+export const PageSheetModalTitleText = styled(ModalTitleText)`
+    color: ${(props) => props.theme.text};
+`;

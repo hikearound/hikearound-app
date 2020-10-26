@@ -10,11 +10,13 @@ const propTypes = {
     dispatchModalFlag: PropTypes.func.isRequired,
     continueText: PropTypes.string,
     modalCloseAction: PropTypes.string,
+    isPageSheet: PropTypes.bool,
 };
 
 const defaultProps = {
     continueText: 'Continue',
     modalCloseAction: 'closeAndContinue',
+    isPageSheet: false,
 };
 
 function mapStateToProps() {
@@ -35,7 +37,7 @@ class ModalDismiss extends React.PureComponent {
     };
 
     render() {
-        const { continueText } = this.props;
+        const { continueText, isPageSheet } = this.props;
 
         return (
             <TouchableOpacity
@@ -49,7 +51,9 @@ class ModalDismiss extends React.PureComponent {
                     bottom: parseInt(spacing.small, 10),
                 }}
             >
-                <HeaderText>{continueText}</HeaderText>
+                <HeaderText isPageSheet={isPageSheet}>
+                    {continueText}
+                </HeaderText>
             </TouchableOpacity>
         );
     }

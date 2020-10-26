@@ -8,7 +8,6 @@ import FeedList from '../components/FeedList';
 import Promotion from '../components/Promotion';
 import FeedRefreshControl from '../components/FeedRefreshControl';
 import HomeEmptyState from '../components/empty/HomeEmptyState';
-import { feedActionSheet } from '../components/action_sheets/Feed';
 import { initializeUserData, initializeAvatar } from '../actions/User';
 import { initializeMapData } from '../actions/Map';
 import { timings } from '../constants/Index';
@@ -29,6 +28,7 @@ import {
     addNotificationListener,
     removeNotificationListener,
 } from '../utils/Link';
+import FilterModal from '../components/modal/FilterModal';
 import Logo from '../components/header/Logo';
 
 const propTypes = {
@@ -55,16 +55,13 @@ const listenerRef = React.createRef();
 class HomeScreen extends React.Component {
     constructor(props) {
         super(props);
-        const { navigation, t } = this.props;
+        const { navigation } = this.props;
 
         this.state = defaultState;
-        this.feedActionSheet = feedActionSheet.bind(this, t);
 
         navigation.setOptions({
             headerTitle: () => <Logo scrollRef={scrollRef} />,
-            headerRight: () => (
-                <HomeActions feedAction={this.feedActionSheet} />
-            ),
+            headerRight: () => <HomeActions />,
         });
     }
 
@@ -118,16 +115,6 @@ class HomeScreen extends React.Component {
     setFeedHikeCount = async () => {
         const feedHikeCount = await getFeedHikeCount();
         this.setState({ feedHikeCount });
-    };
-
-    sortFeed = async (sortDirection) => {
-        await this.setState({
-            sortDirection,
-            hikes: [],
-            firstLoad: true,
-        });
-
-        this.onRefresh();
     };
 
     getHikeFeedData = async (lastKey) => {
@@ -249,10 +236,19 @@ class HomeScreen extends React.Component {
         return !firstLoad && promotion.shouldShow && <Promotion />;
     };
 
+    renderOther = () => {
+        return (
+            <>
+                <SetBarStyle barStyle='light-content' />
+                <FilterModal modalAction='showFilter' animationType='slide' />
+            </>
+        );
+    };
+
     render() {
         return (
             <RootView>
-                <SetBarStyle barStyle='light-content' />
+                {this.renderOther()}
                 {this.maybeRenderPromotion()}
                 {this.renderHome()}
             </RootView>

@@ -39,7 +39,8 @@
             "save": "Save",
             "close": "Close",
             "cancel": "Cancel",
-            "send": "Send"
+            "send": "Send",
+            "reset": "Reset"
         }
     },
     "sheet": {
@@ -84,6 +85,9 @@
         "reset": {
             "title": "Forgot Password",
             "help": "We will send you an email with further instructions to reset your password."
+        },
+        "filter": {
+            "title": "Filter"
         }
     },
     "card": {

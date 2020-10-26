@@ -26,6 +26,12 @@ export default function modalReducer(state = modalState, action) {
                 action: 'showResetPassword',
             };
 
+        case 'SHOW_FILTER':
+            return {
+                ...state,
+                action: 'showFilter',
+            };
+
         case 'SET_LIGHTBOX_IMAGE_INDEX':
             return {
                 ...state,

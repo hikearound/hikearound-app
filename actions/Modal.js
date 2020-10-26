@@ -32,6 +32,11 @@ export const showModal = (modalType) => {
                 type: 'SHOW_RESET_PASSWORD',
             };
 
+        case 'filter':
+            return {
+                type: 'SHOW_FILTER',
+            };
+
         default:
             return {};
     }
