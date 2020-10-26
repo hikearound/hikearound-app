@@ -14,7 +14,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-    continueText: 'Continue',
+    continueText: '',
     modalCloseAction: 'closeAndContinue',
     isPageSheet: false,
 };
@@ -30,7 +30,7 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-class ModalDismiss extends React.PureComponent {
+class ModalContinue extends React.PureComponent {
     close = () => {
         const { dispatchModalFlag, modalCloseAction } = this.props;
         dispatchModalFlag(modalCloseAction);
@@ -59,7 +59,7 @@ class ModalDismiss extends React.PureComponent {
     }
 }
 
-ModalDismiss.propTypes = propTypes;
-ModalDismiss.defaultProps = defaultProps;
+ModalContinue.propTypes = propTypes;
+ModalContinue.defaultProps = defaultProps;
 
-export default connect(mapStateToProps, mapDispatchToProps)(ModalDismiss);
+export default connect(mapStateToProps, mapDispatchToProps)(ModalContinue);

@@ -21,6 +21,7 @@ import { getMapData } from '../utils/Map';
 import { getPosition, getNearestCity } from '../utils/Location';
 import { getPromotionStatus } from '../utils/Promotions';
 import { queryHikes, sortHikes, buildHikeData } from '../utils/Feed';
+import { getSortDirection } from '../utils/Filter';
 import {
     checkInitialUrl,
     addUrlListener,
@@ -35,10 +36,13 @@ const propTypes = {
     dispatchUserData: PropTypes.func.isRequired,
     dispatchMapData: PropTypes.func.isRequired,
     dispatchAvatar: PropTypes.func.isRequired,
+    filterParams: PropTypes.object.isRequired,
 };
 
-function mapStateToProps() {
-    return {};
+function mapStateToProps(state) {
+    return {
+        filterParams: state.feedReducer.filterParams,
+    };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -85,6 +89,13 @@ class HomeScreen extends React.Component {
         handleAppBadge();
     }
 
+    componentDidUpdate(prevProps) {
+        const { filterParams } = this.props;
+        if (prevProps.filterParams !== filterParams) {
+            this.filterFeed();
+        }
+    }
+
     componentWillUnmount() {
         this.removeListeners();
     }
@@ -125,6 +136,7 @@ class HomeScreen extends React.Component {
             queryType,
             lastKnownPosition,
         } = this.state;
+        const { filterParams } = this.props;
 
         const { data, cursor } = await queryHikes(
             querySize,
@@ -133,6 +145,7 @@ class HomeScreen extends React.Component {
             lastKnownPosition,
             sortDirection,
             distance,
+            filterParams,
         );
 
         this.lastKnownKey = cursor;
@@ -144,16 +157,27 @@ class HomeScreen extends React.Component {
     };
 
     addhikes = async (hikes) => {
-        const { sortDirection } = this.state;
+        const { sortDirection, firstLoad } = this.state;
 
-        this.setState((previousState) => {
-            const hikeData = sortHikes(previousState, hikes, sortDirection);
+        if (firstLoad) {
+            this.setState(() => {
+                const hikeData = sortHikes({}, hikes, sortDirection);
 
-            return {
-                data: hikeData.data,
-                hikes: hikeData.sortedHikes,
-            };
-        });
+                return {
+                    data: hikeData.data,
+                    hikes: hikeData.sortedHikes,
+                };
+            });
+        } else {
+            this.setState((previousState) => {
+                const hikeData = sortHikes(previousState, hikes, sortDirection);
+
+                return {
+                    data: hikeData.data,
+                    hikes: hikeData.sortedHikes,
+                };
+            });
+        }
     };
 
     onRefresh = async () => {
@@ -186,7 +210,6 @@ class HomeScreen extends React.Component {
     getAndSetCity = async () => {
         const { lastKnownPosition } = this.state;
         const { coords } = lastKnownPosition;
-
         const city = await getNearestCity(coords);
 
         this.setState({ city });
@@ -201,6 +224,19 @@ class HomeScreen extends React.Component {
     shouldShowEmptyState = () => {
         const { hikes } = this.state;
         return hikes.length === 0;
+    };
+
+    filterFeed = async () => {
+        const { filterParams } = this.props;
+        const sortDirection = getSortDirection(filterParams);
+
+        await this.setState({
+            sortDirection,
+            hikes: [],
+            firstLoad: true,
+        });
+
+        this.onRefresh();
     };
 
     renderHome = () => {
@@ -240,7 +276,7 @@ class HomeScreen extends React.Component {
         return (
             <>
                 <SetBarStyle barStyle='light-content' />
-                <FilterModal modalAction='showFilter' animationType='slide' />
+                <FilterModal modalAction='showFilter' />
             </>
         );
     };

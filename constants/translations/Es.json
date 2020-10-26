@@ -42,13 +42,6 @@
         }
     },
     "sheet": {
-        "feed": {
-            "title": "Ordenar por",
-            "item": {
-                "new": "El más nuevo primero",
-                "old": "Los más viejos primero"
-            }
-        },
         "hike": {
             "title": "Caminata",
             "item": {
@@ -79,10 +72,37 @@
             "distance": "{{distance}} {{unit}}"
         }
     },
+    "control": {
+        "sort": {
+            "title": "Ordenar por",
+            "value": {
+                "new": "El más nuevo primero",
+                "old": "Los más viejos primero"
+            }
+        },
+        "route": {
+            "title": "Tipo de ruta",
+        },
+        "difficulty": {
+            "title": "Dificultad",
+        },
+        "elevation": {
+            "title": "Desnivel",
+            "value":  "{{elevation}} pie"
+        },
+        "distance": {
+            "title": "Distancia",
+            "value":  "{{distance}} mi"
+        }
+    },
     "modal": {
         "reset": {
             "title": "Se te olvidó tu contraseña",
             "help": "Le enviaremos un correo electrónico con más instrucciones para restablecer su contraseña."
+        },
+        "filter": {
+            "title": "Filtrar",
+            "cta": "Aplicar filtros"
         }
     },
     "card": {

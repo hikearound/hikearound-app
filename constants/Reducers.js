@@ -44,3 +44,13 @@ export const userState = user;
 export const authState = {
     user: null,
 };
+
+export const feedState = {
+    filterParams: {
+        difficulty: [],
+        distance: [],
+        elevation: [],
+        route: [],
+        sort: 0,
+    },
+};
