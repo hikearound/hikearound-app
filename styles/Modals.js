@@ -25,7 +25,18 @@ export const ModalTitleText = styled.Text`
 
 export const ModalBody = styled.View`
     background-color: ${(props) => props.theme.rootBackground};
+    padding: ${(props) => (props.includePadding ? `${spacing.small}px` : 0)};
     display: flex;
     flex-direction: column;
     height: 100%;
+`;
+
+export const PageSheetModalHeader = styled(ModalHeader)`
+    height: 55px;
+    margin-bottom: -${spacing.small}px;
+    background-color: ${(props) => props.theme.rootBackground};
+`;
+
+export const PageSheetModalTitleText = styled(ModalTitleText)`
+    color: ${(props) => props.theme.text};
 `;

@@ -10,4 +10,5 @@ export const queryParams = {
     queryType: 'map',
     lastKey: null,
     distance: 50,
+    filterParams: null,
 };

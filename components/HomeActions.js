@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Sort from './header/Sort';
 import Search from './header/Search';
@@ -8,24 +7,16 @@ import { spacing } from '../constants/Index';
 const marginBottom = '6px';
 const maxHeight = '26px';
 
-const propTypes = {
-    feedAction: PropTypes.func.isRequired,
-};
-
 class HomeActions extends React.PureComponent {
     render() {
-        const { feedAction } = this.props;
-
         return (
             <ActionsWrapper>
-                <Sort onPress={feedAction} />
+                <Sort />
                 <Search />
             </ActionsWrapper>
         );
     }
 }
-
-HomeActions.propTypes = propTypes;
 
 export default HomeActions;
 

@@ -13,7 +13,13 @@ export async function getMapData(dispatchMapData) {
 }
 
 export async function getMapMarkers(position, distance) {
-    const { querySize, queryType, lastKey, sortDirection } = queryParams;
+    const {
+        querySize,
+        queryType,
+        lastKey,
+        sortDirection,
+        filterParams,
+    } = queryParams;
 
     if (Object.keys(position).length === 0) {
         return [];
@@ -26,6 +32,7 @@ export async function getMapMarkers(position, distance) {
         position,
         sortDirection,
         distance,
+        filterParams,
     );
 
     return data;

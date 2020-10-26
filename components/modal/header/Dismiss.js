@@ -21,6 +21,7 @@ const propTypes = {
     iconOffset: PropTypes.number,
     iconSize: PropTypes.number,
     dismissLanguage: PropTypes.string,
+    isPageSheet: PropTypes.bool,
 };
 
 const defaultProps = {
@@ -29,6 +30,7 @@ const defaultProps = {
     iconOffset: 25,
     iconSize: 35,
     dismissLanguage: 'close',
+    isPageSheet: false,
 };
 
 function mapDispatchToProps(dispatch) {
@@ -50,6 +52,7 @@ class ModalDismiss extends React.PureComponent {
             iconSize,
             iconOffset,
             textDismiss,
+            isPageSheet,
             t,
         } = this.props;
 
@@ -86,7 +89,7 @@ class ModalDismiss extends React.PureComponent {
                         left: parseInt(spacing.small, 10),
                     }}
                 >
-                    <HeaderText>
+                    <HeaderText isPageSheet={isPageSheet}>
                         {t(`label.modal.${dismissLanguage}`)}
                     </HeaderText>
                 </TouchableOpacity>

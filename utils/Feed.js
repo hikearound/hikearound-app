@@ -1,19 +1,72 @@
 import { cacheHikeImage } from './Image';
 import { getRange, maybeShowHikeInFeed } from './Location';
 import { getHikeRef } from './Hike';
+import {
+    filterForDifficulty,
+    filterForRoute,
+    filterForElevation,
+    filterForDistance,
+} from './Filter';
 
-export function sortHikeData(data, sortDirection) {
-    let sortedHikes = data.sort(
-        (a, b) => b.createdOn.toDate() - a.createdOn.toDate(),
+export async function filterHike(hikeData, filterParams) {
+    if (filterParams.difficulty.length > 0) {
+        const difficulty = filterForDifficulty(
+            filterParams.difficulty,
+            hikeData.difficulty,
+        );
+
+        if (!difficulty) {
+            return false;
+        }
+    }
+
+    if (filterParams.route.length > 0) {
+        const route = filterForRoute(filterParams.route, hikeData.route);
+
+        if (!route) {
+            return false;
+        }
+    }
+
+    if (filterParams.elevation.length > 0) {
+        const elevation = filterForElevation(
+            filterParams.elevation,
+            hikeData.elevation,
+        );
+
+        if (!elevation) {
+            return false;
+        }
+    }
+
+    if (filterParams.distance.length > 0) {
+        const distance = filterForDistance(
+            filterParams.distance,
+            hikeData.distance,
+        );
+
+        if (!distance) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+export function sortHikes(previousState, hikes, sortDirection) {
+    const data = { ...previousState.data, ...hikes };
+
+    let sortedHikes = Object.values(data).sort(
+        (a, b) => a.createdOn < b.createdOn,
     );
 
-    if (sortDirection === 'asc') {
-        sortedHikes = data.sort(
-            (a, b) => a.createdOn.toDate() - b.createdOn.toDate(),
+    if (sortDirection === 'desc') {
+        sortedHikes = Object.values(data).sort(
+            (a, b) => a.createdOn > b.createdOn,
         );
     }
 
-    return sortedHikes;
+    return { data, sortedHikes };
 }
 
 export async function queryHikes(
@@ -23,10 +76,12 @@ export async function queryHikes(
     position,
     sortDirection,
     distance,
+    filterParams,
 ) {
     const { latitude, longitude } = position.coords;
-
     const range = getRange(latitude, longitude, distance);
+
+    let isHikeInFilter = true;
     let hikeRef = getHikeRef('geo', range, sortDirection, querySize);
 
     if (lastKey) {
@@ -36,7 +91,7 @@ export async function queryHikes(
     const querySnapshot = await hikeRef.get();
     const data = [];
 
-    await querySnapshot.forEach((hike) => {
+    await querySnapshot.forEach(async (hike) => {
         if (hike.exists) {
             const hikeData = hike.data() || {};
 
@@ -57,9 +112,15 @@ export async function queryHikes(
                 lng,
             );
 
+            if (filterParams) {
+                isHikeInFilter = await filterHike(hikeData, filterParams);
+            }
+
             if (queryType === 'feed') {
                 if (addHikeToFeed) {
-                    data.push(reduced);
+                    if (isHikeInFilter) {
+                        data.push(reduced);
+                    }
                 }
             } else {
                 data.push(reduced);
@@ -67,26 +128,8 @@ export async function queryHikes(
         }
     });
 
-    const sortedData = sortHikeData(data, sortDirection);
     const lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
-
-    return { data: sortedData, cursor: lastVisible };
-}
-
-export function sortHikes(previousState, hikes, sortDirection) {
-    const data = { ...previousState.data, ...hikes };
-
-    let sortedHikes = Object.values(data).sort(
-        (a, b) => a.createdOn < b.createdOn,
-    );
-
-    if (sortDirection === 'desc') {
-        sortedHikes = Object.values(data).sort(
-            (a, b) => a.createdOn > b.createdOn,
-        );
-    }
-
-    return { data, sortedHikes };
+    return { data, cursor: lastVisible };
 }
 
 export async function buildHikeData(data) {

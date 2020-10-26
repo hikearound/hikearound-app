@@ -39,17 +39,11 @@
             "save": "Save",
             "close": "Close",
             "cancel": "Cancel",
-            "send": "Send"
+            "send": "Send",
+            "reset": "Reset"
         }
     },
     "sheet": {
-        "feed": {
-            "title": "Sort by",
-            "item": {
-                "new": "Newest first",
-                "old": "Oldest first"
-            }
-        },
         "hike": {
             "title": "Hike",
             "item": {
@@ -80,10 +74,37 @@
             "distance": "{{distance}} {{unit}}"
         }
     },
+    "control": {
+        "sort": {
+            "title": "Sort by",
+            "value": {
+                "new": "Newest first",
+                "old": "Oldest first"
+            }
+        },
+        "route": {
+            "title": "Route type",
+        },
+        "difficulty": {
+            "title": "Difficulty",
+        },
+        "elevation": {
+            "title": "Elevation gain",
+            "value":  "{{elevation}} ft"
+        },
+        "distance": {
+            "title": "Distance",
+            "value":  "{{distance}} mi"
+        }
+    },
     "modal": {
         "reset": {
             "title": "Forgot Password",
             "help": "We will send you an email with further instructions to reset your password."
+        },
+        "filter": {
+            "title": "Filter",
+            "cta": "Apply Filters"
         }
     },
     "card": {

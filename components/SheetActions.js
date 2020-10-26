@@ -1,20 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import { TouchableOpacity } from 'react-native';
 import { withTranslation } from 'react-i18next';
 import { withTheme } from '../utils/Themes';
-import {
-    spacing,
-    fontSizes,
-    opacities,
-    fontWeights,
-    colors,
-    borderRadius,
-} from '../constants/Index';
+import { opacities } from '../constants/Index';
 import { openHikeScreen } from '../utils/Hike';
 import { withNavigation } from '../utils/Navigation';
 import { getDrivingDirections } from '../utils/Map';
+import { ActionWrapper, Button, Text } from '../styles/Actions';
 
 const propTypes = {
     selectedHike: PropTypes.string.isRequired,
@@ -70,24 +63,3 @@ class SheetActions extends React.PureComponent {
 SheetActions.propTypes = propTypes;
 
 export default withTranslation()(withNavigation(withTheme(SheetActions)));
-
-const Text = styled.Text`
-    color: ${(props) => (props.primary ? colors.white : props.theme.text)};
-    font-size: ${fontSizes.large}px;
-    font-weight: ${fontWeights.medium};
-    text-align: center;
-`;
-
-const Button = styled.View`
-    border: 1px;
-    border-color: ${(props) => props.theme.itemBorder};
-    border-radius: ${borderRadius.medium}px;
-    padding: ${spacing.tiny}px;
-    margin-top: ${spacing.tiny}px;
-    background-color: ${(props) =>
-        props.primary ? colors.purple : props.theme.sheetBackground};
-`;
-
-const ActionWrapper = styled.View`
-    margin-top: ${spacing.tiny}px;
-`;

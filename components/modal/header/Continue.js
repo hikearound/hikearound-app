@@ -10,11 +10,13 @@ const propTypes = {
     dispatchModalFlag: PropTypes.func.isRequired,
     continueText: PropTypes.string,
     modalCloseAction: PropTypes.string,
+    isPageSheet: PropTypes.bool,
 };
 
 const defaultProps = {
-    continueText: 'Continue',
+    continueText: '',
     modalCloseAction: 'closeAndContinue',
+    isPageSheet: false,
 };
 
 function mapStateToProps() {
@@ -28,14 +30,14 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-class ModalDismiss extends React.PureComponent {
+class ModalContinue extends React.PureComponent {
     close = () => {
         const { dispatchModalFlag, modalCloseAction } = this.props;
         dispatchModalFlag(modalCloseAction);
     };
 
     render() {
-        const { continueText } = this.props;
+        const { continueText, isPageSheet } = this.props;
 
         return (
             <TouchableOpacity
@@ -49,13 +51,15 @@ class ModalDismiss extends React.PureComponent {
                     bottom: parseInt(spacing.small, 10),
                 }}
             >
-                <HeaderText>{continueText}</HeaderText>
+                <HeaderText isPageSheet={isPageSheet}>
+                    {continueText}
+                </HeaderText>
             </TouchableOpacity>
         );
     }
 }
 
-ModalDismiss.propTypes = propTypes;
-ModalDismiss.defaultProps = defaultProps;
+ModalContinue.propTypes = propTypes;
+ModalContinue.defaultProps = defaultProps;
 
-export default connect(mapStateToProps, mapDispatchToProps)(ModalDismiss);
+export default connect(mapStateToProps, mapDispatchToProps)(ModalContinue);
