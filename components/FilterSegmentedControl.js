@@ -76,7 +76,7 @@ FilterSegmentedControl.defaultProps = defaultProps;
 export default withTheme(FilterSegmentedControl);
 
 const ControlWrapper = styled.View`
-    margin-top: ${spacing.small}px;
+    margin-top: ${spacing.medium}px;
     padding-bottom: ${spacing.medium}px;
     border-color: ${(props) => props.theme.itemBorder};
     border-bottom-width: 1px;
@@ -85,6 +85,7 @@ const ControlWrapper = styled.View`
 const Title = styled.Text`
     color: ${(props) => props.theme.text};
     font-size: ${fontSizes.large}px;
+    line-height: ${fontSizes.large}px;
     font-weight: ${fontWeights.bold};
-    margin-bottom: ${spacing.micro}px;
+    margin-bottom: ${spacing.tiny}px;
 `;

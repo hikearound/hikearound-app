@@ -211,7 +211,7 @@ export default connect(
 
 const ButtonWrapper = styled.View`
     position: absolute;
-    bottom: 75px;
+    bottom: 80px;
     left: ${spacing.tiny}px;
     right: ${spacing.tiny}px;
 `;
