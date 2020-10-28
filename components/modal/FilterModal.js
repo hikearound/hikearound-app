@@ -6,7 +6,6 @@ import { withTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import ModalDismiss from './header/Dismiss';
 import ModalReset from './header/Reset';
-import ModalBase from './ModalBase';
 import FilterSegmentedControl from '../FilterSegmentedControl';
 import { withTheme } from '../../utils/Themes';
 import { RootView } from '../../styles/Screens';
@@ -38,16 +37,21 @@ function mapDispatchToProps(dispatch) {
 }
 
 const propTypes = {
+    action: PropTypes.string.isRequired,
+    dispatchFilterParams: PropTypes.func.isRequired,
+    dispatchModalFlag: PropTypes.func.isRequired,
     animationType: PropTypes.string,
     presentationStyle: PropTypes.string,
+    modalAction: PropTypes.string,
 };
 
 const defaultProps = {
     animationType: 'slide',
     presentationStyle: 'pageSheet',
+    modalAction: 'showFilter',
 };
 
-class FilterModal extends ModalBase {
+class FilterModal extends React.Component {
     constructor(props, context) {
         super(props, context);
 
@@ -63,10 +67,27 @@ class FilterModal extends ModalBase {
         this.state.controls = controls;
     }
 
+    componentDidUpdate(prevProps) {
+        const { action, modalAction } = this.props;
+
+        if (prevProps.action !== action) {
+            if (action === modalAction) {
+                this.showModal();
+            } else if (action === 'hideModal') {
+                this.hideModal();
+            }
+        }
+    }
+
     hideModal = () => {
         const { dispatchModalFlag } = this.props;
+
         dispatchModalFlag();
         this.setState({ modalVisible: false });
+    };
+
+    showModal = () => {
+        this.setState({ modalVisible: true });
     };
 
     resetFilters = () => {
@@ -183,12 +204,11 @@ class FilterModal extends ModalBase {
 
     render() {
         const { modalVisible } = this.state;
-        const { animationType, transparent, presentationStyle, t } = this.props;
+        const { animationType, presentationStyle, t } = this.props;
 
         return (
             <Modal
                 animationType={animationType}
-                transparent={transparent}
                 visible={modalVisible}
                 presentationStyle={presentationStyle}
             >

@@ -1,11 +1,12 @@
 import React from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { withTranslation } from 'react-i18next';
 import { withScrollToTop } from '../utils/Navigation';
 import { spacing } from '../constants/Index';
 import Subtitle from './Subtitle';
+import ReviewPrompt from './ReviewPrompt';
 import PhotoLightboxGroup from './PhotoLightboxGroup';
 import MapWrapper from './map/Wrapper';
 import TextContent from './hike/TextContent';
@@ -39,6 +40,23 @@ class HikeBody extends React.PureComponent {
             id: hike.id,
         };
     }
+
+    renderReviewSection = (t, id) => {
+        return (
+            <View>
+                <ReviewPrompt id={id} />
+            </View>
+        );
+    };
+
+    renderGallerySection = (t, id) => {
+        return (
+            <View>
+                <Subtitle text={t('label.heading.images')} />
+                <PhotoLightboxGroup id={id} />
+            </View>
+        );
+    };
 
     render() {
         const { coordinates, region, scrollRef, isLoading, t } = this.props;
@@ -78,8 +96,8 @@ class HikeBody extends React.PureComponent {
                             distance={distance}
                             description={description}
                         />
-                        <Subtitle text={t('label.heading.images')} />
-                        <PhotoLightboxGroup id={id} />
+                        {this.renderReviewSection(t, id)}
+                        {this.renderGallerySection(t, id)}
                     </BodyContent>
                 </ScrollView>
             </>

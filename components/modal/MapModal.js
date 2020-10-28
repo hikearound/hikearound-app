@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Modal } from 'react-native';
+import { Modal, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import ModalDismiss from './header/Dismiss';
-import ModalBase from './ModalBase';
 import HikeMap from '../map/Hike';
 import GraphSheet from '../bottom_sheet/Graph';
 
@@ -15,11 +14,19 @@ function mapStateToProps(state) {
 }
 
 const propTypes = {
+    action: PropTypes.string.isRequired,
     maxZoom: PropTypes.number,
     modifier: PropTypes.number,
     startingCoordinates: PropTypes.object,
     elevationArray: PropTypes.array,
-    hike: PropTypes.object,
+    hike: PropTypes.object.isRequired,
+    animationType: PropTypes.string,
+    modalAction: PropTypes.string,
+    mapRef: PropTypes.func.isRequired,
+    hid: PropTypes.string.isRequired,
+    selectedHike: PropTypes.string,
+    coordinates: PropTypes.array,
+    region: PropTypes.object.isRequired,
 };
 
 const defaultProps = {
@@ -27,10 +34,13 @@ const defaultProps = {
     modifier: 0.01,
     startingCoordinates: null,
     elevationArray: [],
-    distance: {},
+    coordinates: [],
+    animationType: 'push',
+    modalAction: 'showMap',
+    selectedHike: null,
 };
 
-class MapModal extends ModalBase {
+class MapModal extends React.Component {
     constructor(props, context) {
         super(props, context);
 
@@ -39,6 +49,18 @@ class MapModal extends ModalBase {
         this.state = {
             modalVisible: false,
         };
+    }
+
+    componentDidUpdate(prevProps) {
+        const { action, modalAction } = this.props;
+
+        if (prevProps.action !== action) {
+            if (action === modalAction) {
+                this.showModal();
+            } else if (action === 'hideModal') {
+                this.hideModal();
+            }
+        }
     }
 
     setRegion = (region) => {
@@ -50,6 +72,16 @@ class MapModal extends ModalBase {
             latitudeDelta: region.latitudeDelta + modifier,
             longitudeDelta: region.longitudeDelta + modifier,
         };
+    };
+
+    hideModal = () => {
+        this.setState({ modalVisible: false });
+        StatusBar.setHidden(false);
+    };
+
+    showModal = () => {
+        this.setState({ modalVisible: true });
+        StatusBar.setHidden(true);
     };
 
     render() {

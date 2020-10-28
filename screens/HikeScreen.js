@@ -217,9 +217,6 @@ class HikeScreen extends React.Component {
                         elevationArray={elevationArray}
                         hike={hike}
                         region={region}
-                        animationType='push'
-                        modalAction='showMap'
-                        hideStatusBar
                     />
                 )}
             </RootView>

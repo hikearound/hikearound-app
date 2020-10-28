@@ -87,7 +87,6 @@ class PhotoLightboxGroup extends React.PureComponent {
                     id={id}
                     images={imageArray}
                     animationType={animationType}
-                    modalAction='showLightbox'
                 />
             </View>
         );

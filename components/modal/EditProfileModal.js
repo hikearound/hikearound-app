@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import ModalDismiss from './header/Dismiss';
 import ModalContinue from './header/Continue';
-import ModalBase from './ModalBase';
 import Avatar from '../Avatar';
 import InputLabelGroup from '../InputLabelGroup';
 import { spacing } from '../../constants/Index';
@@ -17,7 +16,23 @@ import { ModalHeader, ModalTitleText, ModalBody } from '../../styles/Modals';
 import { getInputs, setInputRefs } from '../../utils/Inputs';
 
 const propTypes = {
+    action: PropTypes.string.isRequired,
     dispatchUserData: PropTypes.func.isRequired,
+    modalAction: PropTypes.string,
+    animationType: PropTypes.string,
+    transparent: PropTypes.bool,
+    fullScreen: PropTypes.bool,
+    name: PropTypes.string.isRequired,
+    location: PropTypes.string.isRequired,
+    modalCloseAction: PropTypes.string,
+};
+
+const defaultProps = {
+    animationType: 'push',
+    modalAction: 'showEditProfile',
+    transparent: true,
+    fullScreen: false,
+    modalCloseAction: null,
 };
 
 function mapStateToProps(state) {
@@ -35,9 +50,10 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-class EditProfileModal extends ModalBase {
+class EditProfileModal extends React.Component {
     constructor(props, context) {
         super(props, context);
+
         const { t } = this.props;
         const inputs = getInputs(t, 'editProfile');
         const refs = setInputRefs(inputs, 'editProfile');
@@ -49,11 +65,63 @@ class EditProfileModal extends ModalBase {
         };
     }
 
+    componentDidUpdate(prevProps) {
+        const { action, modalAction } = this.props;
+
+        if (prevProps.action !== action) {
+            if (action === modalAction) {
+                this.showModal();
+            } else if (action === 'hideModal') {
+                this.hideModal();
+            }
+        }
+    }
+
     setValue(name, text) {
         this.setState({ [name]: text });
     }
 
-    hideModal() {
+    setNameAndLocation = () => {
+        const { name, location } = this.props;
+        const { updatedName } = this.state;
+
+        if (updatedName === undefined) {
+            this.setState({
+                updatedName: name,
+                updatedLocation: location,
+            });
+        }
+    };
+
+    renderModalHeader = (t) => (
+        <ModalHeader>
+            <ModalTitleText>{t('screen.profile.edit')}</ModalTitleText>
+            <ModalDismiss textDismiss />
+            <ModalContinue
+                continueText={t('label.modal.save')}
+                modalCloseAction='updateUserData'
+            />
+        </ModalHeader>
+    );
+
+    handleSubmitEditing = (index) => {
+        if (index === 0) {
+            this.locationInput.focus();
+        } else {
+            this.hideModal();
+        }
+    };
+
+    assignRef = (ref, name) => {
+        this[`${name}Input`] = ref;
+    };
+
+    showModal = () => {
+        this.setNameAndLocation();
+        this.setState({ modalVisible: true });
+    };
+
+    hideModal = () => {
         const { name, location, modalCloseAction } = this.props;
         const userData = { location, name };
 
@@ -63,7 +131,7 @@ class EditProfileModal extends ModalBase {
         }
 
         this.setState({ modalVisible: false });
-    }
+    };
 
     maybeUpdateName(userData) {
         const { dispatchUserData } = this.props;
@@ -90,41 +158,6 @@ class EditProfileModal extends ModalBase {
             dispatchUserData(userData);
         }
     }
-
-    extraActions() {
-        const { name, location } = this.props;
-        const { updatedName } = this.state;
-
-        if (updatedName === undefined) {
-            this.setState({
-                updatedName: name,
-                updatedLocation: location,
-            });
-        }
-    }
-
-    renderModalHeader = (t) => (
-        <ModalHeader>
-            <ModalTitleText>{t('screen.profile.edit')}</ModalTitleText>
-            <ModalDismiss textDismiss />
-            <ModalContinue
-                continueText={t('label.modal.save')}
-                modalCloseAction='updateUserData'
-            />
-        </ModalHeader>
-    );
-
-    handleSubmitEditing = (index) => {
-        if (index === 0) {
-            this.locationInput.focus();
-        } else {
-            this.hideModal();
-        }
-    };
-
-    assignRef = (ref, name) => {
-        this[`${name}Input`] = ref;
-    };
 
     renderModalBody = (inputs) => (
         <ModalBody>
@@ -190,6 +223,7 @@ class EditProfileModal extends ModalBase {
 }
 
 EditProfileModal.propTypes = propTypes;
+EditProfileModal.defaultProps = defaultProps;
 
 export default connect(
     mapStateToProps,

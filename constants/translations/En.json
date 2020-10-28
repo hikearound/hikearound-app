@@ -21,7 +21,8 @@
         },
         "heading": {
             "description": "Description",
-            "images": "Images"
+            "images": "Images",
+            "reviews": "Reviews"
         },
         "nav": {
             "you": "You",

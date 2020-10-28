@@ -46,6 +46,14 @@ export async function requestLocationPermission() {
     return status;
 }
 
+export function shouldSetCity(lastKnownPosition) {
+    if (Object.keys(lastKnownPosition).length !== 0) {
+        return true;
+    }
+
+    return false;
+}
+
 export async function getPosition(type) {
     let location;
     const currentStatus = await getPermissionStatus('location');

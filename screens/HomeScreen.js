@@ -14,11 +14,10 @@ import { timings } from '../constants/Index';
 import { defaultState } from '../constants/states/Home';
 import { RootView } from '../styles/Screens';
 import { getUserData } from '../utils/User';
-import { getFeedHikeCount } from '../utils/Hike';
 import { handleAppBadge } from '../utils/Notifications';
 import { withTheme, SetBarStyle } from '../utils/Themes';
 import { getMapData } from '../utils/Map';
-import { getPosition, getNearestCity } from '../utils/Location';
+import { getPosition, getNearestCity, shouldSetCity } from '../utils/Location';
 import { getPromotionStatus } from '../utils/Promotions';
 import { queryHikes, sortHikes, buildHikeData } from '../utils/Feed';
 import { getSortDirection } from '../utils/Filter';
@@ -123,11 +122,6 @@ class HomeScreen extends React.Component {
         this.setState({ firstLoad: true });
     };
 
-    setFeedHikeCount = async () => {
-        const feedHikeCount = await getFeedHikeCount();
-        this.setState({ feedHikeCount });
-    };
-
     getHikeFeedData = async (lastKey) => {
         const {
             sortDirection,
@@ -149,7 +143,6 @@ class HomeScreen extends React.Component {
         );
 
         this.lastKnownKey = cursor;
-
         const hikes = await buildHikeData(data);
 
         this.addhikes(hikes);
@@ -189,18 +182,14 @@ class HomeScreen extends React.Component {
     };
 
     onEndReached = () => {
-        const { hikes, feedHikeCount } = this.state;
-
-        if (hikes.length < feedHikeCount) {
-            this.getHikeFeedData(this.lastKnownKey);
-        }
+        this.getHikeFeedData(this.lastKnownKey);
     };
 
     getAndSetPosition = async () => {
         const lastKnownPosition = await getPosition('lastKnown');
         this.setState({ lastKnownPosition });
 
-        if (Object.keys(lastKnownPosition).length !== 0) {
+        if (shouldSetCity(lastKnownPosition)) {
             this.getAndSetCity();
         } else {
             this.setState({ firstLoad: false });
@@ -218,7 +207,6 @@ class HomeScreen extends React.Component {
 
     setHikeData = () => {
         this.getHikeFeedData();
-        this.setFeedHikeCount();
     };
 
     shouldShowEmptyState = () => {
@@ -276,7 +264,7 @@ class HomeScreen extends React.Component {
         return (
             <>
                 <SetBarStyle barStyle='light-content' />
-                <FilterModal modalAction='showFilter' />
+                <FilterModal />
             </>
         );
     };

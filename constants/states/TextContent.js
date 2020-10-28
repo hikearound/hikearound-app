@@ -3,7 +3,7 @@ export const defaultProps = {
     city: '',
     description: '',
     distance: 0,
-    numberOfLines: 8,
+    numberOfLines: 6,
     placement: 'screen',
     isExpandable: true,
     truncateName: false,

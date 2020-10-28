@@ -130,13 +130,7 @@ class SignInScreen extends React.Component {
                     <PasswordReset />
                     <LoadingOverlay loading={loading} />
                 </ScrollView>
-                <ResetPasswordModal
-                    animationType='push'
-                    modalAction='showResetPassword'
-                    transparent
-                    hideStatusBar={false}
-                    fullScreen={false}
-                />
+                <ResetPasswordModal />
             </RootView>
         );
     }

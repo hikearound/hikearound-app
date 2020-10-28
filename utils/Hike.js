@@ -18,11 +18,6 @@ export function getHikeRef(type, range, sortDirection, querySize) {
     return hikeRef.orderBy('createdOn', sortDirection).limit(querySize);
 }
 
-export async function getFeedHikeCount() {
-    const snap = await db.collection('hikes').get();
-    return snap.size;
-}
-
 export async function getHikeImageGallery(id) {
     const gallerySnapshot = await db.collection('images').doc(id).get();
     return gallerySnapshot.data();
