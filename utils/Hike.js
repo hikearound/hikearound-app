@@ -46,7 +46,7 @@ export function writeFavoriteHike(hikeData) {
     db.collection('favoritedHikes')
         .doc(uid)
         .collection('hikes')
-        .doc(hikeData.id)
+        .doc(hikeData.hid)
         .set(hikeData, { merge: true });
 }
 
@@ -55,7 +55,7 @@ export function removeFavoriteHike(hikeData) {
     db.collection('favoritedHikes')
         .doc(uid)
         .collection('hikes')
-        .doc(hikeData.id)
+        .doc(hikeData.hid)
         .delete();
 }
 

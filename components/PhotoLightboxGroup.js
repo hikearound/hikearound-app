@@ -12,7 +12,7 @@ import {
 import { withTheme } from '../utils/Themes';
 
 const propTypes = {
-    id: PropTypes.string.isRequired,
+    hid: PropTypes.string.isRequired,
 };
 
 class PhotoLightboxGroup extends React.PureComponent {
@@ -22,9 +22,9 @@ class PhotoLightboxGroup extends React.PureComponent {
     }
 
     async componentDidMount() {
-        const { id } = this.props;
+        const { hid } = this.props;
 
-        this.buildHikeImageArray(id);
+        this.buildHikeImageArray(hid);
         this.setAnimationType();
     }
 
@@ -68,7 +68,7 @@ class PhotoLightboxGroup extends React.PureComponent {
     };
 
     render() {
-        const { id } = this.props;
+        const { hid } = this.props;
         const { imageArray, animationType } = this.state;
 
         return (
@@ -79,12 +79,12 @@ class PhotoLightboxGroup extends React.PureComponent {
                             image={image}
                             imageIndex={index}
                             key={index}
-                            id={id}
+                            hid={hid}
                         />
                     ))}
                 </PhotoGroup>
                 <LightboxModal
-                    id={id}
+                    hid={hid}
                     images={imageArray}
                     animationType={animationType}
                 />

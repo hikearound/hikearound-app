@@ -16,7 +16,7 @@ const propTypes = {
     modalType: PropTypes.string,
     dimension: PropTypes.number,
     resizeMode: PropTypes.string,
-    id: PropTypes.string.isRequired,
+    hid: PropTypes.string.isRequired,
 };
 
 const defaultProps = {
@@ -45,12 +45,12 @@ class Thumbnail extends React.PureComponent {
             dispatchSelectedHike,
             imageIndex,
             modalType,
-            id,
+            hid,
         } = this.props;
 
         dispatchImage(imageIndex);
         dispatchModalFlag(modalType);
-        dispatchSelectedHike(id);
+        dispatchSelectedHike(hid);
     };
 
     render() {

@@ -15,7 +15,7 @@ const propTypes = {
     city: PropTypes.string,
     state: PropTypes.string,
     description: PropTypes.string,
-    id: PropTypes.string.isRequired,
+    hid: PropTypes.string.isRequired,
     distance: PropTypes.number,
     numberOfLines: PropTypes.number,
     placement: PropTypes.string,
@@ -109,7 +109,7 @@ class TextContent extends React.Component {
         const {
             city,
             state,
-            id,
+            hid,
             distance,
             numberOfLines,
             placement,
@@ -125,7 +125,7 @@ class TextContent extends React.Component {
                 <LocationText>{location}</LocationText>
                 <FavoriteButton
                     name={name}
-                    id={id}
+                    hid={hid}
                     distance={distance}
                     city={city}
                     state={state}

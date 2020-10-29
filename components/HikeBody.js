@@ -37,23 +37,23 @@ class HikeBody extends React.PureComponent {
             city: hike.city,
             state: hike.state,
             description: hike.description,
-            id: hike.id,
+            hid: hike.id,
         };
     }
 
-    renderReviewSection = (t, id) => {
+    renderReviewSection = (t, hid) => {
         return (
             <View>
-                <ReviewPrompt id={id} />
+                <ReviewPrompt hid={hid} />
             </View>
         );
     };
 
-    renderGallerySection = (t, id) => {
+    renderGallerySection = (t, hid) => {
         return (
             <View>
                 <Subtitle text={t('label.heading.images')} />
-                <PhotoLightboxGroup id={id} />
+                <PhotoLightboxGroup hid={hid} />
             </View>
         );
     };
@@ -65,7 +65,7 @@ class HikeBody extends React.PureComponent {
             name,
             city,
             state,
-            id,
+            hid,
             distance,
             elevation,
             route,
@@ -85,19 +85,19 @@ class HikeBody extends React.PureComponent {
                         elevation={elevation}
                         route={route}
                         isLoading={isLoading}
-                        id={id}
+                        hid={hid}
                     />
                     <BodyContent>
                         <TextContent
                             name={name}
                             city={city}
                             state={state}
-                            id={id}
+                            hid={hid}
                             distance={distance}
                             description={description}
                         />
-                        {this.renderReviewSection(t, id)}
-                        {this.renderGallerySection(t, id)}
+                        {this.renderReviewSection(t, hid)}
+                        {this.renderGallerySection(t, hid)}
                     </BodyContent>
                 </ScrollView>
             </>

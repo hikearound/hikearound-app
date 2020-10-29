@@ -8,7 +8,7 @@ import { opacities, colors, spacing } from '../constants/Index';
 import { favoriteHike, unfavoriteHike } from '../actions/Hike';
 
 const propTypes = {
-    id: PropTypes.string.isRequired,
+    hid: PropTypes.string.isRequired,
     dispatchFavorite: PropTypes.func.isRequired,
     dispatchUnfavorite: PropTypes.func.isRequired,
     name: PropTypes.string.isRequired,
@@ -51,18 +51,18 @@ class FavoriteButton extends React.Component {
     };
 
     componentDidUpdate(prevProps) {
-        const { id } = this.props;
+        const { hid } = this.props;
 
-        if (prevProps.id !== id) {
+        if (prevProps.hid !== hid) {
             this.setInitialStyle();
         }
     }
 
     setInitialStyle = () => {
-        const { id } = this.props;
+        const { hid } = this.props;
         const { hikes } = this.state;
 
-        if (hikes.includes(id)) {
+        if (hikes.includes(hid)) {
             this.setState({
                 hikes,
                 iconColor: colors.purple,
@@ -79,7 +79,7 @@ class FavoriteButton extends React.Component {
 
     setFavoriteHike = async () => {
         const {
-            id,
+            hid,
             dispatchFavorite,
             distance,
             name,
@@ -88,7 +88,7 @@ class FavoriteButton extends React.Component {
         } = this.props;
         const { hikes } = this.state;
 
-        hikes.push(id);
+        hikes.push(hid);
 
         this.setState({
             hikes,
@@ -96,14 +96,14 @@ class FavoriteButton extends React.Component {
             iconName: 'ios-heart',
         });
 
-        dispatchFavorite({ id, distance, name, city, state });
+        dispatchFavorite({ hid, distance, name, city, state });
     };
 
     removeFavoriteHike = async () => {
-        const { id, dispatchUnfavorite } = this.props;
+        const { hid, dispatchUnfavorite } = this.props;
         const { hikes } = this.state;
 
-        const index = hikes.indexOf(id);
+        const index = hikes.indexOf(hid);
         hikes.splice(index, 1);
 
         this.setState({
@@ -112,7 +112,7 @@ class FavoriteButton extends React.Component {
             iconName: 'ios-heart-empty',
         });
 
-        dispatchUnfavorite({ id });
+        dispatchUnfavorite({ hid });
     };
 
     onPress = () => {
@@ -122,9 +122,9 @@ class FavoriteButton extends React.Component {
 
     updateButton() {
         const { hikes } = this.state;
-        const { id } = this.props;
+        const { hid } = this.props;
 
-        if (hikes.includes(id)) {
+        if (hikes.includes(hid)) {
             this.removeFavoriteHike();
         } else {
             this.setFavoriteHike();

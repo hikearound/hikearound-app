@@ -21,7 +21,7 @@ const propTypes = {
     region: PropTypes.object,
     modalType: PropTypes.string,
     isLoading: PropTypes.bool.isRequired,
-    id: PropTypes.string.isRequired,
+    hid: PropTypes.string.isRequired,
     mapPadding: PropTypes.object,
 };
 
@@ -41,11 +41,11 @@ class MapWrapper extends React.Component {
         const {
             dispatchModalFlag,
             dispatchSelectedHike,
-            id,
+            hid,
             modalType,
         } = this.props;
         dispatchModalFlag(modalType);
-        dispatchSelectedHike(id);
+        dispatchSelectedHike(hid);
     };
 
     render() {

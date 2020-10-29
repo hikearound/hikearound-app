@@ -29,7 +29,7 @@ const propTypes = {
     action: PropTypes.string.isRequired,
     animationType: PropTypes.string,
     modalAction: PropTypes.string,
-    id: PropTypes.string.isRequired,
+    hid: PropTypes.string.isRequired,
     selectedHike: PropTypes.string,
     imageIndex: PropTypes.number.isRequired,
     images: PropTypes.array.isRequired,
@@ -81,12 +81,12 @@ class LightboxModal extends React.Component {
             animationType,
             images,
             imageIndex,
-            id,
+            hid,
             selectedHike,
             action,
         } = this.props;
 
-        if (id === selectedHike) {
+        if (hid === selectedHike) {
             return (
                 <Modal
                     animationType={animationType}

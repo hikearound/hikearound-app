@@ -6,12 +6,13 @@ import { colors, borderRadius } from '../constants/Index';
 import { withTheme } from '../utils/Themes';
 
 const propTypes = {
-    id: PropTypes.string.isRequired,
+    hid: PropTypes.string.isRequired,
 };
 
 class ReviewPrompt extends React.PureComponent {
     constructor(props, context) {
         super(props, context);
+
         this.state = {
             starCount: 0,
         };
@@ -24,7 +25,7 @@ class ReviewPrompt extends React.PureComponent {
     }
 
     render() {
-        const { id } = this.props;
+        const { hid } = this.props;
         const { starCount } = this.state;
 
         return (
