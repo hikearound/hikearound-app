@@ -21,18 +21,15 @@ const propTypes = {
     modalAction: PropTypes.string,
     animationType: PropTypes.string,
     transparent: PropTypes.bool,
-    fullScreen: PropTypes.bool,
     name: PropTypes.string.isRequired,
     location: PropTypes.string.isRequired,
-    modalCloseAction: PropTypes.string,
+    modalCloseAction: PropTypes.string.isRequired,
 };
 
 const defaultProps = {
     animationType: 'push',
     modalAction: 'showEditProfile',
     transparent: true,
-    fullScreen: false,
-    modalCloseAction: null,
 };
 
 function mapStateToProps(state) {
@@ -204,14 +201,13 @@ class EditProfileModal extends React.Component {
 
     render() {
         const { modalVisible, inputs } = this.state;
-        const { animationType, transparent, fullScreen, t } = this.props;
+        const { animationType, transparent, t } = this.props;
 
         return (
             <Modal
                 animationType={animationType}
                 transparent={transparent}
                 visible={modalVisible}
-                fullScreen={fullScreen}
             >
                 <RootView>
                     {this.renderModalHeader(t)}

@@ -32,6 +32,12 @@ export default function modalReducer(state = modalState, action) {
                 action: 'showFilter',
             };
 
+        case 'SHOW_REVIEW':
+            return {
+                ...state,
+                action: 'showReview',
+            };
+
         case 'SET_LIGHTBOX_IMAGE_INDEX':
             return {
                 ...state,

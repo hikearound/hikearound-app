@@ -4,8 +4,12 @@ import { TouchableOpacity } from 'react-native';
 import * as Haptics from 'expo-haptics';
 import { connect } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
+import Toast from 'react-native-toast-message';
+import { withTranslation } from 'react-i18next';
 import { opacities, colors, spacing } from '../constants/Index';
 import { favoriteHike, unfavoriteHike } from '../actions/Hike';
+import { getToastText } from '../utils/Toast';
+import { withTheme } from '../utils/Themes';
 
 const propTypes = {
     hid: PropTypes.string.isRequired,
@@ -89,6 +93,7 @@ class FavoriteButton extends React.Component {
         const { hikes } = this.state;
 
         hikes.push(hid);
+        this.showToast();
 
         this.setState({
             hikes,
@@ -97,6 +102,16 @@ class FavoriteButton extends React.Component {
         });
 
         dispatchFavorite({ hid, distance, name, city, state });
+    };
+
+    showToast = () => {
+        const { t, name } = this.props;
+
+        Toast.show({
+            text1: getToastText('favoriteHike', t, { name }),
+            position: 'bottom',
+            type: 'success',
+        });
     };
 
     removeFavoriteHike = async () => {
@@ -163,4 +178,7 @@ class FavoriteButton extends React.Component {
 
 FavoriteButton.propTypes = propTypes;
 
-export default connect(mapStateToProps, mapDispatchToProps)(FavoriteButton);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(withTranslation()(withTheme(FavoriteButton)));

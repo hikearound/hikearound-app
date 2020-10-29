@@ -37,6 +37,11 @@ export const showModal = (modalType) => {
                 type: 'SHOW_FILTER',
             };
 
+        case 'review':
+            return {
+                type: 'SHOW_REVIEW',
+            };
+
         default:
             return {};
     }

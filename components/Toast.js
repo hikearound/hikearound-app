@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Ionicons } from '@expo/vector-icons';
-import { Animated, TouchableOpacity, Dimensions } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import {
     colors,
@@ -14,23 +14,14 @@ import {
     opacities,
 } from '../constants/Index';
 
-const { height } = Dimensions.get('window');
-
 const propTypes = {
     text: PropTypes.string,
-    action: PropTypes.string.isRequired,
-    duration: PropTypes.number,
-    timeout: PropTypes.number,
     iconSize: PropTypes.number,
-    useNativeDriver: PropTypes.bool,
 };
 
 const defaultProps = {
-    text: '',
-    duration: 500,
-    timeout: 3500,
+    text: null,
     iconSize: 30,
-    useNativeDriver: false,
 };
 
 function mapStateToProps(state) {
@@ -40,54 +31,11 @@ function mapStateToProps(state) {
 }
 
 class Toast extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            top: new Animated.Value(height),
-        };
-    }
-
-    componentDidUpdate() {
-        this.showToast();
-    }
-
-    showToast = () => {
-        const { action, duration, timeout, useNativeDriver } = this.props;
-        const { top } = this.state;
-
-        if (action === 'favoriteHike' || action === 'copyLink') {
-            Animated.timing(top, {
-                toValue: height - 230,
-                duration,
-                useNativeDriver,
-            }).start();
-        }
-
-        this.timeout = setTimeout(() => {
-            this.hideToast();
-        }, timeout);
-    };
-
-    hideToast = () => {
-        const { top } = this.state;
-        const { duration, useNativeDriver } = this.props;
-
-        clearTimeout(this.timeout);
-
-        Animated.timing(top, {
-            toValue: height,
-            duration,
-            useNativeDriver,
-        }).start();
-    };
-
     render() {
         const { text, iconSize } = this.props;
-        const { top } = this.state;
 
         return (
-            <AnimatedContainer style={{ top }}>
+            <Container>
                 <ToastText>{text}</ToastText>
                 <TouchableOpacity
                     activeOpacity={opacities.regular}
@@ -104,7 +52,7 @@ class Toast extends React.Component {
                         size={iconSize}
                     />
                 </TouchableOpacity>
-            </AnimatedContainer>
+            </Container>
         );
     }
 }
@@ -116,6 +64,7 @@ export default connect(mapStateToProps)(Toast);
 
 const Container = styled.View`
     position: absolute;
+    bottom: -50px;
     left: ${spacing.small}px;
     right: ${spacing.small}px;
     background: ${transparentColors.purple};
@@ -123,8 +72,6 @@ const Container = styled.View`
     border-radius: ${borderRadius.medium}px;
     z-index: 1;
 `;
-
-const AnimatedContainer = Animated.createAnimatedComponent(Container);
 
 const ToastText = styled.Text`
     font-size: ${fontSizes.medium}px;

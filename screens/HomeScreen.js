@@ -15,6 +15,7 @@ import { defaultState } from '../constants/states/Home';
 import { RootView } from '../styles/Screens';
 import { getUserData } from '../utils/User';
 import { handleAppBadge } from '../utils/Notifications';
+import { initializeToast } from '../utils/Toast';
 import { withTheme, SetBarStyle } from '../utils/Themes';
 import { getMapData } from '../utils/Map';
 import { getPosition, getNearestCity, shouldSetCity } from '../utils/Location';
@@ -86,6 +87,7 @@ class HomeScreen extends React.Component {
 
         checkInitialUrl(navigation);
         handleAppBadge();
+        initializeToast();
     }
 
     componentDidUpdate(prevProps) {

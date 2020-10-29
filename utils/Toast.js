@@ -1,3 +1,6 @@
+import React from 'react';
+import Toast from 'react-native-toast-message';
+import ToastComponent from '../components/Toast';
 import { truncateText } from './Text';
 
 export function getToastText(action, t, data) {
@@ -10,4 +13,19 @@ export function getToastText(action, t, data) {
     return null;
 }
 
-export default getToastText;
+export function initializeToast() {
+    Toast.show({
+        text1: 'null',
+        position: 'bottom',
+        type: 'init',
+    });
+}
+
+export const toastConfig = {
+    success: (internalState) => {
+        return <ToastComponent text={internalState.text1} />;
+    },
+    init: () => {
+        return null;
+    },
+};

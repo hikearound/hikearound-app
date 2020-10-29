@@ -14,7 +14,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-    continueText: '',
+    continueText: null,
     modalCloseAction: 'closeAndContinue',
     isPageSheet: false,
 };

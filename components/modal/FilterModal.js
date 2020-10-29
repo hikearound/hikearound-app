@@ -32,7 +32,8 @@ function mapDispatchToProps(dispatch) {
     return {
         dispatchFilterParams: (filterParams) =>
             dispatch(filterFeed(filterParams)),
-        dispatchModalFlag: () => dispatch(closeModal()),
+        dispatchModalFlag: (modalCloseAction) =>
+            dispatch(closeModal(modalCloseAction)),
     };
 }
 
@@ -82,7 +83,7 @@ class FilterModal extends React.Component {
     hideModal = () => {
         const { dispatchModalFlag } = this.props;
 
-        dispatchModalFlag();
+        dispatchModalFlag('closeFilter');
         this.setState({ modalVisible: false });
     };
 

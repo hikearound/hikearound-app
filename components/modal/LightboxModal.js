@@ -20,7 +20,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        dispatchModalFlag: () => dispatch(closeModal()),
+        dispatchModalFlag: (modalCloseAction) =>
+            dispatch(closeModal(modalCloseAction)),
     };
 }
 
@@ -65,7 +66,7 @@ class LightboxModal extends React.Component {
     hideModal = () => {
         const { dispatchModalFlag } = this.props;
 
-        dispatchModalFlag();
+        dispatchModalFlag('closeLightbox');
         this.setState({ modalVisible: false });
         StatusBar.setHidden(false);
     };

@@ -27,14 +27,12 @@ function mapDispatchToProps() {
 const propTypes = {
     action: PropTypes.string.isRequired,
     modalAction: PropTypes.string,
-    fullScreen: PropTypes.bool,
     transparent: PropTypes.bool,
     animationType: PropTypes.string,
 };
 
 const defaultProps = {
     modalAction: 'showResetPassword',
-    fullScreen: false,
     transparent: true,
     animationType: 'push',
 };
@@ -83,10 +81,6 @@ class ResetPasswordModal extends React.Component {
 
     renderHelpText = (t) => {
         return <SubText>{t('modal.reset.help')}</SubText>;
-    };
-
-    handleSubmitEditing = () => {
-        this.hideModal();
     };
 
     assignRef = (ref, name) => {
@@ -146,7 +140,7 @@ class ResetPasswordModal extends React.Component {
                         }
                         autoFocus={index === 0}
                         returnKeyType={returnKeyType}
-                        onSubmitEditing={() => this.handleSubmitEditing(index)}
+                        onSubmitEditing={() => this.hideModal()}
                         inputRef={(ref) => this.assignRef(ref, name)}
                         autoCompleteType={autoCompleteType}
                     />
@@ -158,14 +152,13 @@ class ResetPasswordModal extends React.Component {
 
     render() {
         const { modalVisible, inputs } = this.state;
-        const { animationType, transparent, fullScreen, t } = this.props;
+        const { animationType, transparent, t } = this.props;
 
         return (
             <Modal
                 animationType={animationType}
                 transparent={transparent}
                 visible={modalVisible}
-                fullScreen={fullScreen}
             >
                 <RootView>
                     {this.renderModalHeader(t)}

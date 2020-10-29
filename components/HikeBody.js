@@ -12,6 +12,7 @@ import MapWrapper from './map/Wrapper';
 import TextContent from './hike/TextContent';
 
 const propTypes = {
+    setSelectedStars: PropTypes.func.isRequired,
     scrollRef: PropTypes.object.isRequired,
     coordinates: PropTypes.array,
     region: PropTypes.object,
@@ -41,10 +42,12 @@ class HikeBody extends React.PureComponent {
         };
     }
 
-    renderReviewSection = (t, hid) => {
+    renderReviewSection = () => {
+        const { setSelectedStars } = this.props;
+
         return (
             <View>
-                <ReviewPrompt hid={hid} />
+                <ReviewPrompt setSelectedStars={setSelectedStars} />
             </View>
         );
     };

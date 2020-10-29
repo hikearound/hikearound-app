@@ -80,7 +80,7 @@ export async function getFavoriteHikes() {
 
     favoriteHikes.forEach((hike) => {
         if (hike.exists) {
-            hikes.push(hike.hid);
+            hikes.push(hike.id);
         }
     });
 

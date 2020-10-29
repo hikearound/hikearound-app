@@ -106,6 +106,9 @@
         "filter": {
             "title": "Filter",
             "cta": "Apply Filters"
+        },
+        "review": {
+            "title": "Review"
         }
     },
     "card": {

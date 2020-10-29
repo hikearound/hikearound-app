@@ -15,6 +15,7 @@ export const modalState = {
     action: '',
     imageIndex: 0,
     selectedHike: null,
+    modalCloseAction: '',
 };
 
 export const notifs = {
@@ -53,4 +54,8 @@ export const feedState = {
         route: [],
         sort: 0,
     },
+};
+
+export const reviewState = {
+    hid: null,
 };
