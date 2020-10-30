@@ -44,10 +44,6 @@ class ResetPasswordModal extends React.Component {
         const { t, modalType } = this.props;
         const inputs = getInputs(t, modalType);
 
-        this.showModal = this.showModal.bind(this);
-        this.hideModal = this.hideModal.bind(this);
-        this.hideAndClearModal = this.hideAndClearModal.bind(this);
-
         this.state = {
             modalVisible: false,
             inputs,
@@ -57,13 +53,12 @@ class ResetPasswordModal extends React.Component {
     componentDidUpdate(prevProps) {
         const { currentModal, modalType } = this.props;
 
-        toggleModalVisibility(
-            prevProps,
-            currentModal,
-            modalType,
-            this.showModal,
-            this.hideModal,
-        );
+        const functions = {
+            show: this.showModal.bind(this),
+            hide: this.hideModal.bind(this),
+        };
+
+        toggleModalVisibility(prevProps, currentModal, modalType, functions);
     }
 
     setValue(name, text) {
@@ -103,7 +98,7 @@ class ResetPasswordModal extends React.Component {
         const { email } = this.state;
 
         maybeSendResetNotif(email);
-        showAlert(t, email, this.hideAndClearModal);
+        showAlert(t, email, this.hideAndClearModal.bind(this));
     };
 
     hideAndClearModal = () => {

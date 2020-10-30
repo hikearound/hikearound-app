@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { Modal, StatusBar } from 'react-native';
+import { Modal } from 'react-native';
 import ImageViewer from 'react-native-image-zoom-viewer';
 import ModalOverflow from './header/Overflow';
 import ModalDismiss from './header/Dismiss';
@@ -10,6 +10,7 @@ import { colors } from '../../constants/Index';
 import LoadingOverlay from '../LoadingOverlay';
 import { closeModal } from '../../actions/Modal';
 import { toggleModalVisibility } from '../../utils/Modal';
+import { toggleStatusBar } from '../../utils/Themes';
 
 const propTypes = {
     action: PropTypes.string.isRequired,
@@ -50,9 +51,6 @@ class LightboxModal extends React.Component {
     constructor(props, context) {
         super(props, context);
 
-        this.showModal = this.showModal.bind(this);
-        this.hideModal = this.hideModal.bind(this);
-
         this.state = {
             modalVisible: false,
         };
@@ -61,13 +59,12 @@ class LightboxModal extends React.Component {
     componentDidUpdate(prevProps) {
         const { currentModal, modalType } = this.props;
 
-        toggleModalVisibility(
-            prevProps,
-            currentModal,
-            modalType,
-            this.showModal,
-            this.hideModal,
-        );
+        const functions = {
+            show: this.showModal.bind(this),
+            hide: this.hideModal.bind(this),
+        };
+
+        toggleModalVisibility(prevProps, currentModal, modalType, functions);
     }
 
     dispatchCloseAction = () => {
@@ -75,18 +72,14 @@ class LightboxModal extends React.Component {
         dispatchModalFlag(closeAction);
     };
 
-    toggleStatusBar = (shouldShow) => {
-        StatusBar.setHidden(shouldShow);
-    };
-
     hideModal = () => {
-        this.toggleStatusBar(false);
+        toggleStatusBar(false);
         this.dispatchCloseAction();
         this.setState({ modalVisible: false });
     };
 
     showModal = () => {
-        this.toggleStatusBar(true);
+        toggleStatusBar(true);
         this.setState({ modalVisible: true });
     };
 

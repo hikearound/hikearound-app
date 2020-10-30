@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Modal, StatusBar } from 'react-native';
+import { Modal } from 'react-native';
 import { connect } from 'react-redux';
 import ModalDismiss from './header/Dismiss';
 import HikeMap from '../map/Hike';
 import GraphSheet from '../bottom_sheet/Graph';
 import { toggleModalVisibility } from '../../utils/Modal';
+import { toggleStatusBar } from '../../utils/Themes';
 
 const propTypes = {
     currentModal: PropTypes.string.isRequired,
@@ -46,11 +47,7 @@ function mapStateToProps(state) {
 class MapModal extends React.Component {
     constructor(props, context) {
         super(props, context);
-
         this.bottomSheetRef = React.createRef();
-
-        this.showModal = this.showModal.bind(this);
-        this.hideModal = this.hideModal.bind(this);
 
         this.state = {
             modalVisible: false,
@@ -60,13 +57,12 @@ class MapModal extends React.Component {
     componentDidUpdate(prevProps) {
         const { currentModal, modalType } = this.props;
 
-        toggleModalVisibility(
-            prevProps,
-            currentModal,
-            modalType,
-            this.showModal,
-            this.hideModal,
-        );
+        const functions = {
+            show: this.showModal.bind(this),
+            hide: this.hideModal.bind(this),
+        };
+
+        toggleModalVisibility(prevProps, currentModal, modalType, functions);
     }
 
     setRegion = (region) => {
@@ -80,17 +76,13 @@ class MapModal extends React.Component {
         };
     };
 
-    toggleStatusBar = (shouldShow) => {
-        StatusBar.setHidden(shouldShow);
-    };
-
     hideModal = () => {
-        this.toggleStatusBar(false);
+        toggleStatusBar(false);
         this.setState({ modalVisible: false });
     };
 
     showModal = () => {
-        this.toggleStatusBar(true);
+        toggleStatusBar(true);
         this.setState({ modalVisible: true });
     };
 

@@ -60,13 +60,8 @@ class FilterModal extends React.Component {
         const { t, modalType } = this.props;
         const controls = getSegmentedControls(t, modalType);
 
-        this.showModal = this.showModal.bind(this);
-        this.hideModal = this.hideModal.bind(this);
-
-        this.handleSingleIndexSelect = this.handleSingleIndexSelect.bind(this);
-        this.handleMultipleIndexSelect = this.handleMultipleIndexSelect.bind(
-            this,
-        );
+        this.handleSingleSelect = this.handleSingleSelect.bind(this);
+        this.handleMultipleSelect = this.handleMultipleSelect.bind(this);
 
         this.state = defaultState;
         this.state.controls = controls;
@@ -75,13 +70,12 @@ class FilterModal extends React.Component {
     componentDidUpdate(prevProps) {
         const { currentModal, modalType } = this.props;
 
-        toggleModalVisibility(
-            prevProps,
-            currentModal,
-            modalType,
-            this.showModal,
-            this.hideModal,
-        );
+        const functions = {
+            show: this.showModal.bind(this),
+            hide: this.hideModal.bind(this),
+        };
+
+        toggleModalVisibility(prevProps, currentModal, modalType, functions);
     }
 
     hideModal = () => {
@@ -110,14 +104,14 @@ class FilterModal extends React.Component {
         });
     };
 
-    handleSingleIndexSelect = (index, type) => {
+    handleSingleSelect = (index, type) => {
         const { selectedIndices } = this.state;
         selectedIndices[type] = index;
 
         this.setState({ selectedIndices });
     };
 
-    handleMultipleIndexSelect = (index, type) => {
+    handleMultipleSelect = (index, type) => {
         const { selectedIndices } = this.state;
 
         if (selectedIndices[type].includes(index)) {
@@ -161,7 +155,7 @@ class FilterModal extends React.Component {
                                 selectedIndices={selectedIndices[type]}
                                 selectedIndex={0}
                                 type={type}
-                                onTabPress={this.handleMultipleIndexSelect}
+                                onTabPress={this.handleMultipleSelect}
                             />
                         );
                     }
@@ -174,7 +168,7 @@ class FilterModal extends React.Component {
                             selectedIndices={[]}
                             selectedIndex={selectedIndices[type]}
                             type={type}
-                            onTabPress={this.handleSingleIndexSelect}
+                            onTabPress={this.handleSingleSelect}
                         />
                     );
                 })}

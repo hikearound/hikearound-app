@@ -48,9 +48,6 @@ class ReviewModal extends React.Component {
     constructor(props, context) {
         super(props, context);
 
-        this.showModal = this.showModal.bind(this);
-        this.hideModal = this.hideModal.bind(this);
-
         this.state = {
             modalVisible: false,
         };
@@ -59,13 +56,12 @@ class ReviewModal extends React.Component {
     componentDidUpdate(prevProps) {
         const { currentModal, modalType } = this.props;
 
-        toggleModalVisibility(
-            prevProps,
-            currentModal,
-            modalType,
-            this.showModal,
-            this.hideModal,
-        );
+        const functions = {
+            show: this.showModal.bind(this),
+            hide: this.hideModal.bind(this),
+        };
+
+        toggleModalVisibility(prevProps, currentModal, modalType, functions);
     }
 
     onStarRatingPress = (rating) => {

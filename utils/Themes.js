@@ -28,3 +28,7 @@ export function setBarStyleWithTheme(theme, setState) {
         setState({ barStyle: 'dark-content' });
     }
 }
+
+export function toggleStatusBar(shouldShow) {
+    StatusBar.setHidden(shouldShow);
+}
