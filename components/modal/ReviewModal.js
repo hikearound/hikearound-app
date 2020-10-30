@@ -4,23 +4,22 @@ import { Modal } from 'react-native';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import styled from 'styled-components';
-import ModalDismiss from './header/Dismiss';
 import Stars from '../Stars';
-import ModalContinue from './header/Continue';
 import { addReviewData } from '../../actions/Review';
 import { withTheme } from '../../utils/Themes';
 import { RootView } from '../../styles/Screens';
-import { ModalHeader, ModalTitleText, ModalBody } from '../../styles/Modals';
 import { toggleModalVisibility } from '../../utils/Modal';
 import { fontWeights, fontSizes, spacing } from '../../constants/Index';
+import ModalHeader from './Header';
+import { ModalBody } from '../../styles/Modals';
 
 const propTypes = {
-    action: PropTypes.string.isRequired,
+    currentModal: PropTypes.string.isRequired,
     dispatchReviewData: PropTypes.func.isRequired,
-    modalAction: PropTypes.string,
+    modalType: PropTypes.string,
     animationType: PropTypes.string,
     transparent: PropTypes.bool,
-    modalCloseAction: PropTypes.string.isRequired,
+    closeAction: PropTypes.string.isRequired,
     selectedStars: PropTypes.number.isRequired,
     hid: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
@@ -28,14 +27,14 @@ const propTypes = {
 
 const defaultProps = {
     animationType: 'push',
-    modalAction: 'showReview',
+    modalType: 'review',
     transparent: true,
 };
 
 function mapStateToProps(state) {
     return {
-        action: state.modalReducer.action,
-        modalCloseAction: state.modalReducer.modalCloseAction,
+        currentModal: state.modalReducer.currentModal,
+        closeAction: state.modalReducer.closeAction,
     };
 }
 
@@ -58,13 +57,12 @@ class ReviewModal extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        const { action, modalAction } = this.props;
-        const prevAction = prevProps.action;
+        const { currentModal, modalType } = this.props;
 
         toggleModalVisibility(
-            action,
-            modalAction,
-            prevAction,
+            prevProps,
+            currentModal,
+            modalType,
             this.showModal,
             this.hideModal,
         );
@@ -76,14 +74,12 @@ class ReviewModal extends React.Component {
 
     renderModalHeader = (t) => {
         return (
-            <ModalHeader>
-                <ModalTitleText>{t('modal.review.title')}</ModalTitleText>
-                <ModalDismiss textDismiss modalCloseAction='closeReview' />
-                <ModalContinue
-                    continueText={t('label.modal.save')}
-                    modalCloseAction='addReview'
-                />
-            </ModalHeader>
+            <ModalHeader
+                title={t('modal.review.title')}
+                dismissAction='closeReview'
+                continueAction='addReview'
+                continueText={t('label.modal.save')}
+            />
         );
     };
 
@@ -110,9 +106,9 @@ class ReviewModal extends React.Component {
     };
 
     hideModal = () => {
-        const { modalCloseAction } = this.props;
+        const { closeAction } = this.props;
 
-        if (modalCloseAction === 'addReview') {
+        if (closeAction === 'addReview') {
             this.addReview();
         }
 

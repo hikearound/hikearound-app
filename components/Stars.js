@@ -29,7 +29,7 @@ const defaultProps = {
 
 function mapStateToProps(state) {
     return {
-        modalCloseAction: state.modalReducer.modalCloseAction,
+        closeAction: state.modalReducer.closeAction,
     };
 }
 

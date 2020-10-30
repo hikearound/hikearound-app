@@ -9,13 +9,13 @@ import { showModal } from '../actions/Modal';
 
 const propTypes = {
     dispatchModalFlag: PropTypes.func.isRequired,
-    modalCloseAction: PropTypes.string.isRequired,
+    closeAction: PropTypes.string.isRequired,
     setSelectedStars: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
     return {
-        modalCloseAction: state.modalReducer.modalCloseAction,
+        closeAction: state.modalReducer.closeAction,
     };
 }
 
@@ -34,9 +34,9 @@ class ReviewPrompt extends React.PureComponent {
     }
 
     componentDidUpdate() {
-        const { modalCloseAction } = this.props;
+        const { closeAction } = this.props;
 
-        if (modalCloseAction === 'closeReview') {
+        if (closeAction === 'closeReview') {
             this.resetStars();
         }
     }

@@ -13,9 +13,10 @@ export const hikeState = {
 
 export const modalState = {
     action: '',
+    currentModal: 'none',
     imageIndex: 0,
     selectedHike: null,
-    modalCloseAction: '',
+    closeAction: '',
 };
 
 export const notifs = {

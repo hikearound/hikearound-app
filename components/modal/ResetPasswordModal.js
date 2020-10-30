@@ -3,21 +3,33 @@ import PropTypes from 'prop-types';
 import { Modal } from 'react-native';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
-import ModalDismiss from './header/Dismiss';
-import ModalContinue from './header/Continue';
 import InputLabelGroup from '../InputLabelGroup';
 import { withTheme } from '../../utils/Themes';
 import { RootView, SubText } from '../../styles/Screens';
-import { ModalHeader, ModalTitleText, ModalBody } from '../../styles/Modals';
+import { ModalBody } from '../../styles/Modals';
 import { getInputs } from '../../utils/Inputs';
 import { showAlert } from '../../utils/alert/Reset';
 import { maybeSendResetNotif } from '../../utils/Password';
 import { toggleModalVisibility } from '../../utils/Modal';
+import ModalHeader from './Header';
+
+const propTypes = {
+    currentModal: PropTypes.string.isRequired,
+    modalType: PropTypes.string,
+    transparent: PropTypes.bool,
+    animationType: PropTypes.string,
+};
+
+const defaultProps = {
+    modalType: 'resetPassword',
+    transparent: true,
+    animationType: 'push',
+};
 
 function mapStateToProps(state) {
     return {
-        action: state.modalReducer.action,
-        modalCloseAction: state.modalReducer.modalCloseAction,
+        currentModal: state.modalReducer.currentModal,
+        closeAction: state.modalReducer.closeAction,
     };
 }
 
@@ -25,29 +37,15 @@ function mapDispatchToProps() {
     return {};
 }
 
-const propTypes = {
-    action: PropTypes.string.isRequired,
-    modalAction: PropTypes.string,
-    transparent: PropTypes.bool,
-    animationType: PropTypes.string,
-};
-
-const defaultProps = {
-    modalAction: 'showResetPassword',
-    transparent: true,
-    animationType: 'push',
-};
-
 class ResetPasswordModal extends React.Component {
     constructor(props, context) {
         super(props, context);
 
-        const { t } = this.props;
-        const inputs = getInputs(t, 'forgotPassword');
+        const { t, modalType } = this.props;
+        const inputs = getInputs(t, modalType);
 
         this.showModal = this.showModal.bind(this);
         this.hideModal = this.hideModal.bind(this);
-
         this.hideAndClearModal = this.hideAndClearModal.bind(this);
 
         this.state = {
@@ -57,13 +55,12 @@ class ResetPasswordModal extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        const { action, modalAction } = this.props;
-        const prevAction = prevProps.action;
+        const { currentModal, modalType } = this.props;
 
         toggleModalVisibility(
-            action,
-            modalAction,
-            prevAction,
+            prevProps,
+            currentModal,
+            modalType,
             this.showModal,
             this.hideModal,
         );
@@ -73,16 +70,15 @@ class ResetPasswordModal extends React.Component {
         this.setState({ [name]: text });
     }
 
-    renderModalHeader = (t) => (
-        <ModalHeader>
-            <ModalTitleText>{t('modal.reset.title')}</ModalTitleText>
-            <ModalDismiss textDismiss dismissLanguage='cancel' />
-            <ModalContinue
+    renderModalHeader = (t) => {
+        return (
+            <ModalHeader
+                title={t('modal.reset.title')}
+                continueAction='resetPassword'
                 continueText={t('label.modal.send')}
-                modalCloseAction='resetPassword'
             />
-        </ModalHeader>
-    );
+        );
+    };
 
     renderHelpText = (t) => {
         return <SubText>{t('modal.reset.help')}</SubText>;

@@ -18,9 +18,9 @@ import { profileBgDefault, profileBgDark } from '../constants/Images';
 
 const propTypes = {
     dispatchModalFlag: PropTypes.func.isRequired,
-    modalType: PropTypes.string,
     name: PropTypes.string.isRequired,
     location: PropTypes.string.isRequired,
+    modalType: PropTypes.string,
 };
 
 const defaultProps = {

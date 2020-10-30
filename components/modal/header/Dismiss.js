@@ -21,13 +21,13 @@ const propTypes = {
     iconOffset: PropTypes.number,
     iconSize: PropTypes.number,
     dismissLanguage: PropTypes.string,
-    modalCloseAction: PropTypes.string,
+    closeAction: PropTypes.string,
     isPageSheet: PropTypes.bool,
 };
 
 const defaultProps = {
     includeBackground: false,
-    modalCloseAction: 'close',
+    closeAction: 'close',
     textDismiss: false,
     iconOffset: 25,
     iconSize: 35,
@@ -37,15 +37,14 @@ const defaultProps = {
 
 function mapDispatchToProps(dispatch) {
     return {
-        dispatchModalFlag: (modalCloseAction) =>
-            dispatch(closeModal(modalCloseAction)),
+        dispatchModalFlag: (closeAction) => dispatch(closeModal(closeAction)),
     };
 }
 
 class ModalDismiss extends React.PureComponent {
     close = () => {
-        const { dispatchModalFlag, modalCloseAction } = this.props;
-        dispatchModalFlag(modalCloseAction);
+        const { dispatchModalFlag, closeAction } = this.props;
+        dispatchModalFlag(closeAction);
     };
 
     render() {

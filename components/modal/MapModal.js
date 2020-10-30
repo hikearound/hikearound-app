@@ -8,27 +8,21 @@ import HikeMap from '../map/Hike';
 import GraphSheet from '../bottom_sheet/Graph';
 import { toggleModalVisibility } from '../../utils/Modal';
 
-function mapStateToProps(state) {
-    return {
-        action: state.modalReducer.action,
-        currentModal: state.modalReducer.currentModal,
-    };
-}
-
 const propTypes = {
-    action: PropTypes.string.isRequired,
+    currentModal: PropTypes.string.isRequired,
     maxZoom: PropTypes.number,
     modifier: PropTypes.number,
     startingCoordinates: PropTypes.object,
     elevationArray: PropTypes.array,
     hike: PropTypes.object.isRequired,
     animationType: PropTypes.string,
-    modalAction: PropTypes.string,
+    modalType: PropTypes.string,
     mapRef: PropTypes.func.isRequired,
     hid: PropTypes.string.isRequired,
     selectedHike: PropTypes.string,
     coordinates: PropTypes.array,
     region: PropTypes.object.isRequired,
+    closeAction: PropTypes.string,
 };
 
 const defaultProps = {
@@ -38,9 +32,16 @@ const defaultProps = {
     elevationArray: [],
     coordinates: [],
     animationType: 'push',
-    modalAction: 'showMap',
+    modalType: 'map',
     selectedHike: null,
+    closeAction: 'closeMap',
 };
+
+function mapStateToProps(state) {
+    return {
+        currentModal: state.modalReducer.currentModal,
+    };
+}
 
 class MapModal extends React.Component {
     constructor(props, context) {
@@ -57,13 +58,12 @@ class MapModal extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        const { action, modalAction } = this.props;
-        const prevAction = prevProps.action;
+        const { currentModal, modalType } = this.props;
 
         toggleModalVisibility(
-            action,
-            modalAction,
-            prevAction,
+            prevProps,
+            currentModal,
+            modalType,
             this.showModal,
             this.hideModal,
         );
@@ -103,6 +103,7 @@ class MapModal extends React.Component {
             selectedHike,
             elevationArray,
             hike,
+            closeAction,
         } = this.props;
 
         const initialRegion = this.setRegion(region);
@@ -126,7 +127,7 @@ class MapModal extends React.Component {
                         />
                         <ModalDismiss
                             includeBackground
-                            modalCloseAction='closeMap'
+                            closeAction={closeAction}
                         />
                     </ModalRoot>
                     <GraphSheet

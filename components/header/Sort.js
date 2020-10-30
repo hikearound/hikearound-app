@@ -20,16 +20,18 @@ function mapDispatchToProps(dispatch) {
 const propTypes = {
     dispatchModalFlag: PropTypes.func.isRequired,
     size: PropTypes.number,
+    modalType: PropTypes.string,
 };
 
 const defaultProps = {
+    modalType: 'filter',
     size: 40,
 };
 
 class Sort extends React.PureComponent {
     showFilter = () => {
-        const { dispatchModalFlag } = this.props;
-        dispatchModalFlag('filter');
+        const { dispatchModalFlag, modalType } = this.props;
+        dispatchModalFlag(modalType);
     };
 
     render() {

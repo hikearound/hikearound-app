@@ -4,40 +4,38 @@ import styled from 'styled-components';
 import { Modal } from 'react-native';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
-import ModalDismiss from './header/Dismiss';
-import ModalContinue from './header/Continue';
 import Avatar from '../Avatar';
 import InputLabelGroup from '../InputLabelGroup';
 import { spacing } from '../../constants/Index';
 import { updateUserData } from '../../actions/User';
 import { withTheme } from '../../utils/Themes';
 import { RootView } from '../../styles/Screens';
-import { ModalHeader, ModalTitleText, ModalBody } from '../../styles/Modals';
+import { ModalBody } from '../../styles/Modals';
 import { getInputs, setInputRefs } from '../../utils/Inputs';
 import { toggleModalVisibility } from '../../utils/Modal';
+import ModalHeader from './Header';
 
 const propTypes = {
-    action: PropTypes.string.isRequired,
+    currentModal: PropTypes.string.isRequired,
     dispatchUserData: PropTypes.func.isRequired,
-    modalAction: PropTypes.string,
+    modalType: PropTypes.string,
     animationType: PropTypes.string,
     transparent: PropTypes.bool,
     name: PropTypes.string.isRequired,
     location: PropTypes.string.isRequired,
-    modalCloseAction: PropTypes.string.isRequired,
+    closeAction: PropTypes.string.isRequired,
 };
 
 const defaultProps = {
     animationType: 'push',
-    modalAction: 'showEditProfile',
+    modalType: 'editProfile',
     transparent: true,
 };
 
 function mapStateToProps(state) {
     return {
-        action: state.modalReducer.action,
         currentModal: state.modalReducer.currentModal,
-        modalCloseAction: state.modalReducer.modalCloseAction,
+        closeAction: state.modalReducer.closeAction,
         name: state.userReducer.name,
         location: state.userReducer.location,
     };
@@ -52,10 +50,10 @@ function mapDispatchToProps(dispatch) {
 class EditProfileModal extends React.Component {
     constructor(props, context) {
         super(props, context);
+        const { t, modalType } = this.props;
 
-        const { t } = this.props;
-        const inputs = getInputs(t, 'editProfile');
-        const refs = setInputRefs(inputs, 'editProfile');
+        const inputs = getInputs(t, modalType);
+        const refs = setInputRefs(inputs, modalType);
 
         this.showModal = this.showModal.bind(this);
         this.hideModal = this.hideModal.bind(this);
@@ -68,13 +66,12 @@ class EditProfileModal extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        const { action, modalAction } = this.props;
-        const prevAction = prevProps.action;
+        const { currentModal, modalType } = this.props;
 
         toggleModalVisibility(
-            action,
-            modalAction,
-            prevAction,
+            prevProps,
+            currentModal,
+            modalType,
             this.showModal,
             this.hideModal,
         );
@@ -96,16 +93,15 @@ class EditProfileModal extends React.Component {
         }
     };
 
-    renderModalHeader = (t) => (
-        <ModalHeader>
-            <ModalTitleText>{t('screen.profile.edit')}</ModalTitleText>
-            <ModalDismiss textDismiss />
-            <ModalContinue
+    renderModalHeader = (t) => {
+        return (
+            <ModalHeader
+                title={t('screen.profile.edit')}
+                continueAction='updateUserData'
                 continueText={t('label.modal.save')}
-                modalCloseAction='updateUserData'
             />
-        </ModalHeader>
-    );
+        );
+    };
 
     handleSubmitEditing = (index) => {
         if (index === 0) {
@@ -125,10 +121,10 @@ class EditProfileModal extends React.Component {
     };
 
     hideModal = () => {
-        const { name, location, modalCloseAction } = this.props;
+        const { name, location, closeAction } = this.props;
         const userData = { location, name };
 
-        if (modalCloseAction === 'updateUserData') {
+        if (closeAction === 'updateUserData') {
             this.maybeUpdateName(userData);
             this.maybeUpdateLocation(userData);
         }

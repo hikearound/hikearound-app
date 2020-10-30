@@ -1,14 +1,14 @@
 export function toggleModalVisibility(
-    action,
-    modalAction,
-    prevAction,
+    prevProps,
+    currentModal,
+    modalType,
     showModal,
     hideModal,
 ) {
-    if (prevAction !== action) {
-        if (action === modalAction) {
+    if (prevProps.currentModal !== currentModal) {
+        if (currentModal === modalType) {
             showModal();
-        } else if (action === 'hideModal') {
+        } else if (currentModal === 'none') {
             hideModal();
         }
     }

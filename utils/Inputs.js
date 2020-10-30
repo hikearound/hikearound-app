@@ -37,7 +37,7 @@ function getEditProfileInputs(labels) {
     return [updateNameInput, updateLocationInput];
 }
 
-function getForgotPasswordInputs(labels) {
+function getResetPasswordInputs(labels) {
     emailInput.placeholder = labels.email;
     emailInput.returnKeyType = 'send';
 
@@ -63,8 +63,8 @@ export function getInputs(t, inputType) {
     if (inputType === 'editProfile') {
         return getEditProfileInputs(labels);
     }
-    if (inputType === 'forgotPassword') {
-        return getForgotPasswordInputs(labels);
+    if (inputType === 'resetPassword') {
+        return getResetPasswordInputs(labels);
     }
     if (inputType === 'changePassword') {
         return getChangePasswordInputs(labels);

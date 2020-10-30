@@ -44,6 +44,7 @@ class MapWrapper extends React.Component {
             hid,
             modalType,
         } = this.props;
+
         dispatchModalFlag(modalType);
         dispatchSelectedHike(hid);
     };

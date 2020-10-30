@@ -11,37 +11,40 @@ import LoadingOverlay from '../LoadingOverlay';
 import { closeModal } from '../../actions/Modal';
 import { toggleModalVisibility } from '../../utils/Modal';
 
+const propTypes = {
+    action: PropTypes.string.isRequired,
+    dispatchModalFlag: PropTypes.func.isRequired,
+    currentModal: PropTypes.string.isRequired,
+    animationType: PropTypes.string,
+    modalType: PropTypes.string,
+    hid: PropTypes.string.isRequired,
+    selectedHike: PropTypes.string,
+    imageIndex: PropTypes.number.isRequired,
+    images: PropTypes.array.isRequired,
+    closeAction: PropTypes.string,
+};
+
+const defaultProps = {
+    selectedHike: null,
+    animationType: 'push',
+    modalType: 'lightbox',
+    closeAction: 'closeLightbox',
+};
+
 function mapStateToProps(state) {
     return {
-        imageIndex: state.modalReducer.imageIndex,
         action: state.modalReducer.action,
+        imageIndex: state.modalReducer.imageIndex,
+        currentModal: state.modalReducer.currentModal,
         selectedHike: state.modalReducer.selectedHike,
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        dispatchModalFlag: (modalCloseAction) =>
-            dispatch(closeModal(modalCloseAction)),
+        dispatchModalFlag: (closeAction) => dispatch(closeModal(closeAction)),
     };
 }
-
-const propTypes = {
-    dispatchModalFlag: PropTypes.func.isRequired,
-    action: PropTypes.string.isRequired,
-    animationType: PropTypes.string,
-    modalAction: PropTypes.string,
-    hid: PropTypes.string.isRequired,
-    selectedHike: PropTypes.string,
-    imageIndex: PropTypes.number.isRequired,
-    images: PropTypes.array.isRequired,
-};
-
-const defaultProps = {
-    animationType: 'push',
-    modalAction: 'showLightbox',
-    selectedHike: null,
-};
 
 class LightboxModal extends React.Component {
     constructor(props, context) {
@@ -56,23 +59,21 @@ class LightboxModal extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        const { action, modalAction } = this.props;
-        const prevAction = prevProps.action;
+        const { currentModal, modalType } = this.props;
 
         toggleModalVisibility(
-            action,
-            modalAction,
-            prevAction,
+            prevProps,
+            currentModal,
+            modalType,
             this.showModal,
             this.hideModal,
         );
     }
 
     hideModal = () => {
-        const { dispatchModalFlag } = this.props;
+        const { dispatchModalFlag, closeAction } = this.props;
 
-        dispatchModalFlag('closeLightbox');
-
+        dispatchModalFlag(closeAction);
         this.setState({ modalVisible: false });
         StatusBar.setHidden(false);
     };

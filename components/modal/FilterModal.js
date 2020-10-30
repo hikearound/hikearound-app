@@ -22,10 +22,26 @@ import { filterFeed } from '../../actions/Feed';
 import { closeModal } from '../../actions/Modal';
 import { toggleModalVisibility } from '../../utils/Modal';
 
+const propTypes = {
+    currentModal: PropTypes.string.isRequired,
+    dispatchFilterParams: PropTypes.func.isRequired,
+    dispatchModalFlag: PropTypes.func.isRequired,
+    animationType: PropTypes.string,
+    presentationStyle: PropTypes.string,
+    modalType: PropTypes.string,
+    closeAction: PropTypes.string,
+};
+
+const defaultProps = {
+    animationType: 'slide',
+    presentationStyle: 'pageSheet',
+    modalType: 'filter',
+    closeAction: 'closeFilter',
+};
+
 function mapStateToProps(state) {
     return {
-        action: state.modalReducer.action,
-        modalCloseAction: state.modalReducer.modalCloseAction,
+        currentModal: state.modalReducer.currentModal,
     };
 }
 
@@ -33,32 +49,16 @@ function mapDispatchToProps(dispatch) {
     return {
         dispatchFilterParams: (filterParams) =>
             dispatch(filterFeed(filterParams)),
-        dispatchModalFlag: (modalCloseAction) =>
-            dispatch(closeModal(modalCloseAction)),
+        dispatchModalFlag: (closeAction) => dispatch(closeModal(closeAction)),
     };
 }
-
-const propTypes = {
-    action: PropTypes.string.isRequired,
-    dispatchFilterParams: PropTypes.func.isRequired,
-    dispatchModalFlag: PropTypes.func.isRequired,
-    animationType: PropTypes.string,
-    presentationStyle: PropTypes.string,
-    modalAction: PropTypes.string,
-};
-
-const defaultProps = {
-    animationType: 'slide',
-    presentationStyle: 'pageSheet',
-    modalAction: 'showFilter',
-};
 
 class FilterModal extends React.Component {
     constructor(props, context) {
         super(props, context);
 
-        const { t } = this.props;
-        const controls = getSegmentedControls(t, 'filter');
+        const { t, modalType } = this.props;
+        const controls = getSegmentedControls(t, modalType);
 
         this.showModal = this.showModal.bind(this);
         this.hideModal = this.hideModal.bind(this);
@@ -73,22 +73,21 @@ class FilterModal extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        const { action, modalAction } = this.props;
-        const prevAction = prevProps.action;
+        const { currentModal, modalType } = this.props;
 
         toggleModalVisibility(
-            action,
-            modalAction,
-            prevAction,
+            prevProps,
+            currentModal,
+            modalType,
             this.showModal,
             this.hideModal,
         );
     }
 
     hideModal = () => {
-        const { dispatchModalFlag } = this.props;
+        const { dispatchModalFlag, closeAction } = this.props;
 
-        dispatchModalFlag('closeFilter');
+        dispatchModalFlag(closeAction);
         this.setState({ modalVisible: false });
     };
 

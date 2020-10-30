@@ -9,13 +9,13 @@ import HeaderText from '../../../styles/Header';
 const propTypes = {
     dispatchModalFlag: PropTypes.func.isRequired,
     continueText: PropTypes.string,
-    modalCloseAction: PropTypes.string,
+    closeAction: PropTypes.string,
     isPageSheet: PropTypes.bool,
 };
 
 const defaultProps = {
     continueText: null,
-    modalCloseAction: 'closeAndContinue',
+    closeAction: 'closeAndContinue',
     isPageSheet: false,
 };
 
@@ -25,15 +25,14 @@ function mapStateToProps() {
 
 function mapDispatchToProps(dispatch) {
     return {
-        dispatchModalFlag: (modalCloseAction) =>
-            dispatch(closeModal(modalCloseAction)),
+        dispatchModalFlag: (closeAction) => dispatch(closeModal(closeAction)),
     };
 }
 
 class ModalContinue extends React.PureComponent {
     close = () => {
-        const { dispatchModalFlag, modalCloseAction } = this.props;
-        dispatchModalFlag(modalCloseAction);
+        const { dispatchModalFlag, closeAction } = this.props;
+        dispatchModalFlag(closeAction);
     };
 
     render() {
