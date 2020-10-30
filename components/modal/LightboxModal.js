@@ -9,6 +9,7 @@ import ModalDismiss from './header/Dismiss';
 import { colors } from '../../constants/Index';
 import LoadingOverlay from '../LoadingOverlay';
 import { closeModal } from '../../actions/Modal';
+import { toggleModalVisibility } from '../../utils/Modal';
 
 function mapStateToProps(state) {
     return {
@@ -46,6 +47,9 @@ class LightboxModal extends React.Component {
     constructor(props, context) {
         super(props, context);
 
+        this.showModal = this.showModal.bind(this);
+        this.hideModal = this.hideModal.bind(this);
+
         this.state = {
             modalVisible: false,
         };
@@ -53,20 +57,22 @@ class LightboxModal extends React.Component {
 
     componentDidUpdate(prevProps) {
         const { action, modalAction } = this.props;
+        const prevAction = prevProps.action;
 
-        if (prevProps.action !== action) {
-            if (action === modalAction) {
-                this.showModal();
-            } else if (action === 'hideModal') {
-                this.hideModal();
-            }
-        }
+        toggleModalVisibility(
+            action,
+            modalAction,
+            prevAction,
+            this.showModal,
+            this.hideModal,
+        );
     }
 
     hideModal = () => {
         const { dispatchModalFlag } = this.props;
 
         dispatchModalFlag('closeLightbox');
+
         this.setState({ modalVisible: false });
         StatusBar.setHidden(false);
     };

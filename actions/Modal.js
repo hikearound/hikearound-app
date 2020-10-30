@@ -15,31 +15,37 @@ export const showModal = (modalType) => {
         case 'lightbox':
             return {
                 type: 'SHOW_LIGHTBOX',
+                modalType,
             };
 
         case 'map':
             return {
                 type: 'SHOW_MAP',
+                modalType,
             };
 
         case 'editProfile':
             return {
                 type: 'SHOW_EDIT_PROFILE',
+                modalType,
             };
 
         case 'resetPassword':
             return {
                 type: 'SHOW_RESET_PASSWORD',
+                modalType,
             };
 
         case 'filter':
             return {
                 type: 'SHOW_FILTER',
+                modalType,
             };
 
         case 'review':
             return {
                 type: 'SHOW_REVIEW',
+                modalType,
             };
 
         default:

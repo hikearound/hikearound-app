@@ -12,6 +12,7 @@ import { ModalHeader, ModalTitleText, ModalBody } from '../../styles/Modals';
 import { getInputs } from '../../utils/Inputs';
 import { showAlert } from '../../utils/alert/Reset';
 import { maybeSendResetNotif } from '../../utils/Password';
+import { toggleModalVisibility } from '../../utils/Modal';
 
 function mapStateToProps(state) {
     return {
@@ -44,6 +45,9 @@ class ResetPasswordModal extends React.Component {
         const { t } = this.props;
         const inputs = getInputs(t, 'forgotPassword');
 
+        this.showModal = this.showModal.bind(this);
+        this.hideModal = this.hideModal.bind(this);
+
         this.hideAndClearModal = this.hideAndClearModal.bind(this);
 
         this.state = {
@@ -54,14 +58,15 @@ class ResetPasswordModal extends React.Component {
 
     componentDidUpdate(prevProps) {
         const { action, modalAction } = this.props;
+        const prevAction = prevProps.action;
 
-        if (prevProps.action !== action) {
-            if (action === modalAction) {
-                this.showModal();
-            } else if (action === 'hideModal') {
-                this.hideModal();
-            }
-        }
+        toggleModalVisibility(
+            action,
+            modalAction,
+            prevAction,
+            this.showModal,
+            this.hideModal,
+        );
     }
 
     setValue(name, text) {

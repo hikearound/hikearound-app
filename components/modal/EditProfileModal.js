@@ -14,6 +14,7 @@ import { withTheme } from '../../utils/Themes';
 import { RootView } from '../../styles/Screens';
 import { ModalHeader, ModalTitleText, ModalBody } from '../../styles/Modals';
 import { getInputs, setInputRefs } from '../../utils/Inputs';
+import { toggleModalVisibility } from '../../utils/Modal';
 
 const propTypes = {
     action: PropTypes.string.isRequired,
@@ -35,6 +36,7 @@ const defaultProps = {
 function mapStateToProps(state) {
     return {
         action: state.modalReducer.action,
+        currentModal: state.modalReducer.currentModal,
         modalCloseAction: state.modalReducer.modalCloseAction,
         name: state.userReducer.name,
         location: state.userReducer.location,
@@ -55,6 +57,9 @@ class EditProfileModal extends React.Component {
         const inputs = getInputs(t, 'editProfile');
         const refs = setInputRefs(inputs, 'editProfile');
 
+        this.showModal = this.showModal.bind(this);
+        this.hideModal = this.hideModal.bind(this);
+
         this.state = {
             modalVisible: false,
             inputs,
@@ -64,14 +69,15 @@ class EditProfileModal extends React.Component {
 
     componentDidUpdate(prevProps) {
         const { action, modalAction } = this.props;
+        const prevAction = prevProps.action;
 
-        if (prevProps.action !== action) {
-            if (action === modalAction) {
-                this.showModal();
-            } else if (action === 'hideModal') {
-                this.hideModal();
-            }
-        }
+        toggleModalVisibility(
+            action,
+            modalAction,
+            prevAction,
+            this.showModal,
+            this.hideModal,
+        );
     }
 
     setValue(name, text) {

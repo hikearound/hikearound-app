@@ -6,10 +6,12 @@ import { connect } from 'react-redux';
 import ModalDismiss from './header/Dismiss';
 import HikeMap from '../map/Hike';
 import GraphSheet from '../bottom_sheet/Graph';
+import { toggleModalVisibility } from '../../utils/Modal';
 
 function mapStateToProps(state) {
     return {
         action: state.modalReducer.action,
+        currentModal: state.modalReducer.currentModal,
     };
 }
 
@@ -46,6 +48,9 @@ class MapModal extends React.Component {
 
         this.bottomSheetRef = React.createRef();
 
+        this.showModal = this.showModal.bind(this);
+        this.hideModal = this.hideModal.bind(this);
+
         this.state = {
             modalVisible: false,
         };
@@ -53,14 +58,15 @@ class MapModal extends React.Component {
 
     componentDidUpdate(prevProps) {
         const { action, modalAction } = this.props;
+        const prevAction = prevProps.action;
 
-        if (prevProps.action !== action) {
-            if (action === modalAction) {
-                this.showModal();
-            } else if (action === 'hideModal') {
-                this.hideModal();
-            }
-        }
+        toggleModalVisibility(
+            action,
+            modalAction,
+            prevAction,
+            this.showModal,
+            this.hideModal,
+        );
     }
 
     setRegion = (region) => {
@@ -118,7 +124,10 @@ class MapModal extends React.Component {
                             maxZoom={maxZoom}
                             mapPadding={{ bottom: 70 }}
                         />
-                        <ModalDismiss includeBackground />
+                        <ModalDismiss
+                            includeBackground
+                            modalCloseAction='closeMap'
+                        />
                     </ModalRoot>
                     <GraphSheet
                         sheetRef={this.bottomSheetRef}

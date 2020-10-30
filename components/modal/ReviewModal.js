@@ -3,12 +3,16 @@ import PropTypes from 'prop-types';
 import { Modal } from 'react-native';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
+import styled from 'styled-components';
 import ModalDismiss from './header/Dismiss';
+import Stars from '../Stars';
 import ModalContinue from './header/Continue';
 import { addReviewData } from '../../actions/Review';
 import { withTheme } from '../../utils/Themes';
 import { RootView } from '../../styles/Screens';
 import { ModalHeader, ModalTitleText, ModalBody } from '../../styles/Modals';
+import { toggleModalVisibility } from '../../utils/Modal';
+import { fontWeights, fontSizes, spacing } from '../../constants/Index';
 
 const propTypes = {
     action: PropTypes.string.isRequired,
@@ -45,6 +49,9 @@ class ReviewModal extends React.Component {
     constructor(props, context) {
         super(props, context);
 
+        this.showModal = this.showModal.bind(this);
+        this.hideModal = this.hideModal.bind(this);
+
         this.state = {
             modalVisible: false,
         };
@@ -52,22 +59,30 @@ class ReviewModal extends React.Component {
 
     componentDidUpdate(prevProps) {
         const { action, modalAction } = this.props;
+        const prevAction = prevProps.action;
 
-        if (prevProps.action !== action) {
-            if (action === modalAction) {
-                this.showModal();
-            } else if (action === 'hideModal') {
-                this.hideModal();
-            }
-        }
+        toggleModalVisibility(
+            action,
+            modalAction,
+            prevAction,
+            this.showModal,
+            this.hideModal,
+        );
     }
+
+    onStarRatingPress = (rating) => {
+        this.setState({ rating });
+    };
 
     renderModalHeader = (t) => {
         return (
             <ModalHeader>
                 <ModalTitleText>{t('modal.review.title')}</ModalTitleText>
                 <ModalDismiss textDismiss modalCloseAction='closeReview' />
-                <ModalContinue continueText={t('label.modal.save')} />
+                <ModalContinue
+                    continueText={t('label.modal.save')}
+                    modalCloseAction='addReview'
+                />
             </ModalHeader>
         );
     };
@@ -86,7 +101,12 @@ class ReviewModal extends React.Component {
     };
 
     showModal = () => {
-        this.setState({ modalVisible: true });
+        const { selectedStars } = this.props;
+
+        this.setState({
+            modalVisible: true,
+            rating: selectedStars,
+        });
     };
 
     hideModal = () => {
@@ -95,10 +115,27 @@ class ReviewModal extends React.Component {
         if (modalCloseAction === 'addReview') {
             this.addReview();
         }
+
         this.setState({ modalVisible: false });
     };
 
-    renderModalBody = () => <ModalBody />;
+    renderModalBody = () => {
+        const { name } = this.props;
+        const { rating } = this.state;
+
+        return (
+            <ModalBody includePadding>
+                <HikeName>{name}</HikeName>
+                <StarWrapper>
+                    <Stars
+                        rating={rating}
+                        starSize={20}
+                        onStarRatingPress={this.onStarRatingPress}
+                    />
+                </StarWrapper>
+            </ModalBody>
+        );
+    };
 
     render() {
         const { modalVisible } = this.state;
@@ -126,3 +163,16 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps,
 )(withTranslation()(withTheme(ReviewModal)));
+
+const HikeName = styled.Text`
+    color: ${(props) => props.theme.text};
+    font-weight: ${fontWeights.bold};
+    font-size: ${fontSizes.extraLarge}px;
+    line-height: ${fontSizes.big}px;
+    padding-top: ${spacing.micro}px;
+`;
+
+const StarWrapper = styled.View`
+    margin-top: 2px;
+    width: 50px;
+`;

@@ -20,6 +20,7 @@ import { Button, Text } from '../../styles/Actions';
 import { opacities, spacing } from '../../constants/Index';
 import { filterFeed } from '../../actions/Feed';
 import { closeModal } from '../../actions/Modal';
+import { toggleModalVisibility } from '../../utils/Modal';
 
 function mapStateToProps(state) {
     return {
@@ -59,6 +60,9 @@ class FilterModal extends React.Component {
         const { t } = this.props;
         const controls = getSegmentedControls(t, 'filter');
 
+        this.showModal = this.showModal.bind(this);
+        this.hideModal = this.hideModal.bind(this);
+
         this.handleSingleIndexSelect = this.handleSingleIndexSelect.bind(this);
         this.handleMultipleIndexSelect = this.handleMultipleIndexSelect.bind(
             this,
@@ -70,14 +74,15 @@ class FilterModal extends React.Component {
 
     componentDidUpdate(prevProps) {
         const { action, modalAction } = this.props;
+        const prevAction = prevProps.action;
 
-        if (prevProps.action !== action) {
-            if (action === modalAction) {
-                this.showModal();
-            } else if (action === 'hideModal') {
-                this.hideModal();
-            }
-        }
+        toggleModalVisibility(
+            action,
+            modalAction,
+            prevAction,
+            this.showModal,
+            this.hideModal,
+        );
     }
 
     hideModal = () => {
