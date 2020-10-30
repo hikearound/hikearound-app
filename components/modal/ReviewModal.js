@@ -97,22 +97,26 @@ class ReviewModal extends React.Component {
     };
 
     showModal = () => {
-        const { selectedStars } = this.props;
-
-        this.setState({
-            modalVisible: true,
-            rating: selectedStars,
-        });
+        this.setRating();
+        this.setState({ modalVisible: true });
     };
 
     hideModal = () => {
+        this.maybeAddReviewData();
+        this.setState({ modalVisible: false });
+    };
+
+    setRating = () => {
+        const { selectedStars } = this.props;
+        this.setState({ rating: selectedStars });
+    };
+
+    maybeAddReviewData = () => {
         const { closeAction } = this.props;
 
         if (closeAction === 'addReview') {
             this.addReview();
         }
-
-        this.setState({ modalVisible: false });
     };
 
     renderModalBody = () => {

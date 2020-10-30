@@ -85,14 +85,17 @@ class FilterModal extends React.Component {
     }
 
     hideModal = () => {
-        const { dispatchModalFlag, closeAction } = this.props;
-
-        dispatchModalFlag(closeAction);
+        this.dispatchCloseAction();
         this.setState({ modalVisible: false });
     };
 
     showModal = () => {
         this.setState({ modalVisible: true });
+    };
+
+    dispatchCloseAction = () => {
+        const { dispatchModalFlag, closeAction } = this.props;
+        dispatchModalFlag(closeAction);
     };
 
     resetFilters = () => {

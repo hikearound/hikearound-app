@@ -80,14 +80,18 @@ class MapModal extends React.Component {
         };
     };
 
+    toggleStatusBar = (shouldShow) => {
+        StatusBar.setHidden(shouldShow);
+    };
+
     hideModal = () => {
+        this.toggleStatusBar(false);
         this.setState({ modalVisible: false });
-        StatusBar.setHidden(false);
     };
 
     showModal = () => {
+        this.toggleStatusBar(true);
         this.setState({ modalVisible: true });
-        StatusBar.setHidden(true);
     };
 
     render() {

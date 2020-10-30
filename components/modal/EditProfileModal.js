@@ -121,6 +121,11 @@ class EditProfileModal extends React.Component {
     };
 
     hideModal = () => {
+        this.maybeUpdateUserData();
+        this.setState({ modalVisible: false });
+    };
+
+    maybeUpdateUserData = () => {
         const { name, location, closeAction } = this.props;
         const userData = { location, name };
 
@@ -128,8 +133,6 @@ class EditProfileModal extends React.Component {
             this.maybeUpdateName(userData);
             this.maybeUpdateLocation(userData);
         }
-
-        this.setState({ modalVisible: false });
     };
 
     maybeUpdateName(userData) {

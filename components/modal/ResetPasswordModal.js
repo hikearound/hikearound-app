@@ -89,15 +89,21 @@ class ResetPasswordModal extends React.Component {
     };
 
     hideModal = () => {
-        const { t } = this.props;
         const { email } = this.state;
 
         if (email) {
-            showAlert(t, email, this.hideAndClearModal);
-            maybeSendResetNotif(email);
+            this.delayHideModal();
         } else {
             this.hideAndClearModal();
         }
+    };
+
+    delayHideModal = () => {
+        const { t } = this.props;
+        const { email } = this.state;
+
+        maybeSendResetNotif(email);
+        showAlert(t, email, this.hideAndClearModal);
     };
 
     hideAndClearModal = () => {

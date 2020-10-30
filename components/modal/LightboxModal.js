@@ -70,17 +70,24 @@ class LightboxModal extends React.Component {
         );
     }
 
-    hideModal = () => {
+    dispatchCloseAction = () => {
         const { dispatchModalFlag, closeAction } = this.props;
-
         dispatchModalFlag(closeAction);
+    };
+
+    toggleStatusBar = (shouldShow) => {
+        StatusBar.setHidden(shouldShow);
+    };
+
+    hideModal = () => {
+        this.toggleStatusBar(false);
+        this.dispatchCloseAction();
         this.setState({ modalVisible: false });
-        StatusBar.setHidden(false);
     };
 
     showModal = () => {
+        this.toggleStatusBar(true);
         this.setState({ modalVisible: true });
-        StatusBar.setHidden(true);
     };
 
     render() {
