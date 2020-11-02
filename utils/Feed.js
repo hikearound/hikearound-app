@@ -135,7 +135,6 @@ export async function queryHikes(
 export async function buildHikeData(data) {
     const hikes = {};
 
-    /* eslint-disable-next-line */
     for (const hike of data) {
         const photoIndex = hike.coverPhoto;
         const imageUrl = await cacheHikeImage(hike, photoIndex);

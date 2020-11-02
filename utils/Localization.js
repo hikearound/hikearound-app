@@ -32,6 +32,7 @@ export function getInputLabels(t) {
         location: t('label.input.location'),
         currentPassword: t('label.input.currentPassword'),
         newPassword: t('label.input.newPassword'),
+        review: t('input.hint.review'),
     };
 
     return inputLabels;

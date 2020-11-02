@@ -8,6 +8,7 @@ import {
     newPasswordInput,
     updateLocationInput,
     updateNameInput,
+    reviewInput,
 } from '../constants/Inputs';
 
 function getSignInInputs(labels) {
@@ -51,6 +52,16 @@ function getChangePasswordInputs(labels) {
     return [currentPasswordInput, newPasswordInput];
 }
 
+function getReviewInputs(labels) {
+    const state = store.getState();
+    const { review } = state.modalReducer;
+
+    reviewInput.placeholder = labels.review;
+    reviewInput.defaultValue = review;
+
+    return [reviewInput];
+}
+
 export function getInputs(t, inputType) {
     const labels = getInputLabels(t);
 
@@ -68,6 +79,9 @@ export function getInputs(t, inputType) {
     }
     if (inputType === 'changePassword') {
         return getChangePasswordInputs(labels);
+    }
+    if (inputType === 'review') {
+        return getReviewInputs(labels);
     }
 
     return null;

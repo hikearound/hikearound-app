@@ -12,6 +12,7 @@ import { toggleModalVisibility } from '../../utils/Modal';
 import { fontWeights, fontSizes, spacing } from '../../constants/Index';
 import ModalHeader from './Header';
 import { ModalBody } from '../../styles/Modals';
+import { getInputs } from '../../utils/Inputs';
 
 const propTypes = {
     currentModal: PropTypes.string.isRequired,
@@ -22,7 +23,7 @@ const propTypes = {
     closeAction: PropTypes.string.isRequired,
     selectedStars: PropTypes.number.isRequired,
     hid: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
+    hikeName: PropTypes.string.isRequired,
 };
 
 const defaultProps = {
@@ -48,8 +49,12 @@ class ReviewModal extends React.Component {
     constructor(props, context) {
         super(props, context);
 
+        const { t, modalType } = this.props;
+        const inputs = getInputs(t, modalType);
+
         this.state = {
             modalVisible: false,
+            inputs,
         };
     }
 
@@ -68,6 +73,10 @@ class ReviewModal extends React.Component {
         this.setState({ rating });
     };
 
+    setValue(name, text) {
+        this.setState({ [name]: text });
+    }
+
     renderModalHeader = (t) => {
         return (
             <ModalHeader
@@ -79,13 +88,11 @@ class ReviewModal extends React.Component {
         );
     };
 
-    handleSubmitEditing = () => {
-        this.hideModal();
-    };
-
     addReview = () => {
-        const { dispatchReviewData } = this.props;
-        dispatchReviewData();
+        const { dispatchReviewData, hid } = this.props;
+        const { review, rating } = this.state;
+
+        dispatchReviewData({ hid, review, rating });
     };
 
     assignRef = (ref, name) => {
@@ -116,12 +123,12 @@ class ReviewModal extends React.Component {
     };
 
     renderModalBody = () => {
-        const { name } = this.props;
-        const { rating } = this.state;
+        const { hikeName } = this.props;
+        const { rating, inputs } = this.state;
 
         return (
             <ModalBody includePadding>
-                <HikeName>{name}</HikeName>
+                <HikeName>{hikeName}</HikeName>
                 <StarWrapper>
                     <Stars
                         rating={rating}
@@ -129,6 +136,37 @@ class ReviewModal extends React.Component {
                         onStarRatingPress={this.onStarRatingPress}
                     />
                 </StarWrapper>
+                {inputs.map(
+                    (
+                        {
+                            name,
+                            defaultValue,
+                            placeholder,
+                            textContentType,
+                            multiline,
+                            returnKeyType,
+                            autoCompleteType,
+                            autoFocus,
+                        },
+                        index,
+                    ) => (
+                        <Input
+                            key={index}
+                            placeholder={placeholder}
+                            defaultValue={defaultValue}
+                            multiline={multiline}
+                            autoCompleteType={autoCompleteType}
+                            onChangeText={(text) =>
+                                this.setValue(name, text, index)
+                            }
+                            labelName={placeholder}
+                            textContentType={textContentType}
+                            returnKeyType={returnKeyType}
+                            inputRef={(ref) => this.assignRef(ref, name)}
+                            autoFocus={autoFocus}
+                        />
+                    ),
+                )}
             </ModalBody>
         );
     };
@@ -159,6 +197,16 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps,
 )(withTranslation()(withTheme(ReviewModal)));
+
+const Input = styled.TextInput.attrs((props) => ({
+    placeholderTextColor: props.theme.inputPlaceholderText,
+}))`
+    color: ${(props) => props.theme.text};
+    font-size: ${fontSizes.medium}px;
+    display: flex;
+    flex: 1;
+    padding-top: ${spacing.tiny}px;
+`;
 
 const HikeName = styled.Text`
     color: ${(props) => props.theme.text};

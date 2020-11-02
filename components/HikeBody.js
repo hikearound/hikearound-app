@@ -7,6 +7,7 @@ import { withScrollToTop } from '../utils/Navigation';
 import { spacing } from '../constants/Index';
 import Subtitle from './Subtitle';
 import ReviewPrompt from './ReviewPrompt';
+import ReviewList from './ReviewList';
 import PhotoLightboxGroup from './PhotoLightboxGroup';
 import MapWrapper from './map/Wrapper';
 import TextContent from './hike/TextContent';
@@ -42,7 +43,7 @@ class HikeBody extends React.PureComponent {
         };
     }
 
-    renderReviewSection = () => {
+    renderReviewPrompt = () => {
         const { setSelectedStars } = this.props;
 
         return (
@@ -57,6 +58,15 @@ class HikeBody extends React.PureComponent {
             <View>
                 <Subtitle text={t('label.heading.images')} />
                 <PhotoLightboxGroup hid={hid} />
+            </View>
+        );
+    };
+
+    renderReviewSection = (t, hid) => {
+        return (
+            <View>
+                <Subtitle text={t('label.heading.reviews')} />
+                <ReviewList hid={hid} />
             </View>
         );
     };
@@ -99,8 +109,9 @@ class HikeBody extends React.PureComponent {
                             distance={distance}
                             description={description}
                         />
-                        {this.renderReviewSection(t, hid)}
+                        {this.renderReviewPrompt(t, hid)}
                         {this.renderGallerySection(t, hid)}
+                        {this.renderReviewSection(t, hid)}
                     </BodyContent>
                 </ScrollView>
             </>

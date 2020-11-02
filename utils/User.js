@@ -5,6 +5,11 @@ import store from '../store/Store';
 import { getPosition, getRange, getNearestCity } from './Location';
 import { getPermissionStatus } from './Permissions';
 
+export async function getUserProfileData(uid) {
+    const userSnapshot = await db.collection('users').doc(uid).get();
+    return userSnapshot.data();
+}
+
 export async function writeUserData(userData) {
     const user = auth.currentUser;
 
@@ -64,21 +69,41 @@ export async function writePhotoData(photoData) {
 export async function getUserFavoriteHikes() {
     const { uid } = auth.currentUser;
 
-    const favoriteHikeSnapshot = db
+    const hikeSnapshot = db
         .collection('favoritedHikes')
         .doc(uid)
         .collection('hikes')
         .orderBy('savedOn', 'desc')
         .get();
 
-    return favoriteHikeSnapshot;
+    return hikeSnapshot;
 }
 
-export async function getFavoriteHikes() {
-    const hikes = [];
-    const favoriteHikes = await getUserFavoriteHikes();
+export async function getUserReviewedHikes() {
+    const { uid } = auth.currentUser;
 
-    favoriteHikes.forEach((hike) => {
+    const hikeSnapshot = db
+        .collection('reviews')
+        .where('uid', '==', uid)
+        .orderBy('savedOn', 'desc')
+        .get();
+
+    return hikeSnapshot;
+}
+
+export async function buildHikeArray(type) {
+    const hikes = [];
+    let hikeSnapshot;
+
+    if (type === 'favorite') {
+        hikeSnapshot = await getUserFavoriteHikes();
+    }
+
+    if (type === 'review') {
+        hikeSnapshot = await getUserReviewedHikes();
+    }
+
+    hikeSnapshot.forEach((hike) => {
         if (hike.exists) {
             hikes.push(hike.id);
         }
@@ -147,7 +172,8 @@ export async function setAvatar(dispatchAvatar) {
 
 export async function getUserData(dispatchUserData, dispatchAvatar) {
     const status = await getPermissionStatus('location');
-    const favoriteHikes = await getFavoriteHikes();
+    const favoriteHikes = await buildHikeArray('favorite');
+    const reviewedHikes = await buildHikeArray('review');
 
     let currentPosition = {};
     let userData = await db.collection('users').doc(auth.currentUser.uid).get();
@@ -158,6 +184,7 @@ export async function getUserData(dispatchUserData, dispatchAvatar) {
 
     userData = userData.data();
     userData.favoriteHikes = favoriteHikes;
+    userData.reviewedHikes = reviewedHikes;
     userData.currentPosition = currentPosition;
 
     await setAvatar(dispatchAvatar);

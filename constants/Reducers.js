@@ -17,6 +17,7 @@ export const modalState = {
     imageIndex: 0,
     selectedHike: null,
     closeAction: '',
+    review: '',
 };
 
 export const notifs = {
@@ -35,6 +36,7 @@ export const user = {
     map: 'Apple Maps',
     darkMode: false,
     favoriteHikes: [],
+    reviewedHikes: [],
 };
 
 user.avatar = avatar;

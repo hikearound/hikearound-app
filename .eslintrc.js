@@ -42,6 +42,7 @@ module.exports = {
         'react/jsx-filename-extension': 'off',
         'react/jsx-props-no-spreading': 'off',
         'lines-around-directive': 'off',
+        'no-restricted-syntax': 'off',
         'react-hooks/rules-of-hooks': 'off',
         'react/forbid-prop-types': 'off',
         'react/no-array-index-key': 'off',

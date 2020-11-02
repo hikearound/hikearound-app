@@ -57,3 +57,13 @@ export const newPasswordInput = {
     returnKeyType: 'done',
     autoCompleteType: 'password',
 };
+
+export const reviewInput = {
+    name: 'review',
+    textContentType: 'none',
+    multiline: true,
+    enablesReturnKeyAutomatically: false,
+    returnKeyType: 'default',
+    autoCompleteType: 'off',
+    autoFocus: true,
+};

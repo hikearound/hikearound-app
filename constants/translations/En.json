@@ -18,6 +18,7 @@
             "currentPassword": "Current Password",
             "newPassword": "New Password",
             "location": "Location"
+
         },
         "heading": {
             "description": "Description",
@@ -42,6 +43,11 @@
             "cancel": "Cancel",
             "send": "Send",
             "reset": "Reset"
+        }
+    },
+    "input": {
+        "hint": {
+            "review": "Share a short summary of how you enjoyed this hike and provide any tips you think other hikers might benefit from."
         }
     },
     "sheet": {

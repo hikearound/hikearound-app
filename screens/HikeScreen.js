@@ -155,7 +155,6 @@ class HikeScreen extends React.Component {
 
         for (let i = 0, len = coordinateCount; i < len; i += 1) {
             const item = data[i];
-
             const coordinate = item.$;
             const elevation = item.ele;
 
@@ -218,7 +217,7 @@ class HikeScreen extends React.Component {
                 <ReviewModal
                     selectedStars={selectedStars}
                     hid={id}
-                    name={hike.name}
+                    hikeName={hike.name}
                 />
             </RootView>
         );

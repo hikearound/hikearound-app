@@ -44,7 +44,11 @@ class Splash extends React.Component {
     }
 
     async componentDidMount() {
-        await SplashScreen.preventAutoHideAsync();
+        try {
+            await SplashScreen.preventAutoHideAsync();
+        } catch (e) {
+            this.getAuthSubscription();
+        }
         this.loadAsync();
     }
 
