@@ -11,6 +11,8 @@ import ReviewList from './ReviewList';
 import PhotoLightboxGroup from './PhotoLightboxGroup';
 import MapWrapper from './map/Wrapper';
 import TextContent from './hike/TextContent';
+import { getRecentReviews } from '../utils/Review';
+import { defaultState } from '../constants/states/HikeBody';
 
 const propTypes = {
     setSelectedStars: PropTypes.func.isRequired,
@@ -26,7 +28,7 @@ const defaultProps = {
     coordinates: [],
 };
 
-class HikeBody extends React.PureComponent {
+class HikeBody extends React.Component {
     constructor(props, context) {
         super(props, context);
         const { hike } = this.props;
@@ -40,39 +42,72 @@ class HikeBody extends React.PureComponent {
             state: hike.state,
             description: hike.description,
             hid: hike.id,
+            imageCount: hike.imageCount,
+            ...defaultState,
         };
     }
 
-    renderReviewPrompt = () => {
-        const { setSelectedStars } = this.props;
+    componentDidMount = async () => {
+        await this.getReviewData();
+    };
 
+    getReviewData = async () => {
+        const { hid, sortDirection, querySize } = this.state;
+        const reviews = await getRecentReviews(hid, sortDirection, querySize);
+
+        this.setReviewData(reviews);
+        this.setEmptyState(reviews);
+    };
+
+    setReviewData = async (reviews) => {
+        this.setState({ reviews });
+    };
+
+    setEmptyState = async (reviews) => {
+        if (reviews.length === 0) {
+            this.setState({ maybeShowEmptyState: true });
+        }
+    };
+
+    renderReviewPrompt = (setSelectedStars, hid) => {
         return (
             <View>
-                <ReviewPrompt setSelectedStars={setSelectedStars} />
+                <ReviewPrompt setSelectedStars={setSelectedStars} hid={hid} />
             </View>
         );
     };
 
-    renderGallerySection = (t, hid) => {
+    renderGallerySection = (t, hid, imageCount) => {
         return (
             <View>
                 <Subtitle text={t('label.heading.images')} />
-                <PhotoLightboxGroup hid={hid} />
+                <PhotoLightboxGroup hid={hid} imageCount={imageCount} />
             </View>
         );
     };
 
-    renderReviewSection = (t, hid) => {
+    renderReviewSection = (t, reviews, maybeShowEmptyState) => {
         return (
             <View>
-                <Subtitle text={t('label.heading.reviews')} />
-                <ReviewList hid={hid} />
+                <Subtitle text={t('label.heading.reviews')} hideBorder />
+                <ReviewList
+                    reviewData={reviews}
+                    shouldShowHeader={false}
+                    maybeShowEmptyState={maybeShowEmptyState}
+                />
             </View>
         );
     };
 
     render() {
-        const { coordinates, region, scrollRef, isLoading, t } = this.props;
+        const {
+            setSelectedStars,
+            coordinates,
+            region,
+            scrollRef,
+            isLoading,
+            t,
+        } = this.props;
         const {
             description,
             name,
@@ -82,6 +117,9 @@ class HikeBody extends React.PureComponent {
             distance,
             elevation,
             route,
+            reviews,
+            maybeShowEmptyState,
+            imageCount,
         } = this.state;
 
         return (
@@ -109,9 +147,13 @@ class HikeBody extends React.PureComponent {
                             distance={distance}
                             description={description}
                         />
-                        {this.renderReviewPrompt(t, hid)}
-                        {this.renderGallerySection(t, hid)}
-                        {this.renderReviewSection(t, hid)}
+                        {this.renderReviewPrompt(setSelectedStars, hid)}
+                        {this.renderGallerySection(t, hid, imageCount)}
+                        {this.renderReviewSection(
+                            t,
+                            reviews,
+                            maybeShowEmptyState,
+                        )}
                     </BodyContent>
                 </ScrollView>
             </>

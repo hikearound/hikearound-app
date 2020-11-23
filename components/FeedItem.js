@@ -19,6 +19,7 @@ const propTypes = {
     state: PropTypes.string,
     coordinates: PropTypes.object,
     difficulty: PropTypes.string,
+    imageCount: PropTypes.number,
 };
 
 class FeedItem extends React.Component {
@@ -43,6 +44,7 @@ class FeedItem extends React.Component {
             coverPhoto,
             coordinates,
             difficulty,
+            imageCount,
         } = this.props;
 
         const { showCard } = this.state;
@@ -65,6 +67,7 @@ class FeedItem extends React.Component {
                                     description,
                                     coordinates,
                                     difficulty,
+                                    imageCount,
                                 },
                             });
                         }}

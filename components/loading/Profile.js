@@ -20,59 +20,31 @@ const defaultProps = {
 };
 
 class ProfileLoadingState extends React.PureComponent {
-    constructor(props) {
-        super(props);
-        this.state = {
-            showLoadingState: false,
-        };
-    }
-
-    componentDidMount() {
-        const { theme } = this.props;
-
-        this.setState({
-            primaryColor: theme.colors.loadingPrimary,
-            secondaryColor: theme.colors.loadingSecondary,
-            showLoadingState: true,
-        });
-    }
-
     componentWillUnmount() {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     }
 
     render() {
-        const { width, height, circleDimension } = this.props;
-        const { primaryColor, secondaryColor, showLoadingState } = this.state;
+        const { width, height, circleDimension, theme } = this.props;
 
         return (
-            <>
-                {showLoadingState && (
-                    <View
-                        style={{
-                            position: 'absolute',
-                            left: 16,
-                            top: 43,
-                        }}
-                    >
-                        <SvgAnimatedLinearGradient
-                            height={height}
-                            width={width}
-                            duration={timings.medium}
-                            primaryColor={primaryColor}
-                            secondaryColor={secondaryColor}
-                        >
-                            <Circle
-                                cx={circleDimension}
-                                cy={circleDimension}
-                                r={circleDimension}
-                            />
-                            <Rect x='0' y='74' width='150' height='15' />
-                            <Rect x='0' y='97' width='120' height='11' />
-                        </SvgAnimatedLinearGradient>
-                    </View>
-                )}
-            </>
+            <View style={{ position: 'absolute', left: 16, top: 43 }}>
+                <SvgAnimatedLinearGradient
+                    height={height}
+                    width={width}
+                    duration={timings.medium}
+                    primaryColor={theme.colors.loadingPrimary}
+                    secondaryColor={theme.colors.loadingSecondary}
+                >
+                    <Circle
+                        cx={circleDimension}
+                        cy={circleDimension}
+                        r={circleDimension}
+                    />
+                    <Rect x='0' y='74' width='150' height='15' />
+                    <Rect x='0' y='97' width='120' height='11' />
+                </SvgAnimatedLinearGradient>
+            </View>
         );
     }
 }

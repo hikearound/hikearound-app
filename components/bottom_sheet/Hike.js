@@ -37,7 +37,7 @@ class HikeSheet extends React.Component {
                             name={sheetData.name}
                             city={sheetData.city}
                             state={sheetData.state}
-                            id={selectedHike}
+                            hid={selectedHike}
                             distance={sheetData.distance}
                             description={sheetData.description}
                             numberOfLines={4}

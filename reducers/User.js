@@ -12,6 +12,7 @@ export default function userReducer(state = userState, action) {
                 notifs: action.userData.notifs,
                 currentPosition: action.userData.currentPosition,
                 favoriteHikes: action.userData.favoriteHikes,
+                reviewedHikes: action.userData.reviewedHikes,
             };
 
         case 'INITIALIZE_AVATAR':

@@ -10,6 +10,10 @@ export async function getLocalizationData(languageCode) {
     return db.collection('i18n').doc(languageCode).get();
 }
 
+export function getLanguageCode() {
+    return Localization.locale;
+}
+
 export async function initializeLocalization() {
     i18n.use(initReactI18next).init({
         resources: {

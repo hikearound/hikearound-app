@@ -9,14 +9,13 @@ const propTypes = {
     width: PropTypes.number,
     height: PropTypes.number,
     fill: PropTypes.string,
-    scrollRef: PropTypes.object,
+    scrollRef: PropTypes.object.isRequired,
 };
 
 const defaultProps = {
     width: 254,
     height: 29,
     fill: colors.white,
-    scrollRef: null,
 };
 
 class Logo extends React.PureComponent {

@@ -20,3 +20,32 @@ export const MetaData = styled.Text`
     color: ${colors.grayMedium};
     font-size: ${fontSizes.medium}px;
 `;
+
+export const HeaderContainer = styled.View`
+    padding-bottom: 4px;
+    margin-top: ${spacing.tiny}px;
+`;
+
+export const HeaderText = styled.Text`
+    color: ${colors.grayMedium};
+    font-size: ${fontSizes.small}px;
+    font-weight: ${fontWeights.medium};
+    text-transform: uppercase;
+`;
+
+export const EmptyContainer = styled.View`
+    border-color: ${(props) => props.theme.itemBorder};
+    border-top-width: 1px;
+    padding: ${spacing.small}px 0;
+`;
+
+export const EmptyContainerText = styled.Text`
+    color: ${(props) => props.theme.text};
+    font-size: ${fontSizes.medium}px;
+`;
+
+export const TopBorder = styled.View`
+    border-color: ${(props) => props.theme.itemBorder};
+    border-top-width: 1px;
+    padding-top: ${spacing.tiny}px;
+`;

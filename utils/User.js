@@ -91,17 +91,9 @@ export async function getUserReviewedHikes() {
     return hikeSnapshot;
 }
 
-export async function buildHikeArray(type) {
+export async function buildHikeArray() {
     const hikes = [];
-    let hikeSnapshot;
-
-    if (type === 'favorite') {
-        hikeSnapshot = await getUserFavoriteHikes();
-    }
-
-    if (type === 'review') {
-        hikeSnapshot = await getUserReviewedHikes();
-    }
+    const hikeSnapshot = await getUserFavoriteHikes();
 
     hikeSnapshot.forEach((hike) => {
         if (hike.exists) {
@@ -110,6 +102,19 @@ export async function buildHikeArray(type) {
     });
 
     return hikes;
+}
+
+export async function buildReviewArray() {
+    const reviews = [];
+    const reviewSnapshot = await getUserReviewedHikes();
+
+    reviewSnapshot.forEach((review) => {
+        if (review.exists) {
+            reviews.push(review.data().hid);
+        }
+    });
+
+    return reviews;
 }
 
 export async function getAvatarUri() {
@@ -172,8 +177,8 @@ export async function setAvatar(dispatchAvatar) {
 
 export async function getUserData(dispatchUserData, dispatchAvatar) {
     const status = await getPermissionStatus('location');
-    const favoriteHikes = await buildHikeArray('favorite');
-    const reviewedHikes = await buildHikeArray('review');
+    const favoriteHikes = await buildHikeArray();
+    const reviewedHikes = await buildReviewArray();
 
     let currentPosition = {};
     let userData = await db.collection('users').doc(auth.currentUser.uid).get();

@@ -5,22 +5,29 @@ import { colors, fontSizes, spacing, fontWeights } from '../constants/Index';
 
 const propTypes = {
     text: PropTypes.string.isRequired,
+    hideBorder: PropTypes.bool,
 };
 
-const Subtitle = ({ text }) => (
-    <SubtitleView>
+const defaultProps = {
+    hideBorder: false,
+};
+
+const Subtitle = ({ text, hideBorder }) => (
+    <SubtitleView hideBorder={hideBorder}>
         <SubtitleText>{text}</SubtitleText>
     </SubtitleView>
 );
 
 Subtitle.propTypes = propTypes;
+Subtitle.defaultProps = defaultProps;
 
 export default Subtitle;
 
 const SubtitleView = styled.View`
-    border-bottom-width: 1px;
+    border-bottom-width: ${(props) => (props.hideBorder ? 0 : '1px')};
     border-bottom-color: ${(props) => props.theme.itemBorder};
     margin: ${spacing.small}px 0 ${spacing.tiny}px 0;
+    margin-bottom: ${(props) => (props.hideBorder ? 0 : `${spacing.tiny}px`)};
 `;
 
 const SubtitleText = styled.Text`

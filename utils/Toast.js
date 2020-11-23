@@ -1,7 +1,7 @@
 import React from 'react';
-import Toast from 'react-native-toast-message';
 import ToastComponent from '../components/Toast';
 import { truncateText } from './Text';
+import { spacing } from '../constants/Index';
 
 export function getToastText(action, t, data) {
     if (action === 'favoriteHike') {
@@ -13,19 +13,12 @@ export function getToastText(action, t, data) {
     return null;
 }
 
-export function initializeToast() {
-    Toast.show({
-        text1: 'null',
-        position: 'bottom',
-        type: 'init',
-    });
+export function getToastOffset() {
+    return parseInt(spacing.tiny, 10);
 }
 
 export const toastConfig = {
     success: (internalState) => {
         return <ToastComponent text={internalState.text1} />;
-    },
-    init: () => {
-        return null;
     },
 };

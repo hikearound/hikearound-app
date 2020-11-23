@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Share, LayoutAnimation } from 'react-native';
+import { Share } from 'react-native';
 import { withTranslation } from 'react-i18next';
 import Toast from 'react-native-toast-message';
 import { HikeBody, Overflow, MapModal } from '../components/Index';
@@ -16,6 +16,7 @@ import { shareAction, baseUrl, latModifier } from '../constants/Common';
 import { truncateText } from '../utils/Text';
 import { timings } from '../constants/Index';
 import { getToastText } from '../utils/Toast';
+import Title from '../components/header/Title';
 
 const propTypes = {
     dispatchCopyLink: PropTypes.func.isRequired,
@@ -48,6 +49,8 @@ class HikeScreen extends React.Component {
         const { navigation, route, t } = this.props;
         const { hike } = route.params;
 
+        const title = truncateText(hike.name, 23);
+
         this.state = {
             id: hike.id,
             startingCoordinates: hike.coordinates.starting,
@@ -59,7 +62,7 @@ class HikeScreen extends React.Component {
         this.setSelectedStars = this.setSelectedStars.bind(this);
 
         navigation.setOptions({
-            title: truncateText(hike.name, 23),
+            headerTitle: () => <Title title={title} scrollRef={scrollRef} />,
             headerRight: () => <Overflow onPress={this.hikeActionSheet} />,
         });
     }
@@ -185,8 +188,6 @@ class HikeScreen extends React.Component {
 
         const { route, selectedHike } = this.props;
         const { hike } = route.params;
-
-        LayoutAnimation.easeInEaseOut();
 
         return (
             <RootView>

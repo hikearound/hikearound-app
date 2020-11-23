@@ -6,12 +6,10 @@ import { AppearanceProvider } from 'react-native-appearance';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { StatusBar } from 'react-native';
 import { ThemeProvider } from 'styled-components';
-import Toast from 'react-native-toast-message';
 import TabNavigator from './TabNavigator';
 import { defaultTheme, darkTheme } from '../constants/Themes';
 import { withTheme } from '../utils/Themes';
 import { setCurrentScreen } from '../utils/Analytics';
-import { toastConfig } from '../utils/Toast';
 
 const propTypes = {
     darkMode: PropTypes.bool,
@@ -41,14 +39,14 @@ class AppNavigator extends React.PureComponent {
     }
 
     onNavigationStateChange = () => {
-        const previousRouteName = routeNameRef.current;
-        const currentRouteName = navigationRef.current.getCurrentRoute().name;
+        const previousRoute = routeNameRef.current;
+        const currentRoute = navigationRef.current.getCurrentRoute().name;
 
-        if (previousRouteName !== currentRouteName) {
-            setCurrentScreen(currentRouteName, {});
+        if (previousRoute !== currentRoute) {
+            setCurrentScreen(currentRoute, {});
         }
 
-        routeNameRef.current = currentRouteName;
+        routeNameRef.current = currentRoute;
     };
 
     setRouteNameRef = () => {
@@ -74,11 +72,6 @@ class AppNavigator extends React.PureComponent {
                     >
                         <ThemeProvider theme={theme.colors}>
                             <TabNavigator />
-                            <Toast
-                                config={toastConfig}
-                                ref={(ref) => Toast.setRef(ref)}
-                                bottomOffset={80}
-                            />
                         </ThemeProvider>
                     </NavigationContainer>
                 </AppearanceProvider>

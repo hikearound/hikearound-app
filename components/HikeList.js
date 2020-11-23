@@ -1,11 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import { FlatList } from 'react-native';
+import { FlatList, View } from 'react-native';
 import { withTranslation } from 'react-i18next';
 import { withScrollToTop } from '../utils/Navigation';
 import HikeListItem from './HikeListItem';
-import { colors, fontSizes, fontWeights, spacing } from '../constants/Index';
+import { spacing } from '../constants/Index';
+import {
+    HeaderContainer,
+    HeaderText,
+    EmptyContainer,
+    EmptyContainerText,
+} from '../styles/Lists';
 
 const propTypes = {
     maybeShowEmptyState: PropTypes.bool.isRequired,
@@ -53,7 +58,7 @@ class HikeList extends React.Component {
         const extractKey = ({ id }) => id;
 
         return (
-            <RootView>
+            <View>
                 {hikeData && (
                     <FlatList
                         ref={scrollRef}
@@ -64,41 +69,16 @@ class HikeList extends React.Component {
                         extraData={hikeData}
                         keyExtractor={extractKey}
                         scrollEnabled={false}
+                        style={{
+                            marginLeft: parseInt(spacing.small, 10),
+                        }}
                     />
                 )}
-            </RootView>
+            </View>
         );
     }
 }
 
 HikeList.propTypes = propTypes;
-HikeList.propTypes = propTypes;
 
 export default withTranslation()(withScrollToTop(HikeList));
-
-const RootView = styled.View`
-    margin-left: ${spacing.small}px;
-`;
-
-const HeaderContainer = styled.View`
-    padding-bottom: 4px;
-    margin-top: ${spacing.tiny}px;
-`;
-
-const HeaderText = styled.Text`
-    color: ${colors.grayMedium};
-    font-size: ${fontSizes.small}px;
-    font-weight: ${fontWeights.medium};
-    text-transform: uppercase;
-`;
-
-const EmptyContainer = styled.View`
-    border-color: ${(props) => props.theme.itemBorder};
-    border-top-width: 1px;
-    padding: ${spacing.small}px 0;
-`;
-
-const EmptyContainerText = styled.Text`
-    color: ${(props) => props.theme.text};
-    font-size: ${fontSizes.medium}px;
-`;

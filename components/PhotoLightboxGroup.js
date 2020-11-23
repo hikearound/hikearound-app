@@ -4,28 +4,35 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Thumbnail from './Thumbnail';
 import LightboxModal from './modal/LightboxModal';
-import {
-    getHikeThumbnail,
-    getHikeImage,
-    getHikeImageGallery,
-} from '../utils/Hike';
+import { getHikeImageGallery } from '../utils/Hike';
+import { buildImageArray } from '../utils/Image';
 import { withTheme } from '../utils/Themes';
+import ThumbnailLoadingState from './loading/Thumbnail';
 
 const propTypes = {
     hid: PropTypes.string.isRequired,
+    dimension: PropTypes.number,
+    imageCount: PropTypes.number.isRequired,
+};
+
+const defaultProps = {
+    dimension: 75,
 };
 
 class PhotoLightboxGroup extends React.PureComponent {
     constructor(props, context) {
         super(props, context);
-        this.state = { imageArray: [] };
+
+        this.state = {
+            imageArray: [],
+            loading: true,
+        };
     }
 
     async componentDidMount() {
-        const { hid } = this.props;
-
-        this.buildHikeImageArray(hid);
-        this.setAnimationType();
+        await this.setImages();
+        await this.buildImageArray();
+        await this.setAnimationType();
     }
 
     componentDidUpdate(prevProps) {
@@ -38,8 +45,8 @@ class PhotoLightboxGroup extends React.PureComponent {
 
     setAnimationType = async () => {
         const { theme } = this.props;
-        let animationType = 'fade';
 
+        let animationType = 'fade';
         if (theme.dark) {
             animationType = 'none';
         }
@@ -47,39 +54,38 @@ class PhotoLightboxGroup extends React.PureComponent {
         this.setState({ animationType });
     };
 
-    buildHikeImageArray = async (id) => {
-        const imageArray = [];
+    setImages = async () => {
+        const { hid } = this.props;
+        const { images } = await getHikeImageGallery(hid);
 
-        const hikeImages = await getHikeImageGallery(id);
-        const photoCount = Object.keys(hikeImages).length;
+        this.setState({ images });
+    };
 
-        for (let i = 0; i < photoCount; i += 1) {
-            const thumbnailUrl = await getHikeThumbnail(id, i);
-            const imageUrl = await getHikeImage(id, i);
+    buildImageArray = async () => {
+        const { imageCount } = this.props;
+        const { images } = this.state;
 
-            imageArray.push({
-                thumbnailUri: thumbnailUrl,
-                url: imageUrl,
-                attribution: hikeImages[i].attribution,
-            });
-        }
-
-        this.setState({ imageArray });
+        this.setState({
+            imageArray: buildImageArray(images, imageCount),
+            loading: false,
+        });
     };
 
     render() {
-        const { hid } = this.props;
-        const { imageArray, animationType } = this.state;
+        const { hid, dimension, imageCount } = this.props;
+        const { imageArray, animationType, loading } = this.state;
 
         return (
             <View>
-                <PhotoGroup>
+                <PhotoGroup dimension={dimension}>
+                    {loading && <ThumbnailLoadingState count={imageCount} />}
                     {imageArray.map((image, index) => (
                         <Thumbnail
                             image={image}
                             imageIndex={index}
                             key={index}
                             hid={hid}
+                            dimension={dimension}
                         />
                     ))}
                 </PhotoGroup>
@@ -94,6 +100,7 @@ class PhotoLightboxGroup extends React.PureComponent {
 }
 
 PhotoLightboxGroup.propTypes = propTypes;
+PhotoLightboxGroup.defaultProps = defaultProps;
 
 export default withTheme(PhotoLightboxGroup);
 
@@ -101,4 +108,5 @@ const PhotoGroup = styled.View`
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    min-height: ${(props) => props.dimension}px;
 `;

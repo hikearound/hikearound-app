@@ -15,12 +15,11 @@ import { defaultState } from '../constants/states/Home';
 import { RootView } from '../styles/Screens';
 import { getUserData } from '../utils/User';
 import { handleAppBadge } from '../utils/Notifications';
-import { initializeToast } from '../utils/Toast';
 import { withTheme, SetBarStyle } from '../utils/Themes';
 import { getMapData } from '../utils/Map';
 import { getPosition, getNearestCity, shouldSetCity } from '../utils/Location';
 import { getPromotionStatus } from '../utils/Promotions';
-import { queryHikes, sortHikes, buildHikeData } from '../utils/Feed';
+import { queryHikes, sortHikes, cacheFeedImages } from '../utils/Feed';
 import { getSortDirection } from '../utils/Filter';
 import {
     checkInitialUrl,
@@ -87,7 +86,6 @@ class HomeScreen extends React.Component {
 
         checkInitialUrl(navigation);
         handleAppBadge();
-        initializeToast();
     }
 
     componentDidUpdate(prevProps) {
@@ -145,9 +143,9 @@ class HomeScreen extends React.Component {
         );
 
         this.lastKnownKey = cursor;
-        const hikes = await buildHikeData(data);
+        await cacheFeedImages(data);
 
-        this.addhikes(hikes);
+        this.addhikes(data);
         this.setState({ loading: false, firstLoad: false });
     };
 

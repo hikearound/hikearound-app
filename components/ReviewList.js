@@ -1,72 +1,39 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import { FlatList } from 'react-native';
+import { FlatList, View } from 'react-native';
 import { withTranslation } from 'react-i18next';
-import { queryReviews, buildReviewData, sortReviews } from '../utils/Review';
-import HikeListItem from './HikeListItem';
-import { colors, fontSizes, fontWeights, spacing } from '../constants/Index';
+import ReviewListItem from './ReviewListItem';
+import {
+    HeaderContainer,
+    HeaderText,
+    EmptyContainerText,
+    TopBorder,
+} from '../styles/Lists';
+import { spacing } from '../constants/Index';
 
 const propTypes = {
     maybeShowEmptyState: PropTypes.bool.isRequired,
-    hid: PropTypes.string.isRequired,
+    reviewData: PropTypes.array.isRequired,
+    shouldShowHeader: PropTypes.bool,
+};
+
+const defaultProps = {
+    shouldShowHeader: true,
 };
 
 class ReviewList extends React.Component {
-    constructor(props, context) {
-        super(props, context);
-
-        this.state = {
-            reviews: null,
-            sortDirection: 'desc',
-            querySize: 10,
-        };
-    }
-
-    componentDidMount = async () => {
-        await this.getReviewData();
-    };
-
-    getReviewData = async (lastKey) => {
-        const { hid } = this.props;
-        const { sortDirection, querySize } = this.state;
-
-        const { data, cursor } = await queryReviews(
-            hid,
-            sortDirection,
-            querySize,
-            lastKey,
-        );
-
-        this.lastKnownKey = cursor;
-        const reviews = await buildReviewData(data);
-        this.addReviews(reviews);
-    };
-
-    addReviews = async (reviews) => {
-        const { sortDirection } = this.state;
-
-        this.setState((previousState) => {
-            const reviewData = sortReviews(
-                previousState,
-                reviews,
-                sortDirection,
-            );
-
-            return {
-                reviews: reviewData.sortedReviews,
-            };
-        });
-    };
-
     renderListHeader = () => {
-        const { t } = this.props;
+        const { t, shouldShowHeader } = this.props;
 
-        return (
-            <HeaderContainer>
-                <HeaderText>{t('screen.profile.header')}</HeaderText>
-            </HeaderContainer>
-        );
+        if (shouldShowHeader) {
+            return (
+                <HeaderContainer>
+                    <HeaderText>{t('label.heading.reviews')}</HeaderText>
+                </HeaderContainer>
+            );
+        }
+
+        return null;
     };
 
     renderEmptyList = () => {
@@ -74,77 +41,52 @@ class ReviewList extends React.Component {
 
         if (maybeShowEmptyState) {
             return (
-                <EmptyContainer>
+                <>
+                    <TopBorder />
                     <EmptyContainerText>
-                        {t('screen.profile.empty')}
+                        {t('screen.hike.review.empty')}
                     </EmptyContainerText>
-                </EmptyContainer>
+                </>
             );
         }
         return null;
     };
 
-    renderItem = ({ item }) => (
-        <HikeListItem
-            id={item.id}
-            name={item.name}
-            location={`${item.city}, ${item.state}`}
-            distance={item.distance}
-        />
-    );
+    renderItem = ({ item }) => {
+        return (
+            <ReviewListItem
+                id={item.id}
+                user={item.user}
+                rating={item.rating}
+                review={item.review}
+                savedOn={item.savedOn}
+            />
+        );
+    };
 
     render() {
-        const { reviews } = this.state;
+        const { reviewData } = this.props;
         const extractKey = ({ id }) => id;
 
-        return null;
-
         return (
-            <RootView>
-                {reviews && (
+            <View style={{ marginBottom: parseInt(spacing.tiny, 10) }}>
+                {reviewData && (
                     <FlatList
                         renderItem={this.renderItem}
                         ListHeaderComponent={this.renderListHeader}
                         ListEmptyComponent={this.renderEmptyList}
-                        data={reviews}
-                        extraData={reviews}
+                        data={reviewData}
+                        extraData={reviewData}
                         keyExtractor={extractKey}
                         scrollEnabled={false}
                     />
                 )}
-            </RootView>
+            </View>
         );
     }
 }
 
 ReviewList.propTypes = propTypes;
-ReviewList.propTypes = propTypes;
+ReviewList.defaultProps = defaultProps;
 
 export default withTranslation()(ReviewList);
-
-const RootView = styled.View`
-    margin-left: ${spacing.small}px;
-`;
-
-const HeaderContainer = styled.View`
-    padding-bottom: 4px;
-    margin-top: ${spacing.tiny}px;
-`;
-
-const HeaderText = styled.Text`
-    color: ${colors.grayMedium};
-    font-size: ${fontSizes.small}px;
-    font-weight: ${fontWeights.medium};
-    text-transform: uppercase;
-`;
-
-const EmptyContainer = styled.View`
-    border-color: ${(props) => props.theme.itemBorder};
-    border-top-width: 1px;
-    padding: ${spacing.small}px 0;
-`;
-
-const EmptyContainerText = styled.Text`
-    color: ${(props) => props.theme.text};
-    font-size: ${fontSizes.medium}px;
-`;

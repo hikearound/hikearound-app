@@ -7,7 +7,7 @@ import { withTheme } from '../utils/Themes';
 import { showModal } from '../actions/Modal';
 
 const propTypes = {
-    onStarRatingPress: PropTypes.func.isRequired,
+    onStarRatingPress: PropTypes.func,
     starSize: PropTypes.number,
     maxStars: PropTypes.number,
     emptyStar: PropTypes.string,
@@ -15,16 +15,19 @@ const propTypes = {
     fullStar: PropTypes.string,
     iconSet: PropTypes.string,
     rating: PropTypes.number,
+    disabled: PropTypes.bool,
 };
 
 const defaultProps = {
+    onStarRatingPress: () => {},
     emptyStar: 'ios-star-outline',
     halfStar: 'ios-star-half',
     fullStar: 'ios-star',
     iconSet: 'Ionicons',
-    starSize: 25,
+    starSize: 22,
     maxStars: 5,
     rating: 0,
+    disabled: false,
 };
 
 function mapStateToProps(state) {
@@ -50,11 +53,12 @@ class Stars extends React.PureComponent {
             iconSet,
             onStarRatingPress,
             rating,
+            disabled,
         } = this.props;
 
         return (
             <StarRating
-                disabled={false}
+                disabled={disabled}
                 emptyStar={emptyStar}
                 fullStar={fullStar}
                 halfStar={halfStar}

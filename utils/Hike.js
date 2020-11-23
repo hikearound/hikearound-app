@@ -20,19 +20,21 @@ export function getHikeRef(type, range, sortDirection, querySize) {
 
 export async function getHikeImageGallery(id) {
     const gallerySnapshot = await db.collection('images').doc(id).get();
-    return gallerySnapshot.data();
+    const images = gallerySnapshot.data();
+    const count = Object.keys(images).length;
+    return { images, count };
 }
 
 export async function getHikeImage(id, index) {
-    return storage
-        .ref(`hikes/${id}/images/covers/${index}_750x750.jpg`)
-        .getDownloadURL();
-}
-
-export async function getHikeThumbnail(id, index) {
-    return storage
+    const thumbnail = await storage
         .ref(`hikes/${id}/images/thumbnails/${index}_200x200.jpg`)
         .getDownloadURL();
+
+    const cover = await storage
+        .ref(`hikes/${id}/images/covers/${index}_750x750.jpg`)
+        .getDownloadURL();
+
+    return { thumbnail, cover };
 }
 
 export async function getHikeXmlUrl(id) {
@@ -94,6 +96,7 @@ export async function openHikeScreen(id, navigation) {
                 state: hikeData.state,
                 description: hikeData.description,
                 coordinates: hikeData.coordinates,
+                imageCount: hikeData.imageCount,
             },
         });
     }

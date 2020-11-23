@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { LayoutAnimation } from 'react-native';
 import SvgAnimatedLinearGradient from 'react-native-svg-animated-linear-gradient';
 import { Rect } from 'react-native-svg';
 import { timings, borderRadius } from '../../constants/Index';
@@ -17,29 +18,18 @@ const defaultProps = {
 };
 
 class MapLoadingState extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
-    }
-
-    componentDidMount() {
-        const { theme } = this.props;
-
-        this.setState({
-            primaryColor: theme.colors.loadingPrimary,
-            secondaryColor: theme.colors.loadingSecondary,
-        });
+    componentWillUnmount() {
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     }
 
     render() {
-        const { width, cardBorderRadius } = this.props;
-        const { primaryColor, secondaryColor } = this.state;
+        const { width, cardBorderRadius, theme } = this.props;
 
         return (
             <SvgAnimatedLinearGradient
                 duration={timings.medium}
-                primaryColor={primaryColor}
-                secondaryColor={secondaryColor}
+                primaryColor={theme.colors.loadingPrimary}
+                secondaryColor={theme.colors.loadingSecondary}
                 width={width}
             >
                 <Rect

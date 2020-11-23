@@ -8,7 +8,6 @@ import {
     colors,
     transparentColors,
     borderRadius,
-    spacing,
     fontSizes,
     fontWeights,
     opacities,
@@ -35,7 +34,7 @@ class Toast extends React.Component {
         const { text, iconSize } = this.props;
 
         return (
-            <Container>
+            <Container style={{ elevation: 1000 }}>
                 <ToastText>{text}</ToastText>
                 <TouchableOpacity
                     activeOpacity={opacities.regular}
@@ -63,14 +62,10 @@ Toast.defaultProps = defaultProps;
 export default connect(mapStateToProps)(Toast);
 
 const Container = styled.View`
-    position: absolute;
-    bottom: -50px;
-    left: ${spacing.small}px;
-    right: ${spacing.small}px;
+    width: 95%;
     background: ${transparentColors.purple};
     box-shadow: 0 4px 12px ${transparentColors.grayLight};
     border-radius: ${borderRadius.medium}px;
-    z-index: 1;
 `;
 
 const ToastText = styled.Text`

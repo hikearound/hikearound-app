@@ -41,6 +41,11 @@
             "send": "Enviar"
         }
     },
+    "input": {
+        "hint": {
+            "review": "Comparta un breve resumen de cómo disfrutó esta caminata y brinde cualquier consejo que crea que otros excursionistas podrían beneficiarse."
+        }
+    },
     "sheet": {
         "hike": {
             "title": "Caminata",
@@ -130,6 +135,12 @@
         "list" : " · {{distance}} millas",
     },
     "screen": {
+        "hike": {
+            "review": {
+                "empty": "Esta caminata aún no ha sido revisada.",
+                "prompt": "¿Probaste esta caminata? ¡Dejar un comentario!",
+            }
+        },
         "search": {
             "results": {
                 "header": "{{count}} resultado",

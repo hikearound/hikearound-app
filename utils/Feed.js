@@ -1,4 +1,4 @@
-import { cacheHikeImage } from './Image';
+import { CacheManager } from 'react-native-expo-image-cache';
 import { getRange, maybeShowHikeInFeed } from './Location';
 import { getHikeRef } from './Hike';
 import {
@@ -132,16 +132,8 @@ export async function queryHikes(
     return { data, cursor: lastVisible };
 }
 
-export async function buildHikeData(data) {
-    const hikes = {};
-
+export async function cacheFeedImages(data) {
     for (const hike of data) {
-        const photoIndex = hike.coverPhoto;
-        const imageUrl = await cacheHikeImage(hike, photoIndex);
-
-        hike.coverPhoto = imageUrl;
-        hikes[hike.key] = hike;
+        await CacheManager.get(hike.coverPhoto).getPath();
     }
-
-    return hikes;
 }

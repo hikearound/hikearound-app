@@ -30,6 +30,7 @@ class FeedList extends React.Component {
                 coverPhoto={item.coverPhoto}
                 coordinates={item.coordinates}
                 difficulty={item.difficulty}
+                imageCount={item.imageCount}
             />
         );
     };

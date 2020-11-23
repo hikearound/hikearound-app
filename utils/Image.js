@@ -1,7 +1,6 @@
 import * as ImageManipulator from 'expo-image-manipulator';
 import { CacheManager } from 'react-native-expo-image-cache';
 import { Asset } from 'expo-asset';
-import { getHikeImage } from './Hike';
 
 export async function reduceImageAsync(uri) {
     return ImageManipulator.manipulateAsync(uri, [{ resize: { width: 250 } }], {
@@ -22,17 +21,6 @@ export function cacheImages(images) {
     });
 }
 
-export async function cacheHikeImage(hike, photoIndex) {
-    let imageUrl = null;
-    imageUrl = await getHikeImage(hike.id, photoIndex);
-
-    if (imageUrl) {
-        await CacheManager.get(imageUrl).getPath();
-    }
-
-    return imageUrl;
-}
-
 export async function getBlob(uri) {
     const blob = await new Promise((resolve) => {
         const xhr = new XMLHttpRequest();
@@ -44,4 +32,18 @@ export async function getBlob(uri) {
         xhr.send(null);
     });
     return blob;
+}
+
+export function buildImageArray(images, imageCount) {
+    const imageArray = [];
+
+    for (let i = 0; i < imageCount; i += 1) {
+        imageArray.push({
+            thumbnailUri: images[i].uri.thumbnail,
+            url: images[i].uri.cover,
+            attribution: images[i].attribution,
+        });
+    }
+
+    return imageArray;
 }

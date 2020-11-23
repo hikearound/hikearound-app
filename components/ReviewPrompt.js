@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
+import { withTranslation } from 'react-i18next';
 import Stars from './Stars';
 import { borderRadius, spacing } from '../constants/Index';
 import { withTheme } from '../utils/Themes';
@@ -11,11 +12,14 @@ const propTypes = {
     dispatchModalFlag: PropTypes.func.isRequired,
     closeAction: PropTypes.string.isRequired,
     setSelectedStars: PropTypes.func.isRequired,
+    reviewedHikes: PropTypes.array.isRequired,
+    hid: PropTypes.string.isRequired,
 };
 
 function mapStateToProps(state) {
     return {
         closeAction: state.modalReducer.closeAction,
+        reviewedHikes: state.userReducer.reviewedHikes,
     };
 }
 
@@ -56,18 +60,22 @@ class ReviewPrompt extends React.PureComponent {
 
     render() {
         const { rating } = this.state;
+        const { reviewedHikes, hid, t } = this.props;
 
-        return (
-            <PromptWrapper>
-                <PromptTitle>Tried this hike? Leave a review!</PromptTitle>
-                <StarWrapper>
-                    <Stars
-                        rating={rating}
-                        onStarRatingPress={this.onStarRatingPress}
-                    />
-                </StarWrapper>
-            </PromptWrapper>
-        );
+        if (!reviewedHikes.includes(hid)) {
+            return (
+                <PromptWrapper>
+                    <PromptTitle>{t('screen.hike.review.prompt')}</PromptTitle>
+                    <StarWrapper>
+                        <Stars
+                            rating={rating}
+                            onStarRatingPress={this.onStarRatingPress}
+                        />
+                    </StarWrapper>
+                </PromptWrapper>
+            );
+        }
+        return null;
     }
 }
 
@@ -76,7 +84,7 @@ ReviewPrompt.propTypes = propTypes;
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(withTheme(ReviewPrompt));
+)(withTranslation()(withTheme(ReviewPrompt)));
 
 const PromptWrapper = styled.View`
     border: 1px solid;

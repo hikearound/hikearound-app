@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStackNavigator } from '@react-navigation/stack';
+import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import { withTranslation } from 'react-i18next';
 import {
     LandingScreen,
@@ -21,11 +22,8 @@ import {
 import { Logo } from '../components/Index';
 import { withTheme } from '../utils/Themes';
 import LoadingOverlay from '../components/LoadingOverlay';
-
-const Stack = createStackNavigator();
-
-const tabBarScreens = ['Home', 'Hike', 'Search'];
-const nonTabBarScreens = ['Landing'];
+import { tabBarScreens } from '../constants/Screens';
+import ToastStack from './ToastStack';
 
 const propTypes = {
     user: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
@@ -45,6 +43,8 @@ function mapDispatchToProps() {
     return {};
 }
 
+const Stack = createStackNavigator();
+
 class HomeStack extends React.Component {
     componentDidMount() {
         const { navigation } = this.props;
@@ -53,17 +53,12 @@ class HomeStack extends React.Component {
 
     componentDidUpdate() {
         const { navigation, route } = this.props;
+        const routeName = getFocusedRouteNameFromRoute(route);
+
         let tabBarVisible = false;
 
-        if (route.state) {
-            if (nonTabBarScreens.includes(route.state.routes[0].name)) {
-                navigation.setOptions({ tabBarVisible });
-            } else {
-                const { name } = route.state.routes[route.state.index];
-                if (tabBarScreens.includes(name)) {
-                    tabBarVisible = true;
-                }
-            }
+        if (tabBarScreens.includes(routeName)) {
+            tabBarVisible = true;
         }
 
         navigation.setOptions({ tabBarVisible });
@@ -165,20 +160,23 @@ class HomeStack extends React.Component {
 
         if (user && initialRoute) {
             return (
-                <Stack.Navigator
-                    initialRouteName={initialRoute}
-                    screenOptions={screenOptions(theme.colors.headerStyle)}
-                    headerMode={headerMode}
-                    mode={mode}
-                >
-                    {this.renderLandingScreen()}
-                    {this.renderSignInScreen(t)}
-                    {this.renderCreateAccountScreen(t)}
-                    {this.renderHomeScreen()}
-                    {this.renderHikeScreen()}
-                    {this.renderLocationPermissionScreen(t)}
-                    {this.renderSearchScreen()}
-                </Stack.Navigator>
+                <>
+                    <Stack.Navigator
+                        initialRouteName={initialRoute}
+                        screenOptions={screenOptions(theme.colors.headerStyle)}
+                        headerMode={headerMode}
+                        mode={mode}
+                    >
+                        {this.renderLandingScreen()}
+                        {this.renderSignInScreen(t)}
+                        {this.renderCreateAccountScreen(t)}
+                        {this.renderHomeScreen()}
+                        {this.renderHikeScreen()}
+                        {this.renderLocationPermissionScreen(t)}
+                        {this.renderSearchScreen()}
+                    </Stack.Navigator>
+                    <ToastStack />
+                </>
             );
         }
 
