@@ -6,6 +6,7 @@ import userReducer from './User';
 import mapReducer from './Map';
 import modalReducer from './Modal';
 import feedReducer from './Feed';
+import navigationReducer from './Navigation';
 
 export default combineReducers({
     authReducer,
@@ -14,4 +15,5 @@ export default combineReducers({
     mapReducer,
     modalReducer,
     feedReducer,
+    navigationReducer,
 });

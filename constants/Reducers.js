@@ -62,3 +62,7 @@ export const feedState = {
 export const reviewState = {
     hid: null,
 };
+
+export const navigationState = {
+    focusedStack: 'Home',
+};

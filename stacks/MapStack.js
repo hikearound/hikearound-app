@@ -1,13 +1,52 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { createStackNavigator } from '@react-navigation/stack';
 import { withTranslation } from 'react-i18next';
 import { MapScreen, HikeScreen } from '../screens/Index';
 import { mode, headerMode, screenOptions } from '../constants/Navigation';
 import { withTheme } from '../utils/Themes';
+import { setFocusedStack } from '../actions/Navigation';
+import ToastProvider from '../providers/ToastProvider';
+
+const propTypes = {
+    dispatchFocusedStack: PropTypes.func.isRequired,
+    focusedStack: PropTypes.string.isRequired,
+    stackName: PropTypes.string,
+};
+
+const defaultProps = {
+    stackName: 'Map',
+};
+
+function mapStateToProps(state) {
+    return {
+        focusedStack: state.navigationReducer.focusedStack,
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        dispatchFocusedStack: (stackName) =>
+            dispatch(setFocusedStack(stackName)),
+    };
+}
 
 const Stack = createStackNavigator();
 
-class HomeStack extends React.Component {
+class MapStack extends React.Component {
+    componentDidMount() {
+        const { navigation, dispatchFocusedStack, stackName } = this.props;
+
+        this.unsubscribe = navigation.addListener('focus', () => {
+            dispatchFocusedStack(stackName);
+        });
+    }
+
+    componentWillUnmount() {
+        this.unsubscribe();
+    }
+
     renderMapScreen = (t) => {
         return (
             <Stack.Screen
@@ -26,20 +65,30 @@ class HomeStack extends React.Component {
     };
 
     render() {
-        const { theme, t } = this.props;
+        const { stackName, focusedStack, theme, t } = this.props;
+        const enableToast = stackName === focusedStack;
 
         return (
-            <Stack.Navigator
-                initialRouteName='Map'
-                screenOptions={screenOptions(theme.colors.headerStyle)}
-                headerMode={headerMode}
-                mode={mode}
-            >
-                {this.renderMapScreen(t)}
-                {this.renderHikeScreen()}
-            </Stack.Navigator>
+            <>
+                <Stack.Navigator
+                    initialRouteName={stackName}
+                    screenOptions={screenOptions(theme.colors.headerStyle)}
+                    headerMode={headerMode}
+                    mode={mode}
+                >
+                    {this.renderMapScreen(t)}
+                    {this.renderHikeScreen()}
+                </Stack.Navigator>
+                {enableToast && <ToastProvider />}
+            </>
         );
     }
 }
 
-export default withTranslation()(withTheme(HomeStack));
+MapStack.propTypes = propTypes;
+MapStack.defaultProps = defaultProps;
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(withTranslation()(withTheme(MapStack)));

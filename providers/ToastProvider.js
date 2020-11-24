@@ -4,7 +4,7 @@ import Toast from 'react-native-toast-message';
 import { withTheme } from '../utils/Themes';
 import { toastConfig, getToastOffset } from '../utils/Toast';
 
-class ToastStack extends React.PureComponent {
+class ToastProvider extends React.PureComponent {
     render() {
         return (
             <Toast
@@ -16,4 +16,4 @@ class ToastStack extends React.PureComponent {
     }
 }
 
-export default withTranslation()(withTheme(ToastStack));
+export default withTranslation()(withTheme(ToastProvider));

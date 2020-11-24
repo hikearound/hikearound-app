@@ -23,31 +23,45 @@ import { Logo } from '../components/Index';
 import { withTheme } from '../utils/Themes';
 import LoadingOverlay from '../components/LoadingOverlay';
 import { tabBarScreens } from '../constants/Screens';
-import ToastStack from './ToastStack';
+import { setFocusedStack } from '../actions/Navigation';
+import ToastProvider from '../providers/ToastProvider';
 
 const propTypes = {
     user: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
+    dispatchFocusedStack: PropTypes.func.isRequired,
+    focusedStack: PropTypes.string.isRequired,
+    stackName: PropTypes.string,
 };
 
 const defaultProps = {
     user: null,
+    stackName: 'Home',
 };
 
 function mapStateToProps(state) {
     return {
         user: state.authReducer.user,
+        focusedStack: state.navigationReducer.focusedStack,
     };
 }
 
-function mapDispatchToProps() {
-    return {};
+function mapDispatchToProps(dispatch) {
+    return {
+        dispatchFocusedStack: (stackName) =>
+            dispatch(setFocusedStack(stackName)),
+    };
 }
 
 const Stack = createStackNavigator();
 
 class HomeStack extends React.Component {
     componentDidMount() {
-        const { navigation } = this.props;
+        const { navigation, dispatchFocusedStack, stackName } = this.props;
+
+        this.unsubscribe = navigation.addListener('focus', () => {
+            dispatchFocusedStack(stackName);
+        });
+
         navigation.setOptions({ tabBarVisible: false });
     }
 
@@ -62,6 +76,10 @@ class HomeStack extends React.Component {
         }
 
         navigation.setOptions({ tabBarVisible });
+    }
+
+    componentWillUnmount() {
+        this.unsubscribe();
     }
 
     getInitialRoute = () => {
@@ -154,16 +172,24 @@ class HomeStack extends React.Component {
         );
     };
 
+    setScreenOptions = () => {
+        const { theme } = this.props;
+        return screenOptions(theme.colors.headerStyle);
+    };
+
     render() {
-        const { theme, user, t } = this.props;
+        const { user, t, focusedStack, stackName } = this.props;
         const initialRoute = this.getInitialRoute();
+        const enableToast = stackName === focusedStack;
 
         if (user && initialRoute) {
             return (
                 <>
                     <Stack.Navigator
                         initialRouteName={initialRoute}
-                        screenOptions={screenOptions(theme.colors.headerStyle)}
+                        screenOptions={({ route, navigation }) =>
+                            this.setScreenOptions(route, navigation)
+                        }
                         headerMode={headerMode}
                         mode={mode}
                     >
@@ -175,7 +201,7 @@ class HomeStack extends React.Component {
                         {this.renderLocationPermissionScreen(t)}
                         {this.renderSearchScreen()}
                     </Stack.Navigator>
-                    <ToastStack />
+                    {enableToast && <ToastProvider />}
                 </>
             );
         }

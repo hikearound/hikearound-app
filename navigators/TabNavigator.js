@@ -122,17 +122,19 @@ class TabNavigator extends React.PureComponent {
         const { theme, t } = this.props;
 
         return (
-            <Tab.Navigator
-                tabBarOptions={tabBarOptions(
-                    theme.colors.navActive,
-                    theme.colors.navInactive,
-                )}
-            >
-                {this.renderHomeStack(t)}
-                {this.renderMapStack(t)}
-                {this.renderNotificationStack(t)}
-                {this.renderProfileStack(t)}
-            </Tab.Navigator>
+            <>
+                <Tab.Navigator
+                    tabBarOptions={tabBarOptions(
+                        theme.colors.navActive,
+                        theme.colors.navInactive,
+                    )}
+                >
+                    {this.renderHomeStack(t)}
+                    {this.renderMapStack(t)}
+                    {this.renderNotificationStack(t)}
+                    {this.renderProfileStack(t)}
+                </Tab.Navigator>
+            </>
         );
     }
 }
