@@ -10,7 +10,7 @@ const propTypes = {
 
 const defaultProps = {
     imageDidLoad: true,
-    height: 90,
+    height: 140,
 };
 
 const FeedCardGradient = ({ imageDidLoad, height }) => (

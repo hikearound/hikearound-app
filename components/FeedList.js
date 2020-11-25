@@ -31,6 +31,7 @@ class FeedList extends React.Component {
                 coordinates={item.coordinates}
                 difficulty={item.difficulty}
                 imageCount={item.imageCount}
+                review={item.review}
             />
         );
     };

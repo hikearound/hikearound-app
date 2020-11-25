@@ -16,6 +16,8 @@ const propTypes = {
     iconSet: PropTypes.string,
     rating: PropTypes.number,
     disabled: PropTypes.bool,
+    filledColor: PropTypes.string,
+    emptyColor: PropTypes.string,
 };
 
 const defaultProps = {
@@ -28,6 +30,8 @@ const defaultProps = {
     maxStars: 5,
     rating: 0,
     disabled: false,
+    filledColor: colors.purple,
+    emptyColor: colors.grayMedium,
 };
 
 function mapStateToProps(state) {
@@ -54,6 +58,8 @@ class Stars extends React.PureComponent {
             onStarRatingPress,
             rating,
             disabled,
+            filledColor,
+            emptyColor,
         } = this.props;
 
         return (
@@ -70,8 +76,9 @@ class Stars extends React.PureComponent {
                 }
                 starSize={starSize}
                 starStyle={{ paddingLeft: 1.5, paddingRight: 1.5 }}
-                fullStarColor={colors.purple}
-                emptyStarColor={colors.grayMedium}
+                fullStarColor={filledColor}
+                emptyStarColor={emptyColor}
+                halfStarEnabled
             />
         );
     }

@@ -111,7 +111,10 @@
         }
     },
     "card": {
-        "metadata": "{{distance}} millas · {{elevation}} pies"
+        "metadata": "{{distance}} millas · {{elevation}} pies",
+        "review": "· {{count}} revisión",
+        "review_plural": "· {{count}} críticas",
+        "distance": "{{city}} · {{distance}} m"
     },
     "common": {
         "appName": "Hikearound",

@@ -1,19 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withTranslation } from 'react-i18next';
 import { withTheme } from '../../../../utils/Themes';
 import { Pill, Text } from '../../../../styles/Pill';
 
 const propTypes = {
     label: PropTypes.string.isRequired,
+    distance: PropTypes.number.isRequired,
 };
 
 class LocationPill extends React.PureComponent {
     render() {
-        const { label } = this.props;
+        const { label, t, distance } = this.props;
 
         return (
             <Pill>
-                <Text>{label}</Text>
+                <Text>{t('card.distance', { city: label, distance })}</Text>
             </Pill>
         );
     }
@@ -21,4 +23,4 @@ class LocationPill extends React.PureComponent {
 
 LocationPill.propTypes = propTypes;
 
-export default withTheme(LocationPill);
+export default withTranslation()(withTheme(LocationPill));

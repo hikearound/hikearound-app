@@ -84,6 +84,10 @@ export async function openHikeScreen(id, navigation) {
     const hikeData = await getHikeData(id);
 
     if (hikeData) {
+        if (!hikeData.review) {
+            hikeData.review = { average: 0, count: 0 };
+        }
+
         navigation.push('Hike', {
             hike: {
                 id,
@@ -97,6 +101,7 @@ export async function openHikeScreen(id, navigation) {
                 description: hikeData.description,
                 coordinates: hikeData.coordinates,
                 imageCount: hikeData.imageCount,
+                review: hikeData.review,
             },
         });
     }

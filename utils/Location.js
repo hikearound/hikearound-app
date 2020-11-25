@@ -4,6 +4,7 @@ import Geocoder from 'react-native-geocoding';
 import Constants from 'expo-constants';
 import { geoDistances } from '../constants/Location';
 import { getPermissionStatus } from './Permissions';
+import store from '../store/Store';
 
 export async function initializeGeolocation() {
     Geocoder.init(Constants.manifest.extra.googleGeo.apiKey);
@@ -123,4 +124,28 @@ export function maybeShowHikeInFeed(
     }
 
     return true;
+}
+
+export function getDistanceToHike(hikeCoord) {
+    const state = store.getState();
+    const { currentPosition } = state.userReducer;
+
+    const userCoord = {
+        lat: currentPosition.coords.latitude,
+        lng: currentPosition.coords.longitude,
+    };
+
+    const p = Math.PI / 180;
+    const c = Math.cos;
+
+    const a =
+        0.5 -
+        c((hikeCoord.lat - userCoord.lat) * p) / 2 +
+        (c(userCoord.lat * p) *
+            c(hikeCoord.lat * p) *
+            (1 - c((hikeCoord.lng - userCoord.lng) * p))) /
+            2;
+
+    const distanceInKm = 12742 * Math.asin(Math.sqrt(a));
+    return (distanceInKm * 0.6214).toFixed(1);
 }

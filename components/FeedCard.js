@@ -12,8 +12,10 @@ import {
     fontSizes,
 } from '../constants/Index';
 import { withTheme } from '../utils/Themes';
+import { getDistanceToHike } from '../utils/Location';
 import LocationPill from './feed/card/pill/Location';
 import DifficultyPill from './feed/card/pill/Difficulty';
+import Stars from './Stars';
 
 const propTypes = {
     image: PropTypes.object.isRequired,
@@ -23,9 +25,11 @@ const propTypes = {
     city: PropTypes.string.isRequired,
     state: PropTypes.string.isRequired,
     difficulty: PropTypes.string.isRequired,
+    review: PropTypes.object.isRequired,
+    coordinates: PropTypes.object.isRequired,
 };
 
-class FeedCard extends React.PureComponent {
+class FeedCard extends React.Component {
     renderBackground = () => {
         const { image } = this.props;
 
@@ -45,11 +49,14 @@ class FeedCard extends React.PureComponent {
     };
 
     renderHeader = () => {
-        const { city, state, difficulty } = this.props;
+        const { city, state, difficulty, coordinates } = this.props;
 
         return (
             <Header>
-                <LocationPill label={`${city}, ${state}`} />
+                <LocationPill
+                    label={`${city}, ${state}`}
+                    distance={getDistanceToHike(coordinates.starting)}
+                />
                 <DifficultyPill label={difficulty} />
             </Header>
         );
@@ -61,6 +68,7 @@ class FeedCard extends React.PureComponent {
         return (
             <Footer>
                 <HikeName>{name}</HikeName>
+                {this.renderReview()}
                 <FooterText>
                     {t('card.metadata', { distance, elevation })}
                 </FooterText>
@@ -71,6 +79,27 @@ class FeedCard extends React.PureComponent {
     renderGradient = () => {
         const { image } = this.props;
         return <FeedCardGradient imageDidLoad={image.uri} />;
+    };
+
+    renderReview = () => {
+        const { review, t } = this.props;
+
+        return (
+            <ReviewWrapper>
+                <StarWrapper>
+                    <Stars
+                        rating={review.average}
+                        starSize={18}
+                        disabled
+                        filledColor={transparentColors.white}
+                        emptyColor={transparentColors.white}
+                    />
+                </StarWrapper>
+                <ReviewText>
+                    {t('card.review', { count: review.count })}
+                </ReviewText>
+            </ReviewWrapper>
+        );
     };
 
     render() {
@@ -114,10 +143,25 @@ const Footer = styled.View`
     z-index: 1;
 `;
 
+const StarWrapper = styled.View`
+    width: 95px;
+    padding: 1px 0 2px 0;
+`;
+
+const ReviewWrapper = styled.View`
+    flex-direction: row;
+`;
+
 const FooterText = styled.Text`
     color: ${colors.white};
     font-size: 14px;
     margin-top: 2px;
+`;
+
+const ReviewText = styled.Text`
+    color: ${colors.white};
+    font-size: 14px;
+    padding: 1px 0 0 3px;
 `;
 
 const HikeName = styled.Text`

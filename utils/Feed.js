@@ -97,6 +97,10 @@ export async function queryHikes(
 
             hikeData.id = hike.id;
 
+            if (!hikeData.review) {
+                hikeData.review = { average: 0, count: 0 };
+            }
+
             const reduced = {
                 key: hike.id,
                 ...hikeData,
