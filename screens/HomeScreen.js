@@ -258,6 +258,8 @@ class HomeScreen extends React.Component {
                 />
             );
         }
+
+        return null;
     };
 
     maybeRenderPromotion = () => {

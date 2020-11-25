@@ -18,6 +18,7 @@ const propTypes = {
     disabled: PropTypes.bool,
     filledColor: PropTypes.string,
     emptyColor: PropTypes.string,
+    halfStarEnabled: PropTypes.bool,
 };
 
 const defaultProps = {
@@ -32,6 +33,7 @@ const defaultProps = {
     disabled: false,
     filledColor: colors.purple,
     emptyColor: colors.grayMedium,
+    halfStarEnabled: false,
 };
 
 function mapStateToProps(state) {
@@ -60,6 +62,7 @@ class Stars extends React.PureComponent {
             disabled,
             filledColor,
             emptyColor,
+            halfStarEnabled,
         } = this.props;
 
         return (
@@ -78,7 +81,7 @@ class Stars extends React.PureComponent {
                 starStyle={{ paddingLeft: 1.5, paddingRight: 1.5 }}
                 fullStarColor={filledColor}
                 emptyStarColor={emptyColor}
-                halfStarEnabled
+                halfStarEnabled={halfStarEnabled}
             />
         );
     }

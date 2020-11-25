@@ -93,6 +93,7 @@ class FeedCard extends React.Component {
                         disabled
                         filledColor={transparentColors.white}
                         emptyColor={transparentColors.white}
+                        halfStarEnabled
                     />
                 </StarWrapper>
                 <ReviewText>
