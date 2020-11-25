@@ -36,11 +36,13 @@ const propTypes = {
     dispatchMapData: PropTypes.func.isRequired,
     dispatchAvatar: PropTypes.func.isRequired,
     filterParams: PropTypes.object.isRequired,
+    currentPosition: PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state) {
     return {
         filterParams: state.feedReducer.filterParams,
+        currentPosition: state.userReducer.currentPosition,
     };
 }
 
@@ -228,10 +230,11 @@ class HomeScreen extends React.Component {
     };
 
     renderHome = () => {
+        const { currentPosition } = this.props;
         const { hikes, firstLoad, loading, city } = this.state;
         const showEmptyState = this.shouldShowEmptyState();
 
-        if (firstLoad) {
+        if (firstLoad || !currentPosition.coords) {
             return <HomeLoadingState />;
         }
 
@@ -239,20 +242,22 @@ class HomeScreen extends React.Component {
             return <HomeEmptyState city={city} />;
         }
 
-        return (
-            <FeedList
-                refreshControl={
-                    <FeedRefreshControl
-                        refreshing={loading}
-                        onRefresh={this.onRefresh}
-                    />
-                }
-                scrollRef={scrollRef}
-                onEndReached={this.onEndReached}
-                hikes={hikes}
-                city={city}
-            />
-        );
+        if (currentPosition.coords) {
+            return (
+                <FeedList
+                    refreshControl={
+                        <FeedRefreshControl
+                            refreshing={loading}
+                            onRefresh={this.onRefresh}
+                        />
+                    }
+                    scrollRef={scrollRef}
+                    onEndReached={this.onEndReached}
+                    hikes={hikes}
+                    city={city}
+                />
+            );
+        }
     };
 
     maybeRenderPromotion = () => {

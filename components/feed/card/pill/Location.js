@@ -15,7 +15,12 @@ class LocationPill extends React.PureComponent {
 
         return (
             <Pill>
-                <Text>{t('card.distance', { city: label, distance })}</Text>
+                <Text>
+                    {t('card.distance', {
+                        city: label,
+                        distance: distance.toFixed(1),
+                    })}
+                </Text>
             </Pill>
         );
     }

@@ -130,6 +130,10 @@ export function getDistanceToHike(hikeCoord) {
     const state = store.getState();
     const { currentPosition } = state.userReducer;
 
+    if (!currentPosition.coords) {
+        return 0;
+    }
+
     const userCoord = {
         lat: currentPosition.coords.latitude,
         lng: currentPosition.coords.longitude,
@@ -147,5 +151,7 @@ export function getDistanceToHike(hikeCoord) {
             2;
 
     const distanceInKm = 12742 * Math.asin(Math.sqrt(a));
-    return (distanceInKm * 0.6214).toFixed(1);
+    const distanceInMi = distanceInKm * 0.6214;
+
+    return distanceInMi;
 }
