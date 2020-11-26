@@ -13,10 +13,13 @@ const propTypes = {
     hikes: PropTypes.array.isRequired,
     scrollRef: PropTypes.object.isRequired,
     city: PropTypes.string.isRequired,
+    lastKnownPosition: PropTypes.object.isRequired,
 };
 
 class FeedList extends React.Component {
     renderItem = ({ item }) => {
+        const { lastKnownPosition } = this.props;
+
         return (
             <FeedItem
                 id={item.id}
@@ -32,6 +35,7 @@ class FeedList extends React.Component {
                 difficulty={item.difficulty}
                 imageCount={item.imageCount}
                 review={item.review}
+                lastKnownPosition={lastKnownPosition}
             />
         );
     };

@@ -27,6 +27,7 @@ const propTypes = {
     difficulty: PropTypes.string.isRequired,
     review: PropTypes.object.isRequired,
     coordinates: PropTypes.object.isRequired,
+    lastKnownPosition: PropTypes.object.isRequired,
 };
 
 class FeedCard extends React.Component {
@@ -49,14 +50,22 @@ class FeedCard extends React.Component {
     };
 
     renderHeader = () => {
-        const { city, state, difficulty, coordinates } = this.props;
+        const {
+            city,
+            state,
+            difficulty,
+            coordinates,
+            lastKnownPosition,
+        } = this.props;
+
+        const distance = getDistanceToHike(
+            coordinates.starting,
+            lastKnownPosition,
+        );
 
         return (
             <Header>
-                <LocationPill
-                    label={`${city}, ${state}`}
-                    distance={getDistanceToHike(coordinates.starting)}
-                />
+                <LocationPill label={`${city}, ${state}`} distance={distance} />
                 <DifficultyPill label={difficulty} />
             </Header>
         );

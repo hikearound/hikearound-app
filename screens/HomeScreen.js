@@ -36,13 +36,11 @@ const propTypes = {
     dispatchMapData: PropTypes.func.isRequired,
     dispatchAvatar: PropTypes.func.isRequired,
     filterParams: PropTypes.object.isRequired,
-    currentPosition: PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state) {
     return {
         filterParams: state.feedReducer.filterParams,
-        currentPosition: state.userReducer.currentPosition,
     };
 }
 
@@ -79,10 +77,11 @@ class HomeScreen extends React.Component {
         } = this.props;
 
         this.setFirstLoad();
-        this.getAndSetPosition();
         this.addListeners();
 
+        await this.getAndSetPosition();
         await this.getAndSetPromotions();
+
         await getUserData(dispatchUserData, dispatchAvatar);
         await getMapData(dispatchMapData);
 
@@ -91,14 +90,10 @@ class HomeScreen extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        const { filterParams, currentPosition } = this.props;
+        const { filterParams } = this.props;
 
         if (prevProps.filterParams !== filterParams) {
             this.filterFeed();
-        }
-
-        if (prevProps.currentPosition !== currentPosition) {
-            this.maybeToggleFirstLoad();
         }
     }
 
@@ -159,9 +154,9 @@ class HomeScreen extends React.Component {
     };
 
     maybeToggleFirstLoad = () => {
-        const { currentPosition } = this.props;
+        const { lastKnownPosition } = this.state;
 
-        if (currentPosition.coords) {
+        if (lastKnownPosition.coords) {
             this.setState({ firstLoad: false });
         }
     };
@@ -245,7 +240,13 @@ class HomeScreen extends React.Component {
     };
 
     renderHome = () => {
-        const { hikes, firstLoad, loading, city } = this.state;
+        const {
+            hikes,
+            firstLoad,
+            loading,
+            city,
+            lastKnownPosition,
+        } = this.state;
         const showEmptyState = this.shouldShowEmptyState();
 
         if (firstLoad) {
@@ -268,6 +269,7 @@ class HomeScreen extends React.Component {
                 onEndReached={this.onEndReached}
                 hikes={hikes}
                 city={city}
+                lastKnownPosition={lastKnownPosition}
             />
         );
     };
