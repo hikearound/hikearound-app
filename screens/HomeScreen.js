@@ -91,9 +91,14 @@ class HomeScreen extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        const { filterParams } = this.props;
+        const { filterParams, currentPosition } = this.props;
+
         if (prevProps.filterParams !== filterParams) {
             this.filterFeed();
+        }
+
+        if (prevProps.currentPosition !== currentPosition) {
+            this.maybeToggleFirstLoad();
         }
     }
 
@@ -145,10 +150,20 @@ class HomeScreen extends React.Component {
         );
 
         this.lastKnownKey = cursor;
-        await cacheFeedImages(data);
 
+        await cacheFeedImages(data);
         this.addhikes(data);
-        this.setState({ loading: false, firstLoad: false });
+        this.maybeToggleFirstLoad();
+
+        this.setState({ loading: false });
+    };
+
+    maybeToggleFirstLoad = () => {
+        const { currentPosition } = this.props;
+
+        if (currentPosition.coords) {
+            this.setState({ firstLoad: false });
+        }
     };
 
     addhikes = async (hikes) => {
@@ -230,11 +245,10 @@ class HomeScreen extends React.Component {
     };
 
     renderHome = () => {
-        const { currentPosition } = this.props;
         const { hikes, firstLoad, loading, city } = this.state;
         const showEmptyState = this.shouldShowEmptyState();
 
-        if (firstLoad || !currentPosition.coords) {
+        if (firstLoad) {
             return <HomeLoadingState />;
         }
 
@@ -242,24 +256,20 @@ class HomeScreen extends React.Component {
             return <HomeEmptyState city={city} />;
         }
 
-        if (currentPosition.coords) {
-            return (
-                <FeedList
-                    refreshControl={
-                        <FeedRefreshControl
-                            refreshing={loading}
-                            onRefresh={this.onRefresh}
-                        />
-                    }
-                    scrollRef={scrollRef}
-                    onEndReached={this.onEndReached}
-                    hikes={hikes}
-                    city={city}
-                />
-            );
-        }
-
-        return null;
+        return (
+            <FeedList
+                refreshControl={
+                    <FeedRefreshControl
+                        refreshing={loading}
+                        onRefresh={this.onRefresh}
+                    />
+                }
+                scrollRef={scrollRef}
+                onEndReached={this.onEndReached}
+                hikes={hikes}
+                city={city}
+            />
+        );
     };
 
     maybeRenderPromotion = () => {
