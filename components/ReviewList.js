@@ -41,12 +41,12 @@ class ReviewList extends React.Component {
 
         if (maybeShowEmptyState) {
             return (
-                <>
+                <View style={{ marginBottom: parseInt(spacing.tiny, 10) }}>
                     <TopBorder />
                     <EmptyContainerText>
                         {t('screen.hike.review.empty')}
                     </EmptyContainerText>
-                </>
+                </View>
             );
         }
         return null;
@@ -69,7 +69,7 @@ class ReviewList extends React.Component {
         const extractKey = ({ id }) => id;
 
         return (
-            <View style={{ marginBottom: parseInt(spacing.tiny, 10) }}>
+            <View>
                 {reviewData && (
                     <FlatList
                         renderItem={this.renderItem}

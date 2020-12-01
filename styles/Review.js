@@ -49,7 +49,7 @@ export const ReviewItem = styled.View`
     flex-direction: column;
     border-color: ${(props) => props.theme.itemBorder};
     border-top-width: 1px;
-    padding-top: ${spacing.tiny}px;
+    padding: ${spacing.tiny}px 0;
 `;
 
 export const StarWrapper = styled.View`

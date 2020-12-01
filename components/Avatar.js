@@ -29,10 +29,8 @@ const defaultProps = {
     isEditable: false,
 };
 
-function mapStateToProps(state) {
-    return {
-        avatar: state.userReducer.avatar,
-    };
+function mapStateToProps() {
+    return {};
 }
 
 function mapDispatchToProps(dispatch) {
@@ -121,6 +119,7 @@ class Avatar extends React.Component {
 
     render() {
         const { avatar, size, avatarResizeMode, isEditable } = this.props;
+
         if (isEditable) {
             return (
                 <TouchableOpacity

@@ -1,14 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import { withTranslation } from 'react-i18next';
 import ReadMore from 'react-native-read-more-text';
 import { connect } from 'react-redux';
-import { colors, fontWeights, fontSizes, spacing } from '../../constants/Index';
 import Subtitle from '../Subtitle';
 import FavoriteButton from '../FavoriteButton';
 import { defaultProps } from '../../constants/states/TextContent';
 import { truncateText } from '../../utils/Text';
+import {
+    ActionText,
+    TitleText,
+    LocationText,
+    DescriptionText,
+} from '../../styles/Text';
 
 const propTypes = {
     name: PropTypes.string,
@@ -151,28 +155,3 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps,
 )(withTranslation()(TextContent));
-
-const ActionText = styled.Text`
-    color: ${colors.purple};
-    font-size: ${fontSizes.medium}px;
-    margin-top: 2px;
-`;
-
-const DescriptionText = styled.Text`
-    color: ${(props) => props.theme.text};
-    font-size: ${fontSizes.medium}px;
-`;
-
-const TitleText = styled.Text`
-    color: ${(props) => props.theme.text};
-    font-weight: ${fontWeights.bold};
-    font-size: ${fontSizes.big}px;
-    line-height: ${fontSizes.big}px;
-    padding-top: ${spacing.micro}px;
-    width: 80%;
-`;
-
-const LocationText = styled.Text`
-    color: ${colors.grayMedium};
-    font-size: ${fontSizes.large}px;
-`;

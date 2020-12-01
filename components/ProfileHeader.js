@@ -17,6 +17,7 @@ import { withTheme } from '../utils/Themes';
 import { profileBgDefault, profileBgDark } from '../constants/Images';
 
 const propTypes = {
+    avatar: PropTypes.string.isRequired,
     dispatchModalFlag: PropTypes.func.isRequired,
     name: PropTypes.string.isRequired,
     location: PropTypes.string.isRequired,
@@ -31,6 +32,7 @@ function mapStateToProps(state) {
     return {
         name: state.userReducer.name,
         location: state.userReducer.location,
+        avatar: state.userReducer.avatar,
     };
 }
 
@@ -95,13 +97,13 @@ class ProfileHeader extends React.PureComponent {
     );
 
     render() {
-        const { name, location, t } = this.props;
+        const { avatar, name, location, t } = this.props;
         const { bgImage } = this.state;
 
         return (
             <HeaderWrapper source={bgImage}>
                 <ProfileBlock>
-                    <Avatar />
+                    <Avatar avatar={avatar} />
                     <NameText>{name}</NameText>
                     {location === '' && this.addLocationLink(t)}
                     {location !== '' && <LocationText>{location}</LocationText>}

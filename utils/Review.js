@@ -1,14 +1,23 @@
 import { db, auth, timestamp } from '../lib/Fire';
 import { getUserProfileData } from './User';
+import { avatar } from '../constants/Images';
 
 export async function buildReviewArray(data) {
     const reviews = [];
 
     for (const review of data) {
         const userData = await getUserProfileData(review.uid);
-        const { name, location, photoURL } = userData;
 
-        review.user = { name, location, photoURL };
+        if (!userData.photoURL) {
+            userData.photoURL = avatar;
+        }
+
+        review.user = {
+            name: userData.name,
+            location: userData.location,
+            photoURL: userData.photoURL,
+        };
+
         reviews[review.id] = review;
 
         reviews.push(review);
