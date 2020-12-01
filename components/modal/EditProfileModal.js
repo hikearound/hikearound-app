@@ -16,6 +16,7 @@ import { toggleModalVisibility } from '../../utils/Modal';
 import ModalHeader from './Header';
 
 const propTypes = {
+    avatar: PropTypes.string.isRequired,
     currentModal: PropTypes.string.isRequired,
     dispatchUserData: PropTypes.func.isRequired,
     modalType: PropTypes.string,
@@ -38,6 +39,7 @@ function mapStateToProps(state) {
         closeAction: state.modalReducer.closeAction,
         name: state.userReducer.name,
         location: state.userReducer.location,
+        avatar: state.userReducer.avatar,
     };
 }
 
@@ -157,48 +159,54 @@ class EditProfileModal extends React.Component {
         }
     }
 
-    renderModalBody = (inputs) => (
-        <ModalBody>
-            <AvatarWrapper>
-                <Avatar isEditable size={60} />
-            </AvatarWrapper>
-            {inputs.map(
-                (
-                    {
-                        name,
-                        value,
-                        defaultValue,
-                        placeholder,
-                        keyboardType,
-                        autoCorrect,
-                        autoCapitalize,
-                        textContentType,
-                        enablesReturnKeyAutomatically,
-                        returnKeyType,
-                    },
-                    index,
-                ) => (
-                    <InputLabelGroup
-                        key={index}
-                        placeholder={placeholder}
-                        keyboardType={keyboardType}
-                        autoCorrect={autoCorrect}
-                        autoCapitalize={autoCapitalize}
-                        defaultValue={defaultValue}
-                        onChangeText={(text) => this.setValue(value, text)}
-                        labelName={placeholder}
-                        textContentType={textContentType}
-                        enablesReturnKeyAutomatically={
-                            enablesReturnKeyAutomatically
-                        }
-                        returnKeyType={returnKeyType}
-                        onSubmitEditing={() => this.handleSubmitEditing(index)}
-                        inputRef={(ref) => this.assignRef(ref, name)}
-                    />
-                ),
-            )}
-        </ModalBody>
-    );
+    renderModalBody = (inputs) => {
+        const { avatar } = this.props;
+
+        return (
+            <ModalBody>
+                <AvatarWrapper>
+                    <Avatar isEditable avatar={avatar} size={60} />
+                </AvatarWrapper>
+                {inputs.map(
+                    (
+                        {
+                            name,
+                            value,
+                            defaultValue,
+                            placeholder,
+                            keyboardType,
+                            autoCorrect,
+                            autoCapitalize,
+                            textContentType,
+                            enablesReturnKeyAutomatically,
+                            returnKeyType,
+                        },
+                        index,
+                    ) => (
+                        <InputLabelGroup
+                            key={index}
+                            placeholder={placeholder}
+                            keyboardType={keyboardType}
+                            autoCorrect={autoCorrect}
+                            autoCapitalize={autoCapitalize}
+                            defaultValue={defaultValue}
+                            onChangeText={(text) => this.setValue(value, text)}
+                            labelName={placeholder}
+                            textContentType={textContentType}
+                            enablesReturnKeyAutomatically={
+                                enablesReturnKeyAutomatically
+                            }
+                            returnKeyType={returnKeyType}
+                            onSubmitEditing={() =>
+                                this.handleSubmitEditing(index)
+                            }
+                            inputRef={(ref) => this.assignRef(ref, name)}
+                        />
+                    ),
+                )}
+            </ModalBody>
+        );
+    };
 
     render() {
         const { modalVisible, inputs } = this.state;
