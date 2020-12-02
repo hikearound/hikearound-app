@@ -134,7 +134,7 @@ export async function getAvatarUri() {
     return avatarUri;
 }
 
-export function logoutUser(navigation) {
+export function logoutAndResetNavigation(navigation) {
     auth.signOut().then(() => {
         navigation.dispatch(
             CommonActions.reset({

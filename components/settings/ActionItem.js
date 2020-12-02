@@ -1,21 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { TouchableOpacity } from 'react-native';
+import { connect } from 'react-redux';
 import { opacities, settingsItems } from '../../constants/Index';
 import { ItemContainer, ItemText } from '../../styles/Settings';
-import { logoutUser } from '../../utils/User';
+import { logoutUser } from '../../actions/User';
 import { withNavigation } from '../../utils/Navigation';
 
 const propTypes = {
     item: PropTypes.object.isRequired,
+    dispatchLogout: PropTypes.func.isRequired,
 };
+
+function mapStateToProps() {
+    return {};
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        dispatchLogout: (navigation) => dispatch(logoutUser(navigation)),
+    };
+}
 
 class ActionItem extends React.Component {
     itemPress = async () => {
-        const { item, navigation } = this.props;
+        const { item, navigation, dispatchLogout } = this.props;
 
         if (item.type === settingsItems.logout) {
-            logoutUser(navigation);
+            dispatchLogout(navigation);
         }
     };
 
@@ -37,4 +49,7 @@ class ActionItem extends React.Component {
 
 ActionItem.propTypes = propTypes;
 
-export default withNavigation(ActionItem);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(withNavigation(ActionItem));

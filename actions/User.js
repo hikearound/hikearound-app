@@ -5,6 +5,7 @@ import {
     writeMapData,
     writeDarkMode,
     writeNotifData,
+    logoutAndResetNavigation,
 } from '../utils/User';
 
 export const initializeUserData = (userData) => {
@@ -39,4 +40,9 @@ export const updateDarkMode = (darkMode) => {
 export const updateNotifs = (notifs) => {
     writeNotifData(notifs);
     return { type: 'UPDATE_NOTIFS', notifs };
+};
+
+export const logoutUser = (navigation) => {
+    logoutAndResetNavigation(navigation);
+    return { type: 'LOGOUT_USER' };
 };
