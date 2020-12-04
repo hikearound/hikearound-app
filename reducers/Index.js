@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+
 import authReducer from './Auth';
 import hikeReducer from './Hike';
 import userReducer from './User';
@@ -7,7 +8,7 @@ import modalReducer from './Modal';
 import feedReducer from './Feed';
 import navigationReducer from './Navigation';
 
-const reducers = {
+const appReducer = combineReducers({
     authReducer,
     hikeReducer,
     userReducer,
@@ -15,9 +16,7 @@ const reducers = {
     modalReducer,
     feedReducer,
     navigationReducer,
-};
-
-const appReducer = combineReducers(reducers);
+});
 
 const rootReducer = (state, action) => {
     if (action.type === 'LOGOUT_USER') {

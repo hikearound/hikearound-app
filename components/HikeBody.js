@@ -13,6 +13,7 @@ import MapWrapper from './map/Wrapper';
 import TextContent from './hike/TextContent';
 import { getRecentReviews } from '../utils/Review';
 import { defaultState } from '../constants/states/HikeBody';
+import { withTheme } from '../utils/Themes';
 
 const propTypes = {
     setSelectedStars: PropTypes.func.isRequired,
@@ -52,8 +53,15 @@ class HikeBody extends React.Component {
     };
 
     getReviewData = async () => {
+        const { scheme } = this.props;
         const { hid, sortDirection, querySize } = this.state;
-        const reviews = await getRecentReviews(hid, sortDirection, querySize);
+
+        const reviews = await getRecentReviews(
+            hid,
+            sortDirection,
+            querySize,
+            scheme,
+        );
 
         this.setReviewData(reviews);
         this.setEmptyState(reviews);
@@ -164,7 +172,7 @@ class HikeBody extends React.Component {
 HikeBody.propTypes = propTypes;
 HikeBody.defaultProps = defaultProps;
 
-export default withTranslation()(withScrollToTop(HikeBody));
+export default withTranslation()(withScrollToTop(withTheme(HikeBody)));
 
 const BodyContent = styled.View`
     padding: ${spacing.tiny}px ${spacing.small}px;

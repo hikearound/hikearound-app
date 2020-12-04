@@ -6,6 +6,7 @@ import 'moment/min/locales';
 import ReadMore from 'react-native-read-more-text';
 import Avatar from './Avatar';
 import Stars from './Stars';
+import LikeButton from './LikeButton';
 import { getLanguageCode } from '../utils/Localization';
 import {
     ReviewItem,
@@ -22,9 +23,11 @@ import { ActionText } from '../styles/Text';
 const propTypes = {
     user: PropTypes.object.isRequired,
     rating: PropTypes.number.isRequired,
+    rid: PropTypes.string.isRequired,
     review: PropTypes.string.isRequired,
     savedOn: PropTypes.object.isRequired,
     numberOfLines: PropTypes.number,
+    userLikes: PropTypes.array.isRequired,
 };
 
 const defaultProps = {
@@ -123,7 +126,7 @@ class ReviewListItem extends React.Component {
     }
 
     renderBody = () => {
-        const { rating, numberOfLines } = this.props;
+        const { rating, numberOfLines, rid, userLikes } = this.props;
         const { review } = this.state;
 
         return (
@@ -138,6 +141,7 @@ class ReviewListItem extends React.Component {
                 >
                     <Review>{review}</Review>
                 </ReadMore>
+                <LikeButton rid={rid} userLikes={userLikes} />
             </Body>
         );
     };

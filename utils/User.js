@@ -4,6 +4,7 @@ import { db, storage, auth } from '../lib/Fire';
 import store from '../store/Store';
 import { getPosition, getRange, getNearestCity } from './Location';
 import { getPermissionStatus } from './Permissions';
+import { avatarDefault, avatarDark } from '../constants/Images';
 
 export async function getUserProfileData(uid) {
     const userSnapshot = await db.collection('users').doc(uid).get();
@@ -159,23 +160,24 @@ export async function writeAvatar(photoURL) {
     db.collection('users').doc(user.uid).set({ photoURL }, { merge: true });
 }
 
-export async function setAvatar(dispatchAvatar) {
-    const state = store.getState();
-    const { avatar } = state.userReducer;
-
+export async function setAvatar(dispatchAvatar, scheme) {
     let avatarUri = await getAvatarUri();
 
     if (avatarUri) {
-        dispatchAvatar(avatarUri);
         writeAvatar(avatarUri);
     } else {
-        avatarUri = avatar;
+        avatarUri = avatarDefault;
+
+        if (scheme === 'dark') {
+            avatarUri = avatarDark;
+        }
     }
 
+    dispatchAvatar(avatarUri);
     cacheImages([avatarUri]);
 }
 
-export async function getUserData(dispatchUserData, dispatchAvatar) {
+export async function getUserData(dispatchUserData, dispatchAvatar, scheme) {
     const status = await getPermissionStatus('location');
     const favoriteHikes = await buildHikeArray();
     const reviewedHikes = await buildReviewArray();
@@ -192,7 +194,7 @@ export async function getUserData(dispatchUserData, dispatchAvatar) {
     userData.reviewedHikes = reviewedHikes;
     userData.currentPosition = currentPosition;
 
-    await setAvatar(dispatchAvatar);
+    await setAvatar(dispatchAvatar, scheme);
     dispatchUserData(userData);
 }
 

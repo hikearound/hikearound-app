@@ -56,10 +56,12 @@ class ReviewList extends React.Component {
         return (
             <ReviewListItem
                 id={item.id}
+                rid={item.id}
                 user={item.user}
                 rating={item.rating}
                 review={item.review}
                 savedOn={item.savedOn}
+                userLikes={item.userLikes}
             />
         );
     };

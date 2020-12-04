@@ -6,14 +6,10 @@ import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
 import { Image } from 'react-native-expo-image-cache';
 import { Ionicons } from '@expo/vector-icons';
-import {
-    opacities,
-    colors,
-    transparentColors,
-    spacing,
-} from '../constants/Index';
+import { opacities, transparentColors, spacing } from '../constants/Index';
 import { updateAvatar } from '../actions/User';
 import { reduceImageAsync, getBlob } from '../utils/Image';
+import { withTheme } from '../utils/Themes';
 
 const propTypes = {
     dispatchAvatar: PropTypes.func.isRequired,
@@ -79,6 +75,8 @@ class Avatar extends React.Component {
     };
 
     avatar = (avatar, avatarResizeMode, size) => {
+        const { theme } = this.props;
+
         return (
             <Image
                 uri={avatar}
@@ -87,7 +85,7 @@ class Avatar extends React.Component {
                     height: size,
                     width: size,
                     borderRadius: size / 2,
-                    backgroundColor: colors.gray,
+                    backgroundColor: theme.colors.avatarBackground,
                 }}
             />
         );
@@ -140,4 +138,4 @@ class Avatar extends React.Component {
 Avatar.propTypes = propTypes;
 Avatar.defaultProps = defaultProps;
 
-export default connect(mapStateToProps, mapDispatchToProps)(Avatar);
+export default connect(mapStateToProps, mapDispatchToProps)(withTheme(Avatar));

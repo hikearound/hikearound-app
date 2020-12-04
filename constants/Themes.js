@@ -11,6 +11,9 @@ export const defaultTheme = {
         text: DefaultTheme.colors.text,
         border: DefaultTheme.colors.border,
 
+        // Avatar
+        avatarBackground: colors.gray,
+
         // Navigation
         headerStyle: colors.purple,
         navActive: colors.purple,
@@ -82,6 +85,9 @@ export const darkTheme = {
         card: DarkTheme.colors.card,
         text: DarkTheme.colors.text,
         border: DarkTheme.colors.border,
+
+        // Avatar
+        avatarBackground: colors.blackText,
 
         // Navigation
         headerStyle: DarkTheme.colors.card,

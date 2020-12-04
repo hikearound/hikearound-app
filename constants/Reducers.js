@@ -1,4 +1,4 @@
-import { avatar } from './Images';
+import { avatarDefault } from './Images';
 
 export const mapState = {
     selectedHike: null,
@@ -39,7 +39,7 @@ export const user = {
     reviewedHikes: [],
 };
 
-user.avatar = avatar;
+user.avatar = avatarDefault;
 user.notifs.email = notifs;
 user.notifs.push = notifs;
 

@@ -1,15 +1,19 @@
 import { db, auth, timestamp } from '../lib/Fire';
 import { getUserProfileData } from './User';
-import { avatar } from '../constants/Images';
+import { avatarDefault, avatarDark } from '../constants/Images';
 
-export async function buildReviewArray(data) {
+export async function buildReviewArray(data, scheme) {
     const reviews = [];
 
     for (const review of data) {
         const userData = await getUserProfileData(review.uid);
 
         if (!userData.photoURL) {
-            userData.photoURL = avatar;
+            userData.photoURL = avatarDefault;
+
+            if (scheme === 'dark') {
+                userData.photoURL = avatarDark;
+            }
         }
 
         review.user = {
@@ -48,7 +52,7 @@ export function getReviewRef(hid, sortDirection, querySize) {
         .limit(querySize);
 }
 
-export async function getRecentReviews(hid, sortDirection, querySize) {
+export async function getRecentReviews(hid, sortDirection, querySize, scheme) {
     const reviewRef = getReviewRef(hid, sortDirection, querySize);
     const querySnapshot = await reviewRef.get();
 
@@ -68,6 +72,10 @@ export async function getRecentReviews(hid, sortDirection, querySize) {
         }
     });
 
-    recentReviews = await buildReviewArray(recentReviews);
+    recentReviews = await buildReviewArray(recentReviews, scheme);
     return recentReviews;
+}
+
+export function writeReviewLikes(rid, userLikes) {
+    db.collection('reviews').doc(rid).set({ userLikes }, { merge: true });
 }
