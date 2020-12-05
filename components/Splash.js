@@ -13,6 +13,7 @@ import { localImages } from '../constants/Images';
 import { withTheme } from '../utils/Themes';
 import { auth } from '../lib/Fire';
 import { initializeAuthSubscription } from '../actions/Auth';
+import SplashImage from './SplashImage';
 
 initializeLocalization();
 initializeGeolocation();
@@ -30,6 +31,11 @@ function mapDispatchToProps(dispatch) {
 
 const propTypes = {
     dispatchAuthSubscription: PropTypes.func.isRequired,
+    animationDuration: PropTypes.number,
+};
+
+const defaultProps = {
+    animationDuration: 500,
 };
 
 class Splash extends React.Component {
@@ -84,47 +90,25 @@ class Splash extends React.Component {
         }
 
         return (
-            <Animated.View
-                style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    bottom: 0,
-                    right: 0,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    backgroundColor: colors.purple,
-                    opacity: splashAnimation.interpolate({
-                        inputRange: [0, 1],
-                        outputRange: [1, 0],
-                    }),
-                }}
-            >
-                <Animated.Image
-                    source={require('../assets/splash.png')}
-                    style={{
-                        width: undefined,
-                        height: undefined,
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        bottom: 0,
-                        right: 0,
-                        resizeMode: 'contain',
-                    }}
-                    onLoadEnd={this.animateOut}
-                />
-            </Animated.View>
+            <SplashImage
+                opacity={splashAnimation.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [1, 0],
+                })}
+                animateOut={this.animateOut}
+            />
         );
     };
 
     animateOut = () => {
+        const { animationDuration } = this.props;
         const { splashAnimation } = this.state;
 
         SplashScreen.hideAsync();
+
         Animated.timing(splashAnimation, {
             toValue: 1,
-            duration: 500,
+            duration: animationDuration,
             useNativeDriver: true,
         }).start(() => {
             this.setState({ splashAnimationComplete: true });
@@ -145,6 +129,7 @@ class Splash extends React.Component {
 }
 
 Splash.propTypes = propTypes;
+Splash.defaultProps = defaultProps;
 
 export default connect(mapStateToProps, mapDispatchToProps)(withTheme(Splash));
 

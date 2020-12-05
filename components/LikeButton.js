@@ -6,7 +6,7 @@ import * as Haptics from 'expo-haptics';
 import { connect } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
 import { withTranslation } from 'react-i18next';
-import { opacities, colors, borderRadius } from '../constants/Index';
+import { opacities, colors, borderRadius, fontSizes } from '../constants/Index';
 import { withTheme } from '../utils/Themes';
 import { writeReviewLikes } from '../utils/Review';
 import { auth } from '../lib/Fire';
@@ -144,7 +144,7 @@ export default connect(
 
 const ButtonWrapper = styled.View`
     border: 1px solid;
-    border-color: ${(props) => props.theme.itemBorder};
+    border-color: ${(props) => props.theme.likeButtonBorder};
     display: flex;
     padding: 2px 4px;
     border-radius: ${borderRadius.small}px;
@@ -154,6 +154,6 @@ const ButtonWrapper = styled.View`
 
 const LikeCount = styled.Text`
     color: ${colors.grayMedium};
-    font-size: 12px;
+    font-size: ${fontSizes.small}px;
     margin-left: 4px;
 `;

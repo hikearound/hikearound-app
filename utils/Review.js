@@ -1,8 +1,11 @@
+import { Appearance } from 'react-native-appearance';
 import { db, auth, timestamp } from '../lib/Fire';
 import { getUserProfileData } from './User';
 import { avatarDefault, avatarDark } from '../constants/Images';
 
-export async function buildReviewArray(data, scheme) {
+const scheme = Appearance.getColorScheme();
+
+export async function buildReviewArray(data) {
     const reviews = [];
 
     for (const review of data) {
@@ -52,7 +55,7 @@ export function getReviewRef(hid, sortDirection, querySize) {
         .limit(querySize);
 }
 
-export async function getRecentReviews(hid, sortDirection, querySize, scheme) {
+export async function getRecentReviews(hid, sortDirection, querySize) {
     const reviewRef = getReviewRef(hid, sortDirection, querySize);
     const querySnapshot = await reviewRef.get();
 
@@ -72,7 +75,7 @@ export async function getRecentReviews(hid, sortDirection, querySize, scheme) {
         }
     });
 
-    recentReviews = await buildReviewArray(recentReviews, scheme);
+    recentReviews = await buildReviewArray(recentReviews);
     return recentReviews;
 }
 

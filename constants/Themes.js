@@ -51,6 +51,7 @@ export const defaultTheme = {
         buttonBackgroundPrimary: colors.purple,
         buttonBackgroundSecondary: colors.white,
         buttonInputText: colors.purple,
+        likeButtonBorder: colors.grayLight,
 
         // Inputs
         inputPlaceholderText: colors.grayMedium,
@@ -125,6 +126,7 @@ export const darkTheme = {
         buttonBackgroundPrimary: colors.blackMedium,
         buttonBackgroundSecondary: colors.blackText,
         buttonInputText: colors.white,
+        likeButtonBorder: DarkTheme.colors.border,
 
         // Inputs
         inputPlaceholderText: colors.grayMedium,

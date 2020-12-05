@@ -21,10 +21,10 @@ import {
 } from '../constants/Navigation';
 import { Logo } from '../components/Index';
 import { withTheme } from '../utils/Themes';
-import LoadingOverlay from '../components/LoadingOverlay';
 import { tabBarScreens } from '../constants/Screens';
 import { setFocusedStack } from '../actions/Navigation';
 import ToastProvider from '../providers/ToastProvider';
+import SplashImage from '../components/SplashImage';
 
 const propTypes = {
     user: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
@@ -206,7 +206,7 @@ class HomeStack extends React.Component {
             );
         }
 
-        return <LoadingOverlay loading />;
+        return <SplashImage />;
     }
 }
 
