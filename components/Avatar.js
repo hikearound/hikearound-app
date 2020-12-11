@@ -6,7 +6,7 @@ import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
 import { Image } from 'react-native-expo-image-cache';
 import { Ionicons } from '@expo/vector-icons';
-import { opacities, transparentColors, spacing } from '../constants/Index';
+import { opacities, transparentColors } from '../constants/Index';
 import { updateAvatar } from '../actions/User';
 import { reduceImageAsync, getBlob } from '../utils/Image';
 import { withTheme } from '../utils/Themes';
@@ -108,8 +108,8 @@ class Avatar extends React.Component {
                 style={{
                     position: 'absolute',
                     zIndex: 2,
-                    top: parseInt(spacing.small, 10),
-                    left: 19,
+                    top: 12,
+                    left: 15,
                 }}
             />
         </View>

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Ionicons } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 import styled from 'styled-components';
 import { colors, spacing } from '../../constants/Index';
 
@@ -11,14 +11,14 @@ const propTypes = {
 };
 
 const defaultProps = {
-    name: 'ios-arrow-back',
+    name: 'arrow-back-ios',
     color: colors.white,
-    size: 28,
+    size: 25,
 };
 
 const Back = ({ name, color, size }) => (
     <View>
-        <Ionicons name={name} size={size} color={color} />
+        <MaterialIcons name={name} size={size} color={color} />
     </View>
 );
 

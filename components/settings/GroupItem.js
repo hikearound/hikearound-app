@@ -104,13 +104,13 @@ class GroupItem extends React.PureComponent {
                         {item.name}
                     </ItemText>
                     <Ionicons
-                        name='ios-checkmark'
-                        size={35}
+                        name='ios-checkmark-sharp'
+                        size={26}
                         color={colors.purple}
                         style={{
                             display: checkDisplay,
-                            right: parseInt(spacing.small, 10),
-                            top: parseInt(spacing.micro, 10),
+                            right: parseInt(spacing.tiny, 10),
+                            top: 7,
                             position: 'absolute',
                         }}
                     />

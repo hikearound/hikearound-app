@@ -64,7 +64,7 @@ class ModalOverflow extends React.PureComponent {
                 }}
             >
                 <Ionicons
-                    name='ios-more'
+                    name='ios-ellipsis-horizontal'
                     color={colors.white}
                     size={iconSize}
                 />

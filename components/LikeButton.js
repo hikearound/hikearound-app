@@ -78,7 +78,7 @@ class LikeButton extends React.Component {
     setEmptyStyle = () => {
         this.setState({
             iconColor: colors.gray,
-            iconName: 'ios-heart-empty',
+            iconName: 'ios-heart-outline',
         });
     };
 

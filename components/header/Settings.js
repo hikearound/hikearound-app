@@ -14,7 +14,7 @@ const Settings = ({ navigation }) => (
             marginTop: -1,
         }}
     >
-        <Ionicons name='ios-settings' size={26} color={colors.white} />
+        <Ionicons name='ios-settings-sharp' size={24} color={colors.white} />
     </TouchableOpacity>
 );
 

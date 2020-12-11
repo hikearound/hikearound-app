@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { TouchableOpacity } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 import {
     opacities,
     settingsItems,
@@ -37,13 +37,13 @@ class PushItem extends React.Component {
                     onPress={this.itemPress}
                 >
                     <ItemText key={item.key}>{item.name}</ItemText>
-                    <Ionicons
-                        name='ios-arrow-forward'
-                        size={25}
+                    <MaterialIcons
+                        name='arrow-forward-ios'
+                        size={20}
                         color={colors.gray}
                         style={{
-                            right: parseInt(spacing.small, 10),
-                            top: 8,
+                            right: parseInt(spacing.tiny, 10),
+                            top: 11,
                             position: 'absolute',
                         }}
                     />

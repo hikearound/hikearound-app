@@ -30,7 +30,7 @@ const defaultProps = {
     closeAction: 'close',
     textDismiss: false,
     iconOffset: 25,
-    iconSize: 35,
+    iconSize: 28,
     dismissLanguage: 'close',
     isPageSheet: false,
 };
@@ -68,7 +68,7 @@ class ModalDismiss extends React.PureComponent {
 
         if (includeBackground) {
             iconStyle = (
-                <DismissIconWrapper iconSize={iconSize}>
+                <DismissIconWrapper>
                     <Ionicons
                         name='ios-close'
                         color={colors.purple}
@@ -126,10 +126,11 @@ export default connect(
 )(withTranslation()(ModalDismiss));
 
 const DismissIconWrapper = styled.View`
-    border-radius: ${(props) => props.iconSize}px;
-    height: ${(props) => props.iconSize}px;
-    width: ${(props) => props.iconSize}px;
+    border-radius: 35px;
+    height: 35px;
+    width: 35px;
     box-shadow: 0 4px 4px ${transparentColors.gray};
     background-color: ${(props) => props.theme.sheetBackground};
-    padding-left: 11px;
+    padding-left: 4px;
+    padding-top: 3px;
 `;

@@ -44,7 +44,7 @@ class FavoriteButton extends React.Component {
 
         this.state = {
             iconColor: colors.gray,
-            iconName: 'ios-heart-empty',
+            iconName: 'ios-heart-outline',
             iconSize: 30,
             hikes: favoriteHikes,
         };
@@ -76,7 +76,7 @@ class FavoriteButton extends React.Component {
             this.setState({
                 hikes,
                 iconColor: colors.gray,
-                iconName: 'ios-heart-empty',
+                iconName: 'ios-heart-outline',
             });
         }
     };
@@ -124,7 +124,7 @@ class FavoriteButton extends React.Component {
         this.setState({
             hikes,
             iconColor: colors.gray,
-            iconName: 'ios-heart-empty',
+            iconName: 'ios-heart-outline',
         });
 
         dispatchUnfavorite({ hid });

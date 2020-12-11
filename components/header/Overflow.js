@@ -16,7 +16,11 @@ const Overflow = ({ onPress }) => (
         }}
         onPress={onPress}
     >
-        <Ionicons name='ios-more' size={32} color={colors.white} />
+        <Ionicons
+            name='ios-ellipsis-horizontal'
+            size={32}
+            color={colors.white}
+        />
     </TouchableOpacity>
 );
 

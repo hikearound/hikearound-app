@@ -20,7 +20,7 @@ const propTypes = {
 
 const defaultProps = {
     text: null,
-    iconSize: 30,
+    iconSize: 24,
 };
 
 function mapStateToProps(state) {
@@ -41,8 +41,8 @@ class Toast extends React.Component {
                     onPress={this.buttonPress}
                     style={{
                         position: 'absolute',
-                        right: 12,
-                        top: 5,
+                        right: 8,
+                        top: 7,
                     }}
                 >
                     <Ionicons
