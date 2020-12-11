@@ -98,7 +98,7 @@ class FeedCard extends React.Component {
                 <StarWrapper>
                     <Stars
                         rating={review.average}
-                        starSize={15}
+                        starSize={14}
                         disabled
                         filledColor={transparentColors.white}
                         emptyColor={transparentColors.white}

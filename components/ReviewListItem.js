@@ -132,7 +132,7 @@ class ReviewListItem extends React.Component {
         return (
             <Body>
                 <StarWrapper>
-                    <Stars rating={rating} starSize={18} disabled />
+                    <Stars rating={rating} starSize={17} disabled />
                 </StarWrapper>
                 <ReadMore
                     numberOfLines={numberOfLines}

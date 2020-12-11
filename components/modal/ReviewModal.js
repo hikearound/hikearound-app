@@ -132,7 +132,7 @@ class ReviewModal extends React.Component {
                 <StarWrapper>
                     <Stars
                         rating={rating}
-                        starSize={20}
+                        starSize={18}
                         onStarRatingPress={this.onStarRatingPress}
                     />
                 </StarWrapper>
@@ -205,7 +205,7 @@ const Input = styled.TextInput.attrs((props) => ({
     font-size: ${fontSizes.medium}px;
     display: flex;
     flex: 1;
-    padding-top: ${spacing.tiny}px;
+    padding-top: 3px;
 `;
 
 const HikeName = styled.Text`
@@ -218,5 +218,5 @@ const HikeName = styled.Text`
 
 const StarWrapper = styled.View`
     margin-top: 2px;
-    width: 50px;
+    width: 45px;
 `;

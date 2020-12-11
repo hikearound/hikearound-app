@@ -18,7 +18,6 @@ const propTypes = {
     dispatchModalFlag: PropTypes.func.isRequired,
     includeBackground: PropTypes.bool,
     textDismiss: PropTypes.bool,
-    iconOffset: PropTypes.number,
     iconSize: PropTypes.number,
     dismissLanguage: PropTypes.string,
     closeAction: PropTypes.string,
@@ -29,7 +28,6 @@ const defaultProps = {
     includeBackground: false,
     closeAction: 'close',
     textDismiss: false,
-    iconOffset: 25,
     iconSize: 28,
     dismissLanguage: 'close',
     isPageSheet: false,
@@ -52,18 +50,13 @@ class ModalDismiss extends React.PureComponent {
             includeBackground,
             dismissLanguage,
             iconSize,
-            iconOffset,
             textDismiss,
             isPageSheet,
             t,
         } = this.props;
 
         let iconStyle = (
-            <Ionicons
-                name='ios-close'
-                color={colors.white}
-                size={iconSize + 5}
-            />
+            <Ionicons name='ios-close' color={colors.white} size={iconSize} />
         );
 
         if (includeBackground) {
@@ -106,8 +99,8 @@ class ModalDismiss extends React.PureComponent {
                 activeOpacity={opacities.regular}
                 style={{
                     position: 'absolute',
-                    right: iconOffset,
-                    top: iconOffset,
+                    right: 25,
+                    top: 30,
                     zIndex: 1,
                 }}
             >

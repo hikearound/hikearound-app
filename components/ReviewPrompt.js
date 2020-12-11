@@ -70,6 +70,7 @@ class ReviewPrompt extends React.PureComponent {
                         <Stars
                             rating={rating}
                             onStarRatingPress={this.onStarRatingPress}
+                            starSize={20}
                         />
                     </StarWrapper>
                 </PromptWrapper>

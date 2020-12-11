@@ -55,5 +55,5 @@ export const ReviewItem = styled.View`
 export const StarWrapper = styled.View`
     display: flex;
     width: 50px;
-    margin: ${spacing.micro}px 0;
+    margin: 3px 0 2px 0;
 `;
