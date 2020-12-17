@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity, View, Image } from 'react-native';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
-import { Image } from 'react-native-expo-image-cache';
 import { Ionicons } from '@expo/vector-icons';
 import { opacities, transparentColors } from '../constants/Index';
 import { updateAvatar } from '../actions/User';
@@ -69,6 +68,7 @@ class Avatar extends React.Component {
     uploadImage = async (uri) => {
         const { dispatchAvatar } = this.props;
         const blob = await getBlob(uri);
+
         if (blob) {
             dispatchAvatar({ uri, blob });
         }
@@ -79,7 +79,7 @@ class Avatar extends React.Component {
 
         return (
             <Image
-                uri={avatar}
+                source={{ uri: avatar }}
                 resizeMode={avatarResizeMode}
                 style={{
                     height: size,
