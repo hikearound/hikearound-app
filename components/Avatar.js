@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { TouchableOpacity, View, Image } from 'react-native';
+import { Image as CachedImage } from 'react-native-expo-image-cache';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
 import { Ionicons } from '@expo/vector-icons';
@@ -74,19 +75,31 @@ class Avatar extends React.Component {
         }
     };
 
-    avatar = (avatar, avatarResizeMode, size) => {
-        const { theme } = this.props;
+    renderAvatar = () => {
+        const { avatar, size, avatarResizeMode, theme } = this.props;
+
+        const style = {
+            height: size,
+            width: size,
+            borderRadius: size / 2,
+            backgroundColor: theme.colors.avatarBackground,
+        };
+
+        if (avatar.includes('file:///')) {
+            return (
+                <Image
+                    source={{ uri: avatar }}
+                    resizeMode={avatarResizeMode}
+                    style={style}
+                />
+            );
+        }
 
         return (
-            <Image
-                source={{ uri: avatar }}
+            <CachedImage
+                uri={avatar}
                 resizeMode={avatarResizeMode}
-                style={{
-                    height: size,
-                    width: size,
-                    borderRadius: size / 2,
-                    backgroundColor: theme.colors.avatarBackground,
-                }}
+                style={style}
             />
         );
     };
@@ -115,23 +128,30 @@ class Avatar extends React.Component {
         </View>
     );
 
+    renderEditableAvatar = () => {
+        const { avatar, size, avatarResizeMode } = this.props;
+
+        return (
+            <TouchableOpacity
+                onPress={() => {
+                    this.checkPhotoPermissions();
+                }}
+                activeOpacity={opacities.regular}
+            >
+                {this.renderAvatar(avatar, avatarResizeMode, size)}
+                {this.cameraGradientOverlay(size)}
+            </TouchableOpacity>
+        );
+    };
+
     render() {
-        const { avatar, size, avatarResizeMode, isEditable } = this.props;
+        const { isEditable } = this.props;
 
         if (isEditable) {
-            return (
-                <TouchableOpacity
-                    onPress={() => {
-                        this.checkPhotoPermissions();
-                    }}
-                    activeOpacity={opacities.regular}
-                >
-                    {this.avatar(avatar, avatarResizeMode, size)}
-                    {this.cameraGradientOverlay(size)}
-                </TouchableOpacity>
-            );
+            return this.renderEditableAvatar();
         }
-        return <View>{this.avatar(avatar, avatarResizeMode, size)}</View>;
+
+        return this.renderAvatar();
     }
 }
 
