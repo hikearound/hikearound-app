@@ -230,6 +230,8 @@ class HomeScreen extends React.Component {
         const { filterParams } = this.props;
         const sortDirection = getSortDirection(filterParams);
 
+        await this.getAndSetPromotions();
+
         await this.setState({
             sortDirection,
             hikes: [],
