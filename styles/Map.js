@@ -54,6 +54,7 @@ export function getMapSearchStyle(theme, hideShadow) {
         },
         row: {
             paddingLeft: 0,
+            backgroundColor: 'transparent',
         },
         powered: {},
         predefinedPlacesDescription: {},
