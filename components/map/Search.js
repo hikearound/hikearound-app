@@ -8,7 +8,6 @@ import { withTheme } from '../../utils/Themes';
 import { getMapSearchStyle } from '../../styles/Map';
 import { withNavigation } from '../../utils/Navigation';
 import { updateMapData } from '../../actions/Map';
-import { transparentColors } from '../../constants/Index';
 
 const propTypes = {
     hideHikeSheet: PropTypes.func.isRequired,
@@ -45,8 +44,14 @@ function mapDispatchToProps(dispatch) {
 class MapSearch extends React.Component {
     constructor(props, context) {
         super(props, context);
+        const { theme } = this.props;
+
         this.searchInputRef = React.createRef();
-        this.state = { city: '' };
+
+        this.state = {
+            city: '',
+            style: getMapSearchStyle(theme),
+        };
     }
 
     onPress = (details) => {
@@ -68,20 +73,22 @@ class MapSearch extends React.Component {
     };
 
     onChange = (change) => {
+        const { theme } = this.props;
+        const style = getMapSearchStyle(theme, true);
+
         if (change) {
             const city = change.nativeEvent.text;
             this.setState({ city });
         }
 
-        this.searchInputRef.current.refs.textInput.setNativeProps({
-            style: { shadowColor: 'transparent' },
-        });
+        this.setState({ style });
     };
 
     onBlur = () => {
-        this.searchInputRef.current.refs.textInput.setNativeProps({
-            style: { shadowColor: transparentColors.grayLight },
-        });
+        const { theme } = this.props;
+        const style = getMapSearchStyle(theme, false);
+
+        this.setState({ style });
     };
 
     render() {
@@ -95,7 +102,7 @@ class MapSearch extends React.Component {
             theme,
             t,
         } = this.props;
-        const mapSearchStyle = getMapSearchStyle(theme);
+        const { style } = this.state;
 
         return (
             <GooglePlacesAutocomplete
@@ -119,7 +126,7 @@ class MapSearch extends React.Component {
                     placeholderTextColor: theme.colors.inputPlaceholderText,
                 }}
                 onPress={(data, details = null) => this.onPress(details)}
-                styles={mapSearchStyle}
+                styles={style}
                 listUnderlayColor={theme.colors.searchBackground}
             />
         );

@@ -1,7 +1,7 @@
 import Constants from 'expo-constants';
 import { fontSizes, spacing, transparentColors } from '../constants/Index';
 
-export function getMapSearchStyle(theme) {
+export function getMapSearchStyle(theme, hideShadow) {
     return {
         textInputContainer: {
             backgroundColor: 'transparent',
@@ -21,7 +21,9 @@ export function getMapSearchStyle(theme) {
             borderColor: theme.colors.border,
             height: 38,
             backgroundColor: theme.colors.searchBackground,
-            shadowColor: transparentColors.grayLight,
+            shadowColor: hideShadow
+                ? 'transparent'
+                : transparentColors.grayLight,
             shadowOpacity: 1,
             shadowRadius: 3,
             shadowOffset: {
