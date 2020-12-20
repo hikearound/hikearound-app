@@ -115,6 +115,7 @@ class LightboxModal extends React.Component {
                                     <LoadingOverlay
                                         loading
                                         transparentBackground
+                                        defaultColors={false}
                                     />
                                 )}
                                 renderIndicator={() => null}

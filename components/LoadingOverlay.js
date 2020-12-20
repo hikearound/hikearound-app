@@ -8,12 +8,14 @@ import { colors } from '../constants/Index';
 const propTypes = {
     loading: PropTypes.bool,
     transparentBackground: PropTypes.bool,
+    defaultColors: PropTypes.bool,
     scale: PropTypes.number,
 };
 
 const defaultProps = {
     loading: false,
     transparentBackground: false,
+    defaultColors: true,
     scale: 1.5,
 };
 
@@ -27,7 +29,13 @@ class LoadingOverlay extends React.Component {
     }
 
     render() {
-        const { loading, transparentBackground, scale, theme } = this.props;
+        const {
+            loading,
+            transparentBackground,
+            scale,
+            defaultColors,
+            theme,
+        } = this.props;
 
         return (
             <LoadingView
@@ -38,9 +46,9 @@ class LoadingOverlay extends React.Component {
                     <ActivityIndicator
                         size='small'
                         color={
-                            transparentBackground
-                                ? colors.white
-                                : theme.colors.loadingSpinner
+                            defaultColors
+                                ? theme.colors.loadingSpinner
+                                : colors.white
                         }
                         style={{
                             zIndex: 1,
@@ -52,6 +60,7 @@ class LoadingOverlay extends React.Component {
         );
     }
 }
+
 
 LoadingOverlay.propTypes = propTypes;
 LoadingOverlay.defaultProps = defaultProps;
