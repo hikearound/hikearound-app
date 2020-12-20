@@ -112,7 +112,10 @@ class LightboxModal extends React.Component {
                                 imageUrls={images}
                                 index={imageIndex}
                                 loadingRender={() => (
-                                    <LoadingOverlay loading isLightbox />
+                                    <LoadingOverlay
+                                        loading
+                                        transparentBackground
+                                    />
                                 )}
                                 renderIndicator={() => null}
                                 enablePreload

@@ -74,6 +74,7 @@ class MapWrapper extends React.Component {
                             region={region}
                             cacheEnabled
                             mapPadding={mapPadding}
+                            showUserLocation={false}
                         />
                     )}
                     <InfoBar

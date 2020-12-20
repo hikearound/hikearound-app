@@ -30,7 +30,9 @@ class HikeSheet extends React.Component {
         return (
             <Body>
                 {!selectedHike && <MapEmptyState />}
-                {!sheetData && selectedHike && <LoadingOverlay loading />}
+                {!sheetData && selectedHike && (
+                    <LoadingOverlay loading transparentBackground />
+                )}
                 {sheetData && selectedHike && (
                     <View>
                         <TextContent

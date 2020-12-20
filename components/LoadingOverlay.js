@@ -7,13 +7,13 @@ import { colors } from '../constants/Index';
 
 const propTypes = {
     loading: PropTypes.bool,
-    isLightbox: PropTypes.bool,
+    transparentBackground: PropTypes.bool,
     scale: PropTypes.number,
 };
 
 const defaultProps = {
     loading: false,
-    isLightbox: false,
+    transparentBackground: false,
     scale: 1.5,
 };
 
@@ -27,15 +27,18 @@ class LoadingOverlay extends React.Component {
     }
 
     render() {
-        const { loading, isLightbox, scale, theme } = this.props;
+        const { loading, transparentBackground, scale, theme } = this.props;
 
         return (
-            <LoadingView loading={loading} isLightbox={isLightbox}>
+            <LoadingView
+                loading={loading}
+                transparentBackground={transparentBackground}
+            >
                 <ActivityView>
                     <ActivityIndicator
                         size='small'
                         color={
-                            isLightbox
+                            transparentBackground
                                 ? colors.white
                                 : theme.colors.loadingSpinner
                         }
@@ -67,7 +70,9 @@ const LoadingView = styled.View`
     top: 0;
     right: 0;
     bottom: 0;
-    opacity: ${(props) => (props.isLightbox ? 1 : 0.8)};
+    opacity: ${(props) => (props.transparentBackground ? 1 : 0.8)};
     background-color: ${(props) =>
-        props.isLightbox ? colors.black : props.theme.rootBackground};
+        props.transparentBackground
+            ? 'transparent'
+            : props.theme.rootBackground};
 `;

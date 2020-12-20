@@ -8,6 +8,7 @@ export const defaultProps = {
     cacheEnabled: false,
     startingCoordinates: null,
     mapType: 'mutedStandard',
+    showUserLocation: true,
 };
 
 export default defaultProps;

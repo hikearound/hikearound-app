@@ -17,6 +17,7 @@ const propTypes = {
     startingCoordinates: PropTypes.object,
     mapPadding: PropTypes.object,
     mapType: PropTypes.string,
+    showUserLocation: PropTypes.bool,
 };
 
 class HikeMap extends React.Component {
@@ -48,6 +49,7 @@ class HikeMap extends React.Component {
             theme,
             mapPadding,
             mapType,
+            showUserLocation,
         } = this.props;
         const { maxZoom, fullHeight, position } = this.state;
 
@@ -62,7 +64,7 @@ class HikeMap extends React.Component {
                         overflow: 'hidden',
                         borderRadius: parseInt(borderRadius.medium, 10),
                     }}
-                    showsUserLocation
+                    showsUserLocation={showUserLocation}
                     initialRegion={region}
                     showsMyLocationButton={false}
                     showsPointsOfInterest={false}
