@@ -61,7 +61,6 @@ class LoadingOverlay extends React.Component {
     }
 }
 
-
 LoadingOverlay.propTypes = propTypes;
 LoadingOverlay.defaultProps = defaultProps;
 
