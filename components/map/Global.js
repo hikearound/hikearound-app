@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Keyboard, View } from 'react-native';
+import { Keyboard } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import { connect } from 'react-redux';
 import { updateMapData } from '../../actions/Map';
@@ -228,7 +228,7 @@ class GlobalMap extends React.Component {
             const filteredMarkers = filterMarkers(region, visibleMarkers);
 
             return (
-                <View>
+                <>
                     <LocationButton
                         mapRef={this.mapRef}
                         animationConfig={animationConfig}
@@ -253,7 +253,7 @@ class GlobalMap extends React.Component {
                                 this.renderMarker(marker, index),
                             )}
                     </MapView>
-                </View>
+                </>
             );
         }
 
