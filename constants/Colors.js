@@ -1,6 +1,7 @@
 export const colors = {
     // Whites
     white: '#FFFFFF',
+    whiteLight: '#FBFBF8',
 
     // Grays
     grayUltraLight: '#F0F0F0',

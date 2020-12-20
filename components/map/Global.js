@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Keyboard } from 'react-native';
+import { Keyboard, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import { connect } from 'react-redux';
 import { updateMapData } from '../../actions/Map';
 import GlobalMarker from '../marker/Global';
 import ClusterMarker from '../marker/Cluster';
+import LocationButton from './button/Location';
 import { withTheme } from '../../utils/Themes';
 import { deltaMiles } from '../../constants/Location';
 import { defaultProps } from '../../constants/states/GlobalMap';
@@ -220,33 +221,39 @@ class GlobalMap extends React.Component {
     };
 
     render() {
-        const { theme, mapPadding } = this.props;
+        const { theme, mapPadding, animationConfig } = this.props;
         const { region, visibleMarkers } = this.state;
 
         if (region) {
             const filteredMarkers = filterMarkers(region, visibleMarkers);
 
             return (
-                <MapView
-                    ref={this.mapRef}
-                    style={{ height: '100%', zIndex: -1 }}
-                    initialRegion={region}
-                    showsUserLocation
-                    showsMyLocationButton
-                    showsScale
-                    showsPointsOfInterest={false}
-                    showsCompass={false}
-                    onRegionChange={this.onRegionChange}
-                    onRegionChangeComplete={this.onRegionChangeComplete}
-                    loadingBackgroundColor={theme.colors.mapViewBackground}
-                    onPress={this.onPress}
-                    mapPadding={mapPadding}
-                >
-                    {filteredMarkers &&
-                        filteredMarkers.markers.map((marker, index) =>
-                            this.renderMarker(marker, index),
-                        )}
-                </MapView>
+                <View>
+                    <LocationButton
+                        mapRef={this.mapRef}
+                        animationConfig={animationConfig}
+                    />
+                    <MapView
+                        ref={this.mapRef}
+                        style={{ height: '100%', zIndex: -1 }}
+                        initialRegion={region}
+                        showsUserLocation
+                        showsMyLocationButton
+                        showsScale
+                        showsPointsOfInterest={false}
+                        showsCompass={false}
+                        onRegionChange={this.onRegionChange}
+                        onRegionChangeComplete={this.onRegionChangeComplete}
+                        loadingBackgroundColor={theme.colors.mapViewBackground}
+                        onPress={this.onPress}
+                        mapPadding={mapPadding}
+                    >
+                        {filteredMarkers &&
+                            filteredMarkers.markers.map((marker, index) =>
+                                this.renderMarker(marker, index),
+                            )}
+                    </MapView>
+                </View>
             );
         }
 

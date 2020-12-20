@@ -1,6 +1,7 @@
 export const borderRadius = {
     small: '4',
     medium: '6',
+    large: '8',
 };
 
 export const bottomSheet = {

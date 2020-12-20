@@ -64,6 +64,7 @@ export const defaultTheme = {
 
         // Maps
         mapViewBackground: colors.grayUltraLight,
+        mapButtonBackground: colors.whiteLight,
 
         // Onboarding
         onboardTitle: colors.blackLight,
@@ -139,6 +140,7 @@ export const darkTheme = {
 
         // Maps
         mapViewBackground: colors.black,
+        mapButtonBackground: colors.blackMedium,
 
         // Onboarding
         onboardTitle: colors.white,
