@@ -6,9 +6,9 @@ import { colors, borderRadius } from '../../constants/Index';
 import { defaultProps } from '../../constants/states/HikeMap';
 import { withTheme } from '../../utils/Themes';
 import HikeMarker from '../marker/Hike';
+import LocationButton from './button/Location';
 
 const propTypes = {
-    mapRef: PropTypes.func.isRequired,
     coordinates: PropTypes.array,
     region: PropTypes.object,
     maxZoom: PropTypes.number,
@@ -18,6 +18,7 @@ const propTypes = {
     mapPadding: PropTypes.object,
     mapType: PropTypes.string,
     showUserLocation: PropTypes.bool,
+    showLocationButton: PropTypes.bool,
 };
 
 class HikeMap extends React.Component {
@@ -30,6 +31,8 @@ class HikeMap extends React.Component {
             fullHeight,
             position: {},
         };
+
+        this.mapRef = React.createRef();
     }
 
     onMapReady = () => {};
@@ -43,57 +46,70 @@ class HikeMap extends React.Component {
         const {
             coordinates,
             startingCoordinates,
-            mapRef,
             region,
             mapHeight,
             theme,
             mapPadding,
             mapType,
             showUserLocation,
+            showLocationButton,
         } = this.props;
         const { maxZoom, fullHeight, position } = this.state;
 
         if (region) {
             return (
-                <MapView
-                    ref={mapRef}
-                    provider={null}
-                    style={{
-                        height: fullHeight ? '100%' : mapHeight,
-                        zIndex: 1,
-                        overflow: 'hidden',
-                        borderRadius: parseInt(borderRadius.medium, 10),
-                    }}
-                    showsUserLocation={showUserLocation}
-                    initialRegion={region}
-                    showsMyLocationButton={false}
-                    showsPointsOfInterest={false}
-                    showsCompass={false}
-                    maxZoomLevel={maxZoom}
-                    onMapReady={this.onMapReady}
-                    loadingIndicatorColor={theme.colors.loadingSpinner}
-                    loadingBackgroundColor={theme.colors.mapViewBackground}
-                    onPress={this.mapPress}
-                    mapPadding={mapPadding}
-                    mapType={mapType}
-                    showsScale
-                >
-                    {startingCoordinates && (
-                        <HikeMarker
-                            coordinate={{
-                                latitude: startingCoordinates.lat,
-                                longitude: startingCoordinates.lng,
+                <>
+                    {showLocationButton && (
+                        <LocationButton
+                            mapRef={this.mapRef}
+                            animationConfig={{
+                                pitch: 0,
+                                heading: 0,
+                                duration: 1000,
                             }}
-                            tracksViewChanges={false}
-                            position={position}
+                            bottomOffset={111}
                         />
                     )}
-                    <MapView.Polyline
-                        coordinates={coordinates}
-                        strokeColor={colors.purple}
-                        strokeWidth={2}
-                    />
-                </MapView>
+                    <MapView
+                        ref={this.mapRef}
+                        provider={null}
+                        style={{
+                            height: fullHeight ? '100%' : mapHeight,
+                            zIndex: 1,
+                            overflow: 'hidden',
+                            borderRadius: parseInt(borderRadius.medium, 10),
+                        }}
+                        showsUserLocation={showUserLocation}
+                        initialRegion={region}
+                        showsMyLocationButton={false}
+                        showsPointsOfInterest={false}
+                        showsCompass={false}
+                        maxZoomLevel={maxZoom}
+                        onMapReady={this.onMapReady}
+                        loadingIndicatorColor={theme.colors.loadingSpinner}
+                        loadingBackgroundColor={theme.colors.mapViewBackground}
+                        onPress={this.mapPress}
+                        mapPadding={mapPadding}
+                        mapType={mapType}
+                        showsScale
+                    >
+                        {startingCoordinates && (
+                            <HikeMarker
+                                coordinate={{
+                                    latitude: startingCoordinates.lat,
+                                    longitude: startingCoordinates.lng,
+                                }}
+                                tracksViewChanges={false}
+                                position={position}
+                            />
+                        )}
+                        <MapView.Polyline
+                            coordinates={coordinates}
+                            strokeColor={colors.purple}
+                            strokeWidth={2}
+                        />
+                    </MapView>
+                </>
             );
         }
         return <EmptyMapView fullHeight={fullHeight} mapHeight={mapHeight} />;

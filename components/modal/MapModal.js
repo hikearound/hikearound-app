@@ -120,6 +120,7 @@ class MapModal extends React.Component {
                             region={initialRegion}
                             maxZoom={maxZoom}
                             mapPadding={{ bottom: 70 }}
+                            showLocationButton
                         />
                         <ModalDismiss
                             includeBackground

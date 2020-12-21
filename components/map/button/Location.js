@@ -17,11 +17,13 @@ const propTypes = {
     position: PropTypes.object,
     mapRef: PropTypes.object,
     animationConfig: PropTypes.object.isRequired,
+    bottomOffset: PropTypes.number,
 };
 
 const defaultProps = {
     position: null,
     mapRef: {},
+    bottomOffset: 49,
 };
 
 function mapStateToProps(state) {
@@ -54,8 +56,10 @@ class LocationButton extends React.PureComponent {
     };
 
     render() {
+        const { bottomOffset } = this.props;
+
         return (
-            <ButtonWrapper>
+            <ButtonWrapper bottomOffset={bottomOffset}>
                 <TouchableOpacity
                     activeOpacity={opacities.regular}
                     onPress={this.onPress}
@@ -89,9 +93,10 @@ const ButtonWrapper = styled.View`
     height: 40px;
     width: 40px;
     position: absolute;
-    bottom: 49px;
+    bottom: ${(props) => props.bottomOffset}px;
     right: ${spacing.tiny}px;
     background-color: ${(props) => props.theme.mapButtonBackground};
     border-radius: ${borderRadius.large}px;
     box-shadow: 0 4px 4px ${transparentColors.grayLight};
+    z-index: 2;
 `;
