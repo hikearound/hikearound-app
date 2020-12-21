@@ -43,10 +43,10 @@ export function getMapSearchStyle(theme, hideShadow) {
             display: 'none',
         },
         listView: {
-            marginTop: Constants.statusBarHeight + 45,
+            marginTop: Constants.statusBarHeight + 40,
             marginLeft: parseInt(spacing.tiny, 10),
             marginRight: parseInt(spacing.tiny, 10),
-            minHeight: 40,
+            minHeight: 10,
         },
         separator: {
             backgroundColor: theme.colors.border,
@@ -56,7 +56,9 @@ export function getMapSearchStyle(theme, hideShadow) {
             paddingLeft: 0,
             backgroundColor: 'transparent',
         },
-        powered: {},
+        powered: {
+            display: 'none',
+        },
         predefinedPlacesDescription: {},
         description: {
             color: theme.colors.text,
