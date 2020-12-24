@@ -6,7 +6,7 @@ export const config = {
 
 export const queryParams = {
     sortDirection: 'desc',
-    querySize: 10,
+    querySize: 25,
     queryType: 'map',
     lastKey: null,
     distance: 50,

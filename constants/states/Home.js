@@ -3,7 +3,7 @@ export const defaultState = {
     loading: false,
     firstLoad: false,
     sortDirection: 'asc',
-    querySize: 10,
+    querySize: 25,
     queryType: 'feed',
     view: 'feed',
     hikes: [],
