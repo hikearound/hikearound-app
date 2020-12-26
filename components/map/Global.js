@@ -10,7 +10,11 @@ import LocationButton from './button/Location';
 import { withTheme } from '../../utils/Themes';
 import { deltaMiles } from '../../constants/Location';
 import { defaultProps } from '../../constants/states/GlobalMap';
-import { filterMarkers, getMapMarkers } from '../../utils/Map';
+import {
+    filterMarkers,
+    getMapMarkers,
+    getClusterZoomAltitude,
+} from '../../utils/Map';
 import { regions } from '../../constants/Regions';
 
 const propTypes = {
@@ -188,7 +192,9 @@ class GlobalMap extends React.Component {
         Keyboard.dismiss();
     };
 
-    renderMarker = (marker, index) => {
+    renderMarker = (marker, cluster, index) => {
+        const { animationConfig } = this.props;
+
         const key = index + marker.geometry.coordinates[0];
         const coordinate = {
             latitude: marker.geometry.coordinates[1],
@@ -196,14 +202,20 @@ class GlobalMap extends React.Component {
         };
 
         if (marker.properties) {
+            const altitude = getClusterZoomAltitude(
+                cluster,
+                marker.properties.cluster_id,
+            );
+
             return (
-                <Marker
+                <ClusterMarker
                     key={key}
+                    count={marker.properties.point_count}
+                    altitude={altitude}
                     coordinate={coordinate}
-                    tracksViewChanges={false}
-                >
-                    <ClusterMarker count={marker.properties.point_count} />
-                </Marker>
+                    animationConfig={animationConfig}
+                    mapRef={this.mapRef}
+                />
             );
         }
 
@@ -250,7 +262,11 @@ class GlobalMap extends React.Component {
                     >
                         {filteredMarkers &&
                             filteredMarkers.markers.map((marker, index) =>
-                                this.renderMarker(marker, index),
+                                this.renderMarker(
+                                    marker,
+                                    filteredMarkers.cluster,
+                                    index,
+                                ),
                             )}
                     </MapView>
                 </>

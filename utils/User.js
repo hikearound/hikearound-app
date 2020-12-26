@@ -185,9 +185,9 @@ export async function getUserData(dispatchUserData, dispatchAvatar) {
     const favoriteHikes = await buildHikeArray();
     const reviewedHikes = await buildReviewArray();
 
-    let currentPosition = {};
     let userData = await db.collection('users').doc(auth.currentUser.uid).get();
 
+    let currentPosition = {};
     if (status === 'granted') {
         currentPosition = await getPosition('lastKnown');
     }

@@ -1,6 +1,6 @@
 export const config = {
-    radius: 25,
-    maxZoom: 8,
+    radius: 30,
+    maxZoom: 10,
     padding: 10.5,
 };
 

@@ -80,6 +80,18 @@ export function getCluster(coords, region) {
 
     return { markers, cluster };
 }
+
+export function getClusterZoomAltitude(cluster, clusterId) {
+    const zoom = cluster.getClusterExpansionZoom(clusterId);
+
+    const altitude =
+        0.05 *
+        (591657550.5 / 2 ** (zoom - 1) / 2) *
+        Math.cos(85.362 / 2 / Math.sin(85.362 / 2));
+
+    return altitude;
+}
+
 export function filterMarkers(region, visibleMarkers) {
     let markers = null;
 
