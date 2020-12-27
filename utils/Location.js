@@ -9,6 +9,22 @@ export async function initializeGeolocation() {
     Geocoder.init(Constants.manifest.extra.googleGeo.apiKey);
 }
 
+export async function watchPositionAsync(dispatchUserPosition) {
+    const status = await getPermissionStatus('location');
+
+    const locationSettings = {
+        accuracy: Location.Accuracy.Balanced,
+        timeInterval: 200,
+        distanceInterval: 0,
+    };
+
+    if (status === 'granted') {
+        Location.watchPositionAsync(locationSettings, (currentPosition) => {
+            dispatchUserPosition(currentPosition);
+        });
+    }
+}
+
 export async function getNearestCity(coords) {
     const { latitude, longitude } = coords;
 

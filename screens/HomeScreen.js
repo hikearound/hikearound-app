@@ -8,7 +8,11 @@ import FeedList from '../components/FeedList';
 import Promotion from '../components/Promotion';
 import FeedRefreshControl from '../components/FeedRefreshControl';
 import HomeEmptyState from '../components/empty/HomeEmptyState';
-import { initializeUserData, initializeAvatar } from '../actions/User';
+import {
+    initializeUserData,
+    initializeAvatar,
+    updateUserPosition,
+} from '../actions/User';
 import { initializeMapData } from '../actions/Map';
 import { timings } from '../constants/Index';
 import { defaultState } from '../constants/states/Home';
@@ -17,7 +21,12 @@ import { getUserData } from '../utils/User';
 import { handleAppBadge } from '../utils/Notifications';
 import { withTheme, SetBarStyle } from '../utils/Themes';
 import { getMapData } from '../utils/Map';
-import { getPosition, getNearestCity, shouldSetCity } from '../utils/Location';
+import {
+    getPosition,
+    getNearestCity,
+    shouldSetCity,
+    watchPositionAsync,
+} from '../utils/Location';
 import { getPromotionStatus } from '../utils/Promotions';
 import { queryHikes, sortHikes, cacheFeedImages } from '../utils/Feed';
 import { getSortDirection } from '../utils/Filter';
@@ -32,6 +41,7 @@ import FilterModal from '../components/modal/FilterModal';
 import Logo from '../components/header/Logo';
 
 const propTypes = {
+    dispatchUserPosition: PropTypes.func.isRequired,
     dispatchUserData: PropTypes.func.isRequired,
     dispatchMapData: PropTypes.func.isRequired,
     dispatchAvatar: PropTypes.func.isRequired,
@@ -46,6 +56,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
+        dispatchUserPosition: (currentPosition) =>
+            dispatch(updateUserPosition(currentPosition)),
         dispatchUserData: (userData) => dispatch(initializeUserData(userData)),
         dispatchMapData: (mapData) => dispatch(initializeMapData(mapData)),
         dispatchAvatar: (avatarUri) => dispatch(initializeAvatar(avatarUri)),
@@ -71,6 +83,7 @@ class HomeScreen extends React.Component {
     async componentDidMount() {
         const {
             navigation,
+            dispatchUserPosition,
             dispatchUserData,
             dispatchAvatar,
             dispatchMapData,
@@ -82,6 +95,7 @@ class HomeScreen extends React.Component {
         await this.getAndSetPosition();
         await this.getAndSetPromotions();
 
+        await watchPositionAsync(dispatchUserPosition);
         await getUserData(dispatchUserData, dispatchAvatar);
         await getMapData(dispatchMapData);
 

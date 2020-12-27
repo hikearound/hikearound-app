@@ -9,7 +9,6 @@ import {
 } from '../utils/User';
 
 export const initializeUserData = (userData) => {
-    writeUserLocation(userData);
     return { type: 'INITIALIZE_USER_DATA', userData };
 };
 
@@ -20,6 +19,11 @@ export const updateUserData = (userData) => {
 
 export const initializeAvatar = (uri) => {
     return { type: 'INITIALIZE_AVATAR', uri };
+};
+
+export const updateUserPosition = (currentPosition) => {
+    writeUserLocation(currentPosition);
+    return { type: 'UPDATE_USER_POSITION', currentPosition };
 };
 
 export const updateAvatar = (photoData) => {

@@ -49,6 +49,7 @@ class GlobalMap extends React.Component {
         this.state = {
             region: null,
             visibleMarkers: [],
+            initialRegionChange: true,
         };
 
         this.mapRef = React.createRef();
@@ -61,13 +62,13 @@ class GlobalMap extends React.Component {
 
     async componentDidUpdate(prevProps, prevState) {
         const { selectedCity, markers, position } = this.props;
-        const { region } = this.state;
+        const { region, initialRegionChange } = this.state;
 
         if (prevProps.selectedCity !== selectedCity && selectedCity) {
             this.animateToCity(selectedCity);
         }
 
-        if (prevProps.position !== position) {
+        if (prevProps.position !== position && initialRegionChange) {
             this.updateRegion();
         }
 
@@ -101,6 +102,7 @@ class GlobalMap extends React.Component {
                 longitude,
                 longitudeDelta: delta,
             },
+            initialRegionChange: false,
         });
     };
 

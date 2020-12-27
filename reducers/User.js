@@ -10,7 +10,6 @@ export default function userReducer(state = userState, action) {
                 map: action.userData.map,
                 darkMode: action.userData.darkMode,
                 notifs: action.userData.notifs,
-                currentPosition: action.userData.currentPosition,
                 favoriteHikes: action.userData.favoriteHikes,
                 reviewedHikes: action.userData.reviewedHikes,
             };
@@ -26,6 +25,12 @@ export default function userReducer(state = userState, action) {
                 ...state,
                 name: action.userData.name,
                 location: action.userData.location,
+            };
+
+        case 'UPDATE_USER_POSITION':
+            return {
+                ...state,
+                currentPosition: action.currentPosition,
             };
 
         case 'UPDATE_AVATAR':

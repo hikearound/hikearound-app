@@ -7,7 +7,7 @@ export const defaultProps = {
     selectedCity: null,
     mapPadding: {
         bottom: 40,
-        top: 50,
+        top: 40,
     },
     latModifier: 0.018,
     animationConfig: {

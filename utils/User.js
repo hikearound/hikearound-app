@@ -3,8 +3,7 @@ import { Appearance } from 'react-native-appearance';
 import { cacheImages } from './Image';
 import { db, storage, auth } from '../lib/Fire';
 import store from '../store/Store';
-import { getPosition, getRange, getNearestCity } from './Location';
-import { getPermissionStatus } from './Permissions';
+import { getRange, getNearestCity } from './Location';
 import { avatarDefault, avatarDark } from '../constants/Images';
 
 const scheme = Appearance.getColorScheme();
@@ -24,10 +23,10 @@ export async function writeUserData(userData) {
     db.collection('users').doc(user.uid).set(userData, { merge: true });
 }
 
-export async function writeUserLocation(userData) {
+export async function writeUserLocation(currentPosition) {
     const distance = 50;
     const user = auth.currentUser;
-    const { coords } = userData.currentPosition;
+    const { coords } = currentPosition;
 
     if (!coords) {
         return;
@@ -181,21 +180,14 @@ export async function setAvatar(dispatchAvatar) {
 }
 
 export async function getUserData(dispatchUserData, dispatchAvatar) {
-    const status = await getPermissionStatus('location');
     const favoriteHikes = await buildHikeArray();
     const reviewedHikes = await buildReviewArray();
 
     let userData = await db.collection('users').doc(auth.currentUser.uid).get();
-
-    let currentPosition = {};
-    if (status === 'granted') {
-        currentPosition = await getPosition('lastKnown');
-    }
-
     userData = userData.data();
+
     userData.favoriteHikes = favoriteHikes;
     userData.reviewedHikes = reviewedHikes;
-    userData.currentPosition = currentPosition;
 
     await setAvatar(dispatchAvatar);
     dispatchUserData(userData);
