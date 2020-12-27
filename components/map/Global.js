@@ -60,11 +60,15 @@ class GlobalMap extends React.Component {
     }
 
     async componentDidUpdate(prevProps, prevState) {
-        const { selectedCity, markers } = this.props;
+        const { selectedCity, markers, position } = this.props;
         const { region } = this.state;
 
         if (prevProps.selectedCity !== selectedCity && selectedCity) {
             this.animateToCity(selectedCity);
+        }
+
+        if (prevProps.position !== position) {
+            this.updateRegion();
         }
 
         if (prevProps.markers !== markers) {
@@ -75,6 +79,30 @@ class GlobalMap extends React.Component {
             await this.maybeAddMarkers();
         }
     }
+
+    updateRegion = () => {
+        const { altitude, animationConfig, delta, position } = this.props;
+        const { latitude, longitude } = position.coords;
+
+        this.animateToPoint({
+            pitch: animationConfig.pitch,
+            heading: animationConfig.heading,
+            center: {
+                latitude,
+                longitude,
+            },
+            altitude: altitude.city,
+        });
+
+        this.setState({
+            region: {
+                latitude,
+                latitudeDelta: delta,
+                longitude,
+                longitudeDelta: delta,
+            },
+        });
+    };
 
     animateToCity = (selectedCity) => {
         const { altitude, animationConfig, delta } = this.props;
