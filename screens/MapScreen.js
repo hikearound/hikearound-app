@@ -38,21 +38,21 @@ class MapScreen extends React.Component {
         super(props);
 
         this.bottomSheetRef = React.createRef();
+        this.mapRef = React.createRef();
+
         this.setState = this.setState.bind(this);
         this.state = defaultState;
     }
 
     async componentDidMount() {
         const { theme } = this.props;
+
         setBarStyleWithTheme(theme, this.setState);
+        this.getInitialMarkers();
     }
 
     async componentDidUpdate(prevProps) {
-        const { selectedHike, position, theme } = this.props;
-
-        if (prevProps.position !== position) {
-            this.getInitialMarkers();
-        }
+        const { selectedHike, theme } = this.props;
 
         if (prevProps.selectedHike !== selectedHike && selectedHike) {
             const sheetData = await getHikeData(selectedHike);
@@ -89,6 +89,7 @@ class MapScreen extends React.Component {
                 />
                 {position && (
                     <GlobalMap
+                        mapRef={this.mapRef}
                         position={position}
                         markers={markers}
                         showHikeSheet={() => {
@@ -97,6 +98,7 @@ class MapScreen extends React.Component {
                     />
                 )}
                 <HikeSheet
+                    mapRef={this.mapRef}
                     sheetRef={this.bottomSheetRef}
                     sheetData={sheetData}
                     selectedHike={selectedHike}

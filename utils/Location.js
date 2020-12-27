@@ -15,7 +15,7 @@ export async function watchPositionAsync(dispatchUserPosition) {
     const locationSettings = {
         accuracy: Location.Accuracy.Balanced,
         timeInterval: 200,
-        distanceInterval: 0,
+        distanceInterval: 50,
     };
 
     if (status === 'granted') {

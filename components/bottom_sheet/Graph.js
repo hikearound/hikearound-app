@@ -26,6 +26,7 @@ const propTypes = {
     marginOffset: PropTypes.number,
     height: PropTypes.number,
     strokeWidth: PropTypes.number,
+    mapRef: PropTypes.object,
 };
 
 const defaultProps = {
@@ -33,12 +34,14 @@ const defaultProps = {
     marginOffset: 10,
     height: 200,
     strokeWidth: 2,
+    mapRef: {},
 };
 
 const { width } = Dimensions.get('window');
 
 function GraphSheet({
     sheetRef,
+    mapRef,
     elevationArray,
     hike,
     axisIncrement,
@@ -131,7 +134,7 @@ function GraphSheet({
     };
 
     const renderHeader = () => {
-        return <SheetHeader />;
+        return <SheetHeader mapRef={mapRef} shouldShowLocationButton />;
     };
 
     return (

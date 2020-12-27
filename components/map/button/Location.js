@@ -23,7 +23,7 @@ const propTypes = {
 const defaultProps = {
     position: null,
     mapRef: {},
-    bottomOffset: 49,
+    bottomOffset: 37,
 };
 
 function mapStateToProps(state) {

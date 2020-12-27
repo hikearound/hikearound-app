@@ -1,3 +1,5 @@
+import { animationConfig } from '../Animation';
+
 export const defaultProps = {
     delta: 0.5,
     altitude: {
@@ -10,11 +12,7 @@ export const defaultProps = {
         top: 40,
     },
     latModifier: 0.018,
-    animationConfig: {
-        pitch: 0,
-        heading: 0,
-        duration: 1000,
-    },
+    animationConfig,
 };
 
 export default defaultProps;

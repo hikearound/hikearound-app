@@ -14,6 +14,7 @@ import SheetHeader from './Header';
 
 const propTypes = {
     sheetRef: PropTypes.object.isRequired,
+    mapRef: PropTypes.object.isRequired,
     sheetData: PropTypes.object,
     selectedHike: PropTypes.string,
 };
@@ -58,7 +59,8 @@ class HikeSheet extends React.Component {
     };
 
     renderHeader = () => {
-        return <SheetHeader />;
+        const { mapRef } = this.props;
+        return <SheetHeader mapRef={mapRef} shouldShowLocationButton />;
     };
 
     render() {

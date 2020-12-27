@@ -18,7 +18,6 @@ const propTypes = {
     hike: PropTypes.object.isRequired,
     animationType: PropTypes.string,
     modalType: PropTypes.string,
-    mapRef: PropTypes.func.isRequired,
     hid: PropTypes.string.isRequired,
     selectedHike: PropTypes.string,
     coordinates: PropTypes.array,
@@ -47,7 +46,9 @@ function mapStateToProps(state) {
 class MapModal extends React.Component {
     constructor(props, context) {
         super(props, context);
+
         this.bottomSheetRef = React.createRef();
+        this.mapRef = React.createRef();
 
         this.state = {
             modalVisible: false,
@@ -90,7 +91,6 @@ class MapModal extends React.Component {
         const { modalVisible } = this.state;
         const {
             animationType,
-            mapRef,
             coordinates,
             region,
             maxZoom,
@@ -114,13 +114,12 @@ class MapModal extends React.Component {
                     <ModalRoot>
                         <HikeMap
                             fullHeight
-                            mapRef={mapRef}
+                            mapRef={this.mapRef}
                             coordinates={coordinates}
                             startingCoordinates={startingCoordinates}
                             region={initialRegion}
                             maxZoom={maxZoom}
                             mapPadding={{ bottom: 70 }}
-                            showLocationButton
                         />
                         <ModalDismiss
                             includeBackground
@@ -131,6 +130,7 @@ class MapModal extends React.Component {
                         sheetRef={this.bottomSheetRef}
                         elevationArray={elevationArray}
                         hike={hike}
+                        mapRef={this.mapRef}
                     />
                 </Modal>
             );

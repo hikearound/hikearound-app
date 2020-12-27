@@ -6,7 +6,6 @@ import { colors, borderRadius } from '../../constants/Index';
 import { defaultProps } from '../../constants/states/HikeMap';
 import { withTheme } from '../../utils/Themes';
 import HikeMarker from '../marker/Hike';
-import LocationButton from './button/Location';
 
 const propTypes = {
     coordinates: PropTypes.array,
@@ -18,7 +17,7 @@ const propTypes = {
     mapPadding: PropTypes.object,
     mapType: PropTypes.string,
     showUserLocation: PropTypes.bool,
-    showLocationButton: PropTypes.bool,
+    mapRef: PropTypes.object,
 };
 
 class HikeMap extends React.Component {
@@ -31,8 +30,6 @@ class HikeMap extends React.Component {
             fullHeight,
             position: {},
         };
-
-        this.mapRef = React.createRef();
     }
 
     onMapReady = () => {};
@@ -52,26 +49,15 @@ class HikeMap extends React.Component {
             mapPadding,
             mapType,
             showUserLocation,
-            showLocationButton,
+            mapRef,
         } = this.props;
         const { maxZoom, fullHeight, position } = this.state;
 
         if (region) {
             return (
                 <>
-                    {showLocationButton && (
-                        <LocationButton
-                            mapRef={this.mapRef}
-                            animationConfig={{
-                                pitch: 0,
-                                heading: 0,
-                                duration: 1000,
-                            }}
-                            bottomOffset={111}
-                        />
-                    )}
                     <MapView
-                        ref={this.mapRef}
+                        ref={mapRef}
                         provider={null}
                         style={{
                             height: fullHeight ? '100%' : mapHeight,

@@ -9,7 +9,7 @@ export const defaultProps = {
     startingCoordinates: null,
     mapType: 'mutedStandard',
     showUserLocation: true,
-    showLocationButton: false,
+    mapRef: {},
 };
 
 export default defaultProps;

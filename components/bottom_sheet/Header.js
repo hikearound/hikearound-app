@@ -1,18 +1,44 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import LocationButton from '../map/button/Location';
 import { spacing, transparentColors } from '../../constants/Index';
+import { animationConfig } from '../../constants/Animation';
+
+const propTypes = {
+    shouldShowLocationButton: PropTypes.bool,
+    mapRef: PropTypes.object,
+};
+
+const defaultProps = {
+    shouldShowLocationButton: false,
+    mapRef: {},
+};
 
 class SheetHeader extends React.PureComponent {
     render() {
+        const { mapRef, shouldShowLocationButton } = this.props;
+
         return (
-            <Header>
-                <HeaderPanel>
-                    <HeaderHandle />
-                </HeaderPanel>
-            </Header>
+            <>
+                {shouldShowLocationButton && (
+                    <LocationButton
+                        mapRef={mapRef}
+                        animationConfig={animationConfig}
+                    />
+                )}
+                <Header>
+                    <HeaderPanel>
+                        <HeaderHandle />
+                    </HeaderPanel>
+                </Header>
+            </>
         );
     }
 }
+
+SheetHeader.propTypes = propTypes;
+SheetHeader.defaultProps = defaultProps;
 
 export default SheetHeader;
 

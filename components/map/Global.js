@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import { updateMapData } from '../../actions/Map';
 import GlobalMarker from '../marker/Global';
 import ClusterMarker from '../marker/Cluster';
-import LocationButton from './button/Location';
 import { withTheme } from '../../utils/Themes';
 import { deltaMiles } from '../../constants/Location';
 import { defaultProps } from '../../constants/states/GlobalMap';
@@ -20,6 +19,7 @@ import { regions } from '../../constants/Regions';
 const propTypes = {
     dispatchMapData: PropTypes.func.isRequired,
     delta: PropTypes.number,
+    mapRef: PropTypes.object.isRequired,
     position: PropTypes.object.isRequired,
     markers: PropTypes.array.isRequired,
     showHikeSheet: PropTypes.func.isRequired,
@@ -49,10 +49,8 @@ class GlobalMap extends React.Component {
         this.state = {
             region: null,
             visibleMarkers: [],
-            initialRegionChange: true,
+            maybeUpdateRegion: false,
         };
-
-        this.mapRef = React.createRef();
     }
 
     componentDidMount() {
@@ -62,13 +60,13 @@ class GlobalMap extends React.Component {
 
     async componentDidUpdate(prevProps, prevState) {
         const { selectedCity, markers, position } = this.props;
-        const { region, initialRegionChange } = this.state;
+        const { region, maybeUpdateRegion } = this.state;
 
         if (prevProps.selectedCity !== selectedCity && selectedCity) {
             this.animateToCity(selectedCity);
         }
 
-        if (prevProps.position !== position && initialRegionChange) {
+        if (prevProps.position !== position && maybeUpdateRegion) {
             this.updateRegion();
         }
 
@@ -102,7 +100,7 @@ class GlobalMap extends React.Component {
                 longitude,
                 longitudeDelta: delta,
             },
-            initialRegionChange: false,
+            maybeUpdateRegion: false,
         });
     };
 
@@ -159,7 +157,10 @@ class GlobalMap extends React.Component {
 
     setRegion = (delta, position) => {
         if (Object.keys(position).length === 0) {
-            this.setState({ region: regions.sanFrancisco });
+            this.setState({
+                region: regions.sanFrancisco,
+                maybeUpdateRegion: true,
+            });
         }
 
         if ('coords' in position) {
@@ -175,9 +176,9 @@ class GlobalMap extends React.Component {
     };
 
     animateToPoint = (camera) => {
-        const { animationConfig } = this.props;
+        const { animationConfig, mapRef } = this.props;
 
-        this.mapRef.current.animateCamera(camera, {
+        mapRef.current.animateCamera(camera, {
             duration: animationConfig.duration,
         });
     };
@@ -223,7 +224,7 @@ class GlobalMap extends React.Component {
     };
 
     renderMarker = (marker, cluster, index) => {
-        const { animationConfig } = this.props;
+        const { animationConfig, mapRef } = this.props;
 
         const key = index + marker.geometry.coordinates[0];
         const coordinate = {
@@ -244,7 +245,7 @@ class GlobalMap extends React.Component {
                     altitude={altitude}
                     coordinate={coordinate}
                     animationConfig={animationConfig}
-                    mapRef={this.mapRef}
+                    mapRef={mapRef}
                 />
             );
         }
@@ -263,7 +264,7 @@ class GlobalMap extends React.Component {
     };
 
     render() {
-        const { theme, mapPadding, animationConfig } = this.props;
+        const { theme, mapPadding, mapRef } = this.props;
         const { region, visibleMarkers } = this.state;
 
         if (region) {
@@ -271,12 +272,8 @@ class GlobalMap extends React.Component {
 
             return (
                 <>
-                    <LocationButton
-                        mapRef={this.mapRef}
-                        animationConfig={animationConfig}
-                    />
                     <MapView
-                        ref={this.mapRef}
+                        ref={mapRef}
                         style={{ height: '100%', zIndex: -1 }}
                         initialRegion={region}
                         showsUserLocation
