@@ -37,6 +37,12 @@ function mapDispatchToProps(dispatch) {
 }
 
 class MapWrapper extends React.Component {
+    constructor(props, context) {
+        super(props, context);
+
+        this.mapRef = React.createRef();
+    }
+
     mapPress = () => {
         const {
             dispatchModalFlag,
@@ -67,9 +73,7 @@ class MapWrapper extends React.Component {
                     {isLoading && <MapLoadingState />}
                     {!isLoading && (
                         <HikeMap
-                            mapRef={(ref) => {
-                                this.mapView = ref;
-                            }}
+                            mapRef={this.mapRef}
                             coordinates={coordinates}
                             region={region}
                             cacheEnabled

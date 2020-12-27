@@ -32,7 +32,7 @@ const defaultProps = {
     rating: 0,
     disabled: false,
     filledColor: colors.purple,
-    emptyColor: colors.grayMedium,
+    emptyColor: colors.gray,
     halfStarEnabled: false,
 };
 
