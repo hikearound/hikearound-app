@@ -7,6 +7,7 @@ import mapReducer from './Map';
 import modalReducer from './Modal';
 import feedReducer from './Feed';
 import navigationReducer from './Navigation';
+import reviewReducer from './Review';
 
 const appReducer = combineReducers({
     authReducer,
@@ -16,6 +17,7 @@ const appReducer = combineReducers({
     modalReducer,
     feedReducer,
     navigationReducer,
+    reviewReducer,
 });
 
 const rootReducer = (state, action) => {

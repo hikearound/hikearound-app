@@ -13,10 +13,13 @@ import { fontWeights, fontSizes, spacing } from '../../constants/Index';
 import ModalHeader from './Header';
 import { ModalBody } from '../../styles/Modals';
 import { getInputs } from '../../utils/Inputs';
+import { writeReviewData } from '../../utils/Review';
+import { updateUserData } from '../../actions/User';
 
 const propTypes = {
     currentModal: PropTypes.string.isRequired,
     dispatchReviewData: PropTypes.func.isRequired,
+    dispatchUserData: PropTypes.func.isRequired,
     modalType: PropTypes.string,
     animationType: PropTypes.string,
     transparent: PropTypes.bool,
@@ -24,6 +27,7 @@ const propTypes = {
     selectedStars: PropTypes.number.isRequired,
     hid: PropTypes.string.isRequired,
     hikeName: PropTypes.string.isRequired,
+    reviewedHikes: PropTypes.array.isRequired,
 };
 
 const defaultProps = {
@@ -36,12 +40,14 @@ function mapStateToProps(state) {
     return {
         currentModal: state.modalReducer.currentModal,
         closeAction: state.modalReducer.closeAction,
+        reviewedHikes: state.userReducer.reviewedHikes,
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         dispatchReviewData: (reviewData) => dispatch(addReviewData(reviewData)),
+        dispatchUserData: (userData) => dispatch(updateUserData(userData)),
     };
 }
 
@@ -88,11 +94,22 @@ class ReviewModal extends React.Component {
         );
     };
 
-    addReview = () => {
-        const { dispatchReviewData, hid } = this.props;
+    addReview = async () => {
+        const {
+            dispatchReviewData,
+            dispatchUserData,
+            hid,
+            reviewedHikes,
+        } = this.props;
         const { review, rating } = this.state;
 
-        dispatchReviewData({ hid, review, rating });
+        const reviewData = await writeReviewData({ hid, review, rating });
+        const userData = { reviewedHikes };
+
+        reviewedHikes.push(hid);
+
+        dispatchReviewData(reviewData);
+        dispatchUserData(userData);
     };
 
     assignRef = (ref, name) => {

@@ -26,7 +26,6 @@ export async function buildReviewArray(data) {
         };
 
         reviews[review.id] = review;
-
         reviews.push(review);
     }
 
@@ -37,6 +36,19 @@ export async function buildReviewArray(data) {
     return reviews;
 }
 
+export async function updateReviewData(rid, reviewData) {
+    db.collection('reviews').doc(rid).set(reviewData, { merge: true });
+}
+
+export async function getReviewData(rid) {
+    let reviewData = await db.collection('reviews').doc(rid).get();
+
+    reviewData = reviewData.data();
+    reviewData.id = rid;
+
+    return reviewData;
+}
+
 export async function writeReviewData(reviewData) {
     const user = auth.currentUser;
 
@@ -44,7 +56,13 @@ export async function writeReviewData(reviewData) {
     reviewData.userLikes = [];
     reviewData.savedOn = timestamp;
 
-    db.collection('reviews').doc().set(reviewData, { merge: true });
+    return db
+        .collection('reviews')
+        .add(reviewData)
+        .then(async function (docRef) {
+            const review = await getReviewData(docRef.id);
+            return review;
+        });
 }
 
 export function getReviewRef(hid, sortDirection, querySize) {

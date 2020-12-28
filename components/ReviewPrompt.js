@@ -29,7 +29,7 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-class ReviewPrompt extends React.PureComponent {
+class ReviewPrompt extends React.Component {
     constructor(props, context) {
         super(props, context);
 

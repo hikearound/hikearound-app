@@ -60,7 +60,7 @@ export const feedState = {
 };
 
 export const reviewState = {
-    hid: null,
+    reviewData: null,
 };
 
 export const navigationState = {

@@ -5,7 +5,7 @@ export default function reviewReducer(state = reviewState, action) {
         case 'ADD_REVIEW_DATA':
             return {
                 ...state,
-                hid: action.reviewData.hid,
+                reviewData: action.reviewData,
             };
 
         default:

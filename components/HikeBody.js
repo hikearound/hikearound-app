@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { ScrollView, View } from 'react-native';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -22,12 +23,24 @@ const propTypes = {
     region: PropTypes.object,
     hike: PropTypes.object.isRequired,
     isLoading: PropTypes.bool.isRequired,
+    reviewData: PropTypes.object,
 };
 
 const defaultProps = {
     region: undefined,
     coordinates: [],
+    reviewData: {},
 };
+
+function mapStateToProps(state) {
+    return {
+        reviewData: state.reviewReducer.reviewData,
+    };
+}
+
+function mapDispatchToProps() {
+    return {};
+}
 
 class HikeBody extends React.Component {
     constructor(props, context) {
@@ -44,12 +57,26 @@ class HikeBody extends React.Component {
             description: hike.description,
             hid: hike.id,
             imageCount: hike.imageCount,
+            shouldHidePrompt: false,
             ...defaultState,
         };
     }
 
     componentDidMount = async () => {
         await this.getReviewData();
+    };
+
+    componentDidUpdate(prevProps) {
+        const { reviewData } = this.props;
+
+        if (prevProps.reviewData !== reviewData) {
+            this.hidePrompt();
+            this.getReviewData();
+        }
+    }
+
+    hidePrompt = () => {
+        this.setState({ shouldHidePrompt: true });
     };
 
     getReviewData = async () => {
@@ -71,9 +98,16 @@ class HikeBody extends React.Component {
     };
 
     renderReviewPrompt = (setSelectedStars, hid) => {
+        const { shouldHidePrompt } = this.state;
+
         return (
             <View>
-                <ReviewPrompt setSelectedStars={setSelectedStars} hid={hid} />
+                {!shouldHidePrompt && (
+                    <ReviewPrompt
+                        setSelectedStars={setSelectedStars}
+                        hid={hid}
+                    />
+                )}
             </View>
         );
     };
@@ -165,7 +199,10 @@ class HikeBody extends React.Component {
 HikeBody.propTypes = propTypes;
 HikeBody.defaultProps = defaultProps;
 
-export default withTranslation()(withScrollToTop(withTheme(HikeBody)));
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(withTranslation()(withScrollToTop(withTheme(HikeBody))));
 
 const BodyContent = styled.View`
     padding: ${spacing.tiny}px ${spacing.small}px;
