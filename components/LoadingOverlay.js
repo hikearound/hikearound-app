@@ -72,6 +72,7 @@ const ActivityView = styled.View`
 `;
 
 const LoadingView = styled.View`
+    z-index: 1;
     display: ${(props) => (props.loading ? 'flex' : 'none')};
     position: absolute;
     left: 0;

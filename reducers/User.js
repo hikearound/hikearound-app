@@ -33,6 +33,12 @@ export default function userReducer(state = userState, action) {
                 currentPosition: action.currentPosition,
             };
 
+        case 'UPDATE_REVIEWED_HIKES':
+            return {
+                ...state,
+                reviewedHikes: action.reviewedHikes,
+            };
+
         case 'UPDATE_AVATAR':
             return {
                 ...state,

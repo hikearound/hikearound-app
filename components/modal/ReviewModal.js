@@ -9,17 +9,23 @@ import { addReviewData } from '../../actions/Review';
 import { withTheme } from '../../utils/Themes';
 import { RootView } from '../../styles/Screens';
 import { toggleModalVisibility } from '../../utils/Modal';
-import { fontWeights, fontSizes, spacing } from '../../constants/Index';
+import {
+    fontWeights,
+    fontSizes,
+    spacing,
+    timings,
+} from '../../constants/Index';
 import ModalHeader from './Header';
 import { ModalBody } from '../../styles/Modals';
 import { getInputs } from '../../utils/Inputs';
 import { writeReviewData } from '../../utils/Review';
-import { updateUserData } from '../../actions/User';
+import { updateReviewedHikes } from '../../actions/User';
+import LoadingOverlay from '../LoadingOverlay';
 
 const propTypes = {
     currentModal: PropTypes.string.isRequired,
     dispatchReviewData: PropTypes.func.isRequired,
-    dispatchUserData: PropTypes.func.isRequired,
+    dispatchReviewedHikes: PropTypes.func.isRequired,
     modalType: PropTypes.string,
     animationType: PropTypes.string,
     transparent: PropTypes.bool,
@@ -47,7 +53,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         dispatchReviewData: (reviewData) => dispatch(addReviewData(reviewData)),
-        dispatchUserData: (userData) => dispatch(updateUserData(userData)),
+        dispatchReviewedHikes: (reviewedHikes) =>
+            dispatch(updateReviewedHikes(reviewedHikes)),
     };
 }
 
@@ -60,6 +67,7 @@ class ReviewModal extends React.Component {
 
         this.state = {
             modalVisible: false,
+            loading: false,
             inputs,
         };
     }
@@ -97,19 +105,20 @@ class ReviewModal extends React.Component {
     addReview = async () => {
         const {
             dispatchReviewData,
-            dispatchUserData,
+            dispatchReviewedHikes,
             hid,
             reviewedHikes,
         } = this.props;
         const { review, rating } = this.state;
 
+        this.setState({ loading: true });
+
         const reviewData = await writeReviewData({ hid, review, rating });
-        const userData = { reviewedHikes };
 
         reviewedHikes.push(hid);
 
         dispatchReviewData(reviewData);
-        dispatchUserData(userData);
+        dispatchReviewedHikes(reviewedHikes);
     };
 
     assignRef = (ref, name) => {
@@ -123,7 +132,6 @@ class ReviewModal extends React.Component {
 
     hideModal = () => {
         this.maybeAddReviewData();
-        this.setState({ modalVisible: false });
     };
 
     setRating = () => {
@@ -136,6 +144,17 @@ class ReviewModal extends React.Component {
 
         if (closeAction === 'addReview') {
             this.addReview();
+
+            this.loadingTimeout = setTimeout(() => {
+                this.setState({
+                    loading: false,
+                    modalVisible: false,
+                });
+            }, timings.long);
+        }
+
+        if (closeAction === 'closeReview') {
+            this.setState({ modalVisible: false });
         }
     };
 
@@ -189,7 +208,7 @@ class ReviewModal extends React.Component {
     };
 
     render() {
-        const { modalVisible } = this.state;
+        const { modalVisible, loading } = this.state;
         const { animationType, transparent, t } = this.props;
 
         return (
@@ -199,6 +218,7 @@ class ReviewModal extends React.Component {
                 visible={modalVisible}
             >
                 <RootView>
+                    <LoadingOverlay loading={loading} />
                     {this.renderModalHeader(t)}
                     {this.renderModalBody()}
                 </RootView>

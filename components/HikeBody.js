@@ -45,6 +45,7 @@ function mapDispatchToProps() {
 class HikeBody extends React.Component {
     constructor(props, context) {
         super(props, context);
+
         const { hike } = this.props;
 
         this.state = {
@@ -60,6 +61,8 @@ class HikeBody extends React.Component {
             shouldHidePrompt: false,
             ...defaultState,
         };
+
+        this.reviewListRef = React.createRef();
     }
 
     componentDidMount = async () => {
@@ -70,13 +73,34 @@ class HikeBody extends React.Component {
         const { reviewData } = this.props;
 
         if (prevProps.reviewData !== reviewData) {
-            this.hidePrompt();
-            this.getReviewData();
+            this.addReview();
         }
     }
 
-    hidePrompt = () => {
+    addReview = async () => {
+        await this.hidePrompt();
+        await this.getReviewData();
+        this.scrollToReviewList();
+    };
+
+    hidePrompt = async () => {
         this.setState({ shouldHidePrompt: true });
+    };
+
+    scrollToReviewList = () => {
+        const { scrollRef } = this.props;
+
+        if (this.reviewListRef.current) {
+            this.reviewListRef.current.measure(
+                (x, y, width, height, pageX, pageY) => {
+                    scrollRef.current.scrollTo({
+                        x: 0,
+                        y: pageY,
+                        animated: true,
+                    });
+                },
+            );
+        }
     };
 
     getReviewData = async () => {
@@ -126,6 +150,7 @@ class HikeBody extends React.Component {
             <View>
                 <Subtitle text={t('label.heading.reviews')} hideBorder />
                 <ReviewList
+                    reviewListRef={this.reviewListRef}
                     reviewData={reviews}
                     shouldShowHeader={false}
                     maybeShowEmptyState={maybeShowEmptyState}

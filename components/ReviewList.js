@@ -12,12 +12,14 @@ import {
 import { spacing } from '../constants/Index';
 
 const propTypes = {
+    reviewListRef: PropTypes.object,
     maybeShowEmptyState: PropTypes.bool.isRequired,
     reviewData: PropTypes.array.isRequired,
     shouldShowHeader: PropTypes.bool,
 };
 
 const defaultProps = {
+    reviewListRef: {},
     shouldShowHeader: true,
 };
 
@@ -67,11 +69,11 @@ class ReviewList extends React.Component {
     };
 
     render() {
-        const { reviewData } = this.props;
+        const { reviewData, reviewListRef } = this.props;
         const extractKey = ({ id }) => id;
 
         return (
-            <View>
+            <View ref={reviewListRef}>
                 {reviewData && (
                     <FlatList
                         renderItem={this.renderItem}

@@ -10,6 +10,7 @@ export const ModalHeader = styled.View`
     height: ${headerHeight}px;
     width: 100%;
     position: relative;
+    z-index: 1;
 `;
 
 export const ModalTitleText = styled.Text`
