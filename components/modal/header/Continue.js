@@ -11,12 +11,14 @@ const propTypes = {
     continueText: PropTypes.string,
     closeAction: PropTypes.string,
     isPageSheet: PropTypes.bool,
+    disabled: PropTypes.bool,
 };
 
 const defaultProps = {
     continueText: null,
     closeAction: 'closeAndContinue',
     isPageSheet: false,
+    disabled: false,
 };
 
 function mapStateToProps() {
@@ -36,10 +38,11 @@ class ModalContinue extends React.PureComponent {
     };
 
     render() {
-        const { continueText, isPageSheet } = this.props;
+        const { continueText, isPageSheet, disabled } = this.props;
 
         return (
             <TouchableOpacity
+                disabled={disabled}
                 onPress={() => {
                     this.close();
                 }}
@@ -50,7 +53,7 @@ class ModalContinue extends React.PureComponent {
                     bottom: parseInt(spacing.small, 10),
                 }}
             >
-                <HeaderText isPageSheet={isPageSheet}>
+                <HeaderText disabled={disabled} isPageSheet={isPageSheet}>
                     {continueText}
                 </HeaderText>
             </TouchableOpacity>

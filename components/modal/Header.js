@@ -13,12 +13,14 @@ const propTypes = {
     continueText: PropTypes.string.isRequired,
     dismissAction: PropTypes.string,
     continueAction: PropTypes.string.isRequired,
+    continueDisabled: PropTypes.bool,
 };
 
 const defaultProps = {
     textDismiss: true,
     dismissAction: 'close',
     dismissLanguage: 'cancel',
+    continueDisabled: false,
 };
 
 class GenericHeader extends React.PureComponent {
@@ -30,6 +32,7 @@ class GenericHeader extends React.PureComponent {
             continueText,
             dismissAction,
             continueAction,
+            continueDisabled,
         } = this.props;
 
         return (
@@ -43,6 +46,7 @@ class GenericHeader extends React.PureComponent {
                 <ModalContinue
                     continueText={continueText}
                     closeAction={continueAction}
+                    disabled={continueDisabled}
                 />
             </ModalHeader>
         );

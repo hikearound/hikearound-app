@@ -66,6 +66,7 @@ class ReviewModal extends React.Component {
         const inputs = getInputs(t, modalType);
 
         this.state = {
+            continueDisabled: true,
             modalVisible: false,
             loading: false,
             inputs,
@@ -87,17 +88,32 @@ class ReviewModal extends React.Component {
         this.setState({ rating });
     };
 
-    setValue(name, text) {
-        this.setState({ [name]: text });
+    async setValue(name, text) {
+        await this.setState({ [name]: text });
+        this.maybeToggleSaveButton();
     }
 
+    maybeToggleSaveButton = () => {
+        const { review } = this.state;
+
+        let continueDisabled = true;
+        if (review) {
+            continueDisabled = false;
+        }
+
+        this.setState({ continueDisabled });
+    };
+
     renderModalHeader = (t) => {
+        const { continueDisabled } = this.state;
+
         return (
             <ModalHeader
                 title={t('modal.review.title')}
                 dismissAction='closeReview'
                 continueAction='addReview'
                 continueText={t('label.modal.save')}
+                continueDisabled={continueDisabled}
             />
         );
     };
