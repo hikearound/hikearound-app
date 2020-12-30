@@ -54,6 +54,14 @@
                 "directions": "Obtener las direcciones"
             }
         },
+        "review": {
+            "title": "Revisión",
+            "item": {
+                "flag": "Reporte",
+                "edit": "Editar",
+                "delete": "Eliminar"
+            }
+        },
         "lightbox": {
             "title": "Foto",
             "item": {

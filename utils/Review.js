@@ -20,6 +20,7 @@ export async function buildReviewArray(data) {
         }
 
         review.user = {
+            uid: review.uid,
             name: userData.name,
             location: userData.location,
             photoURL: userData.photoURL,

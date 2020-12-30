@@ -7,6 +7,7 @@ import ReadMore from 'react-native-read-more-text';
 import Avatar from './Avatar';
 import Stars from './Stars';
 import LikeButton from './LikeButton';
+import OverflowButton from './review/Overflow';
 import { getLanguageCode } from '../utils/Localization';
 import {
     ReviewItem,
@@ -19,6 +20,7 @@ import {
     Review,
 } from '../styles/Review';
 import { ActionText } from '../styles/Text';
+import { reviewActionSheet } from './action_sheets/Review';
 
 const propTypes = {
     user: PropTypes.object.isRequired,
@@ -37,11 +39,14 @@ const defaultProps = {
 class ReviewListItem extends React.Component {
     constructor(props) {
         super(props);
+        const { t, user } = this.props;
 
         this.state = {
             timestamp: null,
             review: undefined,
         };
+
+        this.reviewActionSheet = reviewActionSheet.bind(this, t, user);
     }
 
     componentDidMount() {
@@ -142,6 +147,7 @@ class ReviewListItem extends React.Component {
                     <Review>{review}</Review>
                 </ReadMore>
                 <LikeButton rid={rid} userLikes={userLikes} />
+                <OverflowButton onPress={this.reviewActionSheet} />
             </Body>
         );
     };

@@ -58,6 +58,14 @@
                 "directions": "Get Directions"
             }
         },
+        "review": {
+            "title": "Review",
+            "item": {
+                "flag": "Flag",
+                "edit": "Edit",
+                "delete": "Delete"
+            }
+        },
         "lightbox": {
             "title": "Photo",
             "item": {
