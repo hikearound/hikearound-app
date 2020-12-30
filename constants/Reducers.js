@@ -60,7 +60,10 @@ export const feedState = {
 };
 
 export const reviewState = {
+    action: null,
     reviewData: null,
+    selectedReview: null,
+    selectedHike: null,
 };
 
 export const navigationState = {

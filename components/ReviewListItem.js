@@ -1,9 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
 import moment from 'moment';
 import 'moment/min/locales';
 import ReadMore from 'react-native-read-more-text';
+import { deleteReviewData } from '../actions/Review';
 import Avatar from './Avatar';
 import Stars from './Stars';
 import LikeButton from './LikeButton';
@@ -23,9 +25,11 @@ import { ActionText } from '../styles/Text';
 import { reviewActionSheet } from './action_sheets/Review';
 
 const propTypes = {
+    dispatchDeleteReview: PropTypes.func.isRequired,
     user: PropTypes.object.isRequired,
     rating: PropTypes.number.isRequired,
     rid: PropTypes.string.isRequired,
+    hid: PropTypes.string.isRequired,
     review: PropTypes.string.isRequired,
     savedOn: PropTypes.object.isRequired,
     numberOfLines: PropTypes.number,
@@ -35,6 +39,19 @@ const propTypes = {
 const defaultProps = {
     numberOfLines: 5,
 };
+
+function mapStateToProps(state) {
+    return {
+        reviewData: state.reviewReducer.reviewData,
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        dispatchDeleteReview: (reviewData) =>
+            dispatch(deleteReviewData(reviewData)),
+    };
+}
 
 class ReviewListItem extends React.Component {
     constructor(props) {
@@ -58,6 +75,11 @@ class ReviewListItem extends React.Component {
     setLanguage = () => {
         const lang = getLanguageCode();
         moment.locale(lang);
+    };
+
+    deleteReview = () => {
+        const { dispatchDeleteReview, rid, hid } = this.props;
+        dispatchDeleteReview({ rid, hid });
     };
 
     setTimestamp = () => {
@@ -165,4 +187,7 @@ class ReviewListItem extends React.Component {
 ReviewListItem.propTypes = propTypes;
 ReviewListItem.defaultProps = defaultProps;
 
-export default withTranslation()(ReviewListItem);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(withTranslation()(ReviewListItem));

@@ -41,6 +41,11 @@ export async function updateReviewData(rid, reviewData) {
     db.collection('reviews').doc(rid).set(reviewData, { merge: true });
 }
 
+export function deleteReviewData(reviewData) {
+    const { rid } = reviewData;
+    db.collection('reviews').doc(rid).delete();
+}
+
 export async function getReviewData(rid) {
     let reviewData = await db.collection('reviews').doc(rid).get();
 

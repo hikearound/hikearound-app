@@ -1,5 +1,6 @@
 import { ActionSheetIOS } from 'react-native';
 import { auth } from '../../lib/Fire';
+import { showAlert } from '../../utils/alert/DeleteReview';
 
 export function getSheetOptions(t) {
     return [t('sheet.review.item.flag'), t('label.common.cancel')];
@@ -15,13 +16,15 @@ export function getAuthorSheetOptions(t) {
 
 export function getActions(buttonIndex) {
     if (buttonIndex === 0) {
-        //
+        // flag
     }
 }
 
-export function getAuthorActions(buttonIndex) {
+export function getAuthorActions(buttonIndex, t, deleteReview) {
     if (buttonIndex === 0) {
-        //
+        // edit
+    } else if (buttonIndex === 1) {
+        showAlert(t, deleteReview);
     }
 }
 
@@ -45,7 +48,8 @@ export function reviewActionSheet(t, user) {
 
         (buttonIndex) => {
             if (auth.currentUser.uid === user.uid) {
-                getAuthorActions(buttonIndex);
+                const { deleteReview } = this;
+                getAuthorActions(buttonIndex, t, deleteReview);
             } else {
                 getActions(buttonIndex);
             }

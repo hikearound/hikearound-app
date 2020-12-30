@@ -59,6 +59,7 @@ class ReviewList extends React.Component {
             <ReviewListItem
                 id={item.id}
                 rid={item.id}
+                hid={item.hid}
                 user={item.user}
                 rating={item.rating}
                 review={item.review}

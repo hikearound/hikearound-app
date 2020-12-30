@@ -24,17 +24,23 @@ const propTypes = {
     hike: PropTypes.object.isRequired,
     isLoading: PropTypes.bool.isRequired,
     reviewData: PropTypes.object,
+    action: PropTypes.string,
+    selectedReview: PropTypes.string,
 };
 
 const defaultProps = {
     region: undefined,
     coordinates: [],
     reviewData: {},
+    action: null,
+    selectedReview: null,
 };
 
 function mapStateToProps(state) {
     return {
         reviewData: state.reviewReducer.reviewData,
+        action: state.reviewReducer.action,
+        selectedReview: state.reviewReducer.selectedReview,
     };
 }
 
@@ -58,7 +64,6 @@ class HikeBody extends React.Component {
             description: hike.description,
             hid: hike.id,
             imageCount: hike.imageCount,
-            shouldHidePrompt: false,
             ...defaultState,
         };
 
@@ -70,21 +75,36 @@ class HikeBody extends React.Component {
     };
 
     componentDidUpdate(prevProps) {
-        const { reviewData } = this.props;
+        const { reviewData, action, selectedReview } = this.props;
 
         if (prevProps.reviewData !== reviewData) {
             this.addReview();
         }
+
+        if (action === 'deleteReview') {
+            if (prevProps.selectedReview !== selectedReview) {
+                this.deleteReview();
+            }
+        }
     }
 
-    addReview = async () => {
-        await this.hidePrompt();
-        await this.getReviewData();
-        this.scrollToReviewList();
+    deleteReview = async () => {
+        const { selectedReview } = this.props;
+        const { reviews } = this.state;
+
+        const deletedReview = await reviews.find(
+            (review) => review.id === selectedReview,
+        );
+
+        const index = reviews.indexOf(deletedReview);
+        reviews.splice(index, 1);
+
+        this.setState({ reviews });
     };
 
-    hidePrompt = async () => {
-        this.setState({ shouldHidePrompt: true });
+    addReview = async () => {
+        await this.getReviewData();
+        await this.scrollToReviewList();
     };
 
     scrollToReviewList = () => {
@@ -122,18 +142,7 @@ class HikeBody extends React.Component {
     };
 
     renderReviewPrompt = (setSelectedStars, hid) => {
-        const { shouldHidePrompt } = this.state;
-
-        return (
-            <View>
-                {!shouldHidePrompt && (
-                    <ReviewPrompt
-                        setSelectedStars={setSelectedStars}
-                        hid={hid}
-                    />
-                )}
-            </View>
-        );
+        return <ReviewPrompt setSelectedStars={setSelectedStars} hid={hid} />;
     };
 
     renderGallerySection = (t, hid, imageCount) => {

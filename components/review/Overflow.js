@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withTranslation } from 'react-i18next';
 import { TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { opacities } from '../../constants/Index';
@@ -15,27 +16,31 @@ const defaultProps = {
     iconSize: 25,
 };
 
-const Overflow = ({ onPress, iconSize, theme }) => {
-    return (
-        <TouchableOpacity
-            activeOpacity={opacities.regular}
-            style={{
-                position: 'absolute',
-                right: 0,
-                bottom: -1,
-            }}
-            onPress={onPress}
-        >
-            <Ionicons
-                name='ios-ellipsis-horizontal'
-                size={iconSize}
-                color={theme.colors.overflowFill}
-            />
-        </TouchableOpacity>
-    );
-};
+class Overflow extends React.PureComponent {
+    render() {
+        const { onPress, iconSize, theme } = this.props;
+
+        return (
+            <TouchableOpacity
+                activeOpacity={opacities.regular}
+                style={{
+                    position: 'absolute',
+                    right: 0,
+                    bottom: -1,
+                }}
+                onPress={onPress}
+            >
+                <Ionicons
+                    name='ios-ellipsis-horizontal'
+                    size={iconSize}
+                    color={theme.colors.overflowFill}
+                />
+            </TouchableOpacity>
+        );
+    }
+}
 
 Overflow.propTypes = propTypes;
 Overflow.defaultProps = defaultProps;
 
-export default withTheme(Overflow);
+export default withTranslation()(withTheme(Overflow));

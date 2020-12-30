@@ -13,13 +13,25 @@ const propTypes = {
     closeAction: PropTypes.string.isRequired,
     setSelectedStars: PropTypes.func.isRequired,
     reviewedHikes: PropTypes.array.isRequired,
+    selectedReview: PropTypes.string,
+    selectedHike: PropTypes.string,
     hid: PropTypes.string.isRequired,
+    action: PropTypes.string,
+};
+
+const defaultProps = {
+    selectedReview: null,
+    selectedHike: null,
+    action: null,
 };
 
 function mapStateToProps(state) {
     return {
         closeAction: state.modalReducer.closeAction,
+        action: state.reviewReducer.action,
         reviewedHikes: state.userReducer.reviewedHikes,
+        selectedReview: state.reviewReducer.selectedReview,
+        selectedHike: state.reviewReducer.selectedHike,
     };
 }
 
@@ -32,16 +44,33 @@ function mapDispatchToProps(dispatch) {
 class ReviewPrompt extends React.Component {
     constructor(props, context) {
         super(props, context);
+        const { reviewedHikes } = this.props;
 
         this.onStarRatingPress = this.onStarRatingPress.bind(this);
-        this.state = { rating: 0 };
+        this.state = {
+            rating: 0,
+            reviews: reviewedHikes,
+        };
     }
 
-    componentDidUpdate() {
-        const { closeAction } = this.props;
+    async componentDidUpdate(prevProps) {
+        const { closeAction, action, selectedReview } = this.props;
 
         if (closeAction === 'closeReview') {
             this.resetStars();
+        }
+
+        if (action === 'addReview') {
+            if (prevProps.selectedReview !== selectedReview) {
+                this.addReview();
+            }
+        }
+
+        if (action === 'deleteReview') {
+            if (prevProps.selectedReview !== selectedReview) {
+                this.resetStars();
+                this.removeReview();
+            }
         }
     }
 
@@ -54,15 +83,36 @@ class ReviewPrompt extends React.Component {
         this.setState({ rating });
     }
 
+    addReview = async () => {
+        const { selectedHike } = this.props;
+        const { reviews } = this.state;
+
+        if (!reviews.includes(selectedHike)) {
+            reviews.push(selectedHike);
+        }
+
+        this.setState({ reviews });
+    };
+
+    removeReview = async () => {
+        const { selectedHike } = this.props;
+        const { reviews } = this.state;
+
+        const index = reviews.indexOf(selectedHike);
+        reviews.splice(index, 1);
+
+        this.setState({ reviews });
+    };
+
     resetStars() {
         this.setState({ rating: 0 });
     }
 
     render() {
-        const { rating } = this.state;
-        const { reviewedHikes, hid, t } = this.props;
+        const { rating, reviews } = this.state;
+        const { hid, t } = this.props;
 
-        if (!reviewedHikes.includes(hid)) {
+        if (!reviews.includes(hid)) {
             return (
                 <PromptWrapper>
                     <PromptTitle>{t('screen.hike.review.prompt')}</PromptTitle>
@@ -81,6 +131,7 @@ class ReviewPrompt extends React.Component {
 }
 
 ReviewPrompt.propTypes = propTypes;
+ReviewPrompt.defaultProps = defaultProps;
 
 export default connect(
     mapStateToProps,
