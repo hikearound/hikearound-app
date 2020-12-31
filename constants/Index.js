@@ -5,6 +5,7 @@ import { borderRadius, bottomSheet } from './Dimensions';
 import { opacities } from './Opacities';
 import timings from './Timings';
 import { settingsItems, settingsControls } from './Settings';
+import timestamps from './Timestamps';
 
 export {
     colors,
@@ -18,4 +19,5 @@ export {
     settingsItems,
     settingsControls,
     bottomSheet,
+    timestamps,
 };

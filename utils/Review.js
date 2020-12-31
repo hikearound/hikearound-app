@@ -106,3 +106,31 @@ export async function getRecentReviews(hid, sortDirection, querySize) {
 export function writeReviewLikes(rid, userLikes) {
     db.collection('reviews').doc(rid).set({ userLikes }, { merge: true });
 }
+
+export function removeReviewFromList(reviews, selectedReview) {
+    const deletedReview = reviews.find(
+        (review) => review.id === selectedReview,
+    );
+
+    if (deletedReview) {
+        const index = reviews.indexOf(deletedReview);
+        reviews.splice(index, 1);
+    }
+
+    return reviews;
+}
+
+export function removeReviewFromArray(reviews, hid) {
+    const index = reviews.indexOf(hid);
+    reviews.splice(index, 1);
+
+    return reviews;
+}
+
+export function addReviewToArray(reviews, hid) {
+    if (!reviews.includes(hid)) {
+        reviews.push(hid);
+    }
+
+    return reviews;
+}

@@ -7,6 +7,7 @@ import Stars from './Stars';
 import { borderRadius, spacing } from '../constants/Index';
 import { withTheme } from '../utils/Themes';
 import { showModal } from '../actions/Modal';
+import { removeReviewFromArray, addReviewToArray } from '../utils/Review';
 
 const propTypes = {
     dispatchModalFlag: PropTypes.func.isRequired,
@@ -16,19 +17,19 @@ const propTypes = {
     selectedReview: PropTypes.string,
     selectedHike: PropTypes.string,
     hid: PropTypes.string.isRequired,
-    action: PropTypes.string,
+    reviewAction: PropTypes.string,
 };
 
 const defaultProps = {
     selectedReview: null,
     selectedHike: null,
-    action: null,
+    reviewAction: null,
 };
 
 function mapStateToProps(state) {
     return {
         closeAction: state.modalReducer.closeAction,
-        action: state.reviewReducer.action,
+        reviewAction: state.reviewReducer.action,
         reviewedHikes: state.userReducer.reviewedHikes,
         selectedReview: state.reviewReducer.selectedReview,
         selectedHike: state.reviewReducer.selectedHike,
@@ -54,19 +55,19 @@ class ReviewPrompt extends React.Component {
     }
 
     async componentDidUpdate(prevProps) {
-        const { closeAction, action, selectedReview } = this.props;
+        const { closeAction, reviewAction, selectedReview } = this.props;
 
         if (closeAction === 'closeReview') {
             this.resetStars();
         }
 
-        if (action === 'addReview') {
+        if (reviewAction === 'addReview') {
             if (prevProps.selectedReview !== selectedReview) {
                 this.addReview();
             }
         }
 
-        if (action === 'deleteReview') {
+        if (reviewAction === 'deleteReview') {
             if (prevProps.selectedReview !== selectedReview) {
                 this.resetStars();
                 this.removeReview();
@@ -87,21 +88,16 @@ class ReviewPrompt extends React.Component {
         const { selectedHike } = this.props;
         const { reviews } = this.state;
 
-        if (!reviews.includes(selectedHike)) {
-            reviews.push(selectedHike);
-        }
-
-        this.setState({ reviews });
+        this.setState({ reviews: addReviewToArray(reviews, selectedHike) });
     };
 
     removeReview = async () => {
         const { selectedHike } = this.props;
         const { reviews } = this.state;
 
-        const index = reviews.indexOf(selectedHike);
-        reviews.splice(index, 1);
-
-        this.setState({ reviews });
+        this.setState({
+            reviews: removeReviewFromArray(reviews, selectedHike),
+        });
     };
 
     resetStars() {

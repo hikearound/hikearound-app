@@ -12,7 +12,7 @@ import ReviewList from './ReviewList';
 import PhotoLightboxGroup from './PhotoLightboxGroup';
 import MapWrapper from './map/Wrapper';
 import TextContent from './hike/TextContent';
-import { getRecentReviews } from '../utils/Review';
+import { getRecentReviews, removeReviewFromList } from '../utils/Review';
 import { defaultState } from '../constants/states/HikeBody';
 import { withTheme } from '../utils/Themes';
 
@@ -24,7 +24,7 @@ const propTypes = {
     hike: PropTypes.object.isRequired,
     isLoading: PropTypes.bool.isRequired,
     reviewData: PropTypes.object,
-    action: PropTypes.string,
+    reviewAction: PropTypes.string,
     selectedReview: PropTypes.string,
 };
 
@@ -32,14 +32,14 @@ const defaultProps = {
     region: undefined,
     coordinates: [],
     reviewData: {},
-    action: null,
+    reviewAction: null,
     selectedReview: null,
 };
 
 function mapStateToProps(state) {
     return {
         reviewData: state.reviewReducer.reviewData,
-        action: state.reviewReducer.action,
+        reviewAction: state.reviewReducer.action,
         selectedReview: state.reviewReducer.selectedReview,
     };
 }
@@ -75,13 +75,13 @@ class HikeBody extends React.Component {
     };
 
     componentDidUpdate(prevProps) {
-        const { reviewData, action, selectedReview } = this.props;
+        const { reviewData, reviewAction, selectedReview } = this.props;
 
         if (prevProps.reviewData !== reviewData) {
             this.addReview();
         }
 
-        if (action === 'deleteReview') {
+        if (reviewAction === 'deleteReview') {
             if (prevProps.selectedReview !== selectedReview) {
                 this.deleteReview();
             }
@@ -92,14 +92,9 @@ class HikeBody extends React.Component {
         const { selectedReview } = this.props;
         const { reviews } = this.state;
 
-        const deletedReview = await reviews.find(
-            (review) => review.id === selectedReview,
-        );
-
-        const index = reviews.indexOf(deletedReview);
-        reviews.splice(index, 1);
-
-        this.setState({ reviews });
+        this.setState({
+            reviews: removeReviewFromList(reviews, selectedReview),
+        });
     };
 
     addReview = async () => {
@@ -127,15 +122,11 @@ class HikeBody extends React.Component {
         const { hid, sortDirection, querySize } = this.state;
         const reviews = await getRecentReviews(hid, sortDirection, querySize);
 
-        this.setReviewData(reviews);
-        this.setEmptyState(reviews);
-    };
-
-    setReviewData = async (reviews) => {
         this.setState({ reviews });
+        this.maybeSetEmptyState(reviews);
     };
 
-    setEmptyState = async (reviews) => {
+    maybeSetEmptyState = async (reviews) => {
         if (reviews.length === 0) {
             this.setState({ maybeShowEmptyState: true });
         }

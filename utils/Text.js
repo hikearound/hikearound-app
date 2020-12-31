@@ -5,4 +5,9 @@ export function truncateText(text, maxLength) {
     return text;
 }
 
-export default truncateText;
+export function parseText(text) {
+    if (text) {
+        return text.replace(/(\n\n)/gm, ' ');
+    }
+    return text;
+}

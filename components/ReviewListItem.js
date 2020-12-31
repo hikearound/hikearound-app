@@ -23,6 +23,7 @@ import {
 } from '../styles/Review';
 import { ActionText } from '../styles/Text';
 import { reviewActionSheet } from './action_sheets/Review';
+import { parseText } from '../utils/Text';
 
 const propTypes = {
     dispatchDeleteReview: PropTypes.func.isRequired,
@@ -34,10 +35,12 @@ const propTypes = {
     savedOn: PropTypes.object.isRequired,
     numberOfLines: PropTypes.number,
     userLikes: PropTypes.array.isRequired,
+    truncationLimit: PropTypes.number
 };
 
 const defaultProps = {
     numberOfLines: 5,
+    truncationLimit: 300,
 };
 
 function mapStateToProps(state) {
@@ -133,9 +136,10 @@ class ReviewListItem extends React.Component {
     };
 
     maybeTruncateReview = () => {
+        const { truncationLimit } = this.props;
         const { review } = this.state;
 
-        if (review && review.length >= 300) {
+        if (review && review.length >= truncationLimit) {
             return true;
         }
 
@@ -147,7 +151,7 @@ class ReviewListItem extends React.Component {
 
         if (review) {
             this.setState({
-                review: review.replace(/(\n\n)/gm, ' '),
+                review: parseText(review),
             });
         }
     }
