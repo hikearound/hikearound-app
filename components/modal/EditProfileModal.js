@@ -53,30 +53,38 @@ class EditProfileModal extends React.Component {
     constructor(props, context) {
         super(props, context);
 
-        const { t, modalType } = this.props;
-        const inputs = getInputs(t, modalType);
-        const refs = setInputRefs(inputs, modalType);
-
         this.state = {
             modalVisible: false,
-            inputs,
-            refs,
+            inputs: [],
+            refs: {},
         };
     }
 
-    componentDidUpdate(prevProps) {
-        const { currentModal, modalType, name, location } = this.props;
+    componentDidMount() {
+        this.setDefaultInputAndRefs();
+    }
 
+    componentDidUpdate(prevProps) {
+        const { currentModal, modalType, name } = this.props;
         const functions = {
             show: this.showModal.bind(this),
             hide: this.hideModal.bind(this),
         };
 
-        if (prevProps.name !== name || prevProps.location !== location) {
-            this.setNameAndLocation();
+        if (prevProps.name !== name) {
+            this.setDefaultInputAndRefs();
         }
 
         toggleModalVisibility(prevProps, currentModal, modalType, functions);
+    }
+
+    setDefaultInputAndRefs() {
+        const { t, modalType } = this.props;
+
+        const inputs = getInputs(t, modalType);
+        const refs = setInputRefs(inputs, modalType);
+
+        this.setState({ inputs, refs });
     }
 
     setValue(name, text) {
@@ -165,6 +173,9 @@ class EditProfileModal extends React.Component {
 
     renderModalBody = (inputs) => {
         const { avatar } = this.props;
+        const { refs } = this.state;
+
+        console.log(refs)
 
         return (
             <ModalBody>

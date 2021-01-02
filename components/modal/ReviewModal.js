@@ -225,7 +225,7 @@ class ReviewModal extends React.Component {
                 loading: false,
                 modalVisible: false,
             });
-        }, timings.xxl);
+        }, timings.extraLong);
     };
 
     renderModalBody = () => {
