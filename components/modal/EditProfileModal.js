@@ -173,9 +173,6 @@ class EditProfileModal extends React.Component {
 
     renderModalBody = (inputs) => {
         const { avatar } = this.props;
-        const { refs } = this.state;
-
-        console.log(refs)
 
         return (
             <ModalBody>
