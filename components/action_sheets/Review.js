@@ -20,20 +20,38 @@ export function getActions(buttonIndex) {
     }
 }
 
-export function getAuthorActions(buttonIndex, t, deleteReview) {
+export function getAuthorActions(
+    t,
+    data,
+    buttonIndex,
+    deleteReview,
+    dispatchModalFlag,
+    dispatchReviewData,
+) {
     if (buttonIndex === 0) {
-        // edit
+        dispatchReviewData({
+            isEditing: true,
+            review: data.review,
+            rating: data.rating,
+            rid: data.rid,
+        });
+        dispatchModalFlag('review');
     } else if (buttonIndex === 1) {
         showAlert(t, deleteReview);
     }
 }
 
-export function reviewActionSheet(t, user) {
+export function reviewActionSheet(
+    t,
+    data,
+    dispatchModalFlag,
+    dispatchReviewData,
+) {
     let cancelButtonIndex = 1;
     let destructiveButtonIndex = null;
     let options = getSheetOptions(t);
 
-    if (auth.currentUser.uid === user.uid) {
+    if (auth.currentUser.uid === data.user.uid) {
         cancelButtonIndex = 2;
         destructiveButtonIndex = 1;
         options = getAuthorSheetOptions(t);
@@ -47,9 +65,16 @@ export function reviewActionSheet(t, user) {
         },
 
         (buttonIndex) => {
-            if (auth.currentUser.uid === user.uid) {
+            if (auth.currentUser.uid === data.user.uid) {
                 const { deleteReview } = this;
-                getAuthorActions(buttonIndex, t, deleteReview);
+                getAuthorActions(
+                    t,
+                    data,
+                    buttonIndex,
+                    deleteReview,
+                    dispatchModalFlag,
+                    dispatchReviewData,
+                );
             } else {
                 getActions(buttonIndex);
             }

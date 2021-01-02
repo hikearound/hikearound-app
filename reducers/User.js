@@ -33,6 +33,12 @@ export default function userReducer(state = userState, action) {
                 currentPosition: action.currentPosition,
             };
 
+        case 'UPDATE_FAVORITE_HIKES':
+            return {
+                ...state,
+                favoriteHikes: action.favoriteHikes,
+            };
+
         case 'UPDATE_REVIEWED_HIKES':
             return {
                 ...state,

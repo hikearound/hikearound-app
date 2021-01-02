@@ -10,6 +10,10 @@ export const setSelectedHike = (hid) => {
     return { type: 'SET_SELECTED_HIKE', hid };
 };
 
+export const setReviewData = (reviewData) => {
+    return { type: 'SET_REVIEW_DATA', reviewData };
+};
+
 export const showModal = (modalType) => {
     return { type: 'SHOW_MODAL', modalType };
 };

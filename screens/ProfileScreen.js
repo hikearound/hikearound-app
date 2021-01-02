@@ -44,7 +44,7 @@ class ProfileScreen extends React.Component {
             headerRight: () => <Settings navigation={navigation} />,
         });
 
-        this.loadingTimeout = setTimeout(() => {
+        setTimeout(() => {
             this.setState({
                 shouldLoad: true,
             });
@@ -59,7 +59,7 @@ class ProfileScreen extends React.Component {
         const { updatedHikeData } = this.props;
 
         if (prevProps.updatedHikeData !== updatedHikeData) {
-            this.timeout = setTimeout(async () => {
+            setTimeout(async () => {
                 await this.getHikeData();
             }, timings.extraLong);
         }
@@ -76,7 +76,7 @@ class ProfileScreen extends React.Component {
 
         await favoritedHikes.forEach((hike) => {
             if (hike.exists) {
-                const favoriteHike = hike.data() || {};
+                const favoriteHike = hike.data();
                 favoriteHike.id = hike.id;
                 hikeData.push(favoriteHike);
             }

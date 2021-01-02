@@ -65,12 +65,16 @@ class EditProfileModal extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        const { currentModal, modalType } = this.props;
+        const { currentModal, modalType, name, location } = this.props;
 
         const functions = {
             show: this.showModal.bind(this),
             hide: this.hideModal.bind(this),
         };
+
+        if (prevProps.name !== name || prevProps.location !== location) {
+            this.setNameAndLocation();
+        }
 
         toggleModalVisibility(prevProps, currentModal, modalType, functions);
     }

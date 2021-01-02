@@ -8,11 +8,13 @@ import Toast from 'react-native-toast-message';
 import { withTranslation } from 'react-i18next';
 import { opacities, colors, spacing } from '../constants/Index';
 import { favoriteHike, unfavoriteHike } from '../actions/Hike';
+import { updateFavoriteHikes } from '../actions/User';
 import { getToastText } from '../utils/Toast';
 import { withTheme } from '../utils/Themes';
 
 const propTypes = {
     hid: PropTypes.string.isRequired,
+    dispatchUpdatedFavorites: PropTypes.func.isRequired,
     dispatchFavorite: PropTypes.func.isRequired,
     dispatchUnfavorite: PropTypes.func.isRequired,
     name: PropTypes.string.isRequired,
@@ -26,7 +28,6 @@ const propTypes = {
 function mapStateToProps(state) {
     return {
         favoriteHikes: state.userReducer.favoriteHikes,
-        updatedHikeData: state.hikeReducer.updatedHikeData,
     };
 }
 
@@ -34,6 +35,8 @@ function mapDispatchToProps(dispatch) {
     return {
         dispatchFavorite: (hike) => dispatch(favoriteHike(hike)),
         dispatchUnfavorite: (hike) => dispatch(unfavoriteHike(hike)),
+        dispatchUpdatedFavorites: (hikes) =>
+            dispatch(updateFavoriteHikes(hikes)),
     };
 }
 
@@ -84,6 +87,7 @@ class FavoriteButton extends React.Component {
     setFavoriteHike = async () => {
         const {
             hid,
+            dispatchUpdatedFavorites,
             dispatchFavorite,
             distance,
             name,
@@ -102,6 +106,7 @@ class FavoriteButton extends React.Component {
         });
 
         dispatchFavorite({ hid, distance, name, city, state });
+        dispatchUpdatedFavorites(hikes);
     };
 
     showToast = () => {
@@ -115,7 +120,11 @@ class FavoriteButton extends React.Component {
     };
 
     removeFavoriteHike = async () => {
-        const { hid, dispatchUnfavorite } = this.props;
+        const {
+            hid,
+            dispatchUnfavorite,
+            dispatchUpdatedFavorites,
+        } = this.props;
         const { hikes } = this.state;
 
         const index = hikes.indexOf(hid);
@@ -128,6 +137,7 @@ class FavoriteButton extends React.Component {
         });
 
         dispatchUnfavorite({ hid });
+        dispatchUpdatedFavorites(hikes);
     };
 
     onPress = () => {

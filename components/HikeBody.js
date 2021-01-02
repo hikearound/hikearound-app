@@ -78,7 +78,7 @@ class HikeBody extends React.Component {
         const { reviewData, reviewAction, selectedReview } = this.props;
 
         if (prevProps.reviewData !== reviewData) {
-            this.addReview();
+            this.updateReviewData();
         }
 
         if (reviewAction === 'deleteReview') {
@@ -97,7 +97,7 @@ class HikeBody extends React.Component {
         });
     };
 
-    addReview = async () => {
+    updateReviewData = async () => {
         await this.getReviewData();
         await this.scrollToReviewList();
     };
@@ -121,7 +121,7 @@ class HikeBody extends React.Component {
     getReviewData = async () => {
         const { hid, sortDirection, querySize } = this.state;
         const reviews = await getRecentReviews(hid, sortDirection, querySize);
-
+        console.log(reviews)
         this.setState({ reviews });
         this.maybeSetEmptyState(reviews);
     };

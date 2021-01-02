@@ -31,6 +31,10 @@ export const updateAvatar = (photoData) => {
     return { type: 'UPDATE_AVATAR', photoData };
 };
 
+export const updateFavoriteHikes = (favoriteHikes) => {
+    return { type: 'UPDATE_FAVORITE_HIKES', favoriteHikes };
+};
+
 export const updateReviewedHikes = (reviewedHikes) => {
     return { type: 'UPDATE_REVIEWED_HIKES', reviewedHikes };
 };

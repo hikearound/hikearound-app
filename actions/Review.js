@@ -1,4 +1,4 @@
-import { deleteReviewData as deleteReview } from '../utils/Review';
+import { deleteReview } from '../utils/Review';
 
 export const addReviewData = (reviewData) => {
     return { type: 'ADD_REVIEW_DATA', reviewData };

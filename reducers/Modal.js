@@ -12,6 +12,7 @@ export default function modalReducer(state = modalState, action) {
         case 'HIDE_MODAL':
             return {
                 ...state,
+                reviewData: {},
                 action: 'hideModal',
                 currentModal: 'none',
                 closeAction: action.closeAction,
@@ -27,6 +28,12 @@ export default function modalReducer(state = modalState, action) {
             return {
                 ...state,
                 selectedHike: action.hid,
+            };
+
+        case 'SET_REVIEW_DATA':
+            return {
+                ...state,
+                reviewData: action.reviewData,
             };
 
         default:

@@ -37,11 +37,15 @@ export async function buildReviewArray(data) {
     return reviews;
 }
 
-export async function updateReviewData(rid, reviewData) {
-    db.collection('reviews').doc(rid).set(reviewData, { merge: true });
+export async function updateReview(reviewData) {
+    const { rid, rating, review } = reviewData;
+    await db
+        .collection('reviews')
+        .doc(rid)
+        .set({ rating, review }, { merge: true });
 }
 
-export function deleteReviewData(reviewData) {
+export function deleteReview(reviewData) {
     const { rid } = reviewData;
     db.collection('reviews').doc(rid).delete();
 }
@@ -55,7 +59,7 @@ export async function getReviewData(rid) {
     return reviewData;
 }
 
-export async function writeReviewData(reviewData) {
+export async function writeReview(reviewData) {
     const user = auth.currentUser;
 
     reviewData.uid = user.uid;

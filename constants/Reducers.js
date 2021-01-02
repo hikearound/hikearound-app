@@ -17,7 +17,7 @@ export const modalState = {
     imageIndex: 0,
     selectedHike: null,
     closeAction: '',
-    review: '',
+    reviewData: {},
 };
 
 export const notifs = {

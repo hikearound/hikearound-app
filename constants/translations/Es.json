@@ -8,7 +8,9 @@
             "read": "Lee mas",
             "skip": "Omitir",
             "warning": "Advertencia",
-            "continue": "Seguir"
+            "continue": "Seguir",
+            "ok": "Okay",
+            "update": "Actualizar"
         },
         "input": {
             "name": "Nombre",

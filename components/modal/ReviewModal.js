@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import Stars from '../Stars';
-import { addReviewData } from '../../actions/Review';
+import { addReviewData, updateReviewData } from '../../actions/Review';
 import { withTheme } from '../../utils/Themes';
 import { RootView } from '../../styles/Screens';
 import { toggleModalVisibility } from '../../utils/Modal';
@@ -18,17 +18,19 @@ import {
 import ModalHeader from './Header';
 import { ModalBody } from '../../styles/Modals';
 import { getInputs } from '../../utils/Inputs';
-import { writeReviewData } from '../../utils/Review';
+import { writeReview, updateReview } from '../../utils/Review';
 import { updateReviewedHikes } from '../../actions/User';
 import LoadingOverlay from '../LoadingOverlay';
 
 const propTypes = {
     currentModal: PropTypes.string.isRequired,
     dispatchReviewData: PropTypes.func.isRequired,
+    dispatchUpdatedReviewData: PropTypes.func.isRequired,
     dispatchReviewedHikes: PropTypes.func.isRequired,
     modalType: PropTypes.string,
     animationType: PropTypes.string,
     transparent: PropTypes.bool,
+    reviewData: PropTypes.object,
     closeAction: PropTypes.string.isRequired,
     selectedStars: PropTypes.number.isRequired,
     hid: PropTypes.string.isRequired,
@@ -40,6 +42,7 @@ const defaultProps = {
     animationType: 'push',
     modalType: 'review',
     transparent: true,
+    reviewData: {},
 };
 
 function mapStateToProps(state) {
@@ -47,12 +50,15 @@ function mapStateToProps(state) {
         currentModal: state.modalReducer.currentModal,
         closeAction: state.modalReducer.closeAction,
         reviewedHikes: state.userReducer.reviewedHikes,
+        reviewData: state.modalReducer.reviewData,
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         dispatchReviewData: (reviewData) => dispatch(addReviewData(reviewData)),
+        dispatchUpdatedReviewData: (reviewData) =>
+            dispatch(updateReviewData(reviewData)),
         dispatchReviewedHikes: (reviewedHikes) =>
             dispatch(updateReviewedHikes(reviewedHikes)),
     };
@@ -70,28 +76,46 @@ class ReviewModal extends React.Component {
             modalVisible: false,
             loading: false,
             inputs,
+            review: null,
         };
     }
 
     componentDidUpdate(prevProps) {
-        const { currentModal, modalType } = this.props;
+        const { currentModal, modalType, reviewData } = this.props;
 
         const functions = {
             show: this.showModal.bind(this),
             hide: this.hideModal.bind(this),
         };
 
+        if (prevProps.reviewData !== reviewData) {
+            this.maybeSetValues();
+        }
+
         toggleModalVisibility(prevProps, currentModal, modalType, functions);
     }
 
     onStarRatingPress = (rating) => {
         this.setState({ rating });
+        this.maybeToggleSaveButton();
     };
 
     async setValue(name, text) {
         await this.setState({ [name]: text });
         this.maybeToggleSaveButton();
     }
+
+    maybeSetValues = () => {
+        const { reviewData } = this.props;
+
+        if (reviewData.review && reviewData.rating) {
+            this.setState({
+                review: reviewData.review,
+                rating: reviewData.rating,
+                rid: reviewData.rid,
+            });
+        }
+    };
 
     maybeToggleSaveButton = () => {
         const { review } = this.state;
@@ -105,13 +129,20 @@ class ReviewModal extends React.Component {
     };
 
     renderModalHeader = (t) => {
+        const { reviewData } = this.props;
         const { continueDisabled } = this.state;
+
+        let continueAction = 'addReview';
+
+        if (reviewData.isEditing) {
+            continueAction = 'updateReview';
+        }
 
         return (
             <ModalHeader
                 title={t('modal.review.title')}
                 dismissAction='closeReview'
-                continueAction='addReview'
+                continueAction={continueAction}
                 continueText={t('label.modal.save')}
                 continueDisabled={continueDisabled}
             />
@@ -129,12 +160,23 @@ class ReviewModal extends React.Component {
 
         this.setState({ loading: true });
 
-        const reviewData = await writeReviewData({ hid, review, rating });
-
+        const reviewData = await writeReview({ hid, review, rating });
         reviewedHikes.push(hid);
 
         dispatchReviewData(reviewData);
         dispatchReviewedHikes(reviewedHikes);
+    };
+
+    updateReview = async () => {
+        const { dispatchUpdatedReviewData } = this.props;
+        const { review, rating, rid } = this.state;
+        const reviewData = { rid, review, rating };
+
+        this.setState({ loading: true });
+
+        await updateReview(reviewData);
+        console.log('fire')
+        dispatchUpdatedReviewData(reviewData);
     };
 
     assignRef = (ref, name) => {
@@ -147,26 +189,30 @@ class ReviewModal extends React.Component {
     };
 
     hideModal = () => {
-        this.maybeAddReviewData();
+        this.maybeWriteReviewData();
     };
 
     setRating = () => {
-        const { selectedStars } = this.props;
-        this.setState({ rating: selectedStars });
+        const { selectedStars, reviewData } = this.props;
+
+        if (!reviewData.rating) {
+            this.setState({ rating: selectedStars });
+        }
     };
 
-    maybeAddReviewData = () => {
+    maybeWriteReviewData = () => {
         const { closeAction } = this.props;
 
         if (closeAction === 'addReview') {
             this.addReview();
+        }
 
-            this.loadingTimeout = setTimeout(() => {
-                this.setState({
-                    loading: false,
-                    modalVisible: false,
-                });
-            }, timings.long);
+        if (closeAction === 'updateReview') {
+            this.updateReview();
+        }
+
+        if (closeAction === 'updateReview' || closeAction === 'addReview') {
+            this.setLoadingTimeout();
         }
 
         if (closeAction === 'closeReview') {
@@ -174,9 +220,18 @@ class ReviewModal extends React.Component {
         }
     };
 
+    setLoadingTimeout = () => {
+        setTimeout(() => {
+            this.setState({
+                loading: false,
+                modalVisible: false,
+            });
+        }, timings.xxl);
+    };
+
     renderModalBody = () => {
         const { hikeName } = this.props;
-        const { rating, inputs } = this.state;
+        const { rating, inputs, review } = this.state;
 
         return (
             <ModalBody includePadding>
@@ -192,7 +247,6 @@ class ReviewModal extends React.Component {
                     (
                         {
                             name,
-                            defaultValue,
                             placeholder,
                             textContentType,
                             multiline,
@@ -205,7 +259,7 @@ class ReviewModal extends React.Component {
                         <Input
                             key={index}
                             placeholder={placeholder}
-                            defaultValue={defaultValue}
+                            defaultValue={review}
                             multiline={multiline}
                             autoCompleteType={autoCompleteType}
                             onChangeText={(text) =>

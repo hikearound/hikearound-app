@@ -11,6 +11,7 @@ import Stars from './Stars';
 import LikeButton from './LikeButton';
 import OverflowButton from './review/Overflow';
 import { getLanguageCode } from '../utils/Localization';
+import { showModal, setReviewData } from '../actions/Modal';
 import {
     ReviewItem,
     Header,
@@ -24,8 +25,11 @@ import {
 import { ActionText } from '../styles/Text';
 import { reviewActionSheet } from './action_sheets/Review';
 import { parseText } from '../utils/Text';
+import { timestamps } from '../constants/Index';
 
 const propTypes = {
+    dispatchModalFlag: PropTypes.func.isRequired,
+    dispatchReviewData: PropTypes.func.isRequired,
     dispatchDeleteReview: PropTypes.func.isRequired,
     user: PropTypes.object.isRequired,
     rating: PropTypes.number.isRequired,
@@ -35,7 +39,7 @@ const propTypes = {
     savedOn: PropTypes.object.isRequired,
     numberOfLines: PropTypes.number,
     userLikes: PropTypes.array.isRequired,
-    truncationLimit: PropTypes.number
+    truncationLimit: PropTypes.number,
 };
 
 const defaultProps = {
@@ -53,20 +57,21 @@ function mapDispatchToProps(dispatch) {
     return {
         dispatchDeleteReview: (reviewData) =>
             dispatch(deleteReviewData(reviewData)),
+        dispatchModalFlag: (modalType) => dispatch(showModal(modalType)),
+        dispatchReviewData: (reviewData) => dispatch(setReviewData(reviewData)),
     };
 }
 
 class ReviewListItem extends React.Component {
     constructor(props) {
         super(props);
-        const { t, user } = this.props;
 
         this.state = {
             timestamp: null,
             review: undefined,
         };
 
-        this.reviewActionSheet = reviewActionSheet.bind(this, t, user);
+        this.bindActionSheet();
     }
 
     componentDidMount() {
@@ -74,6 +79,37 @@ class ReviewListItem extends React.Component {
         this.setLanguage();
         this.setTimestamp();
     }
+
+    componentDidUpdate(prevProps) {
+        const { review } = this.props;
+
+        if (prevProps.review !== review) {
+            this.updateReview();
+            this.bindActionSheet();
+        }
+    }
+
+    bindActionSheet = () => {
+        const {
+            t,
+            rid,
+            user,
+            review,
+            rating,
+            dispatchModalFlag,
+            dispatchReviewData,
+        } = this.props;
+
+        const data = { user, review, rating, rid };
+
+        this.reviewActionSheet = reviewActionSheet.bind(
+            this,
+            t,
+            data,
+            dispatchModalFlag,
+            dispatchReviewData,
+        );
+    };
 
     setLanguage = () => {
         const lang = getLanguageCode();
@@ -90,7 +126,7 @@ class ReviewListItem extends React.Component {
         const timestamp = savedOn.toDate();
 
         this.setState({
-            timestamp: moment(timestamp).format('ddd, MMM Do, YYYY'),
+            timestamp: moment(timestamp).format(timestamps.standard),
         });
     };
 

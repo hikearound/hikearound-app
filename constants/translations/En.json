@@ -10,7 +10,8 @@
             "skip": "Skip",
             "warning": "Hold On",
             "continue": "Continue",
-            "ok": "OK"
+            "ok": "OK",
+            "update": "Update"
         },
         "input": {
             "name": "Name",
