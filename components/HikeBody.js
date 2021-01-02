@@ -121,7 +121,7 @@ class HikeBody extends React.Component {
     getReviewData = async () => {
         const { hid, sortDirection, querySize } = this.state;
         const reviews = await getRecentReviews(hid, sortDirection, querySize);
-        console.log(reviews)
+
         this.setState({ reviews });
         this.maybeSetEmptyState(reviews);
     };

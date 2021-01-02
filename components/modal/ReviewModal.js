@@ -175,7 +175,6 @@ class ReviewModal extends React.Component {
         this.setState({ loading: true });
 
         await updateReview(reviewData);
-        console.log('fire')
         dispatchUpdatedReviewData(reviewData);
     };
 
