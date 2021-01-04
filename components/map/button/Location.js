@@ -23,7 +23,7 @@ const propTypes = {
 const defaultProps = {
     position: null,
     mapRef: {},
-    bottomOffset: 37,
+    bottomOffset: 10,
 };
 
 function mapStateToProps(state) {
@@ -59,11 +59,11 @@ class LocationButton extends React.PureComponent {
         const { bottomOffset } = this.props;
 
         return (
-            <ButtonWrapper bottomOffset={bottomOffset}>
-                <TouchableOpacity
-                    activeOpacity={opacities.regular}
-                    onPress={this.onPress}
-                >
+            <TouchableOpacity
+                activeOpacity={opacities.regular}
+                onPress={this.onPress}
+            >
+                <ButtonWrapper bottomOffset={bottomOffset}>
                     <Ionicons
                         name='ios-navigate'
                         color={colors.purple}
@@ -74,8 +74,8 @@ class LocationButton extends React.PureComponent {
                             left: 7,
                         }}
                     />
-                </TouchableOpacity>
-            </ButtonWrapper>
+                </ButtonWrapper>
+            </TouchableOpacity>
         );
     }
 }

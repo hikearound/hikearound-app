@@ -119,7 +119,7 @@ class LikeButton extends React.Component {
             <TouchableOpacity
                 activeOpacity={opacities.regular}
                 onPress={this.onPress}
-                style={{ display: 'flex', flexWrap: 'wrap' }}
+                style={{ display: 'flex', alignSelf: 'flex-start' }}
             >
                 <ButtonWrapper>
                     <Ionicons
@@ -146,6 +146,7 @@ const ButtonWrapper = styled.View`
     border: 1px solid;
     border-color: ${(props) => props.theme.likeButtonBorder};
     display: flex;
+    flex-wrap: wrap;
     padding: 2px 4px;
     border-radius: ${borderRadius.small}px;
     flex-direction: row;

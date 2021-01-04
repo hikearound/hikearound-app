@@ -13,13 +13,13 @@ import { withTheme, SetBarStyle } from '../utils/Themes';
 const propTypes = {
     dispatchHikeData: PropTypes.func.isRequired,
     updatedHikeData: PropTypes.object.isRequired,
+    name: PropTypes.string.isRequired,
 };
 
 function mapStateToProps(state) {
     return {
-        hikeData: state.hikeReducer.hikeData,
         updatedHikeData: state.hikeReducer.updatedHikeData,
-        avatar: state.userReducer.avatar,
+        name: state.userReducer.name,
     };
 }
 
@@ -35,7 +35,7 @@ class ProfileScreen extends React.Component {
         const { navigation } = this.props;
 
         this.state = {
-            firstLoad: true,
+            loading: true,
             maybeShowEmptyState: false,
             hikeData: [],
         };
@@ -43,12 +43,6 @@ class ProfileScreen extends React.Component {
         navigation.setOptions({
             headerRight: () => <Settings navigation={navigation} />,
         });
-
-        setTimeout(() => {
-            this.setState({
-                shouldLoad: true,
-            });
-        }, timings.short);
     }
 
     async componentDidMount() {
@@ -56,23 +50,33 @@ class ProfileScreen extends React.Component {
     }
 
     async componentDidUpdate(prevProps) {
-        const { updatedHikeData } = this.props;
+        const { updatedHikeData, name } = this.props;
 
         if (prevProps.updatedHikeData !== updatedHikeData) {
             setTimeout(async () => {
                 await this.getHikeData();
             }, timings.extraLong);
         }
+
+        if (prevProps.name !== name) {
+            this.maybeHideLoadingState();
+        }
     }
 
+    maybeHideLoadingState = async () => {
+        const { hikeData } = this.state;
+        const { name } = this.props;
+
+        if (hikeData && name) {
+            this.setState({ loading: false });
+        }
+    };
+
     getHikeData = async () => {
-        const hikeData = [];
-        const favoritedHikes = await getUserFavoriteHikes();
         const { dispatchHikeData } = this.props;
 
-        if (favoritedHikes) {
-            this.setState({ firstLoad: false });
-        }
+        const hikeData = [];
+        const favoritedHikes = await getUserFavoriteHikes();
 
         await favoritedHikes.forEach((hike) => {
             if (hike.exists) {
@@ -88,28 +92,25 @@ class ProfileScreen extends React.Component {
 
         if (hikeData) {
             dispatchHikeData(hikeData);
-            this.setState({ hikeData });
+            await this.setState({ hikeData });
         }
+
+        this.maybeHideLoadingState();
     };
 
     render() {
-        const {
-            firstLoad,
-            maybeShowEmptyState,
-            hikeData,
-            shouldLoad,
-        } = this.state;
+        const { loading, maybeShowEmptyState, hikeData } = this.state;
 
         return (
             <RootView>
                 <SetBarStyle barStyle='light-content' />
-                {firstLoad && shouldLoad && <ProfileLoadingState />}
-                {!firstLoad && (
+                {loading && <ProfileLoadingState />}
+                {!loading && (
                     <>
                         <ProfileHeader />
                         <ProfileBody
                             hikeData={hikeData}
-                            loading={firstLoad}
+                            loading={loading}
                             maybeShowEmptyState={maybeShowEmptyState}
                         />
                     </>
