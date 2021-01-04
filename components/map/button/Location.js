@@ -6,10 +6,10 @@ import styled from 'styled-components';
 import { Ionicons } from '@expo/vector-icons';
 import {
     colors,
-    spacing,
     transparentColors,
     opacities,
     borderRadius,
+    spacing,
 } from '../../../constants/Index';
 import { withTheme } from '../../../utils/Themes';
 
@@ -23,7 +23,7 @@ const propTypes = {
 const defaultProps = {
     position: null,
     mapRef: {},
-    bottomOffset: 10,
+    bottomOffset: 35,
 };
 
 function mapStateToProps(state) {
@@ -62,8 +62,13 @@ class LocationButton extends React.PureComponent {
             <TouchableOpacity
                 activeOpacity={opacities.regular}
                 onPress={this.onPress}
+                style={{
+                    position: 'absolute',
+                    bottom: bottomOffset,
+                    right: parseInt(spacing.tiny, 10),
+                }}
             >
-                <ButtonWrapper bottomOffset={bottomOffset}>
+                <ButtonWrapper>
                     <Ionicons
                         name='ios-navigate'
                         color={colors.purple}
@@ -92,9 +97,6 @@ const ButtonWrapper = styled.View`
     display: flex;
     height: 40px;
     width: 40px;
-    position: absolute;
-    bottom: ${(props) => props.bottomOffset}px;
-    right: ${spacing.tiny}px;
     background-color: ${(props) => props.theme.mapButtonBackground};
     border-radius: ${borderRadius.large}px;
     box-shadow: 0 4px 4px ${transparentColors.grayLight};
