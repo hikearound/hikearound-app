@@ -7,6 +7,7 @@ import Toast from 'react-native-toast-message';
 import { HikeBody, Overflow, MapModal } from '../components/Index';
 import { hikeActionSheet } from '../components/action_sheets/Hike';
 import ReviewModal from '../components/modal/ReviewModal';
+import FlagModal from '../components/modal/FlagModal';
 import { getHikeXmlUrl, parseHikeXml } from '../utils/Hike';
 import { copyLink } from '../actions/Hike';
 import { RootView } from '../styles/Screens';
@@ -220,6 +221,7 @@ class HikeScreen extends React.Component {
                     hid={id}
                     hikeName={hike.name}
                 />
+                <FlagModal />
             </RootView>
         );
     }

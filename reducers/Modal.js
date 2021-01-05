@@ -36,6 +36,12 @@ export default function modalReducer(state = modalState, action) {
                 reviewData: action.reviewData,
             };
 
+        case 'SET_FLAGGED_REVIEW':
+            return {
+                ...state,
+                flaggedReview: action.rid,
+            };
+
         default:
             return state;
     }

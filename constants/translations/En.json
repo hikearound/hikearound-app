@@ -125,6 +125,19 @@
         },
         "review": {
             "title": "Review"
+        },
+        "flag": {
+            "title": "Flag Review",
+            "subtitle": "Why are you flagging this review?",
+            "subtext": "Please select from one of the options below. Your submission will remain anonymous.",
+            "action": {
+                "spam": "It's spam",
+                "offensive": "It's offensive"
+            },
+            "confirmation": {
+                "subtitle": "Thanks for letting us know",
+                "subtext": "We'll review your report and will take appropriate action if needed. We appreciate your reaching out."
+            }
         }
     },
     "card": {

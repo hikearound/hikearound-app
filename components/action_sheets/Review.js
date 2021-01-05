@@ -14,9 +14,16 @@ export function getAuthorSheetOptions(t) {
     ];
 }
 
-export function getActions(buttonIndex) {
+export function getActions(
+    data,
+    buttonIndex,
+    dispatchModalFlag,
+    dispatchFlaggedReview,
+) {
     if (buttonIndex === 0) {
-        // flag
+        // console.log(data)
+        dispatchFlaggedReview(data.rid);
+        dispatchModalFlag('flagReview');
     }
 }
 
@@ -46,6 +53,7 @@ export function reviewActionSheet(
     data,
     dispatchModalFlag,
     dispatchReviewData,
+    dispatchFlaggedReview,
 ) {
     let cancelButtonIndex = 1;
     let destructiveButtonIndex = null;
@@ -76,7 +84,12 @@ export function reviewActionSheet(
                     dispatchReviewData,
                 );
             } else {
-                getActions(buttonIndex);
+                getActions(
+                    data,
+                    buttonIndex,
+                    dispatchModalFlag,
+                    dispatchFlaggedReview,
+                );
             }
         },
     );

@@ -118,6 +118,22 @@
         "filter": {
             "title": "Filtrar",
             "cta": "Aplicar filtros"
+        },
+        "review": {
+            "title": "Revisión"
+        },
+        "flag": {
+            "title": "Revisión de la bandera",
+            "subtitle": "¿Por qué marca esta revisión?",
+            "subtext": "Seleccione una de las opciones siguientes. Su envío permanecerá anónimo.",
+            "action": {
+                "spam": "Es correo no deseado",
+                "offensive": "Es ofensivo"
+            },
+            "confirmation": {
+                "subtitle": "Gracias por dejarnos saber",
+                "subtext": "Revisaremos su informe y tomaremos las medidas adecuadas si es necesario. Agradecemos su ayuda."
+            }
         }
     },
     "card": {

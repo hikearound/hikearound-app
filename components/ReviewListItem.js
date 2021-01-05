@@ -11,7 +11,7 @@ import Stars from './Stars';
 import LikeButton from './LikeButton';
 import OverflowButton from './review/Overflow';
 import { getLanguageCode } from '../utils/Localization';
-import { showModal, setReviewData } from '../actions/Modal';
+import { showModal, setReviewData, setFlaggedReview } from '../actions/Modal';
 import {
     ReviewItem,
     Header,
@@ -31,6 +31,7 @@ const propTypes = {
     dispatchModalFlag: PropTypes.func.isRequired,
     dispatchReviewData: PropTypes.func.isRequired,
     dispatchDeleteReview: PropTypes.func.isRequired,
+    dispatchFlaggedReview: PropTypes.func.isRequired,
     user: PropTypes.object.isRequired,
     rating: PropTypes.number.isRequired,
     rid: PropTypes.string.isRequired,
@@ -57,6 +58,8 @@ function mapDispatchToProps(dispatch) {
     return {
         dispatchDeleteReview: (reviewData) =>
             dispatch(deleteReviewData(reviewData)),
+        dispatchFlaggedReview: (reviewData) =>
+            dispatch(setFlaggedReview(reviewData)),
         dispatchModalFlag: (modalType) => dispatch(showModal(modalType)),
         dispatchReviewData: (reviewData) => dispatch(setReviewData(reviewData)),
     };
@@ -98,6 +101,7 @@ class ReviewListItem extends React.Component {
             rating,
             dispatchModalFlag,
             dispatchReviewData,
+            dispatchFlaggedReview,
         } = this.props;
 
         const data = { user, review, rating, rid };
@@ -108,6 +112,7 @@ class ReviewListItem extends React.Component {
             data,
             dispatchModalFlag,
             dispatchReviewData,
+            dispatchFlaggedReview,
         );
     };
 

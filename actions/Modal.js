@@ -14,6 +14,10 @@ export const setReviewData = (reviewData) => {
     return { type: 'SET_REVIEW_DATA', reviewData };
 };
 
+export const setFlaggedReview = (rid) => {
+    return { type: 'SET_FLAGGED_REVIEW', rid };
+};
+
 export const showModal = (modalType) => {
     return { type: 'SHOW_MODAL', modalType };
 };

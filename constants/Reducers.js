@@ -18,6 +18,7 @@ export const modalState = {
     selectedHike: null,
     closeAction: '',
     reviewData: {},
+    flagedReview: null,
 };
 
 export const notifs = {

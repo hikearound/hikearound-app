@@ -36,6 +36,8 @@ export const PageSheetModalHeader = styled(ModalHeader)`
     height: 55px;
     margin-bottom: -${spacing.small}px;
     background-color: ${(props) => props.theme.rootBackground};
+    border-bottom-color: ${(props) => props.theme.modalButtonBorder};
+    border-bottom-width: ${(props) => (props.showBottomBorder ? `1px` : 0)};
 `;
 
 export const PageSheetModalTitleText = styled(ModalTitleText)`
