@@ -8,8 +8,16 @@ import { avatarDefault, avatarDark } from '../constants/Images';
 
 const scheme = Appearance.getColorScheme();
 
-export async function getUserProfileData(uid) {
+export async function getUserProfileData(t, uid) {
     const userSnapshot = await db.collection('users').doc(uid).get();
+
+    if (!userSnapshot.data()) {
+        return {
+            uid,
+            name: t('label.user.deleted'),
+        };
+    }
+
     return userSnapshot.data();
 }
 

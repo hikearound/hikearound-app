@@ -40,7 +40,11 @@
             "save": "Salvar",
             "close": "Cerca",
             "cancel": "Cancelar",
-            "send": "Enviar"
+            "send": "Enviar",
+            "reset": "Reiniciar"
+        },
+        "user": {
+            "deleted": "Un usuario eliminado"
         }
     },
     "input": {

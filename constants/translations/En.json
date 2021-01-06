@@ -45,6 +45,9 @@
             "cancel": "Cancel",
             "send": "Send",
             "reset": "Reset"
+        },
+        "user": {
+            "deleted": "A Deleted User"
         }
     },
     "input": {

@@ -5,11 +5,11 @@ import { avatarDefault, avatarDark } from '../constants/Images';
 
 const scheme = Appearance.getColorScheme();
 
-export async function buildReviewArray(data) {
+export async function buildReviewArray(t, data) {
     const reviews = [];
 
     for (const review of data) {
-        const userData = await getUserProfileData(review.uid);
+        const userData = await getUserProfileData(t, review.uid);
 
         if (!userData.photoURL) {
             userData.photoURL = avatarDefault;
@@ -83,7 +83,7 @@ export function getReviewRef(hid, sortDirection, querySize) {
         .limit(querySize);
 }
 
-export async function getRecentReviews(hid, sortDirection, querySize) {
+export async function getRecentReviews(t, hid, sortDirection, querySize) {
     const reviewRef = getReviewRef(hid, sortDirection, querySize);
     const querySnapshot = await reviewRef.get();
 
@@ -103,7 +103,7 @@ export async function getRecentReviews(hid, sortDirection, querySize) {
         }
     });
 
-    recentReviews = await buildReviewArray(recentReviews);
+    recentReviews = await buildReviewArray(t, recentReviews);
     return recentReviews;
 }
 
