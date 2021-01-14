@@ -1,6 +1,9 @@
 import { animationConfig } from '../Animation';
 
 export const defaultProps = {
+    cluster: null,
+    firstLoad: false,
+    animationEnabled: false,
     delta: 0.5,
     altitude: {
         city: 160000,

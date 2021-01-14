@@ -4,4 +4,20 @@ export const animationConfig = {
     duration: 1000,
 };
 
-export default animationConfig;
+export const presets = {
+    spring: {
+        duration: 300,
+        create: {
+            type: 'linear',
+            property: 'opacity',
+        },
+        update: {
+            type: 'spring',
+            springDamping: 0.4,
+        },
+        delete: {
+            type: 'linear',
+            property: 'opacity',
+        },
+    },
+};

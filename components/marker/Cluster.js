@@ -1,11 +1,12 @@
 import React from 'react';
-import { ImageBackground } from 'react-native';
+import { ImageBackground, LayoutAnimation } from 'react-native';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Marker } from 'react-native-maps';
 import { colors, fontSizes, fontWeights } from '../../constants/Index';
 import { withTheme } from '../../utils/Themes';
 import { clusterMarker } from '../../constants/Images';
+import { presets } from '../../constants/Animation';
 
 const propTypes = {
     animationConfig: PropTypes.object.isRequired,
@@ -24,6 +25,11 @@ const defaultProps = {
 };
 
 class ClusterMarker extends React.Component {
+    constructor(props) {
+        super(props);
+        LayoutAnimation.configureNext(presets.spring);
+    }
+
     markerPress = () => {
         const { mapRef, animationConfig, coordinate, altitude } = this.props;
 

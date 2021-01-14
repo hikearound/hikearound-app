@@ -1,11 +1,12 @@
 import React from 'react';
-import { View, ImageBackground } from 'react-native';
+import { View, ImageBackground, LayoutAnimation } from 'react-native';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { defaultProps } from '../../constants/states/HikeMapMarker';
 import { colors, fontSizes, fontWeights } from '../../constants/Index';
 import { withTheme } from '../../utils/Themes';
 import { markerBgDefault, markerBgDark } from '../../constants/Images';
+import { presets } from '../../constants/Animation';
 
 const propTypes = {
     distance: PropTypes.number,
@@ -15,6 +16,7 @@ class GlobalMarker extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
+        LayoutAnimation.configureNext(presets.spring);
     }
 
     componentDidMount() {
