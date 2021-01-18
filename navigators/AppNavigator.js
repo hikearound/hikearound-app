@@ -43,7 +43,7 @@ class AppNavigator extends React.PureComponent {
         const currentRoute = navigationRef.current.getCurrentRoute().name;
 
         if (previousRoute !== currentRoute) {
-            setCurrentScreen(currentRoute, {});
+            setCurrentScreen(currentRoute);
         }
 
         routeNameRef.current = currentRoute;
@@ -51,6 +51,7 @@ class AppNavigator extends React.PureComponent {
 
     setRouteNameRef = () => {
         routeNameRef.current = navigationRef.current.getCurrentRoute().name;
+        setCurrentScreen(routeNameRef.current);
     };
 
     render() {

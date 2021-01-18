@@ -5,6 +5,7 @@ import { db, storage, auth } from '../lib/Fire';
 import store from '../store/Store';
 import { getRange, getNearestCity } from './Location';
 import { avatarDefault, avatarDark } from '../constants/Images';
+import { getLanguageCode } from './Localization';
 
 const scheme = Appearance.getColorScheme();
 
@@ -29,6 +30,14 @@ export async function writeUserData(userData) {
     });
 
     db.collection('users').doc(user.uid).set(userData, { merge: true });
+}
+
+export async function writeUserLanguage() {
+    const user = auth.currentUser;
+
+    db.collection('users')
+        .doc(user.uid)
+        .set({ lang: getLanguageCode() }, { merge: true });
 }
 
 export async function writeUserLocation(currentPosition) {
@@ -198,13 +207,17 @@ export async function getUserData(dispatchUserData, dispatchAvatar) {
     userData.reviewedHikes = reviewedHikes;
 
     await setAvatar(dispatchAvatar);
+    await writeUserLanguage();
+
     dispatchUserData(userData);
 }
 
 export function createUserProfile(dispatchUserData, name) {
     const state = store.getState();
+    const lang = getLanguageCode();
+
     const { map, location, darkMode, notifs, photoURL } = state.userReducer;
-    const userData = { map, location, darkMode, notifs, name, photoURL };
+    const userData = { map, location, darkMode, notifs, name, photoURL, lang };
 
     dispatchUserData(userData);
 }

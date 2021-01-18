@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
+import { withTranslation } from 'react-i18next';
 import { Settings, ProfileHeader, ProfileBody } from '../components/Index';
 import EditProfileModal from '../components/modal/EditProfileModal';
 import { getUserFavoriteHikes } from '../utils/User';
@@ -9,6 +11,7 @@ import { initializeHikeData } from '../actions/Hike';
 import { timings } from '../constants/Index';
 import { RootView } from '../styles/Screens';
 import { withTheme, SetBarStyle } from '../utils/Themes';
+import Title from '../components/header/Title';
 
 const propTypes = {
     dispatchHikeData: PropTypes.func.isRequired,
@@ -29,10 +32,12 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
+const scrollRef = React.createRef();
+
 class ProfileScreen extends React.Component {
     constructor(props) {
         super(props);
-        const { navigation } = this.props;
+        const { navigation, t } = this.props;
 
         this.state = {
             loading: true,
@@ -41,6 +46,9 @@ class ProfileScreen extends React.Component {
         };
 
         navigation.setOptions({
+            headerTitle: () => (
+                <Title title={t('label.nav.you')} scrollRef={scrollRef} />
+            ),
             headerRight: () => <Settings navigation={navigation} />,
         });
     }
@@ -106,14 +114,17 @@ class ProfileScreen extends React.Component {
                 <SetBarStyle barStyle='light-content' />
                 {loading && <ProfileLoadingState />}
                 {!loading && (
-                    <>
+                    <ScrollView
+                        showsVerticalScrollIndicator={false}
+                        ref={scrollRef}
+                    >
                         <ProfileHeader />
                         <ProfileBody
                             hikeData={hikeData}
                             loading={loading}
                             maybeShowEmptyState={maybeShowEmptyState}
                         />
-                    </>
+                    </ScrollView>
                 )}
                 <EditProfileModal />
             </RootView>
@@ -126,4 +137,4 @@ ProfileScreen.propTypes = propTypes;
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(withTheme(ProfileScreen));
+)(withTranslation()(withTheme(ProfileScreen)));
