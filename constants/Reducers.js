@@ -7,7 +7,6 @@ export const mapState = {
 
 export const hikeState = {
     action: '',
-    hikeData: [],
     updatedHikeData: {},
 };
 

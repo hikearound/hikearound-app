@@ -1,4 +1,5 @@
 import { animationConfig } from '../Animation';
+import { altitude } from '../Altitude';
 
 export const defaultProps = {
     cluster: null,
@@ -6,8 +7,8 @@ export const defaultProps = {
     animationEnabled: false,
     delta: 0.5,
     altitude: {
-        city: 160000,
-        hike: 20000,
+        city: altitude.city,
+        hike: altitude.hike,
     },
     selectedCity: null,
     mapPadding: {

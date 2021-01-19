@@ -58,23 +58,27 @@ class MapSearch extends React.Component {
         const { dispatchMapData, selectedHike } = this.props;
         const selectedCity = details;
 
+        this.setState({ city: selectedCity.formatted_address });
         dispatchMapData({ selectedHike, selectedCity });
     };
 
     onFocus = () => {
-        const { hideHikeSheet } = this.props;
+        const { hideHikeSheet, theme } = this.props;
         const { city } = this.state;
+
+        const style = getMapSearchStyle(theme, false, true);
 
         if (city.length > 0) {
             this.onChange();
         }
 
+        this.setState({ style });
         hideHikeSheet();
     };
 
     onChange = (change) => {
         const { theme } = this.props;
-        const style = getMapSearchStyle(theme, true);
+        const style = getMapSearchStyle(theme, true, false);
 
         if (change) {
             const city = change.nativeEvent.text;
@@ -86,7 +90,7 @@ class MapSearch extends React.Component {
 
     onBlur = () => {
         const { theme } = this.props;
-        const style = getMapSearchStyle(theme, false);
+        const style = getMapSearchStyle(theme, false, true);
 
         this.setState({ style });
     };

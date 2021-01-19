@@ -2,12 +2,6 @@ import { hikeState } from '../constants/Reducers';
 
 export default function hikeReducer(state = hikeState, action) {
     switch (action.type) {
-        case 'INITIALIZE_HIKE_DATA':
-            return {
-                ...state,
-                hikeData: action.hikeData,
-            };
-
         case 'FAVORITE_HIKE':
             return {
                 ...state,

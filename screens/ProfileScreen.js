@@ -7,14 +7,12 @@ import { Settings, ProfileHeader, ProfileBody } from '../components/Index';
 import EditProfileModal from '../components/modal/EditProfileModal';
 import { getUserFavoriteHikes } from '../utils/User';
 import ProfileLoadingState from '../components/loading/Profile';
-import { initializeHikeData } from '../actions/Hike';
 import { timings } from '../constants/Index';
 import { RootView } from '../styles/Screens';
 import { withTheme, SetBarStyle } from '../utils/Themes';
 import Title from '../components/header/Title';
 
 const propTypes = {
-    dispatchHikeData: PropTypes.func.isRequired,
     updatedHikeData: PropTypes.object.isRequired,
     name: PropTypes.string.isRequired,
 };
@@ -26,10 +24,8 @@ function mapStateToProps(state) {
     };
 }
 
-function mapDispatchToProps(dispatch) {
-    return {
-        dispatchHikeData: (hikeData) => dispatch(initializeHikeData(hikeData)),
-    };
+function mapDispatchToProps() {
+    return {};
 }
 
 const scrollRef = React.createRef();
@@ -42,6 +38,7 @@ class ProfileScreen extends React.Component {
         this.state = {
             loading: true,
             maybeShowEmptyState: false,
+            scrollEnabled: false,
             hikeData: [],
         };
 
@@ -81,8 +78,6 @@ class ProfileScreen extends React.Component {
     };
 
     getHikeData = async () => {
-        const { dispatchHikeData } = this.props;
-
         const hikeData = [];
         const favoritedHikes = await getUserFavoriteHikes();
 
@@ -98,8 +93,11 @@ class ProfileScreen extends React.Component {
             this.setState({ maybeShowEmptyState: true });
         }
 
+        if (hikeData.length > 6) {
+            this.setState({ scrollEnabled: true });
+        }
+
         if (hikeData) {
-            dispatchHikeData(hikeData);
             await this.setState({ hikeData });
         }
 
@@ -107,7 +105,12 @@ class ProfileScreen extends React.Component {
     };
 
     render() {
-        const { loading, maybeShowEmptyState, hikeData } = this.state;
+        const {
+            loading,
+            maybeShowEmptyState,
+            hikeData,
+            scrollEnabled,
+        } = this.state;
 
         return (
             <RootView>
@@ -117,6 +120,7 @@ class ProfileScreen extends React.Component {
                     <ScrollView
                         showsVerticalScrollIndicator={false}
                         ref={scrollRef}
+                        scrollEnabled={scrollEnabled}
                     >
                         <ProfileHeader />
                         <ProfileBody

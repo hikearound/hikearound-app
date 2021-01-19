@@ -11,6 +11,8 @@ import { spacing, bottomSheet } from '../../constants/Index';
 import { withNavigation } from '../../utils/Navigation';
 import LoadingOverlay from '../LoadingOverlay';
 import SheetHeader from './Header';
+import { animationConfig } from '../../constants/Animation';
+import { altitude } from '../../constants/Altitude';
 
 const propTypes = {
     sheetRef: PropTypes.object.isRequired,
@@ -63,6 +65,20 @@ class HikeSheet extends React.Component {
         return <SheetHeader mapRef={mapRef} shouldShowLocationButton />;
     };
 
+    onClose = () => {
+        const { mapRef } = this.props;
+
+        const camera = {
+            altitude: altitude.onClose,
+            heading: animationConfig.heading,
+            pitch: animationConfig.pitch,
+        };
+
+        mapRef.current.animateCamera(camera, {
+            duration: animationConfig.duration,
+        });
+    };
+
     render() {
         const { sheetRef } = this.props;
 
@@ -75,6 +91,7 @@ class HikeSheet extends React.Component {
                 ]}
                 renderContent={this.renderContent}
                 renderHeader={this.renderHeader}
+                onCloseEnd={this.onClose}
                 enabledInnerScrolling={false}
                 ref={sheetRef}
             />
