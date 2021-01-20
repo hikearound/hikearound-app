@@ -66,7 +66,7 @@ class HikeSheet extends React.Component {
     };
 
     onClose = () => {
-        const { mapRef } = this.props;
+        const { mapRef, selectedHike } = this.props;
 
         const camera = {
             altitude: altitude.onClose,
@@ -74,9 +74,11 @@ class HikeSheet extends React.Component {
             pitch: animationConfig.pitch,
         };
 
-        mapRef.current.animateCamera(camera, {
-            duration: animationConfig.duration,
-        });
+        if (selectedHike) {
+            mapRef.current.animateCamera(camera, {
+                duration: animationConfig.duration,
+            });
+        }
     };
 
     render() {
