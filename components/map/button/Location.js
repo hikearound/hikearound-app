@@ -12,6 +12,7 @@ import {
     spacing,
 } from '../../../constants/Index';
 import { withTheme } from '../../../utils/Themes';
+import { altitude } from '../../../constants/Altitude';
 
 const propTypes = {
     position: PropTypes.object,
@@ -41,7 +42,7 @@ class LocationButton extends React.PureComponent {
         const { mapRef, animationConfig, position } = this.props;
 
         const camera = {
-            altitude: 20000,
+            altitude: altitude.hike,
             center: {
                 latitude: position.coords.latitude,
                 longitude: position.coords.longitude,
