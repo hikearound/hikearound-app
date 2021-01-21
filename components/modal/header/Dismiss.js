@@ -5,7 +5,6 @@ import { withTranslation } from 'react-i18next';
 import { TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { connect } from 'react-redux';
-import Constants from 'expo-constants';
 import {
     colors,
     transparentColors,
