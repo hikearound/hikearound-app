@@ -3,19 +3,18 @@ import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
 import { TouchableOpacity, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import Constants from 'expo-constants';
 import { colors, opacities } from '../../../constants/Index';
 import { lightboxActionSheet } from '../../action_sheets/Lightbox';
 
 const propTypes = {
     images: PropTypes.array.isRequired,
     imageIndex: PropTypes.number.isRequired,
-    iconOffset: PropTypes.number,
     iconSize: PropTypes.number,
 };
 
 const defaultProps = {
-    iconOffset: 30,
-    iconSize: 35,
+    iconSize: 30,
 };
 
 class ModalOverflow extends React.PureComponent {
@@ -29,7 +28,18 @@ class ModalOverflow extends React.PureComponent {
 
     componentDidMount() {
         this.setImageAttribution();
+        this.setPosition();
     }
+
+    setPosition = () => {
+        let offset = 30;
+
+        if (Constants.statusBarHeight === 20) {
+            offset /= 2;
+        }
+
+        this.setState({ top: offset, left: offset });
+    };
 
     setImageAttribution = async () => {
         const { images, imageIndex } = this.props;
@@ -41,6 +51,7 @@ class ModalOverflow extends React.PureComponent {
     showAttributionAlert = () => {
         const { t } = this.props;
         const { attribution } = this.state;
+
         Alert.alert(
             t('alert.attribution.title'),
             t('alert.attribution.body', { name: attribution.name }),
@@ -48,7 +59,8 @@ class ModalOverflow extends React.PureComponent {
     };
 
     render() {
-        const { iconOffset, iconSize } = this.props;
+        const { iconSize } = this.props;
+        const { top, left } = this.state;
 
         return (
             <TouchableOpacity
@@ -58,8 +70,8 @@ class ModalOverflow extends React.PureComponent {
                 activeOpacity={opacities.regular}
                 style={{
                     position: 'absolute',
-                    left: iconOffset,
-                    top: iconOffset,
+                    left,
+                    top,
                     zIndex: 1,
                 }}
             >

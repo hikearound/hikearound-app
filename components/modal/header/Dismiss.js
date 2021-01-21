@@ -5,6 +5,7 @@ import { withTranslation } from 'react-i18next';
 import { TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { connect } from 'react-redux';
+import Constants from 'expo-constants';
 import {
     colors,
     transparentColors,
@@ -39,10 +40,29 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-class ModalDismiss extends React.PureComponent {
+class ModalDismiss extends React.Component {
+    constructor(props, context) {
+        super(props, context);
+        this.state = {};
+    }
+
+    componentDidMount() {
+        this.setPosition();
+    }
+
     close = () => {
         const { dispatchModalFlag, closeAction } = this.props;
         dispatchModalFlag(closeAction);
+    };
+
+    setPosition = () => {
+        let offset = 30;
+
+        if (Constants.statusBarHeight === 20) {
+            offset /= 2;
+        }
+
+        this.setState({ top: offset, right: offset });
     };
 
     render() {
@@ -54,6 +74,7 @@ class ModalDismiss extends React.PureComponent {
             isPageSheet,
             t,
         } = this.props;
+        const { top, right } = this.state;
 
         let iconStyle = (
             <Ionicons name='ios-close' color={colors.white} size={iconSize} />
@@ -99,8 +120,8 @@ class ModalDismiss extends React.PureComponent {
                 activeOpacity={opacities.regular}
                 style={{
                     position: 'absolute',
-                    right: 25,
-                    top: 30,
+                    right,
+                    top,
                     zIndex: 1,
                 }}
             >
