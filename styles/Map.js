@@ -1,4 +1,5 @@
 import Constants from 'expo-constants';
+import styled from 'styled-components';
 import { fontSizes, spacing, transparentColors } from '../constants/Index';
 
 export function getMapSearchStyle(theme, hideShadow, hideBackground) {
@@ -70,4 +71,8 @@ export function getMapSearchStyle(theme, hideShadow, hideBackground) {
     };
 }
 
-export default getMapSearchStyle;
+export const EmptyStateText = styled.Text`
+    color: ${(props) => props.theme.text};
+    font-size: ${fontSizes.small}px;
+    padding: 13px 0 16px 0;
+`;

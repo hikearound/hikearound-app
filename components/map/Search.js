@@ -5,7 +5,7 @@ import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplet
 import { withTranslation } from 'react-i18next';
 import Constants from 'expo-constants';
 import { withTheme } from '../../utils/Themes';
-import { getMapSearchStyle } from '../../styles/Map';
+import { getMapSearchStyle, EmptyStateText } from '../../styles/Map';
 import { withNavigation } from '../../utils/Navigation';
 import { updateMapData } from '../../actions/Map';
 
@@ -49,7 +49,7 @@ class MapSearch extends React.Component {
         this.searchInputRef = React.createRef();
 
         this.state = {
-            city: '',
+            textInput: '',
             style: getMapSearchStyle(theme),
         };
     }
@@ -58,41 +58,58 @@ class MapSearch extends React.Component {
         const { dispatchMapData, selectedHike } = this.props;
         const selectedCity = details;
 
-        this.setState({ city: selectedCity.formatted_address });
+        this.setState({ textInput: '' });
         dispatchMapData({ selectedHike, selectedCity });
     };
 
     onFocus = () => {
-        const { hideHikeSheet, theme } = this.props;
-        const { city } = this.state;
+        const { hideHikeSheet } = this.props;
+        const { textInput } = this.state;
 
-        const style = getMapSearchStyle(theme, false, true);
+        if (!textInput) {
+            this.setMapStyle(false, true);
+        }
 
-        if (city.length > 0) {
+        if (textInput.length > 0) {
             this.onChange();
         }
 
-        this.setState({ style });
         hideHikeSheet();
     };
 
     onChange = (change) => {
-        const { theme } = this.props;
-        const style = getMapSearchStyle(theme, true, false);
-
         if (change) {
-            const city = change.nativeEvent.text;
-            this.setState({ city });
+            this.setState({
+                textInput: change.nativeEvent.text,
+            });
         }
 
-        this.setState({ style });
+        this.setMapStyle(true, false);
     };
 
     onBlur = () => {
-        const { theme } = this.props;
-        const style = getMapSearchStyle(theme, false, true);
+        this.setMapStyle(false, false);
+    };
 
-        this.setState({ style });
+    setMapStyle = (hideShadow, hideBackground) => {
+        const { theme } = this.props;
+
+        this.setState({
+            style: getMapSearchStyle(theme, hideShadow, hideBackground),
+        });
+    };
+
+    renderEmptyList = () => {
+        const { t } = this.props;
+        const { textInput } = this.state;
+
+        if (textInput) {
+            return (
+                <EmptyStateText>{t('screen.map.results.empty')}</EmptyStateText>
+            );
+        }
+
+        return null;
     };
 
     render() {
@@ -132,6 +149,7 @@ class MapSearch extends React.Component {
                 onPress={(data, details = null) => this.onPress(details)}
                 styles={style}
                 listUnderlayColor={theme.colors.searchBackground}
+                listEmptyComponent={this.renderEmptyList}
             />
         );
     }

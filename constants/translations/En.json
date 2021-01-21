@@ -192,6 +192,9 @@
         },
         "map": {
             "search": "Search for hikes by city",
+            "results": {
+                "empty": "No results found"
+            },
             "empty": {
                 "title": "Adventure awaits",
                 "description": "Get started by selecting a hike from the map above."

@@ -192,6 +192,9 @@
         },
         "map": {
             "search": "Buscar caminatas por ciudad",
+            "results": {
+                "empty": "No se han encontrado resultados"
+            },
             "empty": {
                 "title": "La aventura espera",
                 "description": "Comience seleccionando una caminata del mapa de arriba."

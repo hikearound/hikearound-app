@@ -1,5 +1,8 @@
+import { borderRadius } from '../Index';
+
 export const defaultProps = {
     maxZoom: 16,
+    mapBorderRadius: parseInt(borderRadius.medium, 10),
     fullHeight: false,
     region: undefined,
     coordinates: [],
