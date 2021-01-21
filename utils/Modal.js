@@ -1,3 +1,5 @@
+import Constants from 'expo-constants';
+
 export function toggleModalVisibility(
     prevProps,
     currentModal,
@@ -13,4 +15,26 @@ export function toggleModalVisibility(
     }
 }
 
-export default toggleModalVisibility;
+export function getDismissIconPosition(includeBackground) {
+    let position = { top: 50, right: 20 };
+
+    if (includeBackground) {
+        position = { top: 40, right: 20 };
+    }
+
+    if (Constants.statusBarHeight === 20) {
+        position = { top: 15, right: 15 };
+    }
+
+    return position;
+}
+
+export function getOverflowIconPosition() {
+    let position = { top: 45, left: 20 };
+
+    if (Constants.statusBarHeight === 20) {
+        position = { top: 15, left: 15 };
+    }
+
+    return position;
+}

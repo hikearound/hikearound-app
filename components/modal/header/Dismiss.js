@@ -14,6 +14,7 @@ import {
 } from '../../../constants/Index';
 import { closeModal } from '../../../actions/Modal';
 import HeaderText from '../../../styles/Header';
+import { getDismissIconPosition } from '../../../utils/Modal';
 
 const propTypes = {
     dispatchModalFlag: PropTypes.func.isRequired,
@@ -29,7 +30,7 @@ const defaultProps = {
     includeBackground: false,
     closeAction: 'close',
     textDismiss: false,
-    iconSize: 28,
+    iconSize: 26,
     dismissLanguage: 'close',
     isPageSheet: false,
 };
@@ -56,13 +57,13 @@ class ModalDismiss extends React.Component {
     };
 
     setPosition = () => {
-        let offset = 30;
+        const { includeBackground } = this.props;
+        const position = getDismissIconPosition(includeBackground);
 
-        if (Constants.statusBarHeight === 20) {
-            offset /= 2;
-        }
-
-        this.setState({ top: offset, right: offset });
+        this.setState({
+            top: position.top,
+            right: position.right,
+        });
     };
 
     render() {
@@ -77,7 +78,11 @@ class ModalDismiss extends React.Component {
         const { top, right } = this.state;
 
         let iconStyle = (
-            <Ionicons name='ios-close' color={colors.white} size={iconSize} />
+            <Ionicons
+                name='ios-close'
+                color={colors.white}
+                size={iconSize - 2}
+            />
         );
 
         if (includeBackground) {

@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
 import { TouchableOpacity, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import Constants from 'expo-constants';
 import { colors, opacities } from '../../../constants/Index';
 import { lightboxActionSheet } from '../../action_sheets/Lightbox';
+import { getOverflowIconPosition } from '../../../utils/Modal';
 
 const propTypes = {
     images: PropTypes.array.isRequired,
@@ -32,13 +32,12 @@ class ModalOverflow extends React.PureComponent {
     }
 
     setPosition = () => {
-        let offset = 30;
+        const position = getOverflowIconPosition();
 
-        if (Constants.statusBarHeight === 20) {
-            offset /= 2;
-        }
-
-        this.setState({ top: offset, left: offset });
+        this.setState({
+            top: position.top,
+            left: position.left,
+        });
     };
 
     setImageAttribution = async () => {
