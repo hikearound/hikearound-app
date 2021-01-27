@@ -1,8 +1,8 @@
 import { parseString } from 'react-native-xml2js';
 import { db, storage, auth, timestamp } from '../lib/Fire';
 
-export async function getHikeSnapshot(id) {
-    return db.collection('hikes').doc(id).get();
+export async function getHikeSnapshot(hid) {
+    return db.collection('hikes').doc(hid).get();
 }
 
 export function getHikeRef(type, range, sortDirection, querySize) {
@@ -18,27 +18,28 @@ export function getHikeRef(type, range, sortDirection, querySize) {
     return hikeRef.orderBy('createdOn', sortDirection).limit(querySize);
 }
 
-export async function getHikeImageGallery(id) {
-    const gallerySnapshot = await db.collection('images').doc(id).get();
+export async function getHikeImageGallery(hid) {
+    const gallerySnapshot = await db.collection('images').doc(hid).get();
     const images = gallerySnapshot.data();
     const count = Object.keys(images).length;
+
     return { images, count };
 }
 
-export async function getHikeImage(id, index) {
+export async function getHikeImage(hid, index) {
     const thumbnail = await storage
-        .ref(`hikes/${id}/images/thumbnails/${index}_200x200.jpg`)
+        .ref(`hikes/${hid}/images/thumbnails/${index}_200x200.jpg`)
         .getDownloadURL();
 
     const cover = await storage
-        .ref(`hikes/${id}/images/covers/${index}_750x750.jpg`)
+        .ref(`hikes/${hid}/images/covers/${index}_750x750.jpg`)
         .getDownloadURL();
 
     return { thumbnail, cover };
 }
 
-export async function getHikeXmlUrl(id) {
-    return storage.ref(`gpx/${id}.gpx`).getDownloadURL();
+export async function getHikeXmlUrl(hid) {
+    return storage.ref(`gpx/${hid}.gpx`).getDownloadURL();
 }
 
 export function writeFavoriteHike(hikeData) {
@@ -75,13 +76,13 @@ export async function parseHikeXml(hikeXmlUrl) {
     return hikeData;
 }
 
-export async function getHikeData(id) {
-    const hikeSnapshot = await getHikeSnapshot(id);
+export async function getHikeData(hid) {
+    const hikeSnapshot = await getHikeSnapshot(hid);
     return hikeSnapshot.data();
 }
 
-export async function openHikeScreen(id, navigation) {
-    const hikeData = await getHikeData(id);
+export async function openHikeScreen(hid, navigation) {
+    const hikeData = await getHikeData(hid);
 
     if (hikeData) {
         if (!hikeData.review) {
@@ -90,7 +91,7 @@ export async function openHikeScreen(id, navigation) {
 
         navigation.push('Hike', {
             hike: {
-                id,
+                id: hid,
                 images: hikeData.images,
                 name: hikeData.name,
                 distance: hikeData.distance,
