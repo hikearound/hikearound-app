@@ -8,7 +8,7 @@
       "ios",
       "web"
     ],
-    "version": "0.0.18",
+    "version": "0.0.19",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -27,17 +27,20 @@
     ],
     "ios": {
       "supportsTablet": false,
-      "backgroundColor": "#FFF",
+      "backgroundColor": "#FFFFFF",
       "userInterfaceStyle": "automatic",
       "bundleIdentifier": "com.tryhikearound",
       "googleServicesFile": "./keys/GoogleService-Info.plist",
+      "infoPlist": {
+           "NSLocationWhenInUseUsageDescription": "Hikearound uses your location to show nearby hikes.",
+      },
       "associatedDomains": [
         "applinks:www.tryhikearound.com",
         "applinks:tryhikearound.com",
         "applinks:url8422.tryhikearound.com"
       ],
     },
-    "description": "An iOS app that offers curated and personalized hikes.",
-    "githubUrl": "https://github.com/pdugan20/hikearound-app"
+    "description": "Hikearound is the easiest way to discover, save, and share great local hikes.",
+    "githubUrl": "https://github.com/hikearound/hikearound-app"
   }
 }
