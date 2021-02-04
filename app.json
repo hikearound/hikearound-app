@@ -31,7 +31,6 @@
     },
     "ios": {
       "supportsTablet": false,
-      "backgroundColor": "#FFFFFF",
       "userInterfaceStyle": "automatic",
       "bundleIdentifier": "com.tryhikearound",
       "googleServicesFile": "./keys/GoogleService-Info.plist",

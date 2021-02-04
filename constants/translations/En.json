@@ -24,7 +24,8 @@
         "heading": {
             "description": "Description",
             "images": "Images",
-            "reviews": "Reviews"
+            "reviews": "Reviews",
+            "recentReviews": "Recent Reviews"
         },
         "nav": {
             "you": "You",

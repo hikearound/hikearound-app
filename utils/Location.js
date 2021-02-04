@@ -62,7 +62,7 @@ export async function requestLocationPermission() {
     return status;
 }
 
-export function shouldSetCity(lastKnownPosition) {
+export function positionKnown(lastKnownPosition) {
     if (Object.keys(lastKnownPosition).length !== 0) {
         return true;
     }
@@ -121,13 +121,7 @@ export function getRange(latitude, longitude, distance) {
     };
 }
 
-export function maybeShowHikeInFeed(
-    distance,
-    userLat,
-    userLng,
-    hikeLat,
-    hikeLng,
-) {
+export function maybeShowInFeed(distance, userLat, userLng, hikeLat, hikeLng) {
     const latModifier = getModifier('lat', distance, userLat);
     const lngModifier = getModifier('lon', distance, null);
 

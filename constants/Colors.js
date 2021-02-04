@@ -14,6 +14,7 @@ export const colors = {
     blackText: '#333333',
     blackLight: '#222222',
     blackMedium: '#1C1C1E',
+    blackDark: '#131314',
     black: '#000000',
 
     // Purples

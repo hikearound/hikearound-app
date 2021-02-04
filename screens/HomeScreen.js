@@ -24,11 +24,12 @@ import { getMapData } from '../utils/Map';
 import {
     getPosition,
     getNearestCity,
-    shouldSetCity,
+    positionKnown,
     watchPositionAsync,
 } from '../utils/Location';
 import { getPromotionStatus } from '../utils/Promotions';
 import { queryHikes, sortHikes, cacheFeedImages } from '../utils/Feed';
+import { queryReviews } from '../utils/Review';
 import { getSortDirection } from '../utils/Filter';
 import {
     checkInitialUrl,
@@ -93,6 +94,7 @@ class HomeScreen extends React.Component {
         this.addListeners();
 
         await this.getAndSetPosition();
+        await this.getAndSetData();
         await this.getAndSetPromotions();
 
         await watchPositionAsync(dispatchUserPosition);
@@ -138,7 +140,7 @@ class HomeScreen extends React.Component {
         this.setState({ firstLoad: true });
     };
 
-    getHikeFeedData = async (lastKey) => {
+    getNearbyHikes = async (lastKey) => {
         const {
             sortDirection,
             distance,
@@ -159,12 +161,32 @@ class HomeScreen extends React.Component {
         );
 
         this.lastKnownKey = cursor;
-
         await cacheFeedImages(data);
+
         this.addhikes(data);
         this.maybeToggleFirstLoad();
 
         this.setState({ loading: false });
+    };
+
+    getNearbyReviews = async () => {
+        const {
+            sortDirection,
+            distance,
+            querySize,
+            lastKnownPosition,
+        } = this.state;
+        const { t } = this.props;
+
+        const { data } = await queryReviews(
+            t,
+            querySize,
+            lastKnownPosition,
+            sortDirection,
+            distance,
+        );
+
+        this.setState({ reviews: data });
     };
 
     maybeToggleFirstLoad = () => {
@@ -203,36 +225,34 @@ class HomeScreen extends React.Component {
         await this.setState({ loading: true });
 
         this.timeout = setTimeout(() => {
-            this.getHikeFeedData();
+            this.getNearbyHikes();
         }, timings.medium);
     };
 
     onEndReached = () => {
-        this.getHikeFeedData(this.lastKnownKey);
+        this.getNearbyHikes(this.lastKnownKey);
     };
 
     getAndSetPosition = async () => {
         const lastKnownPosition = await getPosition('lastKnown');
-        this.setState({ lastKnownPosition });
+        await this.setState({ lastKnownPosition });
+    };
 
-        if (shouldSetCity(lastKnownPosition)) {
-            this.getAndSetCity();
+    getAndSetData = async () => {
+        const { lastKnownPosition } = this.state;
+
+        if (positionKnown(lastKnownPosition)) {
+            this.getNearbyHikes();
+            this.getNearbyReviews();
+            this.getAndSetCity(lastKnownPosition);
         } else {
             this.setState({ firstLoad: false });
         }
     };
 
-    getAndSetCity = async () => {
-        const { lastKnownPosition } = this.state;
-        const { coords } = lastKnownPosition;
-        const city = await getNearestCity(coords);
-
+    getAndSetCity = async (lastKnownPosition) => {
+        const city = await getNearestCity(lastKnownPosition.coords);
         this.setState({ city });
-        this.setHikeData();
-    };
-
-    setHikeData = () => {
-        this.getHikeFeedData();
     };
 
     shouldShowEmptyState = () => {
@@ -258,6 +278,7 @@ class HomeScreen extends React.Component {
     renderHome = () => {
         const {
             hikes,
+            reviews,
             firstLoad,
             loading,
             city,
@@ -284,6 +305,7 @@ class HomeScreen extends React.Component {
                 scrollRef={scrollRef}
                 onEndReached={this.onEndReached}
                 hikes={hikes}
+                reviews={reviews}
                 city={city}
                 lastKnownPosition={lastKnownPosition}
             />

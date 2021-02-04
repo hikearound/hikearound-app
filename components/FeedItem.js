@@ -21,6 +21,7 @@ const propTypes = {
     difficulty: PropTypes.string,
     imageCount: PropTypes.number,
     review: PropTypes.object,
+    geohash: PropTypes.string,
     lastKnownPosition: PropTypes.object.isRequired,
 };
 
@@ -48,6 +49,7 @@ class FeedItem extends React.Component {
             difficulty,
             imageCount,
             review,
+            geohash,
             lastKnownPosition,
         } = this.props;
 
@@ -73,6 +75,7 @@ class FeedItem extends React.Component {
                                     difficulty,
                                     imageCount,
                                     review,
+                                    geohash,
                                 },
                             });
                         }}

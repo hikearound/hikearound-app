@@ -7,6 +7,7 @@ export const defaultState = {
     queryType: 'feed',
     view: 'feed',
     hikes: [],
+    reviews: [],
     currentPosition: {},
     lastKnownPosition: {},
     city: '',

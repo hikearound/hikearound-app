@@ -2,6 +2,9 @@ import { Appearance } from 'react-native-appearance';
 import { db, auth, timestamp } from '../lib/Fire';
 import { getUserProfileData } from './User';
 import { avatarDefault, avatarDark } from '../constants/Images';
+import { getRange } from './Location';
+import { isRecent } from './Time';
+import { getHikeData } from './Hike';
 
 const scheme = Appearance.getColorScheme();
 
@@ -10,6 +13,7 @@ export async function buildReviewArray(t, data) {
 
     for (const review of data) {
         const userData = await getUserProfileData(t, review.uid);
+        const hikeData = await getHikeData(review.hid);
 
         if (!userData.photoURL) {
             userData.photoURL = avatarDefault;
@@ -24,6 +28,12 @@ export async function buildReviewArray(t, data) {
             name: userData.name,
             location: userData.location,
             photoURL: userData.photoURL,
+        };
+
+        review.hike = {
+            name: hikeData.name,
+            city: hikeData.city,
+            state: hikeData.state,
         };
 
         reviews[review.id] = review;
@@ -83,6 +93,16 @@ export function getReviewRef(hid, sortDirection, querySize) {
         .limit(querySize);
 }
 
+export function getNearbyReviewRef(range, sortDirection, querySize) {
+    return db
+        .collection('reviews')
+        .where('geohash', '>=', range.lower)
+        .where('geohash', '<=', range.upper)
+        .orderBy('geohash')
+        .orderBy('savedOn', sortDirection)
+        .limit(querySize);
+}
+
 export async function getRecentReviews(t, hid, sortDirection, querySize) {
     const reviewRef = getReviewRef(hid, sortDirection, querySize);
     const querySnapshot = await reviewRef.get();
@@ -137,4 +157,43 @@ export function addReviewToArray(reviews, hid) {
     }
 
     return reviews;
+}
+
+export async function queryReviews(
+    t,
+    querySize,
+    position,
+    sortDirection,
+    distance,
+) {
+    const { latitude, longitude } = position.coords;
+
+    const range = getRange(latitude, longitude, distance);
+    const reviewRef = getNearbyReviewRef(range, sortDirection, querySize);
+
+    const data = [];
+    const querySnapshot = await reviewRef.get();
+
+    await querySnapshot.forEach(async (review) => {
+        if (review.exists) {
+            const reviewData = review.data() || {};
+
+            const reduced = {
+                id: review.id,
+                ...reviewData,
+            };
+
+            if (isRecent(reduced)) {
+                data.push(reduced);
+            }
+        }
+    });
+
+    let sortedReviews = Object.values(data).sort(
+        (a, b) => a.savedOn < b.savedOn,
+    );
+
+    sortedReviews = await buildReviewArray(t, sortedReviews);
+
+    return { data: sortedReviews };
 }

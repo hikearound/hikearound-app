@@ -76,6 +76,10 @@ export const defaultTheme = {
 
         // Sheets
         sheetDataLabel: colors.blackLight,
+
+        // Reviews
+        feedReviewBackground: colors.white,
+        reviewSectionBackground: colors.whiteLight,
     },
 };
 
@@ -153,5 +157,9 @@ export const darkTheme = {
 
         // Sheets
         sheetDataLabel: colors.white,
+
+        // Reviews
+        feedReviewBackground: colors.blackMedium,
+        reviewSectionBackground: colors.blackDark,
     },
 };

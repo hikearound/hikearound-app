@@ -21,6 +21,7 @@ import {
     Body,
     StarWrapper,
     Review,
+    TextWrapper,
 } from '../styles/Review';
 import { ActionText } from '../styles/Text';
 import { reviewActionSheet } from './action_sheets/Review';
@@ -41,11 +42,15 @@ const propTypes = {
     numberOfLines: PropTypes.number,
     userLikes: PropTypes.array.isRequired,
     truncationLimit: PropTypes.number,
+    showOverflow: PropTypes.bool,
+    includeMinHeight: PropTypes.bool,
 };
 
 const defaultProps = {
     numberOfLines: 5,
     truncationLimit: 300,
+    showOverflow: true,
+    includeMinHeight: false,
 };
 
 function mapStateToProps(state) {
@@ -198,7 +203,7 @@ class ReviewListItem extends React.Component {
     }
 
     renderBody = () => {
-        const { rating, numberOfLines, rid, userLikes } = this.props;
+        const { rating, numberOfLines, includeMinHeight } = this.props;
         const { review } = this.state;
 
         return (
@@ -206,16 +211,30 @@ class ReviewListItem extends React.Component {
                 <StarWrapper>
                     <Stars rating={rating} starSize={17} disabled />
                 </StarWrapper>
-                <ReadMore
-                    numberOfLines={numberOfLines}
-                    renderTruncatedFooter={this.renderTruncatedFooter}
-                    renderRevealedFooter={this.renderRevealedFooter}
-                >
-                    <Review>{review}</Review>
-                </ReadMore>
-                <LikeButton rid={rid} userLikes={userLikes} />
-                <OverflowButton onPress={this.reviewActionSheet} />
+                <TextWrapper includeMinHeight={includeMinHeight}>
+                    <ReadMore
+                        numberOfLines={numberOfLines}
+                        renderTruncatedFooter={this.renderTruncatedFooter}
+                        renderRevealedFooter={this.renderRevealedFooter}
+                    >
+                        <Review>{review}</Review>
+                    </ReadMore>
+                </TextWrapper>
+                {this.renderActionBar()}
             </Body>
+        );
+    };
+
+    renderActionBar = () => {
+        const { rid, userLikes, showOverflow } = this.props;
+
+        return (
+            <>
+                <LikeButton rid={rid} userLikes={userLikes} />
+                {showOverflow && (
+                    <OverflowButton onPress={this.reviewActionSheet} />
+                )}
+            </>
         );
     };
 

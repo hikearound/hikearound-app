@@ -11,6 +11,7 @@ const propTypes = {
 class FeedHeader extends React.PureComponent {
     render() {
         const { t, city } = this.props;
+
         return (
             <View>
                 <Text>{t('feed.header', { cityName: city })}</Text>

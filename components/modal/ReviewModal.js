@@ -34,7 +34,7 @@ const propTypes = {
     closeAction: PropTypes.string.isRequired,
     selectedStars: PropTypes.number.isRequired,
     hid: PropTypes.string.isRequired,
-    hikeName: PropTypes.string.isRequired,
+    hike: PropTypes.object.isRequired,
     reviewedHikes: PropTypes.array.isRequired,
 };
 
@@ -151,16 +151,23 @@ class ReviewModal extends React.Component {
 
     addReview = async () => {
         const {
+            hid,
+            hike,
+            reviewedHikes,
             dispatchReviewData,
             dispatchReviewedHikes,
-            hid,
-            reviewedHikes,
         } = this.props;
         const { review, rating } = this.state;
 
         this.setState({ loading: true });
 
-        const reviewData = await writeReview({ hid, review, rating });
+        const reviewData = await writeReview({
+            hid,
+            review,
+            rating,
+            geohash: hike.geohash,
+        });
+
         reviewedHikes.push(hid);
 
         dispatchReviewData(reviewData);
@@ -173,8 +180,8 @@ class ReviewModal extends React.Component {
         const reviewData = { rid, review, rating };
 
         this.setState({ loading: true });
-
         await updateReview(reviewData);
+
         dispatchUpdatedReviewData(reviewData);
     };
 
@@ -229,12 +236,12 @@ class ReviewModal extends React.Component {
     };
 
     renderModalBody = () => {
-        const { hikeName } = this.props;
+        const { hike } = this.props;
         const { rating, inputs, review } = this.state;
 
         return (
             <ModalBody includePadding>
-                <HikeName>{hikeName}</HikeName>
+                <HikeName>{hike.name}</HikeName>
                 <StarWrapper>
                     <Stars
                         rating={rating}

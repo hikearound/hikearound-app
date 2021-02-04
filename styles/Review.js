@@ -57,3 +57,12 @@ export const StarWrapper = styled.View`
     width: 50px;
     margin: 3px 0 2px 0;
 `;
+
+export const ActionBarWrapper = styled.View`
+    display: flex;
+`;
+
+export const TextWrapper = styled.View`
+    display: flex;
+    min-height: ${(props) => (props.includeMinHeight ? '35px' : 0)};
+`;

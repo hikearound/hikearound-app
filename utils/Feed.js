@@ -1,5 +1,5 @@
 import { CacheManager } from 'react-native-expo-image-cache';
-import { getRange, maybeShowHikeInFeed } from './Location';
+import { getRange, maybeShowInFeed } from './Location';
 import { getHikeRef } from './Hike';
 import {
     filterForDifficulty,
@@ -88,8 +88,8 @@ export async function queryHikes(
         hikeRef = hikeRef.startAfter(lastKey);
     }
 
-    const querySnapshot = await hikeRef.get();
     const data = [];
+    const querySnapshot = await hikeRef.get();
 
     await querySnapshot.forEach(async (hike) => {
         if (hike.exists) {
@@ -108,7 +108,7 @@ export async function queryHikes(
 
             const { lat, lng } = hikeData.coordinates.center;
 
-            const addHikeToFeed = maybeShowHikeInFeed(
+            const addHikeToFeed = maybeShowInFeed(
                 distance,
                 latitude,
                 longitude,

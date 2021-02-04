@@ -218,8 +218,8 @@ class HikeScreen extends React.Component {
                 )}
                 <ReviewModal
                     selectedStars={selectedStars}
+                    hike={hike}
                     hid={id}
-                    hikeName={hike.name}
                 />
                 <FlagModal />
             </RootView>

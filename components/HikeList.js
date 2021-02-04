@@ -44,14 +44,16 @@ class HikeList extends React.Component {
         return null;
     };
 
-    renderItem = ({ item }) => (
-        <HikeListItem
-            id={item.id}
-            name={item.name}
-            location={`${item.city}, ${item.state}`}
-            distance={item.distance}
-        />
-    );
+    renderItem = ({ item }) => {
+        return (
+            <HikeListItem
+                id={item.id}
+                name={item.name}
+                location={`${item.city}, ${item.state}`}
+                distance={item.distance}
+            />
+        );
+    };
 
     render() {
         const { hikeData, scrollRef } = this.props;

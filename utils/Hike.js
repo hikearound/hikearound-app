@@ -103,6 +103,7 @@ export async function openHikeScreen(hid, navigation) {
                 coordinates: hikeData.coordinates,
                 imageCount: hikeData.imageCount,
                 review: hikeData.review,
+                geohash: hikeData.geohash,
             },
         });
     }

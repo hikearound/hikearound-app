@@ -6,37 +6,61 @@ import FeedHeader from './FeedHeader';
 import FeedFooter from './FeedFooter';
 import { withScrollToTop } from '../utils/Navigation';
 import { withTheme } from '../utils/Themes';
+import RecentReviewList from './feed/review/RecentReviewList';
 
 const propTypes = {
     onEndReached: PropTypes.func.isRequired,
     refreshControl: PropTypes.object.isRequired,
     hikes: PropTypes.array.isRequired,
+    reviews: PropTypes.array.isRequired,
     scrollRef: PropTypes.object.isRequired,
     city: PropTypes.string.isRequired,
     lastKnownPosition: PropTypes.object.isRequired,
 };
 
 class FeedList extends React.Component {
-    renderItem = ({ item }) => {
-        const { lastKnownPosition } = this.props;
+    renderItem = ({ item, index }) => {
+        const {
+            id,
+            name,
+            distance,
+            elevation,
+            route,
+            description,
+            city,
+            state,
+            coverPhoto,
+            coordinates,
+            difficulty,
+            imageCount,
+            review,
+            geohash,
+        } = item;
+
+        const { lastKnownPosition, reviews } = this.props;
+        const maybeShowReviews = index === 4 && reviews.length > 0;
 
         return (
-            <FeedItem
-                id={item.id}
-                name={item.name}
-                distance={item.distance}
-                elevation={item.elevation}
-                route={item.route}
-                description={item.description}
-                city={item.city}
-                state={item.state}
-                coverPhoto={item.coverPhoto}
-                coordinates={item.coordinates}
-                difficulty={item.difficulty}
-                imageCount={item.imageCount}
-                review={item.review}
-                lastKnownPosition={lastKnownPosition}
-            />
+            <>
+                {maybeShowReviews && <RecentReviewList reviews={reviews} />}
+                <FeedItem
+                    id={id}
+                    name={name}
+                    distance={distance}
+                    elevation={elevation}
+                    route={route}
+                    description={description}
+                    city={city}
+                    state={state}
+                    coverPhoto={coverPhoto}
+                    coordinates={coordinates}
+                    difficulty={difficulty}
+                    imageCount={imageCount}
+                    review={review}
+                    geohash={geohash}
+                    lastKnownPosition={lastKnownPosition}
+                />
+            </>
         );
     };
 
