@@ -7,6 +7,10 @@ import FeedFooter from './FeedFooter';
 import { withScrollToTop } from '../utils/Navigation';
 import { withTheme } from '../utils/Themes';
 import RecentReviewList from './feed/review/RecentReviewList';
+import Ad from './Ad';
+import { getAdsManager } from '../utils/Ad';
+
+const adsManager = getAdsManager('feed');
 
 const propTypes = {
     onEndReached: PropTypes.func.isRequired,
@@ -39,10 +43,12 @@ class FeedList extends React.Component {
 
         const { lastKnownPosition, reviews } = this.props;
         const maybeShowReviews = index === 4 && reviews.length > 0;
+        const maybeShowAd = false;
 
         return (
             <>
                 {maybeShowReviews && <RecentReviewList reviews={reviews} />}
+                {maybeShowAd && <Ad adsManager={adsManager} />}
                 <FeedItem
                     id={id}
                     name={name}

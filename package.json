@@ -81,7 +81,8 @@
     "sentry-expo": "^3.0.4",
     "styled-components": "^5.2.1",
     "supercluster": "4.1.1",
-    "webpack": "^4.46.0"
+    "webpack": "^4.46.0",
+    "expo-ads-facebook": "~8.4.1"
   },
   "devDependencies": {
     "@react-native-community/eslint-config": "^2.0.0",

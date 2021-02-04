@@ -242,16 +242,22 @@ class HomeScreen extends React.Component {
         const { lastKnownPosition } = this.state;
 
         if (positionKnown(lastKnownPosition)) {
-            this.getNearbyHikes();
-            this.getNearbyReviews();
-            this.getAndSetCity(lastKnownPosition);
+            this.queryFeedData();
         } else {
             this.setState({ firstLoad: false });
         }
     };
 
-    getAndSetCity = async (lastKnownPosition) => {
+    queryFeedData = async () => {
+        this.getAndSetCity();
+        this.getNearbyReviews();
+        this.getNearbyHikes();
+    };
+
+    getAndSetCity = async () => {
+        const { lastKnownPosition } = this.state;
         const city = await getNearestCity(lastKnownPosition.coords);
+
         this.setState({ city });
     };
 

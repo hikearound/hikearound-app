@@ -14,6 +14,8 @@ export default ({ config }) => {
                 },
             ],
         },
+        facebookAppId: process.env.FACEBOOK_APP_ID,
+        facebookDisplayName: 'Hikearound',
         extra: {
             firebase: {
                 appId: '1:175063732296:web:1f60ff2b03523972',
