@@ -24,8 +24,8 @@ const propTypes = {
 const defaultProps = {
     onStarRatingPress: () => {},
     emptyStar: 'ios-star-outline',
-    halfStar: 'ios-star-half',
-    fullStar: 'ios-star',
+    halfStar: 'ios-star-half-sharp',
+    fullStar: 'ios-star-sharp',
     iconSet: 'Ionicons',
     starSize: 22,
     maxStars: 5,

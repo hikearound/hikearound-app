@@ -77,6 +77,16 @@ class ProfileScreen extends React.Component {
         }
     };
 
+    maybeSetScrollState = (hikeData) => {
+        if (hikeData.length === 0) {
+            this.setState({ maybeShowEmptyState: true });
+        }
+
+        if (hikeData.length > 6) {
+            this.setState({ scrollEnabled: true });
+        }
+    };
+
     getHikeData = async () => {
         const hikeData = [];
         const favoritedHikes = await getUserFavoriteHikes();
@@ -89,18 +99,11 @@ class ProfileScreen extends React.Component {
             }
         });
 
-        if (hikeData.length === 0) {
-            this.setState({ maybeShowEmptyState: true });
-        }
-
-        if (hikeData.length > 6) {
-            this.setState({ scrollEnabled: true });
-        }
-
         if (hikeData) {
             await this.setState({ hikeData });
         }
 
+        this.maybeSetScrollState(hikeData);
         this.maybeHideLoadingState();
     };
 

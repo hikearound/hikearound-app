@@ -42,13 +42,13 @@ class FeedList extends React.Component {
         } = item;
 
         const { lastKnownPosition, reviews } = this.props;
-        const maybeShowReviews = index === 4 && reviews.length > 0;
-        const maybeShowAd = false;
+        const showReviews = index === 4 && reviews.length > 0;
+        const showAds = false;
 
         return (
             <>
-                {maybeShowReviews && <RecentReviewList reviews={reviews} />}
-                {maybeShowAd && <Ad adsManager={adsManager} />}
+                {showReviews && <RecentReviewList reviews={reviews} />}
+                {showAds && <Ad adsManager={adsManager} />}
                 <FeedItem
                     id={id}
                     name={name}
