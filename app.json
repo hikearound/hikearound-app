@@ -25,10 +25,6 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "locales": {
-        "en": "./infoPlist/en.json",
-        "es": "./infoPlist/es.json"
-    },
     "ios": {
       "supportsTablet": false,
       "userInterfaceStyle": "automatic",
@@ -42,6 +38,10 @@
         "applinks:tryhikearound.com",
         "applinks:url8422.tryhikearound.com"
       ],
+    },
+    "locales": {
+        "en": "./infoPlist/en.json",
+        "es": "./infoPlist/es.json"
     },
     "description": "Hikearound is the easiest way to discover, save, and share great local hikes.",
     "githubUrl": "https://github.com/hikearound/hikearound-app"

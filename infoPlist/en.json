@@ -1,4 +1,6 @@
 {
     "NSLocationWhenInUseUsageDescription": "Hikearound uses your location to show nearby hikes.",
+    "NSLocationAlwaysAndWhenInUseUsageDescription": "Hikearound uses your location to show nearby hikes.",
+    "NSLocationAlwaysUsageDescription": "Hikearound uses your location to show nearby hikes.",
     "NSCameraUsageDescription": "Hikearound uses your camera for uploading photos of hikes."
 }
