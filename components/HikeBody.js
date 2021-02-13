@@ -74,14 +74,22 @@ class HikeBody extends React.Component {
 
     componentDidMount = async () => {
         await this.getReviewData();
-        await this.maybeFireActions();
     };
 
     componentDidUpdate(prevProps) {
-        const { reviewData, reviewAction, selectedReview } = this.props;
+        const {
+            reviewData,
+            reviewAction,
+            selectedReview,
+            actions,
+        } = this.props;
 
         if (prevProps.reviewData !== reviewData) {
             this.updateReviewData();
+        }
+
+        if (prevProps.actions !== actions) {
+            this.maybeFireActions();
         }
 
         if (reviewAction === 'deleteReview') {

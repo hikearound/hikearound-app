@@ -53,6 +53,7 @@ class HikeScreen extends React.Component {
         const title = truncateText(hike.name, 23);
 
         this.state = {
+            actions: {},
             id: hike.id,
             startingCoordinates: hike.coordinates.starting,
             isLoading: true,
@@ -69,7 +70,7 @@ class HikeScreen extends React.Component {
     }
 
     async componentDidMount() {
-        this.timeout = setTimeout(async () => {
+        setTimeout(async () => {
             await this.initializeMap();
             this.didLoad();
         }, timings.medium);
@@ -98,6 +99,16 @@ class HikeScreen extends React.Component {
 
     didLoad = () => {
         this.setState({ isLoading: false });
+        this.setRouteActions();
+    };
+
+    setRouteActions = () => {
+        const { route } = this.props;
+        const { actions } = route.params;
+
+        setTimeout(async () => {
+            this.setState({ actions });
+        }, timings.medium);
     };
 
     setSelectedStars = (rating) => {
@@ -185,10 +196,11 @@ class HikeScreen extends React.Component {
             id,
             elevationArray,
             selectedStars,
+            actions,
         } = this.state;
 
         const { route, selectedHike } = this.props;
-        const { hike, actions } = route.params;
+        const { hike } = route.params;
 
         return (
             <RootView>
