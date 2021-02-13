@@ -26,6 +26,7 @@ const propTypes = {
     reviewData: PropTypes.object,
     reviewAction: PropTypes.string,
     selectedReview: PropTypes.string,
+    actions: PropTypes.object,
 };
 
 const defaultProps = {
@@ -34,6 +35,7 @@ const defaultProps = {
     reviewData: {},
     reviewAction: null,
     selectedReview: null,
+    actions: {},
 };
 
 function mapStateToProps(state) {
@@ -72,6 +74,7 @@ class HikeBody extends React.Component {
 
     componentDidMount = async () => {
         await this.getReviewData();
+        await this.maybeFireActions();
     };
 
     componentDidUpdate(prevProps) {
@@ -87,6 +90,16 @@ class HikeBody extends React.Component {
             }
         }
     }
+
+    maybeFireActions = async () => {
+        const { actions } = this.props;
+
+        if (actions) {
+            if (actions.scrollToReviewList) {
+                await this.scrollToReviewList();
+            }
+        }
+    };
 
     deleteReview = async () => {
         const { selectedReview } = this.props;

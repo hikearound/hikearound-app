@@ -22,6 +22,8 @@ const propTypes = {
     lastKnownPosition: PropTypes.object.isRequired,
 };
 
+const defaultProps = {};
+
 class FeedList extends React.Component {
     renderItem = ({ item, index }) => {
         const {
@@ -106,5 +108,6 @@ class FeedList extends React.Component {
 }
 
 FeedList.propTypes = propTypes;
+FeedList.defaultProps = defaultProps;
 
 export default withScrollToTop(withTheme(FeedList));

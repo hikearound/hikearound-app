@@ -21,7 +21,7 @@ class SheetActions extends React.PureComponent {
         return (
             <TouchableOpacity
                 onPress={() => {
-                    openHikeScreen(selectedHike, navigation);
+                    openHikeScreen(selectedHike, navigation, {});
                 }}
                 activeOpacity={opacities.regular}
             >

@@ -53,8 +53,20 @@ export async function filterHike(hikeData, filterParams) {
     return true;
 }
 
-export function sortHikes(previousState, hikes, sortDirection) {
-    const data = { ...previousState.data, ...hikes };
+export function sortHikes(previousData, hikeArray, sortDirection) {
+    const hikes = {};
+
+    for (const hike of hikeArray) {
+        hikes[hike.key] = hike;
+    }
+
+    const data = { ...previousData, ...hikes };
+
+    // if (previousState.data) {
+    //     console.log(Object.size(previousState.data));
+    // }
+
+    // console.log(hikes[0])
 
     let sortedHikes = Object.values(data).sort(
         (a, b) => a.createdOn < b.createdOn,

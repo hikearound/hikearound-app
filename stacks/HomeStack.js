@@ -61,21 +61,19 @@ class HomeStack extends React.Component {
         this.unsubscribe = navigation.addListener('focus', () => {
             dispatchFocusedStack(stackName);
         });
-
-        this.setTabBarVisibility();
     }
 
     componentDidUpdate() {
-        this.setTabBarVisibility();
+        const { route } = this.props;
+        this.setTabBarVisibility(getFocusedRouteNameFromRoute(route));
     }
 
     componentWillUnmount() {
         this.unsubscribe();
     }
 
-    setTabBarVisibility = () => {
-        const { navigation, route } = this.props;
-        const routeName = getFocusedRouteNameFromRoute(route);
+    setTabBarVisibility = (routeName) => {
+        const { navigation } = this.props;
 
         let tabBarVisible = false;
 
@@ -88,11 +86,14 @@ class HomeStack extends React.Component {
 
     getInitialRoute = () => {
         const { user } = this.props;
+
         let initialRoute = 'Landing';
 
         if (user && user.uid) {
             initialRoute = 'Home';
         }
+
+        this.setTabBarVisibility(initialRoute);
 
         return initialRoute;
     };

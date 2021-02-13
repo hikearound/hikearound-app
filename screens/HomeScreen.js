@@ -200,25 +200,20 @@ class HomeScreen extends React.Component {
     addhikes = async (hikes) => {
         const { sortDirection, firstLoad } = this.state;
 
-        if (firstLoad) {
-            this.setState(() => {
-                const hikeData = sortHikes({}, hikes, sortDirection);
+        this.setState((previousState) => {
+            let data = {};
 
-                return {
-                    data: hikeData.data,
-                    hikes: hikeData.sortedHikes,
-                };
-            });
-        } else {
-            this.setState((previousState) => {
-                const hikeData = sortHikes(previousState, hikes, sortDirection);
+            if (!firstLoad) {
+                data = previousState.data;
+            }
 
-                return {
-                    data: hikeData.data,
-                    hikes: hikeData.sortedHikes,
-                };
-            });
-        }
+            const hikeData = sortHikes(data, hikes, sortDirection);
+
+            return {
+                data: hikeData.data,
+                hikes: hikeData.sortedHikes,
+            };
+        });
     };
 
     onRefresh = async () => {
@@ -249,9 +244,9 @@ class HomeScreen extends React.Component {
     };
 
     queryFeedData = async () => {
-        this.getAndSetCity();
-        this.getNearbyReviews();
-        this.getNearbyHikes();
+        await this.getAndSetCity();
+        await this.getNearbyReviews();
+        await this.getNearbyHikes();
     };
 
     getAndSetCity = async () => {

@@ -81,7 +81,7 @@ export async function getHikeData(hid) {
     return hikeSnapshot.data();
 }
 
-export async function openHikeScreen(hid, navigation) {
+export async function openHikeScreen(hid, navigation, actions) {
     const hikeData = await getHikeData(hid);
 
     if (hikeData) {
@@ -105,6 +105,7 @@ export async function openHikeScreen(hid, navigation) {
                 review: hikeData.review,
                 geohash: hikeData.geohash,
             },
+            actions,
         });
     }
 }

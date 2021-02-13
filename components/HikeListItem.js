@@ -29,7 +29,7 @@ const defaultProps = {
 class HikeListItem extends React.PureComponent {
     getHikeData = async () => {
         const { id, navigation } = this.props;
-        openHikeScreen(id, navigation);
+        openHikeScreen(id, navigation, {});
     };
 
     renderName = () => {

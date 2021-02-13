@@ -14,7 +14,7 @@ export function getHikeIdFromUrl(url) {
 export function handleOpenURL(url, navigation) {
     const hid = getHikeIdFromUrl(url);
     if (hid && navigation) {
-        openHikeScreen(hid, navigation);
+        openHikeScreen(hid, navigation, {});
     }
 }
 
@@ -39,7 +39,7 @@ export async function removeUrlListener(navigation) {
 
 export function handleOpenNotification(hid, navigation) {
     if (hid && navigation) {
-        openHikeScreen(hid, navigation);
+        openHikeScreen(hid, navigation, {});
     }
 }
 

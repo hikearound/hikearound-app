@@ -188,12 +188,13 @@ class HikeScreen extends React.Component {
         } = this.state;
 
         const { route, selectedHike } = this.props;
-        const { hike } = route.params;
+        const { hike, actions } = route.params;
 
         return (
             <RootView>
                 <SetBarStyle barStyle='light-content' />
                 <HikeBody
+                    actions={actions}
                     hike={hike}
                     coordinates={polyCoordinates}
                     region={region}

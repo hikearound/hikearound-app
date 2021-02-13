@@ -98,7 +98,8 @@ export const ListWrapper = styled.View`
     border-top-width: 1px;
     border-bottom-width: 1px;
     border-color: ${(props) => props.theme.itemBorder};
-    margin-top: ${spacing.tiny}px;
+    margin-top: 13px;
+    margin-bottom: 2px;
     padding-bottom: ${spacing.tiny}px;
 `;
 

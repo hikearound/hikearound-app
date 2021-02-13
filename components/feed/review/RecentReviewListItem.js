@@ -28,7 +28,7 @@ const propTypes = {
 class RecentReviewListItem extends React.PureComponent {
     onPress = () => {
         const { hid, navigation } = this.props;
-        openHikeScreen(hid, navigation);
+        openHikeScreen(hid, navigation, { scrollToReviewList: true });
     };
 
     renderHeader = () => {
