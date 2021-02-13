@@ -12,6 +12,7 @@ import { withNavigation } from '../../../utils/Navigation';
 import { defaultProps } from '../../../constants/states/FeedItem';
 import { openHikeScreen } from '../../../utils/Hike';
 import ReviewListItem from '../../ReviewListItem';
+import { cardWidth } from '../../../constants/Carousel';
 
 const propTypes = {
     rid: PropTypes.string.isRequired,
@@ -69,7 +70,7 @@ class RecentReviewListItem extends React.PureComponent {
 
     render() {
         return (
-            <CardsContainer>
+            <CardsContainer width={cardWidth}>
                 <TouchableOpacity
                     activeOpacity={opacities.regular}
                     onPress={this.onPress}
@@ -91,7 +92,7 @@ const CardsContainer = styled.View`
     flex-direction: row;
     padding: ${spacing.tiny}px;
     padding-bottom: 0;
-    width: 315px;
+    width: ${(props) => props.width}px;
     border: 1px solid;
     border-color: ${(props) => props.theme.itemBorder};
     border-radius: ${borderRadius.medium}px;

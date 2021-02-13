@@ -62,10 +62,18 @@ class HomeStack extends React.Component {
             dispatchFocusedStack(stackName);
         });
 
-        navigation.setOptions({ tabBarVisible: false });
+        this.setTabBarVisibility();
     }
 
     componentDidUpdate() {
+        this.setTabBarVisibility();
+    }
+
+    componentWillUnmount() {
+        this.unsubscribe();
+    }
+
+    setTabBarVisibility = () => {
         const { navigation, route } = this.props;
         const routeName = getFocusedRouteNameFromRoute(route);
 
@@ -76,11 +84,7 @@ class HomeStack extends React.Component {
         }
 
         navigation.setOptions({ tabBarVisible });
-    }
-
-    componentWillUnmount() {
-        this.unsubscribe();
-    }
+    };
 
     getInitialRoute = () => {
         const { user } = this.props;

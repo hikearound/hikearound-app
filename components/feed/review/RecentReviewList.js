@@ -1,11 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FlatList } from 'react-native';
+import Carousel from 'react-native-snap-carousel';
 import { withTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { withNavigation } from '../../../utils/Navigation';
 import RecentReviewListItem from './RecentReviewListItem';
 import { fontWeights, fontSizes, spacing } from '../../../constants/Index';
+import { getScreenWidth } from '../../../utils/Screen';
+import { cardWidth as itemWidth } from '../../../constants/Carousel';
+import { animatedStyles } from '../../../utils/Animation';
 
 const propTypes = {
     reviews: PropTypes.array,
@@ -64,7 +67,8 @@ class RecentReviewList extends React.Component {
         return (
             <ListWrapper>
                 {this.renderListHeader()}
-                <FlatList
+                <Carousel
+                    layout='default'
                     directionalLockEnabled
                     horizontal
                     ListHeaderComponent={this.renderPadding}
@@ -73,6 +77,10 @@ class RecentReviewList extends React.Component {
                     extraData={reviews}
                     renderItem={this.renderItem}
                     keyExtractor={extractKey}
+                    itemWidth={itemWidth + 10}
+                    sliderWidth={getScreenWidth()}
+                    activeSlideAlignment='start'
+                    slideInterpolatedStyle={animatedStyles}
                 />
             </ListWrapper>
         );
