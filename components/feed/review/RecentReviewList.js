@@ -12,10 +12,14 @@ import { animatedStyles } from '../../../utils/Animation';
 
 const propTypes = {
     reviews: PropTypes.array,
+    layout: PropTypes.string,
+    activeSlideAlignment: PropTypes.string,
 };
 
 const defaultProps = {
     reviews: [],
+    layout: 'default',
+    activeSlideAlignment: 'start',
 };
 
 class RecentReviewList extends React.Component {
@@ -62,24 +66,21 @@ class RecentReviewList extends React.Component {
 
     render() {
         const extractKey = ({ id }) => id;
-        const { reviews } = this.props;
+        const { reviews, layout, activeSlideAlignment } = this.props;
 
         return (
             <ListWrapper>
                 {this.renderListHeader()}
                 <Carousel
-                    layout='default'
-                    directionalLockEnabled
-                    horizontal
-                    ListHeaderComponent={this.renderPadding}
-                    showsHorizontalScrollIndicator={false}
                     data={reviews}
+                    layout={layout}
                     extraData={reviews}
+                    ListHeaderComponent={this.renderPadding}
                     renderItem={this.renderItem}
                     keyExtractor={extractKey}
-                    itemWidth={itemWidth + 10}
+                    itemWidth={itemWidth + parseInt(spacing.tiny, 10)}
                     sliderWidth={getScreenWidth()}
-                    activeSlideAlignment='start'
+                    activeSlideAlignment={activeSlideAlignment}
                     slideInterpolatedStyle={animatedStyles}
                 />
             </ListWrapper>
