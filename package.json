@@ -42,7 +42,7 @@
     "firebase": "7.9.0",
     "fsevents": "^2.3.1",
     "i18next": "^19.8.7",
-    "moment": "^2.29.1",
+    "moment": "2.18.0",
     "ngeohash": "^0.6.3",
     "prop-types": "^15.7.2",
     "react-dom": "16.13.1",
@@ -82,7 +82,7 @@
     "redux": "^4.0.5",
     "sentry-expo": "^3.0.4",
     "styled-components": "^5.2.1",
-    "supercluster": "^7.1.2",
+    "supercluster": "4.1.1",
     "webpack": "^4.46.0"
   },
   "devDependencies": {
