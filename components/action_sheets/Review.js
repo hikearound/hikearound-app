@@ -21,7 +21,6 @@ export function getActions(
     dispatchFlaggedReview,
 ) {
     if (buttonIndex === 0) {
-        // console.log(data)
         dispatchFlaggedReview(data.rid);
         dispatchModalFlag('flagReview');
     }

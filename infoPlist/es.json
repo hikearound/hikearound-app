@@ -1,6 +1,5 @@
 {
     "NSLocationWhenInUseUsageDescription": "Hikearound usa tu ubicación para mostrar caminatas cercanas.",
-    "NSLocationAlwaysAndWhenInUseUsageDescription": "Hikearound usa tu ubicación para mostrar caminatas cercanas.",
-    "NSLocationAlwaysUsageDescription": "Hikearound usa tu ubicación para mostrar caminatas cercanas.",
+    "NSPhotoLibraryUsageDescription": "Hikearound usa su cámara para cargar fotos de caminatas.",
     "NSCameraUsageDescription": "Hikearound usa su cámara para cargar fotos de caminatas."
 }

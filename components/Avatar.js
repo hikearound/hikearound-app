@@ -3,13 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { TouchableOpacity, View, Image } from 'react-native';
 import { Image as CachedImage } from 'react-native-expo-image-cache';
-import * as Permissions from 'expo-permissions';
-import * as ImagePicker from 'expo-image-picker';
 import { Ionicons } from '@expo/vector-icons';
+import { withTranslation } from 'react-i18next';
 import { opacities, transparentColors } from '../constants/Index';
 import { updateAvatar } from '../actions/User';
-import { reduceImageAsync, getBlob } from '../utils/Image';
 import { withTheme } from '../utils/Themes';
+import { avatarActionSheet } from './action_sheets/Avatar';
 
 const propTypes = {
     dispatchAvatar: PropTypes.func.isRequired,
@@ -36,44 +35,16 @@ function mapDispatchToProps(dispatch) {
 }
 
 class Avatar extends React.Component {
-    checkPhotoPermissions = async () => {
-        const { status } = await Permissions.getAsync(Permissions.CAMERA_ROLL);
-        if (status !== 'granted') {
-            const { status: newStatus } = await Permissions.askAsync(
-                Permissions.CAMERA_ROLL,
-            );
-            if (newStatus === 'granted') {
-                this.launchPhotoPicker();
-            }
-        } else {
-            this.launchPhotoPicker();
-        }
-    };
+    constructor(props, context) {
+        super(props, context);
+        const { t, dispatchAvatar } = this.props;
 
-    launchPhotoPicker = async () => {
-        const photo = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.Images,
-            allowsEditing: true,
-        });
-        if (!photo.cancelled) {
-            const uri = await this.reduceImage(photo.uri);
-            await this.uploadImage(uri);
-        }
-    };
-
-    reduceImage = async (originalUri) => {
-        const { uri } = await reduceImageAsync(originalUri);
-        return uri;
-    };
-
-    uploadImage = async (uri) => {
-        const { dispatchAvatar } = this.props;
-        const blob = await getBlob(uri);
-
-        if (blob) {
-            dispatchAvatar({ uri, blob });
-        }
-    };
+        this.avatarActionSheet = avatarActionSheet.bind(
+            this,
+            t,
+            dispatchAvatar,
+        );
+    }
 
     renderAvatar = () => {
         const { avatar, size, avatarResizeMode, theme } = this.props;
@@ -133,9 +104,7 @@ class Avatar extends React.Component {
 
         return (
             <TouchableOpacity
-                onPress={() => {
-                    this.checkPhotoPermissions();
-                }}
+                onPress={this.avatarActionSheet}
                 activeOpacity={opacities.regular}
             >
                 {this.renderAvatar(avatar, avatarResizeMode, size)}
@@ -158,4 +127,7 @@ class Avatar extends React.Component {
 Avatar.propTypes = propTypes;
 Avatar.defaultProps = defaultProps;
 
-export default connect(mapStateToProps, mapDispatchToProps)(withTheme(Avatar));
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(withTranslation()(withTheme(Avatar)));

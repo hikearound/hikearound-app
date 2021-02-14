@@ -56,6 +56,13 @@
         }
     },
     "sheet": {
+        "avatar": {
+            "title": "Foto de perfil",
+            "item": {
+                "camera": "Tomar foto",
+                "library": "Elige de la biblioteca"
+            }
+        },
         "hike": {
             "title": "Caminata",
             "item": {
