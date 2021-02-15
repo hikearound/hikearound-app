@@ -1,12 +1,12 @@
 import moment from 'moment';
 
-export function isRecent(data) {
+export function isRecent(data, numDays) {
     const now = moment();
 
     const savedOn = moment(data.savedOn.toDate());
     const daysOld = now.diff(savedOn, 'days');
 
-    if (daysOld <= 30) {
+    if (daysOld <= numDays) {
         return true;
     }
 
