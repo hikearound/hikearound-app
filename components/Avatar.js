@@ -9,6 +9,7 @@ import { opacities, transparentColors } from '../constants/Index';
 import { updateAvatar } from '../actions/User';
 import { withTheme } from '../utils/Themes';
 import { avatarActionSheet } from './action_sheets/Avatar';
+import { avatarDefault, avatarDark } from '../constants/Images';
 
 const propTypes = {
     dispatchAvatar: PropTypes.func.isRequired,
@@ -37,17 +38,55 @@ function mapDispatchToProps(dispatch) {
 class Avatar extends React.Component {
     constructor(props, context) {
         super(props, context);
-        const { t, dispatchAvatar } = this.props;
+        const { t, avatar, dispatchAvatar } = this.props;
 
         this.avatarActionSheet = avatarActionSheet.bind(
             this,
             t,
             dispatchAvatar,
         );
+
+        this.state = { avatarState: avatar };
     }
 
+    componentDidMount() {
+        const { theme, avatar } = this.props;
+
+        if (theme.dark && avatar === avatarDefault) {
+            this.updateAvatar(avatarDark);
+        }
+
+        if (!theme.dark && avatar === avatarDark) {
+            this.updateAvatar(avatarDefault);
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        const { theme, avatar } = this.props;
+        const { avatarState } = this.state;
+
+        if (prevProps.theme !== theme) {
+            if (theme.dark && avatarState === avatarDefault) {
+                this.updateAvatar(avatarDark);
+            }
+
+            if (!theme.dark && avatarState === avatarDark) {
+                this.updateAvatar(avatarDefault);
+            }
+        }
+
+        if (prevProps.avatar !== avatar) {
+            this.updateAvatar(avatar);
+        }
+    }
+
+    updateAvatar = (avatar) => {
+        this.setState({ avatarState: avatar });
+    };
+
     renderAvatar = () => {
-        const { avatar, size, avatarResizeMode, theme } = this.props;
+        const { avatarState } = this.state;
+        const { size, avatarResizeMode, theme } = this.props;
 
         const style = {
             height: size,
@@ -56,10 +95,10 @@ class Avatar extends React.Component {
             backgroundColor: theme.colors.avatarBackground,
         };
 
-        if (avatar.includes('file:///')) {
+        if (avatarState.includes('file:///')) {
             return (
                 <Image
-                    source={{ uri: avatar }}
+                    source={{ uri: avatarState }}
                     resizeMode={avatarResizeMode}
                     style={style}
                 />
@@ -68,7 +107,7 @@ class Avatar extends React.Component {
 
         return (
             <CachedImage
-                uri={avatar}
+                uri={avatarState}
                 resizeMode={avatarResizeMode}
                 style={style}
             />
@@ -100,14 +139,14 @@ class Avatar extends React.Component {
     );
 
     renderEditableAvatar = () => {
-        const { avatar, size, avatarResizeMode } = this.props;
+        const { size } = this.props;
 
         return (
             <TouchableOpacity
                 onPress={this.avatarActionSheet}
                 activeOpacity={opacities.regular}
             >
-                {this.renderAvatar(avatar, avatarResizeMode, size)}
+                {this.renderAvatar()}
                 {this.cameraGradientOverlay(size)}
             </TouchableOpacity>
         );

@@ -74,7 +74,7 @@
     "react-native-star-rating": "^1.1.0",
     "react-native-svg": "12.1.0",
     "react-native-svg-animated-linear-gradient": "^0.4.0",
-    "react-native-toast-message": "^1.4.4",
+    "react-native-toast-message": "^1.4.6",
     "react-native-web": "~0.13.7",
     "react-native-xml2js": "^1.0.3",
     "react-redux": "^7.2.2",
