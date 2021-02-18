@@ -54,6 +54,22 @@ class MapSearch extends React.Component {
         };
     }
 
+    componentDidUpdate(prevProps) {
+        const { theme } = this.props;
+
+        if (prevProps.theme !== theme) {
+            this.updateMapStyle();
+        }
+    }
+
+    updateMapStyle = () => {
+        const { theme } = this.props;
+
+        this.setState({
+            style: getMapSearchStyle(theme),
+        });
+    };
+
     onPress = (details) => {
         const { dispatchMapData, selectedHike } = this.props;
         const selectedCity = details;
