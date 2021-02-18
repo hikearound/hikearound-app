@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
 import { TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { opacities } from '../../constants/Index';
+import { opacities, spacing } from '../../constants/Index';
 import { withTheme } from '../../utils/Themes';
 
 const propTypes = {
@@ -27,6 +27,8 @@ class Overflow extends React.PureComponent {
                     position: 'absolute',
                     right: 0,
                     bottom: -1,
+                    paddingTop: parseInt(spacing.micro, 10),
+                    paddingLeft: parseInt(spacing.tiny, 10),
                 }}
                 onPress={onPress}
             >

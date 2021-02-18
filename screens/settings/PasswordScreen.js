@@ -8,7 +8,7 @@ import { withTheme, SetBarStyle } from '../../utils/Themes';
 import LoadingOverlay from '../../components/LoadingOverlay';
 import InputLabelGroup from '../../components/InputLabelGroup';
 import { getInputs } from '../../utils/Inputs';
-import { spacing, opacities } from '../../constants/Index';
+import { spacing, opacities, timings } from '../../constants/Index';
 import { auth } from '../../lib/Fire';
 import { mapCodeToTranslation } from '../../utils/Localization';
 import HeaderText from '../../styles/Header';
@@ -29,6 +29,12 @@ class PasswordScreen extends React.Component {
 
         this.setNavigationOptions();
     }
+
+    componentDidMount = () => {
+        setTimeout(() => {
+            this.currentPasswordInput.focus();
+        }, timings.mediumShort);
+    };
 
     async setValue(name, text) {
         await this.setState({ [name]: text });
@@ -171,7 +177,6 @@ class PasswordScreen extends React.Component {
                                 secureTextEntry={secureTextEntry}
                                 autoCorrect={autoCorrect}
                                 autoCapitalize={autoCapitalize}
-                                autoFocus={index === 0}
                                 onChangeText={(text) =>
                                     this.setValue(name, text, index)
                                 }

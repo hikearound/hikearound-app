@@ -22,6 +22,7 @@ function getCreateAccountInputs(labels) {
     nameInput.placeholder = labels.name;
     emailInput.placeholder = labels.email;
     passwordInput.placeholder = labels.password;
+    emailInput.returnKeyType = 'next';
 
     return [nameInput, emailInput, passwordInput];
 }

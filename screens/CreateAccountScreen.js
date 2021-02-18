@@ -18,6 +18,7 @@ import { getPermissionStatus } from '../utils/Permissions';
 import { getInputs } from '../utils/Inputs';
 import { defaultState } from '../constants/states/CreateAccount';
 import { logEvent } from '../utils/Analytics';
+import { timings } from '../constants/Index';
 
 const propTypes = {
     dispatchUserData: PropTypes.func.isRequired,
@@ -42,6 +43,12 @@ class CreateAccountScreen extends React.Component {
         defaultState.inputs = inputs;
         this.state = defaultState;
     }
+
+    componentDidMount = () => {
+        setTimeout(() => {
+            this.nameInput.focus();
+        }, timings.mediumShort);
+    };
 
     setValue(name, text) {
         this.setState({ [name]: text });
@@ -136,7 +143,6 @@ class CreateAccountScreen extends React.Component {
                                 secureTextEntry={secureTextEntry}
                                 autoCorrect={autoCorrect}
                                 autoCapitalize={autoCapitalize}
-                                autoFocus={index === 0}
                                 onChangeText={(text) =>
                                     this.setValue(name, text, index)
                                 }

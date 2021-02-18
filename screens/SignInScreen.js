@@ -14,6 +14,7 @@ import { mapCodeToTranslation } from '../utils/Localization';
 import ResetPasswordModal from '../components/modal/ResetPasswordModal';
 import PasswordReset from '../components/PasswordReset';
 import { logEvent } from '../utils/Analytics';
+import { timings } from '../constants/Index';
 
 class SignInScreen extends React.Component {
     constructor(props) {
@@ -24,6 +25,12 @@ class SignInScreen extends React.Component {
         defaultState.inputs = inputs;
         this.state = defaultState;
     }
+
+    componentDidMount = () => {
+        setTimeout(() => {
+            this.passwordInput.focus();
+        }, timings.mediumShort);
+    };
 
     setValue(name, text) {
         this.setState({ [name]: text });
@@ -110,7 +117,6 @@ class SignInScreen extends React.Component {
                                 }
                                 labelName={placeholder}
                                 textContentType={textContentType}
-                                autoFocus={index === 0}
                                 enablesReturnKeyAutomatically={
                                     enablesReturnKeyAutomatically
                                 }
