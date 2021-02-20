@@ -143,7 +143,7 @@ AppleAuthButton.defaultProps = defaultProps;
 
 const ButtonWrapper = styled.View`
     margin-top: ${spacing.medium}px;
-    margin-bottom: ${spacing.small}px;
+    margin-bottom: ${spacing.medium}px;
     border-color: ${(props) => props.theme.itemBorder};
     border-top-width: 1px;
     border-bottom-width: 1px;

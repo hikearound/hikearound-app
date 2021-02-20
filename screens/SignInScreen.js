@@ -85,7 +85,7 @@ class SignInScreen extends React.Component {
                     contentContainerStyle={{ flexGrow: 1 }}
                 >
                     <AppleAuthButton type='SIGN_IN' />
-                    <Header title={t('screen.signIn.header')} />
+                    <Header title={t('screen.signIn.header')} isLoggedOut />
                     {inputs.map(
                         (
                             {

@@ -7,18 +7,20 @@ import { fontWeights, fontSizes, spacing } from '../constants/Index';
 const propTypes = {
     title: PropTypes.string.isRequired,
     includeTopBorder: PropTypes.bool,
+    isLoggedOut: PropTypes.bool,
 };
 
 const defaultProps = {
     includeTopBorder: false,
+    isLoggedOut: false,
 };
 
 class Header extends React.PureComponent {
     render() {
-        const { title, includeTopBorder } = this.props;
+        const { title, includeTopBorder, isLoggedOut } = this.props;
 
         return (
-            <View includeTopBorder={includeTopBorder}>
+            <View includeTopBorder={includeTopBorder} isLoggedOut={isLoggedOut}>
                 <Text>{title}</Text>
             </View>
         );
@@ -32,6 +34,8 @@ export default withTranslation()(Header);
 
 const View = styled.View`
     padding: ${spacing.tiny}px;
+    padding-left: ${(props) =>
+        props.isLoggedOut ? `${spacing.small}px` : `${spacing.tiny}px`};
     border-bottom-width: 1px;
     border-top-width: ${(props) => (props.includeTopBorder ? '1px' : 0)};
     border-color: ${(props) => props.theme.itemBorder};

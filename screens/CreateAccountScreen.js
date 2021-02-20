@@ -119,7 +119,10 @@ class CreateAccountScreen extends React.Component {
                         type='SIGN_UP'
                         dispatchUserData={dispatchUserData}
                     />
-                    <Header title={t('screen.createAccount.header')} />
+                    <Header
+                        title={t('screen.createAccount.header')}
+                        isLoggedOut
+                    />
                     {inputs.map(
                         (
                             {
