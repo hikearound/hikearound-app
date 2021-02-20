@@ -15,7 +15,6 @@ const defaultProps = {
     type: 'browser',
 };
 
-
 class TextLink extends React.PureComponent {
     handlePress = () => {
         const { type, url } = this.props;
