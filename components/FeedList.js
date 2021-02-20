@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { CollapsibleHeaderFlatList } from 'react-native-collapsible-header-views';
+import { withTranslation } from 'react-i18next';
 import FeedItem from './FeedItem';
-import FeedHeader from './FeedHeader';
+import Header from './Header';
 import FeedFooter from './FeedFooter';
 import { withScrollToTop } from '../utils/Navigation';
 import { withTheme } from '../utils/Themes';
@@ -82,6 +83,7 @@ class FeedList extends React.Component {
             theme,
             scrollRef,
             city,
+            t,
         } = this.props;
 
         return (
@@ -90,7 +92,9 @@ class FeedList extends React.Component {
                     ref={scrollRef}
                     data={hikes}
                     extraData={hikes}
-                    CollapsibleHeaderComponent={<FeedHeader city={city} />}
+                    CollapsibleHeaderComponent={
+                        <Header title={t('feed.header', { cityName: city })} />
+                    }
                     headerHeight={35}
                     showsVerticalScrollIndicator={false}
                     keyExtractor={(item) => item.key}
@@ -110,4 +114,4 @@ class FeedList extends React.Component {
 FeedList.propTypes = propTypes;
 FeedList.defaultProps = defaultProps;
 
-export default withScrollToTop(withTheme(FeedList));
+export default withScrollToTop(withTheme(withTranslation()(FeedList)));

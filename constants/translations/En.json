@@ -229,10 +229,12 @@
             }
         },
         "createAccount": {
-            "legal": "By clicking '{{createAccount}}' you agree to {{appName}} <5>Terms of Service</5> and <7>Privacy Policy</7>."
+            "legal": "By clicking '{{createAccount}}' you agree to {{appName}} <5>Terms of Service</5> and <7>Privacy Policy</7>.",
+            "header": "Sign Up With Email"
         },
         "signIn": {
-            "reset": "Forgot password?"
+            "reset": "Forgot password?",
+            "header": "Sign In With Email"
         },
         "notifications": {
             "empty": {

@@ -18,7 +18,8 @@ import { getPermissionStatus } from '../utils/Permissions';
 import { getInputs } from '../utils/Inputs';
 import { defaultState } from '../constants/states/CreateAccount';
 import { logEvent } from '../utils/Analytics';
-import { timings } from '../constants/Index';
+import AppleAuthButton from '../components/auth/Apple';
+import Header from '../components/Header';
 
 const propTypes = {
     dispatchUserData: PropTypes.func.isRequired,
@@ -43,12 +44,6 @@ class CreateAccountScreen extends React.Component {
         defaultState.inputs = inputs;
         this.state = defaultState;
     }
-
-    componentDidMount = () => {
-        setTimeout(() => {
-            this.nameInput.focus();
-        }, timings.mediumShort);
-    };
 
     setValue(name, text) {
         this.setState({ [name]: text });
@@ -111,7 +106,7 @@ class CreateAccountScreen extends React.Component {
 
     render() {
         const { loading, inputs } = this.state;
-        const { t } = this.props;
+        const { t, dispatchUserData } = this.props;
 
         return (
             <RootView>
@@ -120,6 +115,11 @@ class CreateAccountScreen extends React.Component {
                     scrollEnabled={false}
                     contentContainerStyle={{ flexGrow: 1 }}
                 >
+                    <AppleAuthButton
+                        type='SIGN_UP'
+                        dispatchUserData={dispatchUserData}
+                    />
+                    <Header title={t('screen.createAccount.header')} />
                     {inputs.map(
                         (
                             {

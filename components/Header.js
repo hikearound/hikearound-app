@@ -5,29 +5,36 @@ import { withTranslation } from 'react-i18next';
 import { fontWeights, fontSizes, spacing } from '../constants/Index';
 
 const propTypes = {
-    city: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    includeTopBorder: PropTypes.bool,
 };
 
-class FeedHeader extends React.PureComponent {
+const defaultProps = {
+    includeTopBorder: false,
+};
+
+class Header extends React.PureComponent {
     render() {
-        const { t, city } = this.props;
+        const { title, includeTopBorder } = this.props;
 
         return (
-            <View>
-                <Text>{t('feed.header', { cityName: city })}</Text>
+            <View includeTopBorder={includeTopBorder}>
+                <Text>{title}</Text>
             </View>
         );
     }
 }
 
-FeedHeader.propTypes = propTypes;
+Header.propTypes = propTypes;
+Header.defaultProps = defaultProps;
 
-export default withTranslation()(FeedHeader);
+export default withTranslation()(Header);
 
 const View = styled.View`
     padding: ${spacing.tiny}px;
     border-bottom-width: 1px;
-    border-bottom-color: ${(props) => props.theme.itemBorder};
+    border-top-width: ${(props) => (props.includeTopBorder ? '1px' : 0)};
+    border-color: ${(props) => props.theme.itemBorder};
 `;
 
 const Text = styled.Text`

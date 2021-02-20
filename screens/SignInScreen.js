@@ -14,7 +14,8 @@ import { mapCodeToTranslation } from '../utils/Localization';
 import ResetPasswordModal from '../components/modal/ResetPasswordModal';
 import PasswordReset from '../components/PasswordReset';
 import { logEvent } from '../utils/Analytics';
-import { timings } from '../constants/Index';
+import AppleAuthButton from '../components/auth/Apple';
+import Header from '../components/Header';
 
 class SignInScreen extends React.Component {
     constructor(props) {
@@ -25,12 +26,6 @@ class SignInScreen extends React.Component {
         defaultState.inputs = inputs;
         this.state = defaultState;
     }
-
-    componentDidMount = () => {
-        setTimeout(() => {
-            this.passwordInput.focus();
-        }, timings.mediumShort);
-    };
 
     setValue(name, text) {
         this.setState({ [name]: text });
@@ -89,6 +84,8 @@ class SignInScreen extends React.Component {
                     scrollEnabled={false}
                     contentContainerStyle={{ flexGrow: 1 }}
                 >
+                    <AppleAuthButton type='SIGN_IN' />
+                    <Header title={t('screen.signIn.header')} />
                     {inputs.map(
                         (
                             {
