@@ -136,7 +136,7 @@ class HikeScreen extends React.Component {
         const { id } = this.state;
         const { t, dispatchCopyLink } = this.props;
 
-        const url = `${baseUrl}/${id}`;
+        const url = `${baseUrl}/hike/${id}`;
         const result = await Share.share({ url });
 
         if (result.action === Share.sharedAction) {

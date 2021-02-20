@@ -4,15 +4,14 @@ import { TouchableOpacity } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
 import { opacities, settingsItems } from '../../constants/Index';
 import { ItemContainer, ItemText } from '../../styles/Settings';
-
-const baseUrl = 'https://tryhikearound.com';
+import { baseUrl } from '../../constants/Common';
 
 const propTypes = {
     item: PropTypes.object.isRequired,
 };
 
 class LinkItem extends React.Component {
-    itemPress = async () => {
+    onPress = async () => {
         const { item } = this.props;
         WebBrowser.openBrowserAsync(this.buildUrl(item));
     };
@@ -36,7 +35,7 @@ class LinkItem extends React.Component {
             <ItemContainer>
                 <TouchableOpacity
                     activeOpacity={opacities.regular}
-                    onPress={this.itemPress}
+                    onPress={this.onPress}
                 >
                     <ItemText key={item.key}>{item.name}</ItemText>
                 </TouchableOpacity>
