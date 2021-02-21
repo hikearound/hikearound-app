@@ -8,22 +8,25 @@ import { animationConfig } from '../../constants/Animation';
 const propTypes = {
     shouldShowLocationButton: PropTypes.bool,
     mapRef: PropTypes.object,
+    sheetRef: PropTypes.object,
 };
 
 const defaultProps = {
     shouldShowLocationButton: false,
     mapRef: {},
+    sheetRef: {},
 };
 
 class SheetHeader extends React.PureComponent {
     render() {
-        const { mapRef, shouldShowLocationButton } = this.props;
+        const { mapRef, sheetRef, shouldShowLocationButton } = this.props;
 
         return (
             <>
                 {shouldShowLocationButton && (
                     <LocationButton
                         mapRef={mapRef}
+                        sheetRef={sheetRef}
                         animationConfig={animationConfig}
                     />
                 )}

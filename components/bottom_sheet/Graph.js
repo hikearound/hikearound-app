@@ -134,7 +134,13 @@ function GraphSheet({
     };
 
     const renderHeader = () => {
-        return <SheetHeader mapRef={mapRef} shouldShowLocationButton />;
+        return (
+            <SheetHeader
+                mapRef={mapRef}
+                sheetRef={sheetRef}
+                shouldShowLocationButton
+            />
+        );
     };
 
     return (

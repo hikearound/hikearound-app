@@ -61,8 +61,14 @@ class HikeSheet extends React.Component {
     };
 
     renderHeader = () => {
-        const { mapRef } = this.props;
-        return <SheetHeader mapRef={mapRef} shouldShowLocationButton />;
+        const { mapRef, sheetRef } = this.props;
+        return (
+            <SheetHeader
+                mapRef={mapRef}
+                sheetRef={sheetRef}
+                shouldShowLocationButton
+            />
+        );
     };
 
     onClose = () => {

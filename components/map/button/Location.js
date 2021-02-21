@@ -17,14 +17,18 @@ import { altitude } from '../../../constants/Altitude';
 const propTypes = {
     position: PropTypes.object,
     mapRef: PropTypes.object,
+    sheetRef: PropTypes.object,
     animationConfig: PropTypes.object.isRequired,
     bottomOffset: PropTypes.number,
+    transitionDelay: PropTypes.number,
 };
 
 const defaultProps = {
     position: null,
     mapRef: {},
+    sheetRef: {},
     bottomOffset: 35,
+    transitionDelay: 250,
 };
 
 function mapStateToProps(state) {
@@ -39,7 +43,13 @@ function mapDispatchToProps() {
 
 class LocationButton extends React.PureComponent {
     onPress = () => {
-        const { mapRef, animationConfig, position } = this.props;
+        const {
+            mapRef,
+            sheetRef,
+            animationConfig,
+            position,
+            transitionDelay,
+        } = this.props;
 
         const camera = {
             altitude: altitude.hike,
@@ -54,6 +64,10 @@ class LocationButton extends React.PureComponent {
         mapRef.current.animateCamera(camera, {
             duration: animationConfig.duration,
         });
+
+        setTimeout(() => {
+            sheetRef.current.snapTo(2);
+        }, animationConfig.duration + transitionDelay);
     };
 
     render() {
