@@ -25,6 +25,7 @@ const nonce = 'APPLE_SIGN_IN';
 const propTypes = {
     type: PropTypes.string.isRequired,
     dispatchUserData: PropTypes.func,
+    setLoading: PropTypes.func,
     cornerRadius: PropTypes.number,
     height: PropTypes.number,
 };
@@ -33,6 +34,7 @@ const defaultProps = {
     cornerRadius: 0,
     height: 42,
     dispatchUserData: () => {},
+    setLoading: () => {},
 };
 
 class AppleAuthButton extends React.Component {
@@ -46,14 +48,15 @@ class AppleAuthButton extends React.Component {
         logEvent(type.toLowerCase(), {});
     };
 
-    maybeCreateUserProfile = (response, fullName) => {
+    maybeCreateProfile = (response, name) => {
         const { dispatchUserData } = this.props;
 
         if (!response.user.displayName) {
-            response.user.updateProfile({
-                displayName: buildFormattedName(fullName),
-            });
-            createUserProfile(dispatchUserData, buildFormattedName(fullName));
+            createUserProfile(
+                dispatchUserData,
+                response,
+                buildFormattedName(name),
+            );
         }
     };
 
@@ -80,14 +83,14 @@ class AppleAuthButton extends React.Component {
         navigation.dispatch(resetAction);
     };
 
-    signInSuccessful = (response, fullName) => {
+    signInSuccessful = (response, name) => {
+        this.maybeCreateProfile(response, name);
         this.logEvent();
-        this.maybeCreateUserProfile(response, fullName);
         this.navigateToNextScreen();
     };
 
     handleLogin = async (credential) => {
-        const { t } = this.props;
+        const { setLoading } = this.props;
         const { identityToken, fullName } = credential;
 
         const authCredential = new firebase.auth.OAuthProvider(
@@ -97,18 +100,25 @@ class AppleAuthButton extends React.Component {
             rawNonce: nonce,
         });
 
+        setLoading(true);
+
         await firebase
             .auth()
             .signInWithCredential(authCredential)
             .catch((error) => {
-                Alert.alert(
-                    t('error.label'),
-                    mapCodeToTranslation(t, error.code),
-                );
+                this.showErrorAlert(error);
+                setLoading(false);
             })
             .then((response) => {
-                this.signInSuccessful(response, fullName);
+                if (response) {
+                    this.signInSuccessful(response, fullName);
+                }
             });
+    };
+
+    showErrorAlert = (error) => {
+        const { t } = this.props;
+        Alert.alert(t('error.label'), mapCodeToTranslation(t, error.code));
     };
 
     getButtonStyle = () => {

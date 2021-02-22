@@ -212,9 +212,11 @@ export async function getUserData(dispatchUserData, dispatchAvatar) {
     dispatchUserData(userData);
 }
 
-export function createUserProfile(dispatchUserData, name) {
+export function createUserProfile(dispatchUserData, response, name) {
     const state = store.getState();
     const lang = getLanguageCode();
+
+    response.user.updateProfile({ displayName: name });
 
     const { map, location, darkMode, notifs, photoURL } = state.userReducer;
     const userData = { map, location, darkMode, notifs, name, photoURL, lang };

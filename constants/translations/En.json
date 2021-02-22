@@ -314,7 +314,8 @@
             "password": {
                 "weak": "The password you provided is not sufficiently strong.",
                 "wrong": "The password you provided is incorrect."
-            }
+            },
+            "generic": "Sorry, it looks like something went wrong. Please try again."
         }
     },
     "promotion": {

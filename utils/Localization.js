@@ -61,5 +61,5 @@ export function mapCodeToTranslation(t, errorCode) {
     if (errorCode === 'auth/user-not-found') {
         return t('error.auth.account.notFound');
     }
-    return null;
+    return t('error.auth.generic');
 }

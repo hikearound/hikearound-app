@@ -25,40 +25,61 @@ class SignInScreen extends React.Component {
 
         defaultState.inputs = inputs;
         this.state = defaultState;
+
+        this.setLoading = this.setLoading.bind(this);
     }
 
     setValue(name, text) {
         this.setState({ [name]: text });
     }
 
-    handleLogin = async () => {
-        const { email, password } = this.state;
-        const { navigation, t } = this.props;
+    setLoading = (loading) => {
+        Keyboard.dismiss();
+        this.setState({ loading });
+    };
+
+    logEvent = () => {
+        logEvent('sign_in', {});
+    };
+
+    navigateToNextScreen = async () => {
+        const { navigation } = this.props;
 
         const resetAction = CommonActions.reset({
             index: 0,
             routes: [{ name: 'Home' }],
         });
 
-        Keyboard.dismiss();
-        this.setState({ loading: true });
+        navigation.dispatch(resetAction);
+    };
+
+    signInSuccessful = () => {
+        this.logEvent();
+        this.navigateToNextScreen();
+    };
+
+    handleLogin = async () => {
+        const { email, password } = this.state;
+
+        this.setLoading(true);
 
         firebase
             .auth()
             .signInWithEmailAndPassword(email, password)
             .catch((error) => {
-                Alert.alert(
-                    t('error.label'),
-                    mapCodeToTranslation(t, error.code),
-                );
-                this.setState({ loading: false });
+                this.showErrorAlert(error);
+                this.setLoading(false);
             })
             .then((response) => {
                 if (response) {
-                    logEvent('sign_in', {});
-                    navigation.dispatch(resetAction);
+                    this.signInSuccessful();
                 }
             });
+    };
+
+    showErrorAlert = (error) => {
+        const { t } = this.props;
+        Alert.alert(t('error.label'), mapCodeToTranslation(t, error.code));
     };
 
     handleSubmitEditing = (index) => {
@@ -84,7 +105,10 @@ class SignInScreen extends React.Component {
                     scrollEnabled={false}
                     contentContainerStyle={{ flexGrow: 1 }}
                 >
-                    <AppleAuthButton type='SIGN_IN' />
+                    <AppleAuthButton
+                        type='SIGN_IN'
+                        setLoading={this.setLoading}
+                    />
                     <Header title={t('screen.signIn.header')} isLoggedOut />
                     {inputs.map(
                         (

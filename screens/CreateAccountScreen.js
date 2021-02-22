@@ -43,6 +43,8 @@ class CreateAccountScreen extends React.Component {
 
         defaultState.inputs = inputs;
         this.state = defaultState;
+
+        this.setLoading = this.setLoading.bind(this);
     }
 
     setValue(name, text) {
@@ -51,15 +53,25 @@ class CreateAccountScreen extends React.Component {
 
     setNextScreen = async () => {
         const status = await getPermissionStatus('location');
+
         if (status === 'granted') {
             return 'Home';
         }
+
         return 'LocationPermission';
     };
 
-    handleCreateAccount = async () => {
-        const { email, password, name } = this.state;
-        const { navigation, dispatchUserData, t } = this.props;
+    setLoading = (loading) => {
+        Keyboard.dismiss();
+        this.setState({ loading });
+    };
+
+    logEvent = () => {
+        logEvent('sign_up', {});
+    };
+
+    navigateToNextScreen = async () => {
+        const { navigation } = this.props;
         const screen = await this.setNextScreen();
 
         const resetAction = CommonActions.reset({
@@ -67,27 +79,44 @@ class CreateAccountScreen extends React.Component {
             routes: [{ name: screen }],
         });
 
-        Keyboard.dismiss();
-        this.setState({ loading: true });
+        navigation.dispatch(resetAction);
+    };
+
+    createProfile = (response) => {
+        const { dispatchUserData } = this.props;
+        const { name } = this.state;
+
+        createUserProfile(dispatchUserData, response, name);
+    };
+
+    createAccountSuccessful = (response) => {
+        this.createProfile(response);
+        this.logEvent();
+        this.navigateToNextScreen();
+    };
+
+    handleCreateAccount = async () => {
+        const { email, password } = this.state;
+
+        this.setLoading(true);
 
         await firebase
             .auth()
             .createUserWithEmailAndPassword(email, password)
             .catch((error) => {
-                Alert.alert(
-                    t('error.label'),
-                    mapCodeToTranslation(t, error.code),
-                );
-                this.setState({ loading: false });
+                this.showErrorAlert(error);
+                this.setLoading(false);
             })
             .then((response) => {
                 if (response) {
-                    logEvent('create_account', {});
-                    createUserProfile(dispatchUserData, name);
-                    response.user.updateProfile({ displayName: name });
-                    navigation.dispatch(resetAction);
+                    this.createAccountSuccessful(response);
                 }
             });
+    };
+
+    showErrorAlert = (error) => {
+        const { t } = this.props;
+        Alert.alert(t('error.label'), mapCodeToTranslation(t, error.code));
     };
 
     handleSubmitEditing = (index) => {
@@ -118,6 +147,7 @@ class CreateAccountScreen extends React.Component {
                     <AppleAuthButton
                         type='SIGN_UP'
                         dispatchUserData={dispatchUserData}
+                        setLoading={this.setLoading}
                     />
                     <Header
                         title={t('screen.createAccount.header')}
