@@ -14,7 +14,6 @@ import { logEvent } from '../../utils/Analytics';
 import { withNavigation } from '../../utils/Navigation';
 import { createUserProfile } from '../../utils/User';
 import { mapCodeToTranslation } from '../../utils/Localization';
-import store from '../../store/Store';
 
 const { FULL_NAME, EMAIL } = AppleAuthentication.AppleAuthenticationScope;
 const { WHITE, BLACK } = AppleAuthentication.AppleAuthenticationButtonStyle;
@@ -34,7 +33,15 @@ const defaultProps = {
     dispatchUserData: () => {},
 };
 
-class AppleAuthButton extends React.PureComponent {
+class AppleAuthButton extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            accountUsesApple: false,
+        };
+    }
+
     getButtonType = () => {
         const { type } = this.props;
         return AppleAuthentication.AppleAuthenticationButtonType[type];
@@ -45,30 +52,62 @@ class AppleAuthButton extends React.PureComponent {
         logEvent(type.toLowerCase(), {});
     };
 
-    maybeCreateUserProfile = (response, fullName) => {
-        const { dispatchUserData, type } = this.props;
-        const state = store.getState();
-
-        let formattedName = state.userReducer.name;
+    buildFormattedName = (fullName) => {
+        let formattedName = '';
 
         if (fullName.givenName && fullName.familyName) {
             formattedName = `${fullName.givenName} ${fullName.familyName}`;
         }
 
-        if (type === 'SIGN_UP') {
-            createUserProfile(dispatchUserData, formattedName);
-            response.user.updateProfile({ displayName: formattedName });
+        return formattedName;
+    };
+
+    maybeCreateUserProfile = (response, fullName) => {
+        const { dispatchUserData } = this.props;
+        const { accountUsesApple } = this.state;
+
+        const name = this.buildFormattedName(fullName);
+
+        if (name && !accountUsesApple) {
+            createUserProfile(dispatchUserData, name);
+            response.user.updateProfile({ displayName: name });
         }
     };
 
-    handleLogin = async (credential) => {
-        const { navigation, t } = this.props;
-        const { identityToken, fullName } = credential;
+    accountUsesApple = async (email) => {
+        if (email) {
+            const providers = await firebase
+                .auth()
+                .fetchSignInMethodsForEmail(email);
+
+            if (providers.includes('apple.com')) {
+                await this.setState({ accountUsesApple: true });
+            }
+        }
+    };
+
+    navigateToHome = async () => {
+        const { navigation } = this.props;
 
         const resetAction = CommonActions.reset({
             index: 0,
             routes: [{ name: 'Home' }],
         });
+
+        navigation.dispatch(resetAction);
+    };
+
+    signInSuccessful = (response, fullName) => {
+        if (response) {
+            this.logEvent();
+            this.maybeCreateUserProfile(response, fullName);
+            this.navigateToHome();
+        }
+    };
+
+    handleLogin = async (credential) => {
+        const { t } = this.props;
+        const { identityToken, fullName, email } = credential;
 
         const authCredential = new firebase.auth.OAuthProvider(
             'apple.com',
@@ -77,6 +116,7 @@ class AppleAuthButton extends React.PureComponent {
             rawNonce: nonce,
         });
 
+        await this.accountUsesApple(email);
         await firebase
             .auth()
             .signInWithCredential(authCredential)
@@ -87,11 +127,7 @@ class AppleAuthButton extends React.PureComponent {
                 );
             })
             .then((response) => {
-                if (response) {
-                    this.logEvent();
-                    this.maybeCreateUserProfile(response, fullName);
-                    navigation.dispatch(resetAction);
-                }
+                this.signInSuccessful(response, fullName);
             });
     };
 
