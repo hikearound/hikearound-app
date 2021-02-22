@@ -14,6 +14,8 @@ import { logEvent } from '../../utils/Analytics';
 import { withNavigation } from '../../utils/Navigation';
 import { createUserProfile } from '../../utils/User';
 import { mapCodeToTranslation } from '../../utils/Localization';
+import { getPermissionStatus } from '../../utils/Permissions';
+import { buildFormattedName } from '../../utils/Apple';
 
 const { FULL_NAME, EMAIL } = AppleAuthentication.AppleAuthenticationScope;
 const { WHITE, BLACK } = AppleAuthentication.AppleAuthenticationButtonStyle;
@@ -34,14 +36,6 @@ const defaultProps = {
 };
 
 class AppleAuthButton extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            accountUsesApple: false,
-        };
-    }
-
     getButtonType = () => {
         const { type } = this.props;
         return AppleAuthentication.AppleAuthenticationButtonType[type];
@@ -52,62 +46,49 @@ class AppleAuthButton extends React.Component {
         logEvent(type.toLowerCase(), {});
     };
 
-    buildFormattedName = (fullName) => {
-        let formattedName = '';
-
-        if (fullName.givenName && fullName.familyName) {
-            formattedName = `${fullName.givenName} ${fullName.familyName}`;
-        }
-
-        return formattedName;
-    };
-
     maybeCreateUserProfile = (response, fullName) => {
         const { dispatchUserData } = this.props;
-        const { accountUsesApple } = this.state;
 
-        const name = this.buildFormattedName(fullName);
-
-        if (name && !accountUsesApple) {
-            createUserProfile(dispatchUserData, name);
-            response.user.updateProfile({ displayName: name });
+        if (!response.user.displayName) {
+            response.user.updateProfile({
+                displayName: buildFormattedName(fullName),
+            });
+            createUserProfile(dispatchUserData, buildFormattedName(fullName));
         }
     };
 
-    accountUsesApple = async (email) => {
-        if (email) {
-            const providers = await firebase
-                .auth()
-                .fetchSignInMethodsForEmail(email);
+    setNextScreen = async () => {
+        const { type } = this.props;
+        const status = await getPermissionStatus('location');
 
-            if (providers.includes('apple.com')) {
-                await this.setState({ accountUsesApple: true });
-            }
+        if (status !== 'granted' && type === 'SIGN_UP') {
+            return 'LocationPermission';
         }
+
+        return 'Home';
     };
 
-    navigateToHome = async () => {
+    navigateToNextScreen = async () => {
         const { navigation } = this.props;
+        const screen = await this.setNextScreen();
 
         const resetAction = CommonActions.reset({
             index: 0,
-            routes: [{ name: 'Home' }],
+            routes: [{ name: screen }],
         });
 
         navigation.dispatch(resetAction);
     };
 
     signInSuccessful = (response, fullName) => {
-        if (response) {
-            this.logEvent();
-            this.maybeCreateUserProfile(response, fullName);
-            this.navigateToHome();
-        }
+        this.logEvent();
+        this.maybeCreateUserProfile(response, fullName);
+        this.navigateToNextScreen();
     };
 
     handleLogin = async (credential) => {
         const { t } = this.props;
-        const { identityToken, fullName, email } = credential;
+        const { identityToken, fullName } = credential;
 
         const authCredential = new firebase.auth.OAuthProvider(
             'apple.com',
@@ -116,7 +97,6 @@ class AppleAuthButton extends React.Component {
             rawNonce: nonce,
         });
 
-        await this.accountUsesApple(email);
         await firebase
             .auth()
             .signInWithCredential(authCredential)
