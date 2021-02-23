@@ -6,6 +6,7 @@ import store from '../store/Store';
 import { getRange, getNearestCity } from './Location';
 import { avatarDefault, avatarDark } from '../constants/Images';
 import { getLanguageCode } from './Localization';
+import { email, push } from '../constants/Notifications';
 
 const scheme = Appearance.getColorScheme();
 
@@ -211,6 +212,33 @@ export async function setAvatar(dispatchAvatar) {
     cacheImages([avatarUri]);
 }
 
+export async function writeNotifPreferences(notifs) {
+    const user = auth.currentUser;
+    db.collection('users').doc(user.uid).set({ notifs }, { merge: true });
+}
+
+export async function maybeUpdateNotifPreferences(userData) {
+    let shouldUpdate = false;
+
+    await email.forEach((type) => {
+        if (!userData.notifs.email[type]) {
+            shouldUpdate = true;
+            userData.notifs.email[type] = { enabled: true };
+        }
+    });
+
+    await push.forEach((type) => {
+        if (!userData.notifs.push[type]) {
+            shouldUpdate = true;
+            userData.notifs.push[type] = { enabled: true };
+        }
+    });
+
+    if (shouldUpdate) {
+        writeNotifPreferences(userData.notifs);
+    }
+}
+
 export async function getUserData(dispatchUserData, dispatchAvatar) {
     const favoriteHikes = await buildHikeArray();
     const reviewedHikes = await buildReviewArray();
@@ -223,6 +251,7 @@ export async function getUserData(dispatchUserData, dispatchAvatar) {
 
     await setAvatar(dispatchAvatar);
     await writeUserLanguage();
+    await maybeUpdateNotifPreferences(userData);
 
     dispatchUserData(userData);
 }
