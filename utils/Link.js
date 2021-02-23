@@ -37,17 +37,23 @@ export async function removeUrlListener(navigation) {
     );
 }
 
-export function handleOpenNotification(hid, navigation) {
+export function handleOpenNotification(hid, type, navigation) {
+    let options = {};
+
+    if (type === 'reviewLike') {
+        options = { scrollToReviewList: true };
+    }
+
     if (hid && navigation) {
-        openHikeScreen(hid, navigation, {});
+        openHikeScreen(hid, navigation, options);
     }
 }
 
 export async function addNotificationListener(navigation, listenerRef) {
     listenerRef.current = Notifications.addNotificationResponseReceivedListener(
         (response) => {
-            const { hid } = response.notification.request.content.data;
-            handleOpenNotification(hid, navigation);
+            const { hid, type } = response.notification.request.content.data;
+            handleOpenNotification(hid, type, navigation);
         },
     );
 }

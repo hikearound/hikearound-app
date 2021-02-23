@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import { Settings, ProfileHeader, ProfileBody } from '../components/Index';
 import EditProfileModal from '../components/modal/EditProfileModal';
-import { getUserFavoriteHikes } from '../utils/User';
+import { buildFavoriteHikesArray } from '../utils/User';
 import ProfileLoadingState from '../components/loading/Profile';
 import { timings } from '../constants/Index';
 import { RootView } from '../styles/Screens';
@@ -88,16 +88,7 @@ class ProfileScreen extends React.Component {
     };
 
     getHikeData = async () => {
-        const hikeData = [];
-        const favoritedHikes = await getUserFavoriteHikes();
-
-        await favoritedHikes.forEach((hike) => {
-            if (hike.exists) {
-                const favoriteHike = hike.data();
-                favoriteHike.id = hike.id;
-                hikeData.push(favoriteHike);
-            }
-        });
+        const hikeData = await buildFavoriteHikesArray();
 
         if (hikeData) {
             await this.setState({ hikeData });

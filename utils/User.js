@@ -99,6 +99,21 @@ export async function getUserFavoriteHikes() {
     return hikeSnapshot;
 }
 
+export async function buildFavoriteHikesArray() {
+    const favoritedHikes = await getUserFavoriteHikes();
+    const hikes = [];
+
+    await favoritedHikes.forEach((hike) => {
+        if (hike.exists) {
+            const favoriteHike = hike.data();
+            favoriteHike.id = hike.id;
+            hikes.push(favoriteHike);
+        }
+    });
+
+    return hikes;
+}
+
 export async function getUserReviewedHikes() {
     const { uid } = auth.currentUser;
 
