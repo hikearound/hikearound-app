@@ -267,3 +267,23 @@ export function createUserProfile(dispatchUserData, response, name) {
 
     dispatchUserData(userData);
 }
+
+export function shouldDisableSwitch(notifs, item) {
+    if (item.type === 'push') {
+        if (!notifs.push.global.enabled) {
+            if (item.property !== 'global') {
+                return true;
+            }
+        }
+    }
+
+    if (item.type === 'email') {
+        if (!notifs.email.global.enabled) {
+            if (item.property !== 'global') {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}

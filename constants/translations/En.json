@@ -266,8 +266,15 @@
                 "dark": "Dark Mode",
                 "notification": {
                     "combined": "Email & Push Notifications",
-                    "email": "Enable emails",
-                    "push": "Enable push notifications"
+                    "email": {
+                        "global": "Enable emails",
+                        "digest": "Digest"
+                    },
+                    "push": {
+                        "global": "Enable push notifications",
+                        "digest": "Digest",
+                        "reviewLike": "Review likes"
+                    }
                 }
             }
         }

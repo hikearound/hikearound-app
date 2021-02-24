@@ -20,12 +20,7 @@ export const modalState = {
     flagedReview: null,
 };
 
-export const notifs = {
-    enabled: true,
-    digest: {
-        enabled: true,
-    },
-};
+export const notifs = {};
 
 export const user = {
     name: '',

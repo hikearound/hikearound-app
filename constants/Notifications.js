@@ -1,3 +1,3 @@
-export const email = ['digest'];
+export const email = ['global', 'digest'];
 
-export const push = ['digest', 'reviewLike'];
+export const push = ['global', 'digest', 'reviewLike'];

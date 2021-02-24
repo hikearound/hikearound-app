@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { SectionList } from 'react-native';
 import { withTranslation } from 'react-i18next';
@@ -11,8 +12,14 @@ import {
 } from '../../styles/Screens';
 import { withTheme, SetBarStyle } from '../../utils/Themes';
 
-function mapStateToProps() {
-    return {};
+const propTypes = {
+    notifs: PropTypes.object.isRequired,
+};
+
+function mapStateToProps(state) {
+    return {
+        notifs: state.userReducer.notifs,
+    };
 }
 
 class NotificationSettingsScreen extends React.Component {
@@ -27,14 +34,14 @@ class NotificationSettingsScreen extends React.Component {
     );
 
     render() {
-        const { t } = this.props;
-        const settingsData = getSettingsData(t);
+        const { t, notifs } = this.props;
+        const settingsData = getSettingsData(t, notifs);
 
         return (
             <StyledRootView>
                 <SetBarStyle barStyle='light-content' />
                 <SectionList
-                    extraData={this.state}
+                    extraData={notifs}
                     renderItem={this.renderItem}
                     stickySectionHeadersEnabled={false}
                     renderSectionHeader={this.renderSectionHeader}
@@ -45,6 +52,8 @@ class NotificationSettingsScreen extends React.Component {
         );
     }
 }
+
+NotificationSettingsScreen.propTypes = propTypes;
 
 export default connect(mapStateToProps)(
     withTranslation()(withTheme(NotificationSettingsScreen)),

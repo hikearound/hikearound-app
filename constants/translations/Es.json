@@ -266,8 +266,15 @@
                 "dark": "Modo oscuro",
                 "notification": {
                     "combined": "Correo electrónico y notificaciones push",
-                    "email": "Habilitar correos electrónicos",
-                    "push": "Habilitar notificaciones push"
+                    "email": {
+                        "global": "Habilitar correos electrónicos",
+                        "digest": "Digerir"
+                    },
+                    "push": {
+                        "global": "Habilitar notificaciones push",
+                        "digest": "Digerir",
+                        "reviewLike": "Revisar me gusta"
+                    }
                 }
             }
         }

@@ -50,7 +50,9 @@ export const updateDarkMode = (darkMode) => {
 };
 
 export const updateNotifs = (notifs) => {
-    writeNotifData(notifs);
+    if (notifs) {
+        writeNotifData(notifs);
+    }
     return { type: 'UPDATE_NOTIFS', notifs };
 };
 

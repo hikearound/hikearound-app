@@ -1,33 +1,52 @@
-import { settingsItems, settingsControls } from '../Settings';
+import { settingsControls } from '../Settings';
 
-export function getEmailSection(t) {
+export function buildDataItem(t, property, type) {
     return {
-        title: t('label.input.email'),
-        data: [
-            {
-                name: t('screen.settings.item.notification.email'),
-                type: settingsItems.globalEmail,
-                control: settingsControls.switch,
-            },
-        ],
+        name: t(`screen.settings.item.notification.${type}.${property}`),
+        type,
+        property,
+        control: settingsControls.switch,
     };
 }
 
-export function getPushSection(t) {
-    return {
-        title: t('screen.settings.header.push'),
-        data: [
-            {
-                name: t('screen.settings.item.notification.push'),
-                type: settingsItems.globalNotification,
-                control: settingsControls.switch,
-            },
-        ],
-    };
+export function getEmailSection(t, notifs) {
+    const data = [];
+
+    for (const property in notifs) {
+        if (notifs[property]) {
+            const item = buildDataItem(t, property, 'email');
+
+            if (property === 'global') {
+                data.unshift(item);
+            } else {
+                data.push(item);
+            }
+        }
+    }
+
+    return { title: t('label.input.email'), data };
 }
 
-export function getSettingsData(t) {
-    const emailSection = getEmailSection(t);
-    const pushSection = getPushSection(t);
+export function getPushSection(t, notifs) {
+    const data = [];
+
+    for (const property in notifs) {
+        if (notifs[property]) {
+            const item = buildDataItem(t, property, 'push');
+
+            if (property === 'global') {
+                data.unshift(item);
+            } else {
+                data.push(item);
+            }
+        }
+    }
+
+    return { title: t('screen.settings.header.push'), data };
+}
+
+export function getSettingsData(t, notifs) {
+    const emailSection = getEmailSection(t, notifs.email);
+    const pushSection = getPushSection(t, notifs.push);
     return [emailSection, pushSection];
 }
