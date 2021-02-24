@@ -82,14 +82,14 @@ class CreateAccountScreen extends React.Component {
         navigation.dispatch(resetAction);
     };
 
-    createProfile = (response) => {
+    createProfile = async (response) => {
         const { dispatchUserData } = this.props;
         const { name } = this.state;
 
         createUserProfile(dispatchUserData, response, name);
     };
 
-    createAccountSuccessful = (response) => {
+    createAccountSuccessful = async (response) => {
         this.createProfile(response);
         this.logEvent();
         this.navigateToNextScreen();

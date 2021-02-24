@@ -95,11 +95,11 @@ class HomeScreen extends React.Component {
 
         await this.getAndSetPosition();
         await this.getAndSetData();
-        await this.getAndSetPromotions();
 
         await watchPositionAsync(dispatchUserPosition);
         await getUserData(dispatchUserData, dispatchAvatar);
         await getMapData(dispatchMapData);
+        await this.getAndSetPromotions();
 
         checkInitialUrl(navigation);
         handleAppBadge();

@@ -8,8 +8,6 @@ export async function getPromotionStatus(promotionType) {
 
     if (!userData.promotions) {
         userData.promotions = { [promotionType]: { shouldShow: true } };
-    } else if (!userData.promotions[promotionType]) {
-        userData.promotions[promotionType] = { shouldShow: true };
     }
 
     const { promotions } = userData;

@@ -237,6 +237,8 @@ export async function maybeUpdateNotifPreferences(userData) {
     if (shouldUpdate) {
         writeNotifPreferences(userData.notifs);
     }
+
+    return userData.notifs;
 }
 
 export async function getUserData(dispatchUserData, dispatchAvatar) {
@@ -251,7 +253,9 @@ export async function getUserData(dispatchUserData, dispatchAvatar) {
 
     await setAvatar(dispatchAvatar);
     await writeUserLanguage();
-    await maybeUpdateNotifPreferences(userData);
+
+    const notifs = await maybeUpdateNotifPreferences(userData);
+    userData.notifs = notifs;
 
     dispatchUserData(userData);
 }
