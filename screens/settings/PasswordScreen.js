@@ -12,7 +12,6 @@ import { getInputs } from '../../utils/Inputs';
 import { spacing, opacities, timings, fontSizes } from '../../constants/Index';
 import { auth } from '../../lib/Fire';
 import { mapCodeToTranslation } from '../../utils/Localization';
-import { getSignInMethods } from '../../utils/Auth';
 import HeaderText from '../../styles/Header';
 
 const propTypes = {};
@@ -24,7 +23,9 @@ function mapStateToProps() {
 class PasswordScreen extends React.Component {
     constructor(props) {
         super(props);
-        const { t } = this.props;
+        const { t, route } = this.props;
+        const { disabled } = route.params;
+
         const inputs = getInputs(t, 'changePassword');
 
         this.state = {
@@ -33,7 +34,7 @@ class PasswordScreen extends React.Component {
             newPassword: '',
             loading: false,
             saveButtonDisabled: true,
-            disabled: false,
+            disabled,
         };
 
         this.setNavigationOptions();
@@ -41,8 +42,6 @@ class PasswordScreen extends React.Component {
 
     componentDidMount = async () => {
         const { disabled } = this.state;
-
-        await this.maybeDisableInputs();
 
         if (!disabled) {
             setTimeout(() => {
@@ -55,15 +54,6 @@ class PasswordScreen extends React.Component {
         await this.setState({ [name]: text });
         this.maybeToggleSaveButton();
     }
-
-    maybeDisableInputs = async () => {
-        const user = auth.currentUser;
-        const providers = await getSignInMethods(user.email);
-
-        if (!providers.includes('password')) {
-            await this.setState({ disabled: true });
-        }
-    };
 
     maybeToggleSaveButton = () => {
         const { currentPassword, newPassword } = this.state;
