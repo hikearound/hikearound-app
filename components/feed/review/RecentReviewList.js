@@ -23,9 +23,7 @@ const defaultProps = {
 };
 
 class RecentReviewList extends React.Component {
-    renderPadding = () => {
-        return <Padding />;
-    };
+    renderPadding = () => <Padding />;
 
     renderListHeader = () => {
         const { t } = this.props;

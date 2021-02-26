@@ -22,30 +22,28 @@ const defaultProps = {
     route: '',
 };
 
-const InfoBar = ({ distance, elevation, route, t }) => {
-    return (
-        <CardContent>
-            <ContentItem>
-                <MetaDataType>{t('hike.data.distance')}</MetaDataType>
-                <MetaData>
-                    {distance} {t('hike.data.miles')}
-                </MetaData>
-            </ContentItem>
-            <ContentItem>
-                <MetaDataType>{t('hike.data.elevation')}</MetaDataType>
-                <MetaData>
-                    {elevation} {t('hike.data.feet')}
-                </MetaData>
-            </ContentItem>
-            <ContentItem>
-                <MetaDataType>{t('hike.data.route')}</MetaDataType>
-                <MetaData capitalize>
-                    {t(`hike.data.${route.toLowerCase()}`)}
-                </MetaData>
-            </ContentItem>
-        </CardContent>
-    );
-};
+const InfoBar = ({ distance, elevation, route, t }) => (
+    <CardContent>
+        <ContentItem>
+            <MetaDataType>{t('hike.data.distance')}</MetaDataType>
+            <MetaData>
+                {distance} {t('hike.data.miles')}
+            </MetaData>
+        </ContentItem>
+        <ContentItem>
+            <MetaDataType>{t('hike.data.elevation')}</MetaDataType>
+            <MetaData>
+                {elevation} {t('hike.data.feet')}
+            </MetaData>
+        </ContentItem>
+        <ContentItem>
+            <MetaDataType>{t('hike.data.route')}</MetaDataType>
+            <MetaData capitalize>
+                {t(`hike.data.${route.toLowerCase()}`)}
+            </MetaData>
+        </ContentItem>
+    </CardContent>
+);
 
 InfoBar.propTypes = propTypes;
 InfoBar.defaultProps = defaultProps;

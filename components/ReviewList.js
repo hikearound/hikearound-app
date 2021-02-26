@@ -54,20 +54,18 @@ class ReviewList extends React.Component {
         return null;
     };
 
-    renderItem = ({ item }) => {
-        return (
-            <ReviewListItem
-                id={item.id}
-                rid={item.id}
-                hid={item.hid}
-                user={item.user}
-                rating={item.rating}
-                review={item.review}
-                savedOn={item.savedOn}
-                userLikes={item.userLikes}
-            />
-        );
-    };
+    renderItem = ({ item }) => (
+        <ReviewListItem
+            id={item.id}
+            rid={item.id}
+            hid={item.hid}
+            user={item.user}
+            rating={item.rating}
+            review={item.review}
+            savedOn={item.savedOn}
+            userLikes={item.userLikes}
+        />
+    );
 
     render() {
         const { reviewData, reviewListRef } = this.props;

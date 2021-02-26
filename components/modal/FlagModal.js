@@ -141,14 +141,12 @@ class FlagReviewModal extends React.Component {
         );
     };
 
-    renderActions = () => {
-        return (
-            <>
-                <FlagButton type='spam' onPress={this.submitReport} />
-                <FlagButton type='offensive' onPress={this.submitReport} />
-            </>
-        );
-    };
+    renderActions = () => (
+        <>
+            <FlagButton type='spam' onPress={this.submitReport} />
+            <FlagButton type='offensive' onPress={this.submitReport} />
+        </>
+    );
 
     renderConfirmation = () => {
         const { t } = this.props;

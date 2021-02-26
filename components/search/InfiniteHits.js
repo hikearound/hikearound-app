@@ -33,20 +33,18 @@ class InfiniteHits extends React.Component {
         }
     };
 
-    renderItem = ({ item }) => {
-        return (
-            <HikeListItem
-                id={item.objectID}
-                name={item.name}
-                location={`${item.city}, ${item.state}`}
-                distance={item.distance}
-                item={item}
-                shouldHighlight
-                showBottomBorder
-                showTopBorder={false}
-            />
-        );
-    };
+    renderItem = ({ item }) => (
+        <HikeListItem
+            id={item.objectID}
+            name={item.name}
+            location={`${item.city}, ${item.state}`}
+            distance={item.distance}
+            item={item}
+            shouldHighlight
+            showBottomBorder
+            showTopBorder={false}
+        />
+    );
 
     render() {
         const {

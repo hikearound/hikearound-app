@@ -79,7 +79,7 @@ export async function writeReview(reviewData) {
     return db
         .collection('reviews')
         .add(reviewData)
-        .then(async function (docRef) {
+        .then(async (docRef) => {
             const review = await getReviewData(docRef.id);
             return review;
         });

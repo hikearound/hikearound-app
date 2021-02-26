@@ -33,17 +33,13 @@ class SearchScreen extends React.Component {
         });
     };
 
-    renderSearchBox = () => {
-        return <SearchBox />;
-    };
+    renderSearchBox = () => <SearchBox />;
 
-    renderSearchResults = () => {
-        return (
-            <StateResults>
-                <InfiniteHits />
-            </StateResults>
-        );
-    };
+    renderSearchResults = () => (
+        <StateResults>
+            <InfiniteHits />
+        </StateResults>
+    );
 
     render() {
         const { searchState } = this.state;

@@ -1,23 +1,20 @@
-export const closeModal = (closeAction) => {
-    return { type: 'HIDE_MODAL', closeAction };
-};
+export const closeModal = (closeAction) => ({
+    type: 'HIDE_MODAL',
+    closeAction,
+});
 
-export const setLightboxImage = (imageIndex) => {
-    return { type: 'SET_LIGHTBOX_IMAGE_INDEX', imageIndex };
-};
+export const setLightboxImage = (imageIndex) => ({
+    type: 'SET_LIGHTBOX_IMAGE_INDEX',
+    imageIndex,
+});
 
-export const setSelectedHike = (hid) => {
-    return { type: 'SET_SELECTED_HIKE', hid };
-};
+export const setSelectedHike = (hid) => ({ type: 'SET_SELECTED_HIKE', hid });
 
-export const setReviewData = (reviewData) => {
-    return { type: 'SET_REVIEW_DATA', reviewData };
-};
+export const setReviewData = (reviewData) => ({
+    type: 'SET_REVIEW_DATA',
+    reviewData,
+});
 
-export const setFlaggedReview = (rid) => {
-    return { type: 'SET_FLAGGED_REVIEW', rid };
-};
+export const setFlaggedReview = (rid) => ({ type: 'SET_FLAGGED_REVIEW', rid });
 
-export const showModal = (modalType) => {
-    return { type: 'SHOW_MODAL', modalType };
-};
+export const showModal = (modalType) => ({ type: 'SHOW_MODAL', modalType });

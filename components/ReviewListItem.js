@@ -177,9 +177,7 @@ class ReviewListItem extends React.Component {
         return null;
     };
 
-    renderRevealedFooter = () => {
-        return null;
-    };
+    renderRevealedFooter = () => null;
 
     maybeTruncateReview = () => {
         const { truncationLimit } = this.props;

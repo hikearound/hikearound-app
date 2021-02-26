@@ -318,14 +318,12 @@ class HomeScreen extends React.Component {
         return !firstLoad && promotion.shouldShow && <Promotion />;
     };
 
-    renderOther = () => {
-        return (
-            <>
-                <SetBarStyle barStyle='light-content' />
-                <FilterModal />
-            </>
-        );
-    };
+    renderOther = () => (
+        <>
+            <SetBarStyle barStyle='light-content' />
+            <FilterModal />
+        </>
+    );
 
     render() {
         return (

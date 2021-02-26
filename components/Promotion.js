@@ -46,18 +46,16 @@ function Promotion({
         dismissPromotion('welcome');
     };
 
-    const renderDismissButton = () => {
-        return (
-            <TouchableOpacity
-                activeOpacity={opacities.regular}
-                onPress={() => dismissModal()}
-            >
-                <ButtonView>
-                    <ButtonText>{t('promotion.welcome.cta')}</ButtonText>
-                </ButtonView>
-            </TouchableOpacity>
-        );
-    };
+    const renderDismissButton = () => (
+        <TouchableOpacity
+            activeOpacity={opacities.regular}
+            onPress={() => dismissModal()}
+        >
+            <ButtonView>
+                <ButtonText>{t('promotion.welcome.cta')}</ButtonText>
+            </ButtonView>
+        </TouchableOpacity>
+    );
 
     return (
         <View>

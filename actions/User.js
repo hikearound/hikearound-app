@@ -8,18 +8,17 @@ import {
     logoutAndResetNavigation,
 } from '../utils/User';
 
-export const initializeUserData = (userData) => {
-    return { type: 'INITIALIZE_USER_DATA', userData };
-};
+export const initializeUserData = (userData) => ({
+    type: 'INITIALIZE_USER_DATA',
+    userData,
+});
 
 export const updateUserData = (userData) => {
     writeUserData(userData);
     return { type: 'UPDATE_USER_DATA', userData };
 };
 
-export const initializeAvatar = (uri) => {
-    return { type: 'INITIALIZE_AVATAR', uri };
-};
+export const initializeAvatar = (uri) => ({ type: 'INITIALIZE_AVATAR', uri });
 
 export const updateUserPosition = (currentPosition) => {
     writeUserLocation(currentPosition);
@@ -31,13 +30,15 @@ export const updateAvatar = (photoData) => {
     return { type: 'UPDATE_AVATAR', photoData };
 };
 
-export const updateFavoriteHikes = (favoriteHikes) => {
-    return { type: 'UPDATE_FAVORITE_HIKES', favoriteHikes };
-};
+export const updateFavoriteHikes = (favoriteHikes) => ({
+    type: 'UPDATE_FAVORITE_HIKES',
+    favoriteHikes,
+});
 
-export const updateReviewedHikes = (reviewedHikes) => {
-    return { type: 'UPDATE_REVIEWED_HIKES', reviewedHikes };
-};
+export const updateReviewedHikes = (reviewedHikes) => ({
+    type: 'UPDATE_REVIEWED_HIKES',
+    reviewedHikes,
+});
 
 export const updateMap = (map) => {
     writeMapData(map);

@@ -33,13 +33,9 @@ class HomeEmptyState extends React.PureComponent {
         navigation.navigate('Map', { screen: 'Map' });
     };
 
-    renderSearchLink = () => {
-        return <TextLink onPress={this.searchPress} />;
-    };
+    renderSearchLink = () => <TextLink onPress={this.searchPress} />;
 
-    renderMapLink = () => {
-        return <TextLink onPress={this.mapPress} />;
-    };
+    renderMapLink = () => <TextLink onPress={this.mapPress} />;
 
     renderMessage = () => {
         const { city } = this.props;

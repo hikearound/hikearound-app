@@ -77,71 +77,63 @@ function GraphSheet({
         ],
     };
 
-    const renderContentHeaderItem = (label, subtext) => {
-        return (
-            <React.Fragment key={label}>
-                <HeaderItem>
-                    <HeaderLabel>{label}</HeaderLabel>
-                    <HeaderSubtext>{subtext}</HeaderSubtext>
-                </HeaderItem>
-            </React.Fragment>
-        );
-    };
+    const renderContentHeaderItem = (label, subtext) => (
+        <React.Fragment key={label}>
+            <HeaderItem>
+                <HeaderLabel>{label}</HeaderLabel>
+                <HeaderSubtext>{subtext}</HeaderSubtext>
+            </HeaderItem>
+        </React.Fragment>
+    );
 
-    const renderContentHeader = () => {
-        return [
-            renderContentHeaderItem(
-                t('sheet.elevation.label.distance'),
-                t('sheet.elevation.distance', {
-                    unit: t('sheet.elevation.unit.miles'),
-                    distance,
-                }),
-            ),
-            renderContentHeaderItem(
-                t('sheet.elevation.label.elevation'),
-                t('sheet.elevation.distance', {
-                    unit: t('sheet.elevation.unit.feet'),
-                    distance: elevation,
-                }),
-            ),
-        ];
-    };
+    const renderContentHeader = () => [
+        renderContentHeaderItem(
+            t('sheet.elevation.label.distance'),
+            t('sheet.elevation.distance', {
+                unit: t('sheet.elevation.unit.miles'),
+                distance,
+            }),
+        ),
+        renderContentHeaderItem(
+            t('sheet.elevation.label.elevation'),
+            t('sheet.elevation.distance', {
+                unit: t('sheet.elevation.unit.feet'),
+                distance: elevation,
+            }),
+        ),
+    ];
 
-    const renderContent = () => {
-        return (
-            <Body>
-                <Header>{renderContentHeader()}</Header>
-                <LineChart
-                    data={data}
-                    width={width + marginOffset}
-                    height={height}
-                    chartConfig={chartConfig(theme)}
-                    bezier
-                    withDots={false}
-                    yAxisSuffix={` ${t('sheet.elevation.unit.feet')}`}
-                    xAxisLabel={` ${t('sheet.elevation.unit.miles')}`}
-                    yAxisInterval={elevationArray.length / axisIncrement}
-                    formatYLabel={formatYLabel}
-                    formatXLabel={formatXLabel}
-                    segments={axisIncrement - 1}
-                    style={{
-                        marginLeft: -marginOffset,
-                    }}
-                    withOuterLines={false}
-                />
-            </Body>
-        );
-    };
-
-    const renderHeader = () => {
-        return (
-            <SheetHeader
-                mapRef={mapRef}
-                sheetRef={sheetRef}
-                shouldShowLocationButton
+    const renderContent = () => (
+        <Body>
+            <Header>{renderContentHeader()}</Header>
+            <LineChart
+                data={data}
+                width={width + marginOffset}
+                height={height}
+                chartConfig={chartConfig(theme)}
+                bezier
+                withDots={false}
+                yAxisSuffix={` ${t('sheet.elevation.unit.feet')}`}
+                xAxisLabel={` ${t('sheet.elevation.unit.miles')}`}
+                yAxisInterval={elevationArray.length / axisIncrement}
+                formatYLabel={formatYLabel}
+                formatXLabel={formatXLabel}
+                segments={axisIncrement - 1}
+                style={{
+                    marginLeft: -marginOffset,
+                }}
+                withOuterLines={false}
             />
-        );
-    };
+        </Body>
+    );
+
+    const renderHeader = () => (
+        <SheetHeader
+            mapRef={mapRef}
+            sheetRef={sheetRef}
+            shouldShowLocationButton
+        />
+    );
 
     return (
         <>

@@ -10,6 +10,4 @@ export const unfavoriteHike = (updatedHikeData) => {
     return { type: 'UNFAVORITE_HIKE', updatedHikeData };
 };
 
-export const copyLink = () => {
-    return { type: 'COPY_LINK' };
-};
+export const copyLink = () => ({ type: 'COPY_LINK' });

@@ -8,17 +8,15 @@ import { withTheme } from '../utils/Themes';
 const Stack = createStackNavigator();
 
 class NotificationStack extends React.PureComponent {
-    renderNotificationScreen = (t) => {
-        return (
-            <Stack.Screen
-                name='Notification'
-                component={NotificationScreen}
-                options={{
-                    headerTitle: t('label.nav.notifications'),
-                }}
-            />
-        );
-    };
+    renderNotificationScreen = (t) => (
+        <Stack.Screen
+            name='Notification'
+            component={NotificationScreen}
+            options={{
+                headerTitle: t('label.nav.notifications'),
+            }}
+        />
+    );
 
     render() {
         const { theme, t } = this.props;

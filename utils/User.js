@@ -160,9 +160,7 @@ export async function getAvatarUri() {
     await storage
         .ref(`images/users/${uid}.jpg`)
         .getDownloadURL()
-        .catch(() => {
-            return null;
-        })
+        .catch(() => null)
         .then((result) => {
             avatarUri = result;
         });

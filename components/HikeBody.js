@@ -159,32 +159,28 @@ class HikeBody extends React.Component {
         }
     };
 
-    renderReviewPrompt = (setSelectedStars, hid) => {
-        return <ReviewPrompt setSelectedStars={setSelectedStars} hid={hid} />;
-    };
+    renderReviewPrompt = (setSelectedStars, hid) => (
+        <ReviewPrompt setSelectedStars={setSelectedStars} hid={hid} />
+    );
 
-    renderGallerySection = (t, hid, imageCount) => {
-        return (
-            <View>
-                <Subtitle text={t('label.heading.images')} />
-                <PhotoLightboxGroup hid={hid} imageCount={imageCount} />
-            </View>
-        );
-    };
+    renderGallerySection = (t, hid, imageCount) => (
+        <View>
+            <Subtitle text={t('label.heading.images')} />
+            <PhotoLightboxGroup hid={hid} imageCount={imageCount} />
+        </View>
+    );
 
-    renderReviewSection = (t, reviews, maybeShowEmptyState) => {
-        return (
-            <View>
-                <Subtitle text={t('label.heading.reviews')} hideBorder />
-                <ReviewList
-                    reviewListRef={this.reviewListRef}
-                    reviewData={reviews}
-                    shouldShowHeader={false}
-                    maybeShowEmptyState={maybeShowEmptyState}
-                />
-            </View>
-        );
-    };
+    renderReviewSection = (t, reviews, maybeShowEmptyState) => (
+        <View>
+            <Subtitle text={t('label.heading.reviews')} hideBorder />
+            <ReviewList
+                reviewListRef={this.reviewListRef}
+                reviewData={reviews}
+                shouldShowHeader={false}
+                maybeShowEmptyState={maybeShowEmptyState}
+            />
+        </View>
+    );
 
     render() {
         const {

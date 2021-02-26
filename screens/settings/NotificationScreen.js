@@ -23,9 +23,9 @@ function mapStateToProps(state) {
 }
 
 class NotificationSettingsScreen extends React.Component {
-    renderItem = ({ item, index }) => {
-        return <NotificationSwitchItem item={item} index={index} />;
-    };
+    renderItem = ({ item, index }) => (
+        <NotificationSwitchItem item={item} index={index} />
+    );
 
     renderSectionHeader = ({ section }) => (
         <HeaderContainer>

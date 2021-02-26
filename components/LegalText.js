@@ -5,23 +5,19 @@ import { withTheme } from '../utils/Themes';
 import { SubText } from '../styles/Screens';
 
 class LegalText extends React.PureComponent {
-    renderTermsOfServiceLink = (t) => {
-        return (
-            <TextLink
-                url='https://www.tryhikearound.com/terms?contentOnly=true'
-                text={t('label.common.terms')}
-            />
-        );
-    };
+    renderTermsOfServiceLink = (t) => (
+        <TextLink
+            url='https://www.tryhikearound.com/terms?contentOnly=true'
+            text={t('label.common.terms')}
+        />
+    );
 
-    renderPrivacyPolicyLink = (t) => {
-        return (
-            <TextLink
-                url='https://www.tryhikearound.com/privacy?contentOnly=true'
-                text={t('label.common.privacy')}
-            />
-        );
-    };
+    renderPrivacyPolicyLink = (t) => (
+        <TextLink
+            url='https://www.tryhikearound.com/privacy?contentOnly=true'
+            text={t('label.common.privacy')}
+        />
+    );
 
     render() {
         const { t } = this.props;

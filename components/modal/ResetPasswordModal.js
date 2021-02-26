@@ -65,19 +65,15 @@ class ResetPasswordModal extends React.Component {
         this.setState({ [name]: text });
     }
 
-    renderModalHeader = (t) => {
-        return (
-            <ModalHeader
-                title={t('modal.reset.title')}
-                continueAction='resetPassword'
-                continueText={t('label.modal.send')}
-            />
-        );
-    };
+    renderModalHeader = (t) => (
+        <ModalHeader
+            title={t('modal.reset.title')}
+            continueAction='resetPassword'
+            continueText={t('label.modal.send')}
+        />
+    );
 
-    renderHelpText = (t) => {
-        return <SubText>{t('modal.reset.help')}</SubText>;
-    };
+    renderHelpText = (t) => <SubText>{t('modal.reset.help')}</SubText>;
 
     assignRef = (ref, name) => {
         this[`${name}Input`] = ref;

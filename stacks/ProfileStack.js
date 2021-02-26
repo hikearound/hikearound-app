@@ -53,57 +53,49 @@ class ProfileStack extends React.PureComponent {
         this.unsubscribe();
     }
 
-    renderProfileScreen = (t) => {
-        return (
-            <Stack.Screen
-                name='Profile'
-                component={ProfileScreen}
-                options={{
-                    headerTitle: t('label.nav.you'),
-                }}
-            />
-        );
-    };
+    renderProfileScreen = (t) => (
+        <Stack.Screen
+            name='Profile'
+            component={ProfileScreen}
+            options={{
+                headerTitle: t('label.nav.you'),
+            }}
+        />
+    );
 
-    renderHikeScreen = () => {
-        return <Stack.Screen name='Hike' component={HikeScreen} />;
-    };
+    renderHikeScreen = () => (
+        <Stack.Screen name='Hike' component={HikeScreen} />
+    );
 
-    renderSettingsScreen = (t) => {
-        return (
-            <Stack.Screen
-                name='Settings'
-                component={SettingsScreen}
-                options={{
-                    headerTitle: t('label.nav.settings'),
-                }}
-            />
-        );
-    };
+    renderSettingsScreen = (t) => (
+        <Stack.Screen
+            name='Settings'
+            component={SettingsScreen}
+            options={{
+                headerTitle: t('label.nav.settings'),
+            }}
+        />
+    );
 
-    renderNotificationSettingsScreen = (t) => {
-        return (
-            <Stack.Screen
-                name='NotificationSettings'
-                component={NotificationSettingsScreen}
-                options={{
-                    headerTitle: t('label.nav.notifications'),
-                }}
-            />
-        );
-    };
+    renderNotificationSettingsScreen = (t) => (
+        <Stack.Screen
+            name='NotificationSettings'
+            component={NotificationSettingsScreen}
+            options={{
+                headerTitle: t('label.nav.notifications'),
+            }}
+        />
+    );
 
-    renderPasswordScreen = (t) => {
-        return (
-            <Stack.Screen
-                name='Password'
-                component={PasswordScreen}
-                options={{
-                    headerTitle: t('label.nav.password'),
-                }}
-            />
-        );
-    };
+    renderPasswordScreen = (t) => (
+        <Stack.Screen
+            name='Password'
+            component={PasswordScreen}
+            options={{
+                headerTitle: t('label.nav.password'),
+            }}
+        />
+    );
 
     render() {
         const { stackName, focusedStack, theme, t } = this.props;

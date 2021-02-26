@@ -103,15 +103,13 @@ class EditProfileModal extends React.Component {
         }
     };
 
-    renderModalHeader = (t) => {
-        return (
-            <ModalHeader
-                title={t('screen.profile.edit')}
-                continueAction='updateUserData'
-                continueText={t('label.modal.save')}
-            />
-        );
-    };
+    renderModalHeader = (t) => (
+        <ModalHeader
+            title={t('screen.profile.edit')}
+            continueAction='updateUserData'
+            continueText={t('label.modal.save')}
+        />
+    );
 
     handleSubmitEditing = (index) => {
         if (index === 0) {

@@ -47,22 +47,20 @@ class MapStack extends React.Component {
         this.unsubscribe();
     }
 
-    renderMapScreen = (t) => {
-        return (
-            <Stack.Screen
-                name='Map'
-                component={MapScreen}
-                options={{
-                    headerTitle: t('label.nav.map'),
-                    headerShown: false,
-                }}
-            />
-        );
-    };
+    renderMapScreen = (t) => (
+        <Stack.Screen
+            name='Map'
+            component={MapScreen}
+            options={{
+                headerTitle: t('label.nav.map'),
+                headerShown: false,
+            }}
+        />
+    );
 
-    renderHikeScreen = () => {
-        return <Stack.Screen name='Hike' component={HikeScreen} />;
-    };
+    renderHikeScreen = () => (
+        <Stack.Screen name='Hike' component={HikeScreen} />
+    );
 
     render() {
         const { stackName, focusedStack, theme, t } = this.props;

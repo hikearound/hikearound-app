@@ -44,9 +44,7 @@ class StateResults extends React.PureComponent {
         );
     };
 
-    renderResults = (children) => {
-        return children;
-    };
+    renderResults = (children) => children;
 
     render() {
         const { searchState, searchResults, children } = this.props;

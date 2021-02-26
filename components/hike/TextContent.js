@@ -83,9 +83,7 @@ class TextContent extends React.Component {
         this.setState({ description });
     };
 
-    renderRevealedFooter = () => {
-        return null;
-    };
+    renderRevealedFooter = () => null;
 
     updateDescription() {
         const { description } = this.props;

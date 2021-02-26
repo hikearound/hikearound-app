@@ -96,84 +96,72 @@ class HomeStack extends React.Component {
         return initialRoute;
     };
 
-    renderLandingScreen = () => {
-        return (
-            <Stack.Screen
-                name='Landing'
-                component={LandingScreen}
-                options={() => ({
-                    headerTitle: () => <Logo />,
-                    animationEnabled: false,
-                })}
-            />
-        );
-    };
+    renderLandingScreen = () => (
+        <Stack.Screen
+            name='Landing'
+            component={LandingScreen}
+            options={() => ({
+                headerTitle: () => <Logo />,
+                animationEnabled: false,
+            })}
+        />
+    );
 
-    renderCreateAccountScreen = (t) => {
-        return (
-            <Stack.Screen
-                name='CreateAccount'
-                component={CreateAccountScreen}
-                options={{
-                    headerTitle: t('label.nav.createAccount'),
-                }}
-            />
-        );
-    };
+    renderCreateAccountScreen = (t) => (
+        <Stack.Screen
+            name='CreateAccount'
+            component={CreateAccountScreen}
+            options={{
+                headerTitle: t('label.nav.createAccount'),
+            }}
+        />
+    );
 
-    renderSignInScreen = (t) => {
-        return (
-            <Stack.Screen
-                name='SignIn'
-                component={SignInScreen}
-                options={{
-                    headerTitle: t('label.nav.signIn'),
-                }}
-            />
-        );
-    };
+    renderSignInScreen = (t) => (
+        <Stack.Screen
+            name='SignIn'
+            component={SignInScreen}
+            options={{
+                headerTitle: t('label.nav.signIn'),
+            }}
+        />
+    );
 
-    renderHomeScreen = () => {
-        return (
-            <Stack.Screen
-                name='Home'
-                component={HomeScreen}
-                options={() => ({
-                    animationEnabled: false,
-                })}
-            />
-        );
-    };
+    renderHomeScreen = () => (
+        <Stack.Screen
+            name='Home'
+            component={HomeScreen}
+            options={() => ({
+                animationEnabled: false,
+            })}
+        />
+    );
 
-    renderHikeScreen = () => {
-        return <Stack.Screen name='Hike' component={HikeScreen} />;
-    };
+    renderHikeScreen = () => (
+        <Stack.Screen name='Hike' component={HikeScreen} />
+    );
 
-    renderLocationPermissionScreen = (t) => {
-        return (
-            <Stack.Screen
-                name='LocationPermission'
-                component={LocationPermissionScreen}
-                options={{
-                    headerTitle: t('label.nav.locationPermission'),
-                }}
-            />
-        );
-    };
+    renderLocationPermissionScreen = (t) => (
+        <Stack.Screen
+            name='LocationPermission'
+            component={LocationPermissionScreen}
+            options={{
+                headerTitle: t('label.nav.locationPermission'),
+            }}
+        />
+    );
 
-    renderSearchScreen = () => {
-        return (
-            <Stack.Screen
-                name='Search'
-                component={SearchScreen}
-                options={{
-                    cardStyleInterpolator: forFade,
-                    headerShown: false,
-                    animationEnabled: false,
-                }}
-            />
-        );
-    };
+    renderSearchScreen = () => (
+        <Stack.Screen
+            name='Search'
+            component={SearchScreen}
+            options={{
+                cardStyleInterpolator: forFade,
+                headerShown: false,
+                animationEnabled: false,
+            }}
+        />
+    );
 
     setScreenOptions = () => {
         const { theme } = this.props;
