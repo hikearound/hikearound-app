@@ -249,7 +249,10 @@
             "edit": "Edit Profile",
             "add": "Add Location",
             "header": "Your Hikes",
-            "empty": "Hikes that you favorite will appear here."
+            "empty": {
+                "title": "Save your favorite hikes",
+                "description": "Hikes you favorite will be saved here. <1>Explore the map</1> to get started finding great hikes near you."
+            }
         },
         "settings": {
             "header": {

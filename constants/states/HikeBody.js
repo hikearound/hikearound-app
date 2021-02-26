@@ -2,7 +2,7 @@ export const defaultState = {
     reviews: [],
     sortDirection: 'desc',
     querySize: 5,
-    maybeShowEmptyState: false,
+    showEmptyState: false,
 };
 
 export default defaultState;

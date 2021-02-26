@@ -5,15 +5,9 @@ import { withTranslation } from 'react-i18next';
 import { withScrollToTop } from '../utils/Navigation';
 import HikeListItem from './HikeListItem';
 import { spacing } from '../constants/Index';
-import {
-    HeaderContainer,
-    HeaderText,
-    EmptyContainer,
-    EmptyContainerText,
-} from '../styles/Lists';
+import { HeaderContainer, HeaderText } from '../styles/Lists';
 
 const propTypes = {
-    maybeShowEmptyState: PropTypes.bool.isRequired,
     hikeData: PropTypes.array.isRequired,
     scrollRef: PropTypes.object.isRequired,
 };
@@ -29,20 +23,7 @@ class HikeList extends React.Component {
         );
     };
 
-    renderEmptyList = () => {
-        const { maybeShowEmptyState, t } = this.props;
-
-        if (maybeShowEmptyState) {
-            return (
-                <EmptyContainer>
-                    <EmptyContainerText>
-                        {t('screen.profile.empty')}
-                    </EmptyContainerText>
-                </EmptyContainer>
-            );
-        }
-        return null;
-    };
+    renderEmptyList = () => null;
 
     renderItem = ({ item }) => (
         <HikeListItem

@@ -37,7 +37,7 @@ class ProfileScreen extends React.Component {
 
         this.state = {
             loading: true,
-            maybeShowEmptyState: false,
+            showEmptyState: false,
             scrollEnabled: false,
             hikeData: [],
         };
@@ -77,13 +77,13 @@ class ProfileScreen extends React.Component {
         }
     };
 
-    maybeSetScrollState = (hikeData) => {
-        if (hikeData.length === 0) {
-            this.setState({ maybeShowEmptyState: true });
-        }
+    maybeSetEmptyState = () => {
+        const { hikeData } = this.state;
 
-        if (hikeData.length > 6) {
-            this.setState({ scrollEnabled: true });
+        if (hikeData.length === 0) {
+            this.setState({ showEmptyState: true });
+        } else {
+            this.setState({ showEmptyState: false });
         }
     };
 
@@ -94,17 +94,12 @@ class ProfileScreen extends React.Component {
             await this.setState({ hikeData });
         }
 
-        this.maybeSetScrollState(hikeData);
         this.maybeHideLoadingState();
+        this.maybeSetEmptyState();
     };
 
     render() {
-        const {
-            loading,
-            maybeShowEmptyState,
-            hikeData,
-            scrollEnabled,
-        } = this.state;
+        const { loading, showEmptyState, hikeData, scrollEnabled } = this.state;
 
         return (
             <RootView>
@@ -120,7 +115,7 @@ class ProfileScreen extends React.Component {
                         <ProfileBody
                             hikeData={hikeData}
                             loading={loading}
-                            maybeShowEmptyState={maybeShowEmptyState}
+                            showEmptyState={showEmptyState}
                         />
                     </ScrollView>
                 )}

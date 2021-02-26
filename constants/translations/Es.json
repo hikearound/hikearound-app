@@ -249,7 +249,10 @@
             "edit": "Editar perfil",
             "add": "Añade una ubicación",
             "header": "Tus caminatas",
-            "empty": "Las caminatas que prefieras aparecerán aquí."
+            "empty": {
+                "title": "Guarda tus caminatas favoritas",
+                "description": "Las caminatas que prefieras se guardarán aquí. <1>Explore el mapa</1> para comenzar a encontrar excelentes caminatas cerca de usted."
+            }
         },
         "settings": {
             "header": {

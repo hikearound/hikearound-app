@@ -13,7 +13,7 @@ import { spacing } from '../constants/Index';
 
 const propTypes = {
     reviewListRef: PropTypes.object,
-    maybeShowEmptyState: PropTypes.bool.isRequired,
+    showEmptyState: PropTypes.bool.isRequired,
     reviewData: PropTypes.array.isRequired,
     shouldShowHeader: PropTypes.bool,
 };
@@ -39,9 +39,9 @@ class ReviewList extends React.Component {
     };
 
     renderEmptyList = () => {
-        const { maybeShowEmptyState, t } = this.props;
+        const { showEmptyState, t } = this.props;
 
-        if (maybeShowEmptyState) {
+        if (showEmptyState) {
             return (
                 <View style={{ marginBottom: parseInt(spacing.tiny, 10) }}>
                     <TopBorder />

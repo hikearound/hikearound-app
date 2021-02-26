@@ -155,7 +155,7 @@ class HikeBody extends React.Component {
 
     maybeSetEmptyState = async (reviews) => {
         if (reviews.length === 0) {
-            this.setState({ maybeShowEmptyState: true });
+            this.setState({ showEmptyState: true });
         }
     };
 
@@ -170,14 +170,14 @@ class HikeBody extends React.Component {
         </View>
     );
 
-    renderReviewSection = (t, reviews, maybeShowEmptyState) => (
+    renderReviewSection = (t, reviews, showEmptyState) => (
         <View>
             <Subtitle text={t('label.heading.reviews')} hideBorder />
             <ReviewList
                 reviewListRef={this.reviewListRef}
                 reviewData={reviews}
                 shouldShowHeader={false}
-                maybeShowEmptyState={maybeShowEmptyState}
+                showEmptyState={showEmptyState}
             />
         </View>
     );
@@ -201,7 +201,7 @@ class HikeBody extends React.Component {
             elevation,
             route,
             reviews,
-            maybeShowEmptyState,
+            showEmptyState,
             imageCount,
         } = this.state;
 
@@ -232,11 +232,7 @@ class HikeBody extends React.Component {
                         />
                         {this.renderReviewPrompt(setSelectedStars, hid)}
                         {this.renderGallerySection(t, hid, imageCount)}
-                        {this.renderReviewSection(
-                            t,
-                            reviews,
-                            maybeShowEmptyState,
-                        )}
+                        {this.renderReviewSection(t, reviews, showEmptyState)}
                     </BodyContent>
                 </ScrollView>
             </>

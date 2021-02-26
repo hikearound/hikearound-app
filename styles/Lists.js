@@ -24,6 +24,8 @@ export const MetaData = styled.Text`
 export const HeaderContainer = styled.View`
     padding-bottom: 4px;
     margin-top: ${spacing.tiny}px;
+    border-color: ${(props) => props.theme.itemBorder};
+    border-bottom-width: ${(props) => (props.showBottomBorder ? `1px` : 0)};
 `;
 
 export const HeaderText = styled.Text`
