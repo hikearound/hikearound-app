@@ -23,6 +23,7 @@ const propTypes = {
     onSubmitEditing: PropTypes.func,
     inputRef: PropTypes.func,
     labelPadding: PropTypes.bool,
+    disabled: PropTypes.bool,
 };
 
 const defaultProps = {
@@ -41,6 +42,7 @@ const defaultProps = {
     onSubmitEditing: () => {},
     inputRef: () => {},
     labelPadding: false,
+    disabled: false,
 };
 
 class InputLabelGroup extends React.Component {
@@ -77,6 +79,7 @@ class InputLabelGroup extends React.Component {
             onSubmitEditing,
             inputRef,
             labelPadding,
+            disabled,
         } = this.props;
         const { keyboardTheme } = this.state;
 
@@ -106,6 +109,7 @@ class InputLabelGroup extends React.Component {
                     onChange={onChange}
                     ref={inputRef}
                     keyboardAppearance={keyboardTheme}
+                    editable={!disabled}
                 />
             </LabelInputGroup>
         );

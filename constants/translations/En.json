@@ -236,6 +236,9 @@
             "reset": "Forgot password?",
             "header": "Sign In With Email"
         },
+        "reset": {
+            "disabled": "You cannot update your password because there is no password associated with your account."
+        },
         "notifications": {
             "empty": {
                 "title": "No notifications",

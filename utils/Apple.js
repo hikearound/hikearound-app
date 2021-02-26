@@ -23,5 +23,3 @@ export async function accountUsesApple(email) {
 
     return false;
 }
-
-export default buildFormattedName;

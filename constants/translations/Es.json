@@ -236,6 +236,9 @@
             "reset": "¿Se te olvidó tu contraseña?",
             "header": "Iniciar sesión con correo electrónico"
         },
+        "reset": {
+            "disabled": "No puede actualizar su contraseña porque hay una contraseña asociada a su cuenta."
+        },
         "notifications": {
             "empty": {
                 "title": "No notificaciones",

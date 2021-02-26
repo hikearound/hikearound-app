@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import firebase from 'firebase';
 import { ScrollView, Keyboard, TouchableOpacity, Alert } from 'react-native';
 import { withTranslation } from 'react-i18next';
@@ -8,10 +9,17 @@ import { withTheme, SetBarStyle } from '../../utils/Themes';
 import LoadingOverlay from '../../components/LoadingOverlay';
 import InputLabelGroup from '../../components/InputLabelGroup';
 import { getInputs } from '../../utils/Inputs';
-import { spacing, opacities, timings } from '../../constants/Index';
+import { spacing, opacities, timings, fontSizes } from '../../constants/Index';
 import { auth } from '../../lib/Fire';
 import { mapCodeToTranslation } from '../../utils/Localization';
+import { getSignInMethods } from '../../utils/Auth';
 import HeaderText from '../../styles/Header';
+
+const propTypes = {};
+
+function mapStateToProps() {
+    return {};
+}
 
 class PasswordScreen extends React.Component {
     constructor(props) {
@@ -25,21 +33,37 @@ class PasswordScreen extends React.Component {
             newPassword: '',
             loading: false,
             saveButtonDisabled: true,
+            disabled: false,
         };
 
         this.setNavigationOptions();
     }
 
-    componentDidMount = () => {
-        setTimeout(() => {
-            this.currentPasswordInput.focus();
-        }, timings.mediumShort);
+    componentDidMount = async () => {
+        const { disabled } = this.state;
+
+        await this.maybeDisableInputs();
+
+        if (!disabled) {
+            setTimeout(() => {
+                this.currentPasswordInput.focus();
+            }, timings.mediumShort);
+        }
     };
 
     async setValue(name, text) {
         await this.setState({ [name]: text });
         this.maybeToggleSaveButton();
     }
+
+    maybeDisableInputs = async () => {
+        const user = auth.currentUser;
+        const providers = await getSignInMethods(user.email);
+
+        if (!providers.includes('password')) {
+            await this.setState({ disabled: true });
+        }
+    };
 
     maybeToggleSaveButton = () => {
         const { currentPassword, newPassword } = this.state;
@@ -143,8 +167,13 @@ class PasswordScreen extends React.Component {
         );
     }
 
+    renderDisabledMessage() {
+        const { t } = this.props;
+        return <DisabledMessage>{t('screen.reset.disabled')}</DisabledMessage>;
+    }
+
     render() {
-        const { loading, inputs } = this.state;
+        const { loading, inputs, disabled } = this.state;
 
         return (
             <RootView>
@@ -192,9 +221,11 @@ class PasswordScreen extends React.Component {
                                 inputRef={(ref) => this.assignRef(ref, name)}
                                 autoCompleteType={autoCompleteType}
                                 labelPadding
+                                disabled={disabled}
                             />
                         ),
                     )}
+                    {disabled && this.renderDisabledMessage()}
                     <LoadingOverlay loading={loading} />
                 </ScrollView>
             </RootView>
@@ -202,8 +233,18 @@ class PasswordScreen extends React.Component {
     }
 }
 
-export default withTranslation()(withTheme(PasswordScreen));
+PasswordScreen.propTypes = propTypes;
+
+export default connect(mapStateToProps)(
+    withTranslation()(withTheme(PasswordScreen)),
+);
 
 const Text = styled(HeaderText)`
     margin-right: ${spacing.micro}px;
+`;
+
+const DisabledMessage = styled.Text`
+    margin: ${spacing.small}px;
+    font-size: ${fontSizes.medium}px;
+    color: ${(props) => props.theme.onboardTitle};
 `;

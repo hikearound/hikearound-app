@@ -74,7 +74,6 @@ class HomeStack extends React.Component {
 
     setTabBarVisibility = (routeName) => {
         const { navigation } = this.props;
-
         let tabBarVisible = false;
 
         if (tabBarScreens.includes(routeName)) {
@@ -86,7 +85,6 @@ class HomeStack extends React.Component {
 
     getInitialRoute = () => {
         const { user } = this.props;
-
         let initialRoute = 'Landing';
 
         if (user && user.uid) {
