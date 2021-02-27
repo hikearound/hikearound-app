@@ -5,7 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { withTranslation, Trans } from 'react-i18next';
 import { withTheme } from '../../utils/Themes';
 import { spacing, colors } from '../../constants/Index';
-import { RootView, Title, Description } from '../../styles/Callouts';
+import { Title, Description } from '../../styles/Callouts';
 import { HeaderContainer, HeaderText } from '../../styles/Lists';
 import { withNavigation } from '../../utils/Navigation';
 
@@ -27,8 +27,6 @@ class ProfileEmptyState extends React.PureComponent {
         navigation.navigate('Map', { screen: 'Map' });
     };
 
-    renderMapLink = () => <TextLink onPress={this.mapPress} />;
-
     renderListHeader = () => {
         const { t } = this.props;
 
@@ -41,6 +39,7 @@ class ProfileEmptyState extends React.PureComponent {
 
     renderIcon = () => {
         const { iconSize, iconColor, iconType } = this.props;
+
         return (
             <Ionicons
                 name={iconType}
@@ -60,7 +59,7 @@ class ProfileEmptyState extends React.PureComponent {
                 <Description>
                     <Trans i18nKey='screen.profile.empty.description'>
                         {/* eslint-disable-next-line */}
-                        Hikes that you favorite will be saved to your profile. {this.renderMapLink()}.
+                        Hikes that you favorite will be saved to your profile. <TextLink onPress={this.mapPress} />}.
                     </Trans>
                 </Description>
             </>
@@ -69,13 +68,13 @@ class ProfileEmptyState extends React.PureComponent {
 
     render() {
         return (
-            <EmptyStateWrapper>
+            <>
                 {this.renderListHeader()}
                 <StyledRootView>
                     {this.renderIcon()}
                     {this.renderText()}
                 </StyledRootView>
-            </EmptyStateWrapper>
+            </>
         );
     }
 }
@@ -87,10 +86,6 @@ export default withTranslation()(withNavigation(withTheme(ProfileEmptyState)));
 
 const TextLink = styled.Text`
     color: ${colors.purple};
-`;
-
-const EmptyStateWrapper = styled.View`
-    flex: 1;
 `;
 
 const StyledRootView = styled.View`

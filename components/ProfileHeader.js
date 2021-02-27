@@ -125,6 +125,7 @@ export default connect(
 const HeaderWrapper = styled.ImageBackground`
     padding-left: ${spacing.small}px;
     min-height: 175px;
+    z-index: 1;
 `;
 
 const ProfileBlock = styled.View`
