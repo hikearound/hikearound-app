@@ -110,6 +110,7 @@ class ProfileScreen extends React.Component {
                         showsVerticalScrollIndicator={false}
                         ref={scrollRef}
                         scrollEnabled={scrollEnabled}
+                        contentContainerStyle={{ flex: 1 }}
                     >
                         <ProfileHeader />
                         <ProfileBody

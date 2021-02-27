@@ -69,13 +69,13 @@ class ProfileEmptyState extends React.PureComponent {
 
     render() {
         return (
-            <>
+            <EmptyStateWrapper>
                 {this.renderListHeader()}
                 <StyledRootView>
                     {this.renderIcon()}
                     {this.renderText()}
                 </StyledRootView>
-            </>
+            </EmptyStateWrapper>
         );
     }
 }
@@ -89,8 +89,15 @@ const TextLink = styled.Text`
     color: ${colors.purple};
 `;
 
-const StyledRootView = styled(RootView)`
-    margin-top: 45px;
+const EmptyStateWrapper = styled.View`
+    flex: 1;
+`;
+
+const StyledRootView = styled.View`
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    margin-top: -180px;
 `;
 
 const StyledHeaderContainer = styled(HeaderContainer)`
