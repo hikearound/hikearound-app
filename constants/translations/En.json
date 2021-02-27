@@ -242,7 +242,7 @@
         "notifications": {
             "empty": {
                 "title": "No notifications",
-                "description": "Notifications about new and trending hikes will appear here."
+                "description": "Notifications about new hikes and likes on your reviews will appear here."
             }
         },
         "profile": {
@@ -250,8 +250,8 @@
             "add": "Add Location",
             "header": "Your Hikes",
             "empty": {
-                "title": "Save your favorite hikes",
-                "description": "Hikes you favorite will be saved here. <1>Explore the map</1> to get started finding great hikes near you."
+                "title": "Save your favorites",
+                "description": "Hikes you favorite will be saved here.\n<1>Explore the map</1> to start finding great hikes near you."
             }
         },
         "settings": {

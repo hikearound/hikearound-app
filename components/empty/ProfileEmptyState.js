@@ -16,9 +16,9 @@ const propTypes = {
 };
 
 const defaultProps = {
-    iconSize: 45,
+    iconSize: 40,
     iconColor: colors.purple,
-    iconType: 'heart',
+    iconType: 'ios-heart',
 };
 
 class ProfileEmptyState extends React.PureComponent {
@@ -41,7 +41,14 @@ class ProfileEmptyState extends React.PureComponent {
 
     renderIcon = () => {
         const { iconSize, iconColor, iconType } = this.props;
-        return <Ionicons name={iconType} color={iconColor} size={iconSize} />;
+        return (
+            <Ionicons
+                name={iconType}
+                color={iconColor}
+                size={iconSize}
+                style={{ marginBottom: -3 }}
+            />
+        );
     };
 
     renderText = () => {
