@@ -16,7 +16,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-    iconSize: 50,
+    iconSize: 45,
     iconColor: colors.purple,
     iconType: 'error',
     city: null,
@@ -81,14 +81,14 @@ class HomeEmptyState extends React.PureComponent {
         const { iconSize, iconColor, iconType } = this.props;
 
         return (
-            <RootView>
+            <StyledRootView>
                 <MaterialIcons
                     name={iconType}
                     color={iconColor}
                     size={iconSize}
                 />
                 {this.renderMessage()}
-            </RootView>
+            </StyledRootView>
         );
     }
 }
@@ -100,4 +100,8 @@ export default withTranslation()(withNavigation(withTheme(HomeEmptyState)));
 
 const TextLink = styled.Text`
     color: ${colors.purple};
+`;
+
+const StyledRootView = styled(RootView)`
+    margin-top: 20px;
 `;
