@@ -54,6 +54,7 @@ class StateResults extends React.PureComponent {
         if (showEmptyState) {
             return this.renderEmptyState();
         }
+
         if (showResults) {
             return this.renderResults(children);
         }

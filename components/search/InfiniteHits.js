@@ -28,6 +28,7 @@ const defaultProps = {
 class InfiniteHits extends React.Component {
     onEndReached = () => {
         const { hasMore, refine } = this.props;
+
         if (hasMore) {
             refine();
         }
