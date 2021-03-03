@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { ActivityIndicator } from 'react-native';
 import { withTranslation } from 'react-i18next';
 import {
     registerForPushNotifications,
@@ -13,7 +14,6 @@ import { updateNotifBadgeCount } from '../actions/User';
 import NotificationList from '../components/NotificationList';
 import { timings, spacing } from '../constants/Index';
 import FeedRefreshControl from '../components/FeedRefreshControl';
-import NotificationLoadingState from '../components/loading/Notification';
 import { withNavigation } from '../utils/Navigation';
 
 const propTypes = {
@@ -125,17 +125,29 @@ class NotificationScreen extends React.Component {
         return this.renderNotificationList();
     };
 
+    renderSpinner = () => {
+        const { theme } = this.props;
+
+        return (
+            <ActivityIndicator
+                size='small'
+                color={theme.colors.loadingSpinner}
+                style={{
+                    zIndex: 1,
+                    marginTop: parseInt(spacing.tiny, 10),
+                }}
+            />
+        );
+    };
+
     render() {
         const { firstLoad } = this.state;
-
-        if (firstLoad) {
-            return <NotificationLoadingState />;
-        }
 
         return (
             <RootView>
                 <SetBarStyle barStyle='light-content' />
-                {this.renderNotificationScreen()}
+                {firstLoad && this.renderSpinner()}
+                {!firstLoad && this.renderNotificationScreen()}
             </RootView>
         );
     }
