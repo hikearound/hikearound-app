@@ -116,7 +116,7 @@ class NotificationScreen extends React.Component {
                     <FeedRefreshControl
                         refreshing={loading}
                         onRefresh={this.onRefresh}
-                        topOffset={parseInt(spacing.micro, 10)}
+                        topOffset={parseInt(spacing.tiny, 10)}
                     />
                 }
                 notificationData={notifications}

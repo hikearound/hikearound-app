@@ -7,15 +7,17 @@ const propTypes = {
     onRefresh: PropTypes.func.isRequired,
     refreshing: PropTypes.bool.isRequired,
     topOffset: PropTypes.number,
+    scale: PropTypes.number,
 };
 
 const defaultProps = {
-    topOffset: 35,
+    topOffset: 40,
+    scale: 0.7,
 };
 
 class FeedRefreshControl extends React.PureComponent {
     render() {
-        const { onRefresh, refreshing, topOffset, theme } = this.props;
+        const { onRefresh, refreshing, topOffset, scale, theme } = this.props;
 
         return (
             <View style={{ position: 'absolute', top: topOffset }}>
@@ -23,6 +25,10 @@ class FeedRefreshControl extends React.PureComponent {
                     tintColor={theme.colors.refreshControlTint}
                     refreshing={refreshing}
                     onRefresh={onRefresh}
+                    style={{
+                        zIndex: 1,
+                        transform: [{ scaleX: scale }, { scaleY: scale }],
+                    }}
                 />
             </View>
         );
