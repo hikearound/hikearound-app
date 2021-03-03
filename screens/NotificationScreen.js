@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { ActivityIndicator } from 'react-native';
 import { withTranslation } from 'react-i18next';
 import {
     registerForPushNotifications,
@@ -15,6 +14,7 @@ import NotificationList from '../components/NotificationList';
 import { timings, spacing } from '../constants/Index';
 import FeedRefreshControl from '../components/FeedRefreshControl';
 import { withNavigation } from '../utils/Navigation';
+import LoadingOverlay from '../components/LoadingOverlay';
 
 const propTypes = {
     notifBadgeCount: PropTypes.number,
@@ -125,20 +125,9 @@ class NotificationScreen extends React.Component {
         return this.renderNotificationList();
     };
 
-    renderSpinner = () => {
-        const { theme } = this.props;
-
-        return (
-            <ActivityIndicator
-                size='small'
-                color={theme.colors.loadingSpinner}
-                style={{
-                    zIndex: 1,
-                    marginTop: parseInt(spacing.tiny, 10),
-                }}
-            />
-        );
-    };
+    renderSpinner = () => (
+        <LoadingOverlay loading transparentBackground defaultColors />
+    );
 
     render() {
         const { firstLoad } = this.state;

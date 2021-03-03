@@ -16,7 +16,7 @@ const defaultProps = {
     loading: false,
     transparentBackground: false,
     defaultColors: true,
-    scale: 1.5,
+    scale: 1.1,
 };
 
 class LoadingOverlay extends React.Component {
