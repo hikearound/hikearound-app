@@ -141,6 +141,11 @@ export async function buildFavoriteHikesArray() {
     return hikes;
 }
 
+export async function getProfileData(dispatchProfileData) {
+    const favoriteHikes = await buildFavoriteHikesArray();
+    dispatchProfileData({ favoriteHikes });
+}
+
 export async function getUserReviewedHikes() {
     const { uid } = auth.currentUser;
 

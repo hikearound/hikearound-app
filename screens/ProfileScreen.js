@@ -13,6 +13,7 @@ import { withTheme, SetBarStyle } from '../utils/Themes';
 import Title from '../components/header/Title';
 
 const propTypes = {
+    favoriteHikes: PropTypes.array.isRequired,
     updatedHikeData: PropTypes.object.isRequired,
     name: PropTypes.string.isRequired,
 };
@@ -21,6 +22,7 @@ function mapStateToProps(state) {
     return {
         updatedHikeData: state.hikeReducer.updatedHikeData,
         name: state.userReducer.name,
+        favoriteHikes: state.profileReducer.favoriteHikes,
     };
 }
 
@@ -33,13 +35,19 @@ const scrollRef = React.createRef();
 class ProfileScreen extends React.Component {
     constructor(props) {
         super(props);
-        const { navigation, t } = this.props;
+        const { navigation, favoriteHikes, t } = this.props;
+
+        let firstLoad = true;
+
+        if (favoriteHikes.length > 0) {
+            firstLoad = false;
+        }
 
         this.state = {
-            loading: true,
+            firstLoad,
+            favoriteHikes,
             showEmptyState: false,
             scrollEnabled: false,
-            hikeData: [],
         };
 
         navigation.setOptions({
@@ -51,7 +59,7 @@ class ProfileScreen extends React.Component {
     }
 
     async componentDidMount() {
-        await this.getHikeData();
+        await this.getFavoriteHikes();
     }
 
     async componentDidUpdate(prevProps) {
@@ -59,7 +67,7 @@ class ProfileScreen extends React.Component {
 
         if (prevProps.updatedHikeData !== updatedHikeData) {
             setTimeout(async () => {
-                await this.getHikeData();
+                await this.getFavoriteHikes();
             }, timings.extraLong);
         }
 
@@ -69,29 +77,29 @@ class ProfileScreen extends React.Component {
     }
 
     maybeHideLoadingState = async () => {
-        const { hikeData } = this.state;
+        const { favoriteHikes } = this.state;
         const { name } = this.props;
 
-        if (hikeData && name) {
-            this.setState({ loading: false });
+        if (favoriteHikes && name) {
+            this.setState({ firstLoad: false });
         }
     };
 
     maybeSetEmptyState = () => {
-        const { hikeData } = this.state;
+        const { favoriteHikes } = this.state;
 
-        if (hikeData.length === 0) {
+        if (favoriteHikes.length === 0) {
             this.setState({ showEmptyState: true });
         } else {
             this.setState({ showEmptyState: false });
         }
     };
 
-    getHikeData = async () => {
-        const hikeData = await buildFavoriteHikesArray();
+    getFavoriteHikes = async () => {
+        const favoriteHikes = await buildFavoriteHikesArray();
 
-        if (hikeData) {
-            await this.setState({ hikeData });
+        if (favoriteHikes) {
+            await this.setState({ favoriteHikes });
         }
 
         this.maybeHideLoadingState();
@@ -99,13 +107,18 @@ class ProfileScreen extends React.Component {
     };
 
     render() {
-        const { loading, showEmptyState, hikeData, scrollEnabled } = this.state;
+        const {
+            firstLoad,
+            showEmptyState,
+            favoriteHikes,
+            scrollEnabled,
+        } = this.state;
 
         return (
             <RootView>
                 <SetBarStyle barStyle='light-content' />
-                {loading && <ProfileLoadingState />}
-                {!loading && (
+                {firstLoad && <ProfileLoadingState />}
+                {!firstLoad && (
                     <ScrollView
                         showsVerticalScrollIndicator={false}
                         ref={scrollRef}
@@ -114,8 +127,8 @@ class ProfileScreen extends React.Component {
                     >
                         <ProfileHeader />
                         <ProfileBody
-                            hikeData={hikeData}
-                            loading={loading}
+                            hikeData={favoriteHikes}
+                            loading={firstLoad}
                             showEmptyState={showEmptyState}
                         />
                     </ScrollView>

@@ -13,13 +13,16 @@ import {
     initializeAvatar,
     updateUserPosition,
 } from '../actions/User';
+import { initializeNotificationData } from '../actions/Notification';
 import { initializeMapData } from '../actions/Map';
+import { initializeProfileData } from '../actions/Profile';
 import { timings } from '../constants/Index';
 import { defaultState } from '../constants/states/Home';
 import { RootView } from '../styles/Screens';
-import { getUserData } from '../utils/User';
+import { getUserData, getProfileData } from '../utils/User';
 import { withTheme, SetBarStyle } from '../utils/Themes';
 import { getMapData } from '../utils/Map';
+import { getNotificationData } from '../utils/Notifications';
 import {
     getPosition,
     getNearestCity,
@@ -44,6 +47,8 @@ import Logo from '../components/header/Logo';
 const propTypes = {
     dispatchUserPosition: PropTypes.func.isRequired,
     dispatchUserData: PropTypes.func.isRequired,
+    dispatchProfileData: PropTypes.func.isRequired,
+    dispatchNotificationData: PropTypes.func.isRequired,
     dispatchMapData: PropTypes.func.isRequired,
     dispatchAvatar: PropTypes.func.isRequired,
     filterParams: PropTypes.object.isRequired,
@@ -59,7 +64,11 @@ function mapDispatchToProps(dispatch) {
     return {
         dispatchUserPosition: (currentPosition) =>
             dispatch(updateUserPosition(currentPosition)),
+        dispatchNotificationData: (notificationData) =>
+            dispatch(initializeNotificationData(notificationData)),
         dispatchUserData: (userData) => dispatch(initializeUserData(userData)),
+        dispatchProfileData: (profileData) =>
+            dispatch(initializeProfileData(profileData)),
         dispatchMapData: (mapData) => dispatch(initializeMapData(mapData)),
         dispatchAvatar: (avatarUri) => dispatch(initializeAvatar(avatarUri)),
     };
@@ -87,6 +96,8 @@ class HomeScreen extends React.Component {
             navigation,
             dispatchUserPosition,
             dispatchUserData,
+            dispatchNotificationData,
+            dispatchProfileData,
             dispatchAvatar,
             dispatchMapData,
         } = this.props;
@@ -99,7 +110,9 @@ class HomeScreen extends React.Component {
 
         await watchPositionAsync(dispatchUserPosition);
         await getUserData(dispatchUserData, dispatchAvatar);
+        await getProfileData(dispatchProfileData);
         await getMapData(dispatchMapData);
+        await getNotificationData(dispatchNotificationData);
 
         await this.getAndSetPromotions();
 

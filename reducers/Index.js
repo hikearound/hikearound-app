@@ -8,6 +8,8 @@ import modalReducer from './Modal';
 import feedReducer from './Feed';
 import navigationReducer from './Navigation';
 import reviewReducer from './Review';
+import notificationReducer from './Notification';
+import profileReducer from './Profile';
 
 const appReducer = combineReducers({
     authReducer,
@@ -18,6 +20,8 @@ const appReducer = combineReducers({
     feedReducer,
     navigationReducer,
     reviewReducer,
+    notificationReducer,
+    profileReducer,
 });
 
 const rootReducer = (state, action) => {

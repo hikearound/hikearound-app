@@ -6,13 +6,12 @@ import GlobalMap from '../components/map/Global';
 import MapSearch from '../components/map/Search';
 import HikeSheet from '../components/bottom_sheet/Hike';
 import { withTheme, SetBarStyle, setBarStyleWithTheme } from '../utils/Themes';
-import { getMapMarkers } from '../utils/Map';
 import { getHikeData } from '../utils/Hike';
 import { withNavigation } from '../utils/Navigation';
 import { defaultState } from '../constants/states/Map';
-import { queryParams } from '../constants/Map';
 
 const propTypes = {
+    markers: PropTypes.array,
     position: PropTypes.object,
     selectedHike: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
@@ -20,10 +19,12 @@ const propTypes = {
 const defaultProps = {
     selectedHike: null,
     position: null,
+    markers: [],
 };
 
 function mapStateToProps(state) {
     return {
+        markers: state.mapReducer.markers,
         selectedHike: state.mapReducer.selectedHike,
         position: state.userReducer.currentPosition,
     };
@@ -37,26 +38,31 @@ class MapScreen extends React.Component {
     constructor(props) {
         super(props);
 
+        const { markers } = this.props;
+
         this.bottomSheetRef = React.createRef();
         this.mapRef = React.createRef();
 
         this.setState = this.setState.bind(this);
         this.state = defaultState;
+        this.state.markers = markers;
     }
 
     async componentDidMount() {
         const { theme } = this.props;
-
         setBarStyleWithTheme(theme, this.setState);
-        this.getInitialMarkers();
     }
 
     async componentDidUpdate(prevProps) {
-        const { selectedHike, theme } = this.props;
+        const { selectedHike, theme, markers } = this.props;
 
         if (prevProps.selectedHike !== selectedHike && selectedHike) {
             const sheetData = await getHikeData(selectedHike);
             this.setSheetData(sheetData);
+        }
+
+        if (prevProps.markers !== markers) {
+            this.setMarkers(markers);
         }
 
         if (prevProps.theme.dark !== theme.dark) {
@@ -68,10 +74,7 @@ class MapScreen extends React.Component {
         this.setState({ sheetData });
     };
 
-    getInitialMarkers = async () => {
-        const { position } = this.props;
-        const markers = await getMapMarkers(position, queryParams.distance);
-
+    setMarkers = (markers) => {
         this.setState({ markers });
     };
 

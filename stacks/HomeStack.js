@@ -76,7 +76,7 @@ class HomeStack extends React.Component {
         const { navigation } = this.props;
         let tabBarVisible = false;
 
-        if (tabBarScreens.includes(routeName)) {
+        if (tabBarScreens.includes(routeName) || !routeName) {
             tabBarVisible = true;
         }
 

@@ -7,6 +7,7 @@ export default function mapReducer(state = mapState, action) {
                 ...state,
                 selectedHike: action.mapData.selectedHike,
                 selectedCity: action.mapData.selectedCity,
+                markers: action.mapData.markers,
             };
 
         case 'UPDATE_MAP_DATA':

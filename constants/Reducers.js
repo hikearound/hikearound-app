@@ -3,6 +3,7 @@ import { avatarDefault } from './Images';
 export const mapState = {
     selectedHike: null,
     selectedCity: null,
+    markers: [],
 };
 
 export const hikeState = {
@@ -64,4 +65,12 @@ export const reviewState = {
 
 export const navigationState = {
     focusedStack: 'Home',
+};
+
+export const notificationState = {
+    notifications: [],
+};
+
+export const profileState = {
+    favoriteHikes: [],
 };

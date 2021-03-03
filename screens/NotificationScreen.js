@@ -17,6 +17,7 @@ import { withNavigation } from '../utils/Navigation';
 import LoadingOverlay from '../components/LoadingOverlay';
 
 const propTypes = {
+    notifications: PropTypes.array.isRequired,
     notifBadgeCount: PropTypes.number,
     dispatchNotifBadgeCount: PropTypes.func.isRequired,
 };
@@ -28,6 +29,7 @@ const defaultProps = {
 function mapStateToProps(state) {
     return {
         notifBadgeCount: state.userReducer.notifBadgeCount,
+        notifications: state.notificationReducer.notifications,
     };
 }
 
@@ -41,9 +43,16 @@ class NotificationScreen extends React.Component {
     constructor(props) {
         super(props);
 
+        const { notifications } = this.props;
+        let firstLoad = true;
+
+        if (notifications.length > 0) {
+            firstLoad = false;
+        }
+
         this.state = {
-            notifications: [],
-            firstLoad: true,
+            notifications,
+            firstLoad,
             loading: false,
         };
 

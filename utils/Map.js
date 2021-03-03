@@ -5,13 +5,6 @@ import { getMapSetting } from './Settings';
 import { config, queryParams } from '../constants/Map';
 import { queryHikes } from './Feed';
 
-export async function getMapData(dispatchMapData) {
-    const state = store.getState();
-    const { selectedHike } = state.mapReducer;
-
-    dispatchMapData({ selectedHike });
-}
-
 export async function getMapMarkers(position, distance) {
     const {
         querySize,
@@ -36,6 +29,15 @@ export async function getMapMarkers(position, distance) {
     );
 
     return data;
+}
+
+export async function getMapData(dispatchMapData) {
+    const state = store.getState();
+    const { selectedHike } = state.mapReducer;
+    const { currentPosition } = state.userReducer;
+
+    const markers = await getMapMarkers(currentPosition, queryParams.distance);
+    dispatchMapData({ selectedHike, markers });
 }
 
 export function getDrivingDirections(latitude, longitude) {
