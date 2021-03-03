@@ -1,6 +1,7 @@
 import * as Linking from 'expo-linking';
 import * as Notifications from 'expo-notifications';
 import { openHikeScreen } from './Hike';
+import { getUserData } from './User';
 
 export function getHikeIdFromUrl(url) {
     const re = new RegExp('/hike/(.*)');
@@ -49,7 +50,22 @@ export function handleOpenNotification(hid, type, navigation) {
     }
 }
 
-export async function addNotificationListener(navigation, listenerRef) {
+export async function addNotificationReceivedListener(
+    dispatchUserData,
+    dispatchAvatar,
+    listenerRef,
+) {
+    listenerRef.current = Notifications.addNotificationReceivedListener(
+        async () => {
+            await getUserData(dispatchUserData, dispatchAvatar);
+        },
+    );
+}
+
+export async function addNotificationResponseReceivedListener(
+    navigation,
+    listenerRef,
+) {
     listenerRef.current = Notifications.addNotificationResponseReceivedListener(
         (response) => {
             const { hid, type } = response.notification.request.content.data;

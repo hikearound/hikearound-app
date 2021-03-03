@@ -14,13 +14,21 @@ import NotificationList from '../components/NotificationList';
 import { timings, spacing } from '../constants/Index';
 import FeedRefreshControl from '../components/FeedRefreshControl';
 import NotificationLoadingState from '../components/loading/Notification';
+import { withNavigation } from '../utils/Navigation';
 
 const propTypes = {
+    notifBadgeCount: PropTypes.number,
     dispatchNotifBadgeCount: PropTypes.func.isRequired,
 };
 
-function mapStateToProps() {
-    return {};
+const defaultProps = {
+    notifBadgeCount: 0,
+};
+
+function mapStateToProps(state) {
+    return {
+        notifBadgeCount: state.userReducer.notifBadgeCount,
+    };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -43,12 +51,26 @@ class NotificationScreen extends React.Component {
     }
 
     async componentDidMount() {
-        const { dispatchNotifBadgeCount } = this.props;
+        const { dispatchNotifBadgeCount, navigation } = this.props;
 
         this.getNotificationPermissions();
         this.getAndSetNotifications();
 
-        dispatchNotifBadgeCount();
+        this.unsubscribe = navigation.addListener('focus', () => {
+            dispatchNotifBadgeCount();
+        });
+    }
+
+    async componentDidUpdate(prevProps) {
+        const { notifBadgeCount } = this.props;
+
+        if (prevProps.notifBadgeCount !== notifBadgeCount) {
+            this.getAndSetNotifications();
+        }
+    }
+
+    componentWillUnmount() {
+        this.unsubscribe();
     }
 
     getNotificationPermissions = async () => {
@@ -120,8 +142,9 @@ class NotificationScreen extends React.Component {
 }
 
 NotificationScreen.propTypes = propTypes;
+NotificationScreen.defaultProps = defaultProps;
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(withTranslation()(withTheme(NotificationScreen)));
+)(withTranslation()(withTheme(withNavigation(NotificationScreen))));

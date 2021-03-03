@@ -34,8 +34,9 @@ import {
     checkInitialUrl,
     addUrlListener,
     removeUrlListener,
-    addNotificationListener,
+    addNotificationResponseReceivedListener,
     removeNotificationListener,
+    addNotificationReceivedListener,
 } from '../utils/Link';
 import FilterModal from '../components/modal/FilterModal';
 import Logo from '../components/header/Logo';
@@ -65,7 +66,8 @@ function mapDispatchToProps(dispatch) {
 }
 
 const scrollRef = React.createRef();
-const listenerRef = React.createRef();
+const notificationResponseReceivedRef = React.createRef();
+const notificationReceivedRef = React.createRef();
 
 class HomeScreen extends React.Component {
     constructor(props) {
@@ -98,6 +100,7 @@ class HomeScreen extends React.Component {
         await watchPositionAsync(dispatchUserPosition);
         await getUserData(dispatchUserData, dispatchAvatar);
         await getMapData(dispatchMapData);
+
         await this.getAndSetPromotions();
 
         checkInitialUrl(navigation);
@@ -116,17 +119,26 @@ class HomeScreen extends React.Component {
     }
 
     addListeners = () => {
-        const { navigation } = this.props;
+        const { navigation, dispatchUserData, dispatchAvatar } = this.props;
 
         addUrlListener(navigation);
-        addNotificationListener(navigation, listenerRef);
+        addNotificationReceivedListener(
+            dispatchUserData,
+            dispatchAvatar,
+            notificationReceivedRef,
+        );
+        addNotificationResponseReceivedListener(
+            navigation,
+            notificationResponseReceivedRef,
+        );
     };
 
     removeListeners = () => {
         const { navigation } = this.props;
 
         removeUrlListener(navigation);
-        removeNotificationListener(listenerRef);
+        removeNotificationListener(notificationReceivedRef);
+        removeNotificationListener(notificationResponseReceivedRef);
     };
 
     getAndSetPromotions = async () => {
