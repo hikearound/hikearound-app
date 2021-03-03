@@ -84,6 +84,7 @@ class HomeScreen extends React.Component {
         const { navigation } = this.props;
 
         this.state = defaultState;
+        this.mapRef = React.createRef();
 
         navigation.setOptions({
             headerTitle: () => <Logo scrollRef={scrollRef} />,

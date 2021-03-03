@@ -5,8 +5,12 @@ import ProfileEmptyState from './empty/ProfileEmptyState';
 
 const propTypes = {
     hikeData: PropTypes.array.isRequired,
-    loading: PropTypes.bool.isRequired,
+    loading: PropTypes.bool,
     showEmptyState: PropTypes.bool.isRequired,
+};
+
+const defaultProps = {
+    loading: false,
 };
 
 class ProfileBody extends React.PureComponent {
@@ -30,5 +34,6 @@ class ProfileBody extends React.PureComponent {
 }
 
 ProfileBody.propTypes = propTypes;
+ProfileBody.defaultProps = defaultProps;
 
 export default ProfileBody;

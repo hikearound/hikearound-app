@@ -11,7 +11,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-    topOffset: 40,
+    topOffset: 43,
     scale: 0.7,
 };
 

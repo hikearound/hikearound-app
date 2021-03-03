@@ -19,10 +19,10 @@ import { regions } from '../../constants/Regions';
 const propTypes = {
     dispatchMapData: PropTypes.func.isRequired,
     delta: PropTypes.number,
-    mapRef: PropTypes.object.isRequired,
+    mapRef: PropTypes.object,
     position: PropTypes.object.isRequired,
-    markers: PropTypes.array.isRequired,
-    showHikeSheet: PropTypes.func.isRequired,
+    markers: PropTypes.array,
+    showHikeSheet: PropTypes.func,
     selectedCity: PropTypes.object,
     latModifier: PropTypes.number,
     altitude: PropTypes.object,

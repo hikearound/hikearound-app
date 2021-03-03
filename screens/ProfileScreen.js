@@ -6,7 +6,6 @@ import { withTranslation } from 'react-i18next';
 import { Settings, ProfileHeader, ProfileBody } from '../components/Index';
 import EditProfileModal from '../components/modal/EditProfileModal';
 import { buildFavoriteHikesArray } from '../utils/User';
-import ProfileLoadingState from '../components/loading/Profile';
 import { timings } from '../constants/Index';
 import { RootView } from '../styles/Screens';
 import { withTheme, SetBarStyle } from '../utils/Themes';
@@ -15,7 +14,6 @@ import Title from '../components/header/Title';
 const propTypes = {
     favoriteHikes: PropTypes.array.isRequired,
     updatedHikeData: PropTypes.object.isRequired,
-    name: PropTypes.string.isRequired,
 };
 
 function mapStateToProps(state) {
@@ -37,14 +35,7 @@ class ProfileScreen extends React.Component {
         super(props);
         const { navigation, favoriteHikes, t } = this.props;
 
-        let firstLoad = true;
-
-        if (favoriteHikes.length > 0) {
-            firstLoad = false;
-        }
-
         this.state = {
-            firstLoad,
             favoriteHikes,
             showEmptyState: false,
             scrollEnabled: false,
@@ -59,31 +50,18 @@ class ProfileScreen extends React.Component {
     }
 
     async componentDidMount() {
-        await this.getFavoriteHikes();
+        this.maybeSetEmptyState();
     }
 
     async componentDidUpdate(prevProps) {
-        const { updatedHikeData, name } = this.props;
+        const { updatedHikeData } = this.props;
 
         if (prevProps.updatedHikeData !== updatedHikeData) {
             setTimeout(async () => {
                 await this.getFavoriteHikes();
             }, timings.extraLong);
         }
-
-        if (prevProps.name !== name) {
-            this.maybeHideLoadingState();
-        }
     }
-
-    maybeHideLoadingState = async () => {
-        const { favoriteHikes } = this.state;
-        const { name } = this.props;
-
-        if (favoriteHikes && name) {
-            this.setState({ firstLoad: false });
-        }
-    };
 
     maybeSetEmptyState = () => {
         const { favoriteHikes } = this.state;
@@ -102,37 +80,27 @@ class ProfileScreen extends React.Component {
             await this.setState({ favoriteHikes });
         }
 
-        this.maybeHideLoadingState();
         this.maybeSetEmptyState();
     };
 
     render() {
-        const {
-            firstLoad,
-            showEmptyState,
-            favoriteHikes,
-            scrollEnabled,
-        } = this.state;
+        const { showEmptyState, favoriteHikes, scrollEnabled } = this.state;
 
         return (
             <RootView>
                 <SetBarStyle barStyle='light-content' />
-                {firstLoad && <ProfileLoadingState />}
-                {!firstLoad && (
-                    <ScrollView
-                        showsVerticalScrollIndicator={false}
-                        ref={scrollRef}
-                        scrollEnabled={scrollEnabled}
-                        contentContainerStyle={{ flex: 1 }}
-                    >
-                        <ProfileHeader />
-                        <ProfileBody
-                            hikeData={favoriteHikes}
-                            loading={firstLoad}
-                            showEmptyState={showEmptyState}
-                        />
-                    </ScrollView>
-                )}
+                <ScrollView
+                    showsVerticalScrollIndicator={false}
+                    ref={scrollRef}
+                    scrollEnabled={scrollEnabled}
+                    contentContainerStyle={{ flex: 1 }}
+                >
+                    <ProfileHeader />
+                    <ProfileBody
+                        hikeData={favoriteHikes}
+                        showEmptyState={showEmptyState}
+                    />
+                </ScrollView>
                 <EditProfileModal />
             </RootView>
         );

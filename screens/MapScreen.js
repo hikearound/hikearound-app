@@ -9,6 +9,7 @@ import { withTheme, SetBarStyle, setBarStyleWithTheme } from '../utils/Themes';
 import { getHikeData } from '../utils/Hike';
 import { withNavigation } from '../utils/Navigation';
 import { defaultState } from '../constants/states/Map';
+import { timings } from '../constants/Index';
 
 const propTypes = {
     markers: PropTypes.array,
@@ -46,11 +47,13 @@ class MapScreen extends React.Component {
         this.setState = this.setState.bind(this);
         this.state = defaultState;
         this.state.markers = markers;
+        this.state.loading = true;
     }
 
     async componentDidMount() {
         const { theme } = this.props;
         setBarStyleWithTheme(theme, this.setState);
+        this.setLoadingTimeout();
     }
 
     async componentDidUpdate(prevProps) {
@@ -69,6 +72,14 @@ class MapScreen extends React.Component {
             setBarStyleWithTheme(theme, this.setState);
         }
     }
+
+    setLoadingTimeout = () => {
+        setTimeout(() => {
+            this.setState({
+                loading: false,
+            });
+        }, timings.extraLong);
+    };
 
     setSheetData = (sheetData) => {
         this.setState({ sheetData });

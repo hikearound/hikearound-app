@@ -16,6 +16,8 @@ export const defaultProps = {
         top: 40,
     },
     latModifier: 0.018,
+    showHikeSheet: () => {},
+    markers: [],
     animationConfig,
 };
 

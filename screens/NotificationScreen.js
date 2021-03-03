@@ -14,7 +14,6 @@ import NotificationList from '../components/NotificationList';
 import { timings, spacing } from '../constants/Index';
 import FeedRefreshControl from '../components/FeedRefreshControl';
 import { withNavigation } from '../utils/Navigation';
-import LoadingOverlay from '../components/LoadingOverlay';
 
 const propTypes = {
     notifications: PropTypes.array.isRequired,
@@ -44,15 +43,9 @@ class NotificationScreen extends React.Component {
         super(props);
 
         const { notifications } = this.props;
-        let firstLoad = true;
-
-        if (notifications.length > 0) {
-            firstLoad = false;
-        }
 
         this.state = {
             notifications,
-            firstLoad,
             loading: false,
         };
 
@@ -63,17 +56,19 @@ class NotificationScreen extends React.Component {
         const { dispatchNotifBadgeCount, navigation } = this.props;
 
         this.getNotificationPermissions();
-        this.getAndSetNotifications();
-
         this.unsubscribe = navigation.addListener('focus', () => {
             dispatchNotifBadgeCount();
         });
     }
 
     async componentDidUpdate(prevProps) {
-        const { notifBadgeCount } = this.props;
+        const { notifBadgeCount, notifications } = this.props;
 
         if (prevProps.notifBadgeCount !== notifBadgeCount) {
+            this.getAndSetNotifications();
+        }
+
+        if (prevProps.notifications !== notifications) {
             this.getAndSetNotifications();
         }
     }
@@ -92,7 +87,6 @@ class NotificationScreen extends React.Component {
 
         this.setState({
             loading: false,
-            firstLoad: false,
             notifications,
         });
     };
@@ -134,18 +128,11 @@ class NotificationScreen extends React.Component {
         return this.renderNotificationList();
     };
 
-    renderSpinner = () => (
-        <LoadingOverlay loading transparentBackground defaultColors />
-    );
-
     render() {
-        const { firstLoad } = this.state;
-
         return (
             <RootView>
                 <SetBarStyle barStyle='light-content' />
-                {firstLoad && this.renderSpinner()}
-                {!firstLoad && this.renderNotificationScreen()}
+                {this.renderNotificationScreen()}
             </RootView>
         );
     }
