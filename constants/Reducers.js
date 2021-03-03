@@ -32,6 +32,7 @@ export const user = {
     darkMode: false,
     favoriteHikes: [],
     reviewedHikes: [],
+    notifBadgeCount: 0,
 };
 
 user.avatar = avatarDefault;

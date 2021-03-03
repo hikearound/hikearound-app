@@ -18,7 +18,6 @@ import { timings } from '../constants/Index';
 import { defaultState } from '../constants/states/Home';
 import { RootView } from '../styles/Screens';
 import { getUserData } from '../utils/User';
-import { handleAppBadge } from '../utils/Notifications';
 import { withTheme, SetBarStyle } from '../utils/Themes';
 import { getMapData } from '../utils/Map';
 import {
@@ -102,7 +101,6 @@ class HomeScreen extends React.Component {
         await this.getAndSetPromotions();
 
         checkInitialUrl(navigation);
-        handleAppBadge();
     }
 
     componentDidUpdate(prevProps) {

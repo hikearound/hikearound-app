@@ -1,5 +1,6 @@
 import { CommonActions } from '@react-navigation/native';
 import { Appearance } from 'react-native-appearance';
+import * as Notifications from 'expo-notifications';
 import { cacheImages } from './Image';
 import { db, storage, auth } from '../lib/Fire';
 import store from '../store/Store';
@@ -10,6 +11,14 @@ import { email, push } from '../constants/Notifications';
 
 const scheme = Appearance.getColorScheme();
 
+export function getDefaultAvatar() {
+    if (scheme === 'dark') {
+        return avatarDark;
+    }
+
+    return avatarDefault;
+}
+
 export async function getUserProfileData(t, uid) {
     const userSnapshot = await db.collection('users').doc(uid).get();
 
@@ -17,10 +26,17 @@ export async function getUserProfileData(t, uid) {
         return {
             uid,
             name: t('label.user.deleted'),
+            photoURL: getDefaultAvatar(),
         };
     }
 
-    return userSnapshot.data();
+    const userData = userSnapshot.data();
+
+    if (!userData.photoURL) {
+        userData.photoURL = getDefaultAvatar();
+    }
+
+    return userData;
 }
 
 export async function writeUserData(userData) {
@@ -78,6 +94,16 @@ export function writeNotifData(notifData) {
     const { uid } = auth.currentUser;
 
     db.collection('users').doc(uid).set({ notifs: notifData }, { merge: true });
+}
+
+export function clearNotifBadgeCount() {
+    const { uid } = auth.currentUser;
+
+    db.collection('users')
+        .doc(uid)
+        .set({ notifBadgeCount: 0 }, { merge: true });
+
+    Notifications.setBadgeCountAsync(0);
 }
 
 export async function writePhotoData(photoData) {
@@ -199,11 +225,7 @@ export async function setAvatar(dispatchAvatar) {
     if (avatarUri) {
         writeAvatar(avatarUri);
     } else {
-        avatarUri = avatarDefault;
-
-        if (scheme === 'dark') {
-            avatarUri = avatarDark;
-        }
+        avatarUri = getDefaultAvatar();
     }
 
     dispatchAvatar(avatarUri);
@@ -239,15 +261,22 @@ export async function maybeUpdateNotifPreferences(userData) {
     return userData.notifs;
 }
 
-export async function getUserData(dispatchUserData, dispatchAvatar) {
+export async function buildAndDispatchUserData(
+    userData,
+    dispatchUserData,
+    dispatchAvatar,
+) {
     const favoriteHikes = await buildHikeArray();
     const reviewedHikes = await buildReviewArray();
 
-    let userData = await db.collection('users').doc(auth.currentUser.uid).get();
     userData = userData.data();
 
     userData.favoriteHikes = favoriteHikes;
     userData.reviewedHikes = reviewedHikes;
+
+    if (!userData.notifBadgeCount) {
+        userData.notifBadgeCount = 0;
+    }
 
     await setAvatar(dispatchAvatar);
     await writeUserLanguage();
@@ -256,6 +285,15 @@ export async function getUserData(dispatchUserData, dispatchAvatar) {
     userData.notifs = notifs;
 
     dispatchUserData(userData);
+}
+
+export async function getUserData(dispatchUserData, dispatchAvatar) {
+    const userData = await db
+        .collection('users')
+        .doc(auth.currentUser.uid)
+        .get();
+
+    buildAndDispatchUserData(userData, dispatchUserData, dispatchAvatar);
 }
 
 export function createUserProfile(dispatchUserData, response, name) {

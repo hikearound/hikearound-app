@@ -337,5 +337,11 @@
             "description": "While we're in beta, we're focused on hikes in Seattle and the San Francisco Bay Area.\n\nAs we continue expanding to more locations, we'll let you know when when we begin adding hikes near you.",
             "cta": "Got It"
         }
+    },
+    "notifications": {
+        "reviewLike": {
+            "title": "Liked by {{name}}",
+            "subtitle": "Your review for {{name}} in {{city}}, {{state}}",
+        }
     }
 }

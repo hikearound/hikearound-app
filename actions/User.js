@@ -6,6 +6,7 @@ import {
     writeDarkMode,
     writeNotifData,
     logoutAndResetNavigation,
+    clearNotifBadgeCount,
 } from '../utils/User';
 
 export const initializeUserData = (userData) => ({
@@ -60,4 +61,9 @@ export const updateNotifs = (notifs) => {
 export const logoutUser = (navigation) => {
     logoutAndResetNavigation(navigation);
     return { type: 'LOGOUT_USER' };
+};
+
+export const updateNotifBadgeCount = (notifBadgeCount) => {
+    clearNotifBadgeCount();
+    return { type: 'UPDATE_NOTIF_BADGE_COUNT', notifBadgeCount };
 };

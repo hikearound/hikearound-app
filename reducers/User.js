@@ -12,6 +12,7 @@ export default function userReducer(state = userState, action) {
                 notifs: action.userData.notifs,
                 favoriteHikes: action.userData.favoriteHikes,
                 reviewedHikes: action.userData.reviewedHikes,
+                notifBadgeCount: action.userData.notifBadgeCount,
             };
 
         case 'INITIALIZE_AVATAR':
@@ -67,6 +68,12 @@ export default function userReducer(state = userState, action) {
             return {
                 ...state,
                 notifs: action.notifs,
+            };
+
+        case 'UPDATE_NOTIF_BADGE_COUNT':
+            return {
+                ...state,
+                notifBadgeCount: action.notifBadgeCount,
             };
 
         default:

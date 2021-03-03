@@ -1,12 +1,8 @@
-import { Appearance } from 'react-native-appearance';
 import { db, auth, timestamp } from '../lib/Fire';
 import { getUserProfileData } from './User';
-import { avatarDefault, avatarDark } from '../constants/Images';
 import { getRange } from './Location';
 import { isRecent } from './Time';
 import { getHikeData } from './Hike';
-
-const scheme = Appearance.getColorScheme();
 
 export async function buildReviewArray(t, data) {
     const reviews = [];
@@ -14,14 +10,6 @@ export async function buildReviewArray(t, data) {
     for (const review of data) {
         const userData = await getUserProfileData(t, review.uid);
         const hikeData = await getHikeData(review.hid);
-
-        if (!userData.photoURL) {
-            userData.photoURL = avatarDefault;
-
-            if (scheme === 'dark') {
-                userData.photoURL = avatarDark;
-            }
-        }
 
         review.user = {
             uid: review.uid,

@@ -1,35 +1,127 @@
 import React from 'react';
-import { registerForPushNotifications } from '../utils/Notifications';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { withTranslation } from 'react-i18next';
+import {
+    registerForPushNotifications,
+    getUserNotifications,
+} from '../utils/Notifications';
 import NotificationEmptyState from '../components/empty/NotificationEmptyState';
 import { RootView } from '../styles/Screens';
 import { withTheme, SetBarStyle } from '../utils/Themes';
+import { updateNotifBadgeCount } from '../actions/User';
+import NotificationList from '../components/NotificationList';
+import { timings, spacing } from '../constants/Index';
+import FeedRefreshControl from '../components/FeedRefreshControl';
+import NotificationLoadingState from '../components/loading/Notification';
+
+const propTypes = {
+    dispatchNotifBadgeCount: PropTypes.func.isRequired,
+};
+
+function mapStateToProps() {
+    return {};
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        dispatchNotifBadgeCount: () => dispatch(updateNotifBadgeCount()),
+    };
+}
 
 class NotificationScreen extends React.Component {
     constructor(props) {
         super(props);
+
         this.state = {
             notifications: [],
+            firstLoad: true,
+            loading: false,
         };
+
+        this.getAndSetNotifications = this.getAndSetNotifications.bind(this);
     }
 
     async componentDidMount() {
+        const { dispatchNotifBadgeCount } = this.props;
+
         this.getNotificationPermissions();
+        this.getAndSetNotifications();
+
+        dispatchNotifBadgeCount();
     }
 
     getNotificationPermissions = async () => {
         await registerForPushNotifications();
     };
 
-    render() {
+    getAndSetNotifications = async () => {
+        const { t } = this.props;
+        const notifications = await getUserNotifications(t);
+
+        this.setState({
+            loading: false,
+            firstLoad: false,
+            notifications,
+        });
+    };
+
+    onRefresh = async () => {
+        await this.setState({ loading: true });
+
+        this.timeout = setTimeout(() => {
+            this.getAndSetNotifications();
+        }, timings.medium);
+    };
+
+    renderEmptyState = () => <NotificationEmptyState />;
+
+    renderNotificationList = () => {
+        const { notifications, loading } = this.state;
+
+        return (
+            <NotificationList
+                refreshControl={
+                    <FeedRefreshControl
+                        refreshing={loading}
+                        onRefresh={this.onRefresh}
+                        topOffset={parseInt(spacing.micro, 10)}
+                    />
+                }
+                notificationData={notifications}
+            />
+        );
+    };
+
+    renderNotificationScreen = () => {
         const { notifications } = this.state;
+
+        if (notifications.length === 0) {
+            return this.renderEmptyState();
+        }
+
+        return this.renderNotificationList();
+    };
+
+    render() {
+        const { firstLoad } = this.state;
+
+        if (firstLoad) {
+            return <NotificationLoadingState />;
+        }
 
         return (
             <RootView>
                 <SetBarStyle barStyle='light-content' />
-                {notifications.length === 0 && <NotificationEmptyState />}
+                {this.renderNotificationScreen()}
             </RootView>
         );
     }
 }
 
-export default withTheme(NotificationScreen);
+NotificationScreen.propTypes = propTypes;
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(withTranslation()(withTheme(NotificationScreen)));
