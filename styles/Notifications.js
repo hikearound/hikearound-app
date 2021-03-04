@@ -20,7 +20,8 @@ export const Timestamp = styled.Text`
     font-size: ${fontSizes.small}px;
     display: flex;
     padding-top: 4px;
-    padding-bottom: 10px;
+    padding-bottom: ${spacing.tiny}px;
+    text-transform: capitalize;
 `;
 
 export const NotificationWrapper = styled.View`

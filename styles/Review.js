@@ -11,6 +11,7 @@ export const Name = styled.Text`
 export const Timestamp = styled.Text`
     color: ${colors.grayDark};
     font-size: ${fontSizes.small}px;
+    text-transform: capitalize;
     display: flex;
 `;
 
