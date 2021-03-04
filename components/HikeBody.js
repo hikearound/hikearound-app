@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { withTranslation } from 'react-i18next';
 import { withScrollToTop } from '../utils/Navigation';
-import { spacing } from '../constants/Index';
+import { spacing, timings, colors } from '../constants/Index';
 import Subtitle from './Subtitle';
 import ReviewPrompt from './ReviewPrompt';
 import ReviewList from './ReviewList';
@@ -15,6 +15,7 @@ import TextContent from './hike/TextContent';
 import { getRecentReviews, removeReviewFromList } from '../utils/Review';
 import { defaultState } from '../constants/states/HikeBody';
 import { withTheme } from '../utils/Themes';
+import FeedRefreshControl from './FeedRefreshControl';
 
 const propTypes = {
     setSelectedStars: PropTypes.func.isRequired,
@@ -57,6 +58,7 @@ class HikeBody extends React.Component {
         const { hike } = this.props;
 
         this.state = {
+            loading: false,
             name: hike.name,
             distance: hike.distance,
             elevation: hike.elevation,
@@ -98,6 +100,14 @@ class HikeBody extends React.Component {
             }
         }
     }
+
+    onRefresh = async () => {
+        await this.setState({ loading: true });
+
+        this.timeout = setTimeout(() => {
+            this.getReviewData();
+        }, timings.medium);
+    };
 
     maybeFireActions = async () => {
         const { actions } = this.props;
@@ -149,7 +159,7 @@ class HikeBody extends React.Component {
             querySize,
         );
 
-        this.setState({ reviews });
+        this.setState({ reviews, loading: false });
         this.maybeSetEmptyState(reviews);
     };
 
@@ -203,6 +213,7 @@ class HikeBody extends React.Component {
             reviews,
             showEmptyState,
             imageCount,
+            loading,
         } = this.state;
 
         return (
@@ -211,6 +222,14 @@ class HikeBody extends React.Component {
                 <ScrollView
                     showsVerticalScrollIndicator={false}
                     ref={scrollRef}
+                    refreshControl={
+                        <FeedRefreshControl
+                            refreshing={loading}
+                            onRefresh={this.onRefresh}
+                            topOffset={-4}
+                            color={colors.white}
+                        />
+                    }
                 >
                     <MapWrapper
                         coordinates={coordinates}

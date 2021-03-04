@@ -2,12 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FlatList } from 'react-native';
 import { withTranslation } from 'react-i18next';
-import moment from 'moment';
 import ReviewLikeNotification from './notifications/types/Review';
 import DigestNotification from './notifications/types/Digest';
 import { timestamps } from '../constants/Index';
-import 'moment/min/locales';
-import { getLanguageCode } from '../utils/Localization';
+import { shouldCapitalizeTimestamp } from '../utils/Localization';
+import { getLocalizedMoment, formatDate } from '../utils/Time';
 
 const propTypes = {
     notificationData: PropTypes.array.isRequired,
@@ -17,18 +16,14 @@ const propTypes = {
 const defaultProps = {};
 
 class NotificationList extends React.Component {
-    setLanguage = () => {
-        const lang = getLanguageCode();
-        moment.locale(lang);
-    };
-
     formatTimestamp = (createdOn) => {
-        this.setLanguage();
-        return moment(createdOn.toDate()).format(timestamps.notification);
+        const moment = getLocalizedMoment();
+        return moment(formatDate(createdOn)).format(timestamps.notification);
     };
 
     renderItem = ({ item }) => {
         const createdOn = this.formatTimestamp(item.createdOn);
+        const capitalizeTimestamp = shouldCapitalizeTimestamp();
 
         if (item.type === 'reviewLike') {
             return (
@@ -40,6 +35,7 @@ class NotificationList extends React.Component {
                     hid={item.hid}
                     rid={item.extraData.rid}
                     createdOn={createdOn}
+                    capitalizeTimestamp={capitalizeTimestamp}
                 />
             );
         }
@@ -52,6 +48,7 @@ class NotificationList extends React.Component {
                     hike={item.hike}
                     hid={item.hid}
                     createdOn={createdOn}
+                    capitalizeTimestamp={capitalizeTimestamp}
                 />
             );
         }

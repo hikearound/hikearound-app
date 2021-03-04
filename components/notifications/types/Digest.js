@@ -21,6 +21,7 @@ const propTypes = {
     hike: PropTypes.object.isRequired,
     nid: PropTypes.string.isRequired,
     hid: PropTypes.string.isRequired,
+    capitalizeTimestamp: PropTypes.bool.isRequired,
 };
 
 class DigestNotification extends React.Component {
@@ -45,10 +46,12 @@ class DigestNotification extends React.Component {
         </Subtitle>
     );
 
-    renderTimestamp = (createdOn) => <Timestamp>{createdOn}</Timestamp>;
+    renderTimestamp = (createdOn, capitalizeTimestamp) => (
+        <Timestamp capitalize={capitalizeTimestamp}>{createdOn}</Timestamp>
+    );
 
     render() {
-        const { t, hike, createdOn } = this.props;
+        const { t, hike, createdOn, capitalizeTimestamp } = this.props;
 
         return (
             <TouchableOpacity
@@ -60,7 +63,7 @@ class DigestNotification extends React.Component {
                     <NotificationBody>
                         {this.renderTitle(t)}
                         {this.renderSubtitle(t, hike)}
-                        {this.renderTimestamp(createdOn)}
+                        {this.renderTimestamp(createdOn, capitalizeTimestamp)}
                     </NotificationBody>
                 </NotificationWrapper>
             </TouchableOpacity>

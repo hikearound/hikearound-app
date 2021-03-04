@@ -52,6 +52,7 @@ export async function getReviewData(rid) {
     let reviewData = await db.collection('reviews').doc(rid).get();
 
     reviewData = reviewData.data();
+    reviewData.savedOn = reviewData.savedOn.toDate().toString();
     reviewData.id = rid;
 
     return reviewData;

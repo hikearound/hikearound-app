@@ -2,15 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
-import moment from 'moment';
-import 'moment/min/locales';
 import ReadMore from 'react-native-read-more-text';
 import { deleteReviewData } from '../actions/Review';
 import Avatar from './Avatar';
 import Stars from './Stars';
 import LikeButton from './LikeButton';
 import OverflowButton from './review/Overflow';
-import { getLanguageCode } from '../utils/Localization';
+import { shouldCapitalizeTimestamp } from '../utils/Localization';
 import { withTheme } from '../utils/Themes';
 import { showModal, setReviewData, setFlaggedReview } from '../actions/Modal';
 import {
@@ -27,6 +25,7 @@ import {
 import { ActionText } from '../styles/Text';
 import { reviewActionSheet } from './action_sheets/Review';
 import { parseText } from '../utils/Text';
+import { getLocalizedMoment } from '../utils/Time';
 import { timestamps } from '../constants/Index';
 
 const propTypes = {
@@ -39,7 +38,8 @@ const propTypes = {
     rid: PropTypes.string.isRequired,
     hid: PropTypes.string.isRequired,
     review: PropTypes.string.isRequired,
-    savedOn: PropTypes.object.isRequired,
+    savedOn: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
+        .isRequired,
     numberOfLines: PropTypes.number,
     userLikes: PropTypes.array.isRequired,
     truncationLimit: PropTypes.number,
@@ -87,7 +87,6 @@ class ReviewListItem extends React.Component {
 
     componentDidMount() {
         this.updateReview();
-        this.setLanguage();
         this.setTimestamp();
     }
 
@@ -124,22 +123,27 @@ class ReviewListItem extends React.Component {
         );
     };
 
-    setLanguage = () => {
-        const lang = getLanguageCode();
-        moment.locale(lang);
-    };
-
     deleteReview = () => {
         const { dispatchDeleteReview, rid, hid } = this.props;
         dispatchDeleteReview({ rid, hid });
     };
 
+    buildDate = (date) => {
+        if (date.toDate) {
+            date = date.toDate();
+        }
+
+        return new Date(date);
+    };
+
     setTimestamp = () => {
         const { savedOn } = this.props;
-        const timestamp = savedOn.toDate();
+
+        const moment = getLocalizedMoment();
+        const date = this.buildDate(savedOn);
 
         this.setState({
-            timestamp: moment(timestamp).format(timestamps.standard),
+            timestamp: moment(date).format(timestamps.standard),
         });
     };
 
@@ -147,12 +151,16 @@ class ReviewListItem extends React.Component {
         const { user } = this.props;
         const { timestamp } = this.state;
 
+        const capitalizeTimestamp = shouldCapitalizeTimestamp();
+
         return (
             <Header>
                 <Avatar avatar={user.photoURL} size={40} />
                 <Info>
                     <Name>{user.name}</Name>
-                    <Timestamp>{timestamp}</Timestamp>
+                    <Timestamp capitalize={capitalizeTimestamp}>
+                        {timestamp}
+                    </Timestamp>
                 </Info>
             </Header>
         );
@@ -207,7 +215,6 @@ class ReviewListItem extends React.Component {
         const { rating, numberOfLines, includeMinHeight, theme } = this.props;
         const { review } = this.state;
 
-        //
         return (
             <Body>
                 <StarWrapper>

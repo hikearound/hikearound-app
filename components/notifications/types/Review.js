@@ -21,6 +21,7 @@ const propTypes = {
     hike: PropTypes.object.isRequired,
     rid: PropTypes.string.isRequired,
     nid: PropTypes.string.isRequired,
+    capitalizeTimestamp: PropTypes.bool.isRequired,
 };
 
 class ReviewLikeNotification extends React.Component {
@@ -51,10 +52,12 @@ class ReviewLikeNotification extends React.Component {
         </Subtitle>
     );
 
-    renderTimestamp = (createdOn) => <Timestamp>{createdOn}</Timestamp>;
+    renderTimestamp = (createdOn, capitalizeTimestamp) => (
+        <Timestamp capitalize={capitalizeTimestamp}>{createdOn}</Timestamp>
+    );
 
     render() {
-        const { t, sender, hike, createdOn } = this.props;
+        const { t, sender, hike, createdOn, capitalizeTimestamp } = this.props;
 
         return (
             <TouchableOpacity
@@ -66,7 +69,7 @@ class ReviewLikeNotification extends React.Component {
                     <NotificationBody>
                         {this.renderTitle(t, sender)}
                         {this.renderSubtitle(t, hike)}
-                        {this.renderTimestamp(createdOn)}
+                        {this.renderTimestamp(createdOn, capitalizeTimestamp)}
                     </NotificationBody>
                 </NotificationWrapper>
             </TouchableOpacity>

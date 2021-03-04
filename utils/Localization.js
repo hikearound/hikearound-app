@@ -14,6 +14,16 @@ export function getLanguageCode() {
     return Localization.locale;
 }
 
+export function shouldCapitalizeTimestamp() {
+    const lang = getLanguageCode();
+
+    if (lang !== 'en-US') {
+        return true;
+    }
+
+    return false;
+}
+
 export async function initializeLocalization() {
     i18n.use(initReactI18next).init({
         resources: {

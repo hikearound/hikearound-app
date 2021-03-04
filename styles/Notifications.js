@@ -21,7 +21,7 @@ export const Timestamp = styled.Text`
     display: flex;
     padding-top: 4px;
     padding-bottom: ${spacing.tiny}px;
-    text-transform: capitalize;
+    text-transform: ${(props) => (props.capitalize ? 'capitalize' : 'none')};
 `;
 
 export const NotificationWrapper = styled.View`

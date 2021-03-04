@@ -8,21 +8,33 @@ const propTypes = {
     refreshing: PropTypes.bool.isRequired,
     topOffset: PropTypes.number,
     scale: PropTypes.number,
+    color: PropTypes.string,
 };
 
 const defaultProps = {
     topOffset: 41,
     scale: 0.7,
+    color: null,
 };
 
 class FeedRefreshControl extends React.PureComponent {
+    getColor = () => {
+        const { color, theme } = this.props;
+
+        if (color) {
+            return color;
+        }
+
+        return theme.colors.refreshControlTint;
+    };
+
     render() {
-        const { onRefresh, refreshing, topOffset, scale, theme } = this.props;
+        const { onRefresh, refreshing, topOffset, scale } = this.props;
 
         return (
             <View style={{ top: topOffset }}>
                 <RefreshControl
-                    tintColor={theme.colors.refreshControlTint}
+                    tintColor={this.getColor()}
                     refreshing={refreshing}
                     onRefresh={onRefresh}
                     style={{

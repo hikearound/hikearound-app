@@ -78,7 +78,12 @@ export async function parseHikeXml(hikeXmlUrl) {
 
 export async function getHikeData(hid) {
     const hikeSnapshot = await getHikeSnapshot(hid);
-    return hikeSnapshot.data();
+    const hikeData = hikeSnapshot.data();
+
+    hikeData.createdOn = hikeData.createdOn.toDate().toString();
+    hikeData.lastUpdated = hikeData.lastUpdated.toDate().toString();
+
+    return hikeData;
 }
 
 export async function openHikeScreen(hid, navigation, actions) {
