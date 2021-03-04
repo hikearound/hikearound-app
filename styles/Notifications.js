@@ -8,20 +8,18 @@ export const Title = styled.Text`
     display: flex;
 `;
 
-//
-
 export const Subtitle = styled.Text`
     color: ${(props) => props.theme.notifText};
     font-size: ${fontSizes.medium}px;
     display: flex;
-    padding-top: 3px;
+    padding-top: 2px;
 `;
 
 export const Timestamp = styled.Text`
     color: ${(props) => props.theme.timestampText};
     font-size: ${fontSizes.small}px;
     display: flex;
-    padding-top: 3px;
+    padding-top: 4px;
     padding-bottom: 10px;
 `;
 

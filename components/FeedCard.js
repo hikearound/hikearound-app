@@ -98,7 +98,7 @@ class FeedCard extends React.Component {
                 <StarWrapper>
                     <Stars
                         rating={review.average}
-                        starSize={15}
+                        starSize={14}
                         disabled
                         filledColor={transparentColors.white}
                         emptyColor={transparentColors.white}
@@ -154,7 +154,7 @@ const Footer = styled.View`
 
 const StarWrapper = styled.View`
     width: 90px;
-    padding: 1px 0 1px 0;
+    padding: 2px 0 1px 0;
 `;
 
 const ReviewWrapper = styled.View`

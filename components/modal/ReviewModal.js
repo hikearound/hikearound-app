@@ -245,7 +245,7 @@ class ReviewModal extends React.Component {
                 <StarWrapper>
                     <Stars
                         rating={rating}
-                        starSize={18}
+                        starSize={17}
                         onStarRatingPress={this.onStarRatingPress}
                     />
                 </StarWrapper>

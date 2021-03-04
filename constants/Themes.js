@@ -80,6 +80,7 @@ export const defaultTheme = {
         // Reviews
         feedReviewBackground: colors.white,
         reviewSectionBackground: colors.whiteLight,
+        emptyStarColor: colors.gray,
 
         // Notifications
         notifText: DefaultTheme.colors.text,
@@ -165,6 +166,7 @@ export const darkTheme = {
         // Reviews
         feedReviewBackground: colors.blackMedium,
         reviewSectionBackground: colors.blackDark,
+        emptyStarColor: colors.grayDark,
 
         // Notifications
         notifText: colors.grayDark,

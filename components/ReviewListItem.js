@@ -11,6 +11,7 @@ import Stars from './Stars';
 import LikeButton from './LikeButton';
 import OverflowButton from './review/Overflow';
 import { getLanguageCode } from '../utils/Localization';
+import { withTheme } from '../utils/Themes';
 import { showModal, setReviewData, setFlaggedReview } from '../actions/Modal';
 import {
     ReviewItem,
@@ -203,13 +204,18 @@ class ReviewListItem extends React.Component {
     }
 
     renderBody = () => {
-        const { rating, numberOfLines, includeMinHeight } = this.props;
+        const { rating, numberOfLines, includeMinHeight, theme } = this.props;
         const { review } = this.state;
 
+        //
         return (
             <Body>
                 <StarWrapper>
-                    <Stars rating={rating} starSize={17} disabled />
+                    <Stars
+                        rating={rating}
+                        starSize={16}
+                        emptyColor={theme.colors.emptyStarColor}
+                    />
                 </StarWrapper>
                 <TextWrapper includeMinHeight={includeMinHeight}>
                     <ReadMore
@@ -256,4 +262,4 @@ ReviewListItem.defaultProps = defaultProps;
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(withTranslation()(ReviewListItem));
+)(withTranslation()(withTheme(ReviewListItem)));
