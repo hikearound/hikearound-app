@@ -10,6 +10,7 @@ import { timings } from '../constants/Index';
 import { RootView } from '../styles/Screens';
 import { withTheme, SetBarStyle } from '../utils/Themes';
 import Title from '../components/header/Title';
+import FeedRefreshControl from '../components/FeedRefreshControl';
 
 const propTypes = {
     favoriteHikes: PropTypes.array.isRequired,
@@ -38,7 +39,7 @@ class ProfileScreen extends React.Component {
         this.state = {
             favoriteHikes,
             showEmptyState: false,
-            scrollEnabled: false,
+            loading: false,
         };
 
         navigation.setOptions({
@@ -80,11 +81,20 @@ class ProfileScreen extends React.Component {
             await this.setState({ favoriteHikes });
         }
 
+        this.setState({ loading: false });
         this.maybeSetEmptyState();
     };
 
+    onRefresh = async () => {
+        await this.setState({ loading: true });
+
+        this.timeout = setTimeout(() => {
+            this.getFavoriteHikes();
+        }, timings.medium);
+    };
+
     render() {
-        const { showEmptyState, favoriteHikes, scrollEnabled } = this.state;
+        const { showEmptyState, favoriteHikes, loading } = this.state;
 
         return (
             <RootView>
@@ -92,7 +102,14 @@ class ProfileScreen extends React.Component {
                 <ScrollView
                     showsVerticalScrollIndicator={false}
                     ref={scrollRef}
-                    scrollEnabled={scrollEnabled}
+                    scrollEnabled
+                    refreshControl={
+                        <FeedRefreshControl
+                            refreshing={loading}
+                            onRefresh={this.onRefresh}
+                            topOffset={5}
+                        />
+                    }
                     contentContainerStyle={{ flex: 1 }}
                 >
                     <ProfileHeader />

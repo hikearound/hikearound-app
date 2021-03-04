@@ -11,7 +11,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-    topOffset: 43,
+    topOffset: 41,
     scale: 0.7,
 };
 
@@ -20,7 +20,7 @@ class FeedRefreshControl extends React.PureComponent {
         const { onRefresh, refreshing, topOffset, scale, theme } = this.props;
 
         return (
-            <View style={{ position: 'absolute', top: topOffset }}>
+            <View style={{ top: topOffset }}>
                 <RefreshControl
                     tintColor={theme.colors.refreshControlTint}
                     refreshing={refreshing}
