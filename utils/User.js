@@ -34,6 +34,8 @@ export async function getUserProfileData(t, uid) {
 
     if (!userData.photoURL) {
         userData.photoURL = getDefaultAvatar();
+    } else {
+        cacheImages([userData.photoURL]);
     }
 
     return userData;
