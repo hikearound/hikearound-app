@@ -7,6 +7,7 @@ export function ignoreWarnings() {
         'Warning: Cannot update a component from inside the function body of a different component',
         'Error: Native splash screen is already hidden',
         'VirtualizedLists should never be nested',
+        'Non-serializable values were found in the navigation state',
     ]);
 }
 

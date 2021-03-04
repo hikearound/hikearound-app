@@ -48,7 +48,7 @@ export const ReviewItem = styled.View`
     display: flex;
     flex-direction: column;
     border-color: ${(props) => props.theme.itemBorder};
-    border-top-width: 1px;
+    border-top-width: ${(props) => (props.shouldShowBorder ? '1px' : 0)};
     padding: ${spacing.tiny}px 0;
 `;
 

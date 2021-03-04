@@ -2,8 +2,8 @@ import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
+import styled from 'styled-components';
 import { opacities } from '../../../constants/Index';
-import Avatar from '../../Avatar';
 import {
     Timestamp,
     Title,
@@ -13,37 +13,31 @@ import {
 } from '../../../styles/Notifications';
 import { withNavigation } from '../../../utils/Navigation';
 import { markNotificationAsRead } from '../../../utils/Notifications';
-import { openReviewScreen } from '../../../utils/Review';
+import { openHikeScreen } from '../../../utils/Hike';
+import { notifStar } from '../../../constants/Images';
 
 const propTypes = {
     createdOn: PropTypes.string.isRequired,
-    sender: PropTypes.object.isRequired,
     hike: PropTypes.object.isRequired,
-    rid: PropTypes.string.isRequired,
     nid: PropTypes.string.isRequired,
+    hid: PropTypes.string.isRequired,
 };
 
-class ReviewLikeNotification extends React.Component {
+class DigestNotification extends React.Component {
     onPress = async () => {
-        const { rid, nid, navigation, t } = this.props;
+        const { hid, nid, navigation } = this.props;
 
-        openReviewScreen(rid, navigation, t, {});
+        openHikeScreen(hid, navigation, {});
         markNotificationAsRead(nid);
     };
 
-    renderIcon = (sender) => <Avatar avatar={sender.photoURL} size={40} />;
+    renderIcon = () => <Icon source={notifStar} />;
 
-    renderTitle = (t, sender) => (
-        <Title>
-            {t('notifications.reviewLike.title', {
-                name: sender.name,
-            })}
-        </Title>
-    );
+    renderTitle = (t) => <Title>{t('notifications.digest.title')}</Title>;
 
     renderSubtitle = (t, hike) => (
         <Subtitle>
-            {t('notifications.reviewLike.subtitle', {
+            {t('notifications.digest.subtitle', {
                 name: hike.name,
                 city: hike.city,
                 state: hike.state,
@@ -54,7 +48,7 @@ class ReviewLikeNotification extends React.Component {
     renderTimestamp = (createdOn) => <Timestamp>{createdOn}</Timestamp>;
 
     render() {
-        const { t, sender, hike, createdOn } = this.props;
+        const { t, hike, createdOn } = this.props;
 
         return (
             <TouchableOpacity
@@ -62,9 +56,9 @@ class ReviewLikeNotification extends React.Component {
                 onPress={this.onPress}
             >
                 <NotificationWrapper>
-                    {this.renderIcon(sender)}
+                    {this.renderIcon()}
                     <NotificationBody>
-                        {this.renderTitle(t, sender)}
+                        {this.renderTitle(t)}
                         {this.renderSubtitle(t, hike)}
                         {this.renderTimestamp(createdOn)}
                     </NotificationBody>
@@ -74,6 +68,12 @@ class ReviewLikeNotification extends React.Component {
     }
 }
 
-ReviewLikeNotification.propTypes = propTypes;
+DigestNotification.propTypes = propTypes;
 
-export default withTranslation()(withNavigation(ReviewLikeNotification));
+export default withTranslation()(withNavigation(DigestNotification));
+
+const Icon = styled.Image`
+    display: flex;
+    height: 40px;
+    width: 40px;
+`;

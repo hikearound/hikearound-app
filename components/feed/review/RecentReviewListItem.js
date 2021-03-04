@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { TouchableOpacity } from 'react-native';
 import styled from 'styled-components';
+import { withTranslation } from 'react-i18next';
 import {
     spacing,
     opacities,
@@ -10,7 +11,7 @@ import {
 } from '../../../constants/Index';
 import { withNavigation } from '../../../utils/Navigation';
 import { defaultProps } from '../../../constants/states/FeedItem';
-import { openHikeScreen } from '../../../utils/Hike';
+import { openReviewScreen } from '../../../utils/Review';
 import ReviewListItem from '../../ReviewListItem';
 import { cardWidth } from '../../../constants/Carousel';
 
@@ -27,8 +28,8 @@ const propTypes = {
 
 class RecentReviewListItem extends React.PureComponent {
     onPress = () => {
-        const { hid, navigation } = this.props;
-        openHikeScreen(hid, navigation, { scrollToReviewList: true });
+        const { rid, navigation, t } = this.props;
+        openReviewScreen(rid, navigation, t, {});
     };
 
     renderHeader = () => {
@@ -86,7 +87,7 @@ class RecentReviewListItem extends React.PureComponent {
 RecentReviewListItem.propTypes = propTypes;
 RecentReviewListItem.defaultProps = defaultProps;
 
-export default withNavigation(RecentReviewListItem);
+export default withTranslation()(withNavigation(RecentReviewListItem));
 
 const CardsContainer = styled.View`
     flex-direction: row;

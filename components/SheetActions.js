@@ -32,6 +32,8 @@ class SheetActions extends React.PureComponent {
         );
     };
 
+    //
+
     renderDirectionsButton = () => {
         const { coordinates, t } = this.props;
         const { lat, lng } = coordinates;

@@ -37,7 +37,8 @@
             "locationPermission": "Comparte ubicacion",
             "map": "Mapa",
             "search": "Buscar",
-            "password": "Actualiza Contraseña"
+            "password": "Actualiza Contraseña",
+            "review": "Revisar",
         },
         "modal": {
             "save": "Salvar",
@@ -178,6 +179,9 @@
         "list" : " · {{distance}} millas",
     },
     "screen": {
+        "review": {
+            "label": "Revisión de {{name}} en {{city}}, {{state}}"
+        },
         "hike": {
             "review": {
                 "empty": "Esta caminata aún no ha sido revisada.",
@@ -336,6 +340,16 @@
             "title": "¡Bienvenido a Hikearound!",
             "description": "Mientras estamos en beta, actualmente ofrecemos caminatas solo en Seattle y el Área de la Bahía de San Francisco.\n\nA medida que continuamos expandiéndonos a más ubicaciones, le avisaremos cuando comencemos a agregar caminatas cerca de usted.",
             "cta": "Entendido"
+        }
+    },
+    "notifications": {
+        "reviewLike": {
+            "title": "Le gustó a {{name}}",
+            "subtitle": "Tu reseña de {{name}} en {{city}}, {{state}}",
+        },
+        "digest": {
+            "title": "Nuevas caminatas cerca de ti",
+            "subtitle": "Creemos que te puede gustar {{name}} en {{city}}, {{state}}",
         }
     }
 }

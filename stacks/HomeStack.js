@@ -12,6 +12,7 @@ import {
     CreateAccountScreen,
     LocationPermissionScreen,
     SearchScreen,
+    ReviewScreen,
 } from '../screens/Index';
 import {
     mode,
@@ -163,6 +164,16 @@ class HomeStack extends React.Component {
         />
     );
 
+    renderReviewScreen = (t) => (
+        <Stack.Screen
+            name='Review'
+            component={ReviewScreen}
+            options={{
+                headerTitle: t('label.nav.review'),
+            }}
+        />
+    );
+
     setScreenOptions = () => {
         const { theme } = this.props;
         return screenOptions(theme.colors.headerStyle);
@@ -191,6 +202,7 @@ class HomeStack extends React.Component {
                         {this.renderHikeScreen()}
                         {this.renderLocationPermissionScreen(t)}
                         {this.renderSearchScreen()}
+                        {this.renderReviewScreen(t)}
                     </Stack.Navigator>
                     {enableToast && <ToastProvider />}
                 </>

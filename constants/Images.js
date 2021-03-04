@@ -24,6 +24,9 @@ export const clusterMarker = require('../assets/marker/cluster.png');
 // Promotions
 export const availabiltyMap = require('../assets/neutral/availability-map.png');
 
+// Notifications
+export const notifStar = require('../assets/neutral/notif-star.png');
+
 export const localImages = [
     avatarDefault,
     avatarDark,
@@ -37,4 +40,5 @@ export const localImages = [
     markerUnfocused,
     clusterMarker,
     availabiltyMap,
+    notifStar,
 ];

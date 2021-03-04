@@ -11,6 +11,7 @@ import NotificationSettingsScreen from './settings/NotificationScreen';
 import LocationPermissionScreen from './onboard/LocationPermissionScreen';
 import SearchScreen from './SearchScreen';
 import PasswordScreen from './settings/PasswordScreen';
+import ReviewScreen from './ReviewScreen';
 
 export {
     LandingScreen,
@@ -26,4 +27,5 @@ export {
     LocationPermissionScreen,
     SearchScreen,
     PasswordScreen,
+    ReviewScreen,
 };

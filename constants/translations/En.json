@@ -37,7 +37,8 @@
             "locationPermission": "Share Location",
             "map": "Map",
             "search": "Search",
-            "password": "Update Password"
+            "password": "Update Password",
+            "review": "Review",
         },
         "modal": {
             "save": "Save",
@@ -178,6 +179,9 @@
         "list" : " · {{distance}} miles",
     },
     "screen": {
+        "review": {
+            "label": "Review for {{name}} in {{city}}, {{state}}"
+        },
         "hike": {
             "review": {
                 "empty": "This hike has not yet been reviewed.",
@@ -342,6 +346,10 @@
         "reviewLike": {
             "title": "Liked by {{name}}",
             "subtitle": "Your review for {{name}} in {{city}}, {{state}}",
+        },
+        "digest": {
+            "title": "New hikes near you",
+            "subtitle": "We think you might like {{name}} in {{city}}, {{state}}",
         }
     }
 }

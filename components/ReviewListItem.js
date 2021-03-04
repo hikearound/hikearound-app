@@ -44,6 +44,7 @@ const propTypes = {
     truncationLimit: PropTypes.number,
     showOverflow: PropTypes.bool,
     includeMinHeight: PropTypes.bool,
+    shouldShowBorder: PropTypes.bool,
 };
 
 const defaultProps = {
@@ -51,6 +52,7 @@ const defaultProps = {
     truncationLimit: 300,
     showOverflow: true,
     includeMinHeight: false,
+    shouldShowBorder: true,
 };
 
 function mapStateToProps(state) {
@@ -237,8 +239,10 @@ class ReviewListItem extends React.Component {
     };
 
     render() {
+        const { shouldShowBorder } = this.props;
+
         return (
-            <ReviewItem>
+            <ReviewItem shouldShowBorder={shouldShowBorder}>
                 {this.renderHeader()}
                 {this.renderBody()}
             </ReviewItem>

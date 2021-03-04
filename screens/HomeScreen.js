@@ -133,7 +133,7 @@ class HomeScreen extends React.Component {
     }
 
     addListeners = () => {
-        const { navigation, dispatchUserData, dispatchAvatar } = this.props;
+        const { navigation, dispatchUserData, dispatchAvatar, t } = this.props;
 
         addUrlListener(navigation);
         addNotificationReceivedListener(
@@ -144,6 +144,7 @@ class HomeScreen extends React.Component {
         addNotificationResponseReceivedListener(
             navigation,
             notificationResponseReceivedRef,
+            t,
         );
     };
 

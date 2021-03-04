@@ -1,6 +1,7 @@
 import * as Linking from 'expo-linking';
 import * as Notifications from 'expo-notifications';
 import { openHikeScreen } from './Hike';
+import { openReviewScreen } from './Review';
 import { getUserData } from './User';
 
 export function getHikeIdFromUrl(url) {
@@ -38,15 +39,15 @@ export async function removeUrlListener(navigation) {
     );
 }
 
-export function handleOpenNotification(hid, type, navigation) {
-    let options = {};
+export function handleOpenNotification(data, navigation, t) {
+    const actions = {};
 
-    if (type === 'reviewLike') {
-        options = { scrollToReviewList: true };
+    if (data.type === 'reviewLike') {
+        openReviewScreen(data.extraData.rid, navigation, t, actions);
     }
 
-    if (hid && navigation) {
-        openHikeScreen(hid, navigation, options);
+    if (data.type === 'digest') {
+        openHikeScreen(data.hid, navigation, actions);
     }
 }
 
@@ -65,11 +66,12 @@ export async function addNotificationReceivedListener(
 export async function addNotificationResponseReceivedListener(
     navigation,
     listenerRef,
+    t,
 ) {
     listenerRef.current = Notifications.addNotificationResponseReceivedListener(
         (response) => {
-            const { hid, type } = response.notification.request.content.data;
-            handleOpenNotification(hid, type, navigation);
+            const { data } = response.notification.request.content;
+            handleOpenNotification(data, navigation, t);
         },
     );
 }

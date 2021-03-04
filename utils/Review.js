@@ -186,3 +186,18 @@ export async function queryReviews(
 
     return { data: sortedReviews };
 }
+
+export async function openReviewScreen(rid, navigation, t, actions) {
+    const review = await getReviewData(rid);
+    const hike = await getHikeData(review.hid);
+    const user = await getUserProfileData(t, review.uid);
+
+    if (review && hike && user) {
+        navigation.push('Review', {
+            review,
+            hike,
+            user,
+            actions,
+        });
+    }
+}
