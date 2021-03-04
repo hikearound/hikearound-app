@@ -80,6 +80,10 @@ export const defaultTheme = {
         // Reviews
         feedReviewBackground: colors.white,
         reviewSectionBackground: colors.whiteLight,
+
+        // Notifications
+        notifText: DefaultTheme.colors.text,
+        timestampText: colors.grayDark,
     },
 };
 
@@ -161,5 +165,9 @@ export const darkTheme = {
         // Reviews
         feedReviewBackground: colors.blackMedium,
         reviewSectionBackground: colors.blackDark,
+
+        // Notifications
+        notifText: colors.grayDark,
+        timestampText: DarkTheme.colors.text,
     },
 };

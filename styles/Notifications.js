@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { fontSizes, fontWeights, colors, spacing } from '../constants/Index';
+import { fontSizes, fontWeights, spacing } from '../constants/Index';
 
 export const Title = styled.Text`
     color: ${(props) => props.theme.text};
@@ -8,15 +8,17 @@ export const Title = styled.Text`
     display: flex;
 `;
 
+//
+
 export const Subtitle = styled.Text`
-    color: ${(props) => props.theme.text};
+    color: ${(props) => props.theme.notifText};
     font-size: ${fontSizes.medium}px;
     display: flex;
     padding-top: 3px;
 `;
 
 export const Timestamp = styled.Text`
-    color: ${colors.grayDark};
+    color: ${(props) => props.theme.timestampText};
     font-size: ${fontSizes.small}px;
     display: flex;
     padding-top: 3px;
