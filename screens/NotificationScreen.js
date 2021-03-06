@@ -11,7 +11,7 @@ import { RootView } from '../styles/Screens';
 import { withTheme, SetBarStyle } from '../utils/Themes';
 import { updateNotifBadgeCount } from '../actions/User';
 import NotificationList from '../components/NotificationList';
-import { timings, spacing } from '../constants/Index';
+import { timings } from '../constants/Index';
 import FeedRefreshControl from '../components/FeedRefreshControl';
 import { withNavigation } from '../utils/Navigation';
 import { Settings } from '../components/Index';
@@ -124,7 +124,7 @@ class NotificationScreen extends React.Component {
                     <FeedRefreshControl
                         refreshing={loading}
                         onRefresh={this.onRefresh}
-                        topOffset={parseInt(spacing.tiny, 10)}
+                        topOffset={11}
                     />
                 }
                 notificationData={notifications}

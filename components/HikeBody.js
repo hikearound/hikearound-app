@@ -226,7 +226,7 @@ class HikeBody extends React.Component {
                         <FeedRefreshControl
                             refreshing={loading}
                             onRefresh={this.onRefresh}
-                            topOffset={-4}
+                            topOffset={-3}
                             color={colors.white}
                         />
                     }
