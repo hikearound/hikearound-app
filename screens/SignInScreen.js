@@ -16,6 +16,9 @@ import PasswordReset from '../components/PasswordReset';
 import { logEvent } from '../utils/Analytics';
 import AppleAuthButton from '../components/auth/Apple';
 import Header from '../components/Header';
+import { getHeaderHeight } from '../utils/Navigation';
+
+const headerHeight = getHeaderHeight();
 
 class SignInScreen extends React.Component {
     constructor(props) {
@@ -155,7 +158,10 @@ class SignInScreen extends React.Component {
                         action={this.handleLogin}
                     />
                     <PasswordReset />
-                    <LoadingOverlay loading={loading} />
+                    <LoadingOverlay
+                        loading={loading}
+                        topOffset={-headerHeight}
+                    />
                 </ScrollView>
                 <ResetPasswordModal />
             </RootView>

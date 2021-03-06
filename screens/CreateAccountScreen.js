@@ -20,6 +20,9 @@ import { defaultState } from '../constants/states/CreateAccount';
 import { logEvent } from '../utils/Analytics';
 import AppleAuthButton from '../components/auth/Apple';
 import Header from '../components/Header';
+import { getHeaderHeight } from '../utils/Navigation';
+
+const headerHeight = getHeaderHeight();
 
 const propTypes = {
     dispatchUserData: PropTypes.func.isRequired,
@@ -198,7 +201,10 @@ class CreateAccountScreen extends React.Component {
                         action={this.handleCreateAccount}
                     />
                     <LegalText />
-                    <LoadingOverlay loading={loading} />
+                    <LoadingOverlay
+                        loading={loading}
+                        topOffset={-headerHeight}
+                    />
                 </ScrollView>
             </RootView>
         );

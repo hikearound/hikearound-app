@@ -10,6 +10,7 @@ const propTypes = {
     transparentBackground: PropTypes.bool,
     defaultColors: PropTypes.bool,
     scale: PropTypes.number,
+    topOffset: PropTypes.number,
 };
 
 const defaultProps = {
@@ -17,6 +18,7 @@ const defaultProps = {
     transparentBackground: false,
     defaultColors: true,
     scale: 1.1,
+    topOffset: 0,
 };
 
 class LoadingOverlay extends React.Component {
@@ -34,11 +36,13 @@ class LoadingOverlay extends React.Component {
             transparentBackground,
             scale,
             defaultColors,
+            topOffset,
             theme,
         } = this.props;
 
         return (
             <LoadingView
+                topOffset={topOffset}
                 loading={loading}
                 transparentBackground={transparentBackground}
             >
@@ -76,7 +80,7 @@ const LoadingView = styled.View`
     display: ${(props) => (props.loading ? 'flex' : 'none')};
     position: absolute;
     left: 0;
-    top: 0;
+    top: ${(props) => props.topOffset}px;
     right: 0;
     bottom: 0;
     opacity: ${(props) => (props.transparentBackground ? 1 : 0.8)};
