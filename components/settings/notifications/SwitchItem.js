@@ -10,7 +10,7 @@ const propTypes = {
     item: PropTypes.object.isRequired,
     dispatchNotifs: PropTypes.func.isRequired,
     notifs: PropTypes.object.isRequired,
-    onlyPush: PropTypes.bool.isRequired,
+    onlyPush: PropTypes.bool,
 };
 
 const defaultProps = {
