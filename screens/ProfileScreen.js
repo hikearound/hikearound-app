@@ -46,7 +46,7 @@ class ProfileScreen extends React.Component {
             headerTitle: () => (
                 <Title title={t('label.nav.you')} scrollRef={scrollRef} />
             ),
-            headerRight: () => <Settings navigation={navigation} />,
+            headerRight: () => <Settings onPress={this.onSettingsPress} />,
         });
     }
 
@@ -63,6 +63,11 @@ class ProfileScreen extends React.Component {
             }, timings.extraLong);
         }
     }
+
+    onSettingsPress = () => {
+        const { navigation } = this.props;
+        navigation.push('Settings');
+    };
 
     maybeSetEmptyState = () => {
         const { favoriteHikes } = this.state;

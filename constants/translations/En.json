@@ -137,6 +137,10 @@
         "review": {
             "title": "Review"
         },
+        "notification": {
+            "title": "Preferences",
+            "explainer": "You can adjust your email preferences from your profile settings."
+        },
         "flag": {
             "title": "Flag Review",
             "subtitle": "Why are you flagging this review?",

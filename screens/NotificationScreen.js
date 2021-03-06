@@ -14,10 +14,14 @@ import NotificationList from '../components/NotificationList';
 import { timings, spacing } from '../constants/Index';
 import FeedRefreshControl from '../components/FeedRefreshControl';
 import { withNavigation } from '../utils/Navigation';
+import { Settings } from '../components/Index';
+import { showModal } from '../actions/Modal';
+import NotificationPreferenceModal from '../components/modal/Notification';
 
 const propTypes = {
     notifications: PropTypes.array.isRequired,
     notifBadgeCount: PropTypes.number,
+    dispatchModalFlag: PropTypes.func.isRequired,
     dispatchNotifBadgeCount: PropTypes.func.isRequired,
 };
 
@@ -34,6 +38,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
+        dispatchModalFlag: (modalType) => dispatch(showModal(modalType)),
         dispatchNotifBadgeCount: () => dispatch(updateNotifBadgeCount()),
     };
 }
@@ -42,7 +47,7 @@ class NotificationScreen extends React.Component {
     constructor(props) {
         super(props);
 
-        const { notifications } = this.props;
+        const { notifications, navigation } = this.props;
 
         this.state = {
             notifications,
@@ -50,6 +55,10 @@ class NotificationScreen extends React.Component {
         };
 
         this.getAndSetNotifications = this.getAndSetNotifications.bind(this);
+
+        navigation.setOptions({
+            headerRight: () => <Settings onPress={this.onSettingsPress} />,
+        });
     }
 
     async componentDidMount() {
@@ -76,6 +85,11 @@ class NotificationScreen extends React.Component {
     componentWillUnmount() {
         this.unsubscribe();
     }
+
+    onSettingsPress = () => {
+        const { dispatchModalFlag } = this.props;
+        dispatchModalFlag('notificationPreferences');
+    };
 
     getNotificationPermissions = async () => {
         await registerForPushNotifications();
@@ -133,6 +147,7 @@ class NotificationScreen extends React.Component {
             <RootView>
                 <SetBarStyle barStyle='light-content' />
                 {this.renderNotificationScreen()}
+                <NotificationPreferenceModal />
             </RootView>
         );
     }

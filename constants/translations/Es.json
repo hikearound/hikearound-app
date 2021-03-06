@@ -137,6 +137,10 @@
         "review": {
             "title": "Revisión"
         },
+        "notification": {
+            "title": "Preferencias",
+            "explainer": "Puede ajustar sus preferencias de correo electrónico desde la configuración de su perfil."
+        },
         "flag": {
             "title": "Revisión de la bandera",
             "subtitle": "¿Por qué marca esta revisión?",

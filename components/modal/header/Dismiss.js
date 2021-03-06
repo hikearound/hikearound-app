@@ -23,6 +23,7 @@ const propTypes = {
     dismissLanguage: PropTypes.string,
     closeAction: PropTypes.string,
     isPageSheet: PropTypes.bool,
+    alignLeft: PropTypes.bool,
 };
 
 const defaultProps = {
@@ -32,6 +33,7 @@ const defaultProps = {
     iconSize: 26,
     dismissLanguage: 'close',
     isPageSheet: false,
+    alignLeft: true,
 };
 
 function mapDispatchToProps(dispatch) {
@@ -63,6 +65,23 @@ class ModalDismiss extends React.Component {
             top: position.top,
             right: position.right,
         });
+    };
+
+    setStyle = () => {
+        const { alignLeft } = this.props;
+
+        const style = {
+            position: 'absolute',
+            bottom: parseInt(spacing.small, 10),
+        };
+
+        if (alignLeft) {
+            style.left = parseInt(spacing.small, 10);
+        } else {
+            style.right = parseInt(spacing.small, 10);
+        }
+
+        return style;
     };
 
     render() {
@@ -103,11 +122,7 @@ class ModalDismiss extends React.Component {
                         this.close();
                     }}
                     activeOpacity={opacities.regular}
-                    style={{
-                        position: 'absolute',
-                        bottom: parseInt(spacing.small, 10),
-                        left: parseInt(spacing.small, 10),
-                    }}
+                    style={this.setStyle()}
                 >
                     <HeaderText isPageSheet={isPageSheet}>
                         {t(`label.modal.${dismissLanguage}`)}

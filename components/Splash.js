@@ -77,7 +77,7 @@ class Splash extends React.Component {
     };
 
     handleFinishLoading = () => {
-        this.timeout = setTimeout(async () => {
+        this.unsubscribe = setTimeout(async () => {
             this.setState({ isLoadingComplete: true });
         }, timings.regular);
     };

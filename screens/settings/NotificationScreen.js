@@ -14,6 +14,13 @@ import { withTheme, SetBarStyle } from '../../utils/Themes';
 
 const propTypes = {
     notifs: PropTypes.object.isRequired,
+    onlyPush: PropTypes.bool,
+    hideHeaders: PropTypes.bool,
+};
+
+const defaultProps = {
+    onlyPush: false,
+    hideHeaders: false,
 };
 
 function mapStateToProps(state) {
@@ -23,18 +30,34 @@ function mapStateToProps(state) {
 }
 
 class NotificationSettingsScreen extends React.Component {
-    renderItem = ({ item, index }) => (
-        <NotificationSwitchItem item={item} index={index} />
-    );
+    renderItem = ({ item, index }) => {
+        const { onlyPush } = this.props;
 
-    renderSectionHeader = ({ section }) => (
-        <HeaderContainer>
-            <HeaderText>{section.title}</HeaderText>
-        </HeaderContainer>
-    );
+        return (
+            <NotificationSwitchItem
+                item={item}
+                index={index}
+                onlyPush={onlyPush}
+            />
+        );
+    };
+
+    renderSectionHeader = ({ section }) => {
+        const { hideHeaders } = this.props;
+
+        if (!hideHeaders) {
+            return (
+                <HeaderContainer>
+                    <HeaderText>{section.title}</HeaderText>
+                </HeaderContainer>
+            );
+        }
+
+        return null;
+    };
 
     render() {
-        const { t, notifs } = this.props;
+        const { t, notifs, onlyPush } = this.props;
         const settingsData = getSettingsData(t, notifs);
 
         return (
@@ -47,6 +70,7 @@ class NotificationSettingsScreen extends React.Component {
                     renderSectionHeader={this.renderSectionHeader}
                     sections={settingsData}
                     keyExtractor={(item, index) => item + index}
+                    scrollEnabled={!onlyPush}
                 />
             </StyledRootView>
         );
@@ -54,6 +78,7 @@ class NotificationSettingsScreen extends React.Component {
 }
 
 NotificationSettingsScreen.propTypes = propTypes;
+NotificationSettingsScreen.defaultProps = defaultProps;
 
 export default connect(mapStateToProps)(
     withTranslation()(withTheme(NotificationSettingsScreen)),

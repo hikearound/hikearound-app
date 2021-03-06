@@ -10,6 +10,11 @@ const propTypes = {
     item: PropTypes.object.isRequired,
     dispatchNotifs: PropTypes.func.isRequired,
     notifs: PropTypes.object.isRequired,
+    onlyPush: PropTypes.bool.isRequired,
+};
+
+const defaultProps = {
+    onlyPush: false,
 };
 
 function mapStateToProps(state) {
@@ -45,9 +50,13 @@ class SwitchItem extends React.Component {
     };
 
     render() {
-        const { item, notifs } = this.props;
+        const { item, notifs, onlyPush } = this.props;
         const { value } = this.state;
         const disabled = shouldDisableSwitch(notifs, item);
+
+        if (onlyPush && item.type === 'email') {
+            return null;
+        }
 
         return (
             <ItemContainer>
@@ -65,5 +74,6 @@ class SwitchItem extends React.Component {
 }
 
 SwitchItem.propTypes = propTypes;
+SwitchItem.defaultProps = defaultProps;
 
 export default connect(mapStateToProps, mapDispatchToProps)(SwitchItem);
