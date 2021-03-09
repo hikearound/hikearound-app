@@ -268,6 +268,15 @@ export async function maybeUpdateNotifPreferences(userData) {
     return userData.notifs;
 }
 
+export async function getUserDataRef() {
+    const userData = await db
+        .collection('users')
+        .doc(auth.currentUser.uid)
+        .get();
+
+    return userData;
+}
+
 export async function buildAndDispatchUserData(
     userData,
     dispatchUserData,
@@ -277,6 +286,11 @@ export async function buildAndDispatchUserData(
     const reviewedHikes = await buildReviewArray();
 
     userData = userData.data();
+
+    if (!userData.name) {
+        userData = await getUserDataRef();
+        userData = userData.data();
+    }
 
     userData.favoriteHikes = favoriteHikes;
     userData.reviewedHikes = reviewedHikes;
@@ -295,11 +309,7 @@ export async function buildAndDispatchUserData(
 }
 
 export async function getUserData(dispatchUserData, dispatchAvatar) {
-    const userData = await db
-        .collection('users')
-        .doc(auth.currentUser.uid)
-        .get();
-
+    const userData = await getUserDataRef();
     buildAndDispatchUserData(userData, dispatchUserData, dispatchAvatar);
 }
 
