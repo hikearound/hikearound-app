@@ -24,6 +24,7 @@ const propTypes = {
     closeAction: PropTypes.string,
     isPageSheet: PropTypes.bool,
     alignLeft: PropTypes.bool,
+    iconWrapperSize: PropTypes.number,
 };
 
 const defaultProps = {
@@ -34,6 +35,7 @@ const defaultProps = {
     dismissLanguage: 'close',
     isPageSheet: false,
     alignLeft: true,
+    iconWrapperSize: 35,
 };
 
 function mapDispatchToProps(dispatch) {
@@ -91,6 +93,7 @@ class ModalDismiss extends React.Component {
             iconSize,
             textDismiss,
             isPageSheet,
+            iconWrapperSize,
             t,
         } = this.props;
         const { top, right } = this.state;
@@ -105,7 +108,7 @@ class ModalDismiss extends React.Component {
 
         if (includeBackground) {
             iconStyle = (
-                <DismissIconWrapper>
+                <DismissIconWrapper size={iconWrapperSize}>
                     <Ionicons
                         name='ios-close'
                         color={colors.purple}
@@ -159,11 +162,11 @@ export default connect(
 )(withTranslation()(ModalDismiss));
 
 const DismissIconWrapper = styled.View`
-    border-radius: 35px;
-    height: 35px;
-    width: 35px;
+    border-radius: ${(props) => props.size}px;
+    height: ${(props) => props.size}px;
+    width: ${(props) => props.size}px;
     box-shadow: 0 4px 4px ${transparentColors.gray};
     background-color: ${(props) => props.theme.sheetBackground};
-    padding-left: 4px;
-    padding-top: 3px;
+    padding-left: 4.5px;
+    padding-top: 4px;
 `;
