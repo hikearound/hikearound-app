@@ -20,7 +20,7 @@
     "@react-navigation/native": "^5.9.3",
     "@react-navigation/stack": "^5.14.3",
     "@unimodules/core": "~6.0.0",
-    "algoliasearch": "^4.8.5",
+    "algoliasearch": "^4.8.6",
     "base-64": "^1.0.0",
     "expo": "^40.0.1",
     "expo-ads-facebook": "~8.4.1",
@@ -48,7 +48,7 @@
     "ngeohash": "^0.6.3",
     "prop-types": "^15.7.2",
     "react-dom": "16.13.1",
-    "react-i18next": "^11.8.8",
+    "react-i18next": "^11.8.9",
     "react-instantsearch": "^6.10.3",
     "react-instantsearch-native": "^6.10.3",
     "react-is": "^16.13.1",
@@ -88,8 +88,8 @@
     "webpack": "^4.46.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.13.8",
-    "@babel/eslint-parser": "^7.13.8",
+    "@babel/core": "^7.13.10",
+    "@babel/eslint-parser": "^7.13.10",
     "@react-native-community/eslint-config": "^2.0.0",
     "babel-plugin-inline-dotenv": "^1.6.0",
     "babel-preset-expo": "8.3.0",
