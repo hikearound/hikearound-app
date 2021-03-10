@@ -23,6 +23,7 @@ const propTypes = {
     coordinates: PropTypes.array,
     region: PropTypes.object.isRequired,
     closeAction: PropTypes.string,
+    mapType: PropTypes.string,
 };
 
 const defaultProps = {
@@ -35,6 +36,7 @@ const defaultProps = {
     modalType: 'map',
     selectedHike: null,
     closeAction: 'closeMap',
+    mapType: 'standard',
 };
 
 function mapStateToProps(state) {
@@ -100,6 +102,7 @@ class MapModal extends React.Component {
             elevationArray,
             hike,
             closeAction,
+            mapType,
         } = this.props;
 
         const initialRegion = this.setRegion(region);
@@ -121,6 +124,7 @@ class MapModal extends React.Component {
                             maxZoom={maxZoom}
                             mapPadding={{ bottom: 70 }}
                             mapBorderRadius={0}
+                            mapType={mapType}
                         />
                         <ModalDismiss
                             includeBackground
