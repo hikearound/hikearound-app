@@ -128,13 +128,13 @@ FeedCard.propTypes = propTypes;
 export default withTranslation()(withTheme(FeedCard));
 
 const View = styled.View`
-    background-color: ${(props) => props.theme.cardBackground};
     width: 100%;
     border-radius: ${borderRadius.medium}px;
     box-shadow: 0 4px 4px ${transparentColors.grayLight};
     height: 200px;
-    border-radius: ${borderRadius.medium}px;
     overflow: hidden;
+    border: 1px solid;
+    border-color: ${(props) => props.theme.itemBorder};
 `;
 
 const Header = styled.View`
