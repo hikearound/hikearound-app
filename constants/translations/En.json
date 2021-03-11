@@ -346,6 +346,10 @@
             "cta": "Got It"
         }
     },
+    "update": {
+        "text": "A new version of the app is available.",
+        "cta": "Update"
+    },
     "notifications": {
         "reviewLike": {
             "title": "Liked by {{name}}",

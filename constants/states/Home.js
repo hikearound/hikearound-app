@@ -11,6 +11,7 @@ export const defaultState = {
     city: '',
     distance: 50,
     promotion: { shouldShow: false },
+    canUpdate: false,
 };
 
 export default defaultState;

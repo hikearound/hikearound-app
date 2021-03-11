@@ -32,7 +32,7 @@
       "bundleIdentifier": "com.tryhikearound",
       "googleServicesFile": "./keys/GoogleService-Info.plist",
       "infoPlist": {
-          "CFBundleAllowMixedLocalizations": true
+        "CFBundleAllowMixedLocalizations": true
       },
       "associatedDomains": [
         "applinks:www.tryhikearound.com",
@@ -41,8 +41,8 @@
       ],
     },
     "locales": {
-        "en": "./infoPlist/en.json",
-        "es": "./infoPlist/es.json"
+      "en": "./infoPlist/en.json",
+      "es": "./infoPlist/es.json"
     },
     "description": "Hikearound is the easiest way to discover, save, and share great local hikes.",
     "githubUrl": "https://github.com/hikearound/hikearound-app"

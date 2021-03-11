@@ -23,6 +23,7 @@ import { getUserData, getProfileData } from '../utils/User';
 import { withTheme, SetBarStyle } from '../utils/Themes';
 import { getMapData } from '../utils/Map';
 import { getNotificationData } from '../utils/Notifications';
+import UpdateBanner from '../components/UpdateBanner';
 import {
     getPosition,
     getNearestCity,
@@ -106,6 +107,7 @@ class HomeScreen extends React.Component {
         this.setFirstLoad();
         this.addListeners();
 
+        await this.getAndSetUpdateStatus();
         await this.getAndSetPosition();
         await this.getAndSetData();
 
@@ -163,6 +165,10 @@ class HomeScreen extends React.Component {
 
     setFirstLoad = () => {
         this.setState({ firstLoad: true });
+    };
+
+    getAndSetUpdateStatus = async () => {
+        this.setState({ canUpdate: false });
     };
 
     getNearbyHikes = async (lastKey) => {
@@ -343,6 +349,11 @@ class HomeScreen extends React.Component {
         return !firstLoad && promotion.shouldShow && <Promotion />;
     };
 
+    maybeRenderUpdateBanner = () => {
+        const { firstLoad, canUpdate } = this.state;
+        return !firstLoad && canUpdate && <UpdateBanner />;
+    };
+
     renderOther = () => (
         <>
             <SetBarStyle barStyle='light-content' />
@@ -355,6 +366,7 @@ class HomeScreen extends React.Component {
             <RootView>
                 {this.renderOther()}
                 {this.maybeRenderPromotion()}
+                {this.maybeRenderUpdateBanner()}
                 {this.renderHome()}
             </RootView>
         );
