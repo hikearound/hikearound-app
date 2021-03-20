@@ -33,7 +33,7 @@ const InfoBar = ({ distance, elevation, route, t }) => (
         <ContentItem>
             <MetaDataType>{t('hike.data.elevation')}</MetaDataType>
             <MetaData>
-                {elevation} {t('hike.data.feet')}
+                {elevation.toLocaleString()} {t('hike.data.feet')}
             </MetaData>
         </ContentItem>
         <ContentItem>

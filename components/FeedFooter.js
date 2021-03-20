@@ -26,11 +26,11 @@ const Circle = styled.View`
     border-radius: ${circleSize};
     height: ${circleSize};
     width: ${circleSize};
-    margin: ${spacing.micro}px auto 0;
+    margin: 4px auto 0;
 `;
 
 const View = styled.View`
-    padding: ${spacing.small}px;
+    padding: ${spacing.small}px 0 ${spacing.medium}px 0;
 `;
 
 const Text = styled.Text`

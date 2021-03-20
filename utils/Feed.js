@@ -62,12 +62,6 @@ export function sortHikes(previousData, hikeArray, sortDirection) {
 
     const data = { ...previousData, ...hikes };
 
-    // if (previousState.data) {
-    //     console.log(Object.size(previousState.data));
-    // }
-
-    // console.log(hikes[0])
-
     let sortedHikes = Object.values(data).sort(
         (a, b) => a.createdOn < b.createdOn,
     );

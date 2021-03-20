@@ -161,7 +161,7 @@ export async function queryReviews(
     const reviewRef = getNearbyReviewRef(range, sortDirection, querySize);
 
     const data = [];
-    const daysOld = 45;
+    const daysOld = 120;
     const querySnapshot = await reviewRef.get();
 
     await querySnapshot.forEach(async (review) => {

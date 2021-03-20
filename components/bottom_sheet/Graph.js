@@ -98,7 +98,7 @@ function GraphSheet({
             t('sheet.elevation.label.elevation'),
             t('sheet.elevation.distance', {
                 unit: t('sheet.elevation.unit.feet'),
-                distance: elevation,
+                distance: elevation.toLocaleString(),
             }),
         ),
     ];

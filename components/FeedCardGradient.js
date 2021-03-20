@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { LinearGradient } from 'expo-linear-gradient';
-import { transparentColors } from '../constants/Index';
+import { transparentColors, borderRadius } from '../constants/Index';
 
 const propTypes = {
     imageDidLoad: PropTypes.string,
@@ -24,6 +24,7 @@ const FeedCardGradient = ({ imageDidLoad, height }) => (
             right: 0,
             bottom: 0,
             height: imageDidLoad ? height : 0,
+            borderRadius: borderRadius.medium,
         }}
     />
 );

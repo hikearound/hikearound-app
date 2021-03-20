@@ -16,7 +16,7 @@ export function toggleModalVisibility(
 }
 
 export function getDismissIconPosition(includeBackground) {
-    let position = { top: 50, right: 20 };
+    let position = { top: 47.5, right: 20 };
 
     if (includeBackground) {
         position = { top: 40, right: 20 };

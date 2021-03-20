@@ -44,6 +44,7 @@ class FeedCard extends React.Component {
                     left: 0,
                     height: '100%',
                     width: '100%',
+                    borderRadius: borderRadius.medium,
                 }}
             />
         );
@@ -79,7 +80,10 @@ class FeedCard extends React.Component {
                 <HikeName>{name}</HikeName>
                 {this.renderReview()}
                 <FooterText>
-                    {t('card.metadata', { distance, elevation })}
+                    {t('card.metadata', {
+                        distance,
+                        elevation: elevation.toLocaleString(),
+                    })}
                 </FooterText>
             </Footer>
         );
@@ -113,12 +117,12 @@ class FeedCard extends React.Component {
 
     render() {
         return (
-            <View>
+            <StyledView>
                 {this.renderBackground()}
                 {this.renderFooter()}
                 {this.renderHeader()}
                 {this.renderGradient()}
-            </View>
+            </StyledView>
         );
     }
 }
@@ -127,12 +131,11 @@ FeedCard.propTypes = propTypes;
 
 export default withTranslation()(withTheme(FeedCard));
 
-const View = styled.View`
+const StyledView = styled.View`
     width: 100%;
     border-radius: ${borderRadius.medium}px;
     box-shadow: 0 4px 4px ${transparentColors.grayLight};
     height: 200px;
-    overflow: hidden;
     border: 1px solid;
     border-color: ${(props) => props.theme.itemBorder};
 `;
