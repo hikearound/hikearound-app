@@ -342,7 +342,7 @@
     "promotion": {
         "welcome": {
             "title": "¡Bienvenido a Hikearound!",
-            "description": "Mientras estamos en beta, actualmente ofrecemos caminatas solo en Seattle y el Área de la Bahía de San Francisco.\n\nA medida que continuamos expandiéndonos a más ubicaciones, le avisaremos cuando comencemos a agregar caminatas cerca de usted.",
+            "description": "Actualmente estamos enfocados en caminatas en Seattle y el Área de la Bahía de San Francisco.\n\nSi vives fuera de cualquiera de estas ubicaciones, te avisaremos cuando comencemos a agregar caminatas cerca de ti.",
             "cta": "Entendido"
         }
     },
