@@ -220,7 +220,7 @@
             "empty": {
                 "default": {
                     "title": "We couldn't find any nearby hikes",
-                    "description": "This probably means we haven't added any hikes near {{cityName}} yet.Try <3>searching for a hike</3> or <5>browse the map</5>."
+                    "description": "This probably means we haven't added any hikes near {{cityName}} yet. Try <3>searching for a hike</3> or <5>browse the map</5>."
                 },
                 "permission": {
                     "title": "Location sharing disabled",
