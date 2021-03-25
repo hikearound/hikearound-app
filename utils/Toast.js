@@ -18,5 +18,8 @@ export function getToastOffset() {
 }
 
 export const toastConfig = {
-    success: (internalState) => <ToastComponent text={internalState.text1} />,
+    success: (internalState) => {
+        const { text1 } = internalState;
+        return <ToastComponent text={text1} />;
+    },
 };

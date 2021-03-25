@@ -62,6 +62,9 @@ export function sortHikes(previousData, hikeArray, sortDirection) {
 
     const data = { ...previousData, ...hikes };
 
+    // Don't sub-filter by dateCreated
+    // const sortedHikes = Object.values(data);
+
     let sortedHikes = Object.values(data).sort(
         (a, b) => a.createdOn < b.createdOn,
     );
