@@ -41,14 +41,8 @@ export async function getUserProfileData(t, uid) {
     return userData;
 }
 
-export async function writeUserData(userData) {
-    const user = auth.currentUser;
-
-    user.updateProfile({
-        displayName: userData.name,
-    });
-
-    db.collection('users').doc(user.uid).set(userData, { merge: true });
+export async function writeUserData(uid, userData) {
+    db.collection('users').doc(uid).set(userData, { merge: true });
 }
 
 export async function writeUserLanguage() {
@@ -322,7 +316,7 @@ export function createUserProfile(dispatchUserData, response, name) {
     const { map, location, darkMode, notifs, photoURL } = state.userReducer;
     const userData = { map, location, darkMode, notifs, name, photoURL, lang };
 
-    dispatchUserData(userData);
+    dispatchUserData(response.user.uid, userData);
 }
 
 export function shouldDisableSwitch(notifs, item) {

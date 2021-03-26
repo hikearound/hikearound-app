@@ -34,7 +34,8 @@ function mapStateToProps() {
 
 function mapDispatchToProps(dispatch) {
     return {
-        dispatchUserData: (userData) => dispatch(updateUserData(userData)),
+        dispatchUserData: (uid, userData) =>
+            dispatch(updateUserData(uid, userData)),
     };
 }
 

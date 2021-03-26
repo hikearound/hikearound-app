@@ -14,6 +14,7 @@ import { ModalBody } from '../../styles/Modals';
 import { getInputs, setInputRefs } from '../../utils/Inputs';
 import { toggleModalVisibility } from '../../utils/Modal';
 import ModalHeader from './Header';
+import { auth } from '../../lib/Fire';
 
 const propTypes = {
     avatar: PropTypes.string.isRequired,
@@ -45,7 +46,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        dispatchUserData: (userData) => dispatch(updateUserData(userData)),
+        dispatchUserData: (uid, userData) =>
+            dispatch(updateUserData(uid, userData)),
     };
 }
 
@@ -54,6 +56,7 @@ class EditProfileModal extends React.Component {
         super(props, context);
 
         this.state = {
+            user: auth.currentUser,
             modalVisible: false,
             inputs: [],
             refs: {},
@@ -145,27 +148,31 @@ class EditProfileModal extends React.Component {
 
     maybeUpdateName(userData) {
         const { dispatchUserData } = this.props;
-        const { inputs, updatedName, refs } = this.state;
+        const { user, inputs, updatedName, refs } = this.state;
 
         if (updatedName) {
             userData.name = updatedName;
             refs.name.defaultValue = updatedName;
 
             this.setState({ inputs });
-            dispatchUserData(userData);
+            user.updateProfile({
+                displayName: userData.name,
+            });
+
+            dispatchUserData(user.uid, userData);
         }
     }
 
     maybeUpdateLocation(userData) {
         const { dispatchUserData } = this.props;
-        const { inputs, updatedLocation, refs } = this.state;
+        const { user, inputs, updatedLocation, refs } = this.state;
 
         if (updatedLocation) {
             userData.location = updatedLocation;
             refs.location.defaultValue = updatedLocation;
 
             this.setState({ inputs });
-            dispatchUserData(userData);
+            dispatchUserData(user.uid, userData);
         }
     }
 

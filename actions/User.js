@@ -14,8 +14,8 @@ export const initializeUserData = (userData) => ({
     userData,
 });
 
-export const updateUserData = (userData) => {
-    writeUserData(userData);
+export const updateUserData = (uid, userData) => {
+    writeUserData(uid, userData);
     return { type: 'UPDATE_USER_DATA', userData };
 };
 
