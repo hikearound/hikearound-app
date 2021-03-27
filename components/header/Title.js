@@ -8,14 +8,23 @@ import HeaderText from '../../styles/Header';
 const propTypes = {
     scrollRef: PropTypes.object.isRequired,
     title: PropTypes.string.isRequired,
+    scrollType: PropTypes.string,
+};
+
+const defaultProps = {
+    scrollType: 'scrollView',
 };
 
 class Title extends React.PureComponent {
     onPress = () => {
-        const { scrollRef } = this.props;
+        const { scrollRef, scrollType } = this.props;
 
         if (scrollRef) {
-            scrollRef.current.scrollTo({ x: 0, y: 0, animated: true });
+            if (scrollType === 'flatList') {
+                scrollRef.current.scrollToOffset({ animated: true, offset: 0 });
+            } else {
+                scrollRef.current.scrollTo({ x: 0, y: 0, animated: true });
+            }
         }
     };
 
@@ -34,6 +43,7 @@ class Title extends React.PureComponent {
 }
 
 Title.propTypes = propTypes;
+Title.defaultProps = defaultProps;
 
 export default Title;
 

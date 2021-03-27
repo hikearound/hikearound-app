@@ -17,6 +17,7 @@ import { withNavigation } from '../utils/Navigation';
 import { Settings } from '../components/Index';
 import { showModal } from '../actions/Modal';
 import NotificationPreferenceModal from '../components/modal/Notification';
+import Title from '../components/header/Title';
 
 const propTypes = {
     notifications: PropTypes.array.isRequired,
@@ -28,6 +29,8 @@ const propTypes = {
 const defaultProps = {
     notifBadgeCount: 0,
 };
+
+const scrollRef = React.createRef();
 
 function mapStateToProps(state) {
     return {
@@ -47,7 +50,7 @@ class NotificationScreen extends React.Component {
     constructor(props) {
         super(props);
 
-        const { notifications, navigation } = this.props;
+        const { notifications, navigation, t } = this.props;
 
         this.state = {
             notifications,
@@ -57,6 +60,13 @@ class NotificationScreen extends React.Component {
         this.getAndSetNotifications = this.getAndSetNotifications.bind(this);
 
         navigation.setOptions({
+            headerTitle: () => (
+                <Title
+                    title={t('label.nav.notifications')}
+                    scrollRef={scrollRef}
+                    scrollType='flatList'
+                />
+            ),
             headerRight: () => <Settings onPress={this.onSettingsPress} />,
         });
     }
@@ -127,6 +137,7 @@ class NotificationScreen extends React.Component {
                         topOffset={11}
                     />
                 }
+                scrollRef={scrollRef}
                 notificationData={notifications}
             />
         );

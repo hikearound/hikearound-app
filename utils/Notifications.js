@@ -67,7 +67,8 @@ export async function getUserNotifications(t) {
     const notificationsRef = db
         .collection('notifications')
         .where('recipientUid', '==', user.uid)
-        .orderBy('createdOn', 'desc');
+        .orderBy('createdOn', 'desc')
+        .limit(8);
 
     const querySnapshot = await notificationsRef.get();
 

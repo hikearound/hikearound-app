@@ -4,13 +4,14 @@ import { FlatList } from 'react-native';
 import { withTranslation } from 'react-i18next';
 import ReviewLikeNotification from './notifications/types/Review';
 import DigestNotification from './notifications/types/Digest';
-import { timestamps } from '../constants/Index';
+import { timestamps, spacing } from '../constants/Index';
 import { shouldCapitalizeTimestamp } from '../utils/Localization';
 import { getLocalizedMoment, formatDate } from '../utils/Time';
 
 const propTypes = {
     notificationData: PropTypes.array.isRequired,
     refreshControl: PropTypes.object.isRequired,
+    scrollRef: PropTypes.object.isRequired,
 };
 
 const defaultProps = {};
@@ -57,19 +58,24 @@ class NotificationList extends React.Component {
     };
 
     render() {
-        const { notificationData, refreshControl } = this.props;
+        const { notificationData, refreshControl, scrollRef } = this.props;
         const extractKey = ({ id }) => id;
 
         return (
             <>
                 {notificationData && (
                     <FlatList
+                        ref={scrollRef}
                         renderItem={this.renderItem}
                         refreshControl={refreshControl}
                         data={notificationData}
                         extraData={notificationData}
                         keyExtractor={extractKey}
+                        showsVerticalScrollIndicator={false}
                         scrollEnabled
+                        contentContainerStyle={{
+                            paddingBottom: parseInt(spacing.small, 10),
+                        }}
                     />
                 )}
             </>
