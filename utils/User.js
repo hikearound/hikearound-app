@@ -271,6 +271,27 @@ export async function getUserDataRef() {
     return userData;
 }
 
+export async function maybeClearNotifBadgeCount(userBadgeCount) {
+    const appBadgeCount = await Notifications.getBadgeCountAsync();
+
+    if (appBadgeCount !== 0) {
+        if (userBadgeCount === 0) {
+            clearNotifBadgeCount();
+        }
+    }
+}
+
+export function setNotifBadgeCount(userData) {
+    let notifBadgeCount = 0;
+
+    if (userData.notifBadgeCount !== undefined) {
+        notifBadgeCount = userData.notifBadgeCount;
+        maybeClearNotifBadgeCount(userData.notifBadgeCount);
+    }
+
+    return notifBadgeCount;
+}
+
 export async function buildAndDispatchUserData(
     userData,
     dispatchUserData,
@@ -289,9 +310,8 @@ export async function buildAndDispatchUserData(
     userData.favoriteHikes = favoriteHikes;
     userData.reviewedHikes = reviewedHikes;
 
-    if (!userData.notifBadgeCount) {
-        userData.notifBadgeCount = 0;
-    }
+    const notifBadgeCount = setNotifBadgeCount(userData);
+    userData.notifBadgeCount = notifBadgeCount;
 
     await setAvatar(dispatchAvatar);
     await writeUserLanguage();

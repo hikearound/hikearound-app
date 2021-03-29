@@ -6,3 +6,12 @@ export const geoDistances = {
 export const deltaMiles = {
     lat: 69,
 };
+
+export const simulatorLocation = {
+    coords: {
+        accuracy: 5,
+        altitude: 0,
+        latitude: 47.613356,
+        longitude: -122.4118676,
+    },
+};

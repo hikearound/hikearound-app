@@ -2,7 +2,7 @@ import * as Location from 'expo-location';
 import geohash from 'ngeohash';
 import Geocoder from 'react-native-geocoding';
 import Constants from 'expo-constants';
-import { geoDistances } from '../constants/Location';
+import { geoDistances, simulatorLocation } from '../constants/Location';
 import { getPermissionStatus } from './Permissions';
 
 export async function initializeGeolocation() {
@@ -86,7 +86,11 @@ export async function getPosition(type) {
     }
 
     if (location == null) {
-        location = await Location.getCurrentPositionAsync();
+        try {
+            location = await Location.getCurrentPositionAsync();
+        } catch {
+            location = simulatorLocation;
+        }
     }
 
     return location;
