@@ -89,8 +89,8 @@
     "webpack": "^4.46.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.13.13",
-    "@babel/eslint-parser": "^7.13.10",
+    "@babel/core": "^7.13.14",
+    "@babel/eslint-parser": "^7.13.14",
     "@react-native-community/eslint-config": "^2.0.0",
     "babel-plugin-inline-dotenv": "^1.6.0",
     "babel-preset-expo": "8.3.0",
