@@ -34,8 +34,7 @@ function mapStateToProps() {
 
 function mapDispatchToProps(dispatch) {
     return {
-        dispatchNewUserData: (uid, userData) =>
-            dispatch(updateUserData(uid, userData)),
+        dispatchNewUserData: (userData) => dispatch(updateUserData(userData)),
     };
 }
 
@@ -89,8 +88,9 @@ class CreateAccountScreen extends React.Component {
     createProfile = async (response) => {
         const { dispatchNewUserData } = this.props;
         const { name } = this.state;
+        const { user } = response;
 
-        await createUserProfile(dispatchNewUserData, response, name);
+        await createUserProfile(dispatchNewUserData, user, name);
     };
 
     createAccountSuccessful = async (response) => {

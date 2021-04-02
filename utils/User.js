@@ -220,8 +220,7 @@ export function logoutAndResetNavigation(navigation) {
 
 export async function writeAvatar(photoURL) {
     const user = auth.currentUser;
-
-    user.updateProfile({ photoURL });
+    await user.updateProfile({ photoURL });
 
     return db
         .collection('users')
@@ -340,17 +339,17 @@ export async function getUserData(dispatchUserData, dispatchAvatar) {
     buildAndDispatchUserData(userData, dispatchUserData, dispatchAvatar);
 }
 
-export async function createUserProfile(dispatchNewUserData, response, name) {
+export async function createUserProfile(dispatchNewUserData, user, name) {
     const state = store.getState();
     const lang = getLanguageCode();
 
-    response.user.updateProfile({ displayName: name });
+    await user.updateProfile({ displayName: name });
 
     const { map, location, darkMode, notifs, photoURL } = state.userReducer;
     const userData = { map, location, darkMode, notifs, name, photoURL, lang };
 
-    await writeUserData(response.user.uid, userData);
-    dispatchNewUserData(response.user.uid, userData);
+    await writeUserData(user.uid, userData);
+    dispatchNewUserData(userData);
 }
 
 export function shouldDisableSwitch(notifs, item) {

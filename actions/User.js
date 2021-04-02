@@ -1,5 +1,4 @@
 import {
-    writeUserData,
     writeUserLocation,
     writePhotoData,
     writeMapData,
@@ -14,10 +13,10 @@ export const initializeUserData = (userData) => ({
     userData,
 });
 
-export const updateUserData = (uid, userData) => {
-    writeUserData(uid, userData);
-    return { type: 'UPDATE_USER_DATA', userData };
-};
+export const updateUserData = (userData) => ({
+    type: 'UPDATE_USER_DATA',
+    userData,
+});
 
 export const initializeAvatar = (uri) => ({ type: 'INITIALIZE_AVATAR', uri });
 

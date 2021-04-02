@@ -13,6 +13,7 @@ import { RootView } from '../../styles/Screens';
 import { ModalBody } from '../../styles/Modals';
 import { getInputs, setInputRefs } from '../../utils/Inputs';
 import { toggleModalVisibility } from '../../utils/Modal';
+import { writeUserData } from '../../utils/User';
 import ModalHeader from './Header';
 import { auth } from '../../lib/Fire';
 
@@ -146,7 +147,7 @@ class EditProfileModal extends React.Component {
         }
     };
 
-    maybeUpdateName(userData) {
+    async maybeUpdateName(userData) {
         const { dispatchUserData } = this.props;
         const { user, inputs, updatedName, refs } = this.state;
 
@@ -155,15 +156,17 @@ class EditProfileModal extends React.Component {
             refs.name.defaultValue = updatedName;
 
             this.setState({ inputs });
-            user.updateProfile({
+
+            await user.updateProfile({
                 displayName: userData.name,
             });
 
-            dispatchUserData(user.uid, userData);
+            await writeUserData(user.uid, userData);
+            dispatchUserData(userData);
         }
     }
 
-    maybeUpdateLocation(userData) {
+    async maybeUpdateLocation(userData) {
         const { dispatchUserData } = this.props;
         const { user, inputs, updatedLocation, refs } = this.state;
 
@@ -172,7 +175,9 @@ class EditProfileModal extends React.Component {
             refs.location.defaultValue = updatedLocation;
 
             this.setState({ inputs });
-            dispatchUserData(user.uid, userData);
+
+            await writeUserData(user.uid, userData);
+            dispatchUserData(userData);
         }
     }
 

@@ -50,13 +50,10 @@ class AppleAuthButton extends React.Component {
 
     maybeCreateProfile = async (response, name) => {
         const { dispatchNewUserData } = this.props;
+        const { user } = response;
 
-        if (!response.user.displayName) {
-            await createUserProfile(
-                dispatchNewUserData,
-                response,
-                buildFormattedName(name),
-            );
+        if (!user.displayName) {
+            await createUserProfile(dispatchNewUserData, user, name);
         }
     };
 
@@ -84,7 +81,9 @@ class AppleAuthButton extends React.Component {
     };
 
     signInSuccessful = async (response, name) => {
-        await this.maybeCreateProfile(response, name);
+        const formattedName = buildFormattedName(name);
+
+        await this.maybeCreateProfile(response, formattedName);
         await this.logEvent();
 
         this.navigateToNextScreen();
