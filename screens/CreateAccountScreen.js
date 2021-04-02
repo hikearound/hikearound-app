@@ -5,6 +5,7 @@ import firebase from 'firebase';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
+import * as Location from 'expo-location';
 import InputButton from '../components/InputButton';
 import LoadingOverlay from '../components/LoadingOverlay';
 import InputLabelGroup from '../components/InputLabelGroup';
@@ -14,7 +15,6 @@ import { RootView } from '../styles/Screens';
 import { withTheme } from '../utils/Themes';
 import { mapCodeToTranslation } from '../utils/Localization';
 import { createUserProfile } from '../utils/User';
-import { getPermissionStatus } from '../utils/Permissions';
 import { getInputs } from '../utils/Inputs';
 import { defaultState } from '../constants/states/CreateAccount';
 import AppleAuthButton from '../components/auth/Apple';
@@ -54,7 +54,7 @@ class CreateAccountScreen extends React.Component {
     }
 
     setNextScreen = async () => {
-        const status = await getPermissionStatus('location');
+        const status = await Location.getForegroundPermissionsAsync();
 
         if (status === 'granted') {
             return 'Home';

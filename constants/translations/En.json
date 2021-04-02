@@ -359,5 +359,8 @@
             "title": "New hikes near you",
             "subtitle": "We think you might like {{name}} in {{city}}, {{state}}",
         }
+    },
+    "ad": {
+        "promoted": "Promoted by {{name}}"
     }
 }

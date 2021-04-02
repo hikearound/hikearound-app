@@ -7,6 +7,7 @@ import * as Crypto from 'expo-crypto';
 import firebase from 'firebase';
 import { Alert } from 'react-native';
 import { withTranslation } from 'react-i18next';
+import * as Location from 'expo-location';
 import { spacing } from '../../constants/Index';
 import { getScreenWidth } from '../../utils/Screen';
 import { withTheme } from '../../utils/Themes';
@@ -14,7 +15,6 @@ import { logEvent } from '../../utils/Analytics';
 import { withNavigation } from '../../utils/Navigation';
 import { createUserProfile } from '../../utils/User';
 import { mapCodeToTranslation } from '../../utils/Localization';
-import { getPermissionStatus } from '../../utils/Permissions';
 import { buildFormattedName } from '../../utils/Apple';
 
 const { FULL_NAME, EMAIL } = AppleAuthentication.AppleAuthenticationScope;
@@ -49,7 +49,7 @@ class AppleAuthButton extends React.Component {
 
     setNextScreen = async () => {
         const { type } = this.props;
-        const status = await getPermissionStatus('location');
+        const status = await Location.getForegroundPermissionsAsync();
 
         if (status !== 'granted' && type === 'SIGN_UP') {
             return 'LocationPermission';

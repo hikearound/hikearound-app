@@ -51,7 +51,13 @@ class FeedList extends React.Component {
         return (
             <>
                 {showReviews && <RecentReviewList reviews={reviews} />}
-                {showAds && <Ad adsManager={adsManager} />}
+                {showAds && (
+                    <Ad
+                        adsManager={adsManager}
+                        onAdLoaded={(ad) => console.log(ad)}
+                        onError={(error) => console.log(error)}
+                    />
+                )}
 
                 <FeedItem
                     id={id}

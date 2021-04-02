@@ -1,4 +1,3 @@
-import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
 import { reduceImageAsync, getBlob } from './Image';
 
@@ -40,12 +39,12 @@ export async function launchCamera(dispatchAvatar) {
 }
 
 export async function checkImageLibraryPermissions(dispatchAvatar) {
-    const { status } = await Permissions.getAsync(Permissions.CAMERA_ROLL);
+    const { status } = await ImagePicker.getMediaLibraryPermissionsAsync();
 
     if (status !== 'granted') {
-        const { status: newStatus } = await Permissions.askAsync(
-            Permissions.CAMERA_ROLL,
-        );
+        const {
+            status: newStatus,
+        } = await ImagePicker.requestMediaLibraryPermissionsAsync();
         if (newStatus === 'granted') {
             launchImageLibrary(dispatchAvatar);
         }
@@ -55,12 +54,12 @@ export async function checkImageLibraryPermissions(dispatchAvatar) {
 }
 
 export async function checkCameraPermissions(dispatchAvatar) {
-    const { status } = await Permissions.getAsync(Permissions.CAMERA);
+    const { status } = await ImagePicker.getCameraPermissionsAsync();
 
     if (status !== 'granted') {
-        const { status: newStatus } = await Permissions.askAsync(
-            Permissions.CAMERA,
-        );
+        const {
+            status: newStatus,
+        } = await ImagePicker.requestCameraPermissionsAsync();
         if (newStatus === 'granted') {
             launchCamera(dispatchAvatar);
         }

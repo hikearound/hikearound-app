@@ -1,11 +1,11 @@
 import * as Notifications from 'expo-notifications';
-import * as Permissions from 'expo-permissions';
 import { db, auth } from '../lib/Fire';
 import { getUserProfileData } from './User';
 import { getHikeData } from './Hike';
 
 export async function registerForPushNotifications() {
-    const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+    const { status } = await Notifications.requestPermissionsAsync();
+
     if (status !== 'granted') {
         return;
     }
