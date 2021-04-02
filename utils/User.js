@@ -253,6 +253,10 @@ export async function writeNotifPreferences(notifs) {
 export async function maybeUpdateNotifPreferences(userData) {
     let shouldUpdate = false;
 
+    if (!userData.notifs) {
+        userData.notifs = { email: {}, push: {} };
+    }
+
     await email.forEach((type) => {
         if (!userData.notifs.email[type]) {
             shouldUpdate = true;
@@ -272,6 +276,41 @@ export async function maybeUpdateNotifPreferences(userData) {
     }
 
     return userData.notifs;
+}
+
+export async function maybeUpdateUserData(userData) {
+    const user = auth.currentUser;
+    const state = store.getState();
+
+    const name = user.displayName;
+    const lang = getLanguageCode();
+
+    if (!userData.name) {
+        userData.name = name;
+    }
+
+    if (!userData.lang) {
+        userData.lang = lang;
+    }
+
+    if (!userData.map) {
+        userData.map = state.userReducer.map;
+    }
+
+    if (!userData.location) {
+        userData.location = state.userReducer.location;
+    }
+
+    if (!userData.darkMode) {
+        userData.darkMode = state.userReducer.darkMode;
+    }
+
+    if (!userData.photoURL) {
+        userData.photoURL = state.userReducer.photoURL;
+    }
+
+    await writeUserData(user.uid, userData);
+    return userData;
 }
 
 export async function getUserDataRef() {
@@ -331,6 +370,7 @@ export async function buildAndDispatchUserData(
     const notifs = await maybeUpdateNotifPreferences(userData);
     userData.notifs = notifs;
 
+    userData = await maybeUpdateUserData(userData);
     dispatchUserData(userData);
 }
 
