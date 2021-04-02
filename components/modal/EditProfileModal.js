@@ -157,7 +157,11 @@ class EditProfileModal extends React.Component {
 
             this.setState({ inputs });
 
+<<<<<<< HEAD
             await user.updateProfile({
+=======
+            user.updateProfile({
+>>>>>>> Some more
                 displayName: userData.name,
             });
 
