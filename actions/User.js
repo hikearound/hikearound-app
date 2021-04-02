@@ -6,6 +6,7 @@ import {
     writeNotifData,
     logoutAndResetNavigation,
     clearNotifBadgeCount,
+    writeFavoriteHikes,
 } from '../utils/User';
 
 export const initializeUserData = (userData) => ({
@@ -30,10 +31,10 @@ export const updateAvatar = (photoData) => {
     return { type: 'UPDATE_AVATAR', photoData };
 };
 
-export const updateFavoriteHikes = (favoriteHikes) => ({
-    type: 'UPDATE_FAVORITE_HIKES',
-    favoriteHikes,
-});
+export const updateFavoriteHikes = (favoriteHikes) => {
+    writeFavoriteHikes(favoriteHikes);
+    return { type: 'UPDATE_FAVORITE_HIKES', favoriteHikes };
+};
 
 export const updateReviewedHikes = (reviewedHikes) => ({
     type: 'UPDATE_REVIEWED_HIKES',

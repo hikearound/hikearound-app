@@ -6,14 +6,17 @@ import { connect } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
 import Toast from 'react-native-toast-message';
 import { withTranslation } from 'react-i18next';
-import { opacities, colors, spacing } from '../constants/Index';
+import { opacities, colors, spacing, timings } from '../constants/Index';
 import { favoriteHike, unfavoriteHike } from '../actions/Hike';
+import { initializeProfileData } from '../actions/Profile';
 import { updateFavoriteHikes } from '../actions/User';
 import { getToastText } from '../utils/Toast';
 import { withTheme } from '../utils/Themes';
+import { getProfileData } from '../utils/User';
 
 const propTypes = {
     hid: PropTypes.string.isRequired,
+    dispatchProfileData: PropTypes.func.isRequired,
     dispatchUpdatedFavorites: PropTypes.func.isRequired,
     dispatchFavorite: PropTypes.func.isRequired,
     dispatchUnfavorite: PropTypes.func.isRequired,
@@ -37,6 +40,8 @@ function mapDispatchToProps(dispatch) {
         dispatchUnfavorite: (hike) => dispatch(unfavoriteHike(hike)),
         dispatchUpdatedFavorites: (hikes) =>
             dispatch(updateFavoriteHikes(hikes)),
+        dispatchProfileData: (profileData) =>
+            dispatch(initializeProfileData(profileData)),
     };
 }
 
@@ -84,6 +89,14 @@ class FavoriteButton extends React.Component {
         }
     };
 
+    updateProfileData = async () => {
+        const { dispatchProfileData } = this.props;
+
+        this.timeout = setTimeout(async () => {
+            await getProfileData(dispatchProfileData);
+        }, timings.medium);
+    };
+
     setFavoriteHike = async () => {
         const {
             hid,
@@ -107,6 +120,8 @@ class FavoriteButton extends React.Component {
 
         dispatchFavorite({ hid, distance, name, city, state });
         dispatchUpdatedFavorites(hikes);
+
+        this.updateProfileData();
     };
 
     showToast = () => {

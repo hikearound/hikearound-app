@@ -45,6 +45,15 @@ export async function writeUserData(uid, userData) {
     return db.collection('users').doc(uid).set(userData, { merge: true });
 }
 
+export async function writeFavoriteHikes(favoriteHikes) {
+    const user = auth.currentUser;
+
+    return db
+        .collection('users')
+        .doc(user.uid)
+        .set({ favoriteHikes }, { merge: true });
+}
+
 export async function writeUserLanguage() {
     const user = auth.currentUser;
 
