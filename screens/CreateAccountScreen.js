@@ -25,7 +25,7 @@ import { getHeaderHeight } from '../utils/Navigation';
 const headerHeight = getHeaderHeight();
 
 const propTypes = {
-    dispatchUserData: PropTypes.func.isRequired,
+    dispatchNewUserData: PropTypes.func.isRequired,
 };
 
 function mapStateToProps() {
@@ -34,7 +34,7 @@ function mapStateToProps() {
 
 function mapDispatchToProps(dispatch) {
     return {
-        dispatchUserData: (uid, userData) =>
+        dispatchNewUserData: (uid, userData) =>
             dispatch(updateUserData(uid, userData)),
     };
 }
@@ -70,7 +70,7 @@ class CreateAccountScreen extends React.Component {
         this.setState({ loading });
     };
 
-    logEvent = () => {
+    logEvent = async () => {
         logEvent('sign_up', {});
     };
 
@@ -87,15 +87,16 @@ class CreateAccountScreen extends React.Component {
     };
 
     createProfile = async (response) => {
-        const { dispatchUserData } = this.props;
+        const { dispatchNewUserData } = this.props;
         const { name } = this.state;
 
-        createUserProfile(dispatchUserData, response, name);
+        await createUserProfile(dispatchNewUserData, response, name);
     };
 
     createAccountSuccessful = async (response) => {
-        this.createProfile(response);
-        this.logEvent();
+        await this.createProfile(response);
+        await this.logEvent();
+
         this.navigateToNextScreen();
     };
 
@@ -139,7 +140,7 @@ class CreateAccountScreen extends React.Component {
 
     render() {
         const { loading, inputs } = this.state;
-        const { t, dispatchUserData } = this.props;
+        const { t, dispatchNewUserData } = this.props;
 
         return (
             <RootView>
@@ -150,7 +151,7 @@ class CreateAccountScreen extends React.Component {
                 >
                     <AppleAuthButton
                         type='SIGN_UP'
-                        dispatchUserData={dispatchUserData}
+                        dispatchNewUserData={dispatchNewUserData}
                         setLoading={this.setLoading}
                     />
                     <Header

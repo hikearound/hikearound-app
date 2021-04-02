@@ -37,7 +37,8 @@ export async function buildReviewArray(t, data) {
 
 export async function updateReview(reviewData) {
     const { rid, rating, review } = reviewData;
-    await db
+
+    return db
         .collection('reviews')
         .doc(rid)
         .set({ rating, review }, { merge: true });
@@ -45,7 +46,8 @@ export async function updateReview(reviewData) {
 
 export function deleteReview(reviewData) {
     const { rid } = reviewData;
-    db.collection('reviews').doc(rid).delete();
+
+    return db.collection('reviews').doc(rid).delete();
 }
 
 export async function getReviewData(rid) {
@@ -117,7 +119,10 @@ export async function getRecentReviews(t, hid, sortDirection, querySize) {
 }
 
 export function writeReviewLikes(rid, userLikes) {
-    db.collection('reviews').doc(rid).set({ userLikes }, { merge: true });
+    return db
+        .collection('reviews')
+        .doc(rid)
+        .set({ userLikes }, { merge: true });
 }
 
 export function removeReviewFromList(reviews, selectedReview) {

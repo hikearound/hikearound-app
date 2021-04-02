@@ -15,7 +15,8 @@ export async function registerForPushNotifications() {
     let notificationToken = await Notifications.getExpoPushTokenAsync();
     notificationToken = notificationToken.data;
 
-    db.collection('users')
+    await db
+        .collection('users')
         .doc(user.uid)
         .set({ notificationToken }, { merge: true });
 }
@@ -87,7 +88,8 @@ export async function getUserNotifications(t) {
 }
 
 export async function markNotificationAsRead(nid) {
-    db.collection('notifications')
+    return db
+        .collection('notifications')
         .doc(nid)
         .set({ isRead: true }, { merge: true });
 }

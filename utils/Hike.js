@@ -46,7 +46,8 @@ export function writeFavoriteHike(hikeData) {
     const { uid } = auth.currentUser;
     hikeData.savedOn = timestamp;
 
-    db.collection('favoritedHikes')
+    return db
+        .collection('favoritedHikes')
         .doc(uid)
         .collection('hikes')
         .doc(hikeData.hid)
@@ -55,7 +56,9 @@ export function writeFavoriteHike(hikeData) {
 
 export function removeFavoriteHike(hikeData) {
     const { uid } = auth.currentUser;
-    db.collection('favoritedHikes')
+
+    return db
+        .collection('favoritedHikes')
         .doc(uid)
         .collection('hikes')
         .doc(hikeData.hid)

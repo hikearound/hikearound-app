@@ -37,11 +37,6 @@ export function getHeaderHeight() {
 }
 
 export function UpdateLightboxGroup({ id, handleFocus }) {
-    useFocusEffect(
-        React.useCallback(() => {
-            return handleFocus(id);
-        }, [id, handleFocus]),
-    );
-
+    useFocusEffect(React.useCallback(() => handleFocus(id), [id, handleFocus]));
     return null;
 }

@@ -24,7 +24,7 @@ const nonce = 'APPLE_SIGN_IN';
 
 const propTypes = {
     type: PropTypes.string.isRequired,
-    dispatchUserData: PropTypes.func,
+    dispatchNewUserData: PropTypes.func,
     setLoading: PropTypes.func,
     cornerRadius: PropTypes.number,
     height: PropTypes.number,
@@ -33,7 +33,7 @@ const propTypes = {
 const defaultProps = {
     cornerRadius: 0,
     height: 42,
-    dispatchUserData: () => {},
+    dispatchNewUserData: () => {},
     setLoading: () => {},
 };
 
@@ -43,17 +43,17 @@ class AppleAuthButton extends React.Component {
         return AppleAuthentication.AppleAuthenticationButtonType[type];
     };
 
-    logEvent = () => {
+    logEvent = async () => {
         const { type } = this.props;
         logEvent(type.toLowerCase(), {});
     };
 
-    maybeCreateProfile = (response, name) => {
-        const { dispatchUserData } = this.props;
+    maybeCreateProfile = async (response, name) => {
+        const { dispatchNewUserData } = this.props;
 
         if (!response.user.displayName) {
-            createUserProfile(
-                dispatchUserData,
+            await createUserProfile(
+                dispatchNewUserData,
                 response,
                 buildFormattedName(name),
             );
@@ -83,9 +83,10 @@ class AppleAuthButton extends React.Component {
         navigation.dispatch(resetAction);
     };
 
-    signInSuccessful = (response, name) => {
-        this.maybeCreateProfile(response, name);
-        this.logEvent();
+    signInSuccessful = async (response, name) => {
+        await this.maybeCreateProfile(response, name);
+        await this.logEvent();
+
         this.navigateToNextScreen();
     };
 

@@ -42,13 +42,14 @@ export async function getUserProfileData(t, uid) {
 }
 
 export async function writeUserData(uid, userData) {
-    db.collection('users').doc(uid).set(userData, { merge: true });
+    return db.collection('users').doc(uid).set(userData, { merge: true });
 }
 
 export async function writeUserLanguage() {
     const user = auth.currentUser;
 
-    db.collection('users')
+    return db
+        .collection('users')
         .doc(user.uid)
         .set({ lang: getLanguageCode() }, { merge: true });
 }
@@ -76,30 +77,34 @@ export function writeMapData(map) {
     const { uid } = auth.currentUser;
     const mapData = { map };
 
-    db.collection('users').doc(uid).set(mapData, { merge: true });
+    return db.collection('users').doc(uid).set(mapData, { merge: true });
 }
 
 export function writeDarkMode(darkMode) {
     const { uid } = auth.currentUser;
     const darkModeData = { darkMode };
 
-    db.collection('users').doc(uid).set(darkModeData, { merge: true });
+    return db.collection('users').doc(uid).set(darkModeData, { merge: true });
 }
 
 export function writeNotifData(notifData) {
     const { uid } = auth.currentUser;
 
-    db.collection('users').doc(uid).set({ notifs: notifData }, { merge: true });
+    return db
+        .collection('users')
+        .doc(uid)
+        .set({ notifs: notifData }, { merge: true });
 }
 
 export function clearNotifBadgeCount() {
     const { uid } = auth.currentUser;
 
-    db.collection('users')
+    Notifications.setBadgeCountAsync(0);
+
+    return db
+        .collection('users')
         .doc(uid)
         .set({ notifBadgeCount: 0 }, { merge: true });
-
-    Notifications.setBadgeCountAsync(0);
 }
 
 export async function writePhotoData(photoData) {
@@ -217,7 +222,11 @@ export async function writeAvatar(photoURL) {
     const user = auth.currentUser;
 
     user.updateProfile({ photoURL });
-    db.collection('users').doc(user.uid).set({ photoURL }, { merge: true });
+
+    return db
+        .collection('users')
+        .doc(user.uid)
+        .set({ photoURL }, { merge: true });
 }
 
 export async function setAvatar(dispatchAvatar) {
@@ -235,7 +244,11 @@ export async function setAvatar(dispatchAvatar) {
 
 export async function writeNotifPreferences(notifs) {
     const user = auth.currentUser;
-    db.collection('users').doc(user.uid).set({ notifs }, { merge: true });
+
+    return db
+        .collection('users')
+        .doc(user.uid)
+        .set({ notifs }, { merge: true });
 }
 
 export async function maybeUpdateNotifPreferences(userData) {
@@ -327,7 +340,7 @@ export async function getUserData(dispatchUserData, dispatchAvatar) {
     buildAndDispatchUserData(userData, dispatchUserData, dispatchAvatar);
 }
 
-export function createUserProfile(dispatchUserData, response, name) {
+export async function createUserProfile(dispatchNewUserData, response, name) {
     const state = store.getState();
     const lang = getLanguageCode();
 
@@ -336,7 +349,8 @@ export function createUserProfile(dispatchUserData, response, name) {
     const { map, location, darkMode, notifs, photoURL } = state.userReducer;
     const userData = { map, location, darkMode, notifs, name, photoURL, lang };
 
-    dispatchUserData(response.user.uid, userData);
+    await writeUserData(response.user.uid, userData);
+    dispatchNewUserData(response.user.uid, userData);
 }
 
 export function shouldDisableSwitch(notifs, item) {

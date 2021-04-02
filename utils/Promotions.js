@@ -11,7 +11,10 @@ export async function getPromotionStatus(promotionType) {
     }
 
     const { promotions } = userData;
-    db.collection('users').doc(user.uid).set({ promotions }, { merge: true });
+    await db
+        .collection('users')
+        .doc(user.uid)
+        .set({ promotions }, { merge: true });
 
     return userData.promotions[promotionType];
 }
@@ -25,5 +28,8 @@ export async function dismissPromotion(promotionType) {
     const { promotions } = userData;
     promotions[promotionType] = { shouldShow: false };
 
-    db.collection('users').doc(user.uid).set({ promotions }, { merge: true });
+    return db
+        .collection('users')
+        .doc(user.uid)
+        .set({ promotions }, { merge: true });
 }
