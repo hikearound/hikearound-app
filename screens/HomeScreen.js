@@ -101,6 +101,7 @@ class HomeScreen extends React.Component {
             dispatchProfileData,
             dispatchAvatar,
             dispatchMapData,
+            t,
         } = this.props;
 
         this.setFirstLoad();
@@ -113,7 +114,7 @@ class HomeScreen extends React.Component {
         await getUserData(dispatchUserData, dispatchAvatar);
         await getProfileData(dispatchProfileData);
         await getMapData(dispatchMapData);
-        await getNotificationData(dispatchNotificationData);
+        await getNotificationData(dispatchNotificationData, t);
 
         await this.getAndSetPromotions();
 

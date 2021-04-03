@@ -94,7 +94,7 @@ export async function markNotificationAsRead(nid) {
         .set({ isRead: true }, { merge: true });
 }
 
-export async function getNotificationData(dispatchNotificationData) {
-    const notifications = await getUserNotifications();
+export async function getNotificationData(dispatchNotificationData, t) {
+    const notifications = await getUserNotifications(t);
     dispatchNotificationData({ notifications });
 }
