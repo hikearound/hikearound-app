@@ -74,6 +74,7 @@ class NotificationList extends React.Component {
                         showsVerticalScrollIndicator={false}
                         scrollEnabled
                         contentContainerStyle={{
+                            paddingTop: parseInt(spacing.micro, 10),
                             paddingBottom: parseInt(spacing.small, 10),
                         }}
                     />

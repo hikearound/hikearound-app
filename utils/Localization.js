@@ -17,7 +17,7 @@ export function getLanguageCode() {
 export function shouldCapitalizeTimestamp() {
     const lang = getLanguageCode();
 
-    if (lang !== 'en-US') {
+    if (!lang.includes('en')) {
         return true;
     }
 
