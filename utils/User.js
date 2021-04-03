@@ -54,15 +54,6 @@ export async function writeFavoriteHikes(favoriteHikes) {
         .set({ favoriteHikes }, { merge: true });
 }
 
-export async function writeUserLanguage() {
-    const user = auth.currentUser;
-
-    return db
-        .collection('users')
-        .doc(user.uid)
-        .set({ lang: getLanguageCode() }, { merge: true });
-}
-
 export async function writeUserLocation(currentPosition) {
     const distance = 50;
     const user = auth.currentUser;
@@ -289,18 +280,12 @@ export async function maybeUpdateNotifPreferences(userData) {
 
 export async function maybeUpdateUserData(userData) {
     const user = auth.currentUser;
-    const state = store.getState();
 
-    const name = user.displayName;
+    const state = store.getState();
     const lang = getLanguageCode();
 
-    if (!userData.name) {
-        userData.name = name;
-    }
-
-    if (!userData.lang) {
-        userData.lang = lang;
-    }
+    userData.name = user.displayName;
+    userData.lang = lang;
 
     if (!userData.map) {
         userData.map = state.userReducer.map;
@@ -357,9 +342,6 @@ export async function buildAndDispatchUserData(
     dispatchUserData,
     dispatchAvatar,
 ) {
-    const favoriteHikes = await buildHikeArray();
-    const reviewedHikes = await buildReviewArray();
-
     userData = userData.data();
 
     if (!userData.name) {
@@ -367,19 +349,21 @@ export async function buildAndDispatchUserData(
         userData = userData.data();
     }
 
+    const favoriteHikes = await buildHikeArray();
+    const reviewedHikes = await buildReviewArray();
+
+    const notifs = await maybeUpdateNotifPreferences(userData);
+    const notifBadgeCount = setNotifBadgeCount(userData);
+
     userData.favoriteHikes = favoriteHikes;
     userData.reviewedHikes = reviewedHikes;
 
-    const notifBadgeCount = setNotifBadgeCount(userData);
+    userData.notifs = notifs;
     userData.notifBadgeCount = notifBadgeCount;
 
-    await setAvatar(dispatchAvatar);
-    await writeUserLanguage();
-
-    const notifs = await maybeUpdateNotifPreferences(userData);
-    userData.notifs = notifs;
-
     userData = await maybeUpdateUserData(userData);
+
+    setAvatar(dispatchAvatar);
     dispatchUserData(userData);
 }
 
