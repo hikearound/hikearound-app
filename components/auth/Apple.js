@@ -43,18 +43,8 @@ class AppleAuthButton extends React.Component {
         return AppleAuthentication.AppleAuthenticationButtonType[type];
     };
 
-    logEvent = async () => {
-        const { type } = this.props;
-        logEvent(type.toLowerCase(), {});
-    };
-
-    maybeCreateProfile = async (response, name) => {
-        const { dispatchNewUserData } = this.props;
-        const { user } = response;
-
-        if (!user.displayName) {
-            await createUserProfile(dispatchNewUserData, user, name);
-        }
+    logEvent = () => {
+        logEvent('sign_in', {});
     };
 
     setNextScreen = async () => {
@@ -80,13 +70,21 @@ class AppleAuthButton extends React.Component {
         navigation.dispatch(resetAction);
     };
 
-    signInSuccessful = async (response, name) => {
-        const formattedName = buildFormattedName(name);
+    finishCreatingProfile = async (response, name) => {
+        const { dispatchNewUserData } = this.props;
+        const { user } = response;
 
-        await this.maybeCreateProfile(response, formattedName);
+        await createUserProfile(
+            this.navigateToNextScreen,
+            dispatchNewUserData,
+            user,
+            name,
+        );
+    };
+
+    signInSuccessful = async () => {
         await this.logEvent();
-
-        this.navigateToNextScreen();
+        await this.navigateToNextScreen();
     };
 
     handleLogin = async (credential) => {
@@ -109,9 +107,22 @@ class AppleAuthButton extends React.Component {
                 this.showErrorAlert(error);
                 setLoading(false);
             })
-            .then((response) => {
+            .then(async (response) => {
                 if (response) {
-                    this.signInSuccessful(response, fullName);
+                    const user = await firebase.auth().currentUser.toJSON();
+                    const isNewUser = user.createdAt === user.lastLoginAt;
+
+                    if (isNewUser) {
+                        await response.user.updateProfile({
+                            displayName: buildFormattedName(fullName),
+                        });
+                        this.finishCreatingProfile(
+                            response,
+                            buildFormattedName(fullName),
+                        );
+                    } else {
+                        this.signInSuccessful();
+                    }
                 }
             });
     };

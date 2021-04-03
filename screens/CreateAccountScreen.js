@@ -17,7 +17,6 @@ import { createUserProfile } from '../utils/User';
 import { getPermissionStatus } from '../utils/Permissions';
 import { getInputs } from '../utils/Inputs';
 import { defaultState } from '../constants/states/CreateAccount';
-import { logEvent } from '../utils/Analytics';
 import AppleAuthButton from '../components/auth/Apple';
 import Header from '../components/Header';
 import { getHeaderHeight } from '../utils/Navigation';
@@ -69,10 +68,6 @@ class CreateAccountScreen extends React.Component {
         this.setState({ loading });
     };
 
-    logEvent = async () => {
-        logEvent('sign_up', {});
-    };
-
     navigateToNextScreen = async () => {
         const { navigation } = this.props;
         const screen = await this.setNextScreen();
@@ -85,23 +80,20 @@ class CreateAccountScreen extends React.Component {
         navigation.dispatch(resetAction);
     };
 
-    createProfile = async (response) => {
+    finishCreatingProfile = async (response, name) => {
         const { dispatchNewUserData } = this.props;
-        const { name } = this.state;
         const { user } = response;
 
-        await createUserProfile(dispatchNewUserData, user, name);
-    };
-
-    createAccountSuccessful = async (response) => {
-        await this.createProfile(response);
-        await this.logEvent();
-
-        this.navigateToNextScreen();
+        await createUserProfile(
+            this.navigateToNextScreen,
+            dispatchNewUserData,
+            user,
+            name,
+        );
     };
 
     handleCreateAccount = async () => {
-        const { email, password } = this.state;
+        const { email, password, name } = this.state;
 
         this.setLoading(true);
 
@@ -112,9 +104,10 @@ class CreateAccountScreen extends React.Component {
                 this.showErrorAlert(error);
                 this.setLoading(false);
             })
-            .then((response) => {
+            .then(async (response) => {
                 if (response) {
-                    this.createAccountSuccessful(response);
+                    await response.user.updateProfile({ displayName: name });
+                    this.finishCreatingProfile(response, name);
                 }
             });
     };

@@ -8,6 +8,7 @@ import { getRange, getNearestCity } from './Location';
 import { avatarDefault, avatarDark } from '../constants/Images';
 import { getLanguageCode } from './Localization';
 import { email, push } from '../constants/Notifications';
+import { logEvent } from './Analytics';
 
 const scheme = Appearance.getColorScheme();
 
@@ -372,17 +373,23 @@ export async function getUserData(dispatchUserData, dispatchAvatar) {
     buildAndDispatchUserData(userData, dispatchUserData, dispatchAvatar);
 }
 
-export async function createUserProfile(dispatchNewUserData, user, name) {
+export async function createUserProfile(
+    navigateToNextScreen,
+    dispatchNewUserData,
+    user,
+    name,
+) {
     const state = store.getState();
     const lang = getLanguageCode();
-
-    await user.updateProfile({ displayName: name });
 
     const { map, location, darkMode, notifs, photoURL } = state.userReducer;
     const userData = { map, location, darkMode, notifs, name, photoURL, lang };
 
     await writeUserData(user.uid, userData);
+    logEvent('sign_up', {});
+
     dispatchNewUserData(userData);
+    navigateToNextScreen();
 }
 
 export function shouldDisableSwitch(notifs, item) {
