@@ -23,10 +23,11 @@ class Logo extends React.PureComponent {
     onPress = () => {
         const { scrollRef } = this.props;
 
-        if (scrollRef) {
-            scrollRef.current
-                .getNode()
-                .scrollToOffset({ animated: true, offset: 0 });
+        if (scrollRef.current) {
+            scrollRef.current.getNode().scrollToOffset({
+                animated: true,
+                offset: 0,
+            });
         }
     };
 

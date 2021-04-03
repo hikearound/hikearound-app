@@ -19,11 +19,18 @@ class Title extends React.PureComponent {
     onPress = () => {
         const { scrollRef, scrollType } = this.props;
 
-        if (scrollRef) {
+        if (scrollRef.current) {
             if (scrollType === 'flatList') {
-                scrollRef.current.scrollToOffset({ animated: true, offset: 0 });
+                scrollRef.current.scrollToOffset({
+                    animated: true,
+                    offset: 0,
+                });
             } else {
-                scrollRef.current.scrollTo({ x: 0, y: 0, animated: true });
+                scrollRef.current.scrollTo({
+                    animated: true,
+                    x: 0,
+                    y: 0,
+                });
             }
         }
     };
