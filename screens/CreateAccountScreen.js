@@ -84,6 +84,10 @@ class CreateAccountScreen extends React.Component {
         const { dispatchNewUserData } = this.props;
         const { user } = response;
 
+        await response.user.updateProfile({
+            displayName: name,
+        });
+
         await createUserProfile(
             this.navigateToNextScreen,
             dispatchNewUserData,
@@ -106,7 +110,6 @@ class CreateAccountScreen extends React.Component {
             })
             .then(async (response) => {
                 if (response) {
-                    await response.user.updateProfile({ displayName: name });
                     this.finishCreatingProfile(response, name);
                 }
             });

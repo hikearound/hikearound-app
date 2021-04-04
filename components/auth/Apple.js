@@ -74,6 +74,10 @@ class AppleAuthButton extends React.Component {
         const { dispatchNewUserData } = this.props;
         const { user } = response;
 
+        await response.user.updateProfile({
+            displayName: name,
+        });
+
         await createUserProfile(
             this.navigateToNextScreen,
             dispatchNewUserData,
@@ -116,9 +120,6 @@ class AppleAuthButton extends React.Component {
                 if (response) {
                     const isNewUser = await this.checkNewUser();
                     if (isNewUser) {
-                        await response.user.updateProfile({
-                            displayName: buildFormattedName(fullName),
-                        });
                         this.finishCreatingProfile(
                             response,
                             buildFormattedName(fullName),
