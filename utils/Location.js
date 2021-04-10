@@ -71,11 +71,12 @@ export function positionKnown(lastKnownPosition) {
 
 export async function getPosition(type) {
     let location;
-    const { status } = await Location.getForegroundPermissionsAsync();
+    let { status } = await Location.getForegroundPermissionsAsync();
 
     if (status !== 'granted') {
-        const requestedStatus = await requestLocationPermission();
-        if (requestedStatus.status !== 'granted') {
+        status = await requestLocationPermission();
+
+        if (status !== 'granted') {
             return {};
         }
     }
