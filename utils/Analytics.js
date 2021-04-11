@@ -19,5 +19,8 @@ export function setCurrentScreen(screenName) {
 
 export function logEvent(eventName, params) {
     params = setUser(params);
-    Analytics.logEvent(eventName, params);
+
+    if (!__DEV__) {
+        Analytics.logEvent(eventName, params);
+    }
 }
