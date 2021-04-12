@@ -54,7 +54,7 @@ class CreateAccountScreen extends React.Component {
     }
 
     setNextScreen = async () => {
-        const status = await Location.getForegroundPermissionsAsync();
+        const { status } = await Location.getForegroundPermissionsAsync();
 
         if (status === 'granted') {
             return 'Home';

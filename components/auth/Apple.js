@@ -49,7 +49,7 @@ class AppleAuthButton extends React.Component {
 
     setNextScreen = async () => {
         const { type } = this.props;
-        const status = await Location.getForegroundPermissionsAsync();
+        const { status } = await Location.getForegroundPermissionsAsync();
 
         if (status !== 'granted' && type === 'SIGN_UP') {
             return 'LocationPermission';
