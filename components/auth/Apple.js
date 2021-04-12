@@ -91,11 +91,6 @@ class AppleAuthButton extends React.Component {
         await this.navigateToNextScreen();
     };
 
-    checkNewUser = async () => {
-        const user = await firebase.auth().currentUser.toJSON();
-        return user.createdAt === user.lastLoginAt;
-    };
-
     handleLogin = async (credential) => {
         const { setLoading } = this.props;
         const { identityToken, fullName } = credential;
@@ -118,8 +113,7 @@ class AppleAuthButton extends React.Component {
             })
             .then(async (response) => {
                 if (response) {
-                    const isNewUser = await this.checkNewUser();
-                    if (isNewUser) {
+                    if (response.additionalUserInfo.isNewUser) {
                         this.finishCreatingProfile(
                             response,
                             buildFormattedName(fullName),

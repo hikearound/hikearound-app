@@ -163,7 +163,7 @@ export async function queryReviews(
     const { latitude, longitude } = position.coords;
 
     const range = getRange(latitude, longitude, distance);
-    const reviewRef = getNearbyReviewRef(range, sortDirection, querySize);
+    const reviewRef = getNearbyReviewRef(range, sortDirection, 10);
 
     const data = [];
     const daysOld = 120;
