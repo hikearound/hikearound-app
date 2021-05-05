@@ -7,6 +7,7 @@ import DigestNotification from './notifications/types/Digest';
 import { timestamps, spacing } from '../constants/Index';
 import { shouldCapitalizeTimestamp } from '../utils/Localization';
 import { getLocalizedMoment, formatDate } from '../utils/Time';
+import { withScrollToTop } from '../utils/Navigation';
 
 const propTypes = {
     notificationData: PropTypes.array.isRequired,
@@ -87,4 +88,4 @@ class NotificationList extends React.Component {
 NotificationList.propTypes = propTypes;
 NotificationList.defaultProps = defaultProps;
 
-export default withTranslation()(NotificationList);
+export default withScrollToTop(withTranslation()(NotificationList));
