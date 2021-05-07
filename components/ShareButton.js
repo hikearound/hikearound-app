@@ -1,15 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TouchableOpacity, Share } from 'react-native';
-import * as Haptics from 'expo-haptics';
+import { TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
 import { withTranslation } from 'react-i18next';
-import Toast from 'react-native-toast-message';
 import { opacities, colors, spacing } from '../constants/Index';
 import { withTheme } from '../utils/Themes';
-import { shareAction, baseUrl } from '../constants/Common';
-import { getToastText } from '../utils/Toast';
+import { shareHike } from '../utils/Share';
 import { copyLink } from '../actions/Hike';
 
 const propTypes = {
@@ -38,30 +35,14 @@ function mapDispatchToProps(dispatch) {
 
 class ShareButton extends React.Component {
     onPress = () => {
-        this.shareHike();
-        Haptics.selectionAsync();
-    };
-
-    shareHike = async () => {
         const { hid, t, dispatchCopyLink } = this.props;
-        const result = await Share.share({ url: `${baseUrl}/hike/${hid}` });
-
-        if (result.action === Share.sharedAction) {
-            if (result.activityType.includes(shareAction)) {
-                Toast.show({
-                    text1: getToastText('copyLink', t, {}),
-                    position: 'bottom',
-                    type: 'success',
-                });
-                dispatchCopyLink();
-            }
-        }
+        shareHike(hid, dispatchCopyLink, t, true);
     };
 
     getButtonStyle = () => ({
         position: 'absolute',
-        right: 47,
         bottom: parseInt(spacing.tiny, 10),
+        right: 47,
         zIndex: 1,
     });
 
