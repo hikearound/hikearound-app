@@ -16,8 +16,11 @@ import { getDistanceToHike } from '../utils/Location';
 import LocationPill from './feed/card/pill/Location';
 import DifficultyPill from './feed/card/pill/Difficulty';
 import Stars from './Stars';
+import FavoriteButton from './FavoriteButton';
+import ShareButton from './ShareButton';
 
 const propTypes = {
+    hid: PropTypes.string.isRequired,
     image: PropTypes.object.isRequired,
     name: PropTypes.string.isRequired,
     distance: PropTypes.number.isRequired,
@@ -89,6 +92,24 @@ class FeedCard extends React.Component {
         );
     };
 
+    renderButtons = () => {
+        const { name, distance, city, state, hid } = this.props;
+
+        return (
+            <>
+                <ShareButton hid={hid} />
+                <FavoriteButton
+                    name={name}
+                    hid={hid}
+                    distance={distance}
+                    city={city}
+                    state={state}
+                    placement='card'
+                />
+            </>
+        );
+    };
+
     renderGradient = () => {
         const { image } = this.props;
         return <FeedCardGradient imageDidLoad={image.uri} />;
@@ -121,6 +142,7 @@ class FeedCard extends React.Component {
                 {this.renderBackground()}
                 {this.renderFooter()}
                 {this.renderHeader()}
+                {this.renderButtons()}
                 {this.renderGradient()}
             </StyledView>
         );
@@ -153,6 +175,7 @@ const Footer = styled.View`
     bottom: 12px;
     left: ${spacing.tiny}px;
     z-index: 1;
+    width: 80%;
 `;
 
 const StarWrapper = styled.View`

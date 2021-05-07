@@ -3,14 +3,13 @@ import geohash from 'ngeohash';
 import Geocoder from 'react-native-geocoding';
 import Constants from 'expo-constants';
 import { geoDistances, simulatorLocation } from '../constants/Location';
-import { getPermissionStatus } from './Permissions';
 
 export async function initializeGeolocation() {
     Geocoder.init(Constants.manifest.extra.googleGeo.apiKey);
 }
 
 export async function watchPositionAsync(dispatchUserPosition) {
-    const status = await getPermissionStatus('location');
+    const { status } = await Location.getForegroundPermissionsAsync();
 
     const locationSettings = {
         accuracy: Location.Accuracy.Balanced,
@@ -53,7 +52,7 @@ export async function getNearestCity(coords) {
 }
 
 export async function requestLocationPermission() {
-    const { status } = await Location.requestPermissionsAsync();
+    const { status } = await Location.requestForegroundPermissionsAsync();
 
     if (status !== 'granted') {
         return null;
@@ -72,11 +71,12 @@ export function positionKnown(lastKnownPosition) {
 
 export async function getPosition(type) {
     let location;
-    const currentStatus = await getPermissionStatus('location');
+    let { status } = await Location.getForegroundPermissionsAsync();
 
-    if (currentStatus !== 'granted') {
-        const requestedStatus = await requestLocationPermission();
-        if (requestedStatus !== 'granted') {
+    if (status !== 'granted') {
+        status = await requestLocationPermission();
+
+        if (status !== 'granted') {
             return {};
         }
     }

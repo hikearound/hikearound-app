@@ -81,6 +81,7 @@ class FeedItem extends React.Component {
                         }}
                     >
                         <FeedCard
+                            hid={id}
                             name={name}
                             image={{ uri: coverPhoto }}
                             distance={distance}

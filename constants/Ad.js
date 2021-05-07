@@ -1,5 +1,5 @@
 export const placements = {
-    feed: '177239343756731_177243237089675',
+    feed: '177239343756731_204583811022284',
 };
 
 export const testAdTypes = [

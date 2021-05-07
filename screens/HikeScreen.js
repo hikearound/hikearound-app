@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Share } from 'react-native';
 import { withTranslation } from 'react-i18next';
-import Toast from 'react-native-toast-message';
 import { HikeBody, Overflow, MapModal } from '../components/Index';
 import { hikeActionSheet } from '../components/action_sheets/Hike';
 import ReviewModal from '../components/modal/ReviewModal';
@@ -13,10 +11,10 @@ import { copyLink } from '../actions/Hike';
 import { RootView } from '../styles/Screens';
 import { withTheme, SetBarStyle } from '../utils/Themes';
 import { getDrivingDirections } from '../utils/Map';
-import { shareAction, baseUrl, latModifier } from '../constants/Common';
+import { latModifier } from '../constants/Common';
 import { truncateText } from '../utils/Text';
+import { shareHike } from '../utils/Share';
 import { timings } from '../constants/Index';
-import { getToastText } from '../utils/Toast';
 import Title from '../components/header/Title';
 
 const propTypes = {
@@ -54,7 +52,7 @@ class HikeScreen extends React.Component {
 
         this.state = {
             actions: {},
-            id: hike.id,
+            hid: hike.id,
             startingCoordinates: hike.coordinates.starting,
             isLoading: true,
             selectedStars: 0,
@@ -116,8 +114,8 @@ class HikeScreen extends React.Component {
     };
 
     initializeMap = async () => {
-        const { id } = this.state;
-        const hikeXmlUrl = await getHikeXmlUrl(id);
+        const { hid } = this.state;
+        const hikeXmlUrl = await getHikeXmlUrl(hid);
         const hikeData = await parseHikeXml(hikeXmlUrl);
 
         this.setHikeData(hikeData);
@@ -133,22 +131,10 @@ class HikeScreen extends React.Component {
     };
 
     shareHike = async () => {
-        const { id } = this.state;
+        const { hid } = this.state;
         const { t, dispatchCopyLink } = this.props;
 
-        const url = `${baseUrl}/hike/${id}`;
-        const result = await Share.share({ url });
-
-        if (result.action === Share.sharedAction) {
-            if (result.activityType.includes(shareAction)) {
-                Toast.show({
-                    text1: getToastText('copyLink', t, {}),
-                    position: 'bottom',
-                    type: 'success',
-                });
-                dispatchCopyLink();
-            }
-        }
+        shareHike(hid, dispatchCopyLink, t, false);
     };
 
     buildElevationArray = (elevationData) => {
@@ -193,7 +179,7 @@ class HikeScreen extends React.Component {
             startingCoordinates,
             region,
             isLoading,
-            id,
+            hid,
             elevationArray,
             selectedStars,
             actions,
@@ -220,7 +206,7 @@ class HikeScreen extends React.Component {
                         mapRef={(ref) => {
                             this.mapView = ref;
                         }}
-                        hid={id}
+                        hid={hid}
                         selectedHike={selectedHike}
                         coordinates={polyCoordinates}
                         startingCoordinates={startingCoordinates}
@@ -232,7 +218,7 @@ class HikeScreen extends React.Component {
                 <ReviewModal
                     selectedStars={selectedStars}
                     hike={hike}
-                    hid={id}
+                    hid={hid}
                 />
                 <FlagModal />
             </RootView>

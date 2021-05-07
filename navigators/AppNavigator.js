@@ -6,17 +6,21 @@ import { AppearanceProvider } from 'react-native-appearance';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { StatusBar } from 'react-native';
 import { ThemeProvider } from 'styled-components';
+import { InstantSearch } from 'react-instantsearch-native';
 import TabNavigator from './TabNavigator';
 import { defaultTheme, darkTheme } from '../constants/Themes';
 import { withTheme } from '../utils/Themes';
 import { setCurrentScreen } from '../utils/Analytics';
+import { searchClient } from '../constants/Search';
 
 const propTypes = {
     darkMode: PropTypes.bool,
+    searchState: PropTypes.object,
 };
 
 const defaultProps = {
     darkMode: false,
+    searchState: {},
 };
 
 function mapStateToProps(state) {
@@ -35,8 +39,19 @@ const navigationRef = React.createRef();
 class AppNavigator extends React.PureComponent {
     constructor(props) {
         super(props);
+        const { searchState } = this.props;
+
+        this.state = { searchState };
         StatusBar.setBarStyle('light-content', true);
     }
+
+    onSearchStateChange = (nextState) => {
+        const { searchState } = this.state;
+
+        this.setState({
+            searchState: { ...searchState, ...nextState },
+        });
+    };
 
     onNavigationStateChange = () => {
         const previousRoute = routeNameRef.current;
@@ -56,8 +71,10 @@ class AppNavigator extends React.PureComponent {
 
     render() {
         const { scheme, darkMode } = this.props;
+        const { searchState } = this.state;
 
         let theme = defaultTheme;
+
         if (darkMode || scheme === 'dark') {
             theme = darkTheme;
         }
@@ -65,16 +82,23 @@ class AppNavigator extends React.PureComponent {
         return (
             <SafeAreaProvider>
                 <AppearanceProvider>
-                    <NavigationContainer
-                        ref={navigationRef}
-                        onReady={() => this.setRouteNameRef()}
-                        onStateChange={() => this.onNavigationStateChange()}
-                        theme={theme}
+                    <InstantSearch
+                        searchClient={searchClient}
+                        indexName='hikes'
+                        searchState={searchState}
+                        onSearchStateChange={this.onSearchStateChange}
                     >
-                        <ThemeProvider theme={theme.colors}>
-                            <TabNavigator />
-                        </ThemeProvider>
-                    </NavigationContainer>
+                        <NavigationContainer
+                            ref={navigationRef}
+                            onReady={() => this.setRouteNameRef()}
+                            onStateChange={() => this.onNavigationStateChange()}
+                            theme={theme}
+                        >
+                            <ThemeProvider theme={theme.colors}>
+                                <TabNavigator />
+                            </ThemeProvider>
+                        </NavigationContainer>
+                    </InstantSearch>
                 </AppearanceProvider>
             </SafeAreaProvider>
         );

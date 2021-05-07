@@ -6,15 +6,8 @@ import { connectSearchBox } from 'react-instantsearch-native';
 import { withTheme } from '../../utils/Themes';
 import SearchIcon from '../../icons/Search';
 import Cancel from './Cancel';
-import {
-    fontSizes,
-    colors,
-    spacing,
-    borderRadius,
-} from '../../constants/Index';
-import { getHeaderHeight, withNavigation } from '../../utils/Navigation';
-
-const headerHeight = getHeaderHeight();
+import { fontSizes, spacing, borderRadius } from '../../constants/Index';
+import { withNavigation } from '../../utils/Navigation';
 
 const propTypes = {
     refine: PropTypes.func.isRequired,
@@ -47,26 +40,24 @@ class SearchBox extends React.PureComponent {
         const { refine, currentRefinement, t } = this.props;
 
         return (
-            <ModalHeader>
-                <SearchContainer>
-                    <InputView>
-                        <SearchIcon />
-                        <SearchInput
-                            autoFocus
-                            onSubmitEditing={() => this.handleSubmitEditing()}
-                            ref={(ref) => this.assignRef(ref)}
-                            enablesReturnKeyAutomatically={false}
-                            returnKeyType='search'
-                            clearButtonMode='always'
-                            placeholder={t('label.nav.search')}
-                            onChangeText={(text) => refine(text)}
-                            value={currentRefinement}
-                            autoCorrect={false}
-                        />
-                    </InputView>
-                    <Cancel />
-                </SearchContainer>
-            </ModalHeader>
+            <SearchContainer>
+                <InputView>
+                    <SearchIcon />
+                    <SearchInput
+                        autoFocus
+                        onSubmitEditing={() => this.handleSubmitEditing()}
+                        ref={(ref) => this.assignRef(ref)}
+                        enablesReturnKeyAutomatically={false}
+                        returnKeyType='search'
+                        clearButtonMode='always'
+                        placeholder={t('label.nav.search')}
+                        onChangeText={(text) => refine(text)}
+                        value={currentRefinement}
+                        autoCorrect={false}
+                    />
+                </InputView>
+                <Cancel />
+            </SearchContainer>
         );
     }
 }
@@ -76,14 +67,6 @@ SearchBox.propTypes = propTypes;
 export default withTranslation()(
     withTheme(withNavigation(connectSearchBox(SearchBox))),
 );
-
-export const ModalHeader = styled.View`
-    background-color: ${(props) => props.theme.headerStyle};
-    border-bottom-color: ${colors.gray};
-    height: ${headerHeight}px;
-    width: 100%;
-    position: relative;
-`;
 
 const SearchContainer = styled.View`
     display: flex;

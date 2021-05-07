@@ -7,9 +7,13 @@ import Splash from './components/Splash';
 import store from './store/Store';
 import Fire from './lib/Fire';
 import { ignoreWarnings } from './utils/Warnings';
+import { addTestDevice, enableAdTracking } from './utils/Ad';
 
 enableScreens();
 ignoreWarnings();
+
+addTestDevice();
+enableAdTracking();
 
 class App extends React.Component {
     async componentDidMount() {

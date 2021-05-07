@@ -14,12 +14,7 @@ import {
     SearchScreen,
     ReviewScreen,
 } from '../screens/Index';
-import {
-    mode,
-    headerMode,
-    screenOptions,
-    forFade,
-} from '../constants/Navigation';
+import { mode, headerMode, screenOptions } from '../constants/Navigation';
 import { Logo } from '../components/Index';
 import { withTheme } from '../utils/Themes';
 import { tabBarScreens } from '../constants/Screens';
@@ -157,9 +152,10 @@ class HomeStack extends React.Component {
             name='Search'
             component={SearchScreen}
             options={{
-                cardStyleInterpolator: forFade,
-                headerShown: false,
+                headerShown: true,
                 animationEnabled: false,
+                headerLeft: () => null,
+                headerRight: () => null,
             }}
         />
     );

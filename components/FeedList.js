@@ -43,16 +43,15 @@ class FeedList extends React.Component {
             review,
             geohash,
         } = item;
-
         const { lastKnownPosition, reviews } = this.props;
+
         const showReviews = index === 4 && reviews.length > 0;
         const showAds = false;
 
         return (
             <>
-                {showReviews && <RecentReviewList reviews={reviews} />}
-                {showAds && <Ad adsManager={adsManager} />}
-
+                {showAds && this.renderAd()}
+                {showReviews && this.renderRecentReviews(reviews)}
                 <FeedItem
                     id={id}
                     name={name}
@@ -74,6 +73,18 @@ class FeedList extends React.Component {
         );
     };
 
+    // <Ad
+    //     adsManager={adsManager}
+    //     onAdLoaded={(ad) => console.log(ad)}
+    //     onError={(error) => console.log(error)}
+    // />
+
+    renderAd = () => <Ad adsManager={adsManager} />;
+
+    renderRecentReviews = (reviews) => <RecentReviewList reviews={reviews} />;
+
+    renderHeader = (title) => <Header title={title} />;
+
     renderFooter = () => <FeedFooter />;
 
     render() {
@@ -87,15 +98,15 @@ class FeedList extends React.Component {
             t,
         } = this.props;
 
+        const title = t('feed.header', { cityName: city });
+
         return (
             <>
                 <CollapsibleHeaderFlatList
                     ref={scrollRef}
                     data={hikes}
                     extraData={hikes}
-                    CollapsibleHeaderComponent={
-                        <Header title={t('feed.header', { cityName: city })} />
-                    }
+                    CollapsibleHeaderComponent={() => this.renderHeader(title)}
                     headerHeight={35}
                     showsVerticalScrollIndicator={false}
                     keyExtractor={(item) => item.key}

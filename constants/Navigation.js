@@ -1,5 +1,6 @@
 import React from 'react';
 import { HeaderStyleInterpolators } from '@react-navigation/stack';
+import * as Device from 'expo-device';
 import { colors } from './Colors';
 import { fontSizes } from './Fonts';
 import { getHeaderHeight } from '../utils/Navigation';
@@ -52,21 +53,34 @@ export function screenOptions(backgroundColor) {
     };
 }
 
-export function tabBarOptions(activeTintColor, inactiveTintColor) {
+//
+
+export function tabBarOptions(activeTintColor, inactiveTintColor, deviceType) {
+    const style = {
+        display: 'flex',
+        flexDirection: 'column',
+        safeAreaInset: { bottom: 'never', top: 'never' },
+    };
+
+    const labelStyle = {
+        marginBottom: 5,
+    };
+
+    const tabStyle = {
+        paddingTop: 5,
+    };
+
+    if (deviceType === Device.DeviceType.TABLET) {
+        style.paddingBottom = 10;
+        labelStyle.marginBottom = 0;
+    }
+
     return {
         activeTintColor,
         inactiveTintColor,
-        labelStyle: {
-            marginBottom: 5,
-        },
-        tabStyle: {
-            paddingTop: 5,
-        },
-        style: {
-            display: 'flex',
-            flexDirection: 'column',
-            safeAreaInset: { bottom: 'never', top: 'never' },
-        },
+        labelStyle,
+        tabStyle,
+        style,
     };
 }
 

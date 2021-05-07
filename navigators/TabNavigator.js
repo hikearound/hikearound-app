@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import * as Haptics from 'expo-haptics';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { withTranslation } from 'react-i18next';
+import * as Device from 'expo-device';
 import HomeStack from '../stacks/HomeStack';
 import MapStack from '../stacks/MapStack';
 import NotificationStack from '../stacks/NotificationStack';
@@ -34,6 +35,18 @@ function mapDispatchToProps() {
 }
 
 class TabNavigator extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            deviceType: Device.DeviceType.PHONE,
+        };
+    }
+
+    componentDidMount() {
+        this.getDeviceType();
+    }
+
     renderTabBarBadge = () => {
         const { notifBadgeCount } = this.props;
 
@@ -144,8 +157,14 @@ class TabNavigator extends React.Component {
         Haptics.selectionAsync();
     };
 
+    getDeviceType = async () => {
+        const deviceType = await Device.getDeviceTypeAsync();
+        this.setState({ deviceType });
+    };
+
     render() {
         const { theme, t } = this.props;
+        const { deviceType } = this.state;
 
         return (
             <>
@@ -153,6 +172,7 @@ class TabNavigator extends React.Component {
                     tabBarOptions={tabBarOptions(
                         theme.colors.navActive,
                         theme.colors.navInactive,
+                        deviceType,
                     )}
                 >
                     {this.renderHomeStack(t)}
@@ -164,6 +184,8 @@ class TabNavigator extends React.Component {
         );
     }
 }
+
+//
 
 TabNavigator.propTypes = propTypes;
 TabNavigator.defaultProps = defaultProps;
