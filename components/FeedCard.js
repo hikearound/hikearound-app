@@ -32,10 +32,12 @@ const propTypes = {
     coordinates: PropTypes.object.isRequired,
     lastKnownPosition: PropTypes.object.isRequired,
     showShareButton: PropTypes.bool,
+    showFavoriteButton: PropTypes.bool,
 };
 
 const defaultProps = {
     showShareButton: false,
+    showFavoriteButton: true,
 };
 
 const imageStyle = {
@@ -95,19 +97,22 @@ class FeedCard extends React.Component {
             state,
             hid,
             showShareButton,
+            showFavoriteButton,
         } = this.props;
 
         return (
             <>
                 {showShareButton && <ShareButton hid={hid} />}
-                <FavoriteButton
-                    name={name}
-                    hid={hid}
-                    distance={distance}
-                    city={city}
-                    state={state}
-                    placement='card'
-                />
+                {showFavoriteButton && (
+                    <FavoriteButton
+                        name={name}
+                        hid={hid}
+                        distance={distance}
+                        city={city}
+                        state={state}
+                        placement='card'
+                    />
+                )}
             </>
         );
     };
