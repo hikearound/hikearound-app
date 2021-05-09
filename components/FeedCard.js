@@ -31,28 +31,23 @@ const propTypes = {
     review: PropTypes.object.isRequired,
     coordinates: PropTypes.object.isRequired,
     lastKnownPosition: PropTypes.object.isRequired,
+    showShareButton: PropTypes.bool,
+};
+
+const defaultProps = {
+    showShareButton: false,
+};
+
+const imageStyle = {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    height: '100%',
+    width: '100%',
+    borderRadius: borderRadius.medium,
 };
 
 class FeedCard extends React.Component {
-    renderBackground = () => {
-        const { image } = this.props;
-
-        return (
-            <Image
-                uri={image.uri}
-                resizeMode='cover'
-                style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    height: '100%',
-                    width: '100%',
-                    borderRadius: borderRadius.medium,
-                }}
-            />
-        );
-    };
-
     renderHeader = () => {
         const {
             city,
@@ -93,11 +88,18 @@ class FeedCard extends React.Component {
     };
 
     renderButtons = () => {
-        const { name, distance, city, state, hid } = this.props;
+        const {
+            name,
+            distance,
+            city,
+            state,
+            hid,
+            showShareButton,
+        } = this.props;
 
         return (
             <>
-                <ShareButton hid={hid} />
+                {showShareButton && <ShareButton hid={hid} />}
                 <FavoriteButton
                     name={name}
                     hid={hid}
@@ -108,6 +110,11 @@ class FeedCard extends React.Component {
                 />
             </>
         );
+    };
+
+    renderBackground = () => {
+        const { image } = this.props;
+        return <Image uri={image.uri} resizeMode='cover' style={imageStyle} />;
     };
 
     renderGradient = () => {
@@ -150,6 +157,7 @@ class FeedCard extends React.Component {
 }
 
 FeedCard.propTypes = propTypes;
+FeedCard.defaultProps = defaultProps;
 
 export default withTranslation()(withTheme(FeedCard));
 

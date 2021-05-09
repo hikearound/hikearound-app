@@ -47,7 +47,6 @@ class HikeScreen extends React.Component {
 
         const { navigation, route, t } = this.props;
         const { hike } = route.params;
-
         const title = truncateText(hike.name, 23);
 
         this.state = {
@@ -58,12 +57,12 @@ class HikeScreen extends React.Component {
             selectedStars: 0,
         };
 
-        this.hikeActionSheet = hikeActionSheet.bind(this, t);
+        this.showHikeSheet = hikeActionSheet.bind(this, t);
         this.setSelectedStars = this.setSelectedStars.bind(this);
 
         navigation.setOptions({
             headerTitle: () => <Title title={title} scrollRef={scrollRef} />,
-            headerRight: () => <Overflow onPress={this.hikeActionSheet} />,
+            headerRight: () => <Overflow onPress={this.showHikeSheet} />,
         });
     }
 

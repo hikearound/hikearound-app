@@ -2,10 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { TouchableOpacity } from 'react-native';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
+import { withTranslation } from 'react-i18next';
 import FeedCard from './FeedCard';
 import { spacing, opacities } from '../constants/Index';
 import { withNavigation } from '../utils/Navigation';
 import { defaultProps } from '../constants/states/FeedItem';
+import { hikeActionSheet } from './action_sheets/Hike';
+import { copyLink } from '../actions/Hike';
+import { shareHike } from '../utils/Share';
+import { getDrivingDirections } from '../utils/Map';
 
 const propTypes = {
     coverPhoto: PropTypes.string,
@@ -23,15 +29,41 @@ const propTypes = {
     review: PropTypes.object,
     geohash: PropTypes.string,
     lastKnownPosition: PropTypes.object.isRequired,
+    dispatchCopyLink: PropTypes.func.isRequired,
 };
+
+function mapStateToProps() {
+    return {};
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        dispatchCopyLink: () => dispatch(copyLink()),
+    };
+}
 
 class FeedItem extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            showCard: true,
-        };
+        const { t } = this.props;
+
+        this.showHikeSheet = hikeActionSheet.bind(this, t);
+        this.state = { showCard: true };
     }
+
+    shareHike = async () => {
+        const { hid } = this.state;
+        const { t, dispatchCopyLink } = this.props;
+
+        shareHike(hid, dispatchCopyLink, t, false);
+    };
+
+    getDirections = async () => {
+        const { coordinates } = this.props;
+        const { lat, lng } = coordinates.starting;
+
+        getDrivingDirections(lat, lng);
+    };
 
     render() {
         const {
@@ -60,6 +92,7 @@ class FeedItem extends React.Component {
                 <CardsContainer>
                     <TouchableOpacity
                         activeOpacity={opacities.regular}
+                        onLongPress={this.showHikeSheet}
                         onPress={() => {
                             navigation.push('Hike', {
                                 hike: {
@@ -106,7 +139,10 @@ class FeedItem extends React.Component {
 FeedItem.propTypes = propTypes;
 FeedItem.defaultProps = defaultProps;
 
-export default withNavigation(FeedItem);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(withTranslation()(withNavigation(FeedItem)));
 
 const CardsContainer = styled.View`
     flex-direction: column;
