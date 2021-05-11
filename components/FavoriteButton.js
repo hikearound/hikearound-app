@@ -176,11 +176,8 @@ class FavoriteButton extends React.Component {
     };
 
     removeFavoriteHike = async () => {
-        const {
-            hid,
-            dispatchUnfavorite,
-            dispatchUpdatedFavorites,
-        } = this.props;
+        const { hid, dispatchUnfavorite, dispatchUpdatedFavorites } =
+            this.props;
         const { hikes } = this.state;
 
         const index = hikes.indexOf(hid);

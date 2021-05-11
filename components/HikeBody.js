@@ -79,12 +79,8 @@ class HikeBody extends React.Component {
     };
 
     componentDidUpdate(prevProps) {
-        const {
-            reviewData,
-            reviewAction,
-            selectedReview,
-            actions,
-        } = this.props;
+        const { reviewData, reviewAction, selectedReview, actions } =
+            this.props;
 
         if (prevProps.reviewData !== reviewData) {
             this.updateReviewData();

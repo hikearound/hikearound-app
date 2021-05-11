@@ -196,12 +196,8 @@ class HomeScreen extends React.Component {
     };
 
     getNearbyReviews = async () => {
-        const {
-            sortDirection,
-            distance,
-            querySize,
-            lastKnownPosition,
-        } = this.state;
+        const { sortDirection, distance, querySize, lastKnownPosition } =
+            this.state;
         const { t } = this.props;
 
         const { data } = await queryReviews(
@@ -303,14 +299,8 @@ class HomeScreen extends React.Component {
     };
 
     renderHome = () => {
-        const {
-            hikes,
-            reviews,
-            firstLoad,
-            loading,
-            city,
-            lastKnownPosition,
-        } = this.state;
+        const { hikes, reviews, firstLoad, loading, city, lastKnownPosition } =
+            this.state;
         const showEmptyState = this.shouldShowEmptyState();
 
         if (firstLoad) {

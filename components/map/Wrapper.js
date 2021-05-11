@@ -45,12 +45,8 @@ class MapWrapper extends React.Component {
     }
 
     mapPress = () => {
-        const {
-            dispatchModalFlag,
-            dispatchSelectedHike,
-            hid,
-            modalType,
-        } = this.props;
+        const { dispatchModalFlag, dispatchSelectedHike, hid, modalType } =
+            this.props;
 
         dispatchModalFlag(modalType);
         dispatchSelectedHike(hid);

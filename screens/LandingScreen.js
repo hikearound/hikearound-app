@@ -114,9 +114,8 @@ const LandingBackground = styled.ImageBackground`
     height: 100%;
 `;
 
-const AnimatedBackgroundWrapper = Animated.createAnimatedComponent(
-    BackgroundWrapper,
-);
+const AnimatedBackgroundWrapper =
+    Animated.createAnimatedComponent(BackgroundWrapper);
 
 const ButtonWrapper = styled.View`
     position: absolute;

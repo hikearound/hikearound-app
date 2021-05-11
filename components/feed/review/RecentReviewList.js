@@ -36,16 +36,8 @@ class RecentReviewList extends React.Component {
     };
 
     renderItem = ({ item }) => {
-        const {
-            id,
-            hid,
-            rating,
-            review,
-            savedOn,
-            userLikes,
-            user,
-            hike,
-        } = item;
+        const { id, hid, rating, review, savedOn, userLikes, user, hike } =
+            item;
 
         return (
             <RecentReviewListItem

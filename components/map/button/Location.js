@@ -43,13 +43,8 @@ function mapDispatchToProps() {
 
 class LocationButton extends React.PureComponent {
     onPress = () => {
-        const {
-            mapRef,
-            sheetRef,
-            animationConfig,
-            position,
-            transitionDelay,
-        } = this.props;
+        const { mapRef, sheetRef, animationConfig, position, transitionDelay } =
+            this.props;
 
         const camera = {
             altitude: altitude.hike,

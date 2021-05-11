@@ -43,15 +43,8 @@ class RecentReviewListItem extends React.PureComponent {
     };
 
     renderBody = () => {
-        const {
-            rid,
-            hid,
-            user,
-            rating,
-            review,
-            savedOn,
-            userLikes,
-        } = this.props;
+        const { rid, hid, user, rating, review, savedOn, userLikes } =
+            this.props;
 
         return (
             <ReviewListItem

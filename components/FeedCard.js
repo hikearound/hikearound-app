@@ -51,13 +51,8 @@ const imageStyle = {
 
 class FeedCard extends React.Component {
     renderHeader = () => {
-        const {
-            city,
-            state,
-            difficulty,
-            coordinates,
-            lastKnownPosition,
-        } = this.props;
+        const { city, state, difficulty, coordinates, lastKnownPosition } =
+            this.props;
 
         const distance = getDistanceToHike(
             coordinates.starting,

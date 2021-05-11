@@ -26,13 +26,8 @@ const defaultProps = {
 
 class LocationUpsell extends React.PureComponent {
     render() {
-        const {
-            t,
-            getLocationPermissions,
-            iconSize,
-            iconColor,
-            iconType,
-        } = this.props;
+        const { t, getLocationPermissions, iconSize, iconColor, iconType } =
+            this.props;
 
         return (
             <RootView>

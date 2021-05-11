@@ -18,12 +18,8 @@ const defaultProps = {
 class Ad extends React.PureComponent {
     render() {
         const { nativeAd, mediaHeight, t } = this.props;
-        const {
-            bodyText,
-            advertiserName,
-            callToActionText,
-            headline,
-        } = nativeAd;
+        const { bodyText, advertiserName, callToActionText, headline } =
+            nativeAd;
 
         return (
             <AdWrapper>

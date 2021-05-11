@@ -42,9 +42,8 @@ export async function checkImageLibraryPermissions(dispatchAvatar) {
     const { status } = await ImagePicker.getMediaLibraryPermissionsAsync();
 
     if (status !== 'granted') {
-        const {
-            status: newStatus,
-        } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        const { status: newStatus } =
+            await ImagePicker.requestMediaLibraryPermissionsAsync();
         if (newStatus === 'granted') {
             launchImageLibrary(dispatchAvatar);
         }
@@ -57,9 +56,8 @@ export async function checkCameraPermissions(dispatchAvatar) {
     const { status } = await ImagePicker.getCameraPermissionsAsync();
 
     if (status !== 'granted') {
-        const {
-            status: newStatus,
-        } = await ImagePicker.requestCameraPermissionsAsync();
+        const { status: newStatus } =
+            await ImagePicker.requestCameraPermissionsAsync();
         if (newStatus === 'granted') {
             launchCamera(dispatchAvatar);
         }

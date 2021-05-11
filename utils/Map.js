@@ -6,13 +6,8 @@ import { config, queryParams } from '../constants/Map';
 import { queryHikes } from './Feed';
 
 export async function getMapMarkers(position, distance) {
-    const {
-        querySize,
-        queryType,
-        lastKey,
-        sortDirection,
-        filterParams,
-    } = queryParams;
+    const { querySize, queryType, lastKey, sortDirection, filterParams } =
+        queryParams;
 
     if (Object.keys(position).length === 0) {
         return [];

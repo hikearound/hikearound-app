@@ -74,13 +74,8 @@ class ThumbnailLoadingState extends React.PureComponent {
     };
 
     render() {
-        const {
-            width,
-            cardBorderRadius,
-            dimension,
-            duration,
-            theme,
-        } = this.props;
+        const { width, cardBorderRadius, dimension, duration, theme } =
+            this.props;
         const { thumbnails } = this.state;
 
         if (thumbnails.length >= 1) {

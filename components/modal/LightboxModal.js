@@ -85,14 +85,8 @@ class LightboxModal extends React.Component {
 
     render() {
         const { modalVisible } = this.state;
-        const {
-            animationType,
-            images,
-            imageIndex,
-            hid,
-            selectedHike,
-            action,
-        } = this.props;
+        const { animationType, images, imageIndex, hid, selectedHike, action } =
+            this.props;
 
         if (hid === selectedHike) {
             return (
