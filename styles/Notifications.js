@@ -36,4 +36,6 @@ export const NotificationBody = styled.View`
     flex-direction: column;
     margin-left: ${spacing.tiny}px;
     padding-right: 60px;
+    border-color: ${(props) => props.theme.modalButtonBorder};
+    border-bottom-width: 1px;
 `;

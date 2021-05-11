@@ -10,6 +10,7 @@ import { defaultProps } from '../../constants/states/MapWrapper';
 import { showModal, setSelectedHike } from '../../actions/Modal';
 import { withTheme } from '../../utils/Themes';
 import MapLoadingState from '../loading/Map';
+import ExpandButton from './button/Expand';
 
 const propTypes = {
     dispatchModalFlag: PropTypes.func.isRequired,
@@ -72,14 +73,17 @@ class MapWrapper extends React.Component {
                 <InnerMapViewWrapper>
                     {isLoading && <MapLoadingState />}
                     {!isLoading && (
-                        <HikeMap
-                            mapRef={this.mapRef}
-                            coordinates={coordinates}
-                            region={region}
-                            cacheEnabled
-                            mapPadding={mapPadding}
-                            showUserLocation={false}
-                        />
+                        <>
+                            <HikeMap
+                                mapRef={this.mapRef}
+                                coordinates={coordinates}
+                                region={region}
+                                cacheEnabled
+                                mapPadding={mapPadding}
+                                showUserLocation={false}
+                            />
+                            <ExpandButton />
+                        </>
                     )}
                     <InfoBar
                         distance={distance}

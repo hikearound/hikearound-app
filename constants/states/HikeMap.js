@@ -10,7 +10,7 @@ export const defaultProps = {
     mapHeight: 200,
     cacheEnabled: false,
     startingCoordinates: null,
-    mapType: 'mutedStandard',
+    mapType: 'standard',
     showUserLocation: true,
     mapRef: {},
 };
