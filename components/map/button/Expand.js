@@ -20,10 +20,8 @@ const defaultProps = {
     iconSize: 22,
 };
 
-function mapStateToProps(state) {
-    return {
-        position: state.userReducer.currentPosition,
-    };
+function mapStateToProps() {
+    return {};
 }
 
 function mapDispatchToProps() {
