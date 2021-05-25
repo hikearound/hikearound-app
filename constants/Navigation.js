@@ -53,8 +53,6 @@ export function screenOptions(backgroundColor) {
     };
 }
 
-//
-
 export function tabBarOptions(activeTintColor, inactiveTintColor, deviceType) {
     const style = {
         display: 'flex',

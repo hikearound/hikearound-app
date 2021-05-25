@@ -185,8 +185,6 @@ class TabNavigator extends React.Component {
     }
 }
 
-//
-
 TabNavigator.propTypes = propTypes;
 TabNavigator.defaultProps = defaultProps;
 
