@@ -4,6 +4,7 @@ import { TouchableOpacity } from 'react-native';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
+import * as Haptics from 'expo-haptics';
 import FeedCard from './FeedCard';
 import { spacing, opacities } from '../constants/Index';
 import { withNavigation } from '../utils/Navigation';
@@ -15,7 +16,7 @@ import { getDrivingDirections } from '../utils/Map';
 
 const propTypes = {
     coverPhoto: PropTypes.string,
-    id: PropTypes.string,
+    hid: PropTypes.string,
     name: PropTypes.string,
     distance: PropTypes.number,
     elevation: PropTypes.number,
@@ -51,24 +52,26 @@ class FeedItem extends React.Component {
         this.state = { showCard: true };
     }
 
-    shareHike = async () => {
-        const { hid } = this.state;
-        const { t, dispatchCopyLink } = this.props;
+    showSheetWithHaptics = () => {
+        Haptics.selectionAsync();
+        this.showHikeSheet();
+    };
 
-        shareHike(hid, dispatchCopyLink, t, false);
+    shareHike = async () => {
+        const { t, hid, dispatchCopyLink } = this.props;
+        shareHike(hid, dispatchCopyLink, t);
     };
 
     getDirections = async () => {
         const { coordinates } = this.props;
         const { lat, lng } = coordinates.starting;
-
         getDrivingDirections(lat, lng);
     };
 
     render() {
         const {
             navigation,
-            id,
+            hid,
             name,
             distance,
             elevation,
@@ -92,11 +95,11 @@ class FeedItem extends React.Component {
                 <CardsContainer>
                     <TouchableOpacity
                         activeOpacity={opacities.regular}
-                        onLongPress={this.showHikeSheet}
+                        onLongPress={this.showSheetWithHaptics}
                         onPress={() => {
                             navigation.push('Hike', {
                                 hike: {
-                                    id,
+                                    hid,
                                     name,
                                     distance,
                                     elevation,
@@ -114,7 +117,7 @@ class FeedItem extends React.Component {
                         }}
                     >
                         <FeedCard
-                            hid={id}
+                            hid={hid}
                             name={name}
                             image={{ uri: coverPhoto }}
                             distance={distance}

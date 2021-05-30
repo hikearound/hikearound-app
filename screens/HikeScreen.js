@@ -51,7 +51,7 @@ class HikeScreen extends React.Component {
 
         this.state = {
             actions: {},
-            hid: hike.id,
+            hid: hike.hid,
             startingCoordinates: hike.coordinates.starting,
             isLoading: true,
             selectedStars: 0,
@@ -133,7 +133,7 @@ class HikeScreen extends React.Component {
         const { hid } = this.state;
         const { t, dispatchCopyLink } = this.props;
 
-        shareHike(hid, dispatchCopyLink, t, false);
+        shareHike(hid, dispatchCopyLink, t);
     };
 
     buildElevationArray = (elevationData) => {
@@ -192,6 +192,7 @@ class HikeScreen extends React.Component {
                 <SetBarStyle barStyle='light-content' />
                 <HikeBody
                     actions={actions}
+                    hid={hid}
                     hike={hike}
                     coordinates={polyCoordinates}
                     region={region}

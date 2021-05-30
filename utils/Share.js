@@ -1,14 +1,9 @@
 import Toast from 'react-native-toast-message';
 import { Share } from 'react-native';
-import * as Haptics from 'expo-haptics';
 import { shareAction, baseUrl } from '../constants/Common';
 import { getToastText } from './Toast';
 
-export async function shareHike(hid, dispatchCopyLink, t, includeHaptics) {
-    if (includeHaptics) {
-        Haptics.selectionAsync();
-    }
-
+export async function shareHike(hid, dispatchCopyLink, t) {
     const result = await Share.share({ url: `${baseUrl}/hike/${hid}` });
 
     if (result.action === Share.sharedAction) {

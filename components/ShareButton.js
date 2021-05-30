@@ -36,7 +36,7 @@ function mapDispatchToProps(dispatch) {
 class ShareButton extends React.Component {
     onPress = () => {
         const { hid, t, dispatchCopyLink } = this.props;
-        shareHike(hid, dispatchCopyLink, t, true);
+        shareHike(hid, dispatchCopyLink, t);
     };
 
     getButtonStyle = () => ({

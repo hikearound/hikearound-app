@@ -53,7 +53,7 @@ class FeedList extends React.Component {
                 {showAds && this.renderAd()}
                 {showReviews && this.renderRecentReviews(reviews)}
                 <FeedItem
-                    id={id}
+                    hid={id}
                     name={name}
                     distance={distance}
                     elevation={elevation}

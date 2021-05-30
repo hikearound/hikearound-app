@@ -99,7 +99,7 @@ export async function openHikeScreen(hid, navigation, actions) {
 
         navigation.push('Hike', {
             hike: {
-                id: hid,
+                hid,
                 images: hikeData.images,
                 name: hikeData.name,
                 distance: hikeData.distance,

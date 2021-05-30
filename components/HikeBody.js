@@ -23,6 +23,7 @@ const propTypes = {
     coordinates: PropTypes.array,
     region: PropTypes.object,
     hike: PropTypes.object.isRequired,
+    hid: PropTypes.string.isRequired,
     isLoading: PropTypes.bool.isRequired,
     reviewData: PropTypes.object,
     reviewAction: PropTypes.string,
@@ -66,7 +67,6 @@ class HikeBody extends React.Component {
             city: hike.city,
             state: hike.state,
             description: hike.description,
-            hid: hike.id,
             imageCount: hike.imageCount,
             ...defaultState,
         };
@@ -146,8 +146,8 @@ class HikeBody extends React.Component {
     };
 
     getReviewData = async () => {
-        const { t } = this.props;
-        const { hid, sortDirection, querySize } = this.state;
+        const { t, hid } = this.props;
+        const { sortDirection, querySize } = this.state;
         const reviews = await getRecentReviews(
             t,
             hid,
@@ -195,6 +195,7 @@ class HikeBody extends React.Component {
             region,
             scrollRef,
             isLoading,
+            hid,
             t,
         } = this.props;
         const {
@@ -202,7 +203,6 @@ class HikeBody extends React.Component {
             name,
             city,
             state,
-            hid,
             distance,
             elevation,
             route,
