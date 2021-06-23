@@ -1,4 +1,4 @@
-import { colors } from '../constants/Index';
+import { colors } from '@constants/Index';
 
 export function getDifficultyColor(label) {
     const pillColors = {

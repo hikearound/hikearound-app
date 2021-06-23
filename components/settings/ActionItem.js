@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-import { opacities, settingsItems } from '../../constants/Index';
-import { ItemContainer, ItemText } from '../../styles/Settings';
-import { logoutUser } from '../../actions/User';
-import { withNavigation } from '../../utils/Navigation';
+import { opacities, settingsItems } from '@constants/Index';
+import { ItemContainer, ItemText } from '@styles/Settings';
+import { logoutUser } from '@actions/User';
+import { withNavigation } from '@utils/Navigation';
 
 const propTypes = {
     item: PropTypes.object.isRequired,

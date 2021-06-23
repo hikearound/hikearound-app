@@ -6,7 +6,7 @@ import {
     typeLabel,
     elevationIntervals,
     distanceIntervals,
-} from '../constants/Filters';
+} from '@constants/Filters';
 
 function getFilterControls(t) {
     const sortGroup = {

@@ -3,17 +3,12 @@ import PropTypes from 'prop-types';
 import { TouchableOpacity } from 'react-native';
 import styled from 'styled-components';
 import { withTranslation } from 'react-i18next';
-import {
-    spacing,
-    opacities,
-    borderRadius,
-    fontSizes,
-} from '../../../constants/Index';
-import { withNavigation } from '../../../utils/Navigation';
-import { defaultProps } from '../../../constants/states/FeedItem';
-import { openReviewScreen } from '../../../utils/Review';
-import ReviewListItem from '../../ReviewListItem';
-import { cardWidth } from '../../../constants/Carousel';
+import { spacing, opacities, borderRadius, fontSizes } from '@constants/Index';
+import { withNavigation } from '@utils/Navigation';
+import { defaultProps } from '@constants/states/FeedItem';
+import { openReviewScreen } from '@utils/Review';
+import ReviewListItem from '@components/ReviewListItem';
+import { cardWidth } from '@constants/Carousel';
 
 const propTypes = {
     rid: PropTypes.string.isRequired,

@@ -5,7 +5,7 @@ import {
     fontWeights,
     colors,
     borderRadius,
-} from '../constants/Index';
+} from '@constants/Index';
 
 export const Text = styled.Text`
     color: ${(props) => (props.primary ? colors.white : props.theme.text)};

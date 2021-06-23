@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Svg, { Path } from 'react-native-svg';
 import styled from 'styled-components';
-import { colors } from '../constants/Index';
+import { colors } from '@constants/Index';
 
 const propTypes = {
     width: PropTypes.number,

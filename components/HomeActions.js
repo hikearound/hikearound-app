@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import Sort from './header/Sort';
-import Search from './header/Search';
-import { spacing } from '../constants/Index';
+import Sort from '@components/header/Sort';
+import Search from '@components/header/Search';
+import { spacing } from '@constants/Index';
 
 const marginBottom = '6px';
 const maxHeight = '26px';

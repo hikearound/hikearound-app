@@ -2,18 +2,18 @@ import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
-import { opacities } from '../../../constants/Index';
-import Avatar from '../../Avatar';
+import { opacities } from '@constants/Index';
+import Avatar from '@components/Avatar';
 import {
     Timestamp,
     Title,
     Subtitle,
     NotificationWrapper,
     NotificationBody,
-} from '../../../styles/Notifications';
-import { withNavigation } from '../../../utils/Navigation';
-import { markNotificationAsRead } from '../../../utils/Notifications';
-import { openReviewScreen } from '../../../utils/Review';
+} from '@styles/Notifications';
+import { withNavigation } from '@utils/Navigation';
+import { markNotificationAsRead } from '@utils/Notifications';
+import { openReviewScreen } from '@utils/Review';
 
 const propTypes = {
     createdOn: PropTypes.string.isRequired,

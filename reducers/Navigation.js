@@ -1,4 +1,4 @@
-import { navigationState } from '../constants/Reducers';
+import { navigationState } from '@constants/Reducers';
 
 export default function navigationReducer(state = navigationState, action) {
     switch (action.type) {

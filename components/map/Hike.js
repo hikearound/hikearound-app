@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import MapView from 'react-native-maps';
-import { colors, borderRadius } from '../../constants/Index';
-import { defaultProps } from '../../constants/states/HikeMap';
-import { withTheme } from '../../utils/Themes';
-import HikeMarker from '../marker/Hike';
+import { colors, borderRadius } from '@constants/Index';
+import { defaultProps } from '@constants/states/HikeMap';
+import { withTheme } from '@utils/Themes';
+import HikeMarker from '@components/marker/Hike';
 
 const propTypes = {
     coordinates: PropTypes.array,

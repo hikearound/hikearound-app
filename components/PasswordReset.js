@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { withTheme } from '../utils/Themes';
-import { colors, fontSizes, spacing } from '../constants/Index';
-import { showModal } from '../actions/Modal';
+import { withTheme } from '@utils/Themes';
+import { colors, fontSizes, spacing } from '@constants/Index';
+import { showModal } from '@actions/Modal';
 
 function mapStateToProps() {
     return {};

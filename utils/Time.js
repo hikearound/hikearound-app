@@ -1,6 +1,6 @@
 import moment from 'moment';
 import 'moment/min/locales';
-import { getLanguageCode } from './Localization';
+import { getLanguageCode } from '@utils/Localization';
 
 export function isRecent(data, numDays) {
     const now = moment();

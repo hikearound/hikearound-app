@@ -1,15 +1,15 @@
 import { combineReducers } from 'redux';
 
-import authReducer from './Auth';
-import hikeReducer from './Hike';
-import userReducer from './User';
-import mapReducer from './Map';
-import modalReducer from './Modal';
-import feedReducer from './Feed';
-import navigationReducer from './Navigation';
-import reviewReducer from './Review';
-import notificationReducer from './Notification';
-import profileReducer from './Profile';
+import authReducer from '@reducers/Auth';
+import hikeReducer from '@reducers/Hike';
+import userReducer from '@reducers/User';
+import mapReducer from '@reducers/Map';
+import modalReducer from '@reducers/Modal';
+import feedReducer from '@reducers/Feed';
+import navigationReducer from '@reducers/Navigation';
+import reviewReducer from '@reducers/Review';
+import notificationReducer from '@reducers/Notification';
+import profileReducer from '@reducers/Profile';
 
 const appReducer = combineReducers({
     authReducer,

@@ -1,4 +1,4 @@
-import { profileState } from '../constants/Reducers';
+import { profileState } from '@constants/Reducers';
 
 export default function profileReducer(state = profileState, action) {
     switch (action.type) {

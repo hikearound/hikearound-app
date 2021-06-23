@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FlatList, View } from 'react-native';
 import { withTranslation } from 'react-i18next';
-import ReviewListItem from './ReviewListItem';
+import ReviewListItem from '@components/ReviewListItem';
 import {
     HeaderContainer,
     HeaderText,
     EmptyContainerText,
     TopBorder,
-} from '../styles/Lists';
-import { spacing } from '../constants/Index';
+} from '@styles/Lists';
+import { spacing } from '@constants/Index';
 
 const propTypes = {
     reviewListRef: PropTypes.object,

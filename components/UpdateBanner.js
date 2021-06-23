@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import { TouchableOpacity } from 'react-native';
 import styled from 'styled-components';
 import { withTranslation } from 'react-i18next';
-import { spacing, colors, opacities } from '../constants/Index';
-import { withTheme } from '../utils/Themes';
-import { reloadApp, fetchUpdate } from '../utils/Update';
+import { spacing, colors, opacities } from '@constants/Index';
+import { withTheme } from '@utils/Themes';
+import { reloadApp, fetchUpdate } from '@utils/Update';
 
 const propTypes = {};
 const defaultProps = {};

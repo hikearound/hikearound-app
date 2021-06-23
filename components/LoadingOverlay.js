@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { ActivityIndicator, Keyboard } from 'react-native';
-import { withTheme } from '../utils/Themes';
-import { colors } from '../constants/Index';
+import { withTheme } from '@utils/Themes';
+import { colors } from '@constants/Index';
 
 const propTypes = {
     loading: PropTypes.bool,

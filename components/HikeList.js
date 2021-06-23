@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FlatList, View } from 'react-native';
 import { withTranslation } from 'react-i18next';
-import { withScrollToTop } from '../utils/Navigation';
-import HikeListItem from './HikeListItem';
-import { spacing } from '../constants/Index';
-import { HeaderContainer, HeaderText } from '../styles/Lists';
+import { withScrollToTop } from '@utils/Navigation';
+import HikeListItem from '@components/HikeListItem';
+import { spacing } from '@constants/Index';
+import { HeaderContainer, HeaderText } from '@styles/Lists';
 
 const propTypes = {
     hikeData: PropTypes.array.isRequired,

@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Modal } from 'react-native';
 import { connect } from 'react-redux';
-import ModalDismiss from './header/Dismiss';
-import HikeMap from '../map/Hike';
-import GraphSheet from '../bottom_sheet/Graph';
-import { toggleModalVisibility } from '../../utils/Modal';
-import { toggleStatusBar } from '../../utils/Themes';
+import ModalDismiss from '@components/modal/header/Dismiss';
+import HikeMap from '@components/map/Hike';
+import GraphSheet from '@components/bottom_sheet/Graph';
+import { toggleModalVisibility } from '@utils/Modal';
+import { toggleStatusBar } from '@utils/Themes';
 
 const propTypes = {
     currentModal: PropTypes.string.isRequired,

@@ -4,23 +4,18 @@ import { Modal } from 'react-native';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import styled from 'styled-components';
-import Stars from '../Stars';
-import { addReviewData, updateReviewData } from '../../actions/Review';
-import { withTheme } from '../../utils/Themes';
-import { RootView } from '../../styles/Screens';
-import { toggleModalVisibility } from '../../utils/Modal';
-import {
-    fontWeights,
-    fontSizes,
-    spacing,
-    timings,
-} from '../../constants/Index';
-import ModalHeader from './Header';
-import { ModalBody } from '../../styles/Modals';
-import { getInputs } from '../../utils/Inputs';
-import { writeReview, updateReview } from '../../utils/Review';
-import { updateReviewedHikes } from '../../actions/User';
-import LoadingOverlay from '../LoadingOverlay';
+import Stars from '@components/Stars';
+import { addReviewData, updateReviewData } from '@actions/Review';
+import { withTheme } from '@utils/Themes';
+import { RootView } from '@styles/Screens';
+import { toggleModalVisibility } from '@utils/Modal';
+import { fontWeights, fontSizes, spacing, timings } from '@constants/Index';
+import ModalHeader from '@components/modal/Header';
+import { ModalBody } from '@styles/Modals';
+import { getInputs } from '@utils/Inputs';
+import { writeReview, updateReview } from '@utils/Review';
+import { updateReviewedHikes } from '@actions/User';
+import LoadingOverlay from '@components/LoadingOverlay';
 
 const propTypes = {
     currentModal: PropTypes.string.isRequired,

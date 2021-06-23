@@ -1,4 +1,4 @@
-import { feedState } from '../constants/Reducers';
+import { feedState } from '@constants/Reducers';
 
 export default function feedReducer(state = feedState, action) {
     switch (action.type) {

@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { View } from 'react-native';
 import { connect } from 'react-redux';
-import GlobalMap from '../components/map/Global';
-import MapSearch from '../components/map/Search';
-import HikeSheet from '../components/bottom_sheet/Hike';
-import { withTheme, SetBarStyle, setBarStyleWithTheme } from '../utils/Themes';
-import { getHikeData } from '../utils/Hike';
-import { withNavigation } from '../utils/Navigation';
-import { defaultState } from '../constants/states/Map';
-import { timings } from '../constants/Index';
+import GlobalMap from '@components/map/Global';
+import MapSearch from '@components/map/Search';
+import HikeSheet from '@components/bottom_sheet/Hike';
+import { withTheme, SetBarStyle, setBarStyleWithTheme } from '@utils/Themes';
+import { getHikeData } from '@utils/Hike';
+import { withNavigation } from '@utils/Navigation';
+import { defaultState } from '@constants/states/Map';
+import { timings } from '@constants/Index';
 
 const propTypes = {
     markers: PropTypes.array,

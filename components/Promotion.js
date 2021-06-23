@@ -10,10 +10,10 @@ import {
     opacities,
     fontWeights,
     fontSizes,
-} from '../constants/Index';
-import { withTheme } from '../utils/Themes';
-import { dismissPromotion } from '../utils/Promotions';
-import { availabiltyMap } from '../constants/Images';
+} from '@constants/Index';
+import { withTheme } from '@utils/Themes';
+import { dismissPromotion } from '@utils/Promotions';
+import { availabiltyMap } from '@constants/Images';
 
 const propTypes = {
     imageSize: PropTypes.number,

@@ -1,11 +1,11 @@
-import { colors, transparentColors } from './Colors';
-import spacing from './Spacing';
-import { fontSizes, fontWeights } from './Fonts';
-import { borderRadius, bottomSheet } from './Dimensions';
-import { opacities } from './Opacities';
-import timings from './Timings';
-import { settingsItems, settingsControls } from './Settings';
-import timestamps from './Timestamps';
+import { colors, transparentColors } from '@constants/Colors';
+import spacing from '@constants/Spacing';
+import { fontSizes, fontWeights } from '@constants/Fonts';
+import { borderRadius, bottomSheet } from '@constants/Dimensions';
+import { opacities } from '@constants/Opacities';
+import timings from '@constants/Timings';
+import { settingsItems, settingsControls } from '@constants/Settings';
+import timestamps from '@constants/Timestamps';
 
 export {
     colors,

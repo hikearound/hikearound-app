@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { fontSizes, fontWeights, colors } from '../constants/Index';
+import { fontSizes, fontWeights, colors } from '@constants/Index';
 
 export const HighlightedText = styled.Text`
     color: ${(props) =>

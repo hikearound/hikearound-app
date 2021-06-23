@@ -1,6 +1,6 @@
 import Constants from 'expo-constants';
 import styled from 'styled-components';
-import { fontSizes, spacing, transparentColors } from '../constants/Index';
+import { fontSizes, spacing, transparentColors } from '@constants/Index';
 
 export function getMapSearchStyle(theme, hideShadow, hideBackground) {
     return {

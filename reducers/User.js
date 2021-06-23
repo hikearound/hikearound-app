@@ -1,4 +1,4 @@
-import { userState } from '../constants/Reducers';
+import { userState } from '@constants/Reducers';
 
 export default function userReducer(state = userState, action) {
     switch (action.type) {

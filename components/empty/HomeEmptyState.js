@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { MaterialIcons } from '@expo/vector-icons';
 import { withTranslation, Trans } from 'react-i18next';
 import styled from 'styled-components';
-import { colors } from '../../constants/Index';
-import { withTheme } from '../../utils/Themes';
-import { RootView, Title, Description } from '../../styles/Callouts';
-import { withNavigation } from '../../utils/Navigation';
+import { colors } from '@constants/Index';
+import { withTheme } from '@utils/Themes';
+import { RootView, Title, Description } from '@styles/Callouts';
+import { withNavigation } from '@utils/Navigation';
 
 const propTypes = {
     iconSize: PropTypes.number,

@@ -1,8 +1,8 @@
 import * as Linking from 'expo-linking';
 import * as Notifications from 'expo-notifications';
-import { openHikeScreen } from './Hike';
-import { openReviewScreen } from './Review';
-import { getUserData } from './User';
+import { openHikeScreen } from '@utils/Hike';
+import { openReviewScreen } from '@utils/Review';
+import { getUserData } from '@utils/User';
 
 export function getHikeIdFromUrl(url) {
     const re = new RegExp('/hike/(.*)');

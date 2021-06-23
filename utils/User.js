@@ -1,14 +1,14 @@
 import { CommonActions } from '@react-navigation/native';
 import { Appearance } from 'react-native-appearance';
 import * as Notifications from 'expo-notifications';
-import { cacheImages } from './Image';
-import { db, storage, auth } from '../lib/Fire';
-import store from '../store/Store';
-import { getRange, getNearestCity } from './Location';
-import { avatarDefault, avatarDark } from '../constants/Images';
-import { getLanguageCode } from './Localization';
-import { email, push } from '../constants/Notifications';
-import { logEvent } from './Analytics';
+import { cacheImages } from '@utils/Image';
+import { db, storage, auth } from '@lib/Fire';
+import store from '@store/Store';
+import { getRange, getNearestCity } from '@utils/Location';
+import { avatarDefault, avatarDark } from '@constants/Images';
+import { getLanguageCode } from '@utils/Localization';
+import { email, push } from '@constants/Notifications';
+import { logEvent } from '@utils/Analytics';
 
 const scheme = Appearance.getColorScheme();
 

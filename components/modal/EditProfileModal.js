@@ -4,18 +4,18 @@ import styled from 'styled-components';
 import { Modal } from 'react-native';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
-import Avatar from '../Avatar';
-import InputLabelGroup from '../InputLabelGroup';
-import { spacing } from '../../constants/Index';
-import { updateUserData } from '../../actions/User';
-import { withTheme } from '../../utils/Themes';
-import { RootView } from '../../styles/Screens';
-import { ModalBody } from '../../styles/Modals';
-import { getInputs, setInputRefs } from '../../utils/Inputs';
-import { toggleModalVisibility } from '../../utils/Modal';
-import { writeUserData } from '../../utils/User';
-import ModalHeader from './Header';
-import { auth } from '../../lib/Fire';
+import Avatar from '@components/Avatar';
+import InputLabelGroup from '@components/InputLabelGroup';
+import { spacing } from '@constants/Index';
+import { updateUserData } from '@actions/User';
+import { withTheme } from '@utils/Themes';
+import { RootView } from '@styles/Screens';
+import { ModalBody } from '@styles/Modals';
+import { getInputs, setInputRefs } from '@utils/Inputs';
+import { toggleModalVisibility } from '@utils/Modal';
+import { writeUserData } from '@utils/User';
+import ModalHeader from '@components/modal/Header';
+import { auth } from '@lib/Fire';
 
 const propTypes = {
     avatar: PropTypes.string.isRequired,

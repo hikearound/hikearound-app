@@ -1,7 +1,7 @@
 import React from 'react';
-import ToastComponent from '../components/Toast';
-import { truncateText } from './Text';
-import { spacing } from '../constants/Index';
+import ToastComponent from '@components/Toast';
+import { truncateText } from '@utils/Text';
+import { spacing } from '@constants/Index';
 
 export function getToastText(action, t, data) {
     if (action === 'favoriteHike') {

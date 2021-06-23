@@ -1,4 +1,4 @@
-import { settingsControls } from '../Settings';
+import { settingsControls } from '@constants/Settings';
 
 export function buildDataItem(t, property, type) {
     return {

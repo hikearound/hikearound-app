@@ -3,16 +3,16 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { View } from 'react-native';
 import BottomSheet from 'reanimated-bottom-sheet';
-import { withTheme } from '../../utils/Themes';
-import TextContent from '../hike/TextContent';
-import MapEmptyState from '../empty/MapEmptyState';
-import SheetActions from '../SheetActions';
-import { spacing, bottomSheet } from '../../constants/Index';
-import { withNavigation } from '../../utils/Navigation';
-import LoadingOverlay from '../LoadingOverlay';
-import SheetHeader from './Header';
-import { animationConfig } from '../../constants/Animation';
-import { altitude } from '../../constants/Altitude';
+import { withTheme } from '@utils/Themes';
+import TextContent from '@components/hike/TextContent';
+import MapEmptyState from '@components/empty/MapEmptyState';
+import SheetActions from '@components/SheetActions';
+import { spacing, bottomSheet } from '@constants/Index';
+import { withNavigation } from '@utils/Navigation';
+import LoadingOverlay from '@components/LoadingOverlay';
+import SheetHeader from '@components/bottom_sheet/Header';
+import { animationConfig } from '@constants/Animation';
+import { altitude } from '@constants/Altitude';
 
 const propTypes = {
     sheetRef: PropTypes.object.isRequired,

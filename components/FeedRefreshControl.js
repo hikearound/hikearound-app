@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { RefreshControl, View } from 'react-native';
-import { withTheme } from '../utils/Themes';
+import { withTheme } from '@utils/Themes';
 
 const propTypes = {
     onRefresh: PropTypes.func.isRequired,

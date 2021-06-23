@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { MaterialIcons } from '@expo/vector-icons';
 import styled from 'styled-components';
-import { colors, spacing } from '../../constants/Index';
+import { colors, spacing } from '@constants/Index';
 
 const propTypes = {
     name: PropTypes.string,

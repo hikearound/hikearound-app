@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { fontSizes, borderRadius } from '../constants/Index';
+import { fontSizes, borderRadius } from '@constants/Index';
 
 export const Pill = styled.View`
     margin-left: 6px;

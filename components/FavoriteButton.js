@@ -6,13 +6,13 @@ import { connect } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
 import Toast from 'react-native-toast-message';
 import { withTranslation } from 'react-i18next';
-import { opacities, colors, spacing, timings } from '../constants/Index';
-import { favoriteHike, unfavoriteHike } from '../actions/Hike';
-import { initializeProfileData } from '../actions/Profile';
-import { updateFavoriteHikes } from '../actions/User';
-import { getToastText } from '../utils/Toast';
-import { withTheme } from '../utils/Themes';
-import { getProfileData } from '../utils/User';
+import { opacities, colors, spacing, timings } from '@constants/Index';
+import { favoriteHike, unfavoriteHike } from '@actions/Hike';
+import { initializeProfileData } from '@actions/Profile';
+import { updateFavoriteHikes } from '@actions/User';
+import { getToastText } from '@utils/Toast';
+import { withTheme } from '@utils/Themes';
+import { getProfileData } from '@utils/User';
 
 const propTypes = {
     hid: PropTypes.string.isRequired,

@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { CollapsibleHeaderFlatList } from 'react-native-collapsible-header-views';
 import { withTranslation } from 'react-i18next';
-import FeedItem from './FeedItem';
-import Header from './Header';
-import FeedFooter from './FeedFooter';
-import { withScrollToTop } from '../utils/Navigation';
-import { withTheme } from '../utils/Themes';
-import RecentReviewList from './feed/review/RecentReviewList';
-import Ad from './Ad';
-import { getAdsManager } from '../utils/Ad';
+import FeedItem from '@components/FeedItem';
+import Header from '@components/Header';
+import FeedFooter from '@components/FeedFooter';
+import { withScrollToTop } from '@utils/Navigation';
+import { withTheme } from '@utils/Themes';
+import RecentReviewList from '@components/feed/review/RecentReviewList';
+import Ad from '@components/Ad';
+import { getAdsManager } from '@utils/Ad';
 
 const adsManager = getAdsManager('feed');
 

@@ -3,11 +3,11 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { Ionicons } from '@expo/vector-icons';
 import { withTranslation, Trans } from 'react-i18next';
-import { withTheme } from '../../utils/Themes';
-import { spacing, colors } from '../../constants/Index';
-import { Title, Description } from '../../styles/Callouts';
-import { HeaderContainer, HeaderText } from '../../styles/Lists';
-import { withNavigation } from '../../utils/Navigation';
+import { withTheme } from '@utils/Themes';
+import { spacing, colors } from '@constants/Index';
+import { Title, Description } from '@styles/Callouts';
+import { HeaderContainer, HeaderText } from '@styles/Lists';
+import { withNavigation } from '@utils/Navigation';
 
 const propTypes = {
     iconSize: PropTypes.number,

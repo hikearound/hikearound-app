@@ -5,14 +5,14 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import * as Haptics from 'expo-haptics';
-import FeedCard from './FeedCard';
-import { spacing, opacities } from '../constants/Index';
-import { withNavigation } from '../utils/Navigation';
-import { defaultProps } from '../constants/states/FeedItem';
-import { hikeActionSheet } from './action_sheets/Hike';
-import { copyLink } from '../actions/Hike';
-import { shareHike } from '../utils/Share';
-import { getDrivingDirections } from '../utils/Map';
+import FeedCard from '@components/FeedCard';
+import { spacing, opacities } from '@constants/Index';
+import { withNavigation } from '@utils/Navigation';
+import { defaultProps } from '@constants/states/FeedItem';
+import { hikeActionSheet } from '@components/action_sheets/Hike';
+import { copyLink } from '@actions/Hike';
+import { shareHike } from '@utils/Share';
+import { getDrivingDirections } from '@utils/Map';
 
 const propTypes = {
     coverPhoto: PropTypes.string,

@@ -10,11 +10,11 @@ import {
     LinkItem,
     PushItem,
     ActionItem,
-} from '../components/Index';
-import { settingsControls } from '../constants/Index';
-import { getSettingsData } from '../constants/lists/Settings';
-import { StyledRootView, HeaderContainer, HeaderText } from '../styles/Screens';
-import { withTheme, SetBarStyle } from '../utils/Themes';
+} from '@components/Index';
+import { settingsControls } from '@constants/Index';
+import { getSettingsData } from '@constants/lists/Settings';
+import { StyledRootView, HeaderContainer, HeaderText } from '@styles/Screens';
+import { withTheme, SetBarStyle } from '@utils/Themes';
 
 const propTypes = {
     itemsPerBatch: PropTypes.number,

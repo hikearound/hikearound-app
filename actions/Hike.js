@@ -1,4 +1,4 @@
-import { writeFavoriteHike, removeFavoriteHike } from '../utils/Hike';
+import { writeFavoriteHike, removeFavoriteHike } from '@utils/Hike';
 
 export const favoriteHike = (updatedHikeData) => {
     writeFavoriteHike(updatedHikeData);

@@ -5,18 +5,18 @@ import BottomSheet from 'reanimated-bottom-sheet';
 import { LineChart } from 'react-native-chart-kit';
 import { Dimensions } from 'react-native';
 import { withTranslation } from 'react-i18next';
-import { withTheme } from '../../utils/Themes';
+import { withTheme } from '@utils/Themes';
 import {
     SheetPadding,
     Header,
     HeaderItem,
     HeaderLabel,
     HeaderSubtext,
-} from '../../styles/Sheets';
-import { bottomSheet } from '../../constants/Index';
-import { withNavigation } from '../../utils/Navigation';
-import SheetHeader from './Header';
-import { formatYLabel, formatXLabel, chartConfig } from '../../utils/Graph';
+} from '@styles/Sheets';
+import { bottomSheet } from '@constants/Index';
+import { withNavigation } from '@utils/Navigation';
+import SheetHeader from '@components/bottom_sheet/Header';
+import { formatYLabel, formatXLabel, chartConfig } from '@utils/Graph';
 
 const propTypes = {
     sheetRef: PropTypes.object.isRequired,

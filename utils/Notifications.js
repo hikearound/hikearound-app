@@ -1,7 +1,7 @@
 import * as Notifications from 'expo-notifications';
-import { db, auth } from '../lib/Fire';
-import { getUserProfileData } from './User';
-import { getHikeData } from './Hike';
+import { db, auth } from '@lib/Fire';
+import { getUserProfileData } from '@utils/User';
+import { getHikeData } from '@utils/Hike';
 
 export async function registerForPushNotifications() {
     const { status } = await Notifications.requestPermissionsAsync();

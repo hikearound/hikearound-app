@@ -9,8 +9,8 @@ import {
     transparentColors,
     opacities,
     borderRadius,
-} from '../../../constants/Index';
-import { withTheme } from '../../../utils/Themes';
+} from '@constants/Index';
+import { withTheme } from '@utils/Themes';
 
 const propTypes = {
     iconSize: PropTypes.number,

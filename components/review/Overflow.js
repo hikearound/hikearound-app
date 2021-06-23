@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
 import { TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { opacities, spacing } from '../../constants/Index';
-import { withTheme } from '../../utils/Themes';
+import { opacities, spacing } from '@constants/Index';
+import { withTheme } from '@utils/Themes';
 
 const propTypes = {
     onPress: PropTypes.func,

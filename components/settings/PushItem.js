@@ -2,15 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { TouchableOpacity } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
-import {
-    opacities,
-    settingsItems,
-    colors,
-    spacing,
-} from '../../constants/Index';
-import { ItemContainer, ItemText } from '../../styles/Settings';
-import { getSignInMethods } from '../../utils/Auth';
-import { auth } from '../../lib/Fire';
+import { opacities, settingsItems, colors, spacing } from '@constants/Index';
+import { ItemContainer, ItemText } from '@styles/Settings';
+import { getSignInMethods } from '@utils/Auth';
+import { auth } from '@lib/Fire';
 
 const propTypes = {
     item: PropTypes.object.isRequired,

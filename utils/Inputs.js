@@ -1,5 +1,5 @@
-import store from '../store/Store';
-import { getInputLabels } from './Localization';
+import store from '@store/Store';
+import { getInputLabels } from '@utils/Localization';
 import {
     nameInput,
     emailInput,
@@ -9,7 +9,7 @@ import {
     updateLocationInput,
     updateNameInput,
     reviewInput,
-} from '../constants/Inputs';
+} from '@constants/Inputs';
 
 function getSignInInputs(labels) {
     emailInput.placeholder = labels.email;

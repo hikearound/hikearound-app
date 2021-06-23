@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
-import { withTheme } from '../../../../utils/Themes';
-import { Pill, Text } from '../../../../styles/Pill';
+import { withTheme } from '@utils/Themes';
+import { Pill, Text } from '@styles/Pill';
 
 const propTypes = {
     label: PropTypes.string.isRequired,

@@ -4,18 +4,18 @@ import { ScrollView, View } from 'react-native';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { withTranslation } from 'react-i18next';
-import { withScrollToTop } from '../utils/Navigation';
-import { spacing, timings, colors } from '../constants/Index';
-import Subtitle from './Subtitle';
-import ReviewPrompt from './ReviewPrompt';
-import ReviewList from './ReviewList';
-import PhotoLightboxGroup from './PhotoLightboxGroup';
-import MapWrapper from './map/Wrapper';
-import TextContent from './hike/TextContent';
-import { getRecentReviews, removeReviewFromList } from '../utils/Review';
-import { defaultState } from '../constants/states/HikeBody';
-import { withTheme } from '../utils/Themes';
-import FeedRefreshControl from './FeedRefreshControl';
+import { withScrollToTop } from '@utils/Navigation';
+import { spacing, timings, colors } from '@constants/Index';
+import Subtitle from '@components/Subtitle';
+import ReviewPrompt from '@components/ReviewPrompt';
+import ReviewList from '@components/ReviewList';
+import PhotoLightboxGroup from '@components/PhotoLightboxGroup';
+import MapWrapper from '@components/map/Wrapper';
+import TextContent from '@components/hike/TextContent';
+import { getRecentReviews, removeReviewFromList } from '@utils/Review';
+import { defaultState } from '@constants/states/HikeBody';
+import { withTheme } from '@utils/Themes';
+import FeedRefreshControl from '@components/FeedRefreshControl';
 
 const propTypes = {
     setSelectedStars: PropTypes.func.isRequired,

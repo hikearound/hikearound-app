@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { CollapsibleHeaderFlatList } from 'react-native-collapsible-header-views';
 import { connectInfiniteHits } from 'react-instantsearch-native';
 import { Keyboard } from 'react-native';
-import { withNavigation } from '../../utils/Navigation';
-import HikeListItem from '../HikeListItem';
-import Stats from './Stats';
-import { withTheme } from '../../utils/Themes';
+import { withNavigation } from '@utils/Navigation';
+import HikeListItem from '@components/HikeListItem';
+import Stats from '@components/search/Stats';
+import { withTheme } from '@utils/Themes';
 
 const propTypes = {
     hits: PropTypes.array.isRequired,

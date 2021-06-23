@@ -1,8 +1,8 @@
 import React from 'react';
 import { withTranslation } from 'react-i18next';
-import { withTheme } from '../../utils/Themes';
-import { BellEmptyState } from '../../icons/Index';
-import { RootView, Title, Description } from '../../styles/Callouts';
+import { withTheme } from '@utils/Themes';
+import { BellEmptyState } from '@icons/Index';
+import { RootView, Title, Description } from '@styles/Callouts';
 
 class NotificationEmptyState extends React.PureComponent {
     render() {

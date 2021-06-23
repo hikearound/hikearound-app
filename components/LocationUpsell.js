@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { MaterialIcons } from '@expo/vector-icons';
 import styled from 'styled-components';
 import { withTranslation } from 'react-i18next';
-import { colors } from '../constants/Index';
-import { withTheme } from '../utils/Themes';
-import InputButton from './InputButton';
-import { getHeaderHeight } from '../utils/Navigation';
-import { Title, Description } from '../styles/Callouts';
+import { colors } from '@constants/Index';
+import { withTheme } from '@utils/Themes';
+import InputButton from '@components/InputButton';
+import { getHeaderHeight } from '@utils/Navigation';
+import { Title, Description } from '@styles/Callouts';
 
 const headerHeight = getHeaderHeight();
 

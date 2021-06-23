@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
 import ReadMore from 'react-native-read-more-text';
 import { connect } from 'react-redux';
-import Subtitle from '../Subtitle';
-import FavoriteButton from '../FavoriteButton';
-import { defaultProps } from '../../constants/states/TextContent';
-import { truncateText } from '../../utils/Text';
+import Subtitle from '@components/Subtitle';
+import FavoriteButton from '@components/FavoriteButton';
+import { defaultProps } from '@constants/states/TextContent';
+import { truncateText } from '@utils/Text';
 import {
     ActionText,
     TitleText,

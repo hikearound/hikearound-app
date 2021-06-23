@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Text } from 'react-native';
 import { connectHighlight } from 'react-instantsearch-native';
-import { HighlightedText, HighlightedSubText } from '../../styles/Highlight';
+import { HighlightedText, HighlightedSubText } from '@styles/Highlight';
 
 const propTypes = {
     attribute: PropTypes.string.isRequired,

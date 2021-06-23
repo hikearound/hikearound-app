@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Svg, { G, Path } from 'react-native-svg';
 import styled from 'styled-components';
 import { TouchableOpacity } from 'react-native';
-import { colors, opacities } from '../../constants/Index';
+import { colors, opacities } from '@constants/Index';
 
 const propTypes = {
     width: PropTypes.number,

@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { withTranslation } from 'react-i18next';
 import { connectSearchBox } from 'react-instantsearch-native';
-import { withTheme } from '../../utils/Themes';
-import SearchIcon from '../../icons/Search';
-import Cancel from './Cancel';
-import { fontSizes, spacing, borderRadius } from '../../constants/Index';
-import { withNavigation } from '../../utils/Navigation';
+import { withTheme } from '@utils/Themes';
+import SearchIcon from '@icons/Search';
+import Cancel from '@components/search/Cancel';
+import { fontSizes, spacing, borderRadius } from '@constants/Index';
+import { withNavigation } from '@utils/Navigation';
 
 const propTypes = {
     refine: PropTypes.func.isRequired,

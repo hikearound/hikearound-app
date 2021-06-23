@@ -1,6 +1,6 @@
 import { ActionSheetIOS } from 'react-native';
-import { auth } from '../../lib/Fire';
-import { showAlert } from '../../utils/alert/DeleteReview';
+import { auth } from '@lib/Fire';
+import { showAlert } from '@utils/alert/DeleteReview';
 
 export function getSheetOptions(t) {
     return [t('sheet.review.item.flag'), t('label.common.cancel')];

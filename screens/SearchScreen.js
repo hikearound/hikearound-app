@@ -1,11 +1,11 @@
 import React from 'react';
 import { withTranslation } from 'react-i18next';
-import SearchBox from '../components/search/SearchBox';
-import StateResults from '../components/search/StateResults';
-import { withTheme, SetBarStyle } from '../utils/Themes';
-import InfiniteHits from '../components/search/InfiniteHits';
-import { RootView } from '../styles/Screens';
-import { getScreenWidth } from '../utils/Screen';
+import SearchBox from '@components/search/SearchBox';
+import StateResults from '@components/search/StateResults';
+import { withTheme, SetBarStyle } from '@utils/Themes';
+import InfiniteHits from '@components/search/InfiniteHits';
+import { RootView } from '@styles/Screens';
+import { getScreenWidth } from '@utils/Screen';
 
 class SearchScreen extends React.Component {
     constructor(props) {

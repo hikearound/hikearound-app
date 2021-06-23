@@ -2,7 +2,7 @@ import * as Location from 'expo-location';
 import geohash from 'ngeohash';
 import Geocoder from 'react-native-geocoding';
 import Constants from 'expo-constants';
-import { geoDistances, simulatorLocation } from '../constants/Location';
+import { geoDistances, simulatorLocation } from '@constants/Location';
 
 export async function initializeGeolocation() {
     Geocoder.init(Constants.manifest.extra.googleGeo.apiKey);

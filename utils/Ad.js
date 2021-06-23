@@ -1,5 +1,5 @@
 import * as FacebookAds from 'expo-ads-facebook';
-import { testAdTypes, placements } from '../constants/Ad';
+import { testAdTypes, placements } from '@constants/Ad';
 
 export function enableAdTracking() {
     FacebookAds.AdSettings.setAdvertiserTrackingEnabled(true);

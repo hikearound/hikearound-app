@@ -5,19 +5,19 @@ import { withTranslation } from 'react-i18next';
 import {
     registerForPushNotifications,
     getUserNotifications,
-} from '../utils/Notifications';
-import NotificationEmptyState from '../components/empty/NotificationEmptyState';
-import { RootView } from '../styles/Screens';
-import { withTheme, SetBarStyle } from '../utils/Themes';
-import { updateNotifBadgeCount } from '../actions/User';
-import NotificationList from '../components/NotificationList';
-import { timings } from '../constants/Index';
-import FeedRefreshControl from '../components/FeedRefreshControl';
-import { withNavigation } from '../utils/Navigation';
-import { Settings } from '../components/Index';
-import { showModal } from '../actions/Modal';
-import NotificationPreferenceModal from '../components/modal/Notification';
-import Title from '../components/header/Title';
+} from '@utils/Notifications';
+import NotificationEmptyState from '@components/empty/NotificationEmptyState';
+import { RootView } from '@styles/Screens';
+import { withTheme, SetBarStyle } from '@utils/Themes';
+import { updateNotifBadgeCount } from '@actions/User';
+import NotificationList from '@components/NotificationList';
+import { timings } from '@constants/Index';
+import FeedRefreshControl from '@components/FeedRefreshControl';
+import { withNavigation } from '@utils/Navigation';
+import { Settings } from '@components/Index';
+import { showModal } from '@actions/Modal';
+import NotificationPreferenceModal from '@components/modal/Notification';
+import Title from '@components/header/Title';
 
 const propTypes = {
     notifications: PropTypes.array.isRequired,

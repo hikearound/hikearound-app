@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { updateDarkMode } from '../../actions/User';
-import { updateMapData } from '../../actions/Map';
-import { ItemContainer, ItemText } from '../../styles/Settings';
-import { settingsItems } from '../../constants/Index';
-import SettingsSwitch from '../SettingsSwitch';
-import { getMapData } from '../../utils/Map';
-import { withTheme } from '../../utils/Themes';
+import { updateDarkMode } from '@actions/User';
+import { updateMapData } from '@actions/Map';
+import { ItemContainer, ItemText } from '@styles/Settings';
+import { settingsItems } from '@constants/Index';
+import SettingsSwitch from '@components/SettingsSwitch';
+import { getMapData } from '@utils/Map';
+import { withTheme } from '@utils/Themes';
 
 const propTypes = {
     item: PropTypes.object.isRequired,

@@ -5,11 +5,11 @@ import { TouchableOpacity, View, Image } from 'react-native';
 import { Image as CachedImage } from 'react-native-expo-image-cache';
 import { Ionicons } from '@expo/vector-icons';
 import { withTranslation } from 'react-i18next';
-import { opacities, transparentColors } from '../constants/Index';
-import { updateAvatar } from '../actions/User';
-import { withTheme } from '../utils/Themes';
-import { avatarActionSheet } from './action_sheets/Avatar';
-import { avatarDefault, avatarDark } from '../constants/Images';
+import { opacities, transparentColors } from '@constants/Index';
+import { updateAvatar } from '@actions/User';
+import { withTheme } from '@utils/Themes';
+import { avatarActionSheet } from '@components/action_sheets/Avatar';
+import { avatarDefault, avatarDark } from '@constants/Images';
 
 const propTypes = {
     dispatchAvatar: PropTypes.func.isRequired,

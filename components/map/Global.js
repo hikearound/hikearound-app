@@ -3,18 +3,18 @@ import PropTypes from 'prop-types';
 import { Keyboard } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import { connect } from 'react-redux';
-import { updateMapData } from '../../actions/Map';
-import GlobalMarker from '../marker/Global';
-import ClusterMarker from '../marker/Cluster';
-import { withTheme } from '../../utils/Themes';
-import { deltaMiles } from '../../constants/Location';
-import { defaultProps } from '../../constants/states/GlobalMap';
+import { updateMapData } from '@actions/Map';
+import GlobalMarker from '@components/marker/Global';
+import ClusterMarker from '@components/marker/Cluster';
+import { withTheme } from '@utils/Themes';
+import { deltaMiles } from '@constants/Location';
+import { defaultProps } from '@constants/states/GlobalMap';
 import {
     filterMarkers,
     getMapMarkers,
     getClusterZoomAltitude,
-} from '../../utils/Map';
-import { regions } from '../../constants/Regions';
+} from '@utils/Map';
+import { regions } from '@constants/Regions';
 
 const propTypes = {
     dispatchMapData: PropTypes.func.isRequired,

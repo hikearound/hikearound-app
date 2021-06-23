@@ -4,25 +4,25 @@ import { Modal } from 'react-native';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import styled from 'styled-components';
-import { writeReviewFlag } from '../../utils/Moderation';
-import { withTheme } from '../../utils/Themes';
-import { RootView } from '../../styles/Screens';
+import { writeReviewFlag } from '@utils/Moderation';
+import { withTheme } from '@utils/Themes';
+import { RootView } from '@styles/Screens';
 import {
     PageSheetModalHeader,
     PageSheetModalTitleText,
     ModalBody,
-} from '../../styles/Modals';
-import { toggleModalVisibility } from '../../utils/Modal';
-import ModalDismiss from './header/Dismiss';
+} from '@styles/Modals';
+import { toggleModalVisibility } from '@utils/Modal';
+import ModalDismiss from '@components/modal/header/Dismiss';
 import {
     colors,
     fontSizes,
     spacing,
     fontWeights,
     timings,
-} from '../../constants/Index';
-import FlagButton from './flag/Button';
-import { closeModal } from '../../actions/Modal';
+} from '@constants/Index';
+import FlagButton from '@components/modal/flag/Button';
+import { closeModal } from '@actions/Modal';
 
 const propTypes = {
     dispatchModalFlag: PropTypes.func.isRequired,

@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import Carousel from 'react-native-snap-carousel';
 import { withTranslation } from 'react-i18next';
 import styled from 'styled-components';
-import { withNavigation } from '../../../utils/Navigation';
-import RecentReviewListItem from './RecentReviewListItem';
-import { fontWeights, fontSizes, spacing } from '../../../constants/Index';
-import { getScreenWidth } from '../../../utils/Screen';
-import { cardWidth as itemWidth } from '../../../constants/Carousel';
-import { animatedStyles } from '../../../utils/Animation';
+import { withNavigation } from '@utils/Navigation';
+import RecentReviewListItem from '@components/feed/review/RecentReviewListItem';
+import { fontWeights, fontSizes, spacing } from '@constants/Index';
+import { getScreenWidth } from '@utils/Screen';
+import { cardWidth as itemWidth } from '@constants/Carousel';
+import { animatedStyles } from '@utils/Animation';
 
 const propTypes = {
     reviews: PropTypes.array,

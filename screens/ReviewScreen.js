@@ -3,18 +3,18 @@ import { connect } from 'react-redux';
 import { TouchableOpacity } from 'react-native';
 import { withTranslation } from 'react-i18next';
 import styled from 'styled-components';
-import { RootView } from '../styles/Screens';
-import { withTheme, SetBarStyle } from '../utils/Themes';
-import { withNavigation } from '../utils/Navigation';
-import ReviewListItem from '../components/ReviewListItem';
+import { RootView } from '@styles/Screens';
+import { withTheme, SetBarStyle } from '@utils/Themes';
+import { withNavigation } from '@utils/Navigation';
+import ReviewListItem from '@components/ReviewListItem';
 import {
     fontSizes,
     fontWeights,
     spacing,
     opacities,
     borderRadius,
-} from '../constants/Index';
-import { openHikeScreen } from '../utils/Hike';
+} from '@constants/Index';
+import { openHikeScreen } from '@utils/Hike';
 
 function mapStateToProps() {
     return {};

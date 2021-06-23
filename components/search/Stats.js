@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
 import { connectStats } from 'react-instantsearch-native';
-import { SearchStat, StatText } from '../../styles/Search';
+import { SearchStat, StatText } from '@styles/Search';
 
 const propTypes = {
     nbHits: PropTypes.number.isRequired,

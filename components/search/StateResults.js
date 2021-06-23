@@ -4,9 +4,9 @@ import { View } from 'react-native';
 import { connectStateResults } from 'react-instantsearch-native';
 import styled from 'styled-components';
 import { withTranslation } from 'react-i18next';
-import Stats from './Stats';
-import { fontSizes, spacing } from '../../constants/Index';
-import { SearchStat, StatText } from '../../styles/Search';
+import Stats from '@components/search/Stats';
+import { fontSizes, spacing } from '@constants/Index';
+import { SearchStat, StatText } from '@styles/Search';
 
 const propTypes = {
     searchState: PropTypes.object.isRequired,

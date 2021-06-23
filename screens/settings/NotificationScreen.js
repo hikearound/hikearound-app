@@ -3,14 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { SectionList } from 'react-native';
 import { withTranslation } from 'react-i18next';
-import { NotificationSwitchItem } from '../../components/Index';
-import { getSettingsData } from '../../constants/lists/NotificationSettings';
-import {
-    StyledRootView,
-    HeaderContainer,
-    HeaderText,
-} from '../../styles/Screens';
-import { withTheme, SetBarStyle } from '../../utils/Themes';
+import { NotificationSwitchItem } from '@components/Index';
+import { getSettingsData } from '@constants/lists/NotificationSettings';
+import { StyledRootView, HeaderContainer, HeaderText } from '@styles/Screens';
+import { withTheme, SetBarStyle } from '@utils/Themes';
 
 const propTypes = {
     notifs: PropTypes.object.isRequired,

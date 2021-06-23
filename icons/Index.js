@@ -1,7 +1,8 @@
-import HomeIcon from './Home';
-import BellIcon from './Bell';
-import PersonIcon from './Person';
-import BellEmptyState from './BellEmptyState';
-import MapIcon from './Map';
+import HomeIcon from '@icons/Home';
+import BellIcon from '@icons/Bell';
+import PersonIcon from '@icons/Person';
+import BellEmptyState from '@icons/BellEmptyState';
+import MapIcon from '@icons/Map';
+import SearchIcon from '@icons/Search';
 
-export { HomeIcon, BellIcon, PersonIcon, BellEmptyState, MapIcon };
+export { HomeIcon, BellIcon, PersonIcon, BellEmptyState, MapIcon, SearchIcon };

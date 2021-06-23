@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { TouchableOpacity } from 'react-native';
-import { spacing, fontSizes, fontWeights, opacities } from '../constants/Index';
+import { spacing, fontSizes, fontWeights, opacities } from '@constants/Index';
 
 const propTypes = {
     action: PropTypes.func.isRequired,

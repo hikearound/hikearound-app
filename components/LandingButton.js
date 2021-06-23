@@ -10,7 +10,7 @@ import {
     fontWeights,
     borderRadius,
     opacities,
-} from '../constants/Index';
+} from '@constants/Index';
 
 const propTypes = {
     action: PropTypes.func.isRequired,

@@ -11,7 +11,7 @@ import {
     fontSizes,
     fontWeights,
     opacities,
-} from '../constants/Index';
+} from '@constants/Index';
 
 const propTypes = {
     text: PropTypes.string,

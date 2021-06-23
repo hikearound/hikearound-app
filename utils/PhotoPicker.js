@@ -1,5 +1,5 @@
 import * as ImagePicker from 'expo-image-picker';
-import { reduceImageAsync, getBlob } from './Image';
+import { reduceImageAsync, getBlob } from '@utils/Image';
 
 export async function reduceImage(originalUri) {
     const { uri } = await reduceImageAsync(originalUri);

@@ -2,12 +2,12 @@ import React from 'react';
 import { View } from 'react-native';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import Thumbnail from './Thumbnail';
-import LightboxModal from './modal/LightboxModal';
-import { getHikeImageGallery } from '../utils/Hike';
-import { buildImageArray } from '../utils/Image';
-import { withTheme } from '../utils/Themes';
-import ThumbnailLoadingState from './loading/Thumbnail';
+import Thumbnail from '@components/Thumbnail';
+import LightboxModal from '@components/modal/LightboxModal';
+import { getHikeImageGallery } from '@utils/Hike';
+import { buildImageArray } from '@utils/Image';
+import { withTheme } from '@utils/Themes';
+import ThumbnailLoadingState from '@components/loading/Thumbnail';
 
 const propTypes = {
     hid: PropTypes.string.isRequired,

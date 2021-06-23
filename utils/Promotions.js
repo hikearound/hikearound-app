@@ -1,4 +1,4 @@
-import { db, auth } from '../lib/Fire';
+import { db, auth } from '@lib/Fire';
 
 export async function getPromotionStatus(promotionType) {
     const user = auth.currentUser;

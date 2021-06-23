@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { TouchableOpacity } from 'react-native';
 import { withTranslation } from 'react-i18next';
-import { opacities, spacing, fontSizes } from '../../../constants/Index';
-import { withTheme } from '../../../utils/Themes';
+import { opacities, spacing, fontSizes } from '@constants/Index';
+import { withTheme } from '@utils/Themes';
 
 const propTypes = {
     type: PropTypes.string,

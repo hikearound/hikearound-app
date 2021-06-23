@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { colors, fontSizes, spacing, fontWeights } from '../constants/Index';
-import { getHeaderHeight } from '../utils/Navigation';
+import { colors, fontSizes, spacing, fontWeights } from '@constants/Index';
+import { getHeaderHeight } from '@utils/Navigation';
 
 const headerHeight = getHeaderHeight();
 

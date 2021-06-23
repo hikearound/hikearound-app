@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import * as Linking from 'expo-linking';
 import * as WebBrowser from 'expo-web-browser';
-import { colors } from '../constants/Index';
+import { colors } from '@constants/Index';
 
 const propTypes = {
     type: PropTypes.string,

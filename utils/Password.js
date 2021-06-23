@@ -1,4 +1,4 @@
-import { functions } from '../lib/Fire';
+import { functions } from '@lib/Fire';
 
 export const resetNotif = functions.httpsCallable('resetNotif');
 

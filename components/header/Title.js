@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { TouchableOpacity } from 'react-native';
 import styled from 'styled-components';
-import { fontWeights, opacities, fontSizes } from '../../constants/Index';
-import HeaderText from '../../styles/Header';
+import { fontWeights, opacities, fontSizes } from '@constants/Index';
+import HeaderText from '@styles/Header';
 
 const propTypes = {
     scrollRef: PropTypes.object.isRequired,

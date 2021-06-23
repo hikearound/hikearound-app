@@ -1,12 +1,12 @@
 import { CacheManager } from 'react-native-expo-image-cache';
-import { getRange, maybeShowInFeed } from './Location';
-import { getHikeRef } from './Hike';
+import { getRange, maybeShowInFeed } from '@utils/Location';
+import { getHikeRef } from '@utils/Hike';
 import {
     filterForDifficulty,
     filterForRoute,
     filterForElevation,
     filterForDistance,
-} from './Filter';
+} from '@utils/Filter';
 
 export async function filterHike(hikeData, filterParams) {
     if (filterParams.difficulty.length > 0) {

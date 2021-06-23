@@ -2,7 +2,7 @@ import { ActionSheetIOS } from 'react-native';
 import {
     checkImageLibraryPermissions,
     checkCameraPermissions,
-} from '../../utils/PhotoPicker';
+} from '@utils/PhotoPicker';
 
 const cancelButtonIndex = 2;
 

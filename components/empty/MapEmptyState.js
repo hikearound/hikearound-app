@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { withTranslation } from 'react-i18next';
-import { colors } from '../../constants/Index';
-import { withTheme } from '../../utils/Themes';
-import { RootView, Title, Description } from '../../styles/Callouts';
+import { colors } from '@constants/Index';
+import { withTheme } from '@utils/Themes';
+import { RootView, Title, Description } from '@styles/Callouts';
 
 const propTypes = {
     iconSize: PropTypes.number,

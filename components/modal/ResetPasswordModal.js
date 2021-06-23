@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 import { Modal } from 'react-native';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
-import InputLabelGroup from '../InputLabelGroup';
-import { withTheme } from '../../utils/Themes';
-import { RootView, SubText } from '../../styles/Screens';
-import { ModalBody } from '../../styles/Modals';
-import { getInputs } from '../../utils/Inputs';
-import { showAlert } from '../../utils/alert/Reset';
-import { maybeSendResetNotif } from '../../utils/Password';
-import { toggleModalVisibility } from '../../utils/Modal';
-import ModalHeader from './Header';
+import InputLabelGroup from '@components/InputLabelGroup';
+import { withTheme } from '@utils/Themes';
+import { RootView, SubText } from '@styles/Screens';
+import { ModalBody } from '@styles/Modals';
+import { getInputs } from '@utils/Inputs';
+import { showAlert } from '@utils/alert/Reset';
+import { maybeSendResetNotif } from '@utils/Password';
+import { toggleModalVisibility } from '@utils/Modal';
+import ModalHeader from '@components/modal/Header';
 
 const propTypes = {
     currentModal: PropTypes.string.isRequired,

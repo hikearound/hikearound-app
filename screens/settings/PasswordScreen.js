@@ -4,15 +4,15 @@ import firebase from 'firebase';
 import { ScrollView, Keyboard, TouchableOpacity, Alert } from 'react-native';
 import { withTranslation } from 'react-i18next';
 import styled from 'styled-components';
-import { RootView } from '../../styles/Screens';
-import { withTheme, SetBarStyle } from '../../utils/Themes';
-import LoadingOverlay from '../../components/LoadingOverlay';
-import InputLabelGroup from '../../components/InputLabelGroup';
-import { getInputs } from '../../utils/Inputs';
-import { spacing, opacities, timings, fontSizes } from '../../constants/Index';
-import { auth } from '../../lib/Fire';
-import { mapCodeToTranslation } from '../../utils/Localization';
-import HeaderText from '../../styles/Header';
+import { RootView } from '@styles/Screens';
+import { withTheme, SetBarStyle } from '@utils/Themes';
+import LoadingOverlay from '@components/LoadingOverlay';
+import InputLabelGroup from '@components/InputLabelGroup';
+import { getInputs } from '@utils/Inputs';
+import { spacing, opacities, timings, fontSizes } from '@constants/Index';
+import { auth } from '@lib/Fire';
+import { mapCodeToTranslation } from '@utils/Localization';
+import HeaderText from '@styles/Header';
 
 const propTypes = {};
 

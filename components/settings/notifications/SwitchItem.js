@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { updateNotifs } from '../../../actions/User';
-import { ItemContainer, ItemText } from '../../../styles/Settings';
-import SettingsSwitch from '../../SettingsSwitch';
-import { shouldDisableSwitch } from '../../../utils/User';
+import { updateNotifs } from '@actions/User';
+import { ItemContainer, ItemText } from '@styles/Settings';
+import SettingsSwitch from '@components/SettingsSwitch';
+import { shouldDisableSwitch } from '@utils/User';
 
 const propTypes = {
     item: PropTypes.object.isRequired,

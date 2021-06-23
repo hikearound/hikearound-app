@@ -3,18 +3,18 @@ import { TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
 import styled from 'styled-components';
-import { opacities } from '../../../constants/Index';
+import { opacities } from '@constants/Index';
 import {
     Timestamp,
     Title,
     Subtitle,
     NotificationWrapper,
     NotificationBody,
-} from '../../../styles/Notifications';
-import { withNavigation } from '../../../utils/Navigation';
-import { markNotificationAsRead } from '../../../utils/Notifications';
-import { openHikeScreen } from '../../../utils/Hike';
-import { notifStar } from '../../../constants/Images';
+} from '@styles/Notifications';
+import { withNavigation } from '@utils/Navigation';
+import { markNotificationAsRead } from '@utils/Notifications';
+import { openHikeScreen } from '@utils/Hike';
+import { notifStar } from '@constants/Images';
 
 const propTypes = {
     createdOn: PropTypes.string.isRequired,

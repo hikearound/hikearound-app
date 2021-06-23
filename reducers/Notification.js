@@ -1,4 +1,4 @@
-import { notificationState } from '../constants/Reducers';
+import { notificationState } from '@constants/Reducers';
 
 export default function notificationReducer(state = notificationState, action) {
     switch (action.type) {

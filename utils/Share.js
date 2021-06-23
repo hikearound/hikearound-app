@@ -1,7 +1,7 @@
 import Toast from 'react-native-toast-message';
 import { Share } from 'react-native';
-import { shareAction, baseUrl } from '../constants/Common';
-import { getToastText } from './Toast';
+import { shareAction, baseUrl } from '@constants/Common';
+import { getToastText } from '@utils/Toast';
 
 export async function shareHike(hid, dispatchCopyLink, t) {
     const result = await Share.share({ url: `${baseUrl}/hike/${hid}` });

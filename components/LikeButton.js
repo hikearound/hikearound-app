@@ -6,10 +6,10 @@ import * as Haptics from 'expo-haptics';
 import { connect } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
 import { withTranslation } from 'react-i18next';
-import { opacities, colors, borderRadius, fontSizes } from '../constants/Index';
-import { withTheme } from '../utils/Themes';
-import { writeReviewLikes } from '../utils/Review';
-import { auth } from '../lib/Fire';
+import { opacities, colors, borderRadius, fontSizes } from '@constants/Index';
+import { withTheme } from '@utils/Themes';
+import { writeReviewLikes } from '@utils/Review';
+import { auth } from '@lib/Fire';
 
 const propTypes = {
     rid: PropTypes.string.isRequired,

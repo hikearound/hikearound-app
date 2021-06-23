@@ -1,4 +1,4 @@
-import { fontWeights, spacing, colors } from '../constants/Index';
+import { fontWeights, spacing, colors } from '@constants/Index';
 
 const badgeSize = 20;
 

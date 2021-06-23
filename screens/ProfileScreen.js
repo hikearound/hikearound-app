@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
-import { Settings, ProfileHeader, ProfileBody } from '../components/Index';
-import EditProfileModal from '../components/modal/EditProfileModal';
-import { buildFavoriteHikesArray } from '../utils/User';
-import { timings } from '../constants/Index';
-import { RootView } from '../styles/Screens';
-import { withTheme, SetBarStyle } from '../utils/Themes';
-import Title from '../components/header/Title';
-import FeedRefreshControl from '../components/FeedRefreshControl';
+import { Settings, ProfileHeader, ProfileBody } from '@components/Index';
+import EditProfileModal from '@components/modal/EditProfileModal';
+import { buildFavoriteHikesArray } from '@utils/User';
+import { timings } from '@constants/Index';
+import { RootView } from '@styles/Screens';
+import { withTheme, SetBarStyle } from '@utils/Themes';
+import Title from '@components/header/Title';
+import FeedRefreshControl from '@components/FeedRefreshControl';
 
 const propTypes = {
     favoriteHikes: PropTypes.array.isRequired,

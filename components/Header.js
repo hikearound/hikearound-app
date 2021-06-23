@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { withTranslation } from 'react-i18next';
-import { fontWeights, fontSizes, spacing } from '../constants/Index';
+import { fontWeights, fontSizes, spacing } from '@constants/Index';
 
 const propTypes = {
     title: PropTypes.string.isRequired,

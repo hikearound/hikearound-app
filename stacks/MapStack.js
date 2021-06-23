@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStackNavigator } from '@react-navigation/stack';
 import { withTranslation } from 'react-i18next';
-import { MapScreen, HikeScreen } from '../screens/Index';
-import { mode, headerMode, screenOptions } from '../constants/Navigation';
-import { withTheme } from '../utils/Themes';
-import { setFocusedStack } from '../actions/Navigation';
-import ToastProvider from '../providers/ToastProvider';
+import { MapScreen, HikeScreen } from '@screens/Index';
+import { mode, headerMode, screenOptions } from '@constants/Navigation';
+import { withTheme } from '@utils/Themes';
+import { setFocusedStack } from '@actions/Navigation';
+import ToastProvider from '@providers/ToastProvider';
 
 const propTypes = {
     dispatchFocusedStack: PropTypes.func.isRequired,

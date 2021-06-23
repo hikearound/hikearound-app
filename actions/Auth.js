@@ -1,4 +1,4 @@
-import { updateAuthSubscription } from '../utils/Auth';
+import { updateAuthSubscription } from '@utils/Auth';
 
 export const initializeAuthSubscription = (user) => {
     user = updateAuthSubscription(user);

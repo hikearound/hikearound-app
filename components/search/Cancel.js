@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import { TouchableOpacity } from 'react-native';
 import { CommonActions } from '@react-navigation/native';
 import { withTranslation } from 'react-i18next';
-import { colors, opacities, spacing, fontSizes } from '../../constants/Index';
-import { withNavigation } from '../../utils/Navigation';
+import { colors, opacities, spacing, fontSizes } from '@constants/Index';
+import { withNavigation } from '@utils/Navigation';
 
 class Cancel extends React.PureComponent {
     close = () => {

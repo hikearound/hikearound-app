@@ -1,4 +1,4 @@
-import { colors } from '../constants/Index';
+import { colors } from '@constants/Index';
 
 export const formatYLabel = (value) => parseFloat(value).toFixed(0);
 

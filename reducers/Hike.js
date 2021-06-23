@@ -1,4 +1,4 @@
-import { hikeState } from '../constants/Reducers';
+import { hikeState } from '@constants/Reducers';
 
 export default function hikeReducer(state = hikeState, action) {
     switch (action.type) {

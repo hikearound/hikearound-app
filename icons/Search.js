@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Ionicons } from '@expo/vector-icons';
-import { colors } from '../constants/Index';
+import { colors } from '@constants/Index';
 
 const propTypes = {
     style: PropTypes.object,

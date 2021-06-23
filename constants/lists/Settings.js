@@ -1,5 +1,5 @@
 import Constants from 'expo-constants';
-import { settingsItems, settingsControls } from '../Settings';
+import { settingsItems, settingsControls } from '@constants/Settings';
 
 export function getMapSection(t) {
     return {

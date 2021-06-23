@@ -3,11 +3,11 @@ import styled from 'styled-components';
 import { Animated, Easing } from 'react-native';
 import { withTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
-import { LandingButton } from '../components/Index';
-import { spacing } from '../constants/Index';
-import { RootView } from '../styles/Screens';
-import { withTheme } from '../utils/Themes';
-import { landingBgDefault, landingBgDark } from '../constants/Images';
+import { LandingButton } from '@components/Index';
+import { spacing } from '@constants/Index';
+import { RootView } from '@styles/Screens';
+import { withTheme } from '@utils/Themes';
+import { landingBgDefault, landingBgDark } from '@constants/Images';
 
 const propTypes = {
     toValue: PropTypes.number,

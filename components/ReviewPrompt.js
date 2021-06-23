@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
-import Stars from './Stars';
-import { borderRadius, spacing } from '../constants/Index';
-import { withTheme } from '../utils/Themes';
-import { showModal } from '../actions/Modal';
-import { removeReviewFromArray, addReviewToArray } from '../utils/Review';
+import Stars from '@components/Stars';
+import { borderRadius, spacing } from '@constants/Index';
+import { withTheme } from '@utils/Themes';
+import { showModal } from '@actions/Modal';
+import { removeReviewFromArray, addReviewToArray } from '@utils/Review';
 
 const propTypes = {
     dispatchModalFlag: PropTypes.func.isRequired,

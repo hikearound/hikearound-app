@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { TouchableOpacity } from 'react-native';
 import { withTranslation } from 'react-i18next';
-import { withTheme } from '../utils/Themes';
-import { opacities } from '../constants/Index';
-import { openHikeScreen } from '../utils/Hike';
-import { withNavigation } from '../utils/Navigation';
-import { getDrivingDirections } from '../utils/Map';
-import { ActionWrapper, Button, Text } from '../styles/Actions';
+import { withTheme } from '@utils/Themes';
+import { opacities } from '@constants/Index';
+import { openHikeScreen } from '@utils/Hike';
+import { withNavigation } from '@utils/Navigation';
+import { getDrivingDirections } from '@utils/Map';
+import { ActionWrapper, Button, Text } from '@styles/Actions';
 
 const propTypes = {
     selectedHike: PropTypes.string.isRequired,

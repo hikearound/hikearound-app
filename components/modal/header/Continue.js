@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-import { opacities, spacing } from '../../../constants/Index';
-import { closeModal } from '../../../actions/Modal';
-import HeaderText from '../../../styles/Header';
+import { opacities, spacing } from '@constants/Index';
+import { closeModal } from '@actions/Modal';
+import HeaderText from '@styles/Header';
 
 const propTypes = {
     dispatchModalFlag: PropTypes.func.isRequired,

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import HikeList from './HikeList';
-import ProfileEmptyState from './empty/ProfileEmptyState';
+import HikeList from '@components/HikeList';
+import ProfileEmptyState from '@components/empty/ProfileEmptyState';
 
 const propTypes = {
     hikeData: PropTypes.array.isRequired,

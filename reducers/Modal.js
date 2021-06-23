@@ -1,4 +1,4 @@
-import { modalState } from '../constants/Reducers';
+import { modalState } from '@constants/Reducers';
 
 export default function modalReducer(state = modalState, action) {
     switch (action.type) {

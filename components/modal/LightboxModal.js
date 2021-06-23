@@ -4,13 +4,13 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { Modal } from 'react-native';
 import ImageViewer from 'react-native-image-zoom-viewer';
-import ModalOverflow from './header/Overflow';
-import ModalDismiss from './header/Dismiss';
-import { colors } from '../../constants/Index';
-import LoadingOverlay from '../LoadingOverlay';
-import { closeModal } from '../../actions/Modal';
-import { toggleModalVisibility } from '../../utils/Modal';
-import { toggleStatusBar } from '../../utils/Themes';
+import ModalOverflow from '@components/modal/header/Overflow';
+import ModalDismiss from '@components/modal/header/Dismiss';
+import { colors } from '@constants/Index';
+import LoadingOverlay from '@components/LoadingOverlay';
+import { closeModal } from '@actions/Modal';
+import { toggleModalVisibility } from '@utils/Modal';
+import { toggleStatusBar } from '@utils/Themes';
 
 const propTypes = {
     action: PropTypes.string.isRequired,

@@ -13,14 +13,14 @@ import {
     LocationPermissionScreen,
     SearchScreen,
     ReviewScreen,
-} from '../screens/Index';
-import { mode, headerMode, screenOptions } from '../constants/Navigation';
-import { Logo } from '../components/Index';
-import { withTheme } from '../utils/Themes';
-import { tabBarScreens } from '../constants/Screens';
-import { setFocusedStack } from '../actions/Navigation';
-import ToastProvider from '../providers/ToastProvider';
-import SplashImage from '../components/SplashImage';
+} from '@screens/Index';
+import { mode, headerMode, screenOptions } from '@constants/Navigation';
+import { Logo } from '@components/Index';
+import { withTheme } from '@utils/Themes';
+import { tabBarScreens } from '@constants/Screens';
+import { setFocusedStack } from '@actions/Navigation';
+import ToastProvider from '@providers/ToastProvider';
+import SplashImage from '@components/SplashImage';
 
 const propTypes = {
     user: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),

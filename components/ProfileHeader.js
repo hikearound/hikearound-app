@@ -4,17 +4,17 @@ import styled from 'styled-components';
 import { TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
-import Avatar from './Avatar';
+import Avatar from '@components/Avatar';
 import {
     spacing,
     colors,
     fontWeights,
     fontSizes,
     opacities,
-} from '../constants/Index';
-import { showModal } from '../actions/Modal';
-import { withTheme } from '../utils/Themes';
-import { profileBgDefault, profileBgDark } from '../constants/Images';
+} from '@constants/Index';
+import { showModal } from '@actions/Modal';
+import { withTheme } from '@utils/Themes';
+import { profileBgDefault, profileBgDark } from '@constants/Images';
 
 const propTypes = {
     avatar: PropTypes.string.isRequired,

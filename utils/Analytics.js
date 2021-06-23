@@ -1,5 +1,5 @@
 import * as Analytics from 'expo-firebase-analytics';
-import { auth } from '../lib/Fire';
+import { auth } from '@lib/Fire';
 
 export function setUser(params) {
     const user = auth.currentUser;

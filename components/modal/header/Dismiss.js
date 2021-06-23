@@ -10,10 +10,10 @@ import {
     transparentColors,
     opacities,
     spacing,
-} from '../../../constants/Index';
-import { closeModal } from '../../../actions/Modal';
-import HeaderText from '../../../styles/Header';
-import { getDismissIconPosition } from '../../../utils/Modal';
+} from '@constants/Index';
+import { closeModal } from '@actions/Modal';
+import HeaderText from '@styles/Header';
+import { getDismissIconPosition } from '@utils/Modal';
 
 const propTypes = {
     dispatchModalFlag: PropTypes.func.isRequired,

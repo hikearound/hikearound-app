@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-import InfoBar from '../InfoBar';
-import HikeMap from './Hike';
-import { spacing, borderRadius, opacities } from '../../constants/Index';
-import { defaultProps } from '../../constants/states/MapWrapper';
-import { showModal, setSelectedHike } from '../../actions/Modal';
-import { withTheme } from '../../utils/Themes';
-import MapLoadingState from '../loading/Map';
-import ExpandButton from './button/Expand';
+import InfoBar from '@components/InfoBar';
+import HikeMap from '@components/map/Hike';
+import { spacing, borderRadius, opacities } from '@constants/Index';
+import { defaultProps } from '@constants/states/MapWrapper';
+import { showModal, setSelectedHike } from '@actions/Modal';
+import { withTheme } from '@utils/Themes';
+import MapLoadingState from '@components/loading/Map';
+import ExpandButton from '@components/map/button/Expand';
 
 const propTypes = {
     dispatchModalFlag: PropTypes.func.isRequired,

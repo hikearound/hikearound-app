@@ -1,5 +1,5 @@
-import { animationConfig } from '../Animation';
-import { altitude } from '../Altitude';
+import { animationConfig } from '@constants/Animation';
+import { altitude } from '@constants/Altitude';
 
 export const defaultProps = {
     cluster: null,

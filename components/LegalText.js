@@ -1,8 +1,8 @@
 import React from 'react';
 import { Trans, withTranslation } from 'react-i18next';
-import TextLink from './TextLink';
-import { withTheme } from '../utils/Themes';
-import { SubText } from '../styles/Screens';
+import TextLink from '@components/TextLink';
+import { withTheme } from '@utils/Themes';
+import { SubText } from '@styles/Screens';
 
 class LegalText extends React.PureComponent {
     renderTermsOfServiceLink = (t) => (

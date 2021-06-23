@@ -1,4 +1,4 @@
-import { borderRadius } from '../Index';
+import { borderRadius } from '@constants/Index';
 
 export const defaultProps = {
     maxZoom: 16,

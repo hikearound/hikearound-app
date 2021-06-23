@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { withTranslation } from 'react-i18next';
-import { fontWeights, fontSizes, spacing } from '../constants/Index';
+import { fontWeights, fontSizes, spacing } from '@constants/Index';
 
 const circleSize = '7px';
 

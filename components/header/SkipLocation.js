@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { TouchableOpacity } from 'react-native';
 import styled from 'styled-components';
-import { showAlert } from '../../utils/alert/Location';
-import { spacing, opacities } from '../../constants/Index';
-import HeaderText from '../../styles/Header';
+import { showAlert } from '@utils/alert/Location';
+import { spacing, opacities } from '@constants/Index';
+import HeaderText from '@styles/Header';
 
 const propTypes = {
     permissionAction: PropTypes.func.isRequired,

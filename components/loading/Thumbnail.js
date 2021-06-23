@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { LayoutAnimation } from 'react-native';
 import SvgAnimatedLinearGradient from 'react-native-svg-animated-linear-gradient';
 import { Rect } from 'react-native-svg';
-import { timings, borderRadius } from '../../constants/Index';
-import { withTheme } from '../../utils/Themes';
-import { getScreenWidth } from '../../utils/Screen';
+import { timings, borderRadius } from '@constants/Index';
+import { withTheme } from '@utils/Themes';
+import { getScreenWidth } from '@utils/Screen';
 
 const propTypes = {
     width: PropTypes.number,

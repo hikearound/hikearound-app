@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { TouchableOpacity } from 'react-native';
 import styled from 'styled-components';
-import { spacing, opacities } from '../../constants/Index';
-import FilterIcon from '../../icons/Filter';
-import { showModal } from '../../actions/Modal';
+import { spacing, opacities } from '@constants/Index';
+import FilterIcon from '@icons/Filter';
+import { showModal } from '@actions/Modal';
 
 function mapStateToProps() {
     return {};

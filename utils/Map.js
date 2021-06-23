@@ -1,9 +1,9 @@
 import openMap from 'react-native-open-maps';
 import supercluster from 'supercluster';
-import store from '../store/Store';
-import { getMapSetting } from './Settings';
-import { config, queryParams } from '../constants/Map';
-import { queryHikes } from './Feed';
+import store from '@store/Store';
+import { getMapSetting } from '@utils/Settings';
+import { config, queryParams } from '@constants/Map';
+import { queryHikes } from '@utils/Feed';
 
 export async function getMapMarkers(position, distance) {
     const { querySize, queryType, lastKey, sortDirection, filterParams } =

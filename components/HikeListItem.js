@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { TouchableOpacity } from 'react-native';
 import { withTranslation } from 'react-i18next';
-import { openHikeScreen } from '../utils/Hike';
-import { View, Name, MetaData } from '../styles/Lists';
-import { withNavigation } from '../utils/Navigation';
-import { opacities } from '../constants/Index';
-import Highlight from './search/Highlight';
+import { openHikeScreen } from '@utils/Hike';
+import { View, Name, MetaData } from '@styles/Lists';
+import { withNavigation } from '@utils/Navigation';
+import { opacities } from '@constants/Index';
+import Highlight from '@components/search/Highlight';
 
 const propTypes = {
     id: PropTypes.string.isRequired,

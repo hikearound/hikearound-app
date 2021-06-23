@@ -1,4 +1,4 @@
-import { reviewState } from '../constants/Reducers';
+import { reviewState } from '@constants/Reducers';
 
 export default function reviewReducer(state = reviewState, action) {
     switch (action.type) {

@@ -4,10 +4,10 @@ import { TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
 import { withTranslation } from 'react-i18next';
-import { opacities, colors, spacing } from '../constants/Index';
-import { withTheme } from '../utils/Themes';
-import { shareHike } from '../utils/Share';
-import { copyLink } from '../actions/Hike';
+import { opacities, colors, spacing } from '@constants/Index';
+import { withTheme } from '@utils/Themes';
+import { shareHike } from '@utils/Share';
+import { copyLink } from '@actions/Hike';
 
 const propTypes = {
     hid: PropTypes.string.isRequired,

@@ -1,57 +1,57 @@
 // Hike
-import InfoBar from './InfoBar';
-import HikeBody from './HikeBody';
-import HikeMap from './map/Hike';
-import MapWrapper from './map/Wrapper';
+import InfoBar from '@components/InfoBar';
+import HikeBody from '@components/HikeBody';
+import HikeMap from '@components/map/Hike';
+import MapWrapper from '@components/map/Wrapper';
 
 // Buttons
-import LandingButton from './LandingButton';
-import InputButton from './InputButton';
-import FavoriteButton from './FavoriteButton';
+import LandingButton from '@components/LandingButton';
+import InputButton from '@components/InputButton';
+import FavoriteButton from '@components/FavoriteButton';
 
 // Components
-import Avatar from './Avatar';
-import Subtitle from './Subtitle';
-import Toast from './Toast';
-import Thumbnail from './Thumbnail';
-import LoadingOverlay from './LoadingOverlay';
+import Avatar from '@components/Avatar';
+import Subtitle from '@components/Subtitle';
+import Toast from '@components/Toast';
+import Thumbnail from '@components/Thumbnail';
+import LoadingOverlay from '@components/LoadingOverlay';
 
 // Modals
-import MapModal from './modal/MapModal';
-import LightboxModal from './modal/LightboxModal';
+import MapModal from '@components/modal/MapModal';
+import LightboxModal from '@components/modal/LightboxModal';
 
 // Header
-import Logo from './header/Logo';
-import Overflow from './header/Overflow';
-import Sort from './header/Sort';
-import Settings from './header/Settings';
-import Search from './header/Search';
+import Logo from '@components/header/Logo';
+import Overflow from '@components/header/Overflow';
+import Sort from '@components/header/Sort';
+import Settings from '@components/header/Settings';
+import Search from '@components/header/Search';
 
 // Feed
-import FeedCard from './FeedCard';
-import FeedCardGradient from './FeedCardGradient';
-import FeedFooter from './FeedFooter';
-import FeedItem from './FeedItem';
-import FeedList from './FeedList';
+import FeedCard from '@components/FeedCard';
+import FeedCardGradient from '@components/FeedCardGradient';
+import FeedFooter from '@components/FeedFooter';
+import FeedItem from '@components/FeedItem';
+import FeedList from '@components/FeedList';
 
 // Settings
-import GroupItem from './settings/GroupItem';
-import SwitchItem from './settings/SwitchItem';
-import StaticItem from './settings/StaticItem';
-import LinkItem from './settings/LinkItem';
-import PushItem from './settings/PushItem';
-import ActionItem from './settings/ActionItem';
+import GroupItem from '@components/settings/GroupItem';
+import SwitchItem from '@components/settings/SwitchItem';
+import StaticItem from '@components/settings/StaticItem';
+import LinkItem from '@components/settings/LinkItem';
+import PushItem from '@components/settings/PushItem';
+import ActionItem from '@components/settings/ActionItem';
 
 // Notification Settings
-import NotificationSwitchItem from './settings/notifications/SwitchItem';
+import NotificationSwitchItem from '@components/settings/notifications/SwitchItem';
 
 // Profile
-import ProfileHeader from './ProfileHeader';
-import ProfileBody from './ProfileBody';
+import ProfileHeader from '@components/ProfileHeader';
+import ProfileBody from '@components/ProfileBody';
 
 // Lists
-import HikeList from './HikeList';
-import HikeListItem from './HikeListItem';
+import HikeList from '@components/HikeList';
+import HikeListItem from '@components/HikeListItem';
 
 export {
     LandingButton,

@@ -10,9 +10,9 @@ import {
     opacities,
     borderRadius,
     spacing,
-} from '../../../constants/Index';
-import { withTheme } from '../../../utils/Themes';
-import { altitude } from '../../../constants/Altitude';
+} from '@constants/Index';
+import { withTheme } from '@utils/Themes';
+import { altitude } from '@constants/Altitude';
 
 const propTypes = {
     position: PropTypes.object,

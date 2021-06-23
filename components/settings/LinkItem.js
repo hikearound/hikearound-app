@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { TouchableOpacity } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
-import { opacities, settingsItems } from '../../constants/Index';
-import { ItemContainer, ItemText } from '../../styles/Settings';
-import { baseUrl } from '../../constants/Common';
+import { opacities, settingsItems } from '@constants/Index';
+import { ItemContainer, ItemText } from '@styles/Settings';
+import { baseUrl } from '@constants/Common';
 
 const propTypes = {
     item: PropTypes.object.isRequired,

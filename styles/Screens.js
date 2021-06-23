@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { colors, fontSizes, spacing, fontWeights } from '../constants/Index';
+import { colors, fontSizes, spacing, fontWeights } from '@constants/Index';
 
 export const RootView = styled.View`
     flex: 1;

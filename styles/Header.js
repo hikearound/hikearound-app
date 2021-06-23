@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { fontSizes, colors } from '../constants/Index';
+import { fontSizes, colors } from '@constants/Index';
 
 const HeaderText = styled.Text`
     color: ${(props) => (props.isPageSheet ? colors.purple : colors.white)};

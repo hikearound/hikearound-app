@@ -7,11 +7,11 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { StatusBar } from 'react-native';
 import { ThemeProvider } from 'styled-components';
 import { InstantSearch } from 'react-instantsearch-native';
-import TabNavigator from './TabNavigator';
-import { defaultTheme, darkTheme } from '../constants/Themes';
-import { withTheme } from '../utils/Themes';
-import { setCurrentScreen } from '../utils/Analytics';
-import { searchClient } from '../constants/Search';
+import TabNavigator from '@navigators/TabNavigator';
+import { defaultTheme, darkTheme } from '@constants/Themes';
+import { withTheme } from '@utils/Themes';
+import { setCurrentScreen } from '@utils/Analytics';
+import { searchClient } from '@constants/Search';
 
 const propTypes = {
     darkMode: PropTypes.bool,

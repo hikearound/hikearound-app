@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
-import ModalDismiss from './header/Dismiss';
-import ModalContinue from './header/Continue';
-import { withTheme } from '../../utils/Themes';
-import { ModalHeader, ModalTitleText } from '../../styles/Modals';
+import ModalDismiss from '@components/modal/header/Dismiss';
+import ModalContinue from '@components/modal/header/Continue';
+import { withTheme } from '@utils/Themes';
+import { ModalHeader, ModalTitleText } from '@styles/Modals';
 
 const propTypes = {
     title: PropTypes.string.isRequired,

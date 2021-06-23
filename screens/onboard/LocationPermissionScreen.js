@@ -1,10 +1,10 @@
 import React from 'react';
 import { CommonActions } from '@react-navigation/native';
 import { withTranslation } from 'react-i18next';
-import { withTheme } from '../../utils/Themes';
-import LocationUpsell from '../../components/LocationUpsell';
-import SkipLocation from '../../components/header/SkipLocation';
-import { requestLocationPermission } from '../../utils/Location';
+import { withTheme } from '@utils/Themes';
+import LocationUpsell from '@components/LocationUpsell';
+import SkipLocation from '@components/header/SkipLocation';
+import { requestLocationPermission } from '@utils/Location';
 
 class LocationPermissionScreen extends React.Component {
     constructor(props) {

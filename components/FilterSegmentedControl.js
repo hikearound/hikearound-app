@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import SegmentedControlTab from 'react-native-segmented-control-tab';
-import { withTheme } from '../utils/Themes';
-import { colors, fontSizes, spacing, fontWeights } from '../constants/Index';
+import { withTheme } from '@utils/Themes';
+import { colors, fontSizes, spacing, fontWeights } from '@constants/Index';
 
 const propTypes = {
     selectedIndices: PropTypes.array,

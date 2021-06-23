@@ -8,7 +8,7 @@ import {
     fontSizes,
     borderRadius,
     fontWeights,
-} from '../constants/Index';
+} from '@constants/Index';
 
 const propTypes = {
     distance: PropTypes.number,

@@ -1,9 +1,9 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { withTranslation } from 'react-i18next';
-import { NotificationScreen, HikeScreen, ReviewScreen } from '../screens/Index';
-import { mode, headerMode, screenOptions } from '../constants/Navigation';
-import { withTheme } from '../utils/Themes';
+import { NotificationScreen, HikeScreen, ReviewScreen } from '@screens/Index';
+import { mode, headerMode, screenOptions } from '@constants/Navigation';
+import { withTheme } from '@utils/Themes';
 
 const Stack = createStackNavigator();
 

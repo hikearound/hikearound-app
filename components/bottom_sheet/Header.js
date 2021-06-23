@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import LocationButton from '../map/button/Location';
-import { spacing, transparentColors } from '../../constants/Index';
-import { animationConfig } from '../../constants/Animation';
+import LocationButton from '@components/map/button/Location';
+import { spacing, transparentColors } from '@constants/Index';
+import { animationConfig } from '@constants/Animation';
 
 const propTypes = {
     shouldShowLocationButton: PropTypes.bool,

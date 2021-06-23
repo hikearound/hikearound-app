@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FlatList } from 'react-native';
 import { withTranslation } from 'react-i18next';
-import ReviewLikeNotification from './notifications/types/Review';
-import DigestNotification from './notifications/types/Digest';
-import { timestamps, spacing } from '../constants/Index';
-import { shouldCapitalizeTimestamp } from '../utils/Localization';
-import { getLocalizedMoment, formatDate } from '../utils/Time';
-import { withScrollToTop } from '../utils/Navigation';
+import ReviewLikeNotification from '@components/notifications/types/Review';
+import DigestNotification from '@components/notifications/types/Digest';
+import { timestamps, spacing } from '@constants/Index';
+import { shouldCapitalizeTimestamp } from '@utils/Localization';
+import { getLocalizedMoment, formatDate } from '@utils/Time';
+import { withScrollToTop } from '@utils/Navigation';
 
 const propTypes = {
     notificationData: PropTypes.array.isRequired,

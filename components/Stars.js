@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import StarRating from 'react-native-star-rating';
 import { connect } from 'react-redux';
-import { colors } from '../constants/Index';
-import { withTheme } from '../utils/Themes';
-import { showModal } from '../actions/Modal';
+import { colors } from '@constants/Index';
+import { withTheme } from '@utils/Themes';
+import { showModal } from '@actions/Modal';
 
 const propTypes = {
     onStarRatingPress: PropTypes.func,

@@ -2,37 +2,37 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
-import HomeLoadingState from '../components/loading/Home';
-import HomeActions from '../components/HomeActions';
-import FeedList from '../components/FeedList';
-import Promotion from '../components/Promotion';
-import FeedRefreshControl from '../components/FeedRefreshControl';
-import HomeEmptyState from '../components/empty/HomeEmptyState';
+import HomeLoadingState from '@components/loading/Home';
+import HomeActions from '@components/HomeActions';
+import FeedList from '@components/FeedList';
+import Promotion from '@components/Promotion';
+import FeedRefreshControl from '@components/FeedRefreshControl';
+import HomeEmptyState from '@components/empty/HomeEmptyState';
 import {
     initializeUserData,
     initializeAvatar,
     updateUserPosition,
-} from '../actions/User';
-import { initializeNotificationData } from '../actions/Notification';
-import { initializeMapData } from '../actions/Map';
-import { initializeProfileData } from '../actions/Profile';
-import { timings } from '../constants/Index';
-import { defaultState } from '../constants/states/Home';
-import { RootView } from '../styles/Screens';
-import { getUserData, getProfileData } from '../utils/User';
-import { withTheme, SetBarStyle } from '../utils/Themes';
-import { getMapData } from '../utils/Map';
-import { getNotificationData } from '../utils/Notifications';
+} from '@actions/User';
+import { initializeNotificationData } from '@actions/Notification';
+import { initializeMapData } from '@actions/Map';
+import { initializeProfileData } from '@actions/Profile';
+import { timings } from '@constants/Index';
+import { defaultState } from '@constants/states/Home';
+import { RootView } from '@styles/Screens';
+import { getUserData, getProfileData } from '@utils/User';
+import { withTheme, SetBarStyle } from '@utils/Themes';
+import { getMapData } from '@utils/Map';
+import { getNotificationData } from '@utils/Notifications';
 import {
     getPosition,
     getNearestCity,
     positionKnown,
     watchPositionAsync,
-} from '../utils/Location';
-import { getPromotionStatus } from '../utils/Promotions';
-import { queryHikes, sortHikes, cacheFeedImages } from '../utils/Feed';
-import { queryReviews } from '../utils/Review';
-import { getSortDirection } from '../utils/Filter';
+} from '@utils/Location';
+import { getPromotionStatus } from '@utils/Promotions';
+import { queryHikes, sortHikes, cacheFeedImages } from '@utils/Feed';
+import { queryReviews } from '@utils/Review';
+import { getSortDirection } from '@utils/Filter';
 import {
     checkInitialUrl,
     addUrlListener,
@@ -40,9 +40,9 @@ import {
     addNotificationResponseReceivedListener,
     removeNotificationListener,
     addNotificationReceivedListener,
-} from '../utils/Link';
-import FilterModal from '../components/modal/FilterModal';
-import Logo from '../components/header/Logo';
+} from '@utils/Link';
+import FilterModal from '@components/modal/FilterModal';
+import Logo from '@components/header/Logo';
 
 const propTypes = {
     dispatchUserPosition: PropTypes.func.isRequired,

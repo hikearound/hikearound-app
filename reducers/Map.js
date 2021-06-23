@@ -1,4 +1,4 @@
-import { mapState } from '../constants/Reducers';
+import { mapState } from '@constants/Reducers';
 
 export default function mapReducer(state = mapState, action) {
     switch (action.type) {

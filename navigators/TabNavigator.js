@@ -5,14 +5,14 @@ import * as Haptics from 'expo-haptics';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { withTranslation } from 'react-i18next';
 import * as Device from 'expo-device';
-import HomeStack from '../stacks/HomeStack';
-import MapStack from '../stacks/MapStack';
-import NotificationStack from '../stacks/NotificationStack';
-import ProfileStack from '../stacks/ProfileStack';
-import { HomeIcon, BellIcon, PersonIcon, MapIcon } from '../icons/Index';
-import { withTheme } from '../utils/Themes';
-import { tabBarOptions } from '../constants/Navigation';
-import { getTabBarBadgeStyle } from '../styles/Badge';
+import HomeStack from '@stacks/HomeStack';
+import MapStack from '@stacks/MapStack';
+import NotificationStack from '@stacks/NotificationStack';
+import ProfileStack from '@stacks/ProfileStack';
+import { HomeIcon, BellIcon, PersonIcon, MapIcon } from '@icons/Index';
+import { withTheme } from '@utils/Themes';
+import { tabBarOptions } from '@constants/Navigation';
+import { getTabBarBadgeStyle } from '@styles/Badge';
 
 const propTypes = {
     notifBadgeCount: PropTypes.number,

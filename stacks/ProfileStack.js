@@ -9,11 +9,11 @@ import {
     HikeScreen,
     NotificationSettingsScreen,
     PasswordScreen,
-} from '../screens/Index';
-import { mode, headerMode, screenOptions } from '../constants/Navigation';
-import { withTheme } from '../utils/Themes';
-import { setFocusedStack } from '../actions/Navigation';
-import ToastProvider from '../providers/ToastProvider';
+} from '@screens/Index';
+import { mode, headerMode, screenOptions } from '@constants/Navigation';
+import { withTheme } from '@utils/Themes';
+import { setFocusedStack } from '@actions/Navigation';
+import ToastProvider from '@providers/ToastProvider';
 
 const propTypes = {
     dispatchFocusedStack: PropTypes.func.isRequired,

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { fontSizes, fontWeights, spacing } from '../constants/Index';
+import { fontSizes, fontWeights, spacing } from '@constants/Index';
 
 export const Title = styled.Text`
     color: ${(props) => props.theme.text};

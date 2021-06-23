@@ -7,7 +7,7 @@ import {
     logoutAndResetNavigation,
     clearNotifBadgeCount,
     writeFavoriteHikes,
-} from '../utils/User';
+} from '@utils/User';
 
 export const initializeUserData = (userData) => ({
     type: 'INITIALIZE_USER_DATA',

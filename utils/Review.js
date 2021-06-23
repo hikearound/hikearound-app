@@ -1,8 +1,8 @@
-import { db, auth, timestamp } from '../lib/Fire';
-import { getUserProfileData } from './User';
-import { getRange } from './Location';
-import { isRecent } from './Time';
-import { getHikeData } from './Hike';
+import { db, auth, timestamp } from '@lib/Fire';
+import { getUserProfileData } from '@utils/User';
+import { getRange } from '@utils/Location';
+import { isRecent } from '@utils/Time';
+import { getHikeData } from '@utils/Hike';
 
 export async function buildReviewArray(t, data) {
     const reviews = [];

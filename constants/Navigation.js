@@ -1,11 +1,11 @@
 import React from 'react';
 import { HeaderStyleInterpolators } from '@react-navigation/stack';
 import * as Device from 'expo-device';
-import { colors } from './Colors';
-import { fontSizes } from './Fonts';
-import { getHeaderHeight } from '../utils/Navigation';
-import spacing from './Spacing';
-import Back from '../components/header/Back';
+import { colors } from '@constants/Colors';
+import { fontSizes } from '@constants/Fonts';
+import { getHeaderHeight } from '@utils/Navigation';
+import spacing from '@constants/Spacing';
+import Back from '@components/header/Back';
 
 export const mode = 'card';
 export const headerMode = 'float';

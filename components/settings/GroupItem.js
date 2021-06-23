@@ -4,15 +4,10 @@ import { TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { connect } from 'react-redux';
 import * as Haptics from 'expo-haptics';
-import {
-    colors,
-    spacing,
-    opacities,
-    settingsItems,
-} from '../../constants/Index';
-import { updateMap } from '../../actions/User';
-import { ItemContainer, ItemText } from '../../styles/Settings';
-import { withTheme } from '../../utils/Themes';
+import { colors, spacing, opacities, settingsItems } from '@constants/Index';
+import { updateMap } from '@actions/User';
+import { ItemContainer, ItemText } from '@styles/Settings';
+import { withTheme } from '@utils/Themes';
 
 const propTypes = {
     item: PropTypes.object.isRequired,

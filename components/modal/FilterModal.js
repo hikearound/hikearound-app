@@ -4,23 +4,23 @@ import { Modal, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import styled from 'styled-components';
-import ModalDismiss from './header/Dismiss';
-import ModalReset from './header/Reset';
-import FilterSegmentedControl from '../FilterSegmentedControl';
-import { withTheme } from '../../utils/Themes';
-import { RootView } from '../../styles/Screens';
-import { getSegmentedControls } from '../../utils/Filter';
+import ModalDismiss from '@components/modal/header/Dismiss';
+import ModalReset from '@components/modal/header/Reset';
+import FilterSegmentedControl from '@components/FilterSegmentedControl';
+import { withTheme } from '@utils/Themes';
+import { RootView } from '@styles/Screens';
+import { getSegmentedControls } from '@utils/Filter';
 import {
     PageSheetModalHeader,
     PageSheetModalTitleText,
     ModalBody,
-} from '../../styles/Modals';
-import { defaultState } from '../../constants/states/FilterModal';
-import { Button, Text } from '../../styles/Actions';
-import { opacities, spacing } from '../../constants/Index';
-import { filterFeed } from '../../actions/Feed';
-import { closeModal } from '../../actions/Modal';
-import { toggleModalVisibility } from '../../utils/Modal';
+} from '@styles/Modals';
+import { defaultState } from '@constants/states/FilterModal';
+import { Button, Text } from '@styles/Actions';
+import { opacities, spacing } from '@constants/Index';
+import { filterFeed } from '@actions/Feed';
+import { closeModal } from '@actions/Modal';
+import { toggleModalVisibility } from '@utils/Modal';
 
 const propTypes = {
     currentModal: PropTypes.string.isRequired,

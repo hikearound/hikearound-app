@@ -3,14 +3,14 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
 import ReadMore from 'react-native-read-more-text';
-import { deleteReviewData } from '../actions/Review';
-import Avatar from './Avatar';
-import Stars from './Stars';
-import LikeButton from './LikeButton';
-import OverflowButton from './review/Overflow';
-import { shouldCapitalizeTimestamp } from '../utils/Localization';
-import { withTheme } from '../utils/Themes';
-import { showModal, setReviewData, setFlaggedReview } from '../actions/Modal';
+import { showModal, setReviewData, setFlaggedReview } from '@actions/Modal';
+import { deleteReviewData } from '@actions/Review';
+import Avatar from '@components/Avatar';
+import Stars from '@components/Stars';
+import LikeButton from '@components/LikeButton';
+import OverflowButton from '@components/review/Overflow';
+import { shouldCapitalizeTimestamp } from '@utils/Localization';
+import { withTheme } from '@utils/Themes';
 import {
     ReviewItem,
     Header,
@@ -21,12 +21,12 @@ import {
     StarWrapper,
     Review,
     TextWrapper,
-} from '../styles/Review';
-import { ActionText } from '../styles/Text';
-import { reviewActionSheet } from './action_sheets/Review';
-import { parseText } from '../utils/Text';
-import { getLocalizedMoment } from '../utils/Time';
-import { timestamps } from '../constants/Index';
+} from '@styles/Review';
+import { ActionText } from '@styles/Text';
+import { reviewActionSheet } from '@components/action_sheets/Review';
+import { parseText } from '@utils/Text';
+import { getLocalizedMoment } from '@utils/Time';
+import { timestamps } from '@constants/Index';
 
 const propTypes = {
     dispatchModalFlag: PropTypes.func.isRequired,

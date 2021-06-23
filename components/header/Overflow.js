@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { colors, opacities } from '../../constants/Index';
+import { colors, opacities } from '@constants/Index';
 
 const propTypes = {
     onPress: PropTypes.func.isRequired,

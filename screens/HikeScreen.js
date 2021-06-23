@@ -2,20 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
-import { HikeBody, Overflow, MapModal } from '../components/Index';
-import { hikeActionSheet } from '../components/action_sheets/Hike';
-import ReviewModal from '../components/modal/ReviewModal';
-import FlagModal from '../components/modal/FlagModal';
-import { getHikeXmlUrl, parseHikeXml } from '../utils/Hike';
-import { copyLink } from '../actions/Hike';
-import { RootView } from '../styles/Screens';
-import { withTheme, SetBarStyle } from '../utils/Themes';
-import { getDrivingDirections } from '../utils/Map';
-import { latModifier } from '../constants/Common';
-import { truncateText } from '../utils/Text';
-import { shareHike } from '../utils/Share';
-import { timings } from '../constants/Index';
-import Title from '../components/header/Title';
+import { HikeBody, Overflow, MapModal } from '@components/Index';
+import { hikeActionSheet } from '@components/action_sheets/Hike';
+import ReviewModal from '@components/modal/ReviewModal';
+import FlagModal from '@components/modal/FlagModal';
+import { getHikeXmlUrl, parseHikeXml } from '@utils/Hike';
+import { copyLink } from '@actions/Hike';
+import { RootView } from '@styles/Screens';
+import { withTheme, SetBarStyle } from '@utils/Themes';
+import { getDrivingDirections } from '@utils/Map';
+import { latModifier } from '@constants/Common';
+import { truncateText } from '@utils/Text';
+import { shareHike } from '@utils/Share';
+import { timings } from '@constants/Index';
+import Title from '@components/header/Title';
 
 const propTypes = {
     dispatchCopyLink: PropTypes.func.isRequired,

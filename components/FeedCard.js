@@ -3,21 +3,21 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Image } from 'react-native-expo-image-cache';
 import { withTranslation } from 'react-i18next';
-import FeedCardGradient from './FeedCardGradient';
+import FeedCardGradient from '@components/FeedCardGradient';
 import {
     spacing,
     colors,
     transparentColors,
     borderRadius,
     fontSizes,
-} from '../constants/Index';
-import { withTheme } from '../utils/Themes';
-import { getDistanceToHike } from '../utils/Location';
-import LocationPill from './feed/card/pill/Location';
-import DifficultyPill from './feed/card/pill/Difficulty';
-import Stars from './Stars';
-import FavoriteButton from './FavoriteButton';
-import ShareButton from './ShareButton';
+} from '@constants/Index';
+import { withTheme } from '@utils/Themes';
+import { getDistanceToHike } from '@utils/Location';
+import LocationPill from '@components/feed/card/pill/Location';
+import DifficultyPill from '@components/feed/card/pill/Difficulty';
+import Stars from '@components/Stars';
+import FavoriteButton from '@components/FavoriteButton';
+import ShareButton from '@components/ShareButton';
 
 const propTypes = {
     hid: PropTypes.string.isRequired,

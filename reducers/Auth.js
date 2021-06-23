@@ -1,4 +1,4 @@
-import { authState } from '../constants/Reducers';
+import { authState } from '@constants/Reducers';
 
 export default function authReducer(state = authState, action) {
     switch (action.type) {

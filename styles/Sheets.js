@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { fontSizes, spacing, fontWeights } from '../constants/Index';
+import { fontSizes, spacing, fontWeights } from '@constants/Index';
 
 export const SheetPadding = styled.View`
     background-color: ${(props) => props.theme.sheetBackground};

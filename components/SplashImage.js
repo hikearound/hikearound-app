@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Animated, StatusBar } from 'react-native';
-import { colors } from '../constants/Index';
-import { withTheme } from '../utils/Themes';
+import { colors } from '@constants/Index';
+import { withTheme } from '@utils/Themes';
 
 function mapStateToProps() {
     return {};

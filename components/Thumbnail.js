@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { Image } from 'react-native-expo-image-cache';
-import { spacing, borderRadius, opacities } from '../constants/Index';
-import { showModal, setLightboxImage, setSelectedHike } from '../actions/Modal';
-import { withTheme } from '../utils/Themes';
+import { spacing, borderRadius, opacities } from '@constants/Index';
+import { showModal, setLightboxImage, setSelectedHike } from '@actions/Modal';
+import { withTheme } from '@utils/Themes';
 
 const propTypes = {
     dispatchImage: PropTypes.func.isRequired,

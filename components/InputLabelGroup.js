@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { fontSizes, spacing, fontWeights } from '../constants/Index';
-import { withTheme } from '../utils/Themes';
+import { fontSizes, spacing, fontWeights } from '@constants/Index';
+import { withTheme } from '@utils/Themes';
 
 const propTypes = {
     placeholder: PropTypes.string.isRequired,

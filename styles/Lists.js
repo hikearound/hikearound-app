@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { fontSizes, fontWeights, colors, spacing } from '../constants/Index';
+import { fontSizes, fontWeights, colors, spacing } from '@constants/Index';
 
 export const View = styled.View`
     border-color: ${(props) => props.theme.itemBorder};

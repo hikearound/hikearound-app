@@ -1,5 +1,5 @@
 import { parseString } from 'react-native-xml2js';
-import { db, storage, auth, timestamp } from '../lib/Fire';
+import { db, storage, auth, timestamp } from '@lib/Fire';
 
 export async function getHikeSnapshot(hid) {
     return db.collection('hikes').doc(hid).get();
