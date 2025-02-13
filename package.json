@@ -80,7 +80,6 @@
     "react-native-svg-animated-linear-gradient": "^0.4.0",
     "react-native-swipe-gestures": "^1.0.5",
     "react-native-toast-message": "^1.4.9",
-    "react-native-web": "^0.16.5",
     "react-native-xml2js": "^1.0.3",
     "react-redux": "^7.2.4",
     "reanimated-bottom-sheet": "^1.0.0-alpha.22",
