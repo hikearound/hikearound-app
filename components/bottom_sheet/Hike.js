@@ -53,6 +53,7 @@ class HikeSheet extends React.Component {
                         <SheetActions
                             selectedHike={selectedHike}
                             coordinates={sheetData.coordinates.starting}
+                            hikeName={sheetData.name}
                         />
                     </View>
                 )}

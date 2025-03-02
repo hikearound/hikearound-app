@@ -1,8 +1,8 @@
 export function getMapSetting(map) {
     if (map === 'Google Maps') {
-        return 'google';
+        return 'google-maps';
     }
-    return 'apple';
+    return 'apple-maps';
 }
 
 export default getMapSetting;

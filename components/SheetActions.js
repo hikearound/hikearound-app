@@ -12,6 +12,7 @@ import { ActionWrapper, Button, Text } from '@styles/Actions';
 const propTypes = {
     selectedHike: PropTypes.string.isRequired,
     coordinates: PropTypes.object.isRequired,
+    hikeName: PropTypes.string.isRequired,
 };
 
 class SheetActions extends React.PureComponent {
@@ -33,13 +34,13 @@ class SheetActions extends React.PureComponent {
     };
 
     renderDirectionsButton = () => {
-        const { coordinates, t } = this.props;
+        const { coordinates, t, hikeName } = this.props;
         const { lat, lng } = coordinates;
 
         return (
             <TouchableOpacity
                 onPress={() => {
-                    getDrivingDirections(lat, lng);
+                    getDrivingDirections(lat, lng, hikeName);
                 }}
                 activeOpacity={opacities.regular}
             >

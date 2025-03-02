@@ -63,9 +63,9 @@ class FeedItem extends React.Component {
     };
 
     getDirections = async () => {
-        const { coordinates } = this.props;
+        const { coordinates, name } = this.props;
         const { lat, lng } = coordinates.starting;
-        getDrivingDirections(lat, lng);
+        getDrivingDirections(lat, lng, name);
     };
 
     render() {

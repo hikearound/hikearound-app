@@ -126,7 +126,7 @@ class HikeScreen extends React.Component {
         const { hike } = route.params;
         const { lat, lng } = hike.coordinates.starting;
 
-        getDrivingDirections(lat, lng);
+        getDrivingDirections(lat, lng, hike.name);
     };
 
     shareHike = async () => {

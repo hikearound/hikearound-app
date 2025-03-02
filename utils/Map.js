@@ -1,4 +1,4 @@
-import openMap from 'react-native-open-maps';
+import { showLocation } from 'react-native-map-link';
 import supercluster from 'supercluster';
 import store from '@store/Store';
 import { getMapSetting } from '@utils/Settings';
@@ -35,16 +35,17 @@ export async function getMapData(dispatchMapData) {
     dispatchMapData({ selectedHike, markers });
 }
 
-export function getDrivingDirections(latitude, longitude) {
+export function getDrivingDirections(latitude, longitude, hikeName) {
     const state = store.getState();
     const { map } = state.userReducer;
 
     const mapProvider = getMapSetting(map);
 
-    openMap({
-        provider: mapProvider,
-        travelType: 'drive',
-        query: `${latitude}, ${longitude}`,
+    showLocation({
+        latitude,
+        longitude,
+        title: hikeName,
+        app: mapProvider,
     });
 }
 

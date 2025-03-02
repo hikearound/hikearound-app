@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Modal } from 'react-native';
+import { Modal, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import ModalDismiss from '@components/modal/header/Dismiss';
 import HikeMap from '@components/map/Hike';
 import GraphSheet from '@components/bottom_sheet/Graph';
 import { toggleModalVisibility } from '@utils/Modal';
-import { toggleStatusBar } from '@utils/Themes';
+import { withTheme } from '@utils/Themes';
 
 const propTypes = {
     currentModal: PropTypes.string.isRequired,
@@ -80,12 +80,17 @@ class MapModal extends React.Component {
     };
 
     hideModal = () => {
-        toggleStatusBar(false);
+        StatusBar.setBarStyle('light-content', true);
         this.setState({ modalVisible: false });
     };
 
     showModal = () => {
-        toggleStatusBar(true);
+        const { theme } = this.props;
+
+        if (!theme.dark) {
+            StatusBar.setBarStyle('dark-content', true);
+        }
+
         this.setState({ modalVisible: true });
     };
 
@@ -148,7 +153,7 @@ class MapModal extends React.Component {
 MapModal.propTypes = propTypes;
 MapModal.defaultProps = defaultProps;
 
-export default connect(mapStateToProps)(MapModal);
+export default connect(mapStateToProps, {})(withTheme(MapModal));
 
 const ModalRoot = styled.View`
     display: flex;
