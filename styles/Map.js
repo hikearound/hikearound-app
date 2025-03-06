@@ -18,9 +18,11 @@ export function getMapSearchStyle(theme, hideShadow, hideBackground) {
             marginRight: 0,
             color: theme.colors.text,
             fontSize: parseInt(fontSizes.medium, 10),
+            paddingLeft: parseInt(spacing.tiny, 10),
             borderWidth: 1,
             borderColor: theme.colors.border,
             height: 38,
+            borderRadius: parseInt(spacing.tiny, 10),
             backgroundColor: theme.colors.searchBackground,
             shadowColor: hideShadow
                 ? 'transparent'

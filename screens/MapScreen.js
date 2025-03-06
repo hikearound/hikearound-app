@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import { View } from 'react-native';
 import { connect } from 'react-redux';
 import GlobalMap from '@components/map/Global';
+// TODO (pat): Needs newer version of expo to work correctly
 // import MapSearch from '@components/map/Search';
+import PlaceholderMapSearch from '@components/map/PlaceholderSearch';
 import HikeSheet from '@components/bottom_sheet/Hike';
 import { withTheme, SetBarStyle, setBarStyleWithTheme } from '@utils/Themes';
 import { getHikeData } from '@utils/Hike';
@@ -102,6 +104,11 @@ class MapScreen extends React.Component {
                         this.bottomSheetRef.current.snapTo(2);
                     }}
                 /> */}
+                <PlaceholderMapSearch
+                    hideHikeSheet={() => {
+                        this.bottomSheetRef.current.snapTo(2);
+                    }}
+                />
                 {position && (
                     <GlobalMap
                         mapRef={this.mapRef}
