@@ -3,20 +3,19 @@ import PropTypes from 'prop-types';
 import { View } from 'react-native';
 import { connect } from 'react-redux';
 import GlobalMap from '@components/map/Global';
-// TODO (pat): Needs newer version of expo to work correctly
-// import MapSearch from '@components/map/Search';
-import PlaceholderMapSearch from '@components/map/PlaceholderSearch';
+import GooglePlacesSearch from '@components/map/GooglePlacesSearch';
 import HikeSheet from '@components/bottom_sheet/Hike';
 import { withTheme, SetBarStyle, setBarStyleWithTheme } from '@utils/Themes';
 import { getHikeData } from '@utils/Hike';
 import { withNavigation } from '@utils/Navigation';
 import { defaultState } from '@constants/states/Map';
-import { timings } from '@constants/Index';
+import { updateMapData } from '@actions/Map';
 
 const propTypes = {
     markers: PropTypes.array,
     position: PropTypes.object,
     selectedHike: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    dispatchMapData: PropTypes.func.isRequired,
 };
 
 const defaultProps = {
@@ -33,8 +32,10 @@ function mapStateToProps(state) {
     };
 }
 
-function mapDispatchToProps() {
-    return {};
+function mapDispatchToProps(dispatch) {
+    return {
+        dispatchMapData: (mapData) => dispatch(updateMapData(mapData)),
+    };
 }
 
 class MapScreen extends React.Component {
@@ -47,16 +48,17 @@ class MapScreen extends React.Component {
         this.mapRef = React.createRef();
 
         this.setState = this.setState.bind(this);
-        this.state = defaultState;
-        this.state.markers = markers;
-        this.state.loading = true;
+        this.state = {
+            ...defaultState,
+            markers,
+            barStyle: 'dark-content',
+        };
     }
 
     async componentDidMount() {
         const { theme } = this.props;
 
         setBarStyleWithTheme(theme, this.setState);
-        this.setLoadingTimeout();
     }
 
     async componentDidUpdate(prevProps) {
@@ -76,14 +78,6 @@ class MapScreen extends React.Component {
         }
     }
 
-    setLoadingTimeout = () => {
-        setTimeout(() => {
-            this.setState({
-                loading: false,
-            });
-        }, timings.extraLong);
-    };
-
     setSheetData = (sheetData) => {
         this.setState({ sheetData });
     };
@@ -92,22 +86,46 @@ class MapScreen extends React.Component {
         this.setState({ markers });
     };
 
+    handleSearchSelect = (data, details) => {
+        const { dispatchMapData } = this.props;
+
+        if (!details || !details.geometry || !details.geometry.location) {
+            return;
+        }
+
+        // Update location and clear markers
+        dispatchMapData({
+            markers: [],
+            selectedCity: {
+                geometry: {
+                    location: {
+                        lat: details.geometry.location.lat,
+                        lng: details.geometry.location.lng,
+                    },
+                },
+                animationDuration: 0,
+            },
+            animationConfig: {
+                pitch: 0,
+                heading: 0,
+                duration: 0,
+            },
+        });
+
+        this.bottomSheetRef.current.snapTo(2);
+    };
+
     render() {
-        const { position, selectedHike } = this.props;
+        const { position, selectedHike, theme } = this.props;
         const { markers, barStyle, sheetData } = this.state;
 
         return (
             <View>
                 <SetBarStyle barStyle={barStyle} />
-                {/* <MapSearch
-                    hideHikeSheet={() => {
-                        this.bottomSheetRef.current.snapTo(2);
-                    }}
-                /> */}
-                <PlaceholderMapSearch
-                    hideHikeSheet={() => {
-                        this.bottomSheetRef.current.snapTo(2);
-                    }}
+                <GooglePlacesSearch
+                    theme={theme}
+                    onPress={this.handleSearchSelect}
+                    placeholder='Search for a city'
                 />
                 {position && (
                     <GlobalMap

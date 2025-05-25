@@ -10,13 +10,16 @@ import { presets } from '@constants/Animation';
 
 const propTypes = {
     distance: PropTypes.number,
+    isClearing: PropTypes.bool,
 };
 
 class GlobalMarker extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
-        LayoutAnimation.configureNext(presets.spring);
+        if (!props.isClearing) {
+            LayoutAnimation.configureNext(presets.spring);
+        }
     }
 
     componentDidMount() {
@@ -65,7 +68,10 @@ class GlobalMarker extends React.Component {
 }
 
 GlobalMarker.propTypes = propTypes;
-GlobalMarker.defaultProps = defaultProps;
+GlobalMarker.defaultProps = {
+    ...defaultProps,
+    isClearing: false,
+};
 
 export default withTheme(GlobalMarker);
 

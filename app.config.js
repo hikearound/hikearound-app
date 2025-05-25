@@ -35,7 +35,7 @@ export default ({ config }) => ({
             apiKey: process.env.GOOGLE_GEO_KEY,
         },
         algolia: {
-            appId: '18BA5IWUAQ',
+            appId: process.env.ALGOLIA_APP_ID,
             searchKey: process.env.ALGOLIA_SEARCH_KEY,
         },
     },

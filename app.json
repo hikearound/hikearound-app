@@ -1,50 +1,45 @@
 {
-  "expo": {
-    "name": "Hikearound",
-    "slug": "hikearound-app",
-    "scheme": "hikearound",
-    "privacy": "public",
-    "platforms": [
-      "ios",
-      "web"
-    ],
-    "version": "0.0.43",
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#935DFF"
-    },
-    "notification": {
-      "iosDisplayInForeground": true
-    },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": false,
-      "usesAppleSignIn": true,
-      "userInterfaceStyle": "automatic",
-      "bundleIdentifier": "com.tryhikearound",
-      "googleServicesFile": "./keys/GoogleService-Info.plist",
-      "infoPlist": {
-        "CFBundleAllowMixedLocalizations": true
-      },
-      "associatedDomains": [
-        "applinks:www.tryhikearound.com",
-        "applinks:tryhikearound.com",
-        "applinks:url8422.tryhikearound.com"
-      ],
-    },
-    "locales": {
-      "en": "./infoPlist/en.json",
-      "es": "./infoPlist/es.json"
-    },
-    "description": "Hikearound is the easiest way to discover, save, and share great local hikes.",
-    "githubUrl": "https://github.com/hikearound/hikearound-app"
-  }
+    "expo": {
+        "name": "Hikearound",
+        "slug": "hikearound-app",
+        "scheme": "hikearound",
+        "privacy": "public",
+        "platforms": ["ios", "web"],
+        "version": "0.0.43",
+        "orientation": "portrait",
+        "icon": "./assets/icon.png",
+        "splash": {
+            "image": "./assets/splash.png",
+            "resizeMode": "contain",
+            "backgroundColor": "#935DFF"
+        },
+        "notification": {
+            "iosDisplayInForeground": true
+        },
+        "updates": {
+            "fallbackToCacheTimeout": 0
+        },
+        "assetBundlePatterns": ["**/*"],
+        "ios": {
+            "supportsTablet": false,
+            "usesAppleSignIn": true,
+            "userInterfaceStyle": "automatic",
+            "bundleIdentifier": "com.tryhikearound",
+            "googleServicesFile": "./keys/GoogleService-Info.plist",
+            "infoPlist": {
+                "CFBundleAllowMixedLocalizations": true
+            },
+            "associatedDomains": [
+                "applinks:www.tryhikearound.com",
+                "applinks:tryhikearound.com",
+                "applinks:url8422.tryhikearound.com"
+            ]
+        },
+        "locales": {
+            "en": "./infoPlist/en.json",
+            "es": "./infoPlist/es.json"
+        },
+        "description": "Hikearound is the easiest way to discover, save, and share great local hikes.",
+        "githubUrl": "https://github.com/hikearound/hikearound-app"
+    }
 }

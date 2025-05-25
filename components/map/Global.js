@@ -71,7 +71,11 @@ class GlobalMap extends React.Component {
         }
 
         if (prevProps.markers !== markers) {
-            this.setInitialMarkers();
+            // Force immediate marker update
+            this.setState({ visibleMarkers: markers }, () => {
+                // Force a re-render of markers
+                this.forceUpdate();
+            });
         }
 
         if (prevState.region !== region) {
@@ -257,6 +261,7 @@ class GlobalMap extends React.Component {
                 coordinate={coordinate}
                 onPress={this.markerPress}
                 tracksViewChanges={false}
+                zIndex={1}
             >
                 <GlobalMarker distance={marker.distance} />
             </Marker>

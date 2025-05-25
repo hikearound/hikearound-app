@@ -52,13 +52,20 @@ export function getMapSearchStyle(theme, hideShadow, hideBackground) {
             marginLeft: parseInt(spacing.tiny, 10),
             marginRight: parseInt(spacing.tiny, 10),
             minHeight: 10,
+            backgroundColor: theme.colors.searchBackground,
+            borderRadius: parseInt(spacing.tiny, 10),
+            paddingTop: parseInt(spacing.micro, 10),
+            paddingBottom: parseInt(spacing.tiny, 10),
+            paddingHorizontal: parseInt(spacing.micro, 10),
         },
         separator: {
             backgroundColor: theme.colors.border,
             height: 1,
+            marginVertical: parseInt(spacing.micro, 10),
         },
         row: {
-            paddingLeft: 0,
+            paddingVertical: parseInt(spacing.tiny, 10),
+            paddingHorizontal: parseInt(spacing.micro, 10),
             backgroundColor: 'transparent',
         },
         powered: {

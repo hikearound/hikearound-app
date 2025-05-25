@@ -2,6 +2,7 @@ import React from 'react';
 import { useTheme, useFocusEffect } from '@react-navigation/native';
 import { useColorScheme } from 'react-native-appearance';
 import { StatusBar } from 'react-native';
+import PropTypes from 'prop-types';
 
 export function withTheme(Component) {
     return function WrappedComponent(props) {
@@ -11,7 +12,6 @@ export function withTheme(Component) {
         return <Component {...props} theme={theme} scheme={scheme} />;
     };
 }
-
 export function SetBarStyle({ barStyle }) {
     useFocusEffect(
         React.useCallback(() => {
@@ -20,6 +20,10 @@ export function SetBarStyle({ barStyle }) {
     );
     return null;
 }
+
+SetBarStyle.propTypes = {
+    barStyle: PropTypes.string.isRequired,
+};
 
 export function setBarStyleWithTheme(theme, setState) {
     if (theme.dark) {
