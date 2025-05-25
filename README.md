@@ -36,19 +36,13 @@ cd hikearound-app
 npm install
 ```
 
-3. Create a `.env` file in the root directory with the following variables:
+3. Create a `.env` file in the root directory:
 
+```bash
+cp env.tmp .env
 ```
-ALGOLIA_APP_ID=your_algolia_app_id
-ALGOLIA_SEARCH_KEY=your_algolia_search_key
-FIREBASE_KEY=your_firebase_key
-GOOGLE_PLACES_KEY=your_google_places_key
-GOOGLE_GEO_KEY=your_google_geo_key
-SENTRY_DSN=your_sentry_dsn
-SENTRY_AUTH_TOKEN=your_sentry_auth_token
-FACEBOOK_APP_ID=your_facebook_app_id
-FIREBASE_MEASUREMENT_ID=your_firebase_measurement_id
-```
+
+Then fill in your environment variables in the `.env` file.
 
 ## Development
 
@@ -107,7 +101,3 @@ hikearound-app/
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Support
-
-For support, please contact the development team or open an issue in the repository.
