@@ -10,7 +10,7 @@ import {
     NotificationSettingsScreen,
     PasswordScreen,
 } from '@screens/Index';
-import { mode, headerMode, screenOptions } from '@constants/Navigation';
+import { screenOptions } from '@constants/Navigation';
 import { withTheme } from '@utils/Themes';
 import { setFocusedStack } from '@actions/Navigation';
 import ToastProvider from '@providers/ToastProvider';
@@ -106,8 +106,6 @@ class ProfileStack extends React.PureComponent {
                 <Stack.Navigator
                     initialRouteName={stackName}
                     screenOptions={screenOptions(theme.colors.headerStyle)}
-                    headerMode={headerMode}
-                    mode={mode}
                 >
                     {this.renderProfileScreen(t)}
                     {this.renderHikeScreen()}

@@ -14,7 +14,7 @@ import {
     SearchScreen,
     ReviewScreen,
 } from '@screens/Index';
-import { mode, headerMode, screenOptions } from '@constants/Navigation';
+import { screenOptions } from '@constants/Navigation';
 import { Logo } from '@components/Index';
 import { withTheme } from '@utils/Themes';
 import { tabBarScreens } from '@constants/Screens';
@@ -84,7 +84,7 @@ class HomeStack extends React.Component {
         let initialRoute = 'Landing';
 
         if (user && user.uid) {
-            initialRoute = 'Home';
+            initialRoute = 'HomeScreen';
         }
 
         this.setTabBarVisibility(initialRoute);
@@ -125,7 +125,7 @@ class HomeStack extends React.Component {
 
     renderHomeScreen = () => (
         <Stack.Screen
-            name='Home'
+            name='HomeScreen'
             component={HomeScreen}
             options={() => ({
                 animationEnabled: false,
@@ -188,8 +188,6 @@ class HomeStack extends React.Component {
                         screenOptions={({ route, navigation }) =>
                             this.setScreenOptions(route, navigation)
                         }
-                        headerMode={headerMode}
-                        mode={mode}
                     >
                         {this.renderLandingScreen()}
                         {this.renderSignInScreen(t)}

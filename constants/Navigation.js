@@ -49,7 +49,6 @@ export function screenOptions(backgroundColor) {
         },
         headerBackImage: () => <Back />,
         headerBackTitleVisible: false,
-        headerStyleInterpolator: forCustomHeaderAnimation,
     };
 }
 

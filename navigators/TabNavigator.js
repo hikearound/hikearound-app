@@ -11,7 +11,6 @@ import NotificationStack from '@stacks/NotificationStack';
 import ProfileStack from '@stacks/ProfileStack';
 import { HomeIcon, BellIcon, PersonIcon, MapIcon } from '@icons/Index';
 import { withTheme } from '@utils/Themes';
-import { tabBarOptions } from '@constants/Navigation';
 import { getTabBarBadgeStyle } from '@styles/Badge';
 
 const propTypes = {
@@ -59,7 +58,7 @@ class TabNavigator extends React.Component {
 
     renderHomeStack = (t) => (
         <Tab.Screen
-            name='Home'
+            name='HomeTab'
             component={HomeStack}
             options={() => ({
                 tabBarLabel: t('label.nav.home'),
@@ -77,7 +76,7 @@ class TabNavigator extends React.Component {
 
     renderMapStack = (t) => (
         <Tab.Screen
-            name='Map'
+            name='MapTab'
             component={MapStack}
             options={() => ({
                 tabBarLabel: t('label.nav.map'),
@@ -102,7 +101,7 @@ class TabNavigator extends React.Component {
 
         return (
             <Tab.Screen
-                name='Notification'
+                name='NotificationTab'
                 component={NotificationStack}
                 options={() => ({
                     tabBarLabel: t('label.nav.notifications'),
@@ -126,7 +125,7 @@ class TabNavigator extends React.Component {
 
     renderProfileStack = (t) => (
         <Tab.Screen
-            name='Profile'
+            name='ProfileTab'
             component={ProfileStack}
             options={() => ({
                 tabBarLabel: t('label.nav.you'),
@@ -169,11 +168,37 @@ class TabNavigator extends React.Component {
         return (
             <>
                 <Tab.Navigator
-                    tabBarOptions={tabBarOptions(
-                        theme.colors.navActive,
-                        theme.colors.navInactive,
-                        deviceType,
-                    )}
+                    screenOptions={() => ({
+                        headerShown: false,
+                        tabBarActiveTintColor: theme.colors.navActive,
+                        tabBarInactiveTintColor: theme.colors.navInactive,
+                        tabBarStyle: {
+                            height:
+                                deviceType === Device.DeviceType.TABLET
+                                    ? 110
+                                    : 95,
+                            paddingBottom:
+                                deviceType === Device.DeviceType.TABLET
+                                    ? 35
+                                    : 30,
+                            paddingTop: 0,
+                            borderTopWidth: 0,
+                            elevation: 0,
+                            shadowOpacity: 0,
+                        },
+                        tabBarLabelStyle: {
+                            fontSize: 12,
+                            marginTop: -4,
+                            marginBottom:
+                                deviceType === Device.DeviceType.TABLET ? 8 : 8,
+                        },
+                        tabBarItemStyle: {
+                            paddingVertical: 0,
+                        },
+                        tabBarIconStyle: {
+                            marginBottom: -4,
+                        },
+                    })}
                 >
                     {this.renderHomeStack(t)}
                     {this.renderMapStack(t)}

@@ -64,7 +64,7 @@ export const reviewState = {
 };
 
 export const navigationState = {
-    focusedStack: 'Home',
+    focusedStack: 'HomeTab',
 };
 
 export const notificationState = {

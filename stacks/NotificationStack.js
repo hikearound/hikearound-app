@@ -2,7 +2,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { withTranslation } from 'react-i18next';
 import { NotificationScreen, HikeScreen, ReviewScreen } from '@screens/Index';
-import { mode, headerMode, screenOptions } from '@constants/Navigation';
+import { screenOptions } from '@constants/Navigation';
 import { withTheme } from '@utils/Themes';
 
 const Stack = createStackNavigator();
@@ -39,8 +39,6 @@ class NotificationStack extends React.PureComponent {
             <Stack.Navigator
                 initialRouteName='Notification'
                 screenOptions={screenOptions(theme.colors.headerStyle)}
-                headerMode={headerMode}
-                mode={mode}
             >
                 {this.renderNotificationScreen(t)}
                 {this.renderReviewScreen(t)}
