@@ -1,7 +1,6 @@
 import { db, auth, timestamp } from '@lib/Fire';
 import { getUserProfileData } from '@utils/User';
 import { getRange } from '@utils/Location';
-import { isRecent } from '@utils/Time';
 import { getHikeData } from '@utils/Hike';
 
 export async function buildReviewArray(t, data) {
@@ -163,10 +162,9 @@ export async function queryReviews(
     const { latitude, longitude } = position.coords;
 
     const range = getRange(latitude, longitude, distance);
-    const reviewRef = getNearbyReviewRef(range, sortDirection, 10);
+    const reviewRef = getNearbyReviewRef(range, sortDirection, 5);
 
     const data = [];
-    const daysOld = 120;
     const querySnapshot = await reviewRef.get();
 
     await querySnapshot.forEach(async (review) => {
@@ -178,9 +176,7 @@ export async function queryReviews(
                 ...reviewData,
             };
 
-            if (isRecent(reduced, daysOld)) {
-                data.push(reduced);
-            }
+            data.push(reduced);
         }
     });
 

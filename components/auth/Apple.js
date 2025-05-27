@@ -1,5 +1,4 @@
 import React from 'react';
-import { CommonActions } from '@react-navigation/native';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import * as AppleAuthentication from 'expo-apple-authentication';
@@ -62,12 +61,17 @@ class AppleAuthButton extends React.Component {
         const { navigation } = this.props;
         const screen = await this.setNextScreen();
 
-        const resetAction = CommonActions.reset({
+        navigation.reset({
             index: 0,
-            routes: [{ name: screen }],
+            routes: [
+                {
+                    name: 'HomeTab',
+                    state: {
+                        routes: [{ name: screen }],
+                    },
+                },
+            ],
         });
-
-        navigation.dispatch(resetAction);
     };
 
     finishCreatingProfile = async (response, name) => {

@@ -1,5 +1,4 @@
 import React from 'react';
-import { CommonActions } from '@react-navigation/native';
 import { Alert, ScrollView, Keyboard } from 'react-native';
 import firebase from 'firebase';
 import { connect } from 'react-redux';
@@ -72,12 +71,17 @@ class CreateAccountScreen extends React.Component {
         const { navigation } = this.props;
         const screen = await this.setNextScreen();
 
-        const resetAction = CommonActions.reset({
+        navigation.reset({
             index: 0,
-            routes: [{ name: screen }],
+            routes: [
+                {
+                    name: 'HomeTab',
+                    state: {
+                        routes: [{ name: screen }],
+                    },
+                },
+            ],
         });
-
-        navigation.dispatch(resetAction);
     };
 
     finishCreatingProfile = async (response, name) => {

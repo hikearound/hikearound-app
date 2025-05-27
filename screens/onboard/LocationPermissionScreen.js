@@ -1,5 +1,4 @@
 import React from 'react';
-import { CommonActions } from '@react-navigation/native';
 import { withTranslation } from 'react-i18next';
 import { withTheme } from '@utils/Themes';
 import LocationUpsell from '@components/LocationUpsell';
@@ -32,12 +31,17 @@ class LocationPermissionScreen extends React.Component {
 
     openHomeScreen = () => {
         const { navigation } = this.props;
-        const resetAction = CommonActions.reset({
+        navigation.reset({
             index: 0,
-            routes: [{ name: 'Home' }],
+            routes: [
+                {
+                    name: 'HomeTab',
+                    state: {
+                        routes: [{ name: 'HomeScreen' }],
+                    },
+                },
+            ],
         });
-
-        navigation.dispatch(resetAction);
     };
 
     render() {

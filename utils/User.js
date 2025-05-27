@@ -1,4 +1,3 @@
-import { CommonActions } from '@react-navigation/native';
 import { Appearance } from 'react-native-appearance';
 import * as Notifications from 'expo-notifications';
 import { cacheImages } from '@utils/Image';
@@ -203,19 +202,17 @@ export async function getAvatarUri() {
 
 export function logoutAndResetNavigation(navigation) {
     auth.signOut().then(() => {
-        navigation.dispatch(
-            CommonActions.reset({
-                index: 0,
-                routes: [
-                    {
-                        name: 'Home',
-                        state: {
-                            routes: [{ name: 'Landing' }],
-                        },
+        navigation.reset({
+            index: 0,
+            routes: [
+                {
+                    name: 'HomeTab',
+                    state: {
+                        routes: [{ name: 'Landing' }],
                     },
-                ],
-            }),
-        );
+                },
+            ],
+        });
     });
 }
 
@@ -411,3 +408,17 @@ export function shouldDisableSwitch(notifs, item) {
 
     return false;
 }
+
+export const navigateToNextScreen = async (navigation) => {
+    navigation.reset({
+        index: 0,
+        routes: [
+            {
+                name: 'HomeTab',
+                state: {
+                    routes: [{ name: 'HomeScreen' }],
+                },
+            },
+        ],
+    });
+};

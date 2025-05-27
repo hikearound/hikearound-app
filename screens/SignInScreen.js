@@ -1,5 +1,4 @@
 import React from 'react';
-import { CommonActions } from '@react-navigation/native';
 import { Alert, ScrollView, Keyboard } from 'react-native';
 import firebase from 'firebase';
 import { withTranslation } from 'react-i18next';
@@ -48,12 +47,10 @@ class SignInScreen extends React.Component {
     navigateToNextScreen = async () => {
         const { navigation } = this.props;
 
-        const resetAction = CommonActions.reset({
+        navigation.reset({
             index: 0,
-            routes: [{ name: 'Home' }],
+            routes: [{ name: 'HomeScreen' }],
         });
-
-        navigation.dispatch(resetAction);
     };
 
     signInSuccessful = () => {
