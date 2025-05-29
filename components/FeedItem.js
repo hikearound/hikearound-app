@@ -43,14 +43,24 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-class FeedItem extends React.Component {
+class FeedItem extends React.PureComponent {
     constructor(props) {
         super(props);
-        const { t } = this.props;
-
-        this.showHikeSheet = hikeActionSheet.bind(this, t);
-        this.state = { showCard: true };
+        this.state = {
+            showCard: true,
+        };
     }
+
+    showHikeSheet = () => {
+        const { hid, name, dispatchCopyLink } = this.props;
+        hikeActionSheet(
+            hid,
+            name,
+            this.shareHike,
+            this.getDirections,
+            dispatchCopyLink,
+        );
+    };
 
     showSheetWithHaptics = () => {
         Haptics.selectionAsync();
@@ -68,9 +78,44 @@ class FeedItem extends React.Component {
         getDrivingDirections(lat, lng, name);
     };
 
-    render() {
+    handlePress = () => {
         const {
             navigation,
+            hid,
+            name,
+            distance,
+            elevation,
+            route,
+            city,
+            state,
+            description,
+            coordinates,
+            difficulty,
+            imageCount,
+            review,
+            geohash,
+        } = this.props;
+        navigation.push('Hike', {
+            hike: {
+                hid,
+                name,
+                distance,
+                elevation,
+                route,
+                city,
+                state,
+                description,
+                coordinates,
+                difficulty,
+                imageCount,
+                review,
+                geohash,
+            },
+        });
+    };
+
+    render() {
+        const {
             hid,
             name,
             distance,
@@ -82,9 +127,7 @@ class FeedItem extends React.Component {
             coverPhoto,
             coordinates,
             difficulty,
-            imageCount,
             review,
-            geohash,
             lastKnownPosition,
         } = this.props;
 
@@ -96,25 +139,7 @@ class FeedItem extends React.Component {
                     <TouchableOpacity
                         activeOpacity={opacities.regular}
                         onLongPress={this.showSheetWithHaptics}
-                        onPress={() => {
-                            navigation.push('Hike', {
-                                hike: {
-                                    hid,
-                                    name,
-                                    distance,
-                                    elevation,
-                                    route,
-                                    city,
-                                    state,
-                                    description,
-                                    coordinates,
-                                    difficulty,
-                                    imageCount,
-                                    review,
-                                    geohash,
-                                },
-                            });
-                        }}
+                        onPress={this.handlePress}
                     >
                         <FeedCard
                             hid={hid}

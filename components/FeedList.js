@@ -25,7 +25,7 @@ const propTypes = {
 
 const defaultProps = {};
 
-class FeedList extends React.Component {
+class FeedList extends React.PureComponent {
     renderItem = ({ item, index }) => {
         const {
             id,
@@ -87,6 +87,14 @@ class FeedList extends React.Component {
 
     renderFooter = () => <FeedFooter />;
 
+    getItemLayout = (data, index) => ({
+        length: 200, // Approximate height of each item
+        offset: 200 * index,
+        index,
+    });
+
+    keyExtractor = (item) => item.key;
+
     render() {
         const {
             onEndReached,
@@ -109,7 +117,7 @@ class FeedList extends React.Component {
                     CollapsibleHeaderComponent={() => this.renderHeader(title)}
                     headerHeight={35}
                     showsVerticalScrollIndicator={false}
-                    keyExtractor={(item) => item.key}
+                    keyExtractor={this.keyExtractor}
                     renderItem={this.renderItem}
                     refreshControl={refreshControl}
                     onEndReached={onEndReached}
@@ -117,6 +125,12 @@ class FeedList extends React.Component {
                     headerContainerBackgroundColor={theme.colors.rootBackground}
                     disableHeaderSnap
                     bounces
+                    removeClippedSubviews
+                    maxToRenderPerBatch={5}
+                    windowSize={5}
+                    initialNumToRender={5}
+                    getItemLayout={this.getItemLayout}
+                    updateCellsBatchingPeriod={50}
                 />
             </>
         );
