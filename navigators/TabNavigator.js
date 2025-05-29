@@ -5,6 +5,7 @@ import * as Haptics from 'expo-haptics';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { withTranslation } from 'react-i18next';
 import * as Device from 'expo-device';
+import { Animated } from 'react-native';
 import HomeStack from '@stacks/HomeStack';
 import MapStack from '@stacks/MapStack';
 import NotificationStack from '@stacks/NotificationStack';
@@ -26,6 +27,7 @@ const Tab = createBottomTabNavigator();
 function mapStateToProps(state) {
     return {
         notifBadgeCount: state.userReducer.notifBadgeCount,
+        tabBarHeight: state.navigationReducer.tabBarHeight,
     };
 }
 
@@ -39,12 +41,30 @@ class TabNavigator extends React.Component {
 
         this.state = {
             deviceType: Device.DeviceType.PHONE,
+            tabBarTranslateY: new Animated.Value(0),
         };
     }
 
     componentDidMount() {
         this.getDeviceType();
     }
+
+    getTabBarHeight = () => {
+        const { deviceType } = this.state;
+        return deviceType === Device.DeviceType.TABLET ? 110 : 95;
+    };
+
+    animateTabBar = (show) => {
+        const { tabBarTranslateY } = this.state;
+        const toValue = show ? 0 : this.getTabBarHeight();
+
+        Animated.spring(tabBarTranslateY, {
+            toValue,
+            useNativeDriver: true,
+            tension: 65,
+            friction: 10,
+        }).start();
+    };
 
     renderTabBarBadge = () => {
         const { notifBadgeCount } = this.props;

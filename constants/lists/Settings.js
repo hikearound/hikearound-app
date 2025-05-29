@@ -94,18 +94,41 @@ export function getVersionSection(t) {
     };
 }
 
+export function getDevelopmentSection(t) {
+    if (__DEV__) {
+        return {
+            title: t('screen.settings.header.development'),
+            data: [
+                {
+                    name: t('screen.settings.item.componentLibrary'),
+                    type: settingsItems.componentLibrary,
+                    control: settingsControls.push,
+                },
+            ],
+        };
+    }
+    return null;
+}
+
 export function getSettingsData(t) {
     const mapSection = getMapSection(t);
     const notificationSection = getNotificationSection(t);
     const termsSection = getTermsSection(t);
     const accountSection = getAccountSection(t);
     const versionSection = getVersionSection(t);
+    const developmentSection = getDevelopmentSection(t);
 
-    return [
+    const sections = [
         mapSection,
         notificationSection,
         termsSection,
         accountSection,
         versionSection,
     ];
+
+    if (developmentSection) {
+        sections.splice(sections.length - 1, 0, developmentSection);
+    }
+
+    return sections;
 }

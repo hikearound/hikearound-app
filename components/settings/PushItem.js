@@ -44,6 +44,10 @@ class PushItem extends React.Component {
         if (item.type === settingsItems.passwordScreen) {
             navigation.push('Password', { disabled });
         }
+
+        if (item.type === settingsItems.componentLibrary) {
+            navigation.push('ComponentLibrary');
+        }
     };
 
     render() {

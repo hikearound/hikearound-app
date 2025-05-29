@@ -9,6 +9,7 @@ export const settingsItems = {
     passwordScreen: 7,
     logout: 8,
     version: 9,
+    componentLibrary: 10,
 };
 
 export const settingsControls = {

@@ -9,6 +9,7 @@ import {
     HikeScreen,
     NotificationSettingsScreen,
     PasswordScreen,
+    ComponentLibraryScreen,
 } from '@screens/Index';
 import { screenOptions } from '@constants/Navigation';
 import { withTheme } from '@utils/Themes';
@@ -97,6 +98,16 @@ class ProfileStack extends React.PureComponent {
         />
     );
 
+    renderComponentLibraryScreen = () => (
+        <Stack.Screen
+            name='ComponentLibrary'
+            component={ComponentLibraryScreen}
+            options={{
+                headerTitle: '',
+            }}
+        />
+    );
+
     render() {
         const { stackName, focusedStack, theme, t } = this.props;
         const enableToast = stackName === focusedStack;
@@ -112,6 +123,7 @@ class ProfileStack extends React.PureComponent {
                     {this.renderSettingsScreen(t)}
                     {this.renderNotificationSettingsScreen(t)}
                     {this.renderPasswordScreen(t)}
+                    {this.renderComponentLibraryScreen()}
                 </Stack.Navigator>
                 {enableToast && <ToastProvider />}
             </>

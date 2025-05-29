@@ -8,7 +8,7 @@
         "test:debug": "node --inspect-brk node_modules/jest/bin/jest.js --runInBand",
         "storybook": "start-storybook -p 7007",
         "prestorybook": "rnstl",
-        "storybook:ios": "STORYBOOK_ENABLED=true expo start --ios"
+        "storybook:ios": "STORYBOOK_ENABLED=true expo start --ios --clear"
     },
     "jest": {
         "preset": "jest-expo",

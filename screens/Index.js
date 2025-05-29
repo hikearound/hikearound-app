@@ -12,6 +12,7 @@ import LocationPermissionScreen from '@screens/onboard/LocationPermissionScreen'
 import SearchScreen from '@screens/SearchScreen';
 import PasswordScreen from '@screens/settings/PasswordScreen';
 import ReviewScreen from '@screens/ReviewScreen';
+import ComponentLibraryScreen from '@screens/settings/ComponentLibraryScreen';
 
 export {
     LandingScreen,
@@ -28,4 +29,5 @@ export {
     SearchScreen,
     PasswordScreen,
     ReviewScreen,
+    ComponentLibraryScreen,
 };

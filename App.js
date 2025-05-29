@@ -8,8 +8,6 @@ import store from './store/Store';
 import Fire from './lib/Fire';
 import { ignoreWarnings } from './utils/Warnings';
 import { addTestDevice, enableAdTracking } from './utils/Ad';
-
-// Import Storybook
 import StorybookUIRoot from './storybook';
 
 enableScreens();
@@ -18,13 +16,11 @@ ignoreWarnings();
 addTestDevice();
 enableAdTracking();
 
-const STORYBOOK_ENABLED = process.env.STORYBOOK_ENABLED === 'true';
+const STORYBOOK_ENABLED = Constants.manifest?.extra?.storybookEnabled === true;
 
 class App extends React.Component {
     async componentDidMount() {
-        if (!STORYBOOK_ENABLED) {
-            await new Fire();
-        }
+        await new Fire();
     }
 
     render() {

@@ -38,7 +38,7 @@
             "map": "Map",
             "search": "Search",
             "password": "Update Password",
-            "review": "Review",
+            "review": "Review"
         },
         "modal": {
             "save": "Save",
@@ -93,7 +93,7 @@
         "elevation": {
             "unit": {
                 "miles": "mi",
-                "feet": "ft",
+                "feet": "ft"
             },
             "label": {
                 "distance": "Distance",
@@ -111,18 +111,18 @@
             }
         },
         "route": {
-            "title": "Route type",
+            "title": "Route type"
         },
         "difficulty": {
-            "title": "Difficulty",
+            "title": "Difficulty"
         },
         "elevation": {
             "title": "Elevation gain",
-            "value":  "{{elevation}} ft"
+            "value": "{{elevation}} ft"
         },
         "distance": {
             "title": "Distance",
-            "value":  "{{distance}} mi"
+            "value": "{{distance}} mi"
         }
     },
     "modal": {
@@ -180,7 +180,7 @@
             "moderate": "Moderate",
             "difficult": "Difficult"
         },
-        "list" : " · {{distance}} miles",
+        "list": " · {{distance}} miles"
     },
     "screen": {
         "review": {
@@ -189,7 +189,7 @@
         "hike": {
             "review": {
                 "empty": "This hike has not yet been reviewed.",
-                "prompt": "Tried this hike? Leave a review!",
+                "prompt": "Tried this hike? Leave a review!"
             }
         },
         "search": {
@@ -225,7 +225,7 @@
                 "permission": {
                     "title": "Location sharing disabled",
                     "description": "The Home tab only works if you've enabled location sharing. Try <1>searching for a hike</1> or <3>browse the map</3> instead."
-                },
+                }
             }
         },
         "onboard": {
@@ -264,6 +264,7 @@
         },
         "settings": {
             "header": {
+                "development": "Development",
                 "map": "Driving Directions",
                 "display": "Display",
                 "notifications": "Notifications",
@@ -273,6 +274,7 @@
                 "push": "Push Notifications"
             },
             "item": {
+                "componentLibrary": "Component Library",
                 "map": {
                     "apple": "Apple Maps",
                     "google": "Google Maps"
@@ -353,11 +355,11 @@
     "notifications": {
         "reviewLike": {
             "title": "Liked by {{name}}",
-            "subtitle": "Your review for {{name}} in {{city}}, {{state}}",
+            "subtitle": "Your review for {{name}} in {{city}}, {{state}}"
         },
         "digest": {
             "title": "New hikes near you",
-            "subtitle": "We think you might like {{name}} in {{city}}, {{state}}",
+            "subtitle": "We think you might like {{name}} in {{city}}, {{state}}"
         }
     },
     "ad": {
