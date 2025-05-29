@@ -9,18 +9,29 @@ import Fire from './lib/Fire';
 import { ignoreWarnings } from './utils/Warnings';
 import { addTestDevice, enableAdTracking } from './utils/Ad';
 
+// Import Storybook
+import StorybookUIRoot from './storybook';
+
 enableScreens();
 ignoreWarnings();
 
 addTestDevice();
 enableAdTracking();
 
+const STORYBOOK_ENABLED = process.env.STORYBOOK_ENABLED === 'true';
+
 class App extends React.Component {
     async componentDidMount() {
-        await new Fire();
+        if (!STORYBOOK_ENABLED) {
+            await new Fire();
+        }
     }
 
     render() {
+        if (STORYBOOK_ENABLED) {
+            return <StorybookUIRoot />;
+        }
+
         return (
             <Provider store={store}>
                 <Splash />
