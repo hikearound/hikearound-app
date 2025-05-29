@@ -25,13 +25,9 @@ function ComponentLibraryScreen({ theme, navigation }) {
     );
 
     useEffect(() => {
-        // Set initial title
         navigation.setOptions({ headerTitle: '' });
-
-        // Listen for story changes
         storyChangeEmitter.on('storyChange', updateTitle);
 
-        // Clean up listener
         return () => {
             storyChangeEmitter.removeListener('storyChange', updateTitle);
         };

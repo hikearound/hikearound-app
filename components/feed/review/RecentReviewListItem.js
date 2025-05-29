@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { withTranslation } from 'react-i18next';
 import { spacing, opacities, borderRadius, fontSizes } from '@constants/Index';
 import { withNavigation } from '@utils/Navigation';
-import { defaultProps } from '@constants/states/FeedItem';
+import { defaultProps as feedItemDefaultProps } from '@constants/states/FeedItem';
 import { openReviewScreen } from '@utils/Review';
 import ReviewListItem from '@components/ReviewListItem';
 import { cardWidth } from '@constants/Carousel';
@@ -19,6 +19,12 @@ const propTypes = {
     userLikes: PropTypes.array.isRequired,
     user: PropTypes.object.isRequired,
     hike: PropTypes.object.isRequired,
+    hasRightMargin: PropTypes.bool,
+};
+
+const defaultProps = {
+    ...feedItemDefaultProps,
+    hasRightMargin: true,
 };
 
 class RecentReviewListItem extends React.PureComponent {
@@ -58,8 +64,9 @@ class RecentReviewListItem extends React.PureComponent {
     };
 
     render() {
+        const { hasRightMargin } = this.props;
         return (
-            <CardsContainer width={cardWidth}>
+            <CardsContainer width={cardWidth} hasRightMargin={hasRightMargin}>
                 <TouchableOpacity
                     activeOpacity={opacities.regular}
                     onPress={this.onPress}
@@ -85,7 +92,7 @@ const CardsContainer = styled.View`
     border: 1px solid;
     border-color: ${(props) => props.theme.itemBorder};
     border-radius: ${borderRadius.medium}px;
-    margin-right: ${spacing.tiny}px;
+    margin-right: ${(props) => (props.hasRightMargin ? spacing.tiny : 0)}px;
     background-color: ${(props) => props.theme.feedReviewBackground};
 `;
 

@@ -1,4 +1,5 @@
 import { storyChangeEmitter } from '../storybook';
+import { theme } from './ondevice-theme';
 
 export const decorators = [
     (Story, context) => {
@@ -16,4 +17,5 @@ export const parameters = {
             date: /Date$/,
         },
     },
+    theme,
 };

@@ -14,12 +14,14 @@ const propTypes = {
     reviews: PropTypes.array,
     layout: PropTypes.string,
     activeSlideAlignment: PropTypes.string,
+    hasTransparentBackground: PropTypes.bool,
 };
 
 const defaultProps = {
     reviews: [],
     layout: 'default',
     activeSlideAlignment: 'start',
+    hasTransparentBackground: false,
 };
 
 class RecentReviewList extends React.Component {
@@ -56,23 +58,37 @@ class RecentReviewList extends React.Component {
 
     render() {
         const extractKey = ({ id }) => id;
-        const { reviews, layout, activeSlideAlignment } = this.props;
+        const {
+            reviews,
+            layout,
+            activeSlideAlignment,
+            hasTransparentBackground,
+            t,
+        } = this.props;
 
         return (
-            <ListWrapper>
+            <ListWrapper hasTransparentBackground={hasTransparentBackground}>
                 {this.renderListHeader()}
-                <Carousel
-                    data={reviews}
-                    layout={layout}
-                    extraData={reviews}
-                    ListHeaderComponent={this.renderPadding}
-                    renderItem={this.renderItem}
-                    keyExtractor={extractKey}
-                    itemWidth={itemWidth + parseInt(spacing.tiny, 10)}
-                    sliderWidth={getScreenWidth()}
-                    activeSlideAlignment={activeSlideAlignment}
-                    slideInterpolatedStyle={animatedStyles}
-                />
+                {reviews.length > 0 ? (
+                    <Carousel
+                        data={reviews}
+                        layout={layout}
+                        extraData={reviews}
+                        ListHeaderComponent={this.renderPadding}
+                        renderItem={this.renderItem}
+                        keyExtractor={extractKey}
+                        itemWidth={itemWidth + parseInt(spacing.tiny, 10)}
+                        sliderWidth={getScreenWidth()}
+                        activeSlideAlignment={activeSlideAlignment}
+                        slideInterpolatedStyle={animatedStyles}
+                    />
+                ) : (
+                    <EmptyState>
+                        <EmptyStateText>
+                            {t('label.heading.noRecentReviews')}
+                        </EmptyStateText>
+                    </EmptyState>
+                )}
             </ListWrapper>
         );
     }
@@ -84,13 +100,18 @@ RecentReviewList.defaultProps = defaultProps;
 export default withTranslation()(withNavigation(RecentReviewList));
 
 export const ListWrapper = styled.View`
-    background-color: ${(props) => props.theme.reviewSectionBackground};
+    background-color: ${(props) =>
+        props.hasTransparentBackground
+            ? 'transparent'
+            : props.theme.reviewSectionBackground};
     border-top-width: 1px;
     border-bottom-width: 1px;
     border-color: ${(props) => props.theme.itemBorder};
     margin-top: 13px;
     margin-bottom: 2px;
     padding-bottom: ${spacing.tiny}px;
+    align-self: flex-start;
+    width: 100%;
 `;
 
 export const View = styled.View`
@@ -108,4 +129,15 @@ export const Text = styled.Text`
     text-transform: uppercase;
     width: 100%;
     flex-direction: row;
+`;
+
+export const EmptyState = styled.View`
+    padding: ${spacing.tiny}px;
+    align-items: flex-start;
+`;
+
+export const EmptyStateText = styled.Text`
+    color: ${(props) => props.theme.feedText};
+    font-size: ${fontSizes.small}px;
+    text-align: left;
 `;

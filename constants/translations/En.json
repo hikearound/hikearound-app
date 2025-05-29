@@ -25,7 +25,8 @@
             "description": "Description",
             "images": "Images",
             "reviews": "Reviews",
-            "recentReviews": "Recent Reviews"
+            "recentReviews": "Recent Reviews",
+            "noRecentReviews": "There are no recent reviews available."
         },
         "nav": {
             "you": "You",

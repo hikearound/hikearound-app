@@ -4,28 +4,26 @@ import {
     getStorybookUI,
     configure,
     addDecorator,
+    addParameters,
 } from '@storybook/react-native';
 import { withKnobs } from '@storybook/addon-knobs';
 import { loadStories } from './storybook.requires';
+import { theme } from './.storybook/ondevice-theme';
 
 import './rn-addons';
 
-// Create a global event emitter for story changes
 export const storyChangeEmitter = new EventEmitter();
 
-// enables knobs for all stories
 addDecorator(withKnobs);
+addParameters({ theme });
 
-// Add a decorator to track story changes
 addDecorator((storyFn, { kind, story }) => {
-    // Emit the story change event
     setTimeout(() => {
         storyChangeEmitter.emit('storyChange', { kind, story });
     }, 0);
     return storyFn();
 });
 
-// import stories
 configure(() => {
     loadStories();
 }, module);
@@ -34,7 +32,8 @@ const StorybookUIRoot = getStorybookUI({
     asyncStorage: null,
     onDeviceUI: true,
     disableWebsockets: true,
-    shouldPersistSelection: false,
+    shouldPersistSelection: true,
+    theme,
 });
 
 AppRegistry.registerComponent('%APP_NAME%', () => StorybookUIRoot);
