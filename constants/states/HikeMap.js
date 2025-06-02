@@ -1,18 +1,11 @@
-import { borderRadius } from '@constants/Index';
-
 export const defaultProps = {
-    maxZoom: 16,
-    mapBorderRadius: parseInt(borderRadius.medium, 10),
-    fullHeight: false,
-    region: undefined,
     coordinates: [],
-    mapPadding: {},
+    maxZoom: 20,
+    fullHeight: false,
     mapHeight: 200,
-    cacheEnabled: false,
-    startingCoordinates: null,
+    showUserLocation: false,
+    mapBorderRadius: 0,
     mapType: 'standard',
-    showUserLocation: true,
-    mapRef: {},
 };
 
 export default defaultProps;

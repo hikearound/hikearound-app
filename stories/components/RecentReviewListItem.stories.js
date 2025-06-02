@@ -15,7 +15,7 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import { defaultTheme, darkTheme } from '@constants/Themes';
 import RecentReviewListItem from '@components/feed/review/RecentReviewListItem';
-import CenteredContainer from '../styles/StoryStyles';
+import CenteredContainer from '../styles/Story';
 import { getAvatarUrl } from '../utils/avatarUtils';
 
 const Stack = createStackNavigator();
@@ -83,7 +83,7 @@ const getKnobs = (isLiked = false) => {
         review: text(
             'Review',
             isLiked
-                ? "One of the best hikes I've ever done! The sunset views were incredible."
+                ? 'One of the best hikes I have ever done! The sunset views were incredible.'
                 : 'This was an amazing hike! The views were breathtaking and the trail was well maintained.',
         ),
         savedOn: object('Reviewed On', new Date()),

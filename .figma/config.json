@@ -1,0 +1,27 @@
+{
+    "name": "hikearound-app",
+    "version": "1.0.0",
+    "framework": "react-native",
+    "parser": {
+        "type": "react-native",
+        "options": {
+            "jsx": true
+        }
+    },
+    "include": ["components/**/*.js"],
+    "exclude": ["**/node_modules/**"],
+    "components": {
+        "RecentReviewListItem": {
+            "path": "components/feed/review/RecentReviewListItem.js",
+            "props": {
+                "rating": "number",
+                "review": "string",
+                "savedOn": "Date",
+                "userLikes": "array",
+                "user": "object",
+                "hike": "object",
+                "hasRightMargin": "boolean"
+            }
+        }
+    }
+}

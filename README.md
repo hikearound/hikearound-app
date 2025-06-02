@@ -58,6 +58,45 @@ npx expo start
 npx expo run:ios
 ```
 
+## Storybook
+
+Hikearound uses Storybook for React Native component development and documentation. This allows us to develop and test components in isolation on iOS.
+
+### Running Storybook
+
+Run Storybook on iOS:
+
+```bash
+npm run storybook:ios
+```
+
+This will launch the Storybook interface in your iOS simulator or connected device, where you can:
+
+-   Browse and test individual components
+-   View different component states
+-   Interact with component props using knobs
+-   Test component callbacks using actions
+
+### Creating Stories
+
+Stories are located in the `stories` directory. Each story file should:
+
+-   Be named with the `.stories.js` extension
+-   Export a default object with component metadata
+-   Include one or more stories that demonstrate different states of the component
+
+Example story structure:
+
+```javascript
+import React from 'react';
+import { storiesOf } from '@storybook/react-native';
+import MyComponent from '../components/MyComponent';
+
+storiesOf('MyComponent', module)
+    .add('default', () => <MyComponent />)
+    .add('with props', () => <MyComponent prop1='value' />);
+```
+
 ## Project Structure
 
 ```

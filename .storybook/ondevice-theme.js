@@ -5,15 +5,16 @@ export const theme = create({
 
     // Brand
     brandTitle: 'Hikearound',
+    brandUrl: 'https://hikearound.app',
 
     // Colors
     colorPrimary: '#935DFF',
     colorSecondary: '#935DFF',
 
     // UI
-    appBg: '#F6F9FC',
+    appBg: '#FFFFFF',
     appContentBg: '#FFFFFF',
-    appBorderColor: '#E4E4E4',
+    appBorderColor: '#E5E5E5',
     appBorderRadius: 4,
 
     // Typography
@@ -25,14 +26,14 @@ export const theme = create({
     textInverseColor: '#FFFFFF',
 
     // Toolbar default and active colors
-    barTextColor: '#666666',
+    barTextColor: '#999999',
     barSelectedColor: '#935DFF',
-    barBg: '#F6F9FC',
+    barBg: '#FFFFFF',
     barHoverColor: '#935DFF',
 
     // Form colors
     inputBg: '#FFFFFF',
-    inputBorder: '#E4E4E4',
+    inputBorder: '#E5E5E5',
     inputTextColor: '#333333',
     inputBorderRadius: 4,
 

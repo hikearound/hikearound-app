@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import MapView from 'react-native-maps';
+import MapView, { PROVIDER_APPLE } from 'react-native-maps';
 import { colors, borderRadius } from '@constants/Index';
 import { defaultProps } from '@constants/states/HikeMap';
 import { withTheme } from '@utils/Themes';
@@ -15,10 +15,10 @@ const propTypes = {
     mapHeight: PropTypes.number,
     startingCoordinates: PropTypes.object,
     mapPadding: PropTypes.object,
-    mapType: PropTypes.string,
     showUserLocation: PropTypes.bool,
     mapRef: PropTypes.object,
     mapBorderRadius: PropTypes.number,
+    mapType: PropTypes.string,
 };
 
 class HikeMap extends React.Component {
@@ -49,9 +49,9 @@ class HikeMap extends React.Component {
             mapHeight,
             theme,
             mapPadding,
-            mapType,
             showUserLocation,
             mapRef,
+            mapType,
         } = this.props;
         const { maxZoom, fullHeight, position } = this.state;
 
@@ -60,7 +60,7 @@ class HikeMap extends React.Component {
                 <>
                     <MapView
                         ref={mapRef}
-                        provider={null}
+                        provider={PROVIDER_APPLE}
                         style={{
                             height: fullHeight ? '100%' : mapHeight,
                             zIndex: 1,

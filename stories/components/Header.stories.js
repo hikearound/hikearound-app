@@ -7,7 +7,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { ThemeProvider } from 'styled-components';
 import { defaultTheme, darkTheme } from '@constants/Themes';
 import Header from '@components/Header';
-import CenteredContainer from '../styles/StoryStyles';
+import CenteredContainer from '../styles/Story';
 
 const Stack = createStackNavigator();
 const TranslatedHeader = withTranslation()(Header);

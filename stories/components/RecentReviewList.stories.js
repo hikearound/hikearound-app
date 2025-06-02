@@ -10,7 +10,7 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import { defaultTheme, darkTheme } from '@constants/Themes';
 import RecentReviewList from '@components/feed/review/RecentReviewList';
-import CenteredContainer from '../styles/StoryStyles';
+import CenteredContainer from '../styles/Story';
 import { getUniqueAvatarUrl, resetUsedPhotos } from '../utils/avatarUtils';
 
 const TranslatedRecentReviewList = withTranslation()(RecentReviewList);
