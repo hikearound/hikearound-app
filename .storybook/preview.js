@@ -18,4 +18,20 @@ export const parameters = {
         },
     },
     theme,
+    backgrounds: {
+        default: 'light',
+        values: [
+            { name: 'light', value: '#FFFFFF' },
+            { name: 'dark', value: '#000000' },
+            { name: 'gray', value: '#808080' },
+        ],
+    },
+    notes: {
+        // This enables the notes addon for all stories
+        enabled: true,
+        // This ensures notes are updated when stories change
+        markdown: true,
+        // This ensures notes are cleared when switching stories
+        clearOnStoryChange: true,
+    },
 };

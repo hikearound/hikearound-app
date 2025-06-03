@@ -3,5 +3,7 @@ module.exports = {
     addons: [
         '@storybook/addon-ondevice-actions',
         '@storybook/addon-ondevice-knobs',
+        '@storybook/addon-ondevice-notes',
+        '@storybook/addon-ondevice-backgrounds',
     ],
 };

@@ -65,6 +65,12 @@ storiesOf('Header', module)
             </NavigationContainer>
         </ThemeProvider>
     ))
-    .add('Default', () => <HeaderScreen />)
-    .add('With Top Border', () => <HeaderWithBorderScreen />)
-    .add('Logged Out State', () => <HeaderLoggedOutScreen />);
+    .add('Default', () => <HeaderScreen />, {
+        notes: 'The default header component with customizable title and no top border. Use the knobs to modify the title and toggle the top border.',
+    })
+    .add('With Top Border', () => <HeaderWithBorderScreen />, {
+        notes: 'This variant shows the header with a top border. The border helps visually separate the header from the content below it.',
+    })
+    .add('Logged Out State', () => <HeaderLoggedOutScreen />, {
+        notes: 'This variant demonstrates the header in a logged-out state. The header adjusts its appearance and functionality when the user is not logged in.',
+    });

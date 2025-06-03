@@ -229,18 +229,57 @@ const getKnobs = () => {
     };
 };
 
-stories.add('Default', () => (
-    <ReviewListScreen
-        reviews={object('Reviews', sampleReviews)}
-        layout={select(
+stories.add('Default', () => <ReviewListScreen />, {
+    notes: "The default RecentReviewList component showing a list of recent hike reviews. Each review includes the user's name, location, rating, and review text. The list is scrollable and supports various interactions like liking reviews.",
+});
+
+stories.add(
+    'With Custom Layout',
+    () => {
+        const layout = select(
             'Layout',
-            { default: 'default', stack: 'stack', tinder: 'tinder' },
-            'default',
-        )}
-        activeSlideAlignment={getKnobs().activeSlideAlignment}
-        hasTransparentBackground={boolean('Transparent Background', false)}
-    />
-));
+            { default: 'default', compact: 'compact' },
+            'compact',
+        );
+        return <ReviewListScreen layout={layout} />;
+    },
+    {
+        notes: 'This variant demonstrates the RecentReviewList with a custom layout. The compact layout provides a more condensed view of the reviews, showing less information but allowing more reviews to be visible at once.',
+    },
+);
+
+stories.add(
+    'With Transparent Background',
+    () => {
+        const hasTransparentBackground = boolean(
+            'Transparent Background',
+            true,
+        );
+        return (
+            <ReviewListScreen
+                hasTransparentBackground={hasTransparentBackground}
+            />
+        );
+    },
+    {
+        notes: 'This variant shows the RecentReviewList with a transparent background. This is useful when the list needs to blend with the background of its container or when overlaying on other content.',
+    },
+);
+
+stories.add(
+    'With Custom Slide Alignment',
+    () => {
+        const activeSlideAlignment = select(
+            'Slide Alignment',
+            { start: 'start', center: 'center', end: 'end' },
+            'center',
+        );
+        return <ReviewListScreen activeSlideAlignment={activeSlideAlignment} />;
+    },
+    {
+        notes: 'This variant demonstrates different slide alignment options for the review list. The alignment affects how the active review is positioned within the viewport, with options for start, center, or end alignment.',
+    },
+);
 
 stories.add('Empty', () => (
     <ReviewListScreen

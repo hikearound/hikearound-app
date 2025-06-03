@@ -135,91 +135,109 @@ stories.addDecorator((Story) => (
     </Provider>
 ));
 
-stories.add('Loading', () => {
-    const isLoading = select(
-        'Loading',
-        { true: 'true', false: 'false' },
-        'true',
-    );
-    return <HikeScreen isLoading={isLoading === 'true'} />;
-});
+stories.add(
+    'Loading',
+    () => {
+        const isLoading = select(
+            'Loading',
+            { true: 'true', false: 'false' },
+            'true',
+        );
+        return <HikeScreen isLoading={isLoading === 'true'} />;
+    },
+    {
+        notes: 'This story demonstrates the loading state of the Hike component. When loading is true, it shows a loading indicator while the map data is being fetched.',
+    },
+);
 
-stories.add('Loop', () => {
-    const region = object('Region', loopRegion);
-    const distance = select(
-        'Distance',
-        { 2.5: '2.5', '5.0': '5.0', 7.5: '7.5' },
-        '5.0',
-    );
-    const elevation = select(
-        'Elevation',
-        { 500: '500', 1000: '1000', 1500: '1500' },
-        '1000',
-    );
-    const isLoading = select(
-        'Loading',
-        { true: 'true', false: 'false' },
-        'false',
-    );
+stories.add(
+    'Loop',
+    () => {
+        const region = object('Region', loopRegion);
+        const distance = select(
+            'Distance',
+            { 2.5: '2.5', '5.0': '5.0', 7.5: '7.5' },
+            '5.0',
+        );
+        const elevation = select(
+            'Elevation',
+            { 500: '500', 1000: '1000', 1500: '1500' },
+            '1000',
+        );
+        const isLoading = select(
+            'Loading',
+            { true: 'true', false: 'false' },
+            'false',
+        );
 
-    return (
-        <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0)' }}>
-            <CenteredContainer>
-                <MapContainer>
-                    <SimpleMapWrapper>
-                        <MapWrapper
-                            coordinates={loopCoordinates}
-                            region={region}
-                            distance={parseFloat(distance)}
-                            elevation={parseInt(elevation, 10)}
-                            route='loop'
-                            isLoading={isLoading === 'true'}
-                            hid='test-hike'
-                            modalType='map'
-                        />
-                    </SimpleMapWrapper>
-                </MapContainer>
-            </CenteredContainer>
-        </View>
-    );
-});
+        return (
+            <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0)' }}>
+                <CenteredContainer>
+                    <MapContainer>
+                        <SimpleMapWrapper>
+                            <MapWrapper
+                                coordinates={loopCoordinates}
+                                region={region}
+                                distance={parseFloat(distance)}
+                                elevation={parseInt(elevation, 10)}
+                                route='loop'
+                                isLoading={isLoading === 'true'}
+                                hid='test-hike'
+                                modalType='map'
+                            />
+                        </SimpleMapWrapper>
+                    </MapContainer>
+                </CenteredContainer>
+            </View>
+        );
+    },
+    {
+        notes: 'This story shows a loop trail route. The trail starts and ends at the same point, creating a circular path. You can adjust the distance and elevation using the knobs.',
+    },
+);
 
-stories.add('Out and Back', () => {
-    const region = object('Region', outAndBackRegion);
-    const distance = select(
-        'Distance',
-        { 2.5: '2.5', '5.0': '5.0', 7.5: '7.5' },
-        '5.0',
-    );
-    const elevation = select(
-        'Elevation',
-        { 500: '500', 1000: '1000', 1500: '1500' },
-        '1000',
-    );
-    const isLoading = select(
-        'Loading',
-        { true: 'true', false: 'false' },
-        'false',
-    );
+stories.add(
+    'Out and Back',
+    () => {
+        const region = object('Region', outAndBackRegion);
+        const distance = select(
+            'Distance',
+            { 2.5: '2.5', '5.0': '5.0', 7.5: '7.5' },
+            '5.0',
+        );
+        const elevation = select(
+            'Elevation',
+            { 500: '500', 1000: '1000', 1500: '1500' },
+            '1000',
+        );
+        const isLoading = select(
+            'Loading',
+            { true: 'true', false: 'false' },
+            'false',
+        );
 
-    return (
-        <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0)' }}>
-            <CenteredContainer>
-                <MapContainer>
-                    <SimpleMapWrapper>
-                        <MapWrapper
-                            coordinates={outAndBackCoordinates}
-                            region={region}
-                            distance={parseFloat(distance)}
-                            elevation={parseInt(elevation, 10)}
-                            route='out'
-                            isLoading={isLoading === 'true'}
-                            hid='test-hike'
-                            modalType='map'
-                        />
-                    </SimpleMapWrapper>
-                </MapContainer>
-            </CenteredContainer>
-        </View>
-    );
-});
+        return (
+            <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0)' }}>
+                <CenteredContainer>
+                    <MapContainer>
+                        <SimpleMapWrapper>
+                            <MapWrapper
+                                coordinates={outAndBackCoordinates}
+                                region={region}
+                                distance={parseFloat(distance)}
+                                elevation={parseInt(elevation, 10)}
+                                route='out'
+                                isLoading={isLoading === 'true'}
+                                hid='test-hike'
+                                modalType='map'
+                            />
+                        </SimpleMapWrapper>
+                    </MapContainer>
+                </CenteredContainer>
+            </View>
+        );
+    },
+    {
+        notes: 'This story displays an out-and-back trail route. The trail goes from point A to point B and then returns along the same path. You can modify the distance and elevation using the knobs.',
+    },
+);
