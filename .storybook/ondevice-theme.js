@@ -14,6 +14,7 @@ export const theme = create({
     // UI
     appBg: '#FFFFFF',
     appContentBg: '#FFFFFF',
+    appPreviewBg: 'red',
     appBorderColor: '#E5E5E5',
     appBorderRadius: 4,
 

@@ -8,7 +8,7 @@ module.exports = function (api) {
             [
                 'module-resolver',
                 {
-                    root: ['.'],
+                    root: ['.', '.storybook'],
                     extensions: [
                         '.ios.ts',
                         '.android.ts',
