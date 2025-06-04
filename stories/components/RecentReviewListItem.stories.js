@@ -1,29 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { storiesOf } from '@storybook/react-native';
-import {
-    text,
-    number,
-    object,
-    select,
-    withKnobs,
-} from '@storybook/addon-knobs';
+import { text, number, object, select } from '@storybook/addon-knobs';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import { defaultTheme, darkTheme } from '@constants/Themes';
 import RecentReviewListItem from '@components/feed/review/RecentReviewListItem';
 import CenteredContainer from '../styles/Story';
 import withNavigation from '../utils/StoryDecorators';
+import { getTheme } from '../utils/ThemeUtils';
 
-const getTheme = (themeName) => {
-    const theme = themeName === 'dark' ? darkTheme.colors : defaultTheme.colors;
-    return {
-        ...theme,
-        mode: themeName,
-    };
-};
-
-// Create a mock store with review reducer
 const mockStore = createStore(() => ({
     user: {
         uid: 'user123',
@@ -124,8 +109,6 @@ ReviewItemScreen.defaultProps = {
 };
 
 const stories = storiesOf('RecentReviewListItem', module);
-
-stories.addDecorator(withKnobs);
 
 stories.addDecorator((Story) => {
     const content = <Story />;

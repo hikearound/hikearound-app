@@ -1,27 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { storiesOf } from '@storybook/react-native';
-import { select, object, withKnobs, boolean } from '@storybook/addon-knobs';
+import { select, object, boolean } from '@storybook/addon-knobs';
 import { withTranslation } from 'react-i18next';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import { defaultTheme, darkTheme } from '@constants/Themes';
 import RecentReviewList from '@components/feed/review/RecentReviewList';
 import CenteredContainer from '../styles/Story';
 import withNavigation from '../utils/StoryDecorators';
 import { getUniqueAvatarUrl, resetUsedPhotos } from '../utils/AvatarUtils';
+import { getTheme } from '../utils/ThemeUtils';
 
 const TranslatedRecentReviewList = withTranslation()(RecentReviewList);
 
-const getTheme = (themeName) => {
-    const theme = themeName === 'dark' ? darkTheme.colors : defaultTheme.colors;
-    return {
-        ...theme,
-        mode: themeName,
-    };
-};
-
-// Create a mock store with review reducer
 const mockStore = createStore(() => ({
     user: {
         uid: 'user123',
@@ -60,7 +51,6 @@ const mockStore = createStore(() => ({
     },
 }));
 
-// Reset used photos before generating sample reviews
 resetUsedPhotos();
 
 const sampleReviews = [
@@ -189,8 +179,6 @@ ReviewListScreen.defaultProps = {
 };
 
 const stories = storiesOf('RecentReviewList', module);
-
-stories.addDecorator(withKnobs);
 
 stories.addDecorator((Story) => {
     const content = <Story />;

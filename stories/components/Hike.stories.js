@@ -1,13 +1,13 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react-native';
-import { select, object, withKnobs } from '@storybook/addon-knobs';
+import { select, object } from '@storybook/addon-knobs';
 import { Provider } from 'react-redux';
 import { View } from 'react-native';
-import styled from 'styled-components/native';
-import { defaultTheme, darkTheme } from '@constants/Themes';
 import MapWrapper from '@components/map/Wrapper';
 import CenteredContainer from '../styles/Story';
 import withNavigation from '../utils/StoryDecorators';
+import { getMapTheme } from '../utils/ThemeUtils';
+import { MapContainer, SimpleMapWrapper } from '../styles/Map';
 import {
     loopCoordinates,
     loopRegion,
@@ -15,7 +15,6 @@ import {
     outAndBackCoordinates,
 } from '../constants/Trail';
 
-// Create a mock store for stories
 const mockStore = {
     getState: () => ({
         map: {
@@ -35,32 +34,6 @@ const mockStore = {
     dispatch: () => {},
     subscribe: () => () => {},
 };
-
-const getTheme = (themeName) => {
-    const theme = themeName === 'dark' ? darkTheme.colors : defaultTheme.colors;
-    return {
-        ...theme,
-        mode: themeName,
-        mapBackground: 'rgba(0,0,0,0)',
-        mapViewBackground: 'rgba(0,0,0,0)',
-        card: 'rgba(0,0,0,0)',
-        cardShadow: 'rgba(0,0,0,0)',
-    };
-};
-
-const MapContainer = styled.View`
-    flex: 1;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0);
-    width: 100%;
-`;
-
-const SimpleMapWrapper = styled.View`
-    height: 265px;
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0);
-`;
 
 const HikeScreen = () => {
     const region = object('Region', loopRegion);
@@ -111,11 +84,9 @@ const HikeScreen = () => {
 
 const stories = storiesOf('HikeMap', module);
 
-stories.addDecorator(withKnobs);
-
 stories.addDecorator((Story) => {
     const content = <Story />;
-    const theme = getTheme(
+    const theme = getMapTheme(
         select('Theme', { light: 'light', dark: 'dark' }, 'light'),
     );
 
