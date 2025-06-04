@@ -2,7 +2,8 @@ import React, { useEffect, useCallback } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { withTranslation } from 'react-i18next';
 import { withTheme } from '@utils/Themes';
-import StorybookUIRoot, { storyChangeEmitter } from '../../storybook';
+import storyChangeEmitter from '@utils/StorybookEmitter';
+import StorybookUIRoot from '../../storybook';
 
 const styles = StyleSheet.create({
     container: {

@@ -3,15 +3,12 @@ import PropTypes from 'prop-types';
 import { storiesOf } from '@storybook/react-native';
 import { text, boolean, select } from '@storybook/addon-knobs';
 import { withTranslation } from 'react-i18next';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { ThemeProvider } from 'styled-components';
 import { defaultTheme, darkTheme } from '@constants/Themes';
 import { withBackgrounds } from '@storybook/addon-ondevice-backgrounds';
 import Header from '@components/Header';
 import { StoryContainer } from '../styles/Story';
+import withNavigation from '../utils/StoryDecorators';
 
-const Stack = createStackNavigator();
 const TranslatedHeader = withTranslation()(Header);
 
 const getTheme = (themeName) => {
@@ -66,19 +63,14 @@ const HeaderLoggedOutScreen = withStoryProps(({ backgroundColor }) => (
 const stories = storiesOf('Header', module);
 
 stories.addDecorator(withBackgrounds);
-stories.addDecorator((story) => (
-    <ThemeProvider
-        theme={getTheme(
+stories.addDecorator((story) =>
+    withNavigation(story, {
+        headerTitle: 'Header',
+        theme: getTheme(
             select('Theme', { light: 'light', dark: 'dark' }, 'light'),
-        )}
-    >
-        <NavigationContainer>
-            <Stack.Navigator>
-                <Stack.Screen name='Header'>{() => story()}</Stack.Screen>
-            </Stack.Navigator>
-        </NavigationContainer>
-    </ThemeProvider>
-));
+        ),
+    }),
+);
 
 stories.add('Default', (props) => <HeaderScreen {...props} />, {
     notes: 'The default header component with customizable title and no top border. Use the knobs to modify the title and toggle the top border.',

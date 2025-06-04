@@ -8,7 +8,7 @@
         "test:debug": "node --inspect-brk node_modules/jest/bin/jest.js --runInBand",
         "storybook": "start-storybook -p 7007",
         "prestorybook": "rnstl",
-        "storybook:ios": "STORYBOOK_ENABLED=true expo start --ios",
+        "storybook:ios": "STORYBOOK_ENABLED=true STORYBOOK_STANDALONE=true expo start --ios",
         "figma:connect": "npx @figma/code-connect connect --config .figma/config.json"
     },
     "jest": {

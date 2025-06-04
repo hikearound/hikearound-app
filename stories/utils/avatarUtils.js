@@ -1,3 +1,6 @@
+// Set of used photos to ensure uniqueness
+const usedPhotos = new Set();
+
 // Curated list of high-quality profile photos from Unsplash
 const PROFILE_PHOTOS = [
     'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop',
@@ -10,43 +13,30 @@ const PROFILE_PHOTOS = [
     'https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?w=200&h=200&fit=crop',
 ];
 
-// Keep track of used photos to ensure no duplicates in lists
-const usedPhotos = new Set();
-
-export const getAvatarUrl = (name) => {
-    // Use a hash of the name to get consistent photos for each user
-    const hash = name
-        .split('')
-        .reduce((acc, char) => char.charCodeAt(0) + acc * 31, 0);
-    return PROFILE_PHOTOS[Math.abs(hash) % PROFILE_PHOTOS.length];
-};
-
-export const getUniqueAvatarUrl = (name) => {
-    // Get the base photo for this name
-    const basePhoto = getAvatarUrl(name);
-
-    // If this photo hasn't been used yet, use it
-    if (!usedPhotos.has(basePhoto)) {
-        usedPhotos.add(basePhoto);
-        return basePhoto;
-    }
-
-    // If the base photo is already used, find the next available one
-    const availablePhotos = PROFILE_PHOTOS.filter(
-        (photo) => !usedPhotos.has(photo),
-    );
-    if (availablePhotos.length > 0) {
-        const photo = availablePhotos[0];
-        usedPhotos.add(photo);
-        return photo;
-    }
-
-    // If all photos are used, reset the used photos set and start over
-    usedPhotos.clear();
-    usedPhotos.add(basePhoto);
-    return basePhoto;
-};
-
+// Reset the set of used photos
 export const resetUsedPhotos = () => {
     usedPhotos.clear();
+};
+
+// Get a unique avatar URL for a given name
+export const getUniqueAvatarUrl = () => {
+    // Find the first unused photo
+    const unusedPhoto = PROFILE_PHOTOS.find((photo) => !usedPhotos.has(photo));
+    if (unusedPhoto) {
+        usedPhotos.add(unusedPhoto);
+        return unusedPhoto;
+    }
+    // If all photos are used, reset and start over
+    resetUsedPhotos();
+    usedPhotos.add(PROFILE_PHOTOS[0]);
+    return PROFILE_PHOTOS[0];
+};
+
+// Get a simple avatar URL for a given name
+export const getAvatarUrl = (name) => {
+    // Use a deterministic index based on the name
+    const index =
+        name.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) %
+        PROFILE_PHOTOS.length;
+    return PROFILE_PHOTOS[index];
 };

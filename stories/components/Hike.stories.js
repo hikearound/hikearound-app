@@ -1,23 +1,19 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react-native';
 import { select, object, withKnobs } from '@storybook/addon-knobs';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { ThemeProvider } from 'styled-components';
 import { Provider } from 'react-redux';
 import { View } from 'react-native';
 import styled from 'styled-components/native';
 import { defaultTheme, darkTheme } from '@constants/Themes';
 import MapWrapper from '@components/map/Wrapper';
 import CenteredContainer from '../styles/Story';
+import withNavigation from '../utils/StoryDecorators';
 import {
     loopCoordinates,
     loopRegion,
     outAndBackRegion,
     outAndBackCoordinates,
 } from '../constants/Trail';
-
-const Stack = createStackNavigator();
 
 // Create a mock store for stories
 const mockStore = {
@@ -87,7 +83,12 @@ const HikeScreen = () => {
     );
 
     return (
-        <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0)' }}>
+        <View
+            style={{
+                flex: 1,
+                backgroundColor: 'rgba(0,0,0,0)',
+            }}
+        >
             <CenteredContainer>
                 <MapContainer>
                     <SimpleMapWrapper>
@@ -108,35 +109,27 @@ const HikeScreen = () => {
     );
 };
 
-const stories = storiesOf('Map/Hike', module);
+const stories = storiesOf('HikeMap', module);
 
 stories.addDecorator(withKnobs);
 
-stories.addDecorator((Story) => (
-    <Provider store={mockStore}>
-        <ThemeProvider
-            theme={getTheme(
-                select('Theme', { light: 'light', dark: 'dark' }, 'light'),
-            )}
-        >
-            <NavigationContainer>
-                <Stack.Navigator>
-                    <Stack.Screen
-                        name='Hike'
-                        options={{
-                            headerTitle: 'Map/Hike',
-                        }}
-                    >
-                        {() => <Story />}
-                    </Stack.Screen>
-                </Stack.Navigator>
-            </NavigationContainer>
-        </ThemeProvider>
-    </Provider>
-));
+stories.addDecorator((Story) => {
+    const content = <Story />;
+    const theme = getTheme(
+        select('Theme', { light: 'light', dark: 'dark' }, 'light'),
+    );
+
+    return withNavigation(() => content, {
+        headerTitle: 'HikeMap',
+        theme,
+        additionalProviders: [
+            (props) => <Provider store={mockStore} {...props} />,
+        ],
+    });
+});
 
 stories.add(
-    'Loading',
+    'Loading State',
     () => {
         const isLoading = select(
             'Loading',
@@ -151,7 +144,7 @@ stories.add(
 );
 
 stories.add(
-    'Loop',
+    'Loop Trail',
     () => {
         const region = object('Region', loopRegion);
         const distance = select(
@@ -197,7 +190,7 @@ stories.add(
 );
 
 stories.add(
-    'Out and Back',
+    'Out and Back Trail',
     () => {
         const region = object('Region', outAndBackRegion);
         const distance = select(

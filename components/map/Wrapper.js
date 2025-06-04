@@ -77,6 +77,7 @@ class MapWrapper extends React.Component {
                                 cacheEnabled
                                 mapPadding={mapPadding}
                                 showUserLocation={false}
+                                mapBorderRadius={8}
                             />
                             <ExpandButton />
                         </>

@@ -3,18 +3,15 @@ import PropTypes from 'prop-types';
 import { storiesOf } from '@storybook/react-native';
 import { select, object, withKnobs, boolean } from '@storybook/addon-knobs';
 import { withTranslation } from 'react-i18next';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { ThemeProvider } from 'styled-components';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import { defaultTheme, darkTheme } from '@constants/Themes';
 import RecentReviewList from '@components/feed/review/RecentReviewList';
 import CenteredContainer from '../styles/Story';
-import { getUniqueAvatarUrl, resetUsedPhotos } from '../utils/avatarUtils';
+import withNavigation from '../utils/StoryDecorators';
+import { getUniqueAvatarUrl, resetUsedPhotos } from '../utils/AvatarUtils';
 
 const TranslatedRecentReviewList = withTranslation()(RecentReviewList);
-const Stack = createStackNavigator();
 
 const getTheme = (themeName) => {
     const theme = themeName === 'dark' ? darkTheme.colors : defaultTheme.colors;
@@ -195,23 +192,20 @@ const stories = storiesOf('RecentReviewList', module);
 
 stories.addDecorator(withKnobs);
 
-stories.addDecorator((Story) => (
-    <Provider store={mockStore}>
-        <ThemeProvider
-            theme={getTheme(
-                select('Theme', { light: 'light', dark: 'dark' }, 'light'),
-            )}
-        >
-            <NavigationContainer>
-                <Stack.Navigator>
-                    <Stack.Screen name='ReviewList'>
-                        {() => <Story />}
-                    </Stack.Screen>
-                </Stack.Navigator>
-            </NavigationContainer>
-        </ThemeProvider>
-    </Provider>
-));
+stories.addDecorator((Story) => {
+    const content = <Story />;
+    const theme = getTheme(
+        select('Theme', { light: 'light', dark: 'dark' }, 'light'),
+    );
+
+    return withNavigation(() => content, {
+        headerTitle: 'RecentReviewList',
+        theme,
+        additionalProviders: [
+            (props) => <Provider store={mockStore} {...props} />,
+        ],
+    });
+});
 
 const getKnobs = () => {
     const activeSlideAlignment = select(
@@ -234,21 +228,6 @@ stories.add('Default', () => <ReviewListScreen />, {
 });
 
 stories.add(
-    'With Custom Layout',
-    () => {
-        const layout = select(
-            'Layout',
-            { default: 'default', compact: 'compact' },
-            'compact',
-        );
-        return <ReviewListScreen layout={layout} />;
-    },
-    {
-        notes: 'This variant demonstrates the RecentReviewList with a custom layout. The compact layout provides a more condensed view of the reviews, showing less information but allowing more reviews to be visible at once.',
-    },
-);
-
-stories.add(
     'With Transparent Background',
     () => {
         const hasTransparentBackground = boolean(
@@ -266,22 +245,7 @@ stories.add(
     },
 );
 
-stories.add(
-    'With Custom Slide Alignment',
-    () => {
-        const activeSlideAlignment = select(
-            'Slide Alignment',
-            { start: 'start', center: 'center', end: 'end' },
-            'center',
-        );
-        return <ReviewListScreen activeSlideAlignment={activeSlideAlignment} />;
-    },
-    {
-        notes: 'This variant demonstrates different slide alignment options for the review list. The alignment affects how the active review is positioned within the viewport, with options for start, center, or end alignment.',
-    },
-);
-
-stories.add('Empty', () => (
+stories.add('Empty State', () => (
     <ReviewListScreen
         reviews={object('Reviews', [])}
         layout={select(

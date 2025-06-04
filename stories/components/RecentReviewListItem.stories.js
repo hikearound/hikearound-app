@@ -8,17 +8,12 @@ import {
     select,
     withKnobs,
 } from '@storybook/addon-knobs';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { ThemeProvider } from 'styled-components';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import { defaultTheme, darkTheme } from '@constants/Themes';
 import RecentReviewListItem from '@components/feed/review/RecentReviewListItem';
 import CenteredContainer from '../styles/Story';
-import { getAvatarUrl } from '../utils/avatarUtils';
-
-const Stack = createStackNavigator();
+import withNavigation from '../utils/StoryDecorators';
 
 const getTheme = (themeName) => {
     const theme = themeName === 'dark' ? darkTheme.colors : defaultTheme.colors;
@@ -34,7 +29,8 @@ const mockStore = createStore(() => ({
         uid: 'user123',
         name: 'John Doe',
         location: 'San Francisco, CA',
-        photoURL: getAvatarUrl('John Doe'),
+        photoURL:
+            'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop',
     },
     reviewReducer: {
         reviewData: {
@@ -49,7 +45,8 @@ const mockStore = createStore(() => ({
                     uid: 'user1',
                     name: 'John Doe',
                     location: 'San Francisco, CA',
-                    photoURL: getAvatarUrl('John Doe'),
+                    photoURL:
+                        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop',
                 },
                 hike: {
                     name: 'Mount Tamalpais',
@@ -92,7 +89,8 @@ const getKnobs = (isLiked = false) => {
             uid: 'user123',
             name: userName,
             location: isLiked ? 'Oakland, CA' : 'San Francisco, CA',
-            photoURL: getAvatarUrl(userName),
+            photoURL:
+                'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop',
         }),
         hike: object('Hike', {
             name: isLiked ? 'Mount Diablo' : 'Mount Tamalpais',
@@ -129,23 +127,20 @@ const stories = storiesOf('RecentReviewListItem', module);
 
 stories.addDecorator(withKnobs);
 
-stories.addDecorator((Story) => (
-    <Provider store={mockStore}>
-        <ThemeProvider
-            theme={getTheme(
-                select('Theme', { light: 'light', dark: 'dark' }, 'light'),
-            )}
-        >
-            <NavigationContainer>
-                <Stack.Navigator>
-                    <Stack.Screen name='ReviewItem'>
-                        {() => <Story />}
-                    </Stack.Screen>
-                </Stack.Navigator>
-            </NavigationContainer>
-        </ThemeProvider>
-    </Provider>
-));
+stories.addDecorator((Story) => {
+    const content = <Story />;
+    const theme = getTheme(
+        select('Theme', { light: 'light', dark: 'dark' }, 'light'),
+    );
+
+    return withNavigation(() => content, {
+        headerTitle: 'RecentReviewListItem',
+        theme,
+        additionalProviders: [
+            (props) => <Provider store={mockStore} {...props} />,
+        ],
+    });
+});
 
 stories.add('Default', () => <ReviewItemScreen />);
 stories.add('With Likes', () => <ReviewItemScreen isLiked />);
