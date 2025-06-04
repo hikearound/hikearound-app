@@ -24,7 +24,7 @@ export function forCustomHeaderAnimation(options) {
     };
 }
 
-export function screenOptions(backgroundColor) {
+export function screenOptions(backgroundColor, headerTintColor = colors.white) {
     return {
         headerStyle: {
             backgroundColor,
@@ -43,11 +43,11 @@ export function screenOptions(backgroundColor) {
         headerRightContainerStyle: {
             right: parseInt(spacing.micro, 10),
         },
-        headerTintColor: colors.white,
+        headerTintColor,
         headerTitleStyle: {
             fontSize: parseInt(fontSizes.big, 10),
         },
-        headerBackImage: () => <Back />,
+        headerBackImage: () => <Back color={headerTintColor} />,
         headerBackTitleVisible: false,
     };
 }

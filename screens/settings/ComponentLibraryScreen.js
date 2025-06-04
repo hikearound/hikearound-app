@@ -1,7 +1,6 @@
 import React, { useEffect, useCallback } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, StatusBar } from 'react-native';
 import { withTranslation } from 'react-i18next';
-import { withTheme } from '@utils/Themes';
 import storyChangeEmitter from '@utils/StorybookEmitter';
 import StorybookUIRoot from '../../storybook';
 
@@ -11,11 +10,11 @@ const styles = StyleSheet.create({
     },
 });
 
-function ComponentLibraryScreen({ theme, navigation }) {
+function ComponentLibraryScreen({ navigation }) {
     const updateTitle = useCallback(
         ({ kind, story }) => {
             if (!kind && !story) {
-                navigation.setOptions({ headerTitle: '' });
+                navigation.setOptions({ headerTitle: 'Component Library' });
                 return;
             }
 
@@ -26,7 +25,6 @@ function ComponentLibraryScreen({ theme, navigation }) {
     );
 
     useEffect(() => {
-        navigation.setOptions({ headerTitle: '' });
         storyChangeEmitter.on('storyChange', updateTitle);
 
         return () => {
@@ -34,16 +32,18 @@ function ComponentLibraryScreen({ theme, navigation }) {
         };
     }, [navigation, updateTitle]);
 
+    useEffect(() => {
+        StatusBar.setBarStyle('dark-content');
+        return () => {
+            StatusBar.setBarStyle('light-content');
+        };
+    }, []);
+
     return (
-        <View
-            style={[
-                styles.container,
-                { backgroundColor: theme.colors.rootBackground },
-            ]}
-        >
-            <StorybookUIRoot />
+        <View style={[styles.container, { backgroundColor: 'white' }]}>
+            <StorybookUIRoot standalone={false} />
         </View>
     );
 }
 
-export default withTranslation()(withTheme(ComponentLibraryScreen));
+export default withTranslation()(ComponentLibraryScreen);

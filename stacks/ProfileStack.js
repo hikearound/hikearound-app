@@ -15,6 +15,10 @@ import { screenOptions } from '@constants/Navigation';
 import { withTheme } from '@utils/Themes';
 import { setFocusedStack } from '@actions/Navigation';
 import ToastProvider from '@providers/ToastProvider';
+import { getHeaderHeight } from '@utils/Navigation';
+import spacing from '@constants/Spacing';
+import { colors } from '@constants/Colors';
+import Back from '@components/header/Back';
 
 const propTypes = {
     dispatchFocusedStack: PropTypes.func.isRequired,
@@ -103,7 +107,32 @@ class ProfileStack extends React.PureComponent {
             name='ComponentLibrary'
             component={ComponentLibraryScreen}
             options={{
-                headerTitle: '',
+                headerTitle: 'Component Library',
+                headerStyle: {
+                    backgroundColor: 'white',
+                    height: getHeaderHeight(),
+                    borderBottomWidth: 0,
+                },
+                headerLeftContainerStyle: {
+                    left: parseInt(spacing.micro, 10),
+                },
+                headerTitleContainerStyle: {
+                    marginBottom: parseInt(spacing.micro, 10),
+                    width: '70%',
+                    alignItems: 'center',
+                },
+                headerRightContainerStyle: {
+                    right: parseInt(spacing.micro, 10),
+                },
+                headerTintColor: 'black',
+                headerTitleStyle: {
+                    fontSize: 18,
+                    color: 'black',
+                },
+                headerBackImage: () => <Back color='black' />,
+                headerBackTitleVisible: false,
+                statusBarStyle: 'dark',
+                statusBarColor: 'white',
             }}
         />
     );
@@ -116,7 +145,12 @@ class ProfileStack extends React.PureComponent {
             <>
                 <Stack.Navigator
                     initialRouteName={stackName}
-                    screenOptions={screenOptions(theme.colors.headerStyle)}
+                    screenOptions={screenOptions(
+                        theme.colors.headerStyle,
+                        theme.colors.headerStyle === 'white'
+                            ? 'black'
+                            : colors.white,
+                    )}
                 >
                     {this.renderProfileScreen(t)}
                     {this.renderHikeScreen()}

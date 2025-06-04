@@ -1,5 +1,6 @@
 import React from 'react';
 import { AppRegistry } from 'react-native';
+import PropTypes from 'prop-types';
 import {
     getStorybookUI,
     configure,
@@ -44,24 +45,44 @@ const StorybookUI = getStorybookUI({
     theme: storybookTheme,
 });
 
-const StorybookUIRoot = () => (
-    <SafeAreaProvider style={{ backgroundColor: 'white' }}>
-        <AppearanceProvider>
+const StorybookUIRoot = ({ standalone = true }) => {
+    if (standalone) {
+        return (
             <NavigationContainer theme={navigationTheme}>
-                <Stack.Navigator screenOptions={screenOptions}>
-                    <Stack.Screen
-                        name='Storybook'
-                        options={{
-                            headerTitle: 'Component Library',
-                        }}
-                    >
-                        {() => <StorybookUI />}
-                    </Stack.Screen>
-                </Stack.Navigator>
+                <SafeAreaProvider style={{ backgroundColor: 'white' }}>
+                    <AppearanceProvider>
+                        <Stack.Navigator screenOptions={screenOptions}>
+                            <Stack.Screen
+                                name='Storybook'
+                                options={{
+                                    headerTitle: 'Component Library',
+                                }}
+                            >
+                                {() => <StorybookUI />}
+                            </Stack.Screen>
+                        </Stack.Navigator>
+                    </AppearanceProvider>
+                </SafeAreaProvider>
             </NavigationContainer>
-        </AppearanceProvider>
-    </SafeAreaProvider>
-);
+        );
+    }
+
+    return (
+        <SafeAreaProvider style={{ backgroundColor: 'white' }}>
+            <AppearanceProvider>
+                <StorybookUI />
+            </AppearanceProvider>
+        </SafeAreaProvider>
+    );
+};
+
+StorybookUIRoot.propTypes = {
+    standalone: PropTypes.bool,
+};
+
+StorybookUIRoot.defaultProps = {
+    standalone: true,
+};
 
 AppRegistry.registerComponent('%APP_NAME%', () => StorybookUIRoot);
 
