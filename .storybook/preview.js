@@ -1,12 +1,23 @@
-import { storyChangeEmitter } from '../storybook';
+import React from 'react';
+import storyChangeEmitter from '@utils/StorybookEmitter';
 import { theme } from './ondevice-theme';
+import { View, StyleSheet } from 'react-native';
+import { defaultTheme } from '@constants/Themes';
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: defaultTheme.colors.rootBackground,
+    },
+});
 
 export const decorators = [
-    (Story, context) => {
-        // Emit story change event
-        const { kind, name } = context;
-        storyChangeEmitter.emit('storyChange', { kind, story: name });
-        return <Story />;
+    (Story) => {
+        return (
+            <View style={styles.container}>
+                <Story />
+            </View>
+        );
     },
 ];
 

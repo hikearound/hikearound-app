@@ -1,3 +1,4 @@
+import React from 'react';
 import { AppRegistry } from 'react-native';
 import {
     getStorybookUI,
@@ -7,16 +8,23 @@ import {
 } from '@storybook/react-native';
 import { withKnobs } from '@storybook/addon-knobs';
 import { withBackgrounds } from '@storybook/addon-ondevice-backgrounds';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { AppearanceProvider } from 'react-native-appearance';
 import { loadStories } from './storybook.requires';
+import {
+    storybookTheme,
+    navigationTheme,
+    screenOptions,
+    backgroundParameters,
+} from './stories/styles/Storybook';
 
 import './rn-addons';
 
-addParameters({
-    backgrounds: [
-        { name: 'light', value: '#F2F2F2', default: true },
-        { name: 'dark', value: '#000000' },
-    ],
-});
+const Stack = createStackNavigator();
+
+addParameters(backgroundParameters);
 
 // Then add decorators
 addDecorator(withBackgrounds);
@@ -27,21 +35,33 @@ configure(() => {
     loadStories();
 }, module);
 
-const StorybookUIRoot = getStorybookUI({
+const StorybookUI = getStorybookUI({
     asyncStorage: false,
     onDeviceUI: true,
     disableWebsockets: true,
     shouldPersistSelection: true,
-    theme: {
-        backgroundColor: 'white',
-        headerTextColor: 'black',
-        labelColor: 'black',
-        borderColor: '#e6e6e6',
-        previewBorderColor: '#b3b3b3',
-        buttonTextColor: '#999999',
-        buttonActiveTextColor: '#444444',
-    },
+    disableAnimation: true,
+    theme: storybookTheme,
 });
+
+const StorybookUIRoot = () => (
+    <SafeAreaProvider style={{ backgroundColor: 'white' }}>
+        <AppearanceProvider>
+            <NavigationContainer theme={navigationTheme}>
+                <Stack.Navigator screenOptions={screenOptions}>
+                    <Stack.Screen
+                        name='Storybook'
+                        options={{
+                            headerTitle: 'Component Library',
+                        }}
+                    >
+                        {() => <StorybookUI />}
+                    </Stack.Screen>
+                </Stack.Navigator>
+            </NavigationContainer>
+        </AppearanceProvider>
+    </SafeAreaProvider>
+);
 
 AppRegistry.registerComponent('%APP_NAME%', () => StorybookUIRoot);
 
