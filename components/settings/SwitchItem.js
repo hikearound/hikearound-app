@@ -3,17 +3,24 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { updateDarkMode } from '@actions/User';
 import { updateMapData } from '@actions/Map';
-import { ItemContainer, ItemText } from '@styles/Settings';
 import { settingsItems } from '@constants/Index';
 import SettingsSwitch from '@components/SettingsSwitch';
 import { getMapData } from '@utils/Map';
 import { withTheme } from '@utils/Themes';
+import BaseSettingsItem from './BaseSettingsItem';
 
 const propTypes = {
     item: PropTypes.object.isRequired,
-    dispatchDarkMode: PropTypes.func.isRequired,
     darkMode: PropTypes.bool.isRequired,
+    dispatchDarkMode: PropTypes.func.isRequired,
     dispatchMapData: PropTypes.func.isRequired,
+    isFirst: PropTypes.bool,
+    isLast: PropTypes.bool,
+};
+
+const defaultProps = {
+    isFirst: false,
+    isLast: false,
 };
 
 function mapStateToProps(state) {
@@ -40,21 +47,21 @@ class SwitchItem extends React.PureComponent {
     };
 
     render() {
-        const { item, darkMode } = this.props;
+        const { item, darkMode, isFirst, isLast } = this.props;
 
         return (
-            <ItemContainer>
-                <ItemText key={item.key}>{item.name}</ItemText>
+            <BaseSettingsItem item={item} isFirst={isFirst} isLast={isLast}>
                 <SettingsSwitch
                     onValueChange={(value) => this.handleToggleSwitch(value)}
                     value={darkMode}
                 />
-            </ItemContainer>
+            </BaseSettingsItem>
         );
     }
 }
 
 SwitchItem.propTypes = propTypes;
+SwitchItem.defaultProps = defaultProps;
 
 export default connect(
     mapStateToProps,

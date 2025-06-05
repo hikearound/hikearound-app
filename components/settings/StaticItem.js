@@ -1,22 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ItemContainer, ItemText } from '@styles/Settings';
+import BaseSettingsItem from './BaseSettingsItem';
 
 const propTypes = {
     item: PropTypes.object.isRequired,
+    isFirst: PropTypes.bool,
+    isLast: PropTypes.bool,
+};
+
+const defaultProps = {
+    isFirst: false,
+    isLast: false,
 };
 
 class StaticItem extends React.PureComponent {
     render() {
-        const { item } = this.props;
+        const { item, isFirst, isLast } = this.props;
         return (
-            <ItemContainer>
-                <ItemText key={item.key}>{item.name}</ItemText>
-            </ItemContainer>
+            <BaseSettingsItem item={item} isFirst={isFirst} isLast={isLast} />
         );
     }
 }
 
 StaticItem.propTypes = propTypes;
+StaticItem.defaultProps = defaultProps;
 
 export default StaticItem;

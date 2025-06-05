@@ -126,7 +126,7 @@ class ProfileStack extends React.PureComponent {
                 },
                 headerTintColor: 'black',
                 headerTitleStyle: {
-                    fontSize: 18,
+                    fontSize: 16,
                     color: 'black',
                 },
                 headerBackImage: () => <Back color='black' />,

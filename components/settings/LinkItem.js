@@ -1,13 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TouchableOpacity } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
-import { opacities, settingsItems } from '@constants/Index';
-import { ItemContainer, ItemText } from '@styles/Settings';
+import { settingsItems } from '@constants/Index';
 import { baseUrl } from '@constants/Common';
+import BaseSettingsItem from './BaseSettingsItem';
 
 const propTypes = {
     item: PropTypes.object.isRequired,
+    isFirst: PropTypes.bool,
+    isLast: PropTypes.bool,
+};
+
+const defaultProps = {
+    isFirst: false,
+    isLast: false,
 };
 
 class LinkItem extends React.Component {
@@ -29,21 +35,19 @@ class LinkItem extends React.Component {
     };
 
     render() {
-        const { item } = this.props;
-
+        const { item, isFirst, isLast } = this.props;
         return (
-            <ItemContainer>
-                <TouchableOpacity
-                    activeOpacity={opacities.regular}
-                    onPress={this.onPress}
-                >
-                    <ItemText key={item.key}>{item.name}</ItemText>
-                </TouchableOpacity>
-            </ItemContainer>
+            <BaseSettingsItem
+                item={item}
+                isFirst={isFirst}
+                isLast={isLast}
+                onPress={this.onPress}
+            />
         );
     }
 }
 
 LinkItem.propTypes = propTypes;
+LinkItem.defaultProps = defaultProps;
 
 export default LinkItem;

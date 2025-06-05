@@ -130,6 +130,7 @@ class MapModal extends React.Component {
                             mapPadding={{ bottom: 70 }}
                             mapBorderRadius={0}
                             mapType={mapType}
+                            showUserLocation
                         />
                         <ModalDismiss
                             includeBackground

@@ -1,15 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-import { opacities, settingsItems } from '@constants/Index';
-import { ItemContainer, ItemText } from '@styles/Settings';
+import { settingsItems } from '@constants/Index';
 import { logoutUser } from '@actions/User';
 import { withNavigation } from '@utils/Navigation';
+import BaseSettingsItem from './BaseSettingsItem';
 
 const propTypes = {
     item: PropTypes.object.isRequired,
     dispatchLogout: PropTypes.func.isRequired,
+    navigation: PropTypes.object.isRequired,
+    isFirst: PropTypes.bool,
+    isLast: PropTypes.bool,
+};
+
+const defaultProps = {
+    isFirst: false,
+    isLast: false,
 };
 
 function mapStateToProps() {
@@ -32,22 +39,21 @@ class ActionItem extends React.Component {
     };
 
     render() {
-        const { item } = this.props;
+        const { item, isFirst, isLast } = this.props;
 
         return (
-            <ItemContainer>
-                <TouchableOpacity
-                    activeOpacity={opacities.regular}
-                    onPress={this.itemPress}
-                >
-                    <ItemText key={item.key}>{item.name}</ItemText>
-                </TouchableOpacity>
-            </ItemContainer>
+            <BaseSettingsItem
+                item={item}
+                isFirst={isFirst}
+                isLast={isLast}
+                onPress={this.itemPress}
+            />
         );
     }
 }
 
 ActionItem.propTypes = propTypes;
+ActionItem.defaultProps = defaultProps;
 
 export default connect(
     mapStateToProps,

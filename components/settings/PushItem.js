@@ -1,14 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TouchableOpacity } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
-import { opacities, settingsItems, colors, spacing } from '@constants/Index';
-import { ItemContainer, ItemText } from '@styles/Settings';
+import { settingsItems, colors } from '@constants/Index';
 import { getSignInMethods } from '@utils/Auth';
 import { auth } from '@lib/Fire';
+import BaseSettingsItem from './BaseSettingsItem';
 
 const propTypes = {
     item: PropTypes.object.isRequired,
+    navigation: PropTypes.object.isRequired,
+    isFirst: PropTypes.bool,
+    isLast: PropTypes.bool,
+};
+
+const defaultProps = {
+    isFirst: false,
+    isLast: false,
 };
 
 class PushItem extends React.Component {
@@ -51,31 +58,31 @@ class PushItem extends React.Component {
     };
 
     render() {
-        const { item } = this.props;
+        const { item, isFirst, isLast } = this.props;
 
         return (
-            <ItemContainer>
-                <TouchableOpacity
-                    activeOpacity={opacities.regular}
-                    onPress={this.itemPress}
-                >
-                    <ItemText key={item.key}>{item.name}</ItemText>
-                    <MaterialIcons
-                        name='arrow-forward-ios'
-                        size={20}
-                        color={colors.gray}
-                        style={{
-                            right: parseInt(spacing.tiny, 10),
-                            top: 11,
-                            position: 'absolute',
-                        }}
-                    />
-                </TouchableOpacity>
-            </ItemContainer>
+            <BaseSettingsItem
+                item={item}
+                isFirst={isFirst}
+                isLast={isLast}
+                onPress={this.itemPress}
+            >
+                <MaterialIcons
+                    name='arrow-forward-ios'
+                    size={16}
+                    color={colors.gray}
+                    style={{
+                        right: -5,
+                        top: 15,
+                        position: 'absolute',
+                    }}
+                />
+            </BaseSettingsItem>
         );
     }
 }
 
 PushItem.propTypes = propTypes;
+PushItem.defaultProps = defaultProps;
 
 export default PushItem;
