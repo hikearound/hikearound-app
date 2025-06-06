@@ -28,8 +28,8 @@ const Stack = createStackNavigator();
 addParameters(backgroundParameters);
 
 // Then add decorators
-addDecorator(withBackgrounds);
 addDecorator(withKnobs);
+addDecorator(withBackgrounds);
 
 // Configure stories
 configure(() => {

@@ -1,53 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { storiesOf } from '@storybook/react-native';
-import { text, number, object, select } from '@storybook/addon-knobs';
+import { text, number, object } from '@storybook/addon-knobs';
+import { action } from '@storybook/addon-actions';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
+import { TouchableOpacity } from 'react-native';
+import { ThemeProvider } from 'styled-components';
+import { withBackgrounds } from '@storybook/addon-ondevice-backgrounds';
+import { opacities } from '@constants/Index';
 import RecentReviewListItem from '@components/feed/review/RecentReviewListItem';
 import CenteredContainer from '../styles/Story';
 import withNavigation from '../utils/StoryDecorators';
-import { getTheme } from '../utils/ThemeUtils';
-
-const mockStore = createStore(() => ({
-    user: {
-        uid: 'user123',
-        name: 'John Doe',
-        location: 'San Francisco, CA',
-        photoURL:
-            'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop',
-    },
-    reviewReducer: {
-        reviewData: {
-            review1: {
-                id: 'review1',
-                hid: 'hike1',
-                rating: 4,
-                review: 'This was an amazing hike!',
-                savedOn: new Date(),
-                userLikes: [],
-                user: {
-                    uid: 'user1',
-                    name: 'John Doe',
-                    location: 'San Francisco, CA',
-                    photoURL:
-                        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop',
-                },
-                hike: {
-                    name: 'Mount Tamalpais',
-                    city: 'Mill Valley',
-                    state: 'CA',
-                },
-            },
-        },
-    },
-    modalReducer: {
-        closeAction: () => {},
-        openAction: () => {},
-        isVisible: false,
-        modalType: null,
-    },
-}));
+import { withThemeSelection } from '../utils/ThemeUtils';
+import { RECENT_REVIEW_LIST_ITEM_NOTES } from '../constants/Notes';
+import { mockStore } from '../constants/Reviews';
 
 const getKnobs = (isLiked = false) => {
     const likeCount = number('Like Count', isLiked ? 5 : 0, {
@@ -85,23 +52,31 @@ const getKnobs = (isLiked = false) => {
     };
 };
 
-const ReviewItemScreen = ({ isLiked = false }) => {
+const ReviewItemScreen = ({ isLiked = false, theme }) => {
     const props = getKnobs(isLiked);
 
     return (
-        <CenteredContainer>
-            <RecentReviewListItem
-                rid={isLiked ? 'review456' : 'review123'}
-                hid={isLiked ? 'hike456' : 'hike123'}
-                hasRightMargin={false}
-                {...props}
-            />
+        <CenteredContainer backgroundColor={theme.background}>
+            <ThemeProvider theme={theme}>
+                <TouchableOpacity
+                    activeOpacity={opacities.regular}
+                    onPress={action('card-pressed')}
+                >
+                    <RecentReviewListItem
+                        rid={isLiked ? 'review456' : 'review123'}
+                        hid={isLiked ? 'hike456' : 'hike123'}
+                        hasRightMargin={false}
+                        {...props}
+                    />
+                </TouchableOpacity>
+            </ThemeProvider>
         </CenteredContainer>
     );
 };
 
 ReviewItemScreen.propTypes = {
     isLiked: PropTypes.bool,
+    theme: PropTypes.object.isRequired,
 };
 
 ReviewItemScreen.defaultProps = {
@@ -110,20 +85,27 @@ ReviewItemScreen.defaultProps = {
 
 const stories = storiesOf('RecentReviewListItem', module);
 
+stories.addDecorator(withBackgrounds);
 stories.addDecorator((Story) => {
     const content = <Story />;
-    const theme = getTheme(
-        select('Theme', { light: 'light', dark: 'dark' }, 'light'),
-    );
-
     return withNavigation(() => content, {
         headerTitle: 'RecentReviewListItem',
-        theme,
         additionalProviders: [
-            (props) => <Provider store={mockStore} {...props} />,
+            (props) => (
+                <Provider store={createStore(() => mockStore)} {...props} />
+            ),
         ],
     });
 });
 
-stories.add('Default', () => <ReviewItemScreen />);
-stories.add('With Likes', () => <ReviewItemScreen isLiked />);
+stories.add('Default', () => withThemeSelection(ReviewItemScreen)(), {
+    notes: RECENT_REVIEW_LIST_ITEM_NOTES.DEFAULT,
+});
+
+stories.add(
+    'With Likes',
+    () => withThemeSelection(ReviewItemScreen)({ isLiked: true }),
+    {
+        notes: RECENT_REVIEW_LIST_ITEM_NOTES.WITH_LIKES,
+    },
+);

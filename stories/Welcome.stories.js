@@ -13,10 +13,8 @@ const Welcome = () => (
     </Container>
 );
 
-// Create the story without any addons
 const welcomeStory = storiesOf('_Welcome', module);
 
-// Add necessary decorators for Header
 welcomeStory.addDecorator((story) =>
     withNavigation(story, {
         headerTitle: 'Component Library',
