@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import BottomSheet from 'reanimated-bottom-sheet';
-// import { LineChart } from 'react-native-chart-kit'; // Temporarily disabled for SDK 46
-import { Dimensions } from 'react-native';
+import { LineChart } from 'react-native-gifted-charts';
+import { Dimensions, View, Text } from 'react-native';
 import { withTranslation } from 'react-i18next';
 import { withTheme } from '@utils/Themes';
 import {
@@ -67,15 +67,54 @@ function GraphSheet({
         return distanceArray;
     };
 
-    const data = {
-        labels: buildDistanceArray(),
-        datasets: [
-            {
-                data: elevationArray,
-                strokeWidth,
-            },
-        ],
-    };
+    // Transform data for react-native-gifted-charts
+    const distanceLabels = buildDistanceArray();
+    
+    // Create test data first to see if chart works
+    const testData = [
+        {value: 50, label: '0'},
+        {value: 80, label: '0.5'},
+        {value: 90, label: '1.0'},
+        {value: 70, label: '1.5'},
+        {value: 60, label: '2.0'},
+    ];
+    
+    // Reduce data points for better performance and visibility
+    const step = Math.max(1, Math.floor(elevationArray.length / 50)); // Show max 50 points
+    const reducedElevations = elevationArray.filter((_, index) => index % step === 0);
+    const totalReducedPoints = reducedElevations.length;
+    
+    // Create strategic label points to avoid duplicates
+    const labelPositions = new Set();
+    const chartData = reducedElevations.map((elevation, index) => {
+        const originalIndex = index * step;
+        const distanceAtPoint = (originalIndex / elevationArray.length) * distance;
+        
+        let labelText = '';
+        const roundedDistance = Math.round(distanceAtPoint);
+        
+        if (index === 0) {
+            labelText = '';
+            labelPositions.add(0);
+        } else if (roundedDistance > 0 && !labelPositions.has(roundedDistance) && Math.abs(distanceAtPoint - roundedDistance) < 0.2) {
+            labelText = `${roundedDistance} mi`;
+            labelPositions.add(roundedDistance);
+        }
+        
+        return {
+            value: Number(elevation),
+            label: labelText,
+            labelTextStyle: labelText ? { width: 40, textAlign: 'center', color: '#666', fontSize: 10 } : undefined,
+        };
+    });
+    
+    // Debug log to check labels specifically
+    const labelsOnly = chartData.filter(d => d.label !== '').map(d => d.label);
+    console.log('X-axis labels that should appear:', labelsOnly);
+    console.log('Total distance:', distance, 'Reduced points:', totalReducedPoints);
+    
+    // Use real data now that we know chart works
+    const dataToUse = chartData;
 
     const renderContentHeaderItem = (label, subtext) => (
         <React.Fragment key={label}>
@@ -106,26 +145,85 @@ function GraphSheet({
     const renderContent = () => (
         <Body>
             <Header>{renderContentHeader()}</Header>
-            {/* LineChart temporarily disabled for SDK 46 compatibility
-            <LineChart
-                data={data}
-                width={width + marginOffset}
-                height={height}
-                chartConfig={chartConfig(theme)}
-                bezier
-                withDots={false}
-                yAxisSuffix={` ${t('sheet.elevation.unit.feet')}`}
-                xAxisLabel={` ${t('sheet.elevation.unit.miles')}`}
-                yAxisInterval={elevationArray.length / axisIncrement}
-                formatYLabel={formatYLabel}
-                formatXLabel={formatXLabel}
-                segments={axisIncrement - 1}
-                style={{
-                    marginLeft: -marginOffset,
-                }}
-                withOuterLines={false}
-            />
-            */}
+            <ChartContainer>
+                <LineChart
+                    data={dataToUse}
+                    width={width - 20}
+                    height={height - 60}
+                    curved={false}
+                    thickness={2.5}
+                    color={'#935DFF'}
+                    dataPointsColor={'#935DFF'}
+                    dataPointsRadius={4}
+                    hideDataPoints={true}
+                    showValuesAsDataPointsText={false}
+                    showPointer={true}
+                    pointerConfig={{
+                        pointer1Color: '#935DFF',
+                        pointerStripUptoDataPoint: true,
+                        pointerStripColor: '#E0E0E0',
+                        strokeWidth: 1,
+                        radius: 4,
+                        pointerLabelComponent: (items) => {
+                            return (
+                                <View style={{
+                                    backgroundColor: 'white',
+                                    paddingHorizontal: 8,
+                                    paddingVertical: 6,
+                                    borderRadius: 8,
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    minWidth: 60,
+                                    borderWidth: 1,
+                                    borderColor: '#E0E0E0',
+                                    marginTop: 10,
+                                }}>
+                                    <Text style={{
+                                        color: '#333',
+                                        fontSize: 14,
+                                        fontWeight: '500',
+                                    }}>
+                                        {`${Math.round(items[0]?.value || 0)} ft`}
+                                    </Text>
+                                </View>
+                            );
+                        },
+                    }}
+                    spacing={(width - 80) / Math.max(dataToUse.length - 1, 1)}
+                    initialSpacing={0}
+                    endSpacing={20}
+                    scrollToEnd={false}
+                    disableScroll={true}
+                    hideRules={false}
+                    rulesColor={'#E0E0E0'}
+                    rulesThickness={1}
+                    hideYAxisText={false}
+                    hideAxesAndRules={false}
+                    yAxisTextStyle={{
+                        color: '#666',
+                        fontSize: 10,
+                    }}
+                    xAxisLabelTextStyle={{
+                        color: '#666',
+                        fontSize: 10,
+                        textAlign: 'center',
+                    }}
+                    noOfSections={4}
+                    maxValue={Math.max(...elevationArray.map(Number)) + 10}
+                    minValue={Math.max(0, Math.min(...elevationArray.map(Number)) - 10)}
+                    yAxisSuffix={' ft'}
+                    formatYLabel={(value) => `${value} ft`}
+                    rotateLabel={false}
+                    xAxisThickness={1}
+                    yAxisThickness={1}
+                    xAxisColor={'#E0E0E0'}
+                    yAxisColor={'#E0E0E0'}
+                    backgroundColor={'transparent'}
+                    isAnimated={false}
+                    showXAxisIndices={false}
+                    showYAxisIndices={false}
+                />
+            </ChartContainer>
         </Body>
     );
 
@@ -163,4 +261,18 @@ export default withTranslation()(withNavigation(withTheme(GraphSheet)));
 const Body = styled.View`
     height: 300px;
     background-color: ${(props) => props.theme.sheetBackground};
+`;
+
+const ChartContainer = styled.View`
+    padding-bottom: 50px;
+    padding-top: 10px;
+    padding-horizontal: 20px;
+`;
+
+const XAxisLabel = styled.Text`
+    text-align: center;
+    margin-top: 5px;
+    font-size: 12px;
+    color: #666;
+    font-weight: 500;
 `;
