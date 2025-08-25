@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
-import { AppearanceProvider } from 'react-native-appearance';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { StatusBar } from 'react-native';
 import { ThemeProvider } from 'styled-components';
@@ -81,25 +80,23 @@ class AppNavigator extends React.PureComponent {
 
         return (
             <SafeAreaProvider>
-                <AppearanceProvider>
-                    <InstantSearch
-                        searchClient={searchClient}
-                        indexName='hikes'
-                        searchState={searchState}
-                        onSearchStateChange={this.onSearchStateChange}
+                <InstantSearch
+                    searchClient={searchClient}
+                    indexName='hikes'
+                    searchState={searchState}
+                    onSearchStateChange={this.onSearchStateChange}
+                >
+                    <NavigationContainer
+                        ref={navigationRef}
+                        onReady={() => this.setRouteNameRef()}
+                        onStateChange={() => this.onNavigationStateChange()}
+                        theme={theme}
                     >
-                        <NavigationContainer
-                            ref={navigationRef}
-                            onReady={() => this.setRouteNameRef()}
-                            onStateChange={() => this.onNavigationStateChange()}
-                            theme={theme}
-                        >
-                            <ThemeProvider theme={theme.colors}>
-                                <TabNavigator />
-                            </ThemeProvider>
-                        </NavigationContainer>
-                    </InstantSearch>
-                </AppearanceProvider>
+                        <ThemeProvider theme={theme.colors}>
+                            <TabNavigator />
+                        </ThemeProvider>
+                    </NavigationContainer>
+                </InstantSearch>
             </SafeAreaProvider>
         );
     }

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { CollapsibleHeaderFlatList } from 'react-native-collapsible-header-views';
+// import { CollapsibleHeaderFlatList } from 'react-native-collapsible-header-views'; // Temporarily disabled for SDK 46
+import { FlatList } from 'react-native';
 import { withTranslation } from 'react-i18next';
 import FeedItem from '@components/FeedItem';
 import Header from '@components/Header';
@@ -110,7 +111,7 @@ class FeedList extends React.PureComponent {
 
         return (
             <>
-                <CollapsibleHeaderFlatList
+                <FlatList
                     ref={scrollRef}
                     data={hikes}
                     extraData={hikes}

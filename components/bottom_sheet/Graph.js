@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import BottomSheet from 'reanimated-bottom-sheet';
-import { LineChart } from 'react-native-chart-kit';
+// import { LineChart } from 'react-native-chart-kit'; // Temporarily disabled for SDK 46
 import { Dimensions } from 'react-native';
 import { withTranslation } from 'react-i18next';
 import { withTheme } from '@utils/Themes';
@@ -106,6 +106,7 @@ function GraphSheet({
     const renderContent = () => (
         <Body>
             <Header>{renderContentHeader()}</Header>
+            {/* LineChart temporarily disabled for SDK 46 compatibility
             <LineChart
                 data={data}
                 width={width + marginOffset}
@@ -124,6 +125,7 @@ function GraphSheet({
                 }}
                 withOuterLines={false}
             />
+            */}
         </Body>
     );
 

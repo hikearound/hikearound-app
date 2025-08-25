@@ -12,7 +12,6 @@ import { withBackgrounds } from '@storybook/addon-ondevice-backgrounds';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { AppearanceProvider } from 'react-native-appearance';
 import { loadStories } from './storybook.requires';
 import {
     storybookTheme,
@@ -50,18 +49,16 @@ const StorybookUIRoot = ({ standalone = true }) => {
         return (
             <NavigationContainer theme={navigationTheme}>
                 <SafeAreaProvider style={{ backgroundColor: 'white' }}>
-                    <AppearanceProvider>
-                        <Stack.Navigator screenOptions={screenOptions}>
-                            <Stack.Screen
-                                name='Storybook'
-                                options={{
-                                    headerTitle: 'Component Library',
-                                }}
-                            >
-                                {() => <StorybookUI />}
-                            </Stack.Screen>
-                        </Stack.Navigator>
-                    </AppearanceProvider>
+                    <Stack.Navigator screenOptions={screenOptions}>
+                        <Stack.Screen
+                            name='Storybook'
+                            options={{
+                                headerTitle: 'Component Library',
+                            }}
+                        >
+                            {() => <StorybookUI />}
+                        </Stack.Screen>
+                    </Stack.Navigator>
                 </SafeAreaProvider>
             </NavigationContainer>
         );
@@ -69,9 +66,7 @@ const StorybookUIRoot = ({ standalone = true }) => {
 
     return (
         <SafeAreaProvider style={{ backgroundColor: 'white' }}>
-            <AppearanceProvider>
-                <StorybookUI />
-            </AppearanceProvider>
+            <StorybookUI />
         </SafeAreaProvider>
     );
 };

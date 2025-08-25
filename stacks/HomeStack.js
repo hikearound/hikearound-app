@@ -52,11 +52,15 @@ const Stack = createStackNavigator();
 
 class HomeStack extends React.Component {
     componentDidMount() {
-        const { navigation, dispatchFocusedStack, stackName } = this.props;
+        const { navigation, dispatchFocusedStack, stackName, route } = this.props;
 
         this.unsubscribe = navigation.addListener('focus', () => {
             dispatchFocusedStack(stackName);
         });
+
+        // Set initial tab bar visibility
+        const routeName = getFocusedRouteNameFromRoute(route) || this.getInitialRoute();
+        this.setTabBarVisibility(routeName);
     }
 
     componentDidUpdate() {
@@ -87,7 +91,8 @@ class HomeStack extends React.Component {
             initialRoute = 'HomeScreen';
         }
 
-        this.setTabBarVisibility(initialRoute);
+        // Don't call setTabBarVisibility here as it's during render
+        // It will be handled by componentDidUpdate
 
         return initialRoute;
     };

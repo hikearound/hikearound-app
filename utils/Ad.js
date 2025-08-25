@@ -1,16 +1,17 @@
-import * as FacebookAds from 'expo-ads-facebook';
 import { testAdTypes, placements } from '@constants/Ad';
 
 export function enableAdTracking() {
-    FacebookAds.AdSettings.setAdvertiserTrackingEnabled(true);
+    // Facebook Ads removed - no-op
 }
 
 export async function getAdPermissions() {
-    return FacebookAds.AdSettings.getPermissionsAsync();
+    // Facebook Ads removed - return denied permission
+    return { granted: false };
 }
 
 export async function requestAdPermissions() {
-    return FacebookAds.AdSettings.requestPermissionsAsync();
+    // Facebook Ads removed - return denied permission
+    return Promise.resolve({ granted: false });
 }
 
 export function getPlacementId(slotType) {
@@ -24,16 +25,10 @@ export function getPlacementId(slotType) {
 }
 
 export function getAdsManager(slotType) {
-    const placementId = getPlacementId(slotType);
-    const numberOfAdsToRequest = 5;
-
-    return new FacebookAds.NativeAdsManager(placementId, numberOfAdsToRequest);
+    // Facebook Ads removed - return null
+    return null;
 }
 
 export function addTestDevice() {
-    if (__DEV__) {
-        FacebookAds.AdSettings.addTestDevice(
-            FacebookAds.AdSettings.currentDeviceHash,
-        );
-    }
+    // Facebook Ads removed - no-op
 }

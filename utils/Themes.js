@@ -1,7 +1,6 @@
 import React from 'react';
 import { useTheme, useFocusEffect } from '@react-navigation/native';
-import { useColorScheme } from 'react-native-appearance';
-import { StatusBar } from 'react-native';
+import { useColorScheme, StatusBar } from 'react-native';
 import PropTypes from 'prop-types';
 
 export function withTheme(Component) {

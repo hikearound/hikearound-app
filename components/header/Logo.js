@@ -24,7 +24,7 @@ class Logo extends React.PureComponent {
         const { scrollRef } = this.props;
 
         if (scrollRef.current) {
-            scrollRef.current.getNode().scrollToOffset({
+            scrollRef.current.scrollToOffset({
                 animated: true,
                 offset: 0,
             });

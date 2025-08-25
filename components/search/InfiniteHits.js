@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { CollapsibleHeaderFlatList } from 'react-native-collapsible-header-views';
+// import { FlatList } from 'react-native-collapsible-header-views'; // Temporarily disabled for SDK 46
+import { FlatList } from 'react-native';
 import { connectInfiniteHits } from 'react-instantsearch-native';
 import { Keyboard } from 'react-native';
 import { withNavigation } from '@utils/Navigation';
@@ -61,7 +62,7 @@ class InfiniteHits extends React.Component {
 
         if (hits.length > 0) {
             return (
-                <CollapsibleHeaderFlatList
+                <FlatList
                     clipHeader
                     disableHeaderSnap
                     bounces

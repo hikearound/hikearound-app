@@ -1,4 +1,4 @@
-import { Appearance } from 'react-native-appearance';
+import { Appearance } from 'react-native';
 import * as Notifications from 'expo-notifications';
 import { cacheImages } from '@utils/Image';
 import { db, storage, auth } from '@lib/Fire';

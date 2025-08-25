@@ -14,7 +14,13 @@ export function setUser(params) {
 }
 
 export function setCurrentScreen(screenName) {
-    Analytics.setCurrentScreen(screenName, screenName);
+    // Use logEvent instead of deprecated setCurrentScreen
+    if (!__DEV__) {
+        Analytics.logEvent('screen_view', {
+            screen_name: screenName,
+            screen_class: screenName,
+        });
+    }
 }
 
 export function logEvent(eventName, params) {
