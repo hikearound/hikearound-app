@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import StarRating from 'react-native-star-rating'; // Temporarily disabled for SDK 46
+import { View } from 'react-native';
+import StarRating from 'react-native-star-rating-widget';
 import { connect } from 'react-redux';
 import { colors } from '@constants/Index';
 import { withTheme } from '@utils/Themes';
@@ -53,20 +54,28 @@ class Stars extends React.PureComponent {
         const {
             starSize,
             maxStars,
-            emptyStar,
-            fullStar,
-            halfStar,
-            iconSet,
             onStarRatingPress,
             rating,
             disabled,
             filledColor,
             emptyColor,
-            halfStarEnabled,
         } = this.props;
 
-        // Temporarily disabled StarRating component for SDK 46 compatibility
-        return null;
+        return (
+            <StarRating
+                rating={rating}
+                onChange={disabled ? undefined : onStarRatingPress}
+                starSize={starSize}
+                maxStars={maxStars}
+                color={filledColor}
+                emptyColor={emptyColor}
+                enableSwiping={!disabled}
+                enableHalfStar={false}
+                style={{ alignSelf: 'flex-start' }}
+                starSize={starSize + 3}
+                starStyle={{ marginLeft: 0, marginRight: 1 }}
+            />
+        );
     }
 }
 

@@ -62,22 +62,19 @@ class InfiniteHits extends React.Component {
 
         if (hits.length > 0) {
             return (
-                <FlatList
-                    clipHeader
-                    disableHeaderSnap
-                    bounces
-                    keyExtractor={(item) => item.objectID}
-                    keyboardShouldPersistTaps={keyboardShouldPersistTaps}
-                    data={hits}
-                    renderItem={this.renderItem}
-                    onEndReached={() => hasMore && refine()}
-                    CollapsibleHeaderComponent={<Stats />}
-                    headerContainerBackgroundColor={theme.colors.rootBackground}
-                    headerHeight={headerHeight}
-                    showsVerticalScrollIndicator={showsVerticalScrollIndicator}
-                    onScrollBeginDrag={() => Keyboard.dismiss()}
-                    contentContainerStyle={{ paddingBottom }}
-                />
+                <>
+                    <Stats />
+                    <FlatList
+                        keyExtractor={(item) => item.objectID}
+                        keyboardShouldPersistTaps={keyboardShouldPersistTaps}
+                        data={hits}
+                        renderItem={this.renderItem}
+                        onEndReached={() => hasMore && refine()}
+                        showsVerticalScrollIndicator={showsVerticalScrollIndicator}
+                        onScrollBeginDrag={() => Keyboard.dismiss()}
+                        contentContainerStyle={{ paddingBottom }}
+                    />
+                </>
             );
         }
 

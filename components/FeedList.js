@@ -111,21 +111,17 @@ class FeedList extends React.PureComponent {
 
         return (
             <>
+                {this.renderHeader(title)}
                 <FlatList
                     ref={scrollRef}
                     data={hikes}
                     extraData={hikes}
-                    CollapsibleHeaderComponent={() => this.renderHeader(title)}
-                    headerHeight={35}
                     showsVerticalScrollIndicator={false}
                     keyExtractor={this.keyExtractor}
                     renderItem={this.renderItem}
                     refreshControl={refreshControl}
                     onEndReached={onEndReached}
                     ListFooterComponent={this.renderFooter}
-                    headerContainerBackgroundColor={theme.colors.rootBackground}
-                    disableHeaderSnap
-                    bounces
                     removeClippedSubviews
                     maxToRenderPerBatch={5}
                     windowSize={5}
