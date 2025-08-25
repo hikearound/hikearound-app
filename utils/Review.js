@@ -64,7 +64,7 @@ export async function writeReview(reviewData) {
 
     reviewData.uid = user.uid;
     reviewData.userLikes = [];
-    reviewData.savedOn = timestamp;
+    reviewData.savedOn = timestamp();
 
     return db
         .collection('reviews')

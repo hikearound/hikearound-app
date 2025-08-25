@@ -108,10 +108,6 @@ function GraphSheet({
         };
     });
     
-    // Debug log to check labels specifically
-    const labelsOnly = chartData.filter(d => d.label !== '').map(d => d.label);
-    console.log('X-axis labels that should appear:', labelsOnly);
-    console.log('Total distance:', distance, 'Reduced points:', totalReducedPoints);
     
     // Use real data now that we know chart works
     const dataToUse = chartData;

@@ -1,6 +1,10 @@
 import 'dotenv/config';
 
 export default ({ config }) => ({
+    plugins: [
+        'sentry-expo',
+        'expo-localization'
+    ],
     hooks: {
         postPublish: [
             {

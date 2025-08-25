@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import firebase from 'firebase';
+import { EmailAuthProvider } from 'firebase/auth';
 import { ScrollView, Keyboard, TouchableOpacity, Alert } from 'react-native';
 import { withTranslation } from 'react-i18next';
 import styled from 'styled-components';
@@ -94,7 +94,7 @@ class PasswordScreen extends React.Component {
         Keyboard.dismiss();
         this.setState({ loading: true });
 
-        const credential = firebase.auth.EmailAuthProvider.credential(
+        const credential = EmailAuthProvider.credential(
             user.email,
             currentPassword,
         );

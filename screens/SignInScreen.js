@@ -1,6 +1,7 @@
 import React from 'react';
 import { Alert, ScrollView, Keyboard } from 'react-native';
-import firebase from 'firebase';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '@lib/Fire';
 import { withTranslation } from 'react-i18next';
 import InputButton from '@components/InputButton';
 import LoadingOverlay from '@components/LoadingOverlay';
@@ -63,9 +64,7 @@ class SignInScreen extends React.Component {
 
         this.setLoading(true);
 
-        firebase
-            .auth()
-            .signInWithEmailAndPassword(email, password)
+        signInWithEmailAndPassword(auth, email, password)
             .catch((error) => {
                 this.showErrorAlert(error);
                 this.setLoading(false);

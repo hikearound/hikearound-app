@@ -1,6 +1,7 @@
 import React from 'react';
 import { Alert, ScrollView, Keyboard } from 'react-native';
-import firebase from 'firebase';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '@lib/Fire';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
@@ -105,9 +106,7 @@ class CreateAccountScreen extends React.Component {
 
         this.setLoading(true);
 
-        await firebase
-            .auth()
-            .createUserWithEmailAndPassword(email, password)
+        await createUserWithEmailAndPassword(auth, email, password)
             .catch((error) => {
                 this.showErrorAlert(error);
                 this.setLoading(false);

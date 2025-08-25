@@ -1,4 +1,5 @@
-import firebase from 'firebase';
+import { fetchSignInMethodsForEmail } from 'firebase/auth';
+import { auth } from '@lib/Fire';
 
 export function updateAuthSubscription(user) {
     if (!user) {
@@ -11,9 +12,7 @@ export function updateAuthSubscription(user) {
 
 export async function getSignInMethods(email) {
     if (email) {
-        const providers = await firebase
-            .auth()
-            .fetchSignInMethodsForEmail(email);
+        const providers = await fetchSignInMethodsForEmail(auth, email);
         return providers;
     }
     return [];

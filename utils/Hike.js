@@ -44,7 +44,7 @@ export async function getHikeXmlUrl(hid) {
 
 export function writeFavoriteHike(hikeData) {
     const { uid } = auth.currentUser;
-    hikeData.savedOn = timestamp;
+    hikeData.savedOn = timestamp();
 
     return db
         .collection('favoritedHikes')

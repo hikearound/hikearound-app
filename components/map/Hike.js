@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import MapView, { PROVIDER_APPLE } from 'react-native-maps';
+import MapView, { PROVIDER_APPLE, Polyline } from 'react-native-maps';
 import { colors, borderRadius } from '@constants/Index';
 import { defaultProps } from '@constants/states/HikeMap';
 import { withTheme } from '@utils/Themes';
@@ -93,7 +93,7 @@ class HikeMap extends React.Component {
                                 position={position}
                             />
                         )}
-                        <MapView.Polyline
+                        <Polyline
                             coordinates={coordinates}
                             strokeColor={colors.purple}
                             strokeWidth={2}

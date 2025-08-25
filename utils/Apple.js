@@ -1,4 +1,5 @@
-import firebase from 'firebase';
+import { fetchSignInMethodsForEmail } from 'firebase/auth';
+import { auth } from '@lib/Fire';
 
 export function buildFormattedName(fullName) {
     let formattedName = '';
@@ -12,9 +13,7 @@ export function buildFormattedName(fullName) {
 
 export async function accountUsesApple(email) {
     if (email) {
-        const providers = await firebase
-            .auth()
-            .fetchSignInMethodsForEmail(email);
+        const providers = await fetchSignInMethodsForEmail(auth, email);
 
         if (providers.includes('apple.com')) {
             return true;

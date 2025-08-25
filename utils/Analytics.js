@@ -1,5 +1,8 @@
-import * as Analytics from 'expo-firebase-analytics';
 import { auth } from '@lib/Fire';
+
+// Firebase Analytics doesn't work properly in React Native/Expo environment
+// Disable for now to prevent warnings and errors
+const analytics = null;
 
 export function setUser(params) {
     const user = auth.currentUser;
@@ -14,19 +17,17 @@ export function setUser(params) {
 }
 
 export function setCurrentScreen(screenName) {
-    // Use logEvent instead of deprecated setCurrentScreen
+    // Analytics disabled - implement with Expo Analytics or other solution if needed
     if (!__DEV__) {
-        Analytics.logEvent('screen_view', {
-            screen_name: screenName,
-            screen_class: screenName,
-        });
+        console.log('Screen view:', screenName);
     }
 }
 
 export function logEvent(eventName, params) {
     params = setUser(params);
 
+    // Analytics disabled - implement with Expo Analytics or other solution if needed  
     if (!__DEV__) {
-        Analytics.logEvent(eventName, params);
+        console.log('Analytics event:', eventName, params);
     }
 }

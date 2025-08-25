@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import * as AppleAuthentication from 'expo-apple-authentication';
 import * as Crypto from 'expo-crypto';
-import firebase from 'firebase';
+import { OAuthProvider, signInWithCredential } from 'firebase/auth';
+import { auth } from '@lib/Fire';
 import { Alert } from 'react-native';
 import { withTranslation } from 'react-i18next';
 import * as Location from 'expo-location';
@@ -99,18 +100,15 @@ class AppleAuthButton extends React.Component {
         const { setLoading } = this.props;
         const { identityToken, fullName } = credential;
 
-        const authCredential = new firebase.auth.OAuthProvider(
-            'apple.com',
-        ).credential({
+        const provider = new OAuthProvider('apple.com');
+        const authCredential = provider.credential({
             idToken: identityToken,
             rawNonce: nonce,
         });
 
         setLoading(true);
 
-        await firebase
-            .auth()
-            .signInWithCredential(authCredential)
+        await signInWithCredential(auth, authCredential)
             .catch((error) => {
                 this.showErrorAlert(error);
                 setLoading(false);
