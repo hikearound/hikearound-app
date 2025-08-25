@@ -66,12 +66,19 @@ stories.add('Default', () => withThemeSelection(RecentReviewListScreen)(), {
 
 stories.add(
     'With Transparent Background',
-    () => withThemeSelection(RecentReviewListScreen)(),
+    () =>
+        withThemeSelection(RecentReviewListScreen)({
+            hasTransparentBackground: true,
+        }),
     {
         notes: RECENT_REVIEW_LIST_NOTES.TRANSPARENT,
     },
 );
 
-stories.add('Empty State', () => withThemeSelection(RecentReviewListScreen)(), {
-    notes: RECENT_REVIEW_LIST_NOTES.EMPTY,
-});
+stories.add(
+    'Empty State',
+    () => withThemeSelection(RecentReviewListScreen)({ reviews: [] }),
+    {
+        notes: RECENT_REVIEW_LIST_NOTES.EMPTY,
+    },
+);

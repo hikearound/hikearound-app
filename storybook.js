@@ -40,7 +40,7 @@ const StorybookUI = getStorybookUI({
     asyncStorage: false,
     onDeviceUI: true,
     disableWebsockets: true,
-    shouldPersistSelection: true,
+    shouldPersistSelection: false,
     disableAnimation: true,
     theme: storybookTheme,
 });
