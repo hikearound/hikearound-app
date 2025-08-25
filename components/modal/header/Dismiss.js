@@ -25,6 +25,7 @@ const propTypes = {
     isPageSheet: PropTypes.bool,
     alignLeft: PropTypes.bool,
     iconWrapperSize: PropTypes.number,
+    topOffset: PropTypes.number,
 };
 
 const defaultProps = {
@@ -36,6 +37,7 @@ const defaultProps = {
     isPageSheet: false,
     alignLeft: true,
     iconWrapperSize: 35,
+    topOffset: 0,
 };
 
 function mapDispatchToProps(dispatch) {
@@ -60,11 +62,11 @@ class ModalDismiss extends React.Component {
     };
 
     setPosition = () => {
-        const { includeBackground } = this.props;
+        const { includeBackground, topOffset } = this.props;
         const position = getDismissIconPosition(includeBackground);
 
         this.setState({
-            top: position.top,
+            top: position.top + topOffset,
             right: position.right,
         });
     };

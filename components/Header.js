@@ -33,7 +33,9 @@ Header.defaultProps = defaultProps;
 export default withTranslation()(Header);
 
 const View = styled.View`
-    padding: ${spacing.tiny}px;
+    padding-top: ${spacing.tiny}px;
+    padding-bottom: ${spacing.small}px;
+    padding-horizontal: ${spacing.tiny}px;
     padding-left: ${(props) =>
         props.isLoggedOut ? `${spacing.small}px` : `${spacing.tiny}px`};
     border-bottom-width: 1px;

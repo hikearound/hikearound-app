@@ -32,7 +32,7 @@ export function withNavigation(Component) {
 }
 
 export function getHeaderHeight() {
-    const baseHeight = 44;
+    const baseHeight = 54;
     return baseHeight + Constants.statusBarHeight;
 }
 

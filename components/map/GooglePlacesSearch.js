@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import {
     View,
@@ -8,6 +8,7 @@ import {
     Text,
     Keyboard,
 } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import Constants from 'expo-constants';
 import { withTheme } from '@utils/Themes';
 import { getMapSearchStyle } from '@styles/Map';
@@ -17,6 +18,12 @@ const GooglePlacesSearch = ({ theme, onPress, placeholder }) => {
     const [predictions, setPredictions] = useState([]);
     const styles = getMapSearchStyle(theme);
     const inputRef = useRef(null);
+
+    const clearSearch = () => {
+        setSearchText('');
+        setPredictions([]);
+        inputRef.current?.focus();
+    };
 
     const searchPlaces = async (text) => {
         setSearchText(text);
@@ -40,37 +47,58 @@ const GooglePlacesSearch = ({ theme, onPress, placeholder }) => {
         }
     };
 
-    const handleSelectPlace = async (placeId) => {
-        // Clear results immediately and blur input
+    const handleSelectPlace = useCallback((placeId, description) => {
+        console.log('Selected place:', description); // Debug log
+        
+        // Update UI state immediately and synchronously
         setPredictions([]);
-        setSearchText('');
-        Keyboard.dismiss();
-        inputRef.current?.blur();
+        setSearchText(description);
+        
+        // Dismiss keyboard after state update
+        setTimeout(() => {
+            Keyboard.dismiss();
+            inputRef.current?.blur();
+        }, 50);
 
-        try {
-            const response = await fetch(
-                `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=formatted_address,geometry&key=${Constants.manifest.extra.googlePlaces.apiKey}`,
-            );
-            const data = await response.json();
+        // Perform async place details fetch
+        fetch(
+            `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=formatted_address,geometry&key=${Constants.manifest.extra.googlePlaces.apiKey}`,
+        )
+        .then(response => response.json())
+        .then(data => {
             if (data.result) {
                 onPress(null, data.result);
             }
-        } catch (error) {
-            // Error handling without console logging
-        }
-    };
+        })
+        .catch(error => {
+            console.log('Place details fetch error'); // Debug log
+        });
+    }, [onPress]);
 
     return (
         <View style={styles.container}>
             <View style={styles.textInputContainer}>
                 <TextInput
                     ref={inputRef}
-                    style={styles.textInput}
+                    style={[styles.textInput, searchText ? styles.textInputWithClear : null]}
                     placeholder={placeholder}
                     placeholderTextColor={theme.colors.inputPlaceholderText}
                     value={searchText}
                     onChangeText={searchPlaces}
                 />
+                {searchText ? (
+                    <TouchableOpacity
+                        style={styles.clearButton}
+                        onPress={clearSearch}
+                        hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                    >
+                        <Ionicons
+                            name="close-circle"
+                            size={20}
+                            color="#CCCCCC"
+                        />
+                    </TouchableOpacity>
+                ) : null}
             </View>
             {predictions.length > 0 && (
                 <FlatList
@@ -80,7 +108,7 @@ const GooglePlacesSearch = ({ theme, onPress, placeholder }) => {
                     renderItem={({ item }) => (
                         <TouchableOpacity
                             style={styles.row}
-                            onPress={() => handleSelectPlace(item.place_id)}
+                            onPress={() => handleSelectPlace(item.place_id, item.description)}
                             activeOpacity={0.7}
                             hitSlop={{
                                 top: 10,

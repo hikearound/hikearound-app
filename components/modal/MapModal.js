@@ -135,6 +135,7 @@ class MapModal extends React.Component {
                         <ModalDismiss
                             includeBackground
                             closeAction={closeAction}
+                            topOffset={20}
                         />
                     </ModalRoot>
                     <GraphSheet

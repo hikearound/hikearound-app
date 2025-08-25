@@ -202,7 +202,8 @@ class TabNavigator extends React.Component {
                                     ? 35
                                     : 30,
                             paddingTop: 0,
-                            borderTopWidth: 0,
+                            borderTopWidth: 1,
+                            borderTopColor: '#F0F0F0',
                             elevation: 0,
                             shadowOpacity: 0,
                         },

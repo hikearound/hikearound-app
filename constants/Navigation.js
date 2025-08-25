@@ -34,14 +34,16 @@ export function screenOptions(backgroundColor, headerTintColor = colors.white) {
         },
         headerLeftContainerStyle: {
             left: parseInt(spacing.micro, 10),
+            marginBottom: parseInt(spacing.tiny, 10),
         },
         headerTitleContainerStyle: {
-            marginBottom: parseInt(spacing.micro, 10),
+            marginBottom: parseInt(spacing.tiny, 10),
             width: '70%',
             alignItems: 'center',
         },
         headerRightContainerStyle: {
             right: parseInt(spacing.micro, 10),
+            marginBottom: parseInt(spacing.tiny, 10),
         },
         headerTintColor,
         headerTitleStyle: {
