@@ -49,7 +49,6 @@ const GooglePlacesSearch = ({ theme, onPress, placeholder }) => {
 
     const handleSelectPlace = useCallback(
         (placeId, description) => {
-
             // Update UI state immediately and synchronously
             setPredictions([]);
             setSearchText(description);
@@ -70,8 +69,7 @@ const GooglePlacesSearch = ({ theme, onPress, placeholder }) => {
                         onPress(null, data.result);
                     }
                 })
-                .catch((error) => {
-                });
+                .catch((error) => {});
         },
         [onPress],
     );

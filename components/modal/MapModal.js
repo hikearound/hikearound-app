@@ -57,7 +57,7 @@ class MapModal extends React.Component {
             chartPosition: 0, // 0-1, representing position along the route
             isDragging: false,
         };
-        
+
         this.dragTimeout = null;
     }
 
@@ -100,18 +100,18 @@ class MapModal extends React.Component {
 
     handleChartPositionChange = (position) => {
         console.log('MapModal received position:', position);
-        
+
         // Clear existing timeout
         if (this.dragTimeout) {
             clearTimeout(this.dragTimeout);
         }
-        
+
         // Set dragging state and position
-        this.setState({ 
+        this.setState({
             chartPosition: position,
-            isDragging: true 
+            isDragging: true,
         });
-        
+
         // Set timeout to hide marker after 300ms of no movement
         this.dragTimeout = setTimeout(() => {
             this.setState({ isDragging: false });

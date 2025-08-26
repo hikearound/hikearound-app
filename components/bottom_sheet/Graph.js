@@ -15,7 +15,8 @@ import {
 } from '@styles/Sheets';
 import { bottomSheet } from '@constants/Index';
 import { withNavigation } from '@utils/Navigation';
-import SheetHeader from '@components/bottom_sheet/Header';
+import LocationButton from '@components/map/button/Location';
+import { animationConfig } from '@constants/Animation';
 
 const propTypes = {
     sheetRef: PropTypes.object.isRequired,
@@ -34,6 +35,40 @@ const defaultProps = {
 
 const { width } = Dimensions.get('window');
 
+const CustomBackground = ({ style, mapRef, sheetRef, theme }) => (
+    <>
+        <View
+            style={[
+                style,
+                {
+                    backgroundColor: theme?.colors?.sheetBackground,
+                    borderTopLeftRadius: 8,
+                    borderTopRightRadius: 8,
+                },
+            ]}
+        />
+        <View style={{ position: 'absolute', top: -13, right: 5 }}>
+            <LocationButton
+                mapRef={mapRef}
+                sheetRef={sheetRef}
+                animationConfig={animationConfig}
+                bottomOffset={0}
+            />
+        </View>
+    </>
+);
+
+CustomBackground.propTypes = {
+    style: PropTypes.object,
+    mapRef: PropTypes.object.isRequired,
+    sheetRef: PropTypes.object.isRequired,
+    theme: PropTypes.object.isRequired,
+};
+
+CustomBackground.defaultProps = {
+    style: null,
+};
+
 function GraphSheet({
     sheetRef,
     mapRef,
@@ -48,15 +83,16 @@ function GraphSheet({
     const lastPositionRef = React.useRef(-1);
     const heartbeatIntervalRef = React.useRef(null);
     const [isChartActive, setIsChartActive] = React.useState(false);
-    
+
     // Cleanup heartbeat interval on unmount
-    React.useEffect(() => {
-        return () => {
+    React.useEffect(
+        () => () => {
             if (heartbeatIntervalRef.current) {
                 clearInterval(heartbeatIntervalRef.current);
             }
-        };
-    }, []);
+        },
+        [],
+    );
 
     // Reduce data points for better performance and visibility
     const step = Math.max(1, Math.floor(elevationArray.length / 50)); // Show max 50 points
@@ -185,15 +221,24 @@ function GraphSheet({
 
                                 if (dataPointIndex >= 0) {
                                     // Convert reduced array index back to original full array position
-                                    const originalArrayIndex = dataPointIndex * step;
-                                    
+                                    const originalArrayIndex =
+                                        dataPointIndex * step;
+
                                     // Calculate smooth position as a percentage of the full route
-                                    const position = originalArrayIndex / (elevationArray.length - 1);
-                                    
+                                    const position =
+                                        originalArrayIndex /
+                                        (elevationArray.length - 1);
+
                                     // Simple throttling - only update if position changed significantly
-                                    if (Math.abs(position - lastPositionRef.current) > 0.008) {
+                                    if (
+                                        Math.abs(
+                                            position - lastPositionRef.current,
+                                        ) > 0.008
+                                    ) {
                                         lastPositionRef.current = position;
-                                        onPositionChange(Math.max(0, Math.min(1, position)));
+                                        onPositionChange(
+                                            Math.max(0, Math.min(1, position)),
+                                        );
                                     }
                                 }
                             }
@@ -269,24 +314,13 @@ function GraphSheet({
         </Body>
     );
 
-    const renderHeader = () => (
-        <SheetHeader
-            mapRef={mapRef}
-            sheetRef={sheetRef}
-            shouldShowLocationButton
-        />
-    );
-
     return (
         <>
             <SheetPadding />
             <BottomSheet
                 ref={sheetRef}
                 index={1}
-                snapPoints={[
-                    120,
-                    bottomSheet.chart.expanded,
-                ]}
+                snapPoints={[120, bottomSheet.chart.expanded]}
                 enablePanDownToClose={!isChartActive}
                 enableHandlePanningGesture={!isChartActive}
                 enableContentPanningGesture={!isChartActive}
@@ -297,9 +331,18 @@ function GraphSheet({
                     backgroundColor: theme?.colors?.sheetHandle || '#999',
                     marginTop: 6,
                 }}
+                backgroundComponent={(props) => (
+                    <CustomBackground
+                        {...props}
+                        mapRef={mapRef}
+                        sheetRef={sheetRef}
+                        theme={theme}
+                    />
+                )}
             >
-                {renderHeader()}
-                <BottomSheetView style={{ marginTop: -16 }}>{renderContent()}</BottomSheetView>
+                <BottomSheetView style={{ marginTop: 0 }}>
+                    {renderContent()}
+                </BottomSheetView>
             </BottomSheet>
         </>
     );

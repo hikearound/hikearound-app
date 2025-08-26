@@ -21,6 +21,7 @@ const propTypes = {
     animationConfig: PropTypes.object.isRequired,
     bottomOffset: PropTypes.number,
     transitionDelay: PropTypes.number,
+    style: PropTypes.object,
 };
 
 const defaultProps = {
@@ -29,6 +30,7 @@ const defaultProps = {
     sheetRef: {},
     bottomOffset: 35,
     transitionDelay: 250,
+    style: null,
 };
 
 function mapStateToProps(state) {
@@ -61,22 +63,24 @@ class LocationButton extends React.PureComponent {
         });
 
         setTimeout(() => {
-            sheetRef.current.snapTo(2);
+            sheetRef.current?.close();
         }, animationConfig.duration + transitionDelay);
     };
 
     render() {
-        const { bottomOffset } = this.props;
+        const { bottomOffset, style } = this.props;
+
+        const defaultStyle = {
+            position: 'absolute',
+            bottom: bottomOffset,
+            right: parseInt(spacing.tiny, 10),
+        };
 
         return (
             <TouchableOpacity
                 activeOpacity={opacities.regular}
                 onPress={this.onPress}
-                style={{
-                    position: 'absolute',
-                    bottom: bottomOffset,
-                    right: parseInt(spacing.tiny, 10),
-                }}
+                style={style || defaultStyle}
             >
                 <ButtonWrapper>
                     <Ionicons

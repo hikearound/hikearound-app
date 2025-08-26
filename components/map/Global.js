@@ -205,8 +205,8 @@ class GlobalMap extends React.Component {
         // Load hike route
         const routeCoordinates = await getHikeRoute(id);
 
-        dispatchMapData({ 
-            selectedHike: id, 
+        dispatchMapData({
+            selectedHike: id,
             selectedCity: null,
             selectedRoute: id,
             routeCoordinates,
@@ -238,9 +238,9 @@ class GlobalMap extends React.Component {
 
     onPress = () => {
         const { dispatchMapData } = this.props;
-        
+
         Keyboard.dismiss();
-        
+
         // Clear selected route when clicking away from markers
         dispatchMapData({
             selectedRoute: null,
@@ -324,7 +324,7 @@ class GlobalMap extends React.Component {
                         {routeCoordinates && routeCoordinates.length > 0 && (
                             <Polyline
                                 coordinates={routeCoordinates}
-                                strokeColor="#8A2BE2"
+                                strokeColor='#8A2BE2'
                                 strokeWidth={2}
                                 strokePattern={[]}
                             />

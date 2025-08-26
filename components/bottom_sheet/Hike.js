@@ -10,7 +10,7 @@ import SheetActions from '@components/SheetActions';
 import { spacing, bottomSheet } from '@constants/Index';
 import { withNavigation } from '@utils/Navigation';
 import LoadingOverlay from '@components/LoadingOverlay';
-import SheetHeader from '@components/bottom_sheet/Header';
+import LocationButton from '@components/map/button/Location';
 import { animationConfig } from '@constants/Animation';
 import { altitude } from '@constants/Altitude';
 
@@ -27,6 +27,40 @@ const defaultProps = {
     selectedHike: null,
     sheetData: null,
     onClose: null,
+};
+
+const CustomBackground = ({ style, mapRef, sheetRef, theme }) => (
+    <>
+        <View
+            style={[
+                style,
+                {
+                    backgroundColor: theme?.colors?.sheetBackground,
+                    borderTopLeftRadius: 8,
+                    borderTopRightRadius: 8,
+                },
+            ]}
+        />
+        <View style={{ position: 'absolute', top: -13, right: 5 }}>
+            <LocationButton
+                mapRef={mapRef}
+                sheetRef={sheetRef}
+                animationConfig={animationConfig}
+                bottomOffset={0}
+            />
+        </View>
+    </>
+);
+
+CustomBackground.propTypes = {
+    style: PropTypes.object,
+    mapRef: PropTypes.object.isRequired,
+    sheetRef: PropTypes.object.isRequired,
+    theme: PropTypes.object.isRequired,
+};
+
+CustomBackground.defaultProps = {
+    style: null,
 };
 
 class HikeSheet extends React.Component {
@@ -64,17 +98,6 @@ class HikeSheet extends React.Component {
         );
     };
 
-    renderHeader = () => {
-        const { mapRef, sheetRef } = this.props;
-        return (
-            <SheetHeader
-                mapRef={mapRef}
-                sheetRef={sheetRef}
-                shouldShowLocationButton
-            />
-        );
-    };
-
     onClose = () => {
         const { mapRef, selectedHike, onClose } = this.props;
 
@@ -97,7 +120,7 @@ class HikeSheet extends React.Component {
     };
 
     render() {
-        const { sheetRef, theme } = this.props;
+        const { sheetRef, theme, mapRef } = this.props;
 
         return (
             <BottomSheet
@@ -120,9 +143,18 @@ class HikeSheet extends React.Component {
                     backgroundColor: theme?.colors?.sheetHandle || '#999',
                     marginTop: 6,
                 }}
+                backgroundComponent={(props) => (
+                    <CustomBackground
+                        {...props}
+                        mapRef={mapRef}
+                        sheetRef={sheetRef}
+                        theme={theme}
+                    />
+                )}
             >
-                {this.renderHeader()}
-                <BottomSheetView style={{ marginTop: -8 }}>{this.renderContent()}</BottomSheetView>
+                <BottomSheetView style={{ marginTop: -8 }}>
+                    {this.renderContent()}
+                </BottomSheetView>
             </BottomSheet>
         );
     }

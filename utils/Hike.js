@@ -93,12 +93,16 @@ export function extractRouteCoordinates(gpxData) {
 
         trackArray.forEach((track) => {
             if (track.trkseg) {
-                const segments = Array.isArray(track.trkseg) ? track.trkseg : [track.trkseg];
-                
+                const segments = Array.isArray(track.trkseg)
+                    ? track.trkseg
+                    : [track.trkseg];
+
                 segments.forEach((segment) => {
                     if (segment.trkpt) {
-                        const points = Array.isArray(segment.trkpt) ? segment.trkpt : [segment.trkpt];
-                        
+                        const points = Array.isArray(segment.trkpt)
+                            ? segment.trkpt
+                            : [segment.trkpt];
+
                         points.forEach((point) => {
                             if (point.$ && point.$.lat && point.$.lon) {
                                 coordinates.push({

@@ -95,7 +95,10 @@ export function filterMarkers(region, visibleMarkers) {
 
     const coords = visibleMarkers.map((c) => ({
         geometry: {
-            coordinates: [c.coordinates.starting.lng, c.coordinates.starting.lat],
+            coordinates: [
+                c.coordinates.starting.lng,
+                c.coordinates.starting.lat,
+            ],
         },
         distance: c.distance,
         id: c.id,
