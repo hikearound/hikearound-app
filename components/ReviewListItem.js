@@ -81,13 +81,12 @@ class ReviewListItem extends React.Component {
             timestamp: null,
             review: undefined,
         };
-
-        this.bindActionSheet();
     }
 
     componentDidMount() {
         this.updateReview();
         this.setTimestamp();
+        this.bindActionSheet();
     }
 
     componentDidUpdate(prevProps) {

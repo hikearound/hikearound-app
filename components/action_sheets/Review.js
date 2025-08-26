@@ -58,7 +58,7 @@ export function reviewActionSheet(
     let destructiveButtonIndex = null;
     let options = getSheetOptions(t);
 
-    if (auth.currentUser.uid === data.user.uid) {
+    if (auth.currentUser && data.user && auth.currentUser.uid === data.user.uid) {
         cancelButtonIndex = 2;
         destructiveButtonIndex = 1;
         options = getAuthorSheetOptions(t);
@@ -72,7 +72,7 @@ export function reviewActionSheet(
         },
 
         (buttonIndex) => {
-            if (auth.currentUser.uid === data.user.uid) {
+            if (auth.currentUser && data.user && auth.currentUser.uid === data.user.uid) {
                 const { deleteReview } = this;
                 getAuthorActions(
                     t,
