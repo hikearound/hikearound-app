@@ -15,14 +15,18 @@ const propTypes = {
     rid: PropTypes.string.isRequired,
     userLikes: PropTypes.array.isRequired,
     iconSize: PropTypes.number,
+    user: PropTypes.object,
 };
 
 const defaultProps = {
     iconSize: 16,
+    user: null,
 };
 
-function mapStateToProps() {
-    return {};
+function mapStateToProps(state) {
+    return {
+        user: state.authReducer.user,
+    };
 }
 
 function mapDispatchToProps() {

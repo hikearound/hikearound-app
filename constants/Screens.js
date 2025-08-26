@@ -1,3 +1,3 @@
-export const tabBarScreens = ['Home', 'Hike', 'Search', 'Review'];
+export const tabBarScreens = ['HomeScreen', 'Hike', 'Search', 'Review'];
 
 export default tabBarScreens;

@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import Sort from '@components/header/Sort';
 import Search from '@components/header/Search';
 import { spacing } from '@constants/Index';
 
@@ -11,7 +10,6 @@ class HomeActions extends React.PureComponent {
     render() {
         return (
             <ActionsWrapper>
-                <Sort />
                 <Search />
             </ActionsWrapper>
         );

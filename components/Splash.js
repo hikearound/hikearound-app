@@ -11,7 +11,8 @@ import { initializeLocalization } from '@utils/Localization';
 import { initializeGeolocation } from '@utils/Location';
 import { localImages } from '@constants/Images';
 import { withTheme } from '@utils/Themes';
-import { auth } from '@lib/Fire';
+import Fire, { auth } from '@lib/Fire';
+import { onAuthStateChanged } from 'firebase/auth';
 import { initializeAuthSubscription } from '@actions/Auth';
 import SplashImage from '@components/SplashImage';
 
@@ -63,6 +64,10 @@ class Splash extends React.Component {
             clearTimeout(this.timer);
             this.timer = 0;
         }
+        
+        if (this.unsubscribeAuth) {
+            this.unsubscribeAuth();
+        }
     };
 
     loadAsync = async () => {
@@ -77,10 +82,23 @@ class Splash extends React.Component {
     getAuthSubscription = async () => {
         const { dispatchAuthSubscription } = this.props;
 
-        await auth.onAuthStateChanged(async (user) => {
-            await dispatchAuthSubscription(user);
+        try {
+            console.log('Setting up Firebase v9 auth listener with RN persistence...');
+            
+            // Set up auth state listener using modern v9 auth with persistence
+            this.unsubscribeAuth = onAuthStateChanged(auth, async (user) => {
+                console.log('Auth state changed - user:', user ? `${user.email} (${user.uid})` : 'null');
+                
+                // Dispatch the auth state (whether user exists or not)
+                await dispatchAuthSubscription(user);
+                this.handleFinishLoading();
+            });
+        } catch (error) {
+            console.warn('Error setting up auth subscription:', error);
+            // Fallback to no user
+            await dispatchAuthSubscription(null);
             this.handleFinishLoading();
-        });
+        }
     };
 
     handleFinishLoading = () => {

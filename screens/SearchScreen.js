@@ -16,6 +16,7 @@ class SearchScreen extends React.Component {
             headerTitle: () => <SearchBox />,
             headerTitleContainerStyle: {
                 width: getScreenWidth(),
+                left: -8,
             },
         });
     }

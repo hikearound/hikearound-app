@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View } from 'react-native';
 import StarRating from 'react-native-star-rating-widget';
 import { connect } from 'react-redux';
 import { colors } from '@constants/Index';
@@ -11,30 +10,20 @@ const propTypes = {
     onStarRatingPress: PropTypes.func,
     starSize: PropTypes.number,
     maxStars: PropTypes.number,
-    emptyStar: PropTypes.string,
-    halfStar: PropTypes.string,
-    fullStar: PropTypes.string,
-    iconSet: PropTypes.string,
     rating: PropTypes.number,
     disabled: PropTypes.bool,
     filledColor: PropTypes.string,
     emptyColor: PropTypes.string,
-    halfStarEnabled: PropTypes.bool,
 };
 
 const defaultProps = {
     onStarRatingPress: () => {},
-    emptyStar: 'star-o',
-    halfStar: 'star-half-empty',
-    fullStar: 'star',
-    iconSet: 'FontAwesome',
     starSize: 22,
     maxStars: 5,
     rating: 0,
     disabled: false,
     filledColor: colors.purple,
     emptyColor: colors.gray,
-    halfStarEnabled: false,
 };
 
 function mapStateToProps(state) {
@@ -65,7 +54,6 @@ class Stars extends React.PureComponent {
             <StarRating
                 rating={rating}
                 onChange={disabled ? undefined : onStarRatingPress}
-                starSize={starSize}
                 maxStars={maxStars}
                 color={filledColor}
                 emptyColor={emptyColor}

@@ -6,6 +6,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { withTranslation } from 'react-i18next';
 import * as Device from 'expo-device';
 import { Animated } from 'react-native';
+import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import HomeStack from '@stacks/HomeStack';
 import MapStack from '@stacks/MapStack';
 import NotificationStack from '@stacks/NotificationStack';
@@ -80,11 +81,12 @@ class TabNavigator extends React.Component {
         <Tab.Screen
             name='HomeTab'
             component={HomeStack}
-            options={() => ({
+            options={({ route }) => ({
                 tabBarLabel: t('label.nav.home'),
                 tabBarIcon: ({ focused }) => (
                     <HomeIcon fill={this.setFill(focused)} focused={focused} />
                 ),
+                tabBarStyle: this.getTabBarStyle(route),
             })}
             listeners={{
                 tabPress: () => {
@@ -98,7 +100,7 @@ class TabNavigator extends React.Component {
         <Tab.Screen
             name='MapTab'
             component={MapStack}
-            options={() => ({
+            options={({ route }) => ({
                 tabBarLabel: t('label.nav.map'),
                 tabBarIcon: ({ focused }) => (
                     <MapIcon
@@ -107,6 +109,7 @@ class TabNavigator extends React.Component {
                         focused={focused}
                     />
                 ),
+                tabBarStyle: this.getTabBarStyle(route),
             })}
             listeners={{
                 tabPress: () => {
@@ -123,7 +126,7 @@ class TabNavigator extends React.Component {
             <Tab.Screen
                 name='NotificationTab'
                 component={NotificationStack}
-                options={() => ({
+                options={({ route }) => ({
                     tabBarLabel: t('label.nav.notifications'),
                     tabBarIcon: ({ focused }) => (
                         <BellIcon
@@ -133,6 +136,7 @@ class TabNavigator extends React.Component {
                     ),
                     tabBarBadge: this.renderTabBarBadge(),
                     tabBarBadgeStyle: getTabBarBadgeStyle(theme),
+                    tabBarStyle: this.getTabBarStyle(route),
                 })}
                 listeners={{
                     tabPress: () => {
@@ -147,7 +151,7 @@ class TabNavigator extends React.Component {
         <Tab.Screen
             name='ProfileTab'
             component={ProfileStack}
-            options={() => ({
+            options={({ route }) => ({
                 tabBarLabel: t('label.nav.you'),
                 tabBarIcon: ({ focused }) => (
                     <PersonIcon
@@ -155,6 +159,7 @@ class TabNavigator extends React.Component {
                         focused={focused}
                     />
                 ),
+                tabBarStyle: this.getTabBarStyle(route),
             })}
             listeners={{
                 tabPress: () => {
@@ -181,6 +186,42 @@ class TabNavigator extends React.Component {
         this.setState({ deviceType });
     };
 
+    getTabBarStyle = (route) => {
+        const { deviceType } = this.state;
+        const routeName = getFocusedRouteNameFromRoute(route);
+        const authScreens = ['Landing', 'SignIn', 'CreateAccount'];
+        
+        
+        // Hide tab bar on auth screens
+        if (authScreens.includes(routeName)) {
+            return { display: 'none' };
+        }
+        
+        // Show tab bar on all main app screens
+        const appScreens = [
+            'HomeScreen', 'Hike', 'Search', 'Review', // Home tab screens
+            'Map', 'MapScreen', // Map tab screens
+            'Notifications', 'NotificationScreen', // Notification tab screens  
+            'Profile', 'ProfileScreen', 'Settings' // Profile tab screens
+        ];
+        
+        // If we know it's an app screen OR if routeName is undefined (initial load), show tab bar
+        if (appScreens.includes(routeName) || routeName === undefined || routeName === null) {
+            return {
+                height: deviceType === Device.DeviceType.TABLET ? 100 : 90,
+                paddingBottom: deviceType === Device.DeviceType.TABLET ? 35 : 30,
+                paddingTop: 10,
+                borderTopWidth: 1,
+                borderTopColor: '#F0F0F0',
+                elevation: 0,
+                shadowOpacity: 0,
+            };
+        }
+        
+        // Default: hide tab bar for any other screen
+        return { display: 'none' };
+    };
+
     render() {
         const { theme, t } = this.props;
         const { deviceType } = this.state;
@@ -192,32 +233,19 @@ class TabNavigator extends React.Component {
                         headerShown: false,
                         tabBarActiveTintColor: theme.colors.navActive,
                         tabBarInactiveTintColor: theme.colors.navInactive,
-                        tabBarStyle: {
-                            height:
-                                deviceType === Device.DeviceType.TABLET
-                                    ? 110
-                                    : 95,
-                            paddingBottom:
-                                deviceType === Device.DeviceType.TABLET
-                                    ? 35
-                                    : 30,
-                            paddingTop: 0,
-                            borderTopWidth: 1,
-                            borderTopColor: '#F0F0F0',
-                            elevation: 0,
-                            shadowOpacity: 0,
-                        },
                         tabBarLabelStyle: {
                             fontSize: 12,
-                            marginTop: -4,
+                            marginTop: 6,
                             marginBottom:
-                                deviceType === Device.DeviceType.TABLET ? 8 : 8,
+                                deviceType === Device.DeviceType.TABLET ? 4 : 4,
                         },
                         tabBarItemStyle: {
-                            paddingVertical: 0,
+                            paddingTop: 12,
+                            paddingBottom: 0,
                         },
                         tabBarIconStyle: {
-                            marginBottom: -4,
+                            marginTop: 0,
+                            marginBottom: 2,
                         },
                     })}
                 >

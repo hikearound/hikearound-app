@@ -27,6 +27,8 @@ const propTypes = {
     dispatchFocusedStack: PropTypes.func.isRequired,
     focusedStack: PropTypes.string.isRequired,
     stackName: PropTypes.string,
+    navigation: PropTypes.object.isRequired,
+    route: PropTypes.object.isRequired,
 };
 
 const defaultProps = {
@@ -58,43 +60,40 @@ class HomeStack extends React.Component {
             dispatchFocusedStack(stackName);
         });
 
-        // Set initial tab bar visibility
-        const routeName = getFocusedRouteNameFromRoute(route) || this.getInitialRoute();
-        this.setTabBarVisibility(routeName);
+        // Initial route setup handled by TabNavigator
     }
 
-    componentDidUpdate() {
-        const { route } = this.props;
-        this.setTabBarVisibility(getFocusedRouteNameFromRoute(route));
+    componentDidUpdate(prevProps) {
+        const { user } = this.props;
+        
+        // Log auth state changes but don't manually navigate
+        // The Stack Navigator will re-render with correct initialRouteName based on user state
+        if (prevProps.user !== user) {
+            console.log('HomeStack - User changed from', prevProps.user ? 'user exists' : 'null', 'to', user ? `${user.email}` : 'null');
+            
+            if (user && user.uid && !user.loggedOut) {
+                console.log('HomeStack - User authenticated, Stack will show HomeScreen');
+            } else if (prevProps.user && prevProps.user.uid && (!user || user.loggedOut)) {
+                console.log('HomeStack - User logged out, Stack will show Landing');
+            }
+        }
     }
 
     componentWillUnmount() {
         this.unsubscribe();
     }
 
-    setTabBarVisibility = (routeName) => {
-        const { navigation } = this.props;
-        let tabBarVisible = false;
-
-        if (tabBarScreens.includes(routeName) || !routeName) {
-            tabBarVisible = true;
-        }
-
-        navigation.setOptions({ tabBarVisible });
-    };
 
     getInitialRoute = () => {
         const { user } = this.props;
-        let initialRoute = 'Landing';
-
-        if (user && user.uid) {
-            initialRoute = 'HomeScreen';
+        
+        // If user exists and has uid (authenticated user)
+        if (user && user.uid && !user.loggedOut) {
+            return 'HomeScreen';
         }
-
-        // Don't call setTabBarVisibility here as it's during render
-        // It will be handled by componentDidUpdate
-
-        return initialRoute;
+        
+        // Default to landing for unauthenticated users or logged out users
+        return 'Landing';
     };
 
     renderLandingScreen = () => (
@@ -182,33 +181,36 @@ class HomeStack extends React.Component {
 
     render() {
         const { user, t, focusedStack, stackName } = this.props;
-        const initialRoute = this.getInitialRoute();
         const enableToast = stackName === focusedStack;
 
-        if (user && initialRoute) {
-            return (
-                <>
-                    <Stack.Navigator
-                        initialRouteName={initialRoute}
-                        screenOptions={({ route, navigation }) =>
-                            this.setScreenOptions(route, navigation)
-                        }
-                    >
-                        {this.renderLandingScreen()}
-                        {this.renderSignInScreen(t)}
-                        {this.renderCreateAccountScreen(t)}
-                        {this.renderHomeScreen()}
-                        {this.renderHikeScreen()}
-                        {this.renderLocationPermissionScreen(t)}
-                        {this.renderSearchScreen()}
-                        {this.renderReviewScreen(t)}
-                    </Stack.Navigator>
-                    {enableToast && <ToastProvider />}
-                </>
-            );
+        // Show splash while waiting for auth state to be determined
+        if (user === null) {
+            return <SplashImage />;
         }
 
-        return <SplashImage />;
+        // Determine the initial route based on current auth state
+        const initialRoute = this.getInitialRoute();
+
+        return (
+            <>
+                <Stack.Navigator
+                    initialRouteName={initialRoute}
+                    screenOptions={({ route, navigation }) =>
+                        this.setScreenOptions(route, navigation)
+                    }
+                >
+                    {this.renderLandingScreen()}
+                    {this.renderSignInScreen(t)}
+                    {this.renderCreateAccountScreen(t)}
+                    {this.renderHomeScreen()}
+                    {this.renderHikeScreen()}
+                    {this.renderLocationPermissionScreen(t)}
+                    {this.renderSearchScreen()}
+                    {this.renderReviewScreen(t)}
+                </Stack.Navigator>
+                {enableToast && <ToastProvider />}
+            </>
+        );
     }
 }
 

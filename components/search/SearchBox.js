@@ -79,7 +79,7 @@ const InputView = styled.View`
     flex: 1;
     margin-top: auto;
     margin-bottom: ${spacing.tiny}px;
-    margin-left: ${spacing.tiny}px;
+    margin-left: 0;
     margin-right: ${spacing.tiny}px;
     border-radius: ${borderRadius.medium}px;
     flex-direction: row;

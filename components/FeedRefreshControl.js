@@ -12,7 +12,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-    topOffset: 43,
+    topOffset: 10,
     scale: 0.7,
     color: null,
 };
@@ -29,20 +29,18 @@ class FeedRefreshControl extends React.PureComponent {
     };
 
     render() {
-        const { onRefresh, refreshing, topOffset, scale } = this.props;
+        const { onRefresh, refreshing, scale } = this.props;
 
         return (
-            <View style={{ top: topOffset }}>
-                <RefreshControl
-                    tintColor={this.getColor()}
-                    refreshing={refreshing}
-                    onRefresh={onRefresh}
-                    style={{
-                        zIndex: 1,
-                        transform: [{ scaleX: scale }, { scaleY: scale }],
-                    }}
-                />
-            </View>
+            <RefreshControl
+                tintColor={this.getColor()}
+                refreshing={refreshing}
+                onRefresh={onRefresh}
+                style={{
+                    transform: [{ scaleX: scale }, { scaleY: scale }],
+                }}
+                progressViewOffset={0}
+            />
         );
     }
 }

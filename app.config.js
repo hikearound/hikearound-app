@@ -1,10 +1,7 @@
 import 'dotenv/config';
 
 export default ({ config }) => ({
-    plugins: [
-        'sentry-expo',
-        'expo-localization'
-    ],
+    plugins: ['sentry-expo', 'expo-localization'],
     hooks: {
         postPublish: [
             {
@@ -12,7 +9,6 @@ export default ({ config }) => ({
                 config: {
                     organization: 'hikearound',
                     project: 'hikearound-app',
-                    authToken: process.env.SENTRY_AUTH_TOKEN,
                 },
             },
         ],

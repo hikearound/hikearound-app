@@ -34,7 +34,7 @@ const CancelText = styled.Text`
     align-self: flex-end;
     margin-top: auto;
     margin-bottom: 17px;
-    margin-right: ${spacing.tiny}px;
+    margin-right: -8px;
     color: ${colors.white};
     font-size: ${fontSizes.large}px;
 `;
