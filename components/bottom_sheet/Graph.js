@@ -210,7 +210,11 @@ function GraphSheet({
                         pointerLabelComponent: (items) => {
                             // Schedule position update after render to avoid state update during render
                             setTimeout(() => {
-                                if (items && items.length > 0 && onPositionChange) {
+                                if (
+                                    items &&
+                                    items.length > 0 &&
+                                    onPositionChange
+                                ) {
                                     const currentValue = items[0].value;
                                     const dataPointIndex = dataToUse.findIndex(
                                         (point) => point.value === currentValue,
@@ -229,12 +233,16 @@ function GraphSheet({
                                         // Simple throttling - only update if position changed significantly
                                         if (
                                             Math.abs(
-                                                position - lastPositionRef.current,
+                                                position -
+                                                    lastPositionRef.current,
                                             ) > 0.008
                                         ) {
                                             lastPositionRef.current = position;
                                             onPositionChange(
-                                                Math.max(0, Math.min(1, position)),
+                                                Math.max(
+                                                    0,
+                                                    Math.min(1, position),
+                                                ),
                                             );
                                         }
                                     }

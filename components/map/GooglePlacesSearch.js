@@ -69,7 +69,7 @@ const GooglePlacesSearch = ({ theme, onPress, placeholder }) => {
                         onPress(null, data.result);
                     }
                 })
-                .catch((error) => {});
+                .catch(() => {});
         },
         [onPress],
     );

@@ -67,7 +67,7 @@ class RecentReviewList extends React.Component {
                             height={190}
                             style={{ width: getScreenWidth() }}
                             scrollAnimationDuration={300}
-                            snapEnabled={true}
+                            snapEnabled
                             overscrollEnabled={false}
                             withAnimation={{
                                 type: 'spring',

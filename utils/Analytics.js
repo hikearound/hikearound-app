@@ -18,6 +18,7 @@ export function setUser(params) {
 export function setCurrentScreen(screenName) {
     // Analytics disabled - implement with Expo Analytics or other solution if needed
     if (!__DEV__) {
+        // eslint-disable-next-line no-console
         console.log('Screen view:', screenName);
     }
 }
@@ -27,6 +28,7 @@ export function logEvent(eventName, params) {
 
     // Analytics disabled - implement with Expo Analytics or other solution if needed
     if (!__DEV__) {
+        // eslint-disable-next-line no-console
         console.log('Analytics event:', eventName, params);
     }
 }
