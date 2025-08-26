@@ -34,7 +34,15 @@ const defaultProps = {
 
 const { width } = Dimensions.get('window');
 
-function GraphSheet({ sheetRef, mapRef, elevationArray, hike, height, t, onPositionChange }) {
+function GraphSheet({
+    sheetRef,
+    mapRef,
+    elevationArray,
+    hike,
+    height,
+    t,
+    onPositionChange,
+}) {
     const { distance, elevation } = hike;
     const lastPositionRef = React.useRef(-1);
 
@@ -132,28 +140,51 @@ function GraphSheet({ sheetRef, mapRef, elevationArray, hike, height, t, onPosit
                         strokeWidth: 1,
                         radius: 4,
                         pointerLabelComponent: (items) => {
-                            console.log('pointerLabelComponent called with items:', items);
+                            console.log(
+                                'pointerLabelComponent called with items:',
+                                items,
+                            );
                             // Find the index by matching the value with our data
                             if (items && items.length > 0 && onPositionChange) {
                                 const currentValue = items[0].value;
-                                const dataPointIndex = dataToUse.findIndex(point => point.value === currentValue);
-                                console.log('Found dataPointIndex:', dataPointIndex, 'for value:', currentValue);
-                                
+                                const dataPointIndex = dataToUse.findIndex(
+                                    (point) => point.value === currentValue,
+                                );
+                                console.log(
+                                    'Found dataPointIndex:',
+                                    dataPointIndex,
+                                    'for value:',
+                                    currentValue,
+                                );
+
                                 if (dataPointIndex >= 0) {
-                                    const position = dataPointIndex / (dataToUse.length - 1);
-                                    console.log('pointerLabelComponent calculated position:', position);
-                                    
+                                    const position =
+                                        dataPointIndex / (dataToUse.length - 1);
+                                    console.log(
+                                        'pointerLabelComponent calculated position:',
+                                        position,
+                                    );
+
                                     // Only call onPositionChange if position actually changed
-                                    if (Math.abs(position - lastPositionRef.current) > 0.01) {
+                                    if (
+                                        Math.abs(
+                                            position - lastPositionRef.current,
+                                        ) > 0.01
+                                    ) {
                                         lastPositionRef.current = position;
                                         // Use setTimeout to break the synchronous update cycle
                                         setTimeout(() => {
-                                            onPositionChange(Math.max(0, Math.min(1, position)));
+                                            onPositionChange(
+                                                Math.max(
+                                                    0,
+                                                    Math.min(1, position),
+                                                ),
+                                            );
                                         }, 0);
                                     }
                                 }
                             }
-                            
+
                             return (
                                 <View
                                     style={{
@@ -176,7 +207,9 @@ function GraphSheet({ sheetRef, mapRef, elevationArray, hike, height, t, onPosit
                                             fontWeight: '500',
                                         }}
                                     >
-                                        {`${Math.round(items[0]?.value || 0)} ft`}
+                                        {`${Math.round(
+                                            items[0]?.value || 0,
+                                        )} ft`}
                                     </Text>
                                 </View>
                             );

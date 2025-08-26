@@ -45,19 +45,23 @@ class HikeMap extends React.Component {
 
     getPositionMarkerCoordinate = () => {
         const { coordinates, chartPosition, isDragging } = this.props;
-        
-        console.log('HikeMap chartPosition:', chartPosition, 'coordinates length:', coordinates?.length, 'isDragging:', isDragging);
-        
-        if (!coordinates || coordinates.length === 0 || chartPosition === undefined || !isDragging) {
+
+        if (
+            !coordinates ||
+            coordinates.length === 0 ||
+            chartPosition === undefined ||
+            !isDragging
+        ) {
             return null;
         }
 
         // Calculate the index along the route based on chartPosition (0-1)
         const index = Math.round(chartPosition * (coordinates.length - 1));
-        const clampedIndex = Math.max(0, Math.min(coordinates.length - 1, index));
-        
-        console.log('Calculated coordinate index:', clampedIndex, 'coordinate:', coordinates[clampedIndex]);
-        
+        const clampedIndex = Math.max(
+            0,
+            Math.min(coordinates.length - 1, index),
+        );
+
         return coordinates[clampedIndex];
     };
 
@@ -150,7 +154,7 @@ const PositionMarker = styled.View`
     width: 12px;
     height: 12px;
     border-radius: 6px;
-    background-color: #935DFF;
+    background-color: #935dff;
     border: 2px solid white;
     shadow-color: #000;
     shadow-offset: 0px 2px;

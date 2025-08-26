@@ -63,7 +63,7 @@ export default connect(mapStateToProps)(Toast);
 
 const Container = styled.View`
     width: 95%;
-    background: ${transparentColors.purple};
+    background-color: ${transparentColors.purple};
     box-shadow: 0 4px 12px ${transparentColors.grayLight};
     border-radius: ${borderRadius.medium}px;
 `;

@@ -164,6 +164,7 @@ export default withTranslation()(withTheme(FeedCard));
 const StyledView = styled.View`
     width: 100%;
     border-radius: ${borderRadius.medium}px;
+    background-color: ${(props) => props.theme.card};
     box-shadow: 0 4px 4px ${transparentColors.grayLight};
     height: 200px;
     border: 1px solid;
