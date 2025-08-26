@@ -325,7 +325,7 @@ class GlobalMap extends React.Component {
                             <Polyline
                                 coordinates={routeCoordinates}
                                 strokeColor="#8A2BE2"
-                                strokeWidth={3}
+                                strokeWidth={2}
                                 strokePattern={[]}
                             />
                         )}

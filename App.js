@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import * as Sentry from 'sentry-expo';
 import Constants from 'expo-constants';
 import { enableScreens } from 'react-native-screens';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Splash from './components/Splash';
 import store from './store/Store';
 import Fire from './lib/Fire';
@@ -29,9 +30,11 @@ class App extends React.Component {
         }
 
         return (
-            <Provider store={store}>
-                <Splash />
-            </Provider>
+            <GestureHandlerRootView style={{ flex: 1 }}>
+                <Provider store={store}>
+                    <Splash />
+                </Provider>
+            </GestureHandlerRootView>
         );
     }
 }

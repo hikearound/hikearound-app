@@ -112,10 +112,10 @@ class MapModal extends React.Component {
             isDragging: true 
         });
         
-        // Set timeout to hide marker after 800ms of no movement
+        // Set timeout to hide marker after 300ms of no movement
         this.dragTimeout = setTimeout(() => {
             this.setState({ isDragging: false });
-        }, 800);
+        }, 300);
     };
 
     render() {

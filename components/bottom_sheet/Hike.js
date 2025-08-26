@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { View } from 'react-native';
-import BottomSheet from 'reanimated-bottom-sheet';
+import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
 import { withTheme } from '@utils/Themes';
 import TextContent from '@components/hike/TextContent';
 import MapEmptyState from '@components/empty/MapEmptyState';
@@ -20,6 +20,7 @@ const propTypes = {
     sheetData: PropTypes.object,
     selectedHike: PropTypes.string,
     onClose: PropTypes.func,
+    theme: PropTypes.object.isRequired,
 };
 
 const defaultProps = {
@@ -96,21 +97,33 @@ class HikeSheet extends React.Component {
     };
 
     render() {
-        const { sheetRef } = this.props;
+        const { sheetRef, theme } = this.props;
 
         return (
             <BottomSheet
+                ref={sheetRef}
+                index={0}
                 snapPoints={[
                     bottomSheet.hike.collapsed,
                     bottomSheet.hike.expanded,
-                    bottomSheet.hike.collapsed,
                 ]}
-                renderContent={this.renderContent}
-                renderHeader={this.renderHeader}
-                onCloseEnd={this.onClose}
-                enabledInnerScrolling={false}
-                ref={sheetRef}
-            />
+                onChange={(index) => {
+                    if (index === -1 || index === 0) {
+                        this.onClose();
+                    }
+                }}
+                enablePanDownToClose
+                handleIndicatorStyle={{
+                    width: 35,
+                    height: 5,
+                    borderRadius: 5,
+                    backgroundColor: theme?.colors?.sheetHandle || '#999',
+                    marginTop: 6,
+                }}
+            >
+                {this.renderHeader()}
+                <BottomSheetView style={{ marginTop: -8 }}>{this.renderContent()}</BottomSheetView>
+            </BottomSheet>
         );
     }
 }

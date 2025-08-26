@@ -31,9 +31,7 @@ class SheetHeader extends React.PureComponent {
                     />
                 )}
                 <Header>
-                    <HeaderPanel>
-                        <HeaderHandle />
-                    </HeaderPanel>
+                    <HeaderPanel />
                 </Header>
             </>
         );
@@ -55,12 +53,4 @@ const Header = styled.View`
 
 const HeaderPanel = styled.View`
     align-items: center;
-`;
-
-const HeaderHandle = styled.View`
-    width: 35px;
-    height: ${spacing.micro}px;
-    border-radius: ${spacing.micro}px;
-    margin-bottom: ${spacing.micro}px;
-    background-color: ${(props) => props.theme.sheetHandle};
 `;

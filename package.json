@@ -9,7 +9,8 @@
     "storybook": "start-storybook -p 7007",
     "prestorybook": "rnstl",
     "storybook:ios": "STORYBOOK_ENABLED=true STORYBOOK_STANDALONE=true expo start --ios",
-    "figma:connect": "npx @figma/code-connect connect --config .figma/config.json"
+    "figma:connect": "npx @figma/code-connect connect --config .figma/config.json",
+    "lint": "eslint . --ext .js --ignore-path .gitignore"
   },
   "jest": {
     "preset": "jest-expo",
@@ -88,7 +89,7 @@
     "react-native-web": "^0.18.12",
     "react-native-xml2js": "^1.0.3",
     "react-redux": "^7.2.4",
-    "reanimated-bottom-sheet": "^1.0.0-alpha.22",
+    "@gorhom/bottom-sheet": "^4.4.7",
     "redux": "^4.1.0",
     "sentry-expo": "~6.2.0",
     "styled-components": "^5.3.0",
@@ -130,7 +131,6 @@
     "redux-mock-store": "^1.5.4",
     "typescript": "^4.3.4"
   },
-  "lint": "eslint *.js **/*.js",
   "private": true,
   "name": "hikearound-app",
   "version": "1.0.0",

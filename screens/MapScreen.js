@@ -112,7 +112,7 @@ class MapScreen extends React.Component {
             },
         });
 
-        this.bottomSheetRef.current.snapTo(2);
+        this.bottomSheetRef.current?.close();
     };
 
     clearRoute = () => {
@@ -141,7 +141,7 @@ class MapScreen extends React.Component {
                         position={position}
                         markers={markers}
                         showHikeSheet={() => {
-                            this.bottomSheetRef.current.snapTo(1);
+                            this.bottomSheetRef.current?.expand();
                         }}
                     />
                 )}

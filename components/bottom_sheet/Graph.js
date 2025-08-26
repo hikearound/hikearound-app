@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import BottomSheet from 'reanimated-bottom-sheet';
+import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
 import { LineChart } from 'react-native-gifted-charts';
 import { Dimensions, View, Text } from 'react-native';
 import { withTranslation } from 'react-i18next';
@@ -42,9 +42,21 @@ function GraphSheet({
     height,
     t,
     onPositionChange,
+    theme,
 }) {
     const { distance, elevation } = hike;
     const lastPositionRef = React.useRef(-1);
+    const heartbeatIntervalRef = React.useRef(null);
+    const [isChartActive, setIsChartActive] = React.useState(false);
+    
+    // Cleanup heartbeat interval on unmount
+    React.useEffect(() => {
+        return () => {
+            if (heartbeatIntervalRef.current) {
+                clearInterval(heartbeatIntervalRef.current);
+            }
+        };
+    }, []);
 
     // Reduce data points for better performance and visibility
     const step = Math.max(1, Math.floor(elevationArray.length / 50)); // Show max 50 points
@@ -120,7 +132,25 @@ function GraphSheet({
     const renderContent = () => (
         <Body>
             <Header>{renderContentHeader()}</Header>
-            <ChartContainer>
+            <ChartContainer
+                onTouchStart={() => {
+                    // Disable sheet panning and start heartbeat
+                    setIsChartActive(true);
+                    heartbeatIntervalRef.current = setInterval(() => {
+                        if (lastPositionRef.current >= 0) {
+                            onPositionChange(lastPositionRef.current);
+                        }
+                    }, 500); // Send position every 500ms while touching
+                }}
+                onTouchEnd={() => {
+                    // Re-enable sheet panning and stop heartbeat
+                    setIsChartActive(false);
+                    if (heartbeatIntervalRef.current) {
+                        clearInterval(heartbeatIntervalRef.current);
+                        heartbeatIntervalRef.current = null;
+                    }
+                }}
+            >
                 <LineChart
                     data={dataToUse}
                     width={width - 20}
@@ -139,48 +169,31 @@ function GraphSheet({
                         pointerStripColor: '#E0E0E0',
                         strokeWidth: 1,
                         radius: 4,
+                        activatePointersOnLongPress: false,
+                        activatePointersDelay: 0,
                         pointerLabelComponent: (items) => {
                             console.log(
                                 'pointerLabelComponent called with items:',
                                 items,
                             );
-                            // Find the index by matching the value with our data
+                            // Calculate continuous position along the full polyline
                             if (items && items.length > 0 && onPositionChange) {
                                 const currentValue = items[0].value;
                                 const dataPointIndex = dataToUse.findIndex(
                                     (point) => point.value === currentValue,
                                 );
-                                console.log(
-                                    'Found dataPointIndex:',
-                                    dataPointIndex,
-                                    'for value:',
-                                    currentValue,
-                                );
 
                                 if (dataPointIndex >= 0) {
-                                    const position =
-                                        dataPointIndex / (dataToUse.length - 1);
-                                    console.log(
-                                        'pointerLabelComponent calculated position:',
-                                        position,
-                                    );
-
-                                    // Only call onPositionChange if position actually changed
-                                    if (
-                                        Math.abs(
-                                            position - lastPositionRef.current,
-                                        ) > 0.01
-                                    ) {
+                                    // Convert reduced array index back to original full array position
+                                    const originalArrayIndex = dataPointIndex * step;
+                                    
+                                    // Calculate smooth position as a percentage of the full route
+                                    const position = originalArrayIndex / (elevationArray.length - 1);
+                                    
+                                    // Simple throttling - only update if position changed significantly
+                                    if (Math.abs(position - lastPositionRef.current) > 0.008) {
                                         lastPositionRef.current = position;
-                                        // Use setTimeout to break the synchronous update cycle
-                                        setTimeout(() => {
-                                            onPositionChange(
-                                                Math.max(
-                                                    0,
-                                                    Math.min(1, position),
-                                                ),
-                                            );
-                                        }, 0);
+                                        onPositionChange(Math.max(0, Math.min(1, position)));
                                     }
                                 }
                             }
@@ -268,16 +281,26 @@ function GraphSheet({
         <>
             <SheetPadding />
             <BottomSheet
-                snapPoints={[
-                    bottomSheet.chart.expanded,
-                    bottomSheet.chart.expanded,
-                    bottomSheet.chart.collapsed,
-                ]}
-                renderContent={renderContent}
-                renderHeader={renderHeader}
-                enabledInnerScrolling={false}
                 ref={sheetRef}
-            />
+                index={1}
+                snapPoints={[
+                    120,
+                    bottomSheet.chart.expanded,
+                ]}
+                enablePanDownToClose={!isChartActive}
+                enableHandlePanningGesture={!isChartActive}
+                enableContentPanningGesture={!isChartActive}
+                handleIndicatorStyle={{
+                    width: 35,
+                    height: 5,
+                    borderRadius: 5,
+                    backgroundColor: theme?.colors?.sheetHandle || '#999',
+                    marginTop: 6,
+                }}
+            >
+                {renderHeader()}
+                <BottomSheetView style={{ marginTop: -16 }}>{renderContent()}</BottomSheetView>
+            </BottomSheet>
         </>
     );
 }

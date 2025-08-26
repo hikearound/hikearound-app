@@ -115,7 +115,7 @@ export async function queryHikes(
                 ...hikeData,
             };
 
-            const { lat, lng } = hikeData.coordinates.center;
+            const { lat, lng } = hikeData.coordinates.starting;
 
             const addHikeToFeed = maybeShowInFeed(
                 distance,
