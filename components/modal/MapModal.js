@@ -54,7 +54,11 @@ class MapModal extends React.Component {
 
         this.state = {
             modalVisible: false,
+            chartPosition: 0, // 0-1, representing position along the route
+            isDragging: false,
         };
+        
+        this.dragTimeout = null;
     }
 
     componentDidUpdate(prevProps) {
@@ -94,8 +98,28 @@ class MapModal extends React.Component {
         this.setState({ modalVisible: true });
     };
 
+    handleChartPositionChange = (position) => {
+        console.log('MapModal received position:', position);
+        
+        // Clear existing timeout
+        if (this.dragTimeout) {
+            clearTimeout(this.dragTimeout);
+        }
+        
+        // Set dragging state and position
+        this.setState({ 
+            chartPosition: position,
+            isDragging: true 
+        });
+        
+        // Set timeout to hide marker after 800ms of no movement
+        this.dragTimeout = setTimeout(() => {
+            this.setState({ isDragging: false });
+        }, 800);
+    };
+
     render() {
-        const { modalVisible } = this.state;
+        const { modalVisible, chartPosition, isDragging } = this.state;
         const {
             animationType,
             coordinates,
@@ -131,6 +155,8 @@ class MapModal extends React.Component {
                             mapBorderRadius={0}
                             mapType={mapType}
                             showUserLocation
+                            chartPosition={chartPosition}
+                            isDragging={isDragging}
                         />
                         <ModalDismiss
                             includeBackground
@@ -143,6 +169,7 @@ class MapModal extends React.Component {
                         elevationArray={elevationArray}
                         hike={hike}
                         mapRef={this.mapRef}
+                        onPositionChange={this.handleChartPositionChange}
                     />
                 </Modal>
             );

@@ -13,8 +13,10 @@ export default function mapReducer(state = mapState, action) {
         case 'UPDATE_MAP_DATA':
             return {
                 ...state,
-                selectedHike: action.mapData.selectedHike,
-                selectedCity: action.mapData.selectedCity,
+                selectedHike: action.mapData.selectedHike !== undefined ? action.mapData.selectedHike : state.selectedHike,
+                selectedCity: action.mapData.selectedCity !== undefined ? action.mapData.selectedCity : state.selectedCity,
+                selectedRoute: action.mapData.selectedRoute !== undefined ? action.mapData.selectedRoute : state.selectedRoute,
+                routeCoordinates: action.mapData.routeCoordinates !== undefined ? action.mapData.routeCoordinates : state.routeCoordinates,
             };
 
         default:

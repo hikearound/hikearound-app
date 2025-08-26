@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Keyboard } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
+import MapView, { Marker, Polyline } from 'react-native-maps';
 import { connect } from 'react-redux';
 import { updateMapData } from '@actions/Map';
+import { getHikeRoute } from '@utils/Hike';
 import GlobalMarker from '@components/marker/Global';
 import ClusterMarker from '@components/marker/Cluster';
 import { withTheme } from '@utils/Themes';
@@ -24,6 +25,8 @@ const propTypes = {
     markers: PropTypes.array,
     showHikeSheet: PropTypes.func,
     selectedCity: PropTypes.object,
+    selectedRoute: PropTypes.string,
+    routeCoordinates: PropTypes.array,
     latModifier: PropTypes.number,
     altitude: PropTypes.object,
     animationConfig: PropTypes.object,
@@ -33,6 +36,8 @@ const propTypes = {
 function mapStateToProps(state) {
     return {
         selectedCity: state.mapReducer.selectedCity,
+        selectedRoute: state.mapReducer.selectedRoute,
+        routeCoordinates: state.mapReducer.routeCoordinates,
     };
 }
 
@@ -187,7 +192,7 @@ class GlobalMap extends React.Component {
         });
     };
 
-    markerPress = (event) => {
+    markerPress = async (event) => {
         const {
             dispatchMapData,
             altitude,
@@ -197,7 +202,15 @@ class GlobalMap extends React.Component {
         } = this.props;
         const { coordinate, id } = event.nativeEvent;
 
-        dispatchMapData({ selectedHike: id, selectedCity: null });
+        // Load hike route
+        const routeCoordinates = await getHikeRoute(id);
+
+        dispatchMapData({ 
+            selectedHike: id, 
+            selectedCity: null,
+            selectedRoute: id,
+            routeCoordinates,
+        });
         showHikeSheet();
 
         this.animateToPoint({
@@ -224,7 +237,15 @@ class GlobalMap extends React.Component {
     };
 
     onPress = () => {
+        const { dispatchMapData } = this.props;
+        
         Keyboard.dismiss();
+        
+        // Clear selected route when clicking away from markers
+        dispatchMapData({
+            selectedRoute: null,
+            routeCoordinates: [],
+        });
     };
 
     renderMarker = (marker, cluster, index) => {
@@ -269,7 +290,7 @@ class GlobalMap extends React.Component {
     };
 
     render() {
-        const { theme, mapPadding, mapRef } = this.props;
+        const { theme, mapPadding, mapRef, routeCoordinates } = this.props;
         const { region, visibleMarkers } = this.state;
 
         if (region) {
@@ -300,6 +321,14 @@ class GlobalMap extends React.Component {
                                     index,
                                 ),
                             )}
+                        {routeCoordinates && routeCoordinates.length > 0 && (
+                            <Polyline
+                                coordinates={routeCoordinates}
+                                strokeColor="#8A2BE2"
+                                strokeWidth={3}
+                                strokePattern={[]}
+                            />
+                        )}
                     </MapView>
                 </>
             );

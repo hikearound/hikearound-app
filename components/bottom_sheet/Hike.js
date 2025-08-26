@@ -19,11 +19,13 @@ const propTypes = {
     mapRef: PropTypes.object.isRequired,
     sheetData: PropTypes.object,
     selectedHike: PropTypes.string,
+    onClose: PropTypes.func,
 };
 
 const defaultProps = {
     selectedHike: null,
     sheetData: null,
+    onClose: null,
 };
 
 class HikeSheet extends React.Component {
@@ -73,7 +75,7 @@ class HikeSheet extends React.Component {
     };
 
     onClose = () => {
-        const { mapRef, selectedHike } = this.props;
+        const { mapRef, selectedHike, onClose } = this.props;
 
         const camera = {
             altitude: altitude.onClose,
@@ -85,6 +87,11 @@ class HikeSheet extends React.Component {
             mapRef.current.animateCamera(camera, {
                 duration: animationConfig.duration,
             });
+        }
+
+        // Call the provided onClose callback to clear routes
+        if (onClose) {
+            onClose();
         }
     };
 

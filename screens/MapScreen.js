@@ -115,6 +115,14 @@ class MapScreen extends React.Component {
         this.bottomSheetRef.current.snapTo(2);
     };
 
+    clearRoute = () => {
+        const { dispatchMapData } = this.props;
+        dispatchMapData({
+            selectedRoute: null,
+            routeCoordinates: [],
+        });
+    };
+
     render() {
         const { position, selectedHike, theme } = this.props;
         const { markers, barStyle, sheetData } = this.state;
@@ -142,6 +150,7 @@ class MapScreen extends React.Component {
                     sheetRef={this.bottomSheetRef}
                     sheetData={sheetData}
                     selectedHike={selectedHike}
+                    onClose={this.clearRoute}
                 />
             </View>
         );

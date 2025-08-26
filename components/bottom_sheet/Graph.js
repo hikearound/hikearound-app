@@ -23,17 +23,20 @@ const propTypes = {
     hike: PropTypes.object.isRequired,
     height: PropTypes.number,
     mapRef: PropTypes.object,
+    onPositionChange: PropTypes.func,
 };
 
 const defaultProps = {
     height: 200,
     mapRef: {},
+    onPositionChange: () => {},
 };
 
 const { width } = Dimensions.get('window');
 
-function GraphSheet({ sheetRef, mapRef, elevationArray, hike, height, t }) {
+function GraphSheet({ sheetRef, mapRef, elevationArray, hike, height, t, onPositionChange }) {
     const { distance, elevation } = hike;
+    const lastPositionRef = React.useRef(-1);
 
     // Reduce data points for better performance and visibility
     const step = Math.max(1, Math.floor(elevationArray.length / 50)); // Show max 50 points
@@ -128,32 +131,56 @@ function GraphSheet({ sheetRef, mapRef, elevationArray, hike, height, t }) {
                         pointerStripColor: '#E0E0E0',
                         strokeWidth: 1,
                         radius: 4,
-                        pointerLabelComponent: (items) => (
-                            <View
-                                style={{
-                                    backgroundColor: 'white',
-                                    paddingHorizontal: 8,
-                                    paddingVertical: 6,
-                                    borderRadius: 8,
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    minWidth: 60,
-                                    borderWidth: 1,
-                                    borderColor: '#E0E0E0',
-                                    marginTop: 10,
-                                }}
-                            >
-                                <Text
+                        pointerLabelComponent: (items) => {
+                            console.log('pointerLabelComponent called with items:', items);
+                            // Find the index by matching the value with our data
+                            if (items && items.length > 0 && onPositionChange) {
+                                const currentValue = items[0].value;
+                                const dataPointIndex = dataToUse.findIndex(point => point.value === currentValue);
+                                console.log('Found dataPointIndex:', dataPointIndex, 'for value:', currentValue);
+                                
+                                if (dataPointIndex >= 0) {
+                                    const position = dataPointIndex / (dataToUse.length - 1);
+                                    console.log('pointerLabelComponent calculated position:', position);
+                                    
+                                    // Only call onPositionChange if position actually changed
+                                    if (Math.abs(position - lastPositionRef.current) > 0.01) {
+                                        lastPositionRef.current = position;
+                                        // Use setTimeout to break the synchronous update cycle
+                                        setTimeout(() => {
+                                            onPositionChange(Math.max(0, Math.min(1, position)));
+                                        }, 0);
+                                    }
+                                }
+                            }
+                            
+                            return (
+                                <View
                                     style={{
-                                        color: '#333',
-                                        fontSize: 14,
-                                        fontWeight: '500',
+                                        backgroundColor: 'white',
+                                        paddingHorizontal: 8,
+                                        paddingVertical: 6,
+                                        borderRadius: 8,
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        minWidth: 60,
+                                        borderWidth: 1,
+                                        borderColor: '#E0E0E0',
+                                        marginTop: 10,
                                     }}
                                 >
-                                    {`${Math.round(items[0]?.value || 0)} ft`}
-                                </Text>
-                            </View>
-                        ),
+                                    <Text
+                                        style={{
+                                            color: '#333',
+                                            fontSize: 14,
+                                            fontWeight: '500',
+                                        }}
+                                    >
+                                        {`${Math.round(items[0]?.value || 0)} ft`}
+                                    </Text>
+                                </View>
+                            );
+                        },
                     }}
                     spacing={(width - 80) / Math.max(dataToUse.length - 1, 1)}
                     initialSpacing={0}

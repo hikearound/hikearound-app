@@ -79,6 +79,58 @@ export async function parseHikeXml(hikeXmlUrl) {
     return hikeData;
 }
 
+export function extractRouteCoordinates(gpxData) {
+    try {
+        if (!gpxData || !gpxData.gpx || !gpxData.gpx.trk) {
+            return [];
+        }
+
+        const tracks = gpxData.gpx.trk;
+        const coordinates = [];
+
+        // Handle both single track and array of tracks
+        const trackArray = Array.isArray(tracks) ? tracks : [tracks];
+
+        trackArray.forEach((track) => {
+            if (track.trkseg) {
+                const segments = Array.isArray(track.trkseg) ? track.trkseg : [track.trkseg];
+                
+                segments.forEach((segment) => {
+                    if (segment.trkpt) {
+                        const points = Array.isArray(segment.trkpt) ? segment.trkpt : [segment.trkpt];
+                        
+                        points.forEach((point) => {
+                            if (point.$ && point.$.lat && point.$.lon) {
+                                coordinates.push({
+                                    latitude: parseFloat(point.$.lat),
+                                    longitude: parseFloat(point.$.lon),
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+        });
+
+        return coordinates;
+    } catch (error) {
+        console.error('Error extracting route coordinates:', error);
+        return [];
+    }
+}
+
+export async function getHikeRoute(hid) {
+    try {
+        const xmlUrl = await getHikeXmlUrl(hid);
+        const gpxData = await parseHikeXml(xmlUrl);
+        const coordinates = extractRouteCoordinates(gpxData);
+        return coordinates;
+    } catch (error) {
+        console.error('Error getting hike route:', error);
+        return [];
+    }
+}
+
 export async function getHikeData(hid) {
     const hikeSnapshot = await getHikeSnapshot(hid);
     const hikeData = hikeSnapshot.data();

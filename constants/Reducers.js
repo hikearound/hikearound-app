@@ -4,6 +4,8 @@ export const mapState = {
     selectedHike: null,
     selectedCity: null,
     markers: [],
+    selectedRoute: null,
+    routeCoordinates: [],
 };
 
 export const hikeState = {
