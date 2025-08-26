@@ -16,99 +16,67 @@ import {
 import { bottomSheet } from '@constants/Index';
 import { withNavigation } from '@utils/Navigation';
 import SheetHeader from '@components/bottom_sheet/Header';
-import { formatYLabel, formatXLabel, chartConfig } from '@utils/Graph';
 
 const propTypes = {
     sheetRef: PropTypes.object.isRequired,
     elevationArray: PropTypes.array.isRequired,
     hike: PropTypes.object.isRequired,
-    axisIncrement: PropTypes.number,
-    marginOffset: PropTypes.number,
     height: PropTypes.number,
-    strokeWidth: PropTypes.number,
     mapRef: PropTypes.object,
 };
 
 const defaultProps = {
-    axisIncrement: 4,
-    marginOffset: 10,
     height: 200,
-    strokeWidth: 2,
     mapRef: {},
 };
 
 const { width } = Dimensions.get('window');
 
-function GraphSheet({
-    sheetRef,
-    mapRef,
-    elevationArray,
-    hike,
-    axisIncrement,
-    marginOffset,
-    height,
-    strokeWidth,
-    t,
-    theme,
-}) {
+function GraphSheet({ sheetRef, mapRef, elevationArray, hike, height, t }) {
     const { distance, elevation } = hike;
 
-    const buildDistanceArray = () => {
-        let currentIncrement = 0;
-
-        const distanceArray = [];
-        const increment = distance / axisIncrement;
-
-        for (let i = 0; i < axisIncrement; i += 1) {
-            distanceArray.push(parseFloat(currentIncrement).toFixed(1));
-            currentIncrement += increment;
-        }
-
-        return distanceArray;
-    };
-
-    // Transform data for react-native-gifted-charts
-    const distanceLabels = buildDistanceArray();
-    
-    // Create test data first to see if chart works
-    const testData = [
-        {value: 50, label: '0'},
-        {value: 80, label: '0.5'},
-        {value: 90, label: '1.0'},
-        {value: 70, label: '1.5'},
-        {value: 60, label: '2.0'},
-    ];
-    
     // Reduce data points for better performance and visibility
     const step = Math.max(1, Math.floor(elevationArray.length / 50)); // Show max 50 points
-    const reducedElevations = elevationArray.filter((_, index) => index % step === 0);
-    const totalReducedPoints = reducedElevations.length;
-    
+    const reducedElevations = elevationArray.filter(
+        (_, index) => index % step === 0,
+    );
+
     // Create strategic label points to avoid duplicates
     const labelPositions = new Set();
-    const chartData = reducedElevations.map((elevation, index) => {
+    const chartData = reducedElevations.map((elevationValue, index) => {
         const originalIndex = index * step;
-        const distanceAtPoint = (originalIndex / elevationArray.length) * distance;
-        
+        const distanceAtPoint =
+            (originalIndex / elevationArray.length) * distance;
+
         let labelText = '';
         const roundedDistance = Math.round(distanceAtPoint);
-        
+
         if (index === 0) {
             labelText = '';
             labelPositions.add(0);
-        } else if (roundedDistance > 0 && !labelPositions.has(roundedDistance) && Math.abs(distanceAtPoint - roundedDistance) < 0.2) {
+        } else if (
+            roundedDistance > 0 &&
+            !labelPositions.has(roundedDistance) &&
+            Math.abs(distanceAtPoint - roundedDistance) < 0.2
+        ) {
             labelText = `${roundedDistance} mi`;
             labelPositions.add(roundedDistance);
         }
-        
+
         return {
-            value: Number(elevation),
+            value: Number(elevationValue),
             label: labelText,
-            labelTextStyle: labelText ? { width: 40, textAlign: 'center', color: '#666', fontSize: 10 } : undefined,
+            labelTextStyle: labelText
+                ? {
+                      width: 40,
+                      textAlign: 'center',
+                      color: '#666',
+                      fontSize: 10,
+                  }
+                : undefined,
         };
     });
-    
-    
+
     // Use real data now that we know chart works
     const dataToUse = chartData;
 
@@ -148,21 +116,21 @@ function GraphSheet({
                     height={height - 60}
                     curved={false}
                     thickness={2.5}
-                    color={'#935DFF'}
-                    dataPointsColor={'#935DFF'}
+                    color='#935DFF'
+                    dataPointsColor='#935DFF'
                     dataPointsRadius={4}
-                    hideDataPoints={true}
+                    hideDataPoints
                     showValuesAsDataPointsText={false}
-                    showPointer={true}
+                    showPointer
                     pointerConfig={{
                         pointer1Color: '#935DFF',
                         pointerStripUptoDataPoint: true,
                         pointerStripColor: '#E0E0E0',
                         strokeWidth: 1,
                         radius: 4,
-                        pointerLabelComponent: (items) => {
-                            return (
-                                <View style={{
+                        pointerLabelComponent: (items) => (
+                            <View
+                                style={{
                                     backgroundColor: 'white',
                                     paddingHorizontal: 8,
                                     paddingVertical: 6,
@@ -173,25 +141,27 @@ function GraphSheet({
                                     borderWidth: 1,
                                     borderColor: '#E0E0E0',
                                     marginTop: 10,
-                                }}>
-                                    <Text style={{
+                                }}
+                            >
+                                <Text
+                                    style={{
                                         color: '#333',
                                         fontSize: 14,
                                         fontWeight: '500',
-                                    }}>
-                                        {`${Math.round(items[0]?.value || 0)} ft`}
-                                    </Text>
-                                </View>
-                            );
-                        },
+                                    }}
+                                >
+                                    {`${Math.round(items[0]?.value || 0)} ft`}
+                                </Text>
+                            </View>
+                        ),
                     }}
                     spacing={(width - 80) / Math.max(dataToUse.length - 1, 1)}
                     initialSpacing={0}
                     endSpacing={20}
                     scrollToEnd={false}
-                    disableScroll={true}
+                    disableScroll
                     hideRules={false}
-                    rulesColor={'#E0E0E0'}
+                    rulesColor='#E0E0E0'
                     rulesThickness={1}
                     hideYAxisText={false}
                     hideAxesAndRules={false}
@@ -206,15 +176,18 @@ function GraphSheet({
                     }}
                     noOfSections={4}
                     maxValue={Math.max(...elevationArray.map(Number)) + 10}
-                    minValue={Math.max(0, Math.min(...elevationArray.map(Number)) - 10)}
-                    yAxisSuffix={' ft'}
+                    minValue={Math.max(
+                        0,
+                        Math.min(...elevationArray.map(Number)) - 10,
+                    )}
+                    yAxisSuffix=' ft'
                     formatYLabel={(value) => `${value} ft`}
                     rotateLabel={false}
                     xAxisThickness={1}
                     yAxisThickness={1}
-                    xAxisColor={'#E0E0E0'}
-                    yAxisColor={'#E0E0E0'}
-                    backgroundColor={'transparent'}
+                    xAxisColor='#E0E0E0'
+                    yAxisColor='#E0E0E0'
+                    backgroundColor='transparent'
                     isAnimated={false}
                     showXAxisIndices={false}
                     showYAxisIndices={false}
@@ -263,12 +236,4 @@ const ChartContainer = styled.View`
     padding-bottom: 50px;
     padding-top: 10px;
     padding-horizontal: 20px;
-`;
-
-const XAxisLabel = styled.Text`
-    text-align: center;
-    margin-top: 5px;
-    font-size: 12px;
-    color: #666;
-    font-weight: 500;
 `;

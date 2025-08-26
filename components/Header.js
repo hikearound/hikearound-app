@@ -91,7 +91,7 @@ const Text = styled.Text`
 `;
 
 const FilterText = styled.Text`
-    color: #8B5CF6;
+    color: #8b5cf6;
     font-size: ${fontSizes.extraSmall}px;
     font-weight: ${fontWeights.regular};
     text-transform: uppercase;

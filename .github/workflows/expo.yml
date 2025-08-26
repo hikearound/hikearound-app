@@ -1,36 +1,35 @@
 name: Expo CI
 
 on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+    push:
+        branches: [master]
+    pull_request:
+        branches: [master]
 
 jobs:
-  build:
+    build:
+        runs-on: ubuntu-latest
 
-    runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                node-version: [12.x]
 
-    strategy:
-      matrix:
-        node-version: [12.x]
+        steps:
+            - uses: actions/checkout@v2
 
-    steps:
-    - uses: actions/checkout@v2
-    
-    - name: Set environment variables
-      uses: allenevans/set-env@v1.0.0
-      with:
-        ALGOLIA_SEARCH_KEY: ${{ secrets.ALGOLIA_SEARCH_KEY }}
-        GOOGLE_GEO_KEY: ${{ secrets.GOOGLE_GEO_KEY }}
-        GOOGLE_PLACES_KEY: ${{ secrets.GOOGLE_PLACES_KEY }}
-        FIREBASE_KEY: ${{ secrets.FIREBASE_KEY }}
-  
-    - name: Setup node.js
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm test
+            - name: Set environment variables
+              uses: allenevans/set-env@v1.0.0
+              with:
+                  ALGOLIA_SEARCH_KEY: ${{ secrets.ALGOLIA_SEARCH_KEY }}
+                  GOOGLE_GEO_KEY: ${{ secrets.GOOGLE_GEO_KEY }}
+                  GOOGLE_PLACES_KEY: ${{ secrets.GOOGLE_PLACES_KEY }}
+                  FIREBASE_KEY: ${{ secrets.FIREBASE_KEY }}
+
+            - name: Setup node.js
+              uses: actions/setup-node@v1
+              with:
+                  node-version: ${{ matrix.node-version }}
+
+            - run: npm ci
+            - run: npm run build --if-present
+            - run: npm test

@@ -47,40 +47,46 @@ const GooglePlacesSearch = ({ theme, onPress, placeholder }) => {
         }
     };
 
-    const handleSelectPlace = useCallback((placeId, description) => {
-        console.log('Selected place:', description); // Debug log
-        
-        // Update UI state immediately and synchronously
-        setPredictions([]);
-        setSearchText(description);
-        
-        // Dismiss keyboard after state update
-        setTimeout(() => {
-            Keyboard.dismiss();
-            inputRef.current?.blur();
-        }, 50);
+    const handleSelectPlace = useCallback(
+        (placeId, description) => {
+            console.log('Selected place:', description); // Debug log
 
-        // Perform async place details fetch
-        fetch(
-            `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=formatted_address,geometry&key=${Constants.manifest.extra.googlePlaces.apiKey}`,
-        )
-        .then(response => response.json())
-        .then(data => {
-            if (data.result) {
-                onPress(null, data.result);
-            }
-        })
-        .catch(error => {
-            console.log('Place details fetch error'); // Debug log
-        });
-    }, [onPress]);
+            // Update UI state immediately and synchronously
+            setPredictions([]);
+            setSearchText(description);
+
+            // Dismiss keyboard after state update
+            setTimeout(() => {
+                Keyboard.dismiss();
+                inputRef.current?.blur();
+            }, 50);
+
+            // Perform async place details fetch
+            fetch(
+                `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=formatted_address,geometry&key=${Constants.manifest.extra.googlePlaces.apiKey}`,
+            )
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data.result) {
+                        onPress(null, data.result);
+                    }
+                })
+                .catch((error) => {
+                    console.log('Place details fetch error'); // Debug log
+                });
+        },
+        [onPress],
+    );
 
     return (
         <View style={styles.container}>
             <View style={styles.textInputContainer}>
                 <TextInput
                     ref={inputRef}
-                    style={[styles.textInput, searchText ? styles.textInputWithClear : null]}
+                    style={[
+                        styles.textInput,
+                        searchText ? styles.textInputWithClear : null,
+                    ]}
                     placeholder={placeholder}
                     placeholderTextColor={theme.colors.inputPlaceholderText}
                     value={searchText}
@@ -93,9 +99,9 @@ const GooglePlacesSearch = ({ theme, onPress, placeholder }) => {
                         hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
                     >
                         <Ionicons
-                            name="close-circle"
+                            name='close-circle'
                             size={20}
-                            color="#CCCCCC"
+                            color='#CCCCCC'
                         />
                     </TouchableOpacity>
                 ) : null}
@@ -108,7 +114,12 @@ const GooglePlacesSearch = ({ theme, onPress, placeholder }) => {
                     renderItem={({ item }) => (
                         <TouchableOpacity
                             style={styles.row}
-                            onPress={() => handleSelectPlace(item.place_id, item.description)}
+                            onPress={() =>
+                                handleSelectPlace(
+                                    item.place_id,
+                                    item.description,
+                                )
+                            }
                             activeOpacity={0.7}
                             hitSlop={{
                                 top: 10,

@@ -54,7 +54,9 @@ class HomeEmptyState extends React.PureComponent {
                 <Description>
                     <Trans i18nKey='screen.home.empty.default.description'>
                         {/* eslint-disable-next-line */}
-                        This probably just means we haven't added any hikes near {{cityName: city}} yet. Try {this.renderSearchLink()} or {this.renderMapLink()}.
+                        This probably just means we haven't added any hikes near{' '}
+                        {{ cityName: city }} yet. Try {this.renderSearchLink()}{' '}
+                        or {this.renderMapLink()}.
                     </Trans>
                 </Description>
             </>
@@ -70,7 +72,9 @@ class HomeEmptyState extends React.PureComponent {
                 <Description>
                     <Trans i18nKey='screen.home.empty.permission.description'>
                         {/* eslint-disable-next-line */}
-                        The Home tab only works if you've enabled location sharing. Try {this.renderSearchLink()} or {this.renderMapLink()} instead.
+                        The Home tab only works if you've enabled location
+                        sharing. Try {this.renderSearchLink()} or{' '}
+                        {this.renderMapLink()} instead.
                     </Trans>
                 </Description>
             </>

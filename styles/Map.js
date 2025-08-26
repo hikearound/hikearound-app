@@ -63,7 +63,8 @@ export function getMapSearchStyle(theme, hideShadow, hideBackground) {
             display: 'none',
         },
         listView: {
-            marginTop: Constants.statusBarHeight + parseInt(spacing.small, 10) + 40,
+            marginTop:
+                Constants.statusBarHeight + parseInt(spacing.small, 10) + 40,
             marginLeft: parseInt(spacing.tiny, 10),
             marginRight: parseInt(spacing.tiny, 10),
             minHeight: 10,

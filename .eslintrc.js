@@ -37,15 +37,9 @@ module.exports = {
     },
     plugins: ['react', 'react-native', 'prettier'],
     rules: {
-        indent: [
-            'error',
-            4,
-            {
-                SwitchCase: 1,
-            },
-        ],
-        'react/jsx-indent': ['error', 4],
-        'react/jsx-indent-props': ['error', 4],
+        indent: 'off',
+        'react/jsx-indent': 'off',
+        'react/jsx-indent-props': 'off',
         'import/no-extraneous-dependencies': 'off',
         'react/jsx-filename-extension': 'off',
         'react/jsx-props-no-spreading': 'off',
@@ -75,19 +69,7 @@ module.exports = {
             },
         ],
         semi: ['error', 'always'],
-        'prettier/prettier': [
-            'error',
-            {
-                trailingComma: 'all',
-                singleQuote: true,
-                jsxSingleQuote: true,
-                printWidth: 80,
-                semi: true,
-                jsxBracketSameLine: false,
-                tabWidth: 4,
-                arrowParens: 'always',
-            },
-        ],
+        'prettier/prettier': 'error',
     },
     overrides: [
         {

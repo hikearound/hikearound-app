@@ -54,7 +54,8 @@ const Stack = createStackNavigator();
 
 class HomeStack extends React.Component {
     componentDidMount() {
-        const { navigation, dispatchFocusedStack, stackName, route } = this.props;
+        const { navigation, dispatchFocusedStack, stackName, route } =
+            this.props;
 
         this.unsubscribe = navigation.addListener('focus', () => {
             dispatchFocusedStack(stackName);
@@ -65,16 +66,29 @@ class HomeStack extends React.Component {
 
     componentDidUpdate(prevProps) {
         const { user } = this.props;
-        
+
         // Log auth state changes but don't manually navigate
         // The Stack Navigator will re-render with correct initialRouteName based on user state
         if (prevProps.user !== user) {
-            console.log('HomeStack - User changed from', prevProps.user ? 'user exists' : 'null', 'to', user ? `${user.email}` : 'null');
-            
+            console.log(
+                'HomeStack - User changed from',
+                prevProps.user ? 'user exists' : 'null',
+                'to',
+                user ? `${user.email}` : 'null',
+            );
+
             if (user && user.uid && !user.loggedOut) {
-                console.log('HomeStack - User authenticated, Stack will show HomeScreen');
-            } else if (prevProps.user && prevProps.user.uid && (!user || user.loggedOut)) {
-                console.log('HomeStack - User logged out, Stack will show Landing');
+                console.log(
+                    'HomeStack - User authenticated, Stack will show HomeScreen',
+                );
+            } else if (
+                prevProps.user &&
+                prevProps.user.uid &&
+                (!user || user.loggedOut)
+            ) {
+                console.log(
+                    'HomeStack - User logged out, Stack will show Landing',
+                );
             }
         }
     }
@@ -83,15 +97,14 @@ class HomeStack extends React.Component {
         this.unsubscribe();
     }
 
-
     getInitialRoute = () => {
         const { user } = this.props;
-        
+
         // If user exists and has uid (authenticated user)
         if (user && user.uid && !user.loggedOut) {
             return 'HomeScreen';
         }
-        
+
         // Default to landing for unauthenticated users or logged out users
         return 'Landing';
     };

@@ -38,7 +38,7 @@
             "map": "Mapa",
             "search": "Buscar",
             "password": "Actualiza Contraseña",
-            "review": "Revisar",
+            "review": "Revisar"
         },
         "modal": {
             "save": "Salvar",
@@ -93,7 +93,7 @@
         "elevation": {
             "unit": {
                 "miles": "mi",
-                "feet": "pie",
+                "feet": "pie"
             },
             "label": {
                 "distance": "Distancia",
@@ -111,18 +111,18 @@
             }
         },
         "route": {
-            "title": "Tipo de ruta",
+            "title": "Tipo de ruta"
         },
         "difficulty": {
-            "title": "Dificultad",
+            "title": "Dificultad"
         },
         "elevation": {
             "title": "Desnivel",
-            "value":  "{{elevation}} pie"
+            "value": "{{elevation}} pie"
         },
         "distance": {
             "title": "Distancia",
-            "value":  "{{distance}} mi"
+            "value": "{{distance}} mi"
         }
     },
     "modal": {
@@ -180,7 +180,7 @@
             "moderate": "Moderado",
             "difficult": "Difícil"
         },
-        "list" : " · {{distance}} millas",
+        "list": " · {{distance}} millas"
     },
     "screen": {
         "review": {
@@ -189,7 +189,7 @@
         "hike": {
             "review": {
                 "empty": "Esta caminata aún no ha sido revisada.",
-                "prompt": "¿Probaste esta caminata? ¡Dejar un comentario!",
+                "prompt": "¿Probaste esta caminata? ¡Dejar un comentario!"
             }
         },
         "search": {
@@ -225,7 +225,7 @@
                 "permission": {
                     "title": "Compartir ubicación deshabilitado",
                     "description": "La pestaña Inicio solo funciona si ha habilitado el uso compartido de la ubicación. Intente <1>buscar una caminata</1> o <3>navegar por el mapa</3> en su lugar."
-                },
+                }
             }
         },
         "onboard": {
@@ -349,11 +349,11 @@
     "notifications": {
         "reviewLike": {
             "title": "Le gustó a {{name}}",
-            "subtitle": "Tu reseña de {{name}} en {{city}}, {{state}}",
+            "subtitle": "Tu reseña de {{name}} en {{city}}, {{state}}"
         },
         "digest": {
             "title": "Nuevas caminatas cerca de ti",
-            "subtitle": "Creemos que te puede gustar {{name}} en {{city}}, {{state}}",
+            "subtitle": "Creemos que te puede gustar {{name}} en {{city}}, {{state}}"
         }
     }
 }

@@ -70,7 +70,9 @@ class InfiniteHits extends React.Component {
                         data={hits}
                         renderItem={this.renderItem}
                         onEndReached={() => hasMore && refine()}
-                        showsVerticalScrollIndicator={showsVerticalScrollIndicator}
+                        showsVerticalScrollIndicator={
+                            showsVerticalScrollIndicator
+                        }
                         onScrollBeginDrag={() => Keyboard.dismiss()}
                         contentContainerStyle={{ paddingBottom }}
                     />

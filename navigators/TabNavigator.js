@@ -190,26 +190,37 @@ class TabNavigator extends React.Component {
         const { deviceType } = this.state;
         const routeName = getFocusedRouteNameFromRoute(route);
         const authScreens = ['Landing', 'SignIn', 'CreateAccount'];
-        
-        
+
         // Hide tab bar on auth screens
         if (authScreens.includes(routeName)) {
             return { display: 'none' };
         }
-        
+
         // Show tab bar on all main app screens
         const appScreens = [
-            'HomeScreen', 'Hike', 'Search', 'Review', // Home tab screens
-            'Map', 'MapScreen', // Map tab screens
-            'Notifications', 'NotificationScreen', // Notification tab screens  
-            'Profile', 'ProfileScreen', 'Settings' // Profile tab screens
+            'HomeScreen',
+            'Hike',
+            'Search',
+            'Review', // Home tab screens
+            'Map',
+            'MapScreen', // Map tab screens
+            'Notifications',
+            'NotificationScreen', // Notification tab screens
+            'Profile',
+            'ProfileScreen',
+            'Settings', // Profile tab screens
         ];
-        
+
         // If we know it's an app screen OR if routeName is undefined (initial load), show tab bar
-        if (appScreens.includes(routeName) || routeName === undefined || routeName === null) {
+        if (
+            appScreens.includes(routeName) ||
+            routeName === undefined ||
+            routeName === null
+        ) {
             return {
                 height: deviceType === Device.DeviceType.TABLET ? 100 : 90,
-                paddingBottom: deviceType === Device.DeviceType.TABLET ? 35 : 30,
+                paddingBottom:
+                    deviceType === Device.DeviceType.TABLET ? 35 : 30,
                 paddingTop: 10,
                 borderTopWidth: 1,
                 borderTopColor: '#F0F0F0',
@@ -217,7 +228,7 @@ class TabNavigator extends React.Component {
                 shadowOpacity: 0,
             };
         }
-        
+
         // Default: hide tab bar for any other screen
         return { display: 'none' };
     };

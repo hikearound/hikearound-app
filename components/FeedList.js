@@ -84,7 +84,7 @@ class FeedList extends React.PureComponent {
 
     renderRecentReviews = (reviews) => <RecentReviewList reviews={reviews} />;
 
-    renderHeader = (title) => <Header title={title} showFilter={true} />;
+    renderHeader = (title) => <Header title={title} showFilter />;
 
     renderFooter = () => <FeedFooter />;
 

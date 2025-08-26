@@ -28,7 +28,9 @@ class LegalText extends React.PureComponent {
             <SubText>
                 <Trans i18nKey='screen.createAccount.legal'>
                     {/* eslint-disable-next-line */}
-                    By clicking {{ createAccount }}, you agree to {{ appName }} {this.renderTermsOfServiceLink(t)} and {this.renderPrivacyPolicyLink(t)}.
+                    By clicking {{ createAccount }}, you agree to {{ appName }}{' '}
+                    {this.renderTermsOfServiceLink(t)} and{' '}
+                    {this.renderPrivacyPolicyLink(t)}.
                 </Trans>
             </SubText>
         );

@@ -59,7 +59,9 @@ class ProfileEmptyState extends React.PureComponent {
                 <Description>
                     <Trans i18nKey='screen.profile.empty.description'>
                         {/* eslint-disable-next-line */}
-                        Hikes that you favorite will be saved to your profile. <TextLink onPress={this.mapPress} />}.
+                        Hikes that you favorite will be saved to your profile.{' '}
+                        <TextLink onPress={this.mapPress} />
+                        }.
                     </Trans>
                 </Description>
             </>

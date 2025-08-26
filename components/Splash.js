@@ -64,7 +64,7 @@ class Splash extends React.Component {
             clearTimeout(this.timer);
             this.timer = 0;
         }
-        
+
         if (this.unsubscribeAuth) {
             this.unsubscribeAuth();
         }
@@ -83,12 +83,17 @@ class Splash extends React.Component {
         const { dispatchAuthSubscription } = this.props;
 
         try {
-            console.log('Setting up Firebase v9 auth listener with RN persistence...');
-            
+            console.log(
+                'Setting up Firebase v9 auth listener with RN persistence...',
+            );
+
             // Set up auth state listener using modern v9 auth with persistence
             this.unsubscribeAuth = onAuthStateChanged(auth, async (user) => {
-                console.log('Auth state changed - user:', user ? `${user.email} (${user.uid})` : 'null');
-                
+                console.log(
+                    'Auth state changed - user:',
+                    user ? `${user.email} (${user.uid})` : 'null',
+                );
+
                 // Dispatch the auth state (whether user exists or not)
                 await dispatchAuthSubscription(user);
                 this.handleFinishLoading();

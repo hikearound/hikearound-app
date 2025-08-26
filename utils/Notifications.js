@@ -13,7 +13,7 @@ export async function registerForPushNotifications() {
     const user = auth.currentUser;
 
     let notificationToken = await Notifications.getExpoPushTokenAsync({
-        projectId: 'hikearound-app'
+        projectId: 'hikearound-app',
     });
     notificationToken = notificationToken.data;
 
