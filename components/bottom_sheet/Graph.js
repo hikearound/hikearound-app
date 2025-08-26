@@ -208,40 +208,38 @@ function GraphSheet({
                         activatePointersOnLongPress: false,
                         activatePointersDelay: 0,
                         pointerLabelComponent: (items) => {
-                            console.log(
-                                'pointerLabelComponent called with items:',
-                                items,
-                            );
-                            // Calculate continuous position along the full polyline
-                            if (items && items.length > 0 && onPositionChange) {
-                                const currentValue = items[0].value;
-                                const dataPointIndex = dataToUse.findIndex(
-                                    (point) => point.value === currentValue,
-                                );
+                            // Schedule position update after render to avoid state update during render
+                            setTimeout(() => {
+                                if (items && items.length > 0 && onPositionChange) {
+                                    const currentValue = items[0].value;
+                                    const dataPointIndex = dataToUse.findIndex(
+                                        (point) => point.value === currentValue,
+                                    );
 
-                                if (dataPointIndex >= 0) {
-                                    // Convert reduced array index back to original full array position
-                                    const originalArrayIndex =
-                                        dataPointIndex * step;
+                                    if (dataPointIndex >= 0) {
+                                        // Convert reduced array index back to original full array position
+                                        const originalArrayIndex =
+                                            dataPointIndex * step;
 
-                                    // Calculate smooth position as a percentage of the full route
-                                    const position =
-                                        originalArrayIndex /
-                                        (elevationArray.length - 1);
+                                        // Calculate smooth position as a percentage of the full route
+                                        const position =
+                                            originalArrayIndex /
+                                            (elevationArray.length - 1);
 
-                                    // Simple throttling - only update if position changed significantly
-                                    if (
-                                        Math.abs(
-                                            position - lastPositionRef.current,
-                                        ) > 0.008
-                                    ) {
-                                        lastPositionRef.current = position;
-                                        onPositionChange(
-                                            Math.max(0, Math.min(1, position)),
-                                        );
+                                        // Simple throttling - only update if position changed significantly
+                                        if (
+                                            Math.abs(
+                                                position - lastPositionRef.current,
+                                            ) > 0.008
+                                        ) {
+                                            lastPositionRef.current = position;
+                                            onPositionChange(
+                                                Math.max(0, Math.min(1, position)),
+                                            );
+                                        }
                                     }
                                 }
-                            }
+                            }, 0);
 
                             return (
                                 <View

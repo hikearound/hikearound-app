@@ -1,20 +1,9 @@
-import { getInputRangeFromIndexes } from 'react-native-snap-carousel';
+// Animation utilities for carousel and other components
+// Note: Previous snap-carousel related functions removed during SDK 49 upgrade
 
-export function scrollInterpolator(index, carouselProps) {
-    const range = [1, 0, -1];
-    const inputRange = getInputRangeFromIndexes(range, index, carouselProps);
-    const outputRange = range;
-
-    return { inputRange, outputRange };
-}
-export function animatedStyles(index, animatedValue, carouselProps) {
-    let animatedOpacity = {};
-
-    if (carouselProps.inactiveSlideOpacity < 1) {
-        animatedOpacity = { opacity: 1 };
-    }
-
+export function defaultAnimationConfig() {
     return {
-        ...animatedOpacity,
+        duration: 300,
+        easing: 'ease-out',
     };
 }
