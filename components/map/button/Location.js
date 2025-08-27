@@ -63,7 +63,7 @@ class LocationButton extends React.PureComponent {
         });
 
         setTimeout(() => {
-            sheetRef.current?.close();
+            sheetRef.current?.snapToIndex(0);
         }, animationConfig.duration + transitionDelay);
     };
 

@@ -53,20 +53,20 @@ const getKnobs = (isLiked = false) => {
 };
 
 const ReviewItemScreen = ({ isLiked = false, theme }) => {
-    const props = getKnobs(isLiked);
+    const knobsData = getKnobs(isLiked);
     const userName = isLiked ? 'Jane Smith' : 'John Doe';
 
     // Provide fallback data if knobs are corrupted
     const safeProps = {
-        ...props,
-        user: props.user || {
+        ...knobsData,
+        user: knobsData.user || {
             uid: 'user123',
             name: userName,
             location: isLiked ? 'Oakland, CA' : 'San Francisco, CA',
             photoURL:
                 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop',
         },
-        hike: props.hike || {
+        hike: knobsData.hike || {
             name: isLiked ? 'Mount Diablo' : 'Mount Tamalpais',
             city: isLiked ? 'Danville' : 'Mill Valley',
             state: 'CA',

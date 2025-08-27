@@ -99,8 +99,6 @@ class MapModal extends React.Component {
     };
 
     handleChartPositionChange = (position) => {
-        console.log('MapModal received position:', position);
-
         // Clear existing timeout
         if (this.dragTimeout) {
             clearTimeout(this.dragTimeout);
