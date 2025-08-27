@@ -1,7 +1,7 @@
 import 'dotenv/config';
 
 export default ({ config }) => ({
-    plugins: ['sentry-expo', 'expo-localization'],
+    plugins: ['sentry-expo', 'expo-localization', 'expo-dev-client'],
     hooks: {
         postPublish: [
             {
@@ -13,8 +13,6 @@ export default ({ config }) => ({
             },
         ],
     },
-    facebookAppId: process.env.FACEBOOK_APP_ID,
-    facebookDisplayName: 'Hikearound',
     extra: {
         storybookEnabled: process.env.STORYBOOK_ENABLED === 'true',
         firebase: {

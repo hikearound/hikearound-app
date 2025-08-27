@@ -79,19 +79,6 @@ class SettingsScreen extends React.Component {
         <SectionHeader>{section.title}</SectionHeader>
     );
 
-    renderSection = ({ section, index: sectionIndex }) => {
-        const { settingsData } = this.state;
-        const isLastSection = sectionIndex === settingsData.length - 1;
-        return (
-            <SectionContainer lastSection={isLastSection}>
-                {section.data.map((item, index) => (
-                    <React.Fragment key={index}>
-                        {this.renderItem({ item, index, section })}
-                    </React.Fragment>
-                ))}
-            </SectionContainer>
-        );
-    };
 
     render() {
         const { settingsData } = this.state;
@@ -106,7 +93,6 @@ class SettingsScreen extends React.Component {
                             extraData={this.state}
                             renderItem={this.renderItem}
                             renderSectionHeader={this.renderSectionHeader}
-                            renderSection={this.renderSection}
                             sections={settingsData}
                             keyExtractor={(item, index) => item + index}
                             initialNumToRender={itemsPerBatch}
