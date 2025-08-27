@@ -105,7 +105,7 @@ const GooglePlacesSearch = ({ theme, onPress, placeholder }) => {
                     style={styles.listView}
                     data={predictions}
                     keyExtractor={(item) => item.place_id}
-                    keyboardShouldPersistTaps="handled"
+                    keyboardShouldPersistTaps='handled'
                     renderItem={({ item }) => (
                         <TouchableOpacity
                             style={styles.row}

@@ -9,10 +9,6 @@ import FeedFooter from '@components/FeedFooter';
 import { withScrollToTop } from '@utils/Navigation';
 import { withTheme } from '@utils/Themes';
 import RecentReviewList from '@components/feed/review/RecentReviewList';
-import Ad from '@components/Ad';
-import { getAdsManager } from '@utils/Ad';
-
-const adsManager = getAdsManager('feed');
 
 const propTypes = {
     onEndReached: PropTypes.func.isRequired,
@@ -47,11 +43,9 @@ class FeedList extends React.PureComponent {
         const { lastKnownPosition, reviews } = this.props;
 
         const showReviews = index === 4 && reviews.length > 0;
-        const showAds = false;
 
         return (
             <>
-                {showAds && this.renderAd()}
                 {showReviews && this.renderRecentReviews(reviews)}
                 <FeedItem
                     hid={id}
@@ -74,14 +68,6 @@ class FeedList extends React.PureComponent {
         );
     };
 
-    // <Ad
-    //     adsManager={adsManager}
-    //     onAdLoaded={(ad) => console.log(ad)}
-    //     onError={(error) => console.log(error)}
-    // />
-
-    renderAd = () => <Ad adsManager={adsManager} />;
-
     renderRecentReviews = (reviews) => <RecentReviewList reviews={reviews} />;
 
     renderHeader = (title) => <Header title={title} showFilter />;
@@ -101,7 +87,6 @@ class FeedList extends React.PureComponent {
             onEndReached,
             refreshControl,
             hikes,
-            theme,
             scrollRef,
             city,
             t,

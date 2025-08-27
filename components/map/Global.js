@@ -114,27 +114,44 @@ class GlobalMap extends React.Component {
     };
 
     animateToCity = (selectedCity) => {
-        const { altitude, animationConfig, delta } = this.props;
+        const {
+            altitude,
+            animationConfig,
+            delta,
+            dispatchMapData,
+        } = this.props;
         const { lat, lng } = selectedCity.geometry.location;
 
-        this.animateToPoint({
-            pitch: animationConfig.pitch,
-            heading: animationConfig.heading,
-            center: {
-                latitude: lat,
-                longitude: lng,
+        // Set the region first to prevent animation interruption
+        this.setState(
+            {
+                region: {
+                    latitude: lat,
+                    latitudeDelta: delta,
+                    longitude: lng,
+                    longitudeDelta: delta,
+                },
             },
-            altitude: altitude.city,
-        });
+            () => {
+                // Animate after state is set to ensure smooth transition
+                this.animateToPoint({
+                    pitch: animationConfig.pitch || 0,
+                    heading: animationConfig.heading || 0,
+                    center: {
+                        latitude: lat,
+                        longitude: lng,
+                    },
+                    altitude: altitude.city,
+                });
 
-        this.setState({
-            region: {
-                latitude: lat,
-                latitudeDelta: delta,
-                longitude: lng,
-                longitudeDelta: delta,
+                // Clear selectedCity after animation starts to prevent re-triggering
+                setTimeout(() => {
+                    dispatchMapData({
+                        selectedCity: null,
+                    });
+                }, 100);
             },
-        });
+        );
     };
 
     setInitialMarkers = () => {
@@ -187,9 +204,12 @@ class GlobalMap extends React.Component {
     animateToPoint = (camera) => {
         const { animationConfig, mapRef } = this.props;
 
-        mapRef.current.animateCamera(camera, {
-            duration: animationConfig.duration,
-        });
+        // Ensure we have a valid map reference before animating
+        if (mapRef.current) {
+            mapRef.current.animateCamera(camera, {
+                duration: animationConfig.duration || 1000,
+            });
+        }
     };
 
     markerPress = async (event) => {

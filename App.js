@@ -8,14 +8,10 @@ import Splash from './components/Splash';
 import store from './store/Store';
 import Fire from './lib/Fire';
 import { ignoreWarnings } from './utils/Warnings';
-import { addTestDevice, enableAdTracking } from './utils/Ad';
 import StorybookUIRoot from './storybook';
 
 enableScreens();
 ignoreWarnings();
-
-addTestDevice();
-enableAdTracking();
 
 const STORYBOOK_ENABLED = Constants.manifest?.extra?.storybookEnabled === true;
 

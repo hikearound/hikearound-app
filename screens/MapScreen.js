@@ -93,9 +93,12 @@ class MapScreen extends React.Component {
             return;
         }
 
-        // Update location and clear markers
+        // Clear any selected hike when searching for a new city
         dispatchMapData({
             markers: [],
+            selectedHike: null,
+            selectedRoute: null,
+            routeCoordinates: [],
             selectedCity: {
                 geometry: {
                     location: {
@@ -108,11 +111,12 @@ class MapScreen extends React.Component {
             animationConfig: {
                 pitch: 0,
                 heading: 0,
-                duration: 0,
+                duration: 1000,
             },
         });
 
-        this.bottomSheetRef.current?.close();
+        // Snap to collapsed state instead of closing completely
+        this.bottomSheetRef.current?.snapToIndex(0);
     };
 
     clearRoute = () => {

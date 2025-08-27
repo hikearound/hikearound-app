@@ -198,17 +198,20 @@ class TabNavigator extends React.Component {
 
         // Show tab bar on all main app screens
         const appScreens = [
+            // Home tab screens
             'HomeScreen',
             'Hike',
             'Search',
-            'Review', // Home tab screens
+            'Review',
+            // Map tab screens
             'Map',
-            'MapScreen', // Map tab screens
-            'Notifications',
-            'NotificationScreen', // Notification tab screens
+            'MapScreen',
+            // Notification tab screens
+            'Notification',
+            // Profile tab screens
             'Profile',
             'ProfileScreen',
-            'Settings', // Profile tab screens
+            'Settings',
         ];
 
         // If we know it's an app screen OR if routeName is undefined (initial load), show tab bar

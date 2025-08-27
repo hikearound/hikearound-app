@@ -35,7 +35,7 @@ const getKnobs = (isLiked = false) => {
                 ? 'One of the best hikes I have ever done! The sunset views were incredible.'
                 : 'This was an amazing hike! The views were breathtaking and the trail was well maintained.',
         ),
-        savedOn: object('Reviewed On', new Date()),
+        savedOn: new Date(),
         userLikes,
         user: object('User', {
             uid: 'user123',
