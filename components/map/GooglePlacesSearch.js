@@ -49,15 +49,13 @@ const GooglePlacesSearch = ({ theme, onPress, placeholder }) => {
 
     const handleSelectPlace = useCallback(
         (placeId, description) => {
+            // Dismiss keyboard immediately and synchronously
+            Keyboard.dismiss();
+            inputRef.current?.blur();
+
             // Update UI state immediately and synchronously
             setPredictions([]);
             setSearchText(description);
-
-            // Dismiss keyboard after state update
-            setTimeout(() => {
-                Keyboard.dismiss();
-                inputRef.current?.blur();
-            }, 50);
 
             // Perform async place details fetch
             fetch(
@@ -107,6 +105,7 @@ const GooglePlacesSearch = ({ theme, onPress, placeholder }) => {
                     style={styles.listView}
                     data={predictions}
                     keyExtractor={(item) => item.place_id}
+                    keyboardShouldPersistTaps="handled"
                     renderItem={({ item }) => (
                         <TouchableOpacity
                             style={styles.row}
