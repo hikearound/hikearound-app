@@ -78,6 +78,10 @@ class MapWrapper extends React.Component {
                                 mapPadding={mapPadding}
                                 showUserLocation={false}
                                 mapBorderRadius={8}
+                                scrollEnabled={false}
+                                zoomEnabled={false}
+                                rotateEnabled={false}
+                                pitchEnabled={false}
                             />
                             <ExpandButton />
                         </>
@@ -117,7 +121,6 @@ export default connect(
 )(withTheme(MapWrapper));
 
 const MapViewWrapper = styled.View`
-    flex: 1;
     height: ${(props) => (props.isDark ? '250px' : '265px')};
     background-color: ${(props) => props.theme.mapBackground};
     padding: 0 ${spacing.small}px ${spacing.micro}px ${spacing.small}px;
@@ -135,7 +138,6 @@ const InnerMapViewWrapper = styled.View`
 `;
 
 const BlockView = styled.View`
-    flex: 1;
     height: 165px;
     background-color: ${(props) => props.theme.mapViewBackground};
     position: absolute;

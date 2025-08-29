@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { View } from 'react-native';
 import MapView, { PROVIDER_APPLE, Polyline, Marker } from 'react-native-maps';
 import { colors, borderRadius } from '@constants/Index';
 import { defaultProps } from '@constants/states/HikeMap';
@@ -22,6 +23,11 @@ const propTypes = {
     showsMyLocationButton: PropTypes.bool,
     chartPosition: PropTypes.number,
     isDragging: PropTypes.bool,
+    scrollEnabled: PropTypes.bool,
+    zoomEnabled: PropTypes.bool,
+    rotateEnabled: PropTypes.bool,
+    pitchEnabled: PropTypes.bool,
+    pointerEvents: PropTypes.string,
 };
 
 class HikeMap extends React.Component {
@@ -78,35 +84,44 @@ class HikeMap extends React.Component {
             mapRef,
             mapType,
             showsMyLocationButton,
+            scrollEnabled,
+            zoomEnabled,
+            rotateEnabled,
+            pitchEnabled,
+            pointerEvents,
         } = this.props;
         const { maxZoom, fullHeight, position } = this.state;
 
         if (region) {
-            return (
-                <>
-                    <MapView
-                        ref={mapRef}
-                        provider={PROVIDER_APPLE}
-                        style={{
-                            height: fullHeight ? '100%' : mapHeight,
-                            zIndex: 1,
-                            overflow: 'hidden',
-                            borderRadius: mapBorderRadius,
-                        }}
-                        showsUserLocation={showUserLocation}
-                        initialRegion={region}
-                        showsMyLocationButton={showsMyLocationButton}
-                        showsPointsOfInterest={false}
-                        showsCompass={false}
-                        maxZoomLevel={maxZoom}
-                        onMapReady={this.onMapReady}
-                        loadingIndicatorColor={theme.colors.loadingSpinner}
-                        loadingBackgroundColor={theme.colors.mapViewBackground}
-                        onPress={this.mapPress}
-                        mapPadding={mapPadding}
-                        mapType={mapType}
-                        showsScale
-                    >
+            // Wrap in View with pointerEvents="none" when interactions are disabled
+            const mapElement = (
+                <MapView
+                    ref={mapRef}
+                    provider={PROVIDER_APPLE}
+                    style={{
+                        height: fullHeight ? '100%' : mapHeight,
+                        zIndex: 1,
+                        overflow: 'hidden',
+                        borderRadius: mapBorderRadius,
+                    }}
+                    showsUserLocation={showUserLocation}
+                    initialRegion={region}
+                    showsMyLocationButton={showsMyLocationButton}
+                    showsPointsOfInterest={false}
+                    showsCompass={false}
+                    maxZoomLevel={maxZoom}
+                    onMapReady={this.onMapReady}
+                    loadingIndicatorColor={theme.colors.loadingSpinner}
+                    loadingBackgroundColor={theme.colors.mapViewBackground}
+                    onPress={this.mapPress}
+                    mapPadding={mapPadding}
+                    mapType={mapType}
+                    showsScale
+                    scrollEnabled={fullHeight ? true : scrollEnabled}
+                    zoomEnabled={fullHeight ? true : zoomEnabled}
+                    rotateEnabled={fullHeight ? true : rotateEnabled}
+                    pitchEnabled={fullHeight ? true : pitchEnabled}
+                >
                         {startingCoordinates && (
                             <HikeMarker
                                 coordinate={{
@@ -131,8 +146,18 @@ class HikeMap extends React.Component {
                             </Marker>
                         )}
                     </MapView>
-                </>
             );
+
+            // If pointerEvents is specified and is "none", wrap in a View
+            if (pointerEvents === 'none') {
+                return (
+                    <View pointerEvents="none">
+                        {mapElement}
+                    </View>
+                );
+            }
+            
+            return <>{mapElement}</>;
         }
         return <EmptyMapView fullHeight={fullHeight} mapHeight={mapHeight} />;
     }

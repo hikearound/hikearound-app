@@ -130,6 +130,9 @@ class HikeBody extends React.Component {
     };
 
     scrollToReviewList = () => {
+        // Temporarily disabled to test scrolling freeze
+        return;
+        
         const { scrollRef } = this.props;
 
         if (this.reviewListRef.current) {
@@ -218,13 +221,6 @@ class HikeBody extends React.Component {
                 <ScrollView
                     showsVerticalScrollIndicator={false}
                     ref={scrollRef}
-                    refreshControl={
-                        <FeedRefreshControl
-                            refreshing={loading}
-                            onRefresh={this.onRefresh}
-                            color={colors.white}
-                        />
-                    }
                 >
                     <MapWrapper
                         coordinates={coordinates}

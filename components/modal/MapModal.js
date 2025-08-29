@@ -21,7 +21,7 @@ const propTypes = {
     hid: PropTypes.string.isRequired,
     selectedHike: PropTypes.string,
     coordinates: PropTypes.array,
-    region: PropTypes.object.isRequired,
+    region: PropTypes.object,
     closeAction: PropTypes.string,
     mapType: PropTypes.string,
 };
@@ -37,6 +37,7 @@ const defaultProps = {
     selectedHike: null,
     closeAction: 'closeMap',
     mapType: 'standard',
+    region: null,
 };
 
 function mapStateToProps(state) {
@@ -73,6 +74,8 @@ class MapModal extends React.Component {
     }
 
     setRegion = (region) => {
+        if (!region) return null;
+        
         const { modifier } = this.props;
 
         return {
@@ -134,7 +137,7 @@ class MapModal extends React.Component {
 
         const initialRegion = this.setRegion(region);
 
-        if (hid === selectedHike) {
+        if (hid === selectedHike && modalVisible && region && elevationArray && initialRegion) {
             return (
                 <Modal
                     animationType={animationType}

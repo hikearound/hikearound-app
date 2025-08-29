@@ -201,20 +201,18 @@ class HikeScreen extends React.Component {
                     selectedHike={selectedHike}
                     setSelectedStars={this.setSelectedStars}
                 />
-                {region && elevationArray && (
-                    <MapModal
-                        mapRef={(ref) => {
-                            this.mapView = ref;
-                        }}
-                        hid={hid}
-                        selectedHike={selectedHike}
-                        coordinates={polyCoordinates}
-                        startingCoordinates={startingCoordinates}
-                        elevationArray={elevationArray}
-                        hike={hike}
-                        region={region}
-                    />
-                )}
+                <MapModal
+                    mapRef={(ref) => {
+                        this.mapView = ref;
+                    }}
+                    hid={hid}
+                    selectedHike={selectedHike}
+                    coordinates={polyCoordinates}
+                    startingCoordinates={startingCoordinates}
+                    elevationArray={elevationArray}
+                    hike={hike}
+                    region={region}
+                />
                 <ReviewModal
                     selectedStars={selectedStars}
                     hike={hike}

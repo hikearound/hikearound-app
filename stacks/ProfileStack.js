@@ -18,6 +18,7 @@ import ToastProvider from '@providers/ToastProvider';
 import { getHeaderHeight } from '@utils/Navigation';
 import spacing from '@constants/Spacing';
 import { colors } from '@constants/Colors';
+import { fontSizes } from '@constants/Fonts';
 import Back from '@components/header/Back';
 
 const propTypes = {
@@ -115,18 +116,20 @@ class ProfileStack extends React.PureComponent {
                 },
                 headerLeftContainerStyle: {
                     left: parseInt(spacing.micro, 10),
+                    marginBottom: parseInt(spacing.tiny, 10),
                 },
                 headerTitleContainerStyle: {
-                    marginBottom: parseInt(spacing.micro, 10),
+                    marginBottom: parseInt(spacing.tiny, 10),
                     width: '70%',
                     alignItems: 'center',
                 },
                 headerRightContainerStyle: {
                     right: parseInt(spacing.micro, 10),
+                    marginBottom: parseInt(spacing.tiny, 10),
                 },
                 headerTintColor: 'black',
                 headerTitleStyle: {
-                    fontSize: 16,
+                    fontSize: parseInt(fontSizes.extraLarge, 10),
                     color: 'black',
                 },
                 headerBackImage: () => <Back color='black' />,
