@@ -19,6 +19,7 @@ const defaultProps = {
     includeTopBorder: false,
     isLoggedOut: false,
     showFilter: false,
+    dispatchModalFlag: null,
 };
 
 class Header extends React.PureComponent {

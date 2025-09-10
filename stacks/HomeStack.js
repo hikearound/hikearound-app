@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStackNavigator } from '@react-navigation/stack';
-import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import { withTranslation } from 'react-i18next';
 import {
     LandingScreen,
@@ -17,7 +16,6 @@ import {
 import { screenOptions } from '@constants/Navigation';
 import { Logo } from '@components/Index';
 import { withTheme } from '@utils/Themes';
-import { tabBarScreens } from '@constants/Screens';
 import { setFocusedStack } from '@actions/Navigation';
 import ToastProvider from '@providers/ToastProvider';
 import SplashImage from '@components/SplashImage';
@@ -28,7 +26,6 @@ const propTypes = {
     focusedStack: PropTypes.string.isRequired,
     stackName: PropTypes.string,
     navigation: PropTypes.object.isRequired,
-    route: PropTypes.object.isRequired,
 };
 
 const defaultProps = {
@@ -54,8 +51,7 @@ const Stack = createStackNavigator();
 
 class HomeStack extends React.Component {
     componentDidMount() {
-        const { navigation, dispatchFocusedStack, stackName, route } =
-            this.props;
+        const { navigation, dispatchFocusedStack, stackName } = this.props;
 
         this.unsubscribe = navigation.addListener('focus', () => {
             dispatchFocusedStack(stackName);

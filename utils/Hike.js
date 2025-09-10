@@ -1,5 +1,6 @@
 import { parseString } from 'react-native-xml2js';
-import { db, storage, auth, timestamp } from '@lib/Fire';
+import firebase from 'firebase/compat/app';
+import { db, storage, auth } from '@lib/Fire';
 
 export async function getHikeSnapshot(hid) {
     return db.collection('hikes').doc(hid).get();
@@ -44,7 +45,7 @@ export async function getHikeXmlUrl(hid) {
 
 export function writeFavoriteHike(hikeData) {
     const { uid } = auth.currentUser;
-    hikeData.savedOn = timestamp();
+    hikeData.savedOn = firebase.firestore.FieldValue.serverTimestamp();
 
     return db
         .collection('favoritedHikes')

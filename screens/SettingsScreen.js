@@ -14,11 +14,7 @@ import {
 import { settingsControls, spacing } from '@constants/Index';
 import { getSettingsData } from '@constants/lists/Settings';
 import { withTheme, SetBarStyle } from '@utils/Themes';
-import {
-    RootContainer,
-    SectionContainer,
-    SectionHeader,
-} from '@styles/Settings';
+import { RootContainer, SectionHeader } from '@styles/Settings';
 
 const propTypes = {
     itemsPerBatch: PropTypes.number,
@@ -78,7 +74,6 @@ class SettingsScreen extends React.Component {
     renderSectionHeader = ({ section }) => (
         <SectionHeader>{section.title}</SectionHeader>
     );
-
 
     render() {
         const { settingsData } = this.state;

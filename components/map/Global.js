@@ -25,7 +25,6 @@ const propTypes = {
     markers: PropTypes.array,
     showHikeSheet: PropTypes.func,
     selectedCity: PropTypes.object,
-    selectedRoute: PropTypes.string,
     routeCoordinates: PropTypes.array,
     latModifier: PropTypes.number,
     altitude: PropTypes.object,
@@ -114,12 +113,8 @@ class GlobalMap extends React.Component {
     };
 
     animateToCity = (selectedCity) => {
-        const {
-            altitude,
-            animationConfig,
-            delta,
-            dispatchMapData,
-        } = this.props;
+        const { altitude, animationConfig, delta, dispatchMapData } =
+            this.props;
         const { lat, lng } = selectedCity.geometry.location;
 
         // Set the region first to prevent animation interruption

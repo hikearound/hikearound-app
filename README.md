@@ -44,6 +44,18 @@ cp env.tmp .env
 
 Then fill in your environment variables in the `.env` file.
 
+4. Set up pre-commit hooks for code quality:
+
+```bash
+npm run setup-hooks
+```
+
+This configures Git to run automatic checks before each commit, including:
+
+-   Prettier formatting
+-   ESLint code quality
+-   Expo dependency compatibility
+
 ## Development
 
 1. Start the development server:
@@ -56,6 +68,37 @@ npx expo start
 
 ```bash
 npx expo run:ios
+```
+
+## Code Quality
+
+This project uses automated code quality checks:
+
+### Pre-commit Hooks
+
+-   **Prettier**: Ensures consistent code formatting
+-   **ESLint**: Catches code quality issues and enforces coding standards
+-   **Expo dependencies**: Verifies dependency compatibility
+
+### Manual Commands
+
+```bash
+# Format code with Prettier
+npm run format
+
+# Check formatting without fixing
+npm run format:check
+
+# Run ESLint
+npm run lint
+```
+
+### Bypassing Hooks
+
+If you need to bypass pre-commit checks (not recommended):
+
+```bash
+git commit --no-verify
 ```
 
 ## Storybook
@@ -128,14 +171,6 @@ hikearound-app/
 -   Google Maps/Places API
 -   Sentry for error tracking
 -   i18next for internationalization
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
 
 ## License
 

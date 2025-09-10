@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { withTranslation } from 'react-i18next';
 import { withScrollToTop } from '@utils/Navigation';
-import { spacing, timings, colors } from '@constants/Index';
+import { spacing, timings } from '@constants/Index';
 import Subtitle from '@components/Subtitle';
 import ReviewPrompt from '@components/ReviewPrompt';
 import ReviewList from '@components/ReviewList';
@@ -15,7 +15,6 @@ import TextContent from '@components/hike/TextContent';
 import { getRecentReviews, removeReviewFromList } from '@utils/Review';
 import { defaultState } from '@constants/states/HikeBody';
 import { withTheme } from '@utils/Themes';
-import FeedRefreshControl from '@components/FeedRefreshControl';
 
 const propTypes = {
     setSelectedStars: PropTypes.func.isRequired,
@@ -59,7 +58,6 @@ class HikeBody extends React.Component {
         const { hike } = this.props;
 
         this.state = {
-            loading: false,
             name: hike.name,
             distance: hike.distance,
             elevation: hike.elevation,
@@ -98,8 +96,6 @@ class HikeBody extends React.Component {
     }
 
     onRefresh = async () => {
-        await this.setState({ loading: true });
-
         this.timeout = setTimeout(() => {
             this.getReviewData();
         }, timings.medium);
@@ -129,24 +125,9 @@ class HikeBody extends React.Component {
         await this.scrollToReviewList();
     };
 
-    scrollToReviewList = () => {
+    scrollToReviewList = () =>
         // Temporarily disabled to test scrolling freeze
-        return;
-        
-        const { scrollRef } = this.props;
-
-        if (this.reviewListRef.current) {
-            this.reviewListRef.current.measure(
-                (x, y, width, height, pageX, pageY) => {
-                    scrollRef.current.scrollTo({
-                        x: 0,
-                        y: pageY,
-                        animated: true,
-                    });
-                },
-            );
-        }
-    };
+        null;
 
     getReviewData = async () => {
         const { t, hid } = this.props;
@@ -158,7 +139,7 @@ class HikeBody extends React.Component {
             querySize,
         );
 
-        this.setState({ reviews, loading: false });
+        this.setState({ reviews });
         this.maybeSetEmptyState(reviews);
     };
 
@@ -212,7 +193,6 @@ class HikeBody extends React.Component {
             reviews,
             showEmptyState,
             imageCount,
-            loading,
         } = this.state;
 
         return (

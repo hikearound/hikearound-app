@@ -11,7 +11,7 @@ import { initializeLocalization } from '@utils/Localization';
 import { initializeGeolocation } from '@utils/Location';
 import { localImages } from '@constants/Images';
 import { withTheme } from '@utils/Themes';
-import Fire, { auth } from '@lib/Fire';
+import { auth } from '@lib/Fire';
 import { onAuthStateChanged } from 'firebase/auth';
 import { initializeAuthSubscription } from '@actions/Auth';
 import SplashImage from '@components/SplashImage';

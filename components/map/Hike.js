@@ -122,41 +122,37 @@ class HikeMap extends React.Component {
                     rotateEnabled={fullHeight ? true : rotateEnabled}
                     pitchEnabled={fullHeight ? true : pitchEnabled}
                 >
-                        {startingCoordinates && (
-                            <HikeMarker
-                                coordinate={{
-                                    latitude: startingCoordinates.lat,
-                                    longitude: startingCoordinates.lng,
-                                }}
-                                tracksViewChanges={false}
-                                position={position}
-                            />
-                        )}
-                        <Polyline
-                            coordinates={coordinates}
-                            strokeColor={colors.purple}
-                            strokeWidth={2}
+                    {startingCoordinates && (
+                        <HikeMarker
+                            coordinate={{
+                                latitude: startingCoordinates.lat,
+                                longitude: startingCoordinates.lng,
+                            }}
+                            tracksViewChanges={false}
+                            position={position}
                         />
-                        {this.getPositionMarkerCoordinate() && (
-                            <Marker
-                                coordinate={this.getPositionMarkerCoordinate()}
-                                anchor={{ x: 0.5, y: 0.5 }}
-                            >
-                                <PositionMarker />
-                            </Marker>
-                        )}
-                    </MapView>
+                    )}
+                    <Polyline
+                        coordinates={coordinates}
+                        strokeColor={colors.purple}
+                        strokeWidth={2}
+                    />
+                    {this.getPositionMarkerCoordinate() && (
+                        <Marker
+                            coordinate={this.getPositionMarkerCoordinate()}
+                            anchor={{ x: 0.5, y: 0.5 }}
+                        >
+                            <PositionMarker />
+                        </Marker>
+                    )}
+                </MapView>
             );
 
             // If pointerEvents is specified and is "none", wrap in a View
             if (pointerEvents === 'none') {
-                return (
-                    <View pointerEvents="none">
-                        {mapElement}
-                    </View>
-                );
+                return <View pointerEvents='none'>{mapElement}</View>;
             }
-            
+
             return <>{mapElement}</>;
         }
         return <EmptyMapView fullHeight={fullHeight} mapHeight={mapHeight} />;

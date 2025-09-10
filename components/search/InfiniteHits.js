@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 // import { FlatList } from 'react-native-collapsible-header-views'; // Temporarily disabled for SDK 46
-import { FlatList } from 'react-native';
+import { FlatList, Keyboard } from 'react-native';
 import { connectInfiniteHits } from 'react-instantsearch-native';
-import { Keyboard } from 'react-native';
 import { withNavigation } from '@utils/Navigation';
 import HikeListItem from '@components/HikeListItem';
 import Stats from '@components/search/Stats';
@@ -13,14 +12,12 @@ const propTypes = {
     hits: PropTypes.array.isRequired,
     refine: PropTypes.func.isRequired,
     hasMore: PropTypes.bool.isRequired,
-    headerHeight: PropTypes.number,
     paddingBottom: PropTypes.number,
     showsVerticalScrollIndicator: PropTypes.bool,
     keyboardShouldPersistTaps: PropTypes.string,
 };
 
 const defaultProps = {
-    headerHeight: 35,
     paddingBottom: 25,
     showsVerticalScrollIndicator: false,
     keyboardShouldPersistTaps: 'handled',
@@ -52,9 +49,7 @@ class InfiniteHits extends React.Component {
         const {
             hits,
             hasMore,
-            theme,
             refine,
-            headerHeight,
             paddingBottom,
             showsVerticalScrollIndicator,
             keyboardShouldPersistTaps,

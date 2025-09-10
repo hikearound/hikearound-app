@@ -61,7 +61,7 @@ class ProfileEmptyState extends React.PureComponent {
                         {/* eslint-disable-next-line */}
                         Hikes that you favorite will be saved to your profile.{' '}
                         <TextLink onPress={this.mapPress} />
-                        }.
+                        &#125;.
                     </Trans>
                 </Description>
             </>

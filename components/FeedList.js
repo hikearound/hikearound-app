@@ -83,14 +83,8 @@ class FeedList extends React.PureComponent {
     keyExtractor = (item) => item.key;
 
     render() {
-        const {
-            onEndReached,
-            refreshControl,
-            hikes,
-            scrollRef,
-            city,
-            t,
-        } = this.props;
+        const { onEndReached, refreshControl, hikes, scrollRef, city, t } =
+            this.props;
 
         const title = t('feed.header', { cityName: city });
 

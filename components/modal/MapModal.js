@@ -75,7 +75,7 @@ class MapModal extends React.Component {
 
     setRegion = (region) => {
         if (!region) return null;
-        
+
         const { modifier } = this.props;
 
         return {
@@ -137,7 +137,13 @@ class MapModal extends React.Component {
 
         const initialRegion = this.setRegion(region);
 
-        if (hid === selectedHike && modalVisible && region && elevationArray && initialRegion) {
+        if (
+            hid === selectedHike &&
+            modalVisible &&
+            region &&
+            elevationArray &&
+            initialRegion
+        ) {
             return (
                 <Modal
                     animationType={animationType}

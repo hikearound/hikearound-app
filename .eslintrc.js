@@ -70,12 +70,19 @@ module.exports = {
         ],
         semi: ['error', 'always'],
         'prettier/prettier': 'error',
+        'no-console': 'off',
     },
     overrides: [
         {
             files: ['*.snap'],
             rules: {
                 quotes: ['error', 'single', { allowTemplateLiterals: true }],
+            },
+        },
+        {
+            files: ['**/__tests__/**/*.js', '**/*.test.js'],
+            rules: {
+                'import/no-unresolved': 'off',
             },
         },
     ],

@@ -1,4 +1,5 @@
-import { db, auth, timestamp } from '@lib/Fire';
+import firebase from 'firebase/compat/app';
+import { db, auth } from '@lib/Fire';
 import { getUserProfileData } from '@utils/User';
 import { getRange } from '@utils/Location';
 import { getHikeData } from '@utils/Hike';
@@ -64,7 +65,7 @@ export async function writeReview(reviewData) {
 
     reviewData.uid = user.uid;
     reviewData.userLikes = [];
-    reviewData.savedOn = timestamp();
+    reviewData.savedOn = firebase.firestore.FieldValue.serverTimestamp();
 
     return db
         .collection('reviews')

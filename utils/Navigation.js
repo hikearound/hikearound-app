@@ -40,3 +40,8 @@ export function UpdateLightboxGroup({ id, handleFocus }) {
     useFocusEffect(React.useCallback(() => handleFocus(id), [id, handleFocus]));
     return null;
 }
+
+UpdateLightboxGroup.propTypes = {
+    id: PropTypes.string.isRequired,
+    handleFocus: PropTypes.func.isRequired,
+};
