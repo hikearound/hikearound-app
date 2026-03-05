@@ -1,10 +1,10 @@
-name: Lint and Format Check
+name: CI
 
 on:
     push:
-        branches: [main, master, develop]
+        branches: [master]
     pull_request:
-        branches: [main, master, develop]
+        branches: [master]
 
 jobs:
     code-quality-checks:
@@ -13,6 +13,9 @@ jobs:
         steps:
             - name: Checkout code
               uses: actions/checkout@v4
+
+            - name: Validate CLAUDE.md
+              run: npx claude-code-lint@latest
 
             - name: Set up Node.js
               uses: actions/setup-node@v4

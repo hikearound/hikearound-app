@@ -1,154 +1,80 @@
 # Hikearound
 
-Hikearound is a React Native iOS application that helps users discover, save, and share great local hikes. The app provides curated and personalized hiking recommendations with detailed information about trails, difficulty levels, and user reviews.
+[![CI](https://github.com/hikearound/hikearound-app/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/hikearound/hikearound-app/actions/workflows/ci.yml)
+[![React Native](https://img.shields.io/badge/React_Native-0.71-61DAFB?logo=react&logoColor=white)](https://reactnative.dev)
+[![Expo](https://img.shields.io/badge/Expo-48-000020?logo=expo&logoColor=white)](https://expo.dev)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow?logo=opensourceinitiative&logoColor=white)](LICENSE)
+
+A React Native iOS app for discovering, saving, and sharing great local hikes.
 
 ## Features
 
--   🗺️ Interactive map with trail locations and details
--   🔍 Advanced search functionality
--   📍 Location-based hike recommendations
--   ⭐ User reviews and ratings
--   💾 List creation of your favorite hikes
--   🔔 Push notifications for trail updates
--   🌙 Dark mode support
--   🌐 Multi-language support (English and Spanish)
+-   Interactive map with trail locations and details
+-   Advanced search with Algolia
+-   Location-based hike recommendations
+-   User reviews and ratings
+-   List creation for favorite hikes
+-   Push notifications for trail updates
+-   Dark mode support
+-   Multi-language support (English and Spanish)
 
 ## Prerequisites
 
--   Node.js (v16 or later)
--   npm or yarn
+-   Node.js (v18+)
 -   Xcode (for iOS development)
--   iOS Simulator or physical iOS device
 -   Expo CLI
 
-## Environment Setup
-
-1. Clone the repository:
+## Getting Started
 
 ```bash
+# Clone and install
 git clone https://github.com/hikearound/hikearound-app.git
 cd hikearound-app
-```
-
-2. Install dependencies:
-
-```bash
 npm install
-```
 
-3. Create a `.env` file in the root directory:
-
-```bash
+# Set up environment
 cp env.tmp .env
-```
+# Fill in your API keys in .env
 
-Then fill in your environment variables in the `.env` file.
-
-4. Set up pre-commit hooks for code quality:
-
-```bash
+# Set up pre-commit hooks
 npm run setup-hooks
-```
 
-This configures Git to run automatic checks before each commit, including:
-
--   Prettier formatting
--   ESLint code quality
--   Expo dependency compatibility
-
-## Development
-
-1. Start the development server:
-
-```bash
+# Start development
 npx expo start
 ```
 
-2. Run on iOS simulator:
+## Development
 
 ```bash
-npx expo run:ios
+npx expo start       # Start dev server
+npx expo run:ios     # Run on iOS simulator
+npm run lint         # ESLint
+npm run format:check # Prettier check
+npm run format       # Prettier fix
+npm test             # Run tests
 ```
 
-## Code Quality
+## Tech Stack
 
-This project uses automated code quality checks:
-
-### Pre-commit Hooks
-
--   **Prettier**: Ensures consistent code formatting
--   **ESLint**: Catches code quality issues and enforces coding standards
--   **Expo dependencies**: Verifies dependency compatibility
-
-### Manual Commands
-
-```bash
-# Format code with Prettier
-npm run format
-
-# Check formatting without fixing
-npm run format:check
-
-# Run ESLint
-npm run lint
-```
-
-### Bypassing Hooks
-
-If you need to bypass pre-commit checks (not recommended):
-
-```bash
-git commit --no-verify
-```
-
-## Storybook
-
-Hikearound uses Storybook for React Native component development and documentation. This allows us to develop and test components in isolation on iOS.
-
-### Running Storybook
-
-Run Storybook on iOS:
-
-```bash
-npm run storybook:ios
-```
-
-This will launch the Storybook interface in your iOS simulator or connected device, where you can:
-
--   Browse and test individual components
--   View different component states
--   Interact with component props using knobs
--   Test component callbacks using actions
-
-### Creating Stories
-
-Stories are located in the `stories` directory. Each story file should:
-
--   Be named with the `.stories.js` extension
--   Export a default object with component metadata
--   Include one or more stories that demonstrate different states of the component
-
-Example story structure:
-
-```javascript
-import React from 'react';
-import { storiesOf } from '@storybook/react-native';
-import MyComponent from '../components/MyComponent';
-
-storiesOf('MyComponent', module)
-    .add('default', () => <MyComponent />)
-    .add('with props', () => <MyComponent prop1='value' />);
-```
+-   **React Native** with Expo SDK
+-   **Redux** for state management
+-   **React Navigation** for routing
+-   **Firebase** for backend services
+-   **Algolia** for search
+-   **Google Maps/Places** for map features
+-   **Sentry** for error tracking
+-   **i18next** for internationalization
+-   **Storybook** for component development
 
 ## Project Structure
 
-```
+```text
 hikearound-app/
 ├── actions/        # Redux actions
-├── assets/         # Images, fonts, and other static assets
+├── assets/         # Images, fonts, static assets
 ├── components/     # Reusable React components
 ├── constants/      # App constants and configuration
-├── icons/          # Custom icons
+├── icons/          # Custom icon components
 ├── lib/            # Utility libraries
 ├── navigators/     # Navigation configuration
 ├── providers/      # Context providers
@@ -156,22 +82,12 @@ hikearound-app/
 ├── screens/        # App screens
 ├── stacks/         # Navigation stacks
 ├── store/          # Redux store configuration
+├── stories/        # Storybook stories
 ├── styles/         # Global styles
 └── utils/          # Utility functions
 ```
 
-## Key Technologies
+## Related
 
--   React Native
--   Expo
--   Redux for state management
--   React Navigation
--   Algolia for search
--   Firebase for backend services
--   Google Maps/Places API
--   Sentry for error tracking
--   i18next for internationalization
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+-   [hikearound-web](https://github.com/hikearound/hikearound-web) - Web client
+-   [hikearound-cloud-functions](https://github.com/hikearound/hikearound-cloud-functions) - Cloud Functions backend
