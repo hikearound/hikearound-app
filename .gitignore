@@ -3,6 +3,8 @@
 keys/*
 keys/keys.js
 *.key
+ios/**/GoogleService-Info.plist
+android/**/google-services.json
 
 # Misc
 #
