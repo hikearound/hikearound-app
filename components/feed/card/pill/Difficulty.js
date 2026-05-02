@@ -7,42 +7,42 @@ import { getDifficultyColor } from '@utils/Card';
 import { Pill, Text } from '@styles/Pill';
 
 const propTypes = {
-    label: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
 };
 
 class DifficultyPill extends React.PureComponent {
-    renderGenericPill = () => {
-        const { t, label } = this.props;
+  renderGenericPill = () => {
+    const { t, label } = this.props;
 
-        return (
-            <Pill>
-                <Text>{t(`hike.difficulty.${label.toLowerCase()}`)}</Text>
-            </Pill>
-        );
-    };
+    return (
+      <Pill>
+        <Text>{t(`hike.difficulty.${label.toLowerCase()}`)}</Text>
+      </Pill>
+    );
+  };
 
-    renderColorPill = () => {
-        const { t, label } = this.props;
-        const backgroundColor = getDifficultyColor(label);
+  renderColorPill = () => {
+    const { t, label } = this.props;
+    const backgroundColor = getDifficultyColor(label);
 
-        return (
-            <Pill style={{ backgroundColor, borderWidth: 0 }}>
-                <Text style={{ color: colors.white }}>
-                    {t(`hike.difficulty.${label.toLowerCase()}`)}
-                </Text>
-            </Pill>
-        );
-    };
+    return (
+      <Pill style={{ backgroundColor, borderWidth: 0 }}>
+        <Text style={{ color: colors.white }}>
+          {t(`hike.difficulty.${label.toLowerCase()}`)}
+        </Text>
+      </Pill>
+    );
+  };
 
-    render() {
-        const { theme } = this.props;
+  render() {
+    const { theme } = this.props;
 
-        if (theme.dark) {
-            return this.renderGenericPill();
-        }
-
-        return this.renderColorPill();
+    if (theme.dark) {
+      return this.renderGenericPill();
     }
+
+    return this.renderColorPill();
+  }
 }
 
 DifficultyPill.propTypes = propTypes;

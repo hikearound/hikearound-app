@@ -4,99 +4,99 @@ import { getUserProfileData } from '@utils/User';
 import { getHikeData } from '@utils/Hike';
 
 export async function registerForPushNotifications() {
-    const { status } = await Notifications.requestPermissionsAsync();
+  const { status } = await Notifications.requestPermissionsAsync();
 
-    if (status !== 'granted') {
-        return;
-    }
+  if (status !== 'granted') {
+    return;
+  }
 
-    const user = auth.currentUser;
+  const user = auth.currentUser;
 
-    let notificationToken = await Notifications.getExpoPushTokenAsync({
-        projectId: 'hikearound-app',
-    });
-    notificationToken = notificationToken.data;
+  let notificationToken = await Notifications.getExpoPushTokenAsync({
+    projectId: 'hikearound-app',
+  });
+  notificationToken = notificationToken.data;
 
-    await db
-        .collection('users')
-        .doc(user.uid)
-        .set({ notificationToken }, { merge: true });
+  await db
+    .collection('users')
+    .doc(user.uid)
+    .set({ notificationToken }, { merge: true });
 }
 
 export async function buildNotificationArray(t, data) {
-    const notifications = [];
+  const notifications = [];
 
-    for (const notification of data) {
-        if (notification.extraData.senderUid) {
-            const uid = notification.extraData.senderUid;
-            const userData = await getUserProfileData(t, uid);
+  for (const notification of data) {
+    if (notification.extraData.senderUid) {
+      const uid = notification.extraData.senderUid;
+      const userData = await getUserProfileData(t, uid);
 
-            notification.sender = {
-                uid,
-                name: userData.name,
-                photoURL: userData.photoURL,
-            };
-        } else {
-            notification.sender = {};
-        }
-
-        const hikeData = await getHikeData(notification.hid);
-
-        notification.hike = {
-            name: hikeData.name,
-            city: hikeData.city,
-            state: hikeData.state,
-        };
-
-        notifications[notification.id] = notification;
-        notifications.push(notification);
+      notification.sender = {
+        uid,
+        name: userData.name,
+        photoURL: userData.photoURL,
+      };
+    } else {
+      notification.sender = {};
     }
 
-    if (data.length === 0) {
-        return [];
-    }
+    const hikeData = await getHikeData(notification.hid);
 
-    return notifications;
+    notification.hike = {
+      name: hikeData.name,
+      city: hikeData.city,
+      state: hikeData.state,
+    };
+
+    notifications[notification.id] = notification;
+    notifications.push(notification);
+  }
+
+  if (data.length === 0) {
+    return [];
+  }
+
+  return notifications;
 }
 
 export async function getUserNotifications(t) {
-    const user = auth.currentUser;
+  const user = auth.currentUser;
 
-    const notificationsRef = db
-        .collection('notifications')
-        .where('recipientUid', '==', user.uid)
-        .orderBy('createdOn', 'desc')
-        .limit(8);
+  const notificationsRef = db
+    .collection('notifications')
+    .where('recipientUid', '==', user.uid)
+    .orderBy('createdOn', 'desc')
+    .limit(8);
 
-    const querySnapshot = await notificationsRef.get();
+  const querySnapshot = await notificationsRef.get();
 
-    const data = [];
+  const data = [];
 
-    await querySnapshot.forEach(async (notification) => {
-        if (notification.exists) {
-            const notificationData = notification.data() || {};
+  await querySnapshot.forEach(async notification => {
+    if (notification.exists) {
+      const notificationData = notification.data() || {};
 
-            const reduced = {
-                id: notification.id,
-                ...notificationData,
-            };
+      const reduced = {
+        id: notification.id,
+        ...notificationData,
+      };
 
-            data.push(reduced);
-        }
-    });
+      data.push(reduced);
+    }
+  });
 
-    const notifications = await buildNotificationArray(t, data);
-    return notifications;
+  const notifications = await buildNotificationArray(t, data);
+  return notifications;
 }
 
 export async function markNotificationAsRead(nid) {
-    return db
-        .collection('notifications')
-        .doc(nid)
-        .set({ isRead: true }, { merge: true });
+  return db
+    .collection('notifications')
+    .doc(nid)
+    .set({ isRead: true }, { merge: true });
 }
 
 export async function getNotificationData(dispatchNotificationData, t) {
-    const notifications = await getUserNotifications(t);
-    dispatchNotificationData({ notifications });
+  const notifications = await getUserNotifications(t);
+  dispatchNotificationData({ notifications });
 }

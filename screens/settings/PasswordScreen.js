@@ -17,224 +17,218 @@ import HeaderText from '@styles/Header';
 const propTypes = {};
 
 function mapStateToProps() {
-    return {};
+  return {};
 }
 
 class PasswordScreen extends React.Component {
-    constructor(props) {
-        super(props);
-        const { t, route } = this.props;
-        const { disabled } = route.params;
+  constructor(props) {
+    super(props);
+    const { t, route } = this.props;
+    const { disabled } = route.params;
 
-        const inputs = getInputs(t, 'changePassword');
+    const inputs = getInputs(t, 'changePassword');
 
-        this.state = {
-            inputs,
-            currentPassword: '',
-            newPassword: '',
-            loading: false,
-            saveButtonDisabled: true,
-            disabled,
-        };
+    this.state = {
+      inputs,
+      currentPassword: '',
+      newPassword: '',
+      loading: false,
+      saveButtonDisabled: true,
+      disabled,
+    };
 
-        this.setNavigationOptions();
+    this.setNavigationOptions();
+  }
+
+  componentDidMount = async () => {
+    const { disabled } = this.state;
+
+    if (!disabled) {
+      setTimeout(() => {
+        this.currentPasswordInput.focus();
+      }, timings.mediumShort);
+    }
+  };
+
+  async setValue(name, text) {
+    await this.setState({ [name]: text });
+    this.maybeToggleSaveButton();
+  }
+
+  maybeToggleSaveButton = () => {
+    const { currentPassword, newPassword } = this.state;
+
+    let saveButtonDisabled = true;
+    if (currentPassword && newPassword) {
+      saveButtonDisabled = false;
     }
 
-    componentDidMount = async () => {
-        const { disabled } = this.state;
+    this.setState({ saveButtonDisabled });
+    this.setNavigationOptions();
+  };
 
-        if (!disabled) {
-            setTimeout(() => {
-                this.currentPasswordInput.focus();
-            }, timings.mediumShort);
-        }
-    };
+  setNavigationOptions = () => {
+    const { navigation } = this.props;
 
-    async setValue(name, text) {
-        await this.setState({ [name]: text });
-        this.maybeToggleSaveButton();
+    navigation.setOptions({
+      headerRight: () => this.renderSubmitButton(),
+    });
+  };
+
+  assignRef = (ref, name) => {
+    this[`${name}Input`] = ref;
+  };
+
+  handleSubmitEditing = index => {
+    if (index === 0) {
+      this.newPasswordInput.focus();
+    } else {
+      this.handleUpdatePassword();
     }
+  };
 
-    maybeToggleSaveButton = () => {
-        const { currentPassword, newPassword } = this.state;
+  handleUpdatePassword = async () => {
+    const { currentPassword, newPassword } = this.state;
+    const user = auth.currentUser;
 
-        let saveButtonDisabled = true;
-        if (currentPassword && newPassword) {
-            saveButtonDisabled = false;
-        }
+    Keyboard.dismiss();
+    this.setState({ loading: true });
 
-        this.setState({ saveButtonDisabled });
-        this.setNavigationOptions();
-    };
+    const credential = EmailAuthProvider.credential(
+      user.email,
+      currentPassword
+    );
 
-    setNavigationOptions = () => {
-        const { navigation } = this.props;
+    user
+      .reauthenticateWithCredential(credential)
+      .then(() => {
+        user
+          .updatePassword(newPassword)
+          .then(() => {
+            this.renderSuccessAlert();
+          })
+          .catch(error => {
+            this.renderErrorAlert(error);
+          });
+      })
+      .catch(error => {
+        this.renderErrorAlert(error);
+      });
+  };
 
-        navigation.setOptions({
-            headerRight: () => this.renderSubmitButton(),
-        });
-    };
+  renderSuccessAlert = () => {
+    const { t, navigation } = this.props;
 
-    assignRef = (ref, name) => {
-        this[`${name}Input`] = ref;
-    };
+    const title = t('alert.password.success.title');
+    const message = t('alert.password.success.body');
+    const options = [
+      {
+        text: t('label.common.ok'),
+        onPress: () => navigation.goBack(),
+      },
+    ];
 
-    handleSubmitEditing = (index) => {
-        if (index === 0) {
-            this.newPasswordInput.focus();
-        } else {
-            this.handleUpdatePassword();
-        }
-    };
+    Alert.alert(title, message, options);
+    this.setState({ loading: false });
+  };
 
-    handleUpdatePassword = async () => {
-        const { currentPassword, newPassword } = this.state;
-        const user = auth.currentUser;
+  renderErrorAlert = error => {
+    const { t } = this.props;
 
-        Keyboard.dismiss();
-        this.setState({ loading: true });
+    const title = t('error.label');
+    const message = mapCodeToTranslation(t, error.code);
 
-        const credential = EmailAuthProvider.credential(
-            user.email,
-            currentPassword,
-        );
+    Alert.alert(title, message);
+    this.setState({ loading: false });
+  };
 
-        user.reauthenticateWithCredential(credential)
-            .then(() => {
-                user.updatePassword(newPassword)
-                    .then(() => {
-                        this.renderSuccessAlert();
-                    })
-                    .catch((error) => {
-                        this.renderErrorAlert(error);
-                    });
-            })
-            .catch((error) => {
-                this.renderErrorAlert(error);
-            });
-    };
+  renderSubmitButton() {
+    const { t } = this.props;
+    const { saveButtonDisabled } = this.state;
 
-    renderSuccessAlert = () => {
-        const { t, navigation } = this.props;
+    return (
+      <TouchableOpacity
+        disabled={saveButtonDisabled}
+        activeOpacity={opacities.regular}
+        onPress={() => this.handleUpdatePassword()}
+      >
+        <Text disabled={saveButtonDisabled}>{t('label.modal.save')}</Text>
+      </TouchableOpacity>
+    );
+  }
 
-        const title = t('alert.password.success.title');
-        const message = t('alert.password.success.body');
-        const options = [
-            {
-                text: t('label.common.ok'),
-                onPress: () => navigation.goBack(),
-            },
-        ];
+  renderDisabledMessage() {
+    const { t } = this.props;
+    return <DisabledMessage>{t('screen.reset.disabled')}</DisabledMessage>;
+  }
 
-        Alert.alert(title, message, options);
-        this.setState({ loading: false });
-    };
+  render() {
+    const { loading, inputs, disabled } = this.state;
 
-    renderErrorAlert = (error) => {
-        const { t } = this.props;
-
-        const title = t('error.label');
-        const message = mapCodeToTranslation(t, error.code);
-
-        Alert.alert(title, message);
-        this.setState({ loading: false });
-    };
-
-    renderSubmitButton() {
-        const { t } = this.props;
-        const { saveButtonDisabled } = this.state;
-
-        return (
-            <TouchableOpacity
-                disabled={saveButtonDisabled}
-                activeOpacity={opacities.regular}
-                onPress={() => this.handleUpdatePassword()}
-            >
-                <Text disabled={saveButtonDisabled}>
-                    {t('label.modal.save')}
-                </Text>
-            </TouchableOpacity>
-        );
-    }
-
-    renderDisabledMessage() {
-        const { t } = this.props;
-        return <DisabledMessage>{t('screen.reset.disabled')}</DisabledMessage>;
-    }
-
-    render() {
-        const { loading, inputs, disabled } = this.state;
-
-        return (
-            <RootView>
-                <SetBarStyle barStyle='light-content' />
-                <ScrollView
-                    keyboardShouldPersistTaps='handled'
-                    scrollEnabled={false}
-                    contentContainerStyle={{ flexGrow: 1 }}
-                >
-                    {inputs.map(
-                        (
-                            {
-                                name,
-                                placeholder,
-                                keyboardType,
-                                secureTextEntry,
-                                autoCorrect,
-                                autoCapitalize,
-                                textContentType,
-                                enablesReturnKeyAutomatically,
-                                returnKeyType,
-                                autoCompleteType,
-                            },
-                            index,
-                        ) => (
-                            <InputLabelGroup
-                                key={index}
-                                placeholder={placeholder}
-                                keyboardType={keyboardType}
-                                secureTextEntry={secureTextEntry}
-                                autoCorrect={autoCorrect}
-                                autoCapitalize={autoCapitalize}
-                                onChangeText={(text) =>
-                                    this.setValue(name, text, index)
-                                }
-                                labelName={placeholder}
-                                textContentType={textContentType}
-                                enablesReturnKeyAutomatically={
-                                    enablesReturnKeyAutomatically
-                                }
-                                returnKeyType={returnKeyType}
-                                onSubmitEditing={() =>
-                                    this.handleSubmitEditing(index)
-                                }
-                                inputRef={(ref) => this.assignRef(ref, name)}
-                                autoCompleteType={autoCompleteType}
-                                labelPadding
-                                disabled={disabled}
-                            />
-                        ),
-                    )}
-                    {disabled && this.renderDisabledMessage()}
-                    <LoadingOverlay loading={loading} />
-                </ScrollView>
-            </RootView>
-        );
-    }
+    return (
+      <RootView>
+        <SetBarStyle barStyle='light-content' />
+        <ScrollView
+          keyboardShouldPersistTaps='handled'
+          scrollEnabled={false}
+          contentContainerStyle={{ flexGrow: 1 }}
+        >
+          {inputs.map(
+            (
+              {
+                name,
+                placeholder,
+                keyboardType,
+                secureTextEntry,
+                autoCorrect,
+                autoCapitalize,
+                textContentType,
+                enablesReturnKeyAutomatically,
+                returnKeyType,
+                autoCompleteType,
+              },
+              index
+            ) => (
+              <InputLabelGroup
+                key={index}
+                placeholder={placeholder}
+                keyboardType={keyboardType}
+                secureTextEntry={secureTextEntry}
+                autoCorrect={autoCorrect}
+                autoCapitalize={autoCapitalize}
+                onChangeText={text => this.setValue(name, text, index)}
+                labelName={placeholder}
+                textContentType={textContentType}
+                enablesReturnKeyAutomatically={enablesReturnKeyAutomatically}
+                returnKeyType={returnKeyType}
+                onSubmitEditing={() => this.handleSubmitEditing(index)}
+                inputRef={ref => this.assignRef(ref, name)}
+                autoCompleteType={autoCompleteType}
+                labelPadding
+                disabled={disabled}
+              />
+            )
+          )}
+          {disabled && this.renderDisabledMessage()}
+          <LoadingOverlay loading={loading} />
+        </ScrollView>
+      </RootView>
+    );
+  }
 }
 
 PasswordScreen.propTypes = propTypes;
 
 export default connect(mapStateToProps)(
-    withTranslation()(withTheme(PasswordScreen)),
+  withTranslation()(withTheme(PasswordScreen))
 );
 
 const Text = styled(HeaderText)`
-    margin-right: ${spacing.micro}px;
+  margin-right: ${spacing.micro}px;
 `;
 
 const DisabledMessage = styled.Text`
-    margin: ${spacing.small}px;
-    font-size: ${fontSizes.medium}px;
-    color: ${(props) => props.theme.onboardTitle};
+  margin: ${spacing.small}px;
+  font-size: ${fontSizes.medium}px;
+  color: ${props => props.theme.onboardTitle};
 `;

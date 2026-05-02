@@ -7,70 +7,68 @@ import SettingsSwitch from '@components/SettingsSwitch';
 import { shouldDisableSwitch } from '@utils/User';
 
 const propTypes = {
-    item: PropTypes.object.isRequired,
-    dispatchNotifs: PropTypes.func.isRequired,
-    notifs: PropTypes.object.isRequired,
-    onlyPush: PropTypes.bool,
+  item: PropTypes.object.isRequired,
+  dispatchNotifs: PropTypes.func.isRequired,
+  notifs: PropTypes.object.isRequired,
+  onlyPush: PropTypes.bool,
 };
 
 const defaultProps = {
-    onlyPush: false,
+  onlyPush: false,
 };
 
 function mapStateToProps(state) {
-    return {
-        notifs: state.userReducer.notifs,
-    };
+  return {
+    notifs: state.userReducer.notifs,
+  };
 }
 
 function mapDispatchToProps(dispatch) {
-    return {
-        dispatchNotifs: (notifData) => dispatch(updateNotifs(notifData)),
-    };
+  return {
+    dispatchNotifs: notifData => dispatch(updateNotifs(notifData)),
+  };
 }
 
 class SwitchItem extends React.Component {
-    constructor(props) {
-        super(props);
-        const { item, notifs } = this.props;
+  constructor(props) {
+    super(props);
+    const { item, notifs } = this.props;
 
-        this.state = {
-            value: notifs[item.type][item.property],
-        };
-    }
-
-    handleToggleSwitch = async (value) => {
-        const { notifs, item, dispatchNotifs } = this.props;
-
-        notifs[item.type][item.property] = { enabled: value };
-        this.setState({ value: { enabled: value } });
-
-        dispatchNotifs(null);
-        dispatchNotifs(notifs);
+    this.state = {
+      value: notifs[item.type][item.property],
     };
+  }
 
-    render() {
-        const { item, notifs, onlyPush } = this.props;
-        const { value } = this.state;
-        const disabled = shouldDisableSwitch(notifs, item);
+  handleToggleSwitch = async value => {
+    const { notifs, item, dispatchNotifs } = this.props;
 
-        if (onlyPush && item.type === 'email') {
-            return null;
-        }
+    notifs[item.type][item.property] = { enabled: value };
+    this.setState({ value: { enabled: value } });
 
-        return (
-            <ItemContainer>
-                <ItemText key={item.key}>{item.name}</ItemText>
-                <SettingsSwitch
-                    onValueChange={(updatedValue) =>
-                        this.handleToggleSwitch(updatedValue)
-                    }
-                    disabled={disabled}
-                    value={value.enabled}
-                />
-            </ItemContainer>
-        );
+    dispatchNotifs(null);
+    dispatchNotifs(notifs);
+  };
+
+  render() {
+    const { item, notifs, onlyPush } = this.props;
+    const { value } = this.state;
+    const disabled = shouldDisableSwitch(notifs, item);
+
+    if (onlyPush && item.type === 'email') {
+      return null;
     }
+
+    return (
+      <ItemContainer>
+        <ItemText key={item.key}>{item.name}</ItemText>
+        <SettingsSwitch
+          onValueChange={updatedValue => this.handleToggleSwitch(updatedValue)}
+          disabled={disabled}
+          value={value.enabled}
+        />
+      </ItemContainer>
+    );
+  }
 }
 
 SwitchItem.propTypes = propTypes;

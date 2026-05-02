@@ -8,43 +8,41 @@ import { colors, fontSizes, spacing } from '@constants/Index';
 import { showModal } from '@actions/Modal';
 
 function mapStateToProps() {
-    return {};
+  return {};
 }
 
 function mapDispatchToProps(dispatch) {
-    return {
-        dispatchModalFlag: (modalType) => dispatch(showModal(modalType)),
-    };
+  return {
+    dispatchModalFlag: modalType => dispatch(showModal(modalType)),
+  };
 }
 
 const propTypes = {
-    dispatchModalFlag: PropTypes.func.isRequired,
+  dispatchModalFlag: PropTypes.func.isRequired,
 };
 
 class PasswordReset extends React.PureComponent {
-    resetPassword = () => {
-        const { dispatchModalFlag } = this.props;
-        dispatchModalFlag('resetPassword');
-    };
+  resetPassword = () => {
+    const { dispatchModalFlag } = this.props;
+    dispatchModalFlag('resetPassword');
+  };
 
-    render() {
-        const { t } = this.props;
+  render() {
+    const { t } = this.props;
 
-        return (
-            <Text onPress={this.resetPassword}>{t('screen.signIn.reset')}</Text>
-        );
-    }
+    return <Text onPress={this.resetPassword}>{t('screen.signIn.reset')}</Text>;
+  }
 }
 
 PasswordReset.propTypes = propTypes;
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps,
+  mapStateToProps,
+  mapDispatchToProps
 )(withTranslation()(withTheme(PasswordReset)));
 
 const Text = styled.Text`
-    color: ${colors.purple};
-    font-size: ${fontSizes.small}px;
-    margin: ${spacing.small}px;
+  color: ${colors.purple};
+  font-size: ${fontSizes.small}px;
+  margin: ${spacing.small}px;
 `;

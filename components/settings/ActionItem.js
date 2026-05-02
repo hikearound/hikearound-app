@@ -7,55 +7,55 @@ import { withNavigation } from '@utils/Navigation';
 import BaseSettingsItem from './BaseSettingsItem';
 
 const propTypes = {
-    item: PropTypes.object.isRequired,
-    dispatchLogout: PropTypes.func.isRequired,
-    navigation: PropTypes.object.isRequired,
-    isFirst: PropTypes.bool,
-    isLast: PropTypes.bool,
+  item: PropTypes.object.isRequired,
+  dispatchLogout: PropTypes.func.isRequired,
+  navigation: PropTypes.object.isRequired,
+  isFirst: PropTypes.bool,
+  isLast: PropTypes.bool,
 };
 
 const defaultProps = {
-    isFirst: false,
-    isLast: false,
+  isFirst: false,
+  isLast: false,
 };
 
 function mapStateToProps() {
-    return {};
+  return {};
 }
 
 function mapDispatchToProps(dispatch) {
-    return {
-        dispatchLogout: (navigation) => dispatch(logoutUser(navigation)),
-    };
+  return {
+    dispatchLogout: navigation => dispatch(logoutUser(navigation)),
+  };
 }
 
 class ActionItem extends React.Component {
-    itemPress = async () => {
-        const { item, navigation, dispatchLogout } = this.props;
+  itemPress = async () => {
+    const { item, navigation, dispatchLogout } = this.props;
 
-        if (item.type === settingsItems.logout) {
-            dispatchLogout(navigation);
-        }
-    };
-
-    render() {
-        const { item, isFirst, isLast } = this.props;
-
-        return (
-            <BaseSettingsItem
-                item={item}
-                isFirst={isFirst}
-                isLast={isLast}
-                onPress={this.itemPress}
-            />
-        );
+    if (item.type === settingsItems.logout) {
+      dispatchLogout(navigation);
     }
+  };
+
+  render() {
+    const { item, isFirst, isLast } = this.props;
+
+    return (
+      <BaseSettingsItem
+        item={item}
+        isFirst={isFirst}
+        isLast={isLast}
+        onPress={this.itemPress}
+      />
+    );
+  }
 }
 
 ActionItem.propTypes = propTypes;
 ActionItem.defaultProps = defaultProps;
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps,
+  mapStateToProps,
+  mapDispatchToProps
 )(withNavigation(ActionItem));

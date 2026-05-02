@@ -8,41 +8,41 @@ import { withTheme } from '@utils/Themes';
 import { getScreenWidth } from '@utils/Screen';
 
 const propTypes = {
-    width: PropTypes.number,
-    cardBorderRadius: PropTypes.number,
+  width: PropTypes.number,
+  cardBorderRadius: PropTypes.number,
 };
 
 const defaultProps = {
-    width: getScreenWidth(),
-    cardBorderRadius: parseInt(borderRadius.medium, 10),
+  width: getScreenWidth(),
+  cardBorderRadius: parseInt(borderRadius.medium, 10),
 };
 
 class MapLoadingState extends React.Component {
-    componentWillUnmount() {
-        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-    }
+  componentWillUnmount() {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+  }
 
-    render() {
-        const { width, cardBorderRadius, theme } = this.props;
+  render() {
+    const { width, cardBorderRadius, theme } = this.props;
 
-        return (
-            <SvgAnimatedLinearGradient
-                duration={timings.medium}
-                primaryColor={theme.colors.loadingPrimary}
-                secondaryColor={theme.colors.loadingSecondary}
-                width={width}
-            >
-                <Rect
-                    x={0}
-                    y={0}
-                    rx={cardBorderRadius}
-                    ry={cardBorderRadius}
-                    width={width - 30}
-                    height={200}
-                />
-            </SvgAnimatedLinearGradient>
-        );
-    }
+    return (
+      <SvgAnimatedLinearGradient
+        duration={timings.medium}
+        primaryColor={theme.colors.loadingPrimary}
+        secondaryColor={theme.colors.loadingSecondary}
+        width={width}
+      >
+        <Rect
+          x={0}
+          y={0}
+          rx={cardBorderRadius}
+          ry={cardBorderRadius}
+          width={width - 30}
+          height={200}
+        />
+      </SvgAnimatedLinearGradient>
+    );
+  }
 }
 
 MapLoadingState.defaultProps = defaultProps;

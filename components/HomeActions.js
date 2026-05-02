@@ -7,20 +7,20 @@ const marginBottom = '6px';
 const maxHeight = '26px';
 
 class HomeActions extends React.PureComponent {
-    render() {
-        return (
-            <ActionsWrapper>
-                <Search />
-            </ActionsWrapper>
-        );
-    }
+  render() {
+    return (
+      <ActionsWrapper>
+        <Search />
+      </ActionsWrapper>
+    );
+  }
 }
 
 export default HomeActions;
 
 const ActionsWrapper = styled.View`
-    display: flex;
-    flex-direction: row;
-    margin: 0 ${spacing.micro}px ${marginBottom} 0;
-    max-height: ${maxHeight};
+  display: flex;
+  flex-direction: row;
+  margin: 0 ${spacing.micro}px ${marginBottom} 0;
+  max-height: ${maxHeight};
 `;

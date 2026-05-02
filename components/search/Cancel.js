@@ -6,35 +6,35 @@ import { colors, opacities, fontSizes } from '@constants/Index';
 import { withNavigation } from '@utils/Navigation';
 
 class Cancel extends React.PureComponent {
-    close = () => {
-        const { navigation } = this.props;
-        navigation.goBack();
-    };
+  close = () => {
+    const { navigation } = this.props;
+    navigation.goBack();
+  };
 
-    render() {
-        const { t } = this.props;
+  render() {
+    const { t } = this.props;
 
-        return (
-            <TouchableOpacity
-                onPress={() => {
-                    this.close();
-                }}
-                activeOpacity={opacities.regular}
-            >
-                <CancelText>{t('label.modal.cancel')}</CancelText>
-            </TouchableOpacity>
-        );
-    }
+    return (
+      <TouchableOpacity
+        onPress={() => {
+          this.close();
+        }}
+        activeOpacity={opacities.regular}
+      >
+        <CancelText>{t('label.modal.cancel')}</CancelText>
+      </TouchableOpacity>
+    );
+  }
 }
 
 export default withTranslation()(withNavigation(Cancel));
 
 const CancelText = styled.Text`
-    display: flex;
-    align-self: flex-end;
-    margin-top: auto;
-    margin-bottom: 17px;
-    margin-right: -8px;
-    color: ${colors.white};
-    font-size: ${fontSizes.large}px;
+  display: flex;
+  align-self: flex-end;
+  margin-top: auto;
+  margin-bottom: 17px;
+  margin-right: -8px;
+  color: ${colors.white};
+  font-size: ${fontSizes.large}px;
 `;

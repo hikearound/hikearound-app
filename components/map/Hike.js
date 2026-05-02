@@ -9,154 +9,151 @@ import { withTheme } from '@utils/Themes';
 import HikeMarker from '@components/marker/Hike';
 
 const propTypes = {
-    coordinates: PropTypes.array,
-    region: PropTypes.object,
-    maxZoom: PropTypes.number,
-    fullHeight: PropTypes.bool,
-    mapHeight: PropTypes.number,
-    startingCoordinates: PropTypes.object,
-    mapPadding: PropTypes.object,
-    showUserLocation: PropTypes.bool,
-    mapRef: PropTypes.object,
-    mapBorderRadius: PropTypes.number,
-    mapType: PropTypes.string,
-    showsMyLocationButton: PropTypes.bool,
-    chartPosition: PropTypes.number,
-    isDragging: PropTypes.bool,
-    scrollEnabled: PropTypes.bool,
-    zoomEnabled: PropTypes.bool,
-    rotateEnabled: PropTypes.bool,
-    pitchEnabled: PropTypes.bool,
-    pointerEvents: PropTypes.string,
+  coordinates: PropTypes.array,
+  region: PropTypes.object,
+  maxZoom: PropTypes.number,
+  fullHeight: PropTypes.bool,
+  mapHeight: PropTypes.number,
+  startingCoordinates: PropTypes.object,
+  mapPadding: PropTypes.object,
+  showUserLocation: PropTypes.bool,
+  mapRef: PropTypes.object,
+  mapBorderRadius: PropTypes.number,
+  mapType: PropTypes.string,
+  showsMyLocationButton: PropTypes.bool,
+  chartPosition: PropTypes.number,
+  isDragging: PropTypes.bool,
+  scrollEnabled: PropTypes.bool,
+  zoomEnabled: PropTypes.bool,
+  rotateEnabled: PropTypes.bool,
+  pitchEnabled: PropTypes.bool,
+  pointerEvents: PropTypes.string,
 };
 
 class HikeMap extends React.Component {
-    constructor(props) {
-        super(props);
-        const { maxZoom, fullHeight } = this.props;
+  constructor(props) {
+    super(props);
+    const { maxZoom, fullHeight } = this.props;
 
-        this.state = {
-            maxZoom,
-            fullHeight,
-            position: {},
-        };
+    this.state = {
+      maxZoom,
+      fullHeight,
+      position: {},
+    };
+  }
+
+  onMapReady = () => {};
+
+  mapPress = e => {
+    const { position } = e.nativeEvent;
+    this.setState({ position });
+  };
+
+  getPositionMarkerCoordinate = () => {
+    const { coordinates, chartPosition, isDragging } = this.props;
+
+    if (
+      !coordinates ||
+      coordinates.length === 0 ||
+      chartPosition === undefined ||
+      !isDragging
+    ) {
+      return null;
     }
 
-    onMapReady = () => {};
+    // Calculate the index along the route based on chartPosition (0-1)
+    const index = Math.round(chartPosition * (coordinates.length - 1));
+    const clampedIndex = Math.max(0, Math.min(coordinates.length - 1, index));
 
-    mapPress = (e) => {
-        const { position } = e.nativeEvent;
-        this.setState({ position });
-    };
+    return coordinates[clampedIndex];
+  };
 
-    getPositionMarkerCoordinate = () => {
-        const { coordinates, chartPosition, isDragging } = this.props;
+  render() {
+    const {
+      coordinates,
+      mapBorderRadius,
+      startingCoordinates,
+      region,
+      mapHeight,
+      theme,
+      mapPadding,
+      showUserLocation,
+      mapRef,
+      mapType,
+      showsMyLocationButton,
+      scrollEnabled,
+      zoomEnabled,
+      rotateEnabled,
+      pitchEnabled,
+      pointerEvents,
+    } = this.props;
+    const { maxZoom, fullHeight, position } = this.state;
 
-        if (
-            !coordinates ||
-            coordinates.length === 0 ||
-            chartPosition === undefined ||
-            !isDragging
-        ) {
-            return null;
-        }
+    if (region) {
+      // Wrap in View with pointerEvents="none" when interactions are disabled
+      const mapElement = (
+        <MapView
+          ref={mapRef}
+          provider={PROVIDER_APPLE}
+          style={{
+            height: fullHeight ? '100%' : mapHeight,
+            zIndex: 1,
+            overflow: 'hidden',
+            borderRadius: mapBorderRadius,
+          }}
+          showsUserLocation={showUserLocation}
+          initialRegion={region}
+          showsMyLocationButton={showsMyLocationButton}
+          showsPointsOfInterest={false}
+          showsCompass={false}
+          maxZoomLevel={maxZoom}
+          onMapReady={this.onMapReady}
+          loadingIndicatorColor={theme.colors.loadingSpinner}
+          loadingBackgroundColor={theme.colors.mapViewBackground}
+          onPress={this.mapPress}
+          mapPadding={mapPadding}
+          mapType={mapType}
+          showsScale
+          scrollEnabled={fullHeight ? true : scrollEnabled}
+          zoomEnabled={fullHeight ? true : zoomEnabled}
+          rotateEnabled={fullHeight ? true : rotateEnabled}
+          pitchEnabled={fullHeight ? true : pitchEnabled}
+        >
+          {startingCoordinates && (
+            <HikeMarker
+              coordinate={{
+                latitude: startingCoordinates.lat,
+                longitude: startingCoordinates.lng,
+              }}
+              tracksViewChanges={false}
+              position={position}
+            />
+          )}
+          <Polyline
+            coordinates={coordinates}
+            strokeColor={colors.purple}
+            strokeWidth={2}
+          />
+          {this.getPositionMarkerCoordinate() && (
+            <Marker
+              coordinate={this.getPositionMarkerCoordinate()}
+              anchor={{ x: 0.5, y: 0.5 }}
+            >
+              <PositionMarker />
+            </Marker>
+          )}
+        </MapView>
+      );
 
-        // Calculate the index along the route based on chartPosition (0-1)
-        const index = Math.round(chartPosition * (coordinates.length - 1));
-        const clampedIndex = Math.max(
-            0,
-            Math.min(coordinates.length - 1, index),
-        );
+      // If pointerEvents is specified and is "none", wrap in a View
+      if (pointerEvents === 'none') {
+        return <View pointerEvents='none'>{mapElement}</View>;
+      }
 
-        return coordinates[clampedIndex];
-    };
-
-    render() {
-        const {
-            coordinates,
-            mapBorderRadius,
-            startingCoordinates,
-            region,
-            mapHeight,
-            theme,
-            mapPadding,
-            showUserLocation,
-            mapRef,
-            mapType,
-            showsMyLocationButton,
-            scrollEnabled,
-            zoomEnabled,
-            rotateEnabled,
-            pitchEnabled,
-            pointerEvents,
-        } = this.props;
-        const { maxZoom, fullHeight, position } = this.state;
-
-        if (region) {
-            // Wrap in View with pointerEvents="none" when interactions are disabled
-            const mapElement = (
-                <MapView
-                    ref={mapRef}
-                    provider={PROVIDER_APPLE}
-                    style={{
-                        height: fullHeight ? '100%' : mapHeight,
-                        zIndex: 1,
-                        overflow: 'hidden',
-                        borderRadius: mapBorderRadius,
-                    }}
-                    showsUserLocation={showUserLocation}
-                    initialRegion={region}
-                    showsMyLocationButton={showsMyLocationButton}
-                    showsPointsOfInterest={false}
-                    showsCompass={false}
-                    maxZoomLevel={maxZoom}
-                    onMapReady={this.onMapReady}
-                    loadingIndicatorColor={theme.colors.loadingSpinner}
-                    loadingBackgroundColor={theme.colors.mapViewBackground}
-                    onPress={this.mapPress}
-                    mapPadding={mapPadding}
-                    mapType={mapType}
-                    showsScale
-                    scrollEnabled={fullHeight ? true : scrollEnabled}
-                    zoomEnabled={fullHeight ? true : zoomEnabled}
-                    rotateEnabled={fullHeight ? true : rotateEnabled}
-                    pitchEnabled={fullHeight ? true : pitchEnabled}
-                >
-                    {startingCoordinates && (
-                        <HikeMarker
-                            coordinate={{
-                                latitude: startingCoordinates.lat,
-                                longitude: startingCoordinates.lng,
-                            }}
-                            tracksViewChanges={false}
-                            position={position}
-                        />
-                    )}
-                    <Polyline
-                        coordinates={coordinates}
-                        strokeColor={colors.purple}
-                        strokeWidth={2}
-                    />
-                    {this.getPositionMarkerCoordinate() && (
-                        <Marker
-                            coordinate={this.getPositionMarkerCoordinate()}
-                            anchor={{ x: 0.5, y: 0.5 }}
-                        >
-                            <PositionMarker />
-                        </Marker>
-                    )}
-                </MapView>
-            );
-
-            // If pointerEvents is specified and is "none", wrap in a View
-            if (pointerEvents === 'none') {
-                return <View pointerEvents='none'>{mapElement}</View>;
-            }
-
-            return <>{mapElement}</>;
-        }
-        return <EmptyMapView fullHeight={fullHeight} mapHeight={mapHeight} />;
+      return <>{mapElement}</>;
     }
+    return <EmptyMapView fullHeight={fullHeight} mapHeight={mapHeight} />;
+  }
 }
 
 HikeMap.propTypes = propTypes;
@@ -165,21 +162,21 @@ HikeMap.defaultProps = defaultProps;
 export default withTheme(HikeMap);
 
 const EmptyMapView = styled.View`
-    border-color: ${colors.grayMedium};
-    border-radius: ${borderRadius.medium}px;
-    height: ${(props) => (props.fullHeight ? '100%' : `${props.mapHeight}px`)};
-    background-color: ${(props) => props.theme.loadingPrimary};
+  border-color: ${colors.grayMedium};
+  border-radius: ${borderRadius.medium}px;
+  height: ${props => (props.fullHeight ? '100%' : `${props.mapHeight}px`)};
+  background-color: ${props => props.theme.loadingPrimary};
 `;
 
 const PositionMarker = styled.View`
-    width: 12px;
-    height: 12px;
-    border-radius: 6px;
-    background-color: #935dff;
-    border: 2px solid white;
-    shadow-color: #000;
-    shadow-offset: 0px 2px;
-    shadow-opacity: 0.3;
-    shadow-radius: 3px;
-    elevation: 5;
+  width: 12px;
+  height: 12px;
+  border-radius: 6px;
+  background-color: #935dff;
+  border: 2px solid white;
+  shadow-color: #000;
+  shadow-offset: 0px 2px;
+  shadow-opacity: 0.3;
+  shadow-radius: 3px;
+  elevation: 5;
 `;

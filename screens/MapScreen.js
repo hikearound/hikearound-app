@@ -12,159 +12,159 @@ import { defaultState } from '@constants/states/Map';
 import { updateMapData } from '@actions/Map';
 
 const propTypes = {
-    markers: PropTypes.array,
-    position: PropTypes.object,
-    selectedHike: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    dispatchMapData: PropTypes.func.isRequired,
+  markers: PropTypes.array,
+  position: PropTypes.object,
+  selectedHike: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  dispatchMapData: PropTypes.func.isRequired,
 };
 
 const defaultProps = {
-    selectedHike: null,
-    position: null,
-    markers: [],
+  selectedHike: null,
+  position: null,
+  markers: [],
 };
 
 function mapStateToProps(state) {
-    return {
-        markers: state.mapReducer.markers,
-        selectedHike: state.mapReducer.selectedHike,
-        position: state.userReducer.currentPosition,
-    };
+  return {
+    markers: state.mapReducer.markers,
+    selectedHike: state.mapReducer.selectedHike,
+    position: state.userReducer.currentPosition,
+  };
 }
 
 function mapDispatchToProps(dispatch) {
-    return {
-        dispatchMapData: (mapData) => dispatch(updateMapData(mapData)),
-    };
+  return {
+    dispatchMapData: mapData => dispatch(updateMapData(mapData)),
+  };
 }
 
 class MapScreen extends React.Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        const { markers } = this.props;
+    const { markers } = this.props;
 
-        this.bottomSheetRef = React.createRef();
-        this.mapRef = React.createRef();
+    this.bottomSheetRef = React.createRef();
+    this.mapRef = React.createRef();
 
-        this.setState = this.setState.bind(this);
-        this.state = {
-            ...defaultState,
-            markers,
-            barStyle: 'dark-content',
-        };
+    this.setState = this.setState.bind(this);
+    this.state = {
+      ...defaultState,
+      markers,
+      barStyle: 'dark-content',
+    };
+  }
+
+  async componentDidMount() {
+    const { theme } = this.props;
+
+    setBarStyleWithTheme(theme, this.setState);
+  }
+
+  async componentDidUpdate(prevProps) {
+    const { selectedHike, theme, markers } = this.props;
+
+    if (prevProps.selectedHike !== selectedHike && selectedHike) {
+      const sheetData = await getHikeData(selectedHike);
+      this.setSheetData(sheetData);
     }
 
-    async componentDidMount() {
-        const { theme } = this.props;
-
-        setBarStyleWithTheme(theme, this.setState);
+    if (prevProps.markers !== markers) {
+      this.setMarkers(markers);
     }
 
-    async componentDidUpdate(prevProps) {
-        const { selectedHike, theme, markers } = this.props;
+    if (prevProps.theme.dark !== theme.dark) {
+      setBarStyleWithTheme(theme, this.setState);
+    }
+  }
 
-        if (prevProps.selectedHike !== selectedHike && selectedHike) {
-            const sheetData = await getHikeData(selectedHike);
-            this.setSheetData(sheetData);
-        }
+  setSheetData = sheetData => {
+    this.setState({ sheetData });
+  };
 
-        if (prevProps.markers !== markers) {
-            this.setMarkers(markers);
-        }
+  setMarkers = markers => {
+    this.setState({ markers });
+  };
 
-        if (prevProps.theme.dark !== theme.dark) {
-            setBarStyleWithTheme(theme, this.setState);
-        }
+  handleSearchSelect = (data, details) => {
+    const { dispatchMapData } = this.props;
+
+    if (!details || !details.geometry || !details.geometry.location) {
+      return;
     }
 
-    setSheetData = (sheetData) => {
-        this.setState({ sheetData });
-    };
+    // Clear any selected hike when searching for a new city
+    dispatchMapData({
+      markers: [],
+      selectedHike: null,
+      selectedRoute: null,
+      routeCoordinates: [],
+      selectedCity: {
+        geometry: {
+          location: {
+            lat: details.geometry.location.lat,
+            lng: details.geometry.location.lng,
+          },
+        },
+        animationDuration: 0,
+      },
+      animationConfig: {
+        pitch: 0,
+        heading: 0,
+        duration: 1000,
+      },
+    });
 
-    setMarkers = (markers) => {
-        this.setState({ markers });
-    };
+    // Snap to collapsed state instead of closing completely
+    this.bottomSheetRef.current?.snapToIndex(0);
+  };
 
-    handleSearchSelect = (data, details) => {
-        const { dispatchMapData } = this.props;
+  clearRoute = () => {
+    const { dispatchMapData } = this.props;
+    dispatchMapData({
+      selectedRoute: null,
+      routeCoordinates: [],
+    });
+  };
 
-        if (!details || !details.geometry || !details.geometry.location) {
-            return;
-        }
+  render() {
+    const { position, selectedHike, theme } = this.props;
+    const { markers, barStyle, sheetData } = this.state;
 
-        // Clear any selected hike when searching for a new city
-        dispatchMapData({
-            markers: [],
-            selectedHike: null,
-            selectedRoute: null,
-            routeCoordinates: [],
-            selectedCity: {
-                geometry: {
-                    location: {
-                        lat: details.geometry.location.lat,
-                        lng: details.geometry.location.lng,
-                    },
-                },
-                animationDuration: 0,
-            },
-            animationConfig: {
-                pitch: 0,
-                heading: 0,
-                duration: 1000,
-            },
-        });
-
-        // Snap to collapsed state instead of closing completely
-        this.bottomSheetRef.current?.snapToIndex(0);
-    };
-
-    clearRoute = () => {
-        const { dispatchMapData } = this.props;
-        dispatchMapData({
-            selectedRoute: null,
-            routeCoordinates: [],
-        });
-    };
-
-    render() {
-        const { position, selectedHike, theme } = this.props;
-        const { markers, barStyle, sheetData } = this.state;
-
-        return (
-            <View>
-                <SetBarStyle barStyle={barStyle} />
-                <GooglePlacesSearch
-                    theme={theme}
-                    onPress={this.handleSearchSelect}
-                    placeholder='Search for a city'
-                />
-                {position && (
-                    <GlobalMap
-                        mapRef={this.mapRef}
-                        position={position}
-                        markers={markers}
-                        showHikeSheet={() => {
-                            this.bottomSheetRef.current?.expand();
-                        }}
-                    />
-                )}
-                <HikeSheet
-                    mapRef={this.mapRef}
-                    sheetRef={this.bottomSheetRef}
-                    sheetData={sheetData}
-                    selectedHike={selectedHike}
-                    onClose={this.clearRoute}
-                />
-            </View>
-        );
-    }
+    return (
+      <View>
+        <SetBarStyle barStyle={barStyle} />
+        <GooglePlacesSearch
+          theme={theme}
+          onPress={this.handleSearchSelect}
+          placeholder='Search for a city'
+        />
+        {position && (
+          <GlobalMap
+            mapRef={this.mapRef}
+            position={position}
+            markers={markers}
+            showHikeSheet={() => {
+              this.bottomSheetRef.current?.expand();
+            }}
+          />
+        )}
+        <HikeSheet
+          mapRef={this.mapRef}
+          sheetRef={this.bottomSheetRef}
+          sheetData={sheetData}
+          selectedHike={selectedHike}
+          onClose={this.clearRoute}
+        />
+      </View>
+    );
+  }
 }
 
 MapScreen.propTypes = propTypes;
 MapScreen.defaultProps = defaultProps;
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps,
+  mapStateToProps,
+  mapDispatchToProps
 )(withNavigation(withTheme(MapScreen)));

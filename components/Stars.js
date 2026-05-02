@@ -7,64 +7,64 @@ import { withTheme } from '@utils/Themes';
 import { showModal } from '@actions/Modal';
 
 const propTypes = {
-    onStarRatingPress: PropTypes.func,
-    starSize: PropTypes.number,
-    maxStars: PropTypes.number,
-    rating: PropTypes.number,
-    disabled: PropTypes.bool,
-    filledColor: PropTypes.string,
-    emptyColor: PropTypes.string,
+  onStarRatingPress: PropTypes.func,
+  starSize: PropTypes.number,
+  maxStars: PropTypes.number,
+  rating: PropTypes.number,
+  disabled: PropTypes.bool,
+  filledColor: PropTypes.string,
+  emptyColor: PropTypes.string,
 };
 
 const defaultProps = {
-    onStarRatingPress: () => {},
-    starSize: 22,
-    maxStars: 5,
-    rating: 0,
-    disabled: false,
-    filledColor: colors.purple,
-    emptyColor: colors.gray,
+  onStarRatingPress: () => {},
+  starSize: 22,
+  maxStars: 5,
+  rating: 0,
+  disabled: false,
+  filledColor: colors.purple,
+  emptyColor: colors.gray,
 };
 
 function mapStateToProps(state) {
-    return {
-        closeAction: state.modalReducer.closeAction,
-    };
+  return {
+    closeAction: state.modalReducer.closeAction,
+  };
 }
 
 function mapDispatchToProps(dispatch) {
-    return {
-        dispatchModalFlag: (modalType) => dispatch(showModal(modalType)),
-    };
+  return {
+    dispatchModalFlag: modalType => dispatch(showModal(modalType)),
+  };
 }
 
 class Stars extends React.PureComponent {
-    render() {
-        const {
-            starSize,
-            maxStars,
-            onStarRatingPress,
-            rating,
-            disabled,
-            filledColor,
-            emptyColor,
-        } = this.props;
+  render() {
+    const {
+      starSize,
+      maxStars,
+      onStarRatingPress,
+      rating,
+      disabled,
+      filledColor,
+      emptyColor,
+    } = this.props;
 
-        return (
-            <StarRating
-                rating={rating}
-                onChange={disabled ? undefined : onStarRatingPress}
-                maxStars={maxStars}
-                color={filledColor}
-                emptyColor={emptyColor}
-                enableSwiping={!disabled}
-                enableHalfStar={false}
-                style={{ alignSelf: 'flex-start' }}
-                starSize={starSize + 3}
-                starStyle={{ marginLeft: 0, marginRight: 1 }}
-            />
-        );
-    }
+    return (
+      <StarRating
+        rating={rating}
+        onChange={disabled ? undefined : onStarRatingPress}
+        maxStars={maxStars}
+        color={filledColor}
+        emptyColor={emptyColor}
+        enableSwiping={!disabled}
+        enableHalfStar={false}
+        style={{ alignSelf: 'flex-start' }}
+        starSize={starSize + 3}
+        starStyle={{ marginLeft: 0, marginRight: 1 }}
+      />
+    );
+  }
 }
 
 Stars.propTypes = propTypes;

@@ -6,51 +6,49 @@ import SkipLocation from '@components/header/SkipLocation';
 import { requestLocationPermission } from '@utils/Location';
 
 class LocationPermissionScreen extends React.Component {
-    constructor(props) {
-        super(props);
-        const { navigation, t } = this.props;
+  constructor(props) {
+    super(props);
+    const { navigation, t } = this.props;
 
-        navigation.setOptions({
-            headerRight: () => (
-                <SkipLocation
-                    t={t}
-                    openHomeScreen={this.openHomeScreen}
-                    permissionAction={this.getLocationPermissions}
-                />
-            ),
-        });
+    navigation.setOptions({
+      headerRight: () => (
+        <SkipLocation
+          t={t}
+          openHomeScreen={this.openHomeScreen}
+          permissionAction={this.getLocationPermissions}
+        />
+      ),
+    });
+  }
+
+  getLocationPermissions = async () => {
+    const status = await requestLocationPermission();
+
+    if (status === 'granted') {
+      this.openHomeScreen();
     }
+  };
 
-    getLocationPermissions = async () => {
-        const status = await requestLocationPermission();
+  openHomeScreen = () => {
+    const { navigation } = this.props;
+    navigation.reset({
+      index: 0,
+      routes: [
+        {
+          name: 'HomeTab',
+          state: {
+            routes: [{ name: 'HomeScreen' }],
+          },
+        },
+      ],
+    });
+  };
 
-        if (status === 'granted') {
-            this.openHomeScreen();
-        }
-    };
-
-    openHomeScreen = () => {
-        const { navigation } = this.props;
-        navigation.reset({
-            index: 0,
-            routes: [
-                {
-                    name: 'HomeTab',
-                    state: {
-                        routes: [{ name: 'HomeScreen' }],
-                    },
-                },
-            ],
-        });
-    };
-
-    render() {
-        return (
-            <LocationUpsell
-                getLocationPermissions={this.getLocationPermissions}
-            />
-        );
-    }
+  render() {
+    return (
+      <LocationUpsell getLocationPermissions={this.getLocationPermissions} />
+    );
+  }
 }
 
 export default withTranslation()(withTheme(LocationPermissionScreen));

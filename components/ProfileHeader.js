@@ -6,150 +6,150 @@ import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import Avatar from '@components/Avatar';
 import {
-    spacing,
-    colors,
-    fontWeights,
-    fontSizes,
-    opacities,
+  spacing,
+  colors,
+  fontWeights,
+  fontSizes,
+  opacities,
 } from '@constants/Index';
 import { showModal } from '@actions/Modal';
 import { withTheme } from '@utils/Themes';
 import { profileBgDefault, profileBgDark } from '@constants/Images';
 
 const propTypes = {
-    avatar: PropTypes.string.isRequired,
-    dispatchModalFlag: PropTypes.func.isRequired,
-    name: PropTypes.string.isRequired,
-    location: PropTypes.string.isRequired,
-    modalType: PropTypes.string,
+  avatar: PropTypes.string.isRequired,
+  dispatchModalFlag: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
+  location: PropTypes.string.isRequired,
+  modalType: PropTypes.string,
 };
 
 const defaultProps = {
-    modalType: 'editProfile',
+  modalType: 'editProfile',
 };
 
 function mapStateToProps(state) {
-    return {
-        name: state.userReducer.name,
-        location: state.userReducer.location,
-        avatar: state.userReducer.avatar,
-    };
+  return {
+    name: state.userReducer.name,
+    location: state.userReducer.location,
+    avatar: state.userReducer.avatar,
+  };
 }
 
 function mapDispatchToProps(dispatch) {
-    return {
-        dispatchModalFlag: (modalType) => dispatch(showModal(modalType)),
-    };
+  return {
+    dispatchModalFlag: modalType => dispatch(showModal(modalType)),
+  };
 }
 
 class ProfileHeader extends React.PureComponent {
-    constructor(props) {
-        super(props);
-        this.state = {};
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  componentDidMount() {
+    this.setHeaderImage();
+  }
+
+  componentDidUpdate() {
+    this.setHeaderImage();
+  }
+
+  setHeaderImage = () => {
+    const { theme } = this.props;
+    let bgImage = profileBgDefault;
+
+    if (theme.dark) {
+      bgImage = profileBgDark;
     }
 
-    componentDidMount() {
-        this.setHeaderImage();
-    }
+    this.setState({ bgImage });
+  };
 
-    componentDidUpdate() {
-        this.setHeaderImage();
-    }
+  editProfile = () => {
+    const { dispatchModalFlag, modalType } = this.props;
+    dispatchModalFlag(modalType);
+  };
 
-    setHeaderImage = () => {
-        const { theme } = this.props;
-        let bgImage = profileBgDefault;
+  editProfileLink = t => (
+    <TouchableOpacity
+      activeOpacity={opacities.regular}
+      onPress={this.editProfile}
+      style={{
+        position: 'absolute',
+        bottom: parseInt(spacing.medium, 10),
+        right: parseInt(spacing.small, 10),
+      }}
+    >
+      <ActionLink primary>{t('screen.profile.edit')}</ActionLink>
+    </TouchableOpacity>
+  );
 
-        if (theme.dark) {
-            bgImage = profileBgDark;
-        }
+  addLocationLink = t => (
+    <TouchableOpacity
+      activeOpacity={opacities.regular}
+      onPress={this.editProfile}
+      style={{ display: 'flex' }}
+    >
+      <ActionLink>{t('screen.profile.add')}</ActionLink>
+    </TouchableOpacity>
+  );
 
-        this.setState({ bgImage });
-    };
+  render() {
+    const { avatar, name, location, t } = this.props;
+    const { bgImage } = this.state;
 
-    editProfile = () => {
-        const { dispatchModalFlag, modalType } = this.props;
-        dispatchModalFlag(modalType);
-    };
-
-    editProfileLink = (t) => (
-        <TouchableOpacity
-            activeOpacity={opacities.regular}
-            onPress={this.editProfile}
-            style={{
-                position: 'absolute',
-                bottom: parseInt(spacing.medium, 10),
-                right: parseInt(spacing.small, 10),
-            }}
-        >
-            <ActionLink primary>{t('screen.profile.edit')}</ActionLink>
-        </TouchableOpacity>
+    return (
+      <HeaderWrapper source={bgImage}>
+        <ProfileBlock>
+          <Avatar avatar={avatar} />
+          <NameText>{name}</NameText>
+          {location === '' && this.addLocationLink(t)}
+          {location !== '' && <LocationText>{location}</LocationText>}
+        </ProfileBlock>
+        {this.editProfileLink(t)}
+      </HeaderWrapper>
     );
-
-    addLocationLink = (t) => (
-        <TouchableOpacity
-            activeOpacity={opacities.regular}
-            onPress={this.editProfile}
-            style={{ display: 'flex' }}
-        >
-            <ActionLink>{t('screen.profile.add')}</ActionLink>
-        </TouchableOpacity>
-    );
-
-    render() {
-        const { avatar, name, location, t } = this.props;
-        const { bgImage } = this.state;
-
-        return (
-            <HeaderWrapper source={bgImage}>
-                <ProfileBlock>
-                    <Avatar avatar={avatar} />
-                    <NameText>{name}</NameText>
-                    {location === '' && this.addLocationLink(t)}
-                    {location !== '' && <LocationText>{location}</LocationText>}
-                </ProfileBlock>
-                {this.editProfileLink(t)}
-            </HeaderWrapper>
-        );
-    }
+  }
 }
 
 ProfileHeader.propTypes = propTypes;
 ProfileHeader.defaultProps = defaultProps;
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps,
+  mapStateToProps,
+  mapDispatchToProps
 )(withTranslation()(withTheme(ProfileHeader)));
 
 const HeaderWrapper = styled.ImageBackground`
-    padding-left: ${spacing.small}px;
-    min-height: 175px;
-    z-index: 1;
+  padding-left: ${spacing.small}px;
+  min-height: 175px;
+  z-index: 1;
 `;
 
 const ProfileBlock = styled.View`
-    position: absolute;
-    bottom: ${spacing.medium}px;
-    left: ${spacing.small}px;
+  position: absolute;
+  bottom: ${spacing.medium}px;
+  left: ${spacing.small}px;
 `;
 
 const NameText = styled.Text`
-    font-size: ${fontSizes.big}px;
-    font-weight: ${fontWeights.bold};
-    color: ${(props) => props.theme.text};
-    margin-top: ${spacing.tiny}px;
+  font-size: ${fontSizes.big}px;
+  font-weight: ${fontWeights.bold};
+  color: ${props => props.theme.text};
+  margin-top: ${spacing.tiny}px;
 `;
 
 const LocationText = styled.Text`
-    font-size: ${fontSizes.medium}px;
-    font-weight: ${fontWeights.medium};
-    color: ${(props) => props.theme.text};
+  font-size: ${fontSizes.medium}px;
+  font-weight: ${fontWeights.medium};
+  color: ${props => props.theme.text};
 `;
 
 const ActionLink = styled.Text`
-    font-size: ${fontSizes.medium}px;
-    font-weight: ${(props) =>
-        props.primary ? fontWeights.medium : fontWeights.regular};
-    color: ${(props) => (props.primary ? colors.purple : colors.grayDark)};
+  font-size: ${fontSizes.medium}px;
+  font-weight: ${props =>
+    props.primary ? fontWeights.medium : fontWeights.regular};
+  color: ${props => (props.primary ? colors.purple : colors.grayDark)};
 `;

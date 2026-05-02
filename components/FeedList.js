@@ -11,106 +11,106 @@ import { withTheme } from '@utils/Themes';
 import RecentReviewList from '@components/feed/review/RecentReviewList';
 
 const propTypes = {
-    onEndReached: PropTypes.func.isRequired,
-    refreshControl: PropTypes.object.isRequired,
-    hikes: PropTypes.array.isRequired,
-    reviews: PropTypes.array.isRequired,
-    scrollRef: PropTypes.object.isRequired,
-    city: PropTypes.string.isRequired,
-    lastKnownPosition: PropTypes.object.isRequired,
+  onEndReached: PropTypes.func.isRequired,
+  refreshControl: PropTypes.object.isRequired,
+  hikes: PropTypes.array.isRequired,
+  reviews: PropTypes.array.isRequired,
+  scrollRef: PropTypes.object.isRequired,
+  city: PropTypes.string.isRequired,
+  lastKnownPosition: PropTypes.object.isRequired,
 };
 
 const defaultProps = {};
 
 class FeedList extends React.PureComponent {
-    renderItem = ({ item, index }) => {
-        const {
-            id,
-            name,
-            distance,
-            elevation,
-            route,
-            description,
-            city,
-            state,
-            coverPhoto,
-            coordinates,
-            difficulty,
-            imageCount,
-            review,
-            geohash,
-        } = item;
-        const { lastKnownPosition, reviews } = this.props;
+  renderItem = ({ item, index }) => {
+    const {
+      id,
+      name,
+      distance,
+      elevation,
+      route,
+      description,
+      city,
+      state,
+      coverPhoto,
+      coordinates,
+      difficulty,
+      imageCount,
+      review,
+      geohash,
+    } = item;
+    const { lastKnownPosition, reviews } = this.props;
 
-        const showReviews = index === 4 && reviews.length > 0;
+    const showReviews = index === 4 && reviews.length > 0;
 
-        return (
-            <>
-                {showReviews && this.renderRecentReviews(reviews)}
-                <FeedItem
-                    hid={id}
-                    name={name}
-                    distance={distance}
-                    elevation={elevation}
-                    route={route}
-                    description={description}
-                    city={city}
-                    state={state}
-                    coverPhoto={coverPhoto}
-                    coordinates={coordinates}
-                    difficulty={difficulty}
-                    imageCount={imageCount}
-                    review={review}
-                    geohash={geohash}
-                    lastKnownPosition={lastKnownPosition}
-                />
-            </>
-        );
-    };
+    return (
+      <>
+        {showReviews && this.renderRecentReviews(reviews)}
+        <FeedItem
+          hid={id}
+          name={name}
+          distance={distance}
+          elevation={elevation}
+          route={route}
+          description={description}
+          city={city}
+          state={state}
+          coverPhoto={coverPhoto}
+          coordinates={coordinates}
+          difficulty={difficulty}
+          imageCount={imageCount}
+          review={review}
+          geohash={geohash}
+          lastKnownPosition={lastKnownPosition}
+        />
+      </>
+    );
+  };
 
-    renderRecentReviews = (reviews) => <RecentReviewList reviews={reviews} />;
+  renderRecentReviews = reviews => <RecentReviewList reviews={reviews} />;
 
-    renderHeader = (title) => <Header title={title} showFilter />;
+  renderHeader = title => <Header title={title} showFilter />;
 
-    renderFooter = () => <FeedFooter />;
+  renderFooter = () => <FeedFooter />;
 
-    getItemLayout = (data, index) => ({
-        length: 200, // Approximate height of each item
-        offset: 200 * index,
-        index,
-    });
+  getItemLayout = (data, index) => ({
+    length: 200, // Approximate height of each item
+    offset: 200 * index,
+    index,
+  });
 
-    keyExtractor = (item) => item.key;
+  keyExtractor = item => item.key;
 
-    render() {
-        const { onEndReached, refreshControl, hikes, scrollRef, city, t } =
-            this.props;
+  render() {
+    const { onEndReached, refreshControl, hikes, scrollRef, city, t } =
+      this.props;
 
-        const title = t('feed.header', { cityName: city });
+    const title = t('feed.header', { cityName: city });
 
-        return (
-            <>
-                {this.renderHeader(title)}
-                <FlatList
-                    ref={scrollRef}
-                    data={hikes}
-                    extraData={hikes}
-                    showsVerticalScrollIndicator={false}
-                    keyExtractor={this.keyExtractor}
-                    renderItem={this.renderItem}
-                    refreshControl={refreshControl}
-                    onEndReached={onEndReached}
-                    ListFooterComponent={this.renderFooter}
-                    removeClippedSubviews
-                    maxToRenderPerBatch={5}
-                    windowSize={5}
-                    initialNumToRender={5}
-                    getItemLayout={this.getItemLayout}
-                    updateCellsBatchingPeriod={50}
-                />
-            </>
-        );
-    }
+    return (
+      <>
+        {this.renderHeader(title)}
+        <FlatList
+          ref={scrollRef}
+          data={hikes}
+          extraData={hikes}
+          showsVerticalScrollIndicator={false}
+          keyExtractor={this.keyExtractor}
+          renderItem={this.renderItem}
+          refreshControl={refreshControl}
+          onEndReached={onEndReached}
+          ListFooterComponent={this.renderFooter}
+          removeClippedSubviews
+          maxToRenderPerBatch={5}
+          windowSize={5}
+          initialNumToRender={5}
+          getItemLayout={this.getItemLayout}
+          updateCellsBatchingPeriod={50}
+        />
+      </>
+    );
+  }
 }
 
 FeedList.propTypes = propTypes;

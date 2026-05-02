@@ -10,88 +10,88 @@ import { fontSizes, spacing, borderRadius } from '@constants/Index';
 import { withNavigation } from '@utils/Navigation';
 
 const propTypes = {
-    refine: PropTypes.func.isRequired,
-    currentRefinement: PropTypes.string.isRequired,
+  refine: PropTypes.func.isRequired,
+  currentRefinement: PropTypes.string.isRequired,
 };
 
 class SearchBox extends React.PureComponent {
-    componentDidMount() {
-        const { navigation } = this.props;
+  componentDidMount() {
+    const { navigation } = this.props;
 
-        this.unsubscribe = navigation.addListener('blur', () => {
-            this.searchInput.blur();
-        });
-    }
+    this.unsubscribe = navigation.addListener('blur', () => {
+      this.searchInput.blur();
+    });
+  }
 
-    componentWillUnmount() {
-        this.unsubscribe();
-    }
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
 
-    assignRef = (ref) => {
-        this.searchInput = ref;
-    };
+  assignRef = ref => {
+    this.searchInput = ref;
+  };
 
-    handleSubmitEditing = () => {
-        // const { currentRefinement } = this.props;
-        // console.log(currentRefinement)
-    };
+  handleSubmitEditing = () => {
+    // const { currentRefinement } = this.props;
+    // console.log(currentRefinement)
+  };
 
-    render() {
-        const { refine, currentRefinement, t } = this.props;
+  render() {
+    const { refine, currentRefinement, t } = this.props;
 
-        return (
-            <SearchContainer>
-                <InputView>
-                    <SearchIcon />
-                    <SearchInput
-                        autoFocus
-                        onSubmitEditing={() => this.handleSubmitEditing()}
-                        ref={(ref) => this.assignRef(ref)}
-                        enablesReturnKeyAutomatically={false}
-                        returnKeyType='search'
-                        clearButtonMode='always'
-                        placeholder={t('label.nav.search')}
-                        onChangeText={(text) => refine(text)}
-                        value={currentRefinement}
-                        autoCorrect={false}
-                    />
-                </InputView>
-                <Cancel />
-            </SearchContainer>
-        );
-    }
+    return (
+      <SearchContainer>
+        <InputView>
+          <SearchIcon />
+          <SearchInput
+            autoFocus
+            onSubmitEditing={() => this.handleSubmitEditing()}
+            ref={ref => this.assignRef(ref)}
+            enablesReturnKeyAutomatically={false}
+            returnKeyType='search'
+            clearButtonMode='always'
+            placeholder={t('label.nav.search')}
+            onChangeText={text => refine(text)}
+            value={currentRefinement}
+            autoCorrect={false}
+          />
+        </InputView>
+        <Cancel />
+      </SearchContainer>
+    );
+  }
 }
 
 SearchBox.propTypes = propTypes;
 
 export default withTranslation()(
-    withTheme(withNavigation(connectSearchBox(SearchBox))),
+  withTheme(withNavigation(connectSearchBox(SearchBox)))
 );
 
 const SearchContainer = styled.View`
-    display: flex;
-    flex: 1;
-    flex-direction: row;
+  display: flex;
+  flex: 1;
+  flex-direction: row;
 `;
 
 const InputView = styled.View`
-    display: flex;
-    flex: 1;
-    margin-top: auto;
-    margin-bottom: ${spacing.tiny}px;
-    margin-left: 0;
-    margin-right: ${spacing.tiny}px;
-    border-radius: ${borderRadius.medium}px;
-    flex-direction: row;
-    background-color: ${(props) => props.theme.searchBackground};
+  display: flex;
+  flex: 1;
+  margin-top: auto;
+  margin-bottom: ${spacing.tiny}px;
+  margin-left: 0;
+  margin-right: ${spacing.tiny}px;
+  border-radius: ${borderRadius.medium}px;
+  flex-direction: row;
+  background-color: ${props => props.theme.searchBackground};
 `;
 
-const SearchInput = styled.TextInput.attrs((props) => ({
-    placeholderTextColor: props.theme.inputPlaceholderText,
+const SearchInput = styled.TextInput.attrs(props => ({
+  placeholderTextColor: props.theme.inputPlaceholderText,
 }))`
-    color: ${(props) => props.theme.text};
-    font-size: ${fontSizes.medium}px;
-    padding: 7px ${spacing.tiny}px 7px ${spacing.micro}px;
-    display: flex;
-    flex: 1;
+  color: ${props => props.theme.text};
+  font-size: ${fontSizes.medium}px;
+  padding: 7px ${spacing.tiny}px 7px ${spacing.micro}px;
+  display: flex;
+  flex: 1;
 `;

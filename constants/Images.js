@@ -1,8 +1,8 @@
 // Avatar
 export const avatarDefault =
-    'https://firebasestorage.googleapis.com/v0/b/hikearound-14dad.appspot.com/o/images%2Fusers%2Favatar.png?alt=media';
+  'https://firebasestorage.googleapis.com/v0/b/hikearound-14dad.appspot.com/o/images%2Fusers%2Favatar.png?alt=media';
 export const avatarDark =
-    'https://firebasestorage.googleapis.com/v0/b/hikearound-14dad.appspot.com/o/images%2Fusers%2Favatar-dark.png?alt=media';
+  'https://firebasestorage.googleapis.com/v0/b/hikearound-14dad.appspot.com/o/images%2Fusers%2Favatar-dark.png?alt=media';
 
 // Landing
 export const landingBgDefault = require('@assets/default/landing-bg.png');
@@ -28,17 +28,17 @@ export const availabiltyMap = require('@assets/neutral/availability-map.png');
 export const notifStar = require('@assets/neutral/notif-star.png');
 
 export const localImages = [
-    avatarDefault,
-    avatarDark,
-    landingBgDefault,
-    landingBgDark,
-    profileBgDefault,
-    profileBgDark,
-    markerBgDefault,
-    markerBgDark,
-    markerFocused,
-    markerUnfocused,
-    clusterMarker,
-    availabiltyMap,
-    notifStar,
+  avatarDefault,
+  avatarDark,
+  landingBgDefault,
+  landingBgDark,
+  profileBgDefault,
+  profileBgDark,
+  markerBgDefault,
+  markerBgDark,
+  markerFocused,
+  markerUnfocused,
+  clusterMarker,
+  availabiltyMap,
+  notifStar,
 ];

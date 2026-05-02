@@ -10,55 +10,55 @@ import { getDrivingDirections } from '@utils/Map';
 import { ActionWrapper, Button, Text } from '@styles/Actions';
 
 const propTypes = {
-    selectedHike: PropTypes.string.isRequired,
-    coordinates: PropTypes.object.isRequired,
-    hikeName: PropTypes.string.isRequired,
+  selectedHike: PropTypes.string.isRequired,
+  coordinates: PropTypes.object.isRequired,
+  hikeName: PropTypes.string.isRequired,
 };
 
 class SheetActions extends React.PureComponent {
-    renderHikeButton = () => {
-        const { selectedHike, navigation, t } = this.props;
+  renderHikeButton = () => {
+    const { selectedHike, navigation, t } = this.props;
 
-        return (
-            <TouchableOpacity
-                onPress={() => {
-                    openHikeScreen(selectedHike, navigation, {});
-                }}
-                activeOpacity={opacities.regular}
-            >
-                <Button primary>
-                    <Text primary>{t('sheet.map.actions.hike')}</Text>
-                </Button>
-            </TouchableOpacity>
-        );
-    };
+    return (
+      <TouchableOpacity
+        onPress={() => {
+          openHikeScreen(selectedHike, navigation, {});
+        }}
+        activeOpacity={opacities.regular}
+      >
+        <Button primary>
+          <Text primary>{t('sheet.map.actions.hike')}</Text>
+        </Button>
+      </TouchableOpacity>
+    );
+  };
 
-    renderDirectionsButton = () => {
-        const { coordinates, t, hikeName } = this.props;
-        const { lat, lng } = coordinates;
+  renderDirectionsButton = () => {
+    const { coordinates, t, hikeName } = this.props;
+    const { lat, lng } = coordinates;
 
-        return (
-            <TouchableOpacity
-                onPress={() => {
-                    getDrivingDirections(lat, lng, hikeName);
-                }}
-                activeOpacity={opacities.regular}
-            >
-                <Button>
-                    <Text>{t('sheet.hike.item.directions')}</Text>
-                </Button>
-            </TouchableOpacity>
-        );
-    };
+    return (
+      <TouchableOpacity
+        onPress={() => {
+          getDrivingDirections(lat, lng, hikeName);
+        }}
+        activeOpacity={opacities.regular}
+      >
+        <Button>
+          <Text>{t('sheet.hike.item.directions')}</Text>
+        </Button>
+      </TouchableOpacity>
+    );
+  };
 
-    render() {
-        return (
-            <ActionWrapper>
-                {this.renderDirectionsButton()}
-                {this.renderHikeButton()}
-            </ActionWrapper>
-        );
-    }
+  render() {
+    return (
+      <ActionWrapper>
+        {this.renderDirectionsButton()}
+        {this.renderHikeButton()}
+      </ActionWrapper>
+    );
+  }
 }
 
 SheetActions.propTypes = propTypes;

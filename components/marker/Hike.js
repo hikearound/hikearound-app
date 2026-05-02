@@ -6,100 +6,97 @@ import { withTheme } from '@utils/Themes';
 import { markerUnfocused, markerFocused } from '@constants/Images';
 
 const propTypes = {
-    coordinate: PropTypes.object,
-    offset: PropTypes.object,
-    tracksViewChanges: PropTypes.bool.isRequired,
-    position: PropTypes.object,
+  coordinate: PropTypes.object,
+  offset: PropTypes.object,
+  tracksViewChanges: PropTypes.bool.isRequired,
+  position: PropTypes.object,
 };
 
 const defaultProps = {
-    coordinate: {},
-    position: {},
-    offset: { x: 1, y: -36 },
+  coordinate: {},
+  position: {},
+  offset: { x: 1, y: -36 },
 };
 
 class HikeMarker extends React.Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        const { offset } = this.props;
+    const { offset } = this.props;
 
-        this.state = {
-            offset,
-            isFocused: false,
-            bgImage: markerUnfocused,
-        };
+    this.state = {
+      offset,
+      isFocused: false,
+      bgImage: markerUnfocused,
+    };
+  }
+
+  componentDidUpdate(prevProps) {
+    const { position } = this.props;
+
+    const positionDidChange = prevProps.position !== position;
+    const objectIsEmpty = Object.keys(position).length === 0;
+
+    if (positionDidChange) {
+      this.unfocusMarker();
     }
 
-    componentDidUpdate(prevProps) {
-        const { position } = this.props;
-
-        const positionDidChange = prevProps.position !== position;
-        const objectIsEmpty = Object.keys(position).length === 0;
-
-        if (positionDidChange) {
-            this.unfocusMarker();
-        }
-
-        if (objectIsEmpty && positionDidChange) {
-            this.focusMarker();
-        }
+    if (objectIsEmpty && positionDidChange) {
+      this.focusMarker();
     }
+  }
 
-    renderMarkerIcon = () => {
-        const { bgImage } = this.state;
+  renderMarkerIcon = () => {
+    const { bgImage } = this.state;
 
-        return (
-            <View>
-                <ImageBackground
-                    source={bgImage}
-                    style={{ width: 61, height: 74 }}
-                />
-            </View>
-        );
-    };
+    return (
+      <View>
+        <ImageBackground source={bgImage} style={{ width: 61, height: 74 }} />
+      </View>
+    );
+  };
 
-    markerPress = () => {
-        const { isFocused } = this.state;
+  markerPress = () => {
+    const { isFocused } = this.state;
 
-        if (isFocused) {
-            this.unfocusMarker();
-        } else {
-            this.focusMarker();
-        }
-    };
-
-    focusMarker = () => {
-        this.setState({
-            bgImage: markerFocused,
-            isFocused: true,
-        });
-    };
-
-    unfocusMarker = () => {
-        this.setState({
-            bgImage: markerUnfocused,
-            isFocused: false,
-        });
-    };
-
-    render() {
-        const { coordinate, tracksViewChanges } = this.props;
-        const { offset } = this.state;
-
-        return (
-            <View>
-                <Marker
-                    coordinate={coordinate}
-                    onPress={this.markerPress}
-                    tracksViewChanges={tracksViewChanges}
-                    centerOffset={offset}
-                >
-                    {this.renderMarkerIcon()}
-                </Marker>
-            </View>
-        );
+    if (isFocused) {
+      this.unfocusMarker();
+    } else {
+      this.focusMarker();
     }
+  };
+
+  focusMarker = () => {
+    this.setState({
+      bgImage: markerFocused,
+      isFocused: true,
+    });
+  };
+
+  unfocusMarker = () => {
+    this.setState({
+      bgImage: markerUnfocused,
+      isFocused: false,
+    });
+  };
+
+  render() {
+    const { coordinate, tracksViewChanges } = this.props;
+    const { offset } = this.state;
+
+    return (
+      <View>
+        <Marker
+          coordinate={coordinate}
+          onPress={this.markerPress}
+          tracksViewChanges={tracksViewChanges}
+          centerOffset={offset}
+        >
+          {this.renderMarkerIcon()}
+        </Marker>
+      </View>
+    );
+  }
 }
 
 HikeMarker.propTypes = propTypes;

@@ -1,359 +1,359 @@
 {
-    "label": {
-        "common": {
-            "cancel": "Cancelar",
-            "delete": "Eliminar",
-            "logout": "Cerrar sesión",
-            "terms": "Términos de servicio",
-            "privacy": "Política de privacidad",
-            "read": "Lee mas",
-            "skip": "Omitir",
-            "warning": "Advertencia",
-            "continue": "Seguir",
-            "ok": "Okay",
-            "update": "Actualizar"
-        },
-        "input": {
-            "name": "Nombre",
-            "email": "Correo electrónico",
-            "password": "Contraseña",
-            "currentPassword": "Contraseña Actual",
-            "newPassword": "Nueva Contraseña",
-            "location": "Ubicación"
-        },
-        "heading": {
-            "description": "Descripción",
-            "images": "Imágenes",
-            "reviews": "Reseñas",
-            "recentReviews": "Reseñas recientes"
-        },
-        "nav": {
-            "you": "Yo",
-            "settings": "Configuraciones",
-            "home": "Casa",
-            "notifications": "Notificaciones",
-            "createAccount": "Crear una cuenta",
-            "signIn": "Registrarse",
-            "locationPermission": "Comparte ubicacion",
-            "map": "Mapa",
-            "search": "Buscar",
-            "password": "Actualiza Contraseña",
-            "review": "Revisar"
-        },
-        "modal": {
-            "save": "Salvar",
-            "close": "Cerca",
-            "cancel": "Cancelar",
-            "send": "Enviar",
-            "reset": "Reiniciar"
-        },
-        "user": {
-            "deleted": "Un usuario eliminado"
-        }
+  "label": {
+    "common": {
+      "cancel": "Cancelar",
+      "delete": "Eliminar",
+      "logout": "Cerrar sesión",
+      "terms": "Términos de servicio",
+      "privacy": "Política de privacidad",
+      "read": "Lee mas",
+      "skip": "Omitir",
+      "warning": "Advertencia",
+      "continue": "Seguir",
+      "ok": "Okay",
+      "update": "Actualizar"
     },
     "input": {
-        "hint": {
-            "review": "Comparta un breve resumen de cómo disfrutó esta caminata y brinde cualquier consejo que crea que otros excursionistas podrían beneficiarse."
-        }
+      "name": "Nombre",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "currentPassword": "Contraseña Actual",
+      "newPassword": "Nueva Contraseña",
+      "location": "Ubicación"
     },
-    "sheet": {
-        "avatar": {
-            "title": "Foto de perfil",
-            "item": {
-                "camera": "Tomar foto",
-                "library": "Elige de la biblioteca"
-            }
-        },
-        "hike": {
-            "title": "Caminata",
-            "item": {
-                "share": "Compartir",
-                "directions": "Obtener las direcciones"
-            }
-        },
-        "review": {
-            "title": "Revisión",
-            "item": {
-                "flag": "Reporte",
-                "edit": "Editar",
-                "delete": "Eliminar"
-            }
-        },
-        "lightbox": {
-            "title": "Foto",
-            "item": {
-                "attribution": "Atribución de fotos"
-            }
-        },
-        "map": {
-            "actions": {
-                "hike": "Ver caminata"
-            }
-        },
-        "elevation": {
-            "unit": {
-                "miles": "mi",
-                "feet": "pie"
-            },
-            "label": {
-                "distance": "Distancia",
-                "elevation": "Elevación neta"
-            },
-            "distance": "{{distance}} {{unit}}"
-        }
+    "heading": {
+      "description": "Descripción",
+      "images": "Imágenes",
+      "reviews": "Reseñas",
+      "recentReviews": "Reseñas recientes"
     },
-    "control": {
-        "sort": {
-            "title": "Ordenar por",
-            "value": {
-                "new": "El más nuevo primero",
-                "old": "Los más viejos primero"
-            }
-        },
-        "route": {
-            "title": "Tipo de ruta"
-        },
-        "difficulty": {
-            "title": "Dificultad"
-        },
-        "elevation": {
-            "title": "Desnivel",
-            "value": "{{elevation}} pie"
-        },
-        "distance": {
-            "title": "Distancia",
-            "value": "{{distance}} mi"
-        }
+    "nav": {
+      "you": "Yo",
+      "settings": "Configuraciones",
+      "home": "Casa",
+      "notifications": "Notificaciones",
+      "createAccount": "Crear una cuenta",
+      "signIn": "Registrarse",
+      "locationPermission": "Comparte ubicacion",
+      "map": "Mapa",
+      "search": "Buscar",
+      "password": "Actualiza Contraseña",
+      "review": "Revisar"
     },
     "modal": {
-        "reset": {
-            "title": "Se te olvidó tu contraseña",
-            "help": "Le enviaremos un correo electrónico con más instrucciones para restablecer su contraseña."
-        },
-        "filter": {
-            "title": "Filtrar",
-            "cta": "Aplicar filtros"
-        },
-        "review": {
-            "title": "Revisión"
-        },
-        "notification": {
-            "title": "Preferencias",
-            "explainer": "Puede ajustar sus preferencias de correo electrónico desde la configuración de su perfil."
-        },
-        "flag": {
-            "title": "Revisión de la bandera",
-            "subtitle": "¿Por qué marca esta revisión?",
-            "subtext": "Seleccione una de las opciones siguientes. Su envío permanecerá anónimo.",
-            "action": {
-                "spam": "Es correo no deseado",
-                "offensive": "Es ofensivo"
-            },
-            "confirmation": {
-                "subtitle": "Gracias por dejarnos saber",
-                "subtext": "Revisaremos su informe y tomaremos las medidas adecuadas si es necesario. Agradecemos su ayuda."
-            }
-        }
+      "save": "Salvar",
+      "close": "Cerca",
+      "cancel": "Cancelar",
+      "send": "Enviar",
+      "reset": "Reiniciar"
     },
-    "card": {
-        "metadata": "{{distance}} millas · {{elevation}} pies",
-        "review": "· {{count}} revisión",
-        "review_plural": "· {{count}} críticas",
-        "distance": "{{city}} · {{distance}} m"
-    },
-    "common": {
-        "appName": "Hikearound",
-        "appName_plural": "Hikearound"
+    "user": {
+      "deleted": "Un usuario eliminado"
+    }
+  },
+  "input": {
+    "hint": {
+      "review": "Comparta un breve resumen de cómo disfrutó esta caminata y brinde cualquier consejo que crea que otros excursionistas podrían beneficiarse."
+    }
+  },
+  "sheet": {
+    "avatar": {
+      "title": "Foto de perfil",
+      "item": {
+        "camera": "Tomar foto",
+        "library": "Elige de la biblioteca"
+      }
     },
     "hike": {
-        "data": {
-            "distance": "Distancia",
-            "elevation": "Elevación",
-            "route": "Ruta",
-            "miles": "Millas",
-            "feet": "Pies",
-            "loop": "Lazo",
-            "out": "Afuera"
-        },
-        "difficulty": {
-            "easy": "Fácil",
-            "moderate": "Moderado",
-            "difficult": "Difícil"
-        },
-        "list": " · {{distance}} millas"
+      "title": "Caminata",
+      "item": {
+        "share": "Compartir",
+        "directions": "Obtener las direcciones"
+      }
     },
-    "screen": {
-        "review": {
-            "label": "Revisión de {{name}} en {{city}}, {{state}}"
+    "review": {
+      "title": "Revisión",
+      "item": {
+        "flag": "Reporte",
+        "edit": "Editar",
+        "delete": "Eliminar"
+      }
+    },
+    "lightbox": {
+      "title": "Foto",
+      "item": {
+        "attribution": "Atribución de fotos"
+      }
+    },
+    "map": {
+      "actions": {
+        "hike": "Ver caminata"
+      }
+    },
+    "elevation": {
+      "unit": {
+        "miles": "mi",
+        "feet": "pie"
+      },
+      "label": {
+        "distance": "Distancia",
+        "elevation": "Elevación neta"
+      },
+      "distance": "{{distance}} {{unit}}"
+    }
+  },
+  "control": {
+    "sort": {
+      "title": "Ordenar por",
+      "value": {
+        "new": "El más nuevo primero",
+        "old": "Los más viejos primero"
+      }
+    },
+    "route": {
+      "title": "Tipo de ruta"
+    },
+    "difficulty": {
+      "title": "Dificultad"
+    },
+    "elevation": {
+      "title": "Desnivel",
+      "value": "{{elevation}} pie"
+    },
+    "distance": {
+      "title": "Distancia",
+      "value": "{{distance}} mi"
+    }
+  },
+  "modal": {
+    "reset": {
+      "title": "Se te olvidó tu contraseña",
+      "help": "Le enviaremos un correo electrónico con más instrucciones para restablecer su contraseña."
+    },
+    "filter": {
+      "title": "Filtrar",
+      "cta": "Aplicar filtros"
+    },
+    "review": {
+      "title": "Revisión"
+    },
+    "notification": {
+      "title": "Preferencias",
+      "explainer": "Puede ajustar sus preferencias de correo electrónico desde la configuración de su perfil."
+    },
+    "flag": {
+      "title": "Revisión de la bandera",
+      "subtitle": "¿Por qué marca esta revisión?",
+      "subtext": "Seleccione una de las opciones siguientes. Su envío permanecerá anónimo.",
+      "action": {
+        "spam": "Es correo no deseado",
+        "offensive": "Es ofensivo"
+      },
+      "confirmation": {
+        "subtitle": "Gracias por dejarnos saber",
+        "subtext": "Revisaremos su informe y tomaremos las medidas adecuadas si es necesario. Agradecemos su ayuda."
+      }
+    }
+  },
+  "card": {
+    "metadata": "{{distance}} millas · {{elevation}} pies",
+    "review": "· {{count}} revisión",
+    "review_plural": "· {{count}} críticas",
+    "distance": "{{city}} · {{distance}} m"
+  },
+  "common": {
+    "appName": "Hikearound",
+    "appName_plural": "Hikearound"
+  },
+  "hike": {
+    "data": {
+      "distance": "Distancia",
+      "elevation": "Elevación",
+      "route": "Ruta",
+      "miles": "Millas",
+      "feet": "Pies",
+      "loop": "Lazo",
+      "out": "Afuera"
+    },
+    "difficulty": {
+      "easy": "Fácil",
+      "moderate": "Moderado",
+      "difficult": "Difícil"
+    },
+    "list": " · {{distance}} millas"
+  },
+  "screen": {
+    "review": {
+      "label": "Revisión de {{name}} en {{city}}, {{state}}"
+    },
+    "hike": {
+      "review": {
+        "empty": "Esta caminata aún no ha sido revisada.",
+        "prompt": "¿Probaste esta caminata? ¡Dejar un comentario!"
+      }
+    },
+    "search": {
+      "results": {
+        "header": "{{count}} resultado",
+        "header_plural": "{{count}} resultados"
+      },
+      "empty": {
+        "header": "Búsquedas recientes",
+        "label": "No hay búsquedas recientes. Intente buscar una caminata por nombre o por ciudad."
+      },
+      "noResults": {
+        "header": "No hay resultados",
+        "label": "Lo sentimos, no pudimos encontrar coincidencias para esa búsqueda."
+      }
+    },
+    "map": {
+      "search": "Buscar caminatas por ciudad",
+      "results": {
+        "empty": "No se han encontrado resultados"
+      },
+      "empty": {
+        "title": "La aventura espera",
+        "description": "Comience seleccionando una caminata del mapa de arriba."
+      }
+    },
+    "home": {
+      "empty": {
+        "default": {
+          "title": "No pudimos encontrar caminatas cercanas",
+          "description": "Esto probablemente significa que todavía no hemos agregado ninguna caminata cerca de {{cityName}}. Intente <3>buscar una caminata</3> o <5>navegar por el mapa</5>."
         },
-        "hike": {
-            "review": {
-                "empty": "Esta caminata aún no ha sido revisada.",
-                "prompt": "¿Probaste esta caminata? ¡Dejar un comentario!"
-            }
-        },
-        "search": {
-            "results": {
-                "header": "{{count}} resultado",
-                "header_plural": "{{count}} resultados"
-            },
-            "empty": {
-                "header": "Búsquedas recientes",
-                "label": "No hay búsquedas recientes. Intente buscar una caminata por nombre o por ciudad."
-            },
-            "noResults": {
-                "header": "No hay resultados",
-                "label": "Lo sentimos, no pudimos encontrar coincidencias para esa búsqueda."
-            }
-        },
-        "map": {
-            "search": "Buscar caminatas por ciudad",
-            "results": {
-                "empty": "No se han encontrado resultados"
-            },
-            "empty": {
-                "title": "La aventura espera",
-                "description": "Comience seleccionando una caminata del mapa de arriba."
-            }
-        },
-        "home": {
-            "empty": {
-                "default": {
-                    "title": "No pudimos encontrar caminatas cercanas",
-                    "description": "Esto probablemente significa que todavía no hemos agregado ninguna caminata cerca de {{cityName}}. Intente <3>buscar una caminata</3> o <5>navegar por el mapa</5>."
-                },
-                "permission": {
-                    "title": "Compartir ubicación deshabilitado",
-                    "description": "La pestaña Inicio solo funciona si ha habilitado el uso compartido de la ubicación. Intente <1>buscar una caminata</1> o <3>navegar por el mapa</3> en su lugar."
-                }
-            }
-        },
-        "onboard": {
-            "permission": {
-                "title": "Comparte tu ubicación",
-                "description": "¡Compartir su ubicación nos permite recomendar grandes caminatas cerca de usted!",
-                "button": "Permitir compartir ubicación",
-                "warning": "{{appName}} no funcionará correctamente si elige no compartir su ubicación."
-            }
-        },
-        "createAccount": {
-            "legal": "Al hacer clic en '{{createAccount}}' acepta los <5>Términos de servicio</5> y la <7>Política de privacidad</7> de {{appName}}.",
-            "header": "Ingresa con correo electrónico"
-        },
-        "signIn": {
-            "reset": "¿Se te olvidó tu contraseña?",
-            "header": "Iniciar sesión con correo electrónico"
-        },
-        "reset": {
-            "disabled": "No puede actualizar su contraseña porque hay una contraseña asociada a su cuenta."
-        },
-        "notifications": {
-            "empty": {
-                "title": "No notificaciones",
-                "description": "Las notificaciones sobre nuevas caminatas y me gusta en tus reseñas aparecerán aquí."
-            }
-        },
-        "profile": {
-            "edit": "Editar perfil",
-            "add": "Añade una ubicación",
-            "header": "Tus caminatas",
-            "empty": {
-                "title": "Guarda tus favoritas",
-                "description": "Las caminatas que prefieras se guardarán aquí.\n<1>Explore el mapa</1> para comenzar a encontrar excelentes caminatas cerca de usted."
-            }
-        },
-        "settings": {
-            "header": {
-                "map": "Mapa predeterminado",
-                "display": "Monitor",
-                "notifications": "Notificaciones",
-                "terms": "Términos y privacidad",
-                "account": "Cuenta",
-                "version": "Versión",
-                "push": "Notificaciones push"
-            },
-            "item": {
-                "map": {
-                    "apple": "Mapas de Apple",
-                    "google": "Mapas de Google"
-                },
-                "dark": "Modo oscuro",
-                "notification": {
-                    "combined": "Correo electrónico y notificaciones push",
-                    "email": {
-                        "global": "Habilitar correos electrónicos",
-                        "digest": "Digerir"
-                    },
-                    "push": {
-                        "global": "Habilitar notificaciones push",
-                        "digest": "Digerir",
-                        "reviewLike": "Revisar me gusta"
-                    }
-                }
-            }
+        "permission": {
+          "title": "Compartir ubicación deshabilitado",
+          "description": "La pestaña Inicio solo funciona si ha habilitado el uso compartido de la ubicación. Intente <1>buscar una caminata</1> o <3>navegar por el mapa</3> en su lugar."
         }
+      }
     },
-    "feed": {
-        "header": "Caminatas cerca de {{cityName}}",
-        "footer": "Nuevas caminatas cada semana"
+    "onboard": {
+      "permission": {
+        "title": "Comparte tu ubicación",
+        "description": "¡Compartir su ubicación nos permite recomendar grandes caminatas cerca de usted!",
+        "button": "Permitir compartir ubicación",
+        "warning": "{{appName}} no funcionará correctamente si elige no compartir su ubicación."
+      }
     },
-    "toast": {
-        "favorite": "Usted favoreció {{hikeName}}.",
-        "share": "Link copiado al portapapeles."
+    "createAccount": {
+      "legal": "Al hacer clic en '{{createAccount}}' acepta los <5>Términos de servicio</5> y la <7>Política de privacidad</7> de {{appName}}.",
+      "header": "Ingresa con correo electrónico"
     },
-    "alert": {
-        "attribution": {
-            "title": "Atribución",
-            "body": "Foto por {{name}}."
-        },
-        "deleteReview": {
-            "title": "Eliminar reseña",
-            "body": "¿Le gustaría eliminar esta reseña?"
-        },
-        "reset": {
-            "success": {
-                "title": "Correo electrónico de recuperación enviado",
-                "body": "Si existe una cuenta de {{appName}} para {{email}}, se enviará un correo electrónico con instrucciones adicionales."
-            }
-        },
-        "password": {
-            "success": {
-                "title": "Éxito",
-                "body": "Su contraseña se actualizó correctamente."
-            }
-        }
+    "signIn": {
+      "reset": "¿Se te olvidó tu contraseña?",
+      "header": "Iniciar sesión con correo electrónico"
     },
-    "error": {
-        "label": "Error",
-        "auth": {
-            "account": {
-                "exists": "Parece que ya se ha creado una cuenta con esta dirección de correo electrónico.",
-                "invalid": "La dirección de correo electrónico que proporcionó no está formateada correctamente.",
-                "notFound": "No hay una cuenta asociada con esta dirección de correo electrónico.",
-                "tooMany": "Ha ingresado una contraseña incorrecta demasiadas veces."
-            },
-            "password": {
-                "weak": "La contraseña que proporcionó no es lo suficientemente segura.",
-                "wrong": "La contraseña que proporcionó es incorrecta."
-            },
-            "generic": "Lo siento, parece que algo salió mal. Inténtalo de nuevo."
-        }
-    },
-    "promotion": {
-        "welcome": {
-            "title": "¡Bienvenido a Hikearound!",
-            "description": "Actualmente estamos enfocados en caminatas en Seattle y el Área de la Bahía de San Francisco.\n\nSi vives fuera de cualquiera de estas ubicaciones, te avisaremos cuando comencemos a agregar caminatas cerca de ti.",
-            "cta": "Entendido"
-        }
+    "reset": {
+      "disabled": "No puede actualizar su contraseña porque hay una contraseña asociada a su cuenta."
     },
     "notifications": {
-        "reviewLike": {
-            "title": "Le gustó a {{name}}",
-            "subtitle": "Tu reseña de {{name}} en {{city}}, {{state}}"
+      "empty": {
+        "title": "No notificaciones",
+        "description": "Las notificaciones sobre nuevas caminatas y me gusta en tus reseñas aparecerán aquí."
+      }
+    },
+    "profile": {
+      "edit": "Editar perfil",
+      "add": "Añade una ubicación",
+      "header": "Tus caminatas",
+      "empty": {
+        "title": "Guarda tus favoritas",
+        "description": "Las caminatas que prefieras se guardarán aquí.\n<1>Explore el mapa</1> para comenzar a encontrar excelentes caminatas cerca de usted."
+      }
+    },
+    "settings": {
+      "header": {
+        "map": "Mapa predeterminado",
+        "display": "Monitor",
+        "notifications": "Notificaciones",
+        "terms": "Términos y privacidad",
+        "account": "Cuenta",
+        "version": "Versión",
+        "push": "Notificaciones push"
+      },
+      "item": {
+        "map": {
+          "apple": "Mapas de Apple",
+          "google": "Mapas de Google"
         },
-        "digest": {
-            "title": "Nuevas caminatas cerca de ti",
-            "subtitle": "Creemos que te puede gustar {{name}} en {{city}}, {{state}}"
+        "dark": "Modo oscuro",
+        "notification": {
+          "combined": "Correo electrónico y notificaciones push",
+          "email": {
+            "global": "Habilitar correos electrónicos",
+            "digest": "Digerir"
+          },
+          "push": {
+            "global": "Habilitar notificaciones push",
+            "digest": "Digerir",
+            "reviewLike": "Revisar me gusta"
+          }
         }
+      }
     }
+  },
+  "feed": {
+    "header": "Caminatas cerca de {{cityName}}",
+    "footer": "Nuevas caminatas cada semana"
+  },
+  "toast": {
+    "favorite": "Usted favoreció {{hikeName}}.",
+    "share": "Link copiado al portapapeles."
+  },
+  "alert": {
+    "attribution": {
+      "title": "Atribución",
+      "body": "Foto por {{name}}."
+    },
+    "deleteReview": {
+      "title": "Eliminar reseña",
+      "body": "¿Le gustaría eliminar esta reseña?"
+    },
+    "reset": {
+      "success": {
+        "title": "Correo electrónico de recuperación enviado",
+        "body": "Si existe una cuenta de {{appName}} para {{email}}, se enviará un correo electrónico con instrucciones adicionales."
+      }
+    },
+    "password": {
+      "success": {
+        "title": "Éxito",
+        "body": "Su contraseña se actualizó correctamente."
+      }
+    }
+  },
+  "error": {
+    "label": "Error",
+    "auth": {
+      "account": {
+        "exists": "Parece que ya se ha creado una cuenta con esta dirección de correo electrónico.",
+        "invalid": "La dirección de correo electrónico que proporcionó no está formateada correctamente.",
+        "notFound": "No hay una cuenta asociada con esta dirección de correo electrónico.",
+        "tooMany": "Ha ingresado una contraseña incorrecta demasiadas veces."
+      },
+      "password": {
+        "weak": "La contraseña que proporcionó no es lo suficientemente segura.",
+        "wrong": "La contraseña que proporcionó es incorrecta."
+      },
+      "generic": "Lo siento, parece que algo salió mal. Inténtalo de nuevo."
+    }
+  },
+  "promotion": {
+    "welcome": {
+      "title": "¡Bienvenido a Hikearound!",
+      "description": "Actualmente estamos enfocados en caminatas en Seattle y el Área de la Bahía de San Francisco.\n\nSi vives fuera de cualquiera de estas ubicaciones, te avisaremos cuando comencemos a agregar caminatas cerca de ti.",
+      "cta": "Entendido"
+    }
+  },
+  "notifications": {
+    "reviewLike": {
+      "title": "Le gustó a {{name}}",
+      "subtitle": "Tu reseña de {{name}} en {{city}}, {{state}}"
+    },
+    "digest": {
+      "title": "Nuevas caminatas cerca de ti",
+      "subtitle": "Creemos que te puede gustar {{name}} en {{city}}, {{state}}"
+    }
+  }
 }

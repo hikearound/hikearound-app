@@ -5,12 +5,12 @@ import { getHeaderHeight } from '@utils/Navigation';
 const headerHeight = getHeaderHeight();
 
 export const ModalHeader = styled.View`
-    background-color: ${(props) => props.theme.headerStyle};
-    border-bottom-color: ${colors.gray};
-    height: ${headerHeight}px;
-    width: 100%;
-    position: relative;
-    z-index: 1;
+  background-color: ${props => props.theme.headerStyle};
+  border-bottom-color: ${colors.gray};
+  height: ${headerHeight}px;
+  width: 100%;
+  position: relative;
+  z-index: 1;
 `;
 
 export const ModalTitleText = styled.Text`
@@ -25,21 +25,21 @@ export const ModalTitleText = styled.Text`
 `;
 
 export const ModalBody = styled.View`
-    background-color: ${(props) => props.theme.rootBackground};
-    padding: ${(props) => (props.includePadding ? `${spacing.small}px` : 0)};
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+  background-color: ${props => props.theme.rootBackground};
+  padding: ${props => (props.includePadding ? `${spacing.small}px` : 0)};
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 `;
 
 export const PageSheetModalHeader = styled(ModalHeader)`
-    height: 55px;
-    margin-bottom: -${spacing.small}px;
-    background-color: ${(props) => props.theme.rootBackground};
-    border-bottom-color: ${(props) => props.theme.modalButtonBorder};
-    border-bottom-width: ${(props) => (props.showBottomBorder ? `1px` : 0)};
+  height: 55px;
+  margin-bottom: -${spacing.small}px;
+  background-color: ${props => props.theme.rootBackground};
+  border-bottom-color: ${props => props.theme.modalButtonBorder};
+  border-bottom-width: ${props => (props.showBottomBorder ? `1px` : 0)};
 `;
 
 export const PageSheetModalTitleText = styled(ModalTitleText)`
-    color: ${(props) => props.theme.text};
+  color: ${props => props.theme.text};
 `;

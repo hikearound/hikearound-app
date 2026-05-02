@@ -4,22 +4,22 @@ Hikearound is a React Native iOS application that helps users discover, save, an
 
 ## Features
 
--   🗺️ Interactive map with trail locations and details
--   🔍 Advanced search functionality
--   📍 Location-based hike recommendations
--   ⭐ User reviews and ratings
--   💾 List creation of your favorite hikes
--   🔔 Push notifications for trail updates
--   🌙 Dark mode support
--   🌐 Multi-language support (English and Spanish)
+- 🗺️ Interactive map with trail locations and details
+- 🔍 Advanced search functionality
+- 📍 Location-based hike recommendations
+- ⭐ User reviews and ratings
+- 💾 List creation of your favorite hikes
+- 🔔 Push notifications for trail updates
+- 🌙 Dark mode support
+- 🌐 Multi-language support (English and Spanish)
 
 ## Prerequisites
 
--   Node.js (v16 or later)
--   npm or yarn
--   Xcode (for iOS development)
--   iOS Simulator or physical iOS device
--   Expo CLI
+- Node.js (v16 or later)
+- npm or yarn
+- Xcode (for iOS development)
+- iOS Simulator or physical iOS device
+- Expo CLI
 
 ## Environment Setup
 
@@ -52,9 +52,9 @@ npm run setup-hooks
 
 This configures Git to run automatic checks before each commit, including:
 
--   Prettier formatting
--   ESLint code quality
--   Expo dependency compatibility
+- Prettier formatting
+- ESLint code quality
+- Expo dependency compatibility
 
 ## Development
 
@@ -76,9 +76,9 @@ This project uses automated code quality checks:
 
 ### Pre-commit Hooks
 
--   **Prettier**: Ensures consistent code formatting
--   **ESLint**: Catches code quality issues and enforces coding standards
--   **Expo dependencies**: Verifies dependency compatibility
+- **Prettier**: Ensures consistent code formatting
+- **ESLint**: Catches code quality issues and enforces coding standards
+- **Expo dependencies**: Verifies dependency compatibility
 
 ### Manual Commands
 
@@ -115,18 +115,18 @@ npm run storybook:ios
 
 This will launch the Storybook interface in your iOS simulator or connected device, where you can:
 
--   Browse and test individual components
--   View different component states
--   Interact with component props using knobs
--   Test component callbacks using actions
+- Browse and test individual components
+- View different component states
+- Interact with component props using knobs
+- Test component callbacks using actions
 
 ### Creating Stories
 
 Stories are located in the `stories` directory. Each story file should:
 
--   Be named with the `.stories.js` extension
--   Export a default object with component metadata
--   Include one or more stories that demonstrate different states of the component
+- Be named with the `.stories.js` extension
+- Export a default object with component metadata
+- Include one or more stories that demonstrate different states of the component
 
 Example story structure:
 
@@ -136,8 +136,8 @@ import { storiesOf } from '@storybook/react-native';
 import MyComponent from '../components/MyComponent';
 
 storiesOf('MyComponent', module)
-    .add('default', () => <MyComponent />)
-    .add('with props', () => <MyComponent prop1='value' />);
+  .add('default', () => <MyComponent />)
+  .add('with props', () => <MyComponent prop1='value' />);
 ```
 
 ## Project Structure
@@ -162,15 +162,15 @@ hikearound-app/
 
 ## Key Technologies
 
--   React Native
--   Expo
--   Redux for state management
--   React Navigation
--   Algolia for search
--   Firebase for backend services
--   Google Maps/Places API
--   Sentry for error tracking
--   i18next for internationalization
+- React Native
+- Expo
+- Redux for state management
+- React Navigation
+- Algolia for search
+- Firebase for backend services
+- Google Maps/Places API
+- Sentry for error tracking
+- i18next for internationalization
 
 ## License
 

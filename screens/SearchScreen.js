@@ -8,35 +8,35 @@ import { RootView } from '@styles/Screens';
 import { getScreenWidth } from '@utils/Screen';
 
 class SearchScreen extends React.Component {
-    constructor(props) {
-        super(props);
-        const { navigation } = this.props;
+  constructor(props) {
+    super(props);
+    const { navigation } = this.props;
 
-        navigation.setOptions({
-            headerTitle: () => <SearchBox />,
-            headerTitleContainerStyle: {
-                width: getScreenWidth(),
-                left: -8,
-            },
-        });
-    }
+    navigation.setOptions({
+      headerTitle: () => <SearchBox />,
+      headerTitleContainerStyle: {
+        width: getScreenWidth(),
+        left: -8,
+      },
+    });
+  }
 
-    renderSearchBox = () => <SearchBox />;
+  renderSearchBox = () => <SearchBox />;
 
-    renderSearchResults = () => (
-        <StateResults>
-            <InfiniteHits />
-        </StateResults>
+  renderSearchResults = () => (
+    <StateResults>
+      <InfiniteHits />
+    </StateResults>
+  );
+
+  render() {
+    return (
+      <RootView>
+        <SetBarStyle barStyle='light-content' />
+        {this.renderSearchResults()}
+      </RootView>
     );
-
-    render() {
-        return (
-            <RootView>
-                <SetBarStyle barStyle='light-content' />
-                {this.renderSearchResults()}
-            </RootView>
-        );
-    }
+  }
 }
 
 export default withTranslation()(withTheme(SearchScreen));

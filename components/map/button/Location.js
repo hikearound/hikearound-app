@@ -5,114 +5,114 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Ionicons } from '@expo/vector-icons';
 import {
-    colors,
-    transparentColors,
-    opacities,
-    borderRadius,
-    spacing,
+  colors,
+  transparentColors,
+  opacities,
+  borderRadius,
+  spacing,
 } from '@constants/Index';
 import { withTheme } from '@utils/Themes';
 import { altitude } from '@constants/Altitude';
 
 const propTypes = {
-    position: PropTypes.object,
-    mapRef: PropTypes.object,
-    sheetRef: PropTypes.object,
-    animationConfig: PropTypes.object.isRequired,
-    bottomOffset: PropTypes.number,
-    transitionDelay: PropTypes.number,
-    style: PropTypes.object,
+  position: PropTypes.object,
+  mapRef: PropTypes.object,
+  sheetRef: PropTypes.object,
+  animationConfig: PropTypes.object.isRequired,
+  bottomOffset: PropTypes.number,
+  transitionDelay: PropTypes.number,
+  style: PropTypes.object,
 };
 
 const defaultProps = {
-    position: null,
-    mapRef: {},
-    sheetRef: {},
-    bottomOffset: 35,
-    transitionDelay: 250,
-    style: null,
+  position: null,
+  mapRef: {},
+  sheetRef: {},
+  bottomOffset: 35,
+  transitionDelay: 250,
+  style: null,
 };
 
 function mapStateToProps(state) {
-    return {
-        position: state.userReducer.currentPosition,
-    };
+  return {
+    position: state.userReducer.currentPosition,
+  };
 }
 
 function mapDispatchToProps() {
-    return {};
+  return {};
 }
 
 class LocationButton extends React.PureComponent {
-    onPress = () => {
-        const { mapRef, sheetRef, animationConfig, position, transitionDelay } =
-            this.props;
+  onPress = () => {
+    const { mapRef, sheetRef, animationConfig, position, transitionDelay } =
+      this.props;
 
-        const camera = {
-            altitude: altitude.hike,
-            center: {
-                latitude: position.coords.latitude,
-                longitude: position.coords.longitude,
-            },
-            heading: 0,
-            pitch: 0,
-        };
-
-        mapRef.current.animateCamera(camera, {
-            duration: animationConfig.duration,
-        });
-
-        setTimeout(() => {
-            sheetRef.current?.snapToIndex(0);
-        }, animationConfig.duration + transitionDelay);
+    const camera = {
+      altitude: altitude.hike,
+      center: {
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+      },
+      heading: 0,
+      pitch: 0,
     };
 
-    render() {
-        const { bottomOffset, style } = this.props;
+    mapRef.current.animateCamera(camera, {
+      duration: animationConfig.duration,
+    });
 
-        const defaultStyle = {
-            position: 'absolute',
-            bottom: bottomOffset,
-            right: parseInt(spacing.tiny, 10),
-        };
+    setTimeout(() => {
+      sheetRef.current?.snapToIndex(0);
+    }, animationConfig.duration + transitionDelay);
+  };
 
-        return (
-            <TouchableOpacity
-                activeOpacity={opacities.regular}
-                onPress={this.onPress}
-                style={style || defaultStyle}
-            >
-                <ButtonWrapper>
-                    <Ionicons
-                        name='ios-navigate'
-                        color={colors.purple}
-                        size={24}
-                        style={{
-                            position: 'absolute',
-                            top: 8,
-                            left: 7,
-                        }}
-                    />
-                </ButtonWrapper>
-            </TouchableOpacity>
-        );
-    }
+  render() {
+    const { bottomOffset, style } = this.props;
+
+    const defaultStyle = {
+      position: 'absolute',
+      bottom: bottomOffset,
+      right: parseInt(spacing.tiny, 10),
+    };
+
+    return (
+      <TouchableOpacity
+        activeOpacity={opacities.regular}
+        onPress={this.onPress}
+        style={style || defaultStyle}
+      >
+        <ButtonWrapper>
+          <Ionicons
+            name='ios-navigate'
+            color={colors.purple}
+            size={24}
+            style={{
+              position: 'absolute',
+              top: 8,
+              left: 7,
+            }}
+          />
+        </ButtonWrapper>
+      </TouchableOpacity>
+    );
+  }
 }
 
 LocationButton.propTypes = propTypes;
 LocationButton.defaultProps = defaultProps;
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps,
+  mapStateToProps,
+  mapDispatchToProps
 )(withTheme(LocationButton));
 
 const ButtonWrapper = styled.View`
-    display: flex;
-    height: 40px;
-    width: 40px;
-    background-color: ${(props) => props.theme.mapButtonBackground};
-    border-radius: ${borderRadius.large}px;
-    box-shadow: 0 4px 4px ${transparentColors.grayLight};
-    z-index: 2;
+  display: flex;
+  height: 40px;
+  width: 40px;
+  background-color: ${props => props.theme.mapButtonBackground};
+  border-radius: ${borderRadius.large}px;
+  box-shadow: 0 4px 4px ${transparentColors.grayLight};
+  z-index: 2;
 `;

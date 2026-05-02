@@ -13,139 +13,133 @@ import MapLoadingState from '@components/loading/Map';
 import ExpandButton from '@components/map/button/Expand';
 
 const propTypes = {
-    dispatchModalFlag: PropTypes.func.isRequired,
-    dispatchSelectedHike: PropTypes.func.isRequired,
-    distance: PropTypes.number.isRequired,
-    elevation: PropTypes.number,
-    route: PropTypes.string,
-    coordinates: PropTypes.array,
-    region: PropTypes.object,
-    modalType: PropTypes.string,
-    isLoading: PropTypes.bool.isRequired,
-    hid: PropTypes.string.isRequired,
-    mapPadding: PropTypes.object,
+  dispatchModalFlag: PropTypes.func.isRequired,
+  dispatchSelectedHike: PropTypes.func.isRequired,
+  distance: PropTypes.number.isRequired,
+  elevation: PropTypes.number,
+  route: PropTypes.string,
+  coordinates: PropTypes.array,
+  region: PropTypes.object,
+  modalType: PropTypes.string,
+  isLoading: PropTypes.bool.isRequired,
+  hid: PropTypes.string.isRequired,
+  mapPadding: PropTypes.object,
 };
 
 function mapStateToProps() {
-    return {};
+  return {};
 }
 
 function mapDispatchToProps(dispatch) {
-    return {
-        dispatchModalFlag: (modalType) => dispatch(showModal(modalType)),
-        dispatchSelectedHike: (hid) => dispatch(setSelectedHike(hid)),
-    };
+  return {
+    dispatchModalFlag: modalType => dispatch(showModal(modalType)),
+    dispatchSelectedHike: hid => dispatch(setSelectedHike(hid)),
+  };
 }
 
 class MapWrapper extends React.Component {
-    constructor(props, context) {
-        super(props, context);
+  constructor(props, context) {
+    super(props, context);
 
-        this.mapRef = React.createRef();
-    }
+    this.mapRef = React.createRef();
+  }
 
-    mapPress = () => {
-        const { dispatchModalFlag, dispatchSelectedHike, hid, modalType } =
-            this.props;
+  mapPress = () => {
+    const { dispatchModalFlag, dispatchSelectedHike, hid, modalType } =
+      this.props;
 
-        dispatchModalFlag(modalType);
-        dispatchSelectedHike(hid);
-    };
+    dispatchModalFlag(modalType);
+    dispatchSelectedHike(hid);
+  };
 
-    render() {
-        const {
-            coordinates,
-            region,
-            distance,
-            elevation,
-            route,
-            theme,
-            isLoading,
-            mapPadding,
-        } = this.props;
+  render() {
+    const {
+      coordinates,
+      region,
+      distance,
+      elevation,
+      route,
+      theme,
+      isLoading,
+      mapPadding,
+    } = this.props;
 
-        return (
-            <MapViewWrapper isDark={theme.dark}>
-                <InnerMapViewWrapper>
-                    {isLoading && <MapLoadingState />}
-                    {!isLoading && (
-                        <>
-                            <HikeMap
-                                mapRef={this.mapRef}
-                                coordinates={coordinates}
-                                region={region}
-                                cacheEnabled
-                                mapPadding={mapPadding}
-                                showUserLocation={false}
-                                mapBorderRadius={8}
-                                scrollEnabled={false}
-                                zoomEnabled={false}
-                                rotateEnabled={false}
-                                pitchEnabled={false}
-                            />
-                            <ExpandButton />
-                        </>
-                    )}
-                    <InfoBar
-                        distance={distance}
-                        elevation={elevation}
-                        route={route}
-                    />
-                    <TouchableOpacity
-                        activeOpacity={opacities.regular}
-                        onPress={this.mapPress}
-                        style={{
-                            position: 'absolute',
-                            top: 0,
-                            right: 0,
-                            bottom: 0,
-                            left: 0,
-                            zIndex: 1,
-                        }}
-                    >
-                        <MapOverlay />
-                    </TouchableOpacity>
-                </InnerMapViewWrapper>
-                <BlockView />
-            </MapViewWrapper>
-        );
-    }
+    return (
+      <MapViewWrapper isDark={theme.dark}>
+        <InnerMapViewWrapper>
+          {isLoading && <MapLoadingState />}
+          {!isLoading && (
+            <>
+              <HikeMap
+                mapRef={this.mapRef}
+                coordinates={coordinates}
+                region={region}
+                cacheEnabled
+                mapPadding={mapPadding}
+                showUserLocation={false}
+                mapBorderRadius={8}
+                scrollEnabled={false}
+                zoomEnabled={false}
+                rotateEnabled={false}
+                pitchEnabled={false}
+              />
+              <ExpandButton />
+            </>
+          )}
+          <InfoBar distance={distance} elevation={elevation} route={route} />
+          <TouchableOpacity
+            activeOpacity={opacities.regular}
+            onPress={this.mapPress}
+            style={{
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              bottom: 0,
+              left: 0,
+              zIndex: 1,
+            }}
+          >
+            <MapOverlay />
+          </TouchableOpacity>
+        </InnerMapViewWrapper>
+        <BlockView />
+      </MapViewWrapper>
+    );
+  }
 }
 
 MapWrapper.propTypes = propTypes;
 MapWrapper.defaultProps = defaultProps;
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps,
+  mapStateToProps,
+  mapDispatchToProps
 )(withTheme(MapWrapper));
 
 const MapViewWrapper = styled.View`
-    height: ${(props) => (props.isDark ? '250px' : '265px')};
-    background-color: ${(props) => props.theme.mapBackground};
-    padding: 0 ${spacing.small}px ${spacing.micro}px ${spacing.small}px;
+  height: ${props => (props.isDark ? '250px' : '265px')};
+  background-color: ${props => props.theme.mapBackground};
+  padding: 0 ${spacing.small}px ${spacing.micro}px ${spacing.small}px;
 `;
 
 const InnerMapViewWrapper = styled.View`
-    position: relative;
-    background-color: ${(props) => props.theme.card};
-    border-radius: ${borderRadius.medium}px;
-    box-shadow: ${(props) =>
-        props.theme.cardShadow
-            ? `0 4px 12px ${props.theme.cardShadow}`
-            : '0 0'};
-    z-index: 1;
+  position: relative;
+  background-color: ${props => props.theme.card};
+  border-radius: ${borderRadius.medium}px;
+  box-shadow: ${props =>
+    props.theme.cardShadow ? `0 4px 12px ${props.theme.cardShadow}` : '0 0'};
+  z-index: 1;
 `;
 
 const BlockView = styled.View`
-    height: 165px;
-    background-color: ${(props) => props.theme.mapViewBackground};
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
+  height: 165px;
+  background-color: ${props => props.theme.mapViewBackground};
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
 `;
 
 const MapOverlay = styled.View`
-    opacity: 0;
+  opacity: 0;
 `;

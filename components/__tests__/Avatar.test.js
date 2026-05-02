@@ -6,18 +6,18 @@ import Avatar from '@components/Avatar';
 
 const mockStore = configureMockStore();
 const store = mockStore({
-    userReducer: {
-        avatar: 'https://patdugan.me/images/me.jpg',
-    },
+  userReducer: {
+    avatar: 'https://patdugan.me/images/me.jpg',
+  },
 });
 
 test('Avatar renders correctly', () => {
-    const tree = renderer
-        .create(
-            <Provider store={store}>
-                <Avatar />
-            </Provider>,
-        )
-        .toJSON();
-    expect(tree).toMatchSnapshot();
+  const tree = renderer
+    .create(
+      <Provider store={store}>
+        <Avatar />
+      </Provider>
+    )
+    .toJSON();
+  expect(tree).toMatchSnapshot();
 });

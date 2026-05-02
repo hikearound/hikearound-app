@@ -1,41 +1,41 @@
 import { avatarDefault } from './Images';
 
 export const mapState = {
-    selectedHike: null,
-    selectedCity: null,
-    markers: [],
-    selectedRoute: null,
-    routeCoordinates: [],
+  selectedHike: null,
+  selectedCity: null,
+  markers: [],
+  selectedRoute: null,
+  routeCoordinates: [],
 };
 
 export const hikeState = {
-    action: '',
-    updatedHikeData: {},
+  action: '',
+  updatedHikeData: {},
 };
 
 export const modalState = {
-    action: '',
-    currentModal: 'none',
-    imageIndex: 0,
-    selectedHike: null,
-    closeAction: '',
-    reviewData: {},
-    flagedReview: null,
+  action: '',
+  currentModal: 'none',
+  imageIndex: 0,
+  selectedHike: null,
+  closeAction: '',
+  reviewData: {},
+  flagedReview: null,
 };
 
 export const notifs = {};
 
 export const user = {
-    name: '',
-    location: '',
-    photoURL: '',
-    notifs: {},
-    currentPosition: {},
-    map: 'Apple Maps',
-    darkMode: false,
-    favoriteHikes: [],
-    reviewedHikes: [],
-    notifBadgeCount: 0,
+  name: '',
+  location: '',
+  photoURL: '',
+  notifs: {},
+  currentPosition: {},
+  map: 'Apple Maps',
+  darkMode: false,
+  favoriteHikes: [],
+  reviewedHikes: [],
+  notifBadgeCount: 0,
 };
 
 user.avatar = avatarDefault;
@@ -45,34 +45,34 @@ user.notifs.push = notifs;
 export const userState = user;
 
 export const authState = {
-    user: null,
+  user: null,
 };
 
 export const feedState = {
-    filterParams: {
-        difficulty: [],
-        distance: [],
-        elevation: [],
-        route: [],
-        sort: 0,
-    },
+  filterParams: {
+    difficulty: [],
+    distance: [],
+    elevation: [],
+    route: [],
+    sort: 0,
+  },
 };
 
 export const reviewState = {
-    action: null,
-    reviewData: null,
-    selectedReview: null,
-    selectedHike: null,
+  action: null,
+  reviewData: null,
+  selectedReview: null,
+  selectedHike: null,
 };
 
 export const navigationState = {
-    focusedStack: 'HomeTab',
+  focusedStack: 'HomeTab',
 };
 
 export const notificationState = {
-    notifications: [],
+  notifications: [],
 };
 
 export const profileState = {
-    favoriteHikes: [],
+  favoriteHikes: [],
 };

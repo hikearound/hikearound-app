@@ -24,197 +24,185 @@ import { getHeaderHeight } from '@utils/Navigation';
 const headerHeight = getHeaderHeight();
 
 const propTypes = {
-    dispatchNewUserData: PropTypes.func.isRequired,
+  dispatchNewUserData: PropTypes.func.isRequired,
 };
 
 function mapStateToProps() {
-    return {};
+  return {};
 }
 
 function mapDispatchToProps(dispatch) {
-    return {
-        dispatchNewUserData: (userData) => dispatch(updateUserData(userData)),
-    };
+  return {
+    dispatchNewUserData: userData => dispatch(updateUserData(userData)),
+  };
 }
 
 class CreateAccountScreen extends React.Component {
-    constructor(props) {
-        super(props);
-        const { t } = this.props;
-        const inputs = getInputs(t, 'createAccount');
+  constructor(props) {
+    super(props);
+    const { t } = this.props;
+    const inputs = getInputs(t, 'createAccount');
 
-        defaultState.inputs = inputs;
-        this.state = defaultState;
+    defaultState.inputs = inputs;
+    this.state = defaultState;
 
-        this.setLoading = this.setLoading.bind(this);
+    this.setLoading = this.setLoading.bind(this);
+  }
+
+  setValue(name, text) {
+    this.setState({ [name]: text });
+  }
+
+  setNextScreen = async () => {
+    const { status } = await Location.getForegroundPermissionsAsync();
+
+    if (status === 'granted') {
+      return 'Home';
     }
 
-    setValue(name, text) {
-        this.setState({ [name]: text });
-    }
+    return 'LocationPermission';
+  };
 
-    setNextScreen = async () => {
-        const { status } = await Location.getForegroundPermissionsAsync();
+  setLoading = loading => {
+    Keyboard.dismiss();
+    this.setState({ loading });
+  };
 
-        if (status === 'granted') {
-            return 'Home';
+  navigateToNextScreen = async () => {
+    const { navigation } = this.props;
+    const screen = await this.setNextScreen();
+
+    navigation.reset({
+      index: 0,
+      routes: [
+        {
+          name: 'HomeTab',
+          state: {
+            routes: [{ name: screen }],
+          },
+        },
+      ],
+    });
+  };
+
+  finishCreatingProfile = async (response, name) => {
+    const { dispatchNewUserData } = this.props;
+    const { user } = response;
+
+    await response.user.updateProfile({
+      displayName: name,
+    });
+
+    await createUserProfile(
+      this.navigateToNextScreen,
+      dispatchNewUserData,
+      user,
+      name
+    );
+  };
+
+  handleCreateAccount = async () => {
+    const { email, password, name } = this.state;
+
+    this.setLoading(true);
+
+    await createUserWithEmailAndPassword(auth, email, password)
+      .catch(error => {
+        this.showErrorAlert(error);
+        this.setLoading(false);
+      })
+      .then(async response => {
+        if (response) {
+          this.finishCreatingProfile(response, name);
         }
+      });
+  };
 
-        return 'LocationPermission';
-    };
+  showErrorAlert = error => {
+    const { t } = this.props;
+    Alert.alert(t('error.label'), mapCodeToTranslation(t, error.code));
+  };
 
-    setLoading = (loading) => {
-        Keyboard.dismiss();
-        this.setState({ loading });
-    };
-
-    navigateToNextScreen = async () => {
-        const { navigation } = this.props;
-        const screen = await this.setNextScreen();
-
-        navigation.reset({
-            index: 0,
-            routes: [
-                {
-                    name: 'HomeTab',
-                    state: {
-                        routes: [{ name: screen }],
-                    },
-                },
-            ],
-        });
-    };
-
-    finishCreatingProfile = async (response, name) => {
-        const { dispatchNewUserData } = this.props;
-        const { user } = response;
-
-        await response.user.updateProfile({
-            displayName: name,
-        });
-
-        await createUserProfile(
-            this.navigateToNextScreen,
-            dispatchNewUserData,
-            user,
-            name,
-        );
-    };
-
-    handleCreateAccount = async () => {
-        const { email, password, name } = this.state;
-
-        this.setLoading(true);
-
-        await createUserWithEmailAndPassword(auth, email, password)
-            .catch((error) => {
-                this.showErrorAlert(error);
-                this.setLoading(false);
-            })
-            .then(async (response) => {
-                if (response) {
-                    this.finishCreatingProfile(response, name);
-                }
-            });
-    };
-
-    showErrorAlert = (error) => {
-        const { t } = this.props;
-        Alert.alert(t('error.label'), mapCodeToTranslation(t, error.code));
-    };
-
-    handleSubmitEditing = (index) => {
-        if (index === 0) {
-            this.emailInput.focus();
-        } else if (index === 1) {
-            this.passwordInput.focus();
-        } else {
-            this.handleCreateAccount();
-        }
-    };
-
-    assignRef = (ref, name) => {
-        this[`${name}Input`] = ref;
-    };
-
-    render() {
-        const { loading, inputs } = this.state;
-        const { t, dispatchNewUserData } = this.props;
-
-        return (
-            <RootView>
-                <ScrollView
-                    keyboardShouldPersistTaps='handled'
-                    scrollEnabled={false}
-                    contentContainerStyle={{ flexGrow: 1 }}
-                >
-                    <AppleAuthButton
-                        type='SIGN_UP'
-                        dispatchNewUserData={dispatchNewUserData}
-                        setLoading={this.setLoading}
-                    />
-                    <Header
-                        title={t('screen.createAccount.header')}
-                        isLoggedOut
-                    />
-                    {inputs.map(
-                        (
-                            {
-                                name,
-                                placeholder,
-                                keyboardType,
-                                secureTextEntry,
-                                autoCorrect,
-                                autoCapitalize,
-                                textContentType,
-                                enablesReturnKeyAutomatically,
-                                returnKeyType,
-                                autoCompleteType,
-                            },
-                            index,
-                        ) => (
-                            <InputLabelGroup
-                                key={index}
-                                placeholder={placeholder}
-                                keyboardType={keyboardType}
-                                secureTextEntry={secureTextEntry}
-                                autoCorrect={autoCorrect}
-                                autoCapitalize={autoCapitalize}
-                                onChangeText={(text) =>
-                                    this.setValue(name, text, index)
-                                }
-                                labelName={placeholder}
-                                textContentType={textContentType}
-                                enablesReturnKeyAutomatically={
-                                    enablesReturnKeyAutomatically
-                                }
-                                returnKeyType={returnKeyType}
-                                onSubmitEditing={() =>
-                                    this.handleSubmitEditing(index)
-                                }
-                                inputRef={(ref) => this.assignRef(ref, name)}
-                                autoCompleteType={autoCompleteType}
-                            />
-                        ),
-                    )}
-                    <InputButton
-                        text={t('label.nav.createAccount')}
-                        action={this.handleCreateAccount}
-                    />
-                    <LegalText />
-                    <LoadingOverlay
-                        loading={loading}
-                        topOffset={-headerHeight}
-                    />
-                </ScrollView>
-            </RootView>
-        );
+  handleSubmitEditing = index => {
+    if (index === 0) {
+      this.emailInput.focus();
+    } else if (index === 1) {
+      this.passwordInput.focus();
+    } else {
+      this.handleCreateAccount();
     }
+  };
+
+  assignRef = (ref, name) => {
+    this[`${name}Input`] = ref;
+  };
+
+  render() {
+    const { loading, inputs } = this.state;
+    const { t, dispatchNewUserData } = this.props;
+
+    return (
+      <RootView>
+        <ScrollView
+          keyboardShouldPersistTaps='handled'
+          scrollEnabled={false}
+          contentContainerStyle={{ flexGrow: 1 }}
+        >
+          <AppleAuthButton
+            type='SIGN_UP'
+            dispatchNewUserData={dispatchNewUserData}
+            setLoading={this.setLoading}
+          />
+          <Header title={t('screen.createAccount.header')} isLoggedOut />
+          {inputs.map(
+            (
+              {
+                name,
+                placeholder,
+                keyboardType,
+                secureTextEntry,
+                autoCorrect,
+                autoCapitalize,
+                textContentType,
+                enablesReturnKeyAutomatically,
+                returnKeyType,
+                autoCompleteType,
+              },
+              index
+            ) => (
+              <InputLabelGroup
+                key={index}
+                placeholder={placeholder}
+                keyboardType={keyboardType}
+                secureTextEntry={secureTextEntry}
+                autoCorrect={autoCorrect}
+                autoCapitalize={autoCapitalize}
+                onChangeText={text => this.setValue(name, text, index)}
+                labelName={placeholder}
+                textContentType={textContentType}
+                enablesReturnKeyAutomatically={enablesReturnKeyAutomatically}
+                returnKeyType={returnKeyType}
+                onSubmitEditing={() => this.handleSubmitEditing(index)}
+                inputRef={ref => this.assignRef(ref, name)}
+                autoCompleteType={autoCompleteType}
+              />
+            )
+          )}
+          <InputButton
+            text={t('label.nav.createAccount')}
+            action={this.handleCreateAccount}
+          />
+          <LegalText />
+          <LoadingOverlay loading={loading} topOffset={-headerHeight} />
+        </ScrollView>
+      </RootView>
+    );
+  }
 }
 
 CreateAccountScreen.propTypes = propTypes;
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps,
+  mapStateToProps,
+  mapDispatchToProps
 )(withTranslation()(withTheme(CreateAccountScreen)));

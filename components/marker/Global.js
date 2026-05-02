@@ -9,76 +9,73 @@ import { markerBgDefault, markerBgDark } from '@constants/Images';
 import { presets } from '@constants/Animation';
 
 const propTypes = {
-    distance: PropTypes.number,
-    isClearing: PropTypes.bool,
+  distance: PropTypes.number,
+  isClearing: PropTypes.bool,
 };
 
 class GlobalMarker extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
-        if (!props.isClearing) {
-            LayoutAnimation.configureNext(presets.spring);
-        }
+  constructor(props) {
+    super(props);
+    this.state = {};
+    if (!props.isClearing) {
+      LayoutAnimation.configureNext(presets.spring);
+    }
+  }
+
+  componentDidMount() {
+    this.setMarkerStyle();
+  }
+
+  async componentDidUpdate(prevProps) {
+    const { theme } = this.props;
+
+    if (prevProps.theme.dark !== theme.dark) {
+      this.setMarkerStyle();
+    }
+  }
+
+  setMarkerStyle = () => {
+    const { theme } = this.props;
+    let bgImage = markerBgDefault;
+
+    if (theme.dark) {
+      bgImage = markerBgDark;
     }
 
-    componentDidMount() {
-        this.setMarkerStyle();
-    }
+    this.setState({ bgImage });
+  };
 
-    async componentDidUpdate(prevProps) {
-        const { theme } = this.props;
+  getShortDistance = () => {
+    const { distance } = this.props;
+    return Math.round(distance * 10) / 10;
+  };
 
-        if (prevProps.theme.dark !== theme.dark) {
-            this.setMarkerStyle();
-        }
-    }
+  render() {
+    const shortDistance = this.getShortDistance();
+    const { bgImage } = this.state;
 
-    setMarkerStyle = () => {
-        const { theme } = this.props;
-        let bgImage = markerBgDefault;
-
-        if (theme.dark) {
-            bgImage = markerBgDark;
-        }
-
-        this.setState({ bgImage });
-    };
-
-    getShortDistance = () => {
-        const { distance } = this.props;
-        return Math.round(distance * 10) / 10;
-    };
-
-    render() {
-        const shortDistance = this.getShortDistance();
-        const { bgImage } = this.state;
-
-        return (
-            <View style={{ flex: 1, flexDirection: 'column' }}>
-                <ImageBackground
-                    source={bgImage}
-                    style={{ width: 38, height: 44 }}
-                >
-                    <MarkerLabel>{shortDistance.toFixed(1)}</MarkerLabel>
-                </ImageBackground>
-            </View>
-        );
-    }
+    return (
+      <View style={{ flex: 1, flexDirection: 'column' }}>
+        <ImageBackground source={bgImage} style={{ width: 38, height: 44 }}>
+          <MarkerLabel>{shortDistance.toFixed(1)}</MarkerLabel>
+        </ImageBackground>
+      </View>
+    );
+  }
 }
 
 GlobalMarker.propTypes = propTypes;
 GlobalMarker.defaultProps = {
-    ...defaultProps,
-    isClearing: false,
+  ...defaultProps,
+  isClearing: false,
 };
 
 export default withTheme(GlobalMarker);
 
 const MarkerLabel = styled.Text`
-    font-size: ${fontSizes.extraSmall}px;
-    color: ${colors.white};
-    font-weight: ${fontWeights.bold};
-    text-align: center;
-    padding-top: 10px;
+  font-size: ${fontSizes.extraSmall}px;
+  color: ${colors.white};
+  font-weight: ${fontWeights.bold};
+  text-align: center;
+  padding-top: 10px;
 `;

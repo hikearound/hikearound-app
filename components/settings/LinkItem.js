@@ -6,45 +6,45 @@ import { baseUrl } from '@constants/Common';
 import BaseSettingsItem from './BaseSettingsItem';
 
 const propTypes = {
-    item: PropTypes.object.isRequired,
-    isFirst: PropTypes.bool,
-    isLast: PropTypes.bool,
+  item: PropTypes.object.isRequired,
+  isFirst: PropTypes.bool,
+  isLast: PropTypes.bool,
 };
 
 const defaultProps = {
-    isFirst: false,
-    isLast: false,
+  isFirst: false,
+  isLast: false,
 };
 
 class LinkItem extends React.Component {
-    onPress = async () => {
-        const { item } = this.props;
-        WebBrowser.openBrowserAsync(this.buildUrl(item));
-    };
+  onPress = async () => {
+    const { item } = this.props;
+    WebBrowser.openBrowserAsync(this.buildUrl(item));
+  };
 
-    buildUrl = (item) => {
-        let itemUrl;
+  buildUrl = item => {
+    let itemUrl;
 
-        if (item.type === settingsItems.termsOfService) {
-            itemUrl = `${baseUrl}/terms`;
-        } else if (item.type === settingsItems.privacyPolicy) {
-            itemUrl = `${baseUrl}/privacy`;
-        }
-
-        return `${itemUrl}?contentOnly=true`;
-    };
-
-    render() {
-        const { item, isFirst, isLast } = this.props;
-        return (
-            <BaseSettingsItem
-                item={item}
-                isFirst={isFirst}
-                isLast={isLast}
-                onPress={this.onPress}
-            />
-        );
+    if (item.type === settingsItems.termsOfService) {
+      itemUrl = `${baseUrl}/terms`;
+    } else if (item.type === settingsItems.privacyPolicy) {
+      itemUrl = `${baseUrl}/privacy`;
     }
+
+    return `${itemUrl}?contentOnly=true`;
+  };
+
+  render() {
+    const { item, isFirst, isLast } = this.props;
+    return (
+      <BaseSettingsItem
+        item={item}
+        isFirst={isFirst}
+        isLast={isLast}
+        onPress={this.onPress}
+      />
+    );
+  }
 }
 
 LinkItem.propTypes = propTypes;

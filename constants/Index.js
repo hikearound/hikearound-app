@@ -8,16 +8,16 @@ import { settingsItems, settingsControls } from '@constants/Settings';
 import timestamps from '@constants/Timestamps';
 
 export {
-    colors,
-    transparentColors,
-    spacing,
-    fontSizes,
-    fontWeights,
-    borderRadius,
-    opacities,
-    timings,
-    settingsItems,
-    settingsControls,
-    bottomSheet,
-    timestamps,
+  colors,
+  transparentColors,
+  spacing,
+  fontSizes,
+  fontWeights,
+  borderRadius,
+  opacities,
+  timings,
+  settingsItems,
+  settingsControls,
+  bottomSheet,
+  timestamps,
 };

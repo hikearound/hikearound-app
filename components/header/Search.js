@@ -6,38 +6,35 @@ import { colors, opacities } from '@constants/Index';
 import { withNavigation } from '@utils/Navigation';
 
 const propTypes = {
-    color: PropTypes.string,
+  color: PropTypes.string,
 };
 
 const defaultProps = {
-    color: colors.white,
+  color: colors.white,
 };
 
 class Search extends React.PureComponent {
-    onPress = () => {
-        const { navigation } = this.props;
-        navigation.push('Search');
-    };
+  onPress = () => {
+    const { navigation } = this.props;
+    navigation.push('Search');
+  };
 
-    render() {
-        const { color } = this.props;
+  render() {
+    const { color } = this.props;
 
-        return (
-            <StyledOpacity
-                activeOpacity={opacities.regular}
-                onPress={this.onPress}
-            >
-                <Ionicons name='ios-search' size={24} color={color} />
-            </StyledOpacity>
-        );
-    }
+    return (
+      <StyledOpacity activeOpacity={opacities.regular} onPress={this.onPress}>
+        <Ionicons name='ios-search' size={24} color={color} />
+      </StyledOpacity>
+    );
+  }
 }
 
 Search.propTypes = propTypes;
 Search.defaultProps = defaultProps;
 
 const StyledOpacity = styled.TouchableOpacity`
-    margin-top: 1px;
+  margin-top: 1px;
 `;
 
 export default withNavigation(Search);

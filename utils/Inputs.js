@@ -1,100 +1,100 @@
 import store from '@store/Store';
 import { getInputLabels } from '@utils/Localization';
 import {
-    nameInput,
-    emailInput,
-    passwordInput,
-    currentPasswordInput,
-    newPasswordInput,
-    updateLocationInput,
-    updateNameInput,
-    reviewInput,
+  nameInput,
+  emailInput,
+  passwordInput,
+  currentPasswordInput,
+  newPasswordInput,
+  updateLocationInput,
+  updateNameInput,
+  reviewInput,
 } from '@constants/Inputs';
 
 function getSignInInputs(labels) {
-    emailInput.placeholder = labels.email;
-    passwordInput.placeholder = labels.password;
+  emailInput.placeholder = labels.email;
+  passwordInput.placeholder = labels.password;
 
-    return [emailInput, passwordInput];
+  return [emailInput, passwordInput];
 }
 
 function getCreateAccountInputs(labels) {
-    nameInput.placeholder = labels.name;
-    emailInput.placeholder = labels.email;
-    passwordInput.placeholder = labels.password;
-    emailInput.returnKeyType = 'next';
+  nameInput.placeholder = labels.name;
+  emailInput.placeholder = labels.email;
+  passwordInput.placeholder = labels.password;
+  emailInput.returnKeyType = 'next';
 
-    return [nameInput, emailInput, passwordInput];
+  return [nameInput, emailInput, passwordInput];
 }
 
 function getEditProfileInputs(labels) {
-    const state = store.getState();
-    const { name, location } = state.userReducer;
+  const state = store.getState();
+  const { name, location } = state.userReducer;
 
-    updateNameInput.placeholder = labels.name;
-    updateNameInput.defaultValue = name;
-    updateLocationInput.placeholder = labels.location;
-    updateLocationInput.defaultValue = location;
+  updateNameInput.placeholder = labels.name;
+  updateNameInput.defaultValue = name;
+  updateLocationInput.placeholder = labels.location;
+  updateLocationInput.defaultValue = location;
 
-    return [updateNameInput, updateLocationInput];
+  return [updateNameInput, updateLocationInput];
 }
 
 function getResetPasswordInputs(labels) {
-    emailInput.placeholder = labels.email;
-    emailInput.returnKeyType = 'send';
+  emailInput.placeholder = labels.email;
+  emailInput.returnKeyType = 'send';
 
-    return [emailInput];
+  return [emailInput];
 }
 
 function getChangePasswordInputs(labels) {
-    currentPasswordInput.placeholder = labels.currentPassword;
-    newPasswordInput.placeholder = labels.newPassword;
+  currentPasswordInput.placeholder = labels.currentPassword;
+  newPasswordInput.placeholder = labels.newPassword;
 
-    return [currentPasswordInput, newPasswordInput];
+  return [currentPasswordInput, newPasswordInput];
 }
 
 function getReviewInputs(labels) {
-    const state = store.getState();
-    const { review } = state.modalReducer;
+  const state = store.getState();
+  const { review } = state.modalReducer;
 
-    reviewInput.placeholder = labels.review;
-    reviewInput.defaultValue = review;
+  reviewInput.placeholder = labels.review;
+  reviewInput.defaultValue = review;
 
-    return [reviewInput];
+  return [reviewInput];
 }
 
 export function getInputs(t, inputType) {
-    const labels = getInputLabels(t);
+  const labels = getInputLabels(t);
 
-    if (inputType === 'createAccount') {
-        return getCreateAccountInputs(labels);
-    }
-    if (inputType === 'signIn') {
-        return getSignInInputs(labels);
-    }
-    if (inputType === 'editProfile') {
-        return getEditProfileInputs(labels);
-    }
-    if (inputType === 'resetPassword') {
-        return getResetPasswordInputs(labels);
-    }
-    if (inputType === 'changePassword') {
-        return getChangePasswordInputs(labels);
-    }
-    if (inputType === 'review') {
-        return getReviewInputs(labels);
-    }
+  if (inputType === 'createAccount') {
+    return getCreateAccountInputs(labels);
+  }
+  if (inputType === 'signIn') {
+    return getSignInInputs(labels);
+  }
+  if (inputType === 'editProfile') {
+    return getEditProfileInputs(labels);
+  }
+  if (inputType === 'resetPassword') {
+    return getResetPasswordInputs(labels);
+  }
+  if (inputType === 'changePassword') {
+    return getChangePasswordInputs(labels);
+  }
+  if (inputType === 'review') {
+    return getReviewInputs(labels);
+  }
 
-    return null;
+  return null;
 }
 
 export function setInputRefs(inputs, inputType) {
-    if (inputType === 'editProfile') {
-        return {
-            name: inputs[0],
-            location: inputs[1],
-        };
-    }
+  if (inputType === 'editProfile') {
+    return {
+      name: inputs[0],
+      location: inputs[1],
+    };
+  }
 
-    return null;
+  return null;
 }

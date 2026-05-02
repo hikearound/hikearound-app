@@ -7,50 +7,50 @@ import { withTheme } from '@utils/Themes';
 import { ModalHeader, ModalTitleText } from '@styles/Modals';
 
 const propTypes = {
-    title: PropTypes.string.isRequired,
-    textDismiss: PropTypes.bool,
-    dismissLanguage: PropTypes.string,
-    continueText: PropTypes.string.isRequired,
-    dismissAction: PropTypes.string,
-    continueAction: PropTypes.string.isRequired,
-    continueDisabled: PropTypes.bool,
+  title: PropTypes.string.isRequired,
+  textDismiss: PropTypes.bool,
+  dismissLanguage: PropTypes.string,
+  continueText: PropTypes.string.isRequired,
+  dismissAction: PropTypes.string,
+  continueAction: PropTypes.string.isRequired,
+  continueDisabled: PropTypes.bool,
 };
 
 const defaultProps = {
-    textDismiss: true,
-    dismissAction: 'close',
-    dismissLanguage: 'cancel',
-    continueDisabled: false,
+  textDismiss: true,
+  dismissAction: 'close',
+  dismissLanguage: 'cancel',
+  continueDisabled: false,
 };
 
 class GenericHeader extends React.PureComponent {
-    render() {
-        const {
-            title,
-            textDismiss,
-            dismissLanguage,
-            continueText,
-            dismissAction,
-            continueAction,
-            continueDisabled,
-        } = this.props;
+  render() {
+    const {
+      title,
+      textDismiss,
+      dismissLanguage,
+      continueText,
+      dismissAction,
+      continueAction,
+      continueDisabled,
+    } = this.props;
 
-        return (
-            <ModalHeader>
-                <ModalTitleText>{title}</ModalTitleText>
-                <ModalDismiss
-                    textDismiss={textDismiss}
-                    dismissLanguage={dismissLanguage}
-                    closeAction={dismissAction}
-                />
-                <ModalContinue
-                    continueText={continueText}
-                    closeAction={continueAction}
-                    disabled={continueDisabled}
-                />
-            </ModalHeader>
-        );
-    }
+    return (
+      <ModalHeader>
+        <ModalTitleText>{title}</ModalTitleText>
+        <ModalDismiss
+          textDismiss={textDismiss}
+          dismissLanguage={dismissLanguage}
+          closeAction={dismissAction}
+        />
+        <ModalContinue
+          continueText={continueText}
+          closeAction={continueAction}
+          disabled={continueDisabled}
+        />
+      </ModalHeader>
+    );
+  }
 }
 
 GenericHeader.propTypes = propTypes;

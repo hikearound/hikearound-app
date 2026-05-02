@@ -5,55 +5,53 @@ import { connectHighlight } from 'react-instantsearch-native';
 import { HighlightedText, HighlightedSubText } from '@styles/Highlight';
 
 const propTypes = {
-    attribute: PropTypes.string.isRequired,
-    hit: PropTypes.object.isRequired,
-    highlight: PropTypes.func.isRequired,
-    highlightProperty: PropTypes.string,
+  attribute: PropTypes.string.isRequired,
+  hit: PropTypes.object.isRequired,
+  highlight: PropTypes.func.isRequired,
+  highlightProperty: PropTypes.string,
 };
 
 const defaultProps = {
-    highlightProperty: '_highlightResult',
+  highlightProperty: '_highlightResult',
 };
 
 class Highlight extends React.PureComponent {
-    renderNameHighlight = (highlights) => (
-        <Text>
-            {highlights.map(({ value, isHighlighted }, index) => (
-                <HighlightedText key={index} showHighlight={isHighlighted}>
-                    {value}
-                </HighlightedText>
-            ))}
-        </Text>
-    );
+  renderNameHighlight = highlights => (
+    <Text>
+      {highlights.map(({ value, isHighlighted }, index) => (
+        <HighlightedText key={index} showHighlight={isHighlighted}>
+          {value}
+        </HighlightedText>
+      ))}
+    </Text>
+  );
 
-    renderLocationHighlight = (highlights, attribute) => (
-        <Text>
-            {attribute === 'state' && (
-                <HighlightedSubText>, </HighlightedSubText>
-            )}
-            {highlights.map(({ value, isHighlighted }, index) => (
-                <HighlightedSubText key={index} showHighlight={isHighlighted}>
-                    {value}
-                </HighlightedSubText>
-            ))}
-        </Text>
-    );
+  renderLocationHighlight = (highlights, attribute) => (
+    <Text>
+      {attribute === 'state' && <HighlightedSubText>, </HighlightedSubText>}
+      {highlights.map(({ value, isHighlighted }, index) => (
+        <HighlightedSubText key={index} showHighlight={isHighlighted}>
+          {value}
+        </HighlightedSubText>
+      ))}
+    </Text>
+  );
 
-    render() {
-        const { attribute, hit, highlight, highlightProperty } = this.props;
+  render() {
+    const { attribute, hit, highlight, highlightProperty } = this.props;
 
-        const highlights = highlight({
-            highlightProperty,
-            attribute,
-            hit,
-        });
+    const highlights = highlight({
+      highlightProperty,
+      attribute,
+      hit,
+    });
 
-        if (attribute === 'city' || attribute === 'state') {
-            return this.renderLocationHighlight(highlights, attribute);
-        }
-
-        return this.renderNameHighlight(highlights);
+    if (attribute === 'city' || attribute === 'state') {
+      return this.renderLocationHighlight(highlights, attribute);
     }
+
+    return this.renderNameHighlight(highlights);
+  }
 }
 
 Highlight.propTypes = propTypes;

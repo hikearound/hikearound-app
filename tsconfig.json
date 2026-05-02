@@ -1,9 +1,9 @@
 {
-    "extends": "expo/tsconfig.base",
-    "compilerOptions": {
-        "strict": false,
-        "allowJs": true,
-        "noEmit": true,
-        "typeRoots": ["./node_modules/@types", "./types"]
-    }
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": false,
+    "allowJs": true,
+    "noEmit": true,
+    "typeRoots": ["./node_modules/@types", "./types"]
+  }
 }

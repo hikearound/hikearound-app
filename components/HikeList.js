@@ -8,56 +8,56 @@ import { spacing } from '@constants/Index';
 import { HeaderContainer, HeaderText } from '@styles/Lists';
 
 const propTypes = {
-    hikeData: PropTypes.array.isRequired,
-    scrollRef: PropTypes.object.isRequired,
+  hikeData: PropTypes.array.isRequired,
+  scrollRef: PropTypes.object.isRequired,
 };
 
 class HikeList extends React.Component {
-    renderListHeader = () => {
-        const { t } = this.props;
+  renderListHeader = () => {
+    const { t } = this.props;
 
-        return (
-            <HeaderContainer>
-                <HeaderText>{t('screen.profile.header')}</HeaderText>
-            </HeaderContainer>
-        );
-    };
-
-    renderEmptyList = () => null;
-
-    renderItem = ({ item }) => (
-        <HikeListItem
-            id={item.id}
-            name={item.name}
-            location={`${item.city}, ${item.state}`}
-            distance={item.distance}
-        />
+    return (
+      <HeaderContainer>
+        <HeaderText>{t('screen.profile.header')}</HeaderText>
+      </HeaderContainer>
     );
+  };
 
-    render() {
-        const { hikeData, scrollRef } = this.props;
-        const extractKey = ({ id }) => id;
+  renderEmptyList = () => null;
 
-        return (
-            <View>
-                {hikeData && (
-                    <FlatList
-                        ref={scrollRef}
-                        renderItem={this.renderItem}
-                        ListHeaderComponent={this.renderListHeader}
-                        ListEmptyComponent={this.renderEmptyList}
-                        data={hikeData}
-                        extraData={hikeData}
-                        keyExtractor={extractKey}
-                        scrollEnabled={false}
-                        style={{
-                            marginLeft: parseInt(spacing.small, 10),
-                        }}
-                    />
-                )}
-            </View>
-        );
-    }
+  renderItem = ({ item }) => (
+    <HikeListItem
+      id={item.id}
+      name={item.name}
+      location={`${item.city}, ${item.state}`}
+      distance={item.distance}
+    />
+  );
+
+  render() {
+    const { hikeData, scrollRef } = this.props;
+    const extractKey = ({ id }) => id;
+
+    return (
+      <View>
+        {hikeData && (
+          <FlatList
+            ref={scrollRef}
+            renderItem={this.renderItem}
+            ListHeaderComponent={this.renderListHeader}
+            ListEmptyComponent={this.renderEmptyList}
+            data={hikeData}
+            extraData={hikeData}
+            keyExtractor={extractKey}
+            scrollEnabled={false}
+            style={{
+              marginLeft: parseInt(spacing.small, 10),
+            }}
+          />
+        )}
+      </View>
+    );
+  }
 }
 
 HikeList.propTypes = propTypes;

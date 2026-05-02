@@ -21,148 +21,133 @@ import { getHeaderHeight } from '@utils/Navigation';
 const headerHeight = getHeaderHeight();
 
 class SignInScreen extends React.Component {
-    constructor(props) {
-        super(props);
-        const { t } = this.props;
-        const inputs = getInputs(t, 'signIn');
+  constructor(props) {
+    super(props);
+    const { t } = this.props;
+    const inputs = getInputs(t, 'signIn');
 
-        defaultState.inputs = inputs;
-        this.state = defaultState;
+    defaultState.inputs = inputs;
+    this.state = defaultState;
 
-        this.setLoading = this.setLoading.bind(this);
-    }
+    this.setLoading = this.setLoading.bind(this);
+  }
 
-    setValue(name, text) {
-        this.setState({ [name]: text });
-    }
+  setValue(name, text) {
+    this.setState({ [name]: text });
+  }
 
-    setLoading = (loading) => {
-        Keyboard.dismiss();
-        this.setState({ loading });
-    };
+  setLoading = loading => {
+    Keyboard.dismiss();
+    this.setState({ loading });
+  };
 
-    logEvent = () => {
-        logEvent('sign_in', {});
-    };
+  logEvent = () => {
+    logEvent('sign_in', {});
+  };
 
-    navigateToNextScreen = async () => {
-        const { navigation } = this.props;
+  navigateToNextScreen = async () => {
+    const { navigation } = this.props;
 
-        navigation.reset({
-            index: 0,
-            routes: [{ name: 'HomeScreen' }],
-        });
-    };
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'HomeScreen' }],
+    });
+  };
 
-    signInSuccessful = () => {
-        this.logEvent();
-        this.navigateToNextScreen();
-    };
+  signInSuccessful = () => {
+    this.logEvent();
+    this.navigateToNextScreen();
+  };
 
-    handleLogin = async () => {
-        const { email, password } = this.state;
+  handleLogin = async () => {
+    const { email, password } = this.state;
 
-        this.setLoading(true);
+    this.setLoading(true);
 
-        signInWithEmailAndPassword(auth, email, password)
-            .catch((error) => {
-                this.showErrorAlert(error);
-                this.setLoading(false);
-            })
-            .then((response) => {
-                if (response) {
-                    this.signInSuccessful();
-                }
-            });
-    };
-
-    showErrorAlert = (error) => {
-        const { t } = this.props;
-        Alert.alert(t('error.label'), mapCodeToTranslation(t, error.code));
-    };
-
-    handleSubmitEditing = (index) => {
-        if (index === 0) {
-            this.passwordInput.focus();
-        } else {
-            this.handleLogin();
+    signInWithEmailAndPassword(auth, email, password)
+      .catch(error => {
+        this.showErrorAlert(error);
+        this.setLoading(false);
+      })
+      .then(response => {
+        if (response) {
+          this.signInSuccessful();
         }
-    };
+      });
+  };
 
-    assignRef = (ref, name) => {
-        this[`${name}Input`] = ref;
-    };
+  showErrorAlert = error => {
+    const { t } = this.props;
+    Alert.alert(t('error.label'), mapCodeToTranslation(t, error.code));
+  };
 
-    render() {
-        const { loading, inputs } = this.state;
-        const { t } = this.props;
-
-        return (
-            <RootView>
-                <ScrollView
-                    keyboardShouldPersistTaps='handled'
-                    scrollEnabled={false}
-                    contentContainerStyle={{ flexGrow: 1 }}
-                >
-                    <AppleAuthButton
-                        type='SIGN_IN'
-                        setLoading={this.setLoading}
-                    />
-                    <Header title={t('screen.signIn.header')} isLoggedOut />
-                    {inputs.map(
-                        (
-                            {
-                                name,
-                                placeholder,
-                                keyboardType,
-                                secureTextEntry,
-                                autoCorrect,
-                                autoCapitalize,
-                                textContentType,
-                                enablesReturnKeyAutomatically,
-                                returnKeyType,
-                                autoCompleteType,
-                            },
-                            index,
-                        ) => (
-                            <InputLabelGroup
-                                key={index}
-                                placeholder={placeholder}
-                                keyboardType={keyboardType}
-                                secureTextEntry={secureTextEntry}
-                                autoCorrect={autoCorrect}
-                                autoCapitalize={autoCapitalize}
-                                onChangeText={(text) =>
-                                    this.setValue(name, text, index)
-                                }
-                                labelName={placeholder}
-                                textContentType={textContentType}
-                                enablesReturnKeyAutomatically={
-                                    enablesReturnKeyAutomatically
-                                }
-                                returnKeyType={returnKeyType}
-                                onSubmitEditing={() =>
-                                    this.handleSubmitEditing(index)
-                                }
-                                inputRef={(ref) => this.assignRef(ref, name)}
-                                autoCompleteType={autoCompleteType}
-                            />
-                        ),
-                    )}
-                    <InputButton
-                        text={t('label.nav.signIn')}
-                        action={this.handleLogin}
-                    />
-                    <PasswordReset />
-                    <LoadingOverlay
-                        loading={loading}
-                        topOffset={-headerHeight}
-                    />
-                </ScrollView>
-                <ResetPasswordModal />
-            </RootView>
-        );
+  handleSubmitEditing = index => {
+    if (index === 0) {
+      this.passwordInput.focus();
+    } else {
+      this.handleLogin();
     }
+  };
+
+  assignRef = (ref, name) => {
+    this[`${name}Input`] = ref;
+  };
+
+  render() {
+    const { loading, inputs } = this.state;
+    const { t } = this.props;
+
+    return (
+      <RootView>
+        <ScrollView
+          keyboardShouldPersistTaps='handled'
+          scrollEnabled={false}
+          contentContainerStyle={{ flexGrow: 1 }}
+        >
+          <AppleAuthButton type='SIGN_IN' setLoading={this.setLoading} />
+          <Header title={t('screen.signIn.header')} isLoggedOut />
+          {inputs.map(
+            (
+              {
+                name,
+                placeholder,
+                keyboardType,
+                secureTextEntry,
+                autoCorrect,
+                autoCapitalize,
+                textContentType,
+                enablesReturnKeyAutomatically,
+                returnKeyType,
+                autoCompleteType,
+              },
+              index
+            ) => (
+              <InputLabelGroup
+                key={index}
+                placeholder={placeholder}
+                keyboardType={keyboardType}
+                secureTextEntry={secureTextEntry}
+                autoCorrect={autoCorrect}
+                autoCapitalize={autoCapitalize}
+                onChangeText={text => this.setValue(name, text, index)}
+                labelName={placeholder}
+                textContentType={textContentType}
+                enablesReturnKeyAutomatically={enablesReturnKeyAutomatically}
+                returnKeyType={returnKeyType}
+                onSubmitEditing={() => this.handleSubmitEditing(index)}
+                inputRef={ref => this.assignRef(ref, name)}
+                autoCompleteType={autoCompleteType}
+              />
+            )
+          )}
+          <InputButton text={t('label.nav.signIn')} action={this.handleLogin} />
+          <PasswordReset />
+          <LoadingOverlay loading={loading} topOffset={-headerHeight} />
+        </ScrollView>
+        <ResetPasswordModal />
+      </RootView>
+    );
+  }
 }
 
 export default withTranslation()(withTheme(SignInScreen));

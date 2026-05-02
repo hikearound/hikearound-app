@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
 import {
-    registerForPushNotifications,
-    getUserNotifications,
+  registerForPushNotifications,
+  getUserNotifications,
 } from '@utils/Notifications';
 import NotificationEmptyState from '@components/empty/NotificationEmptyState';
 import { RootView } from '@styles/Screens';
@@ -20,154 +20,154 @@ import NotificationPreferenceModal from '@components/modal/Notification';
 import Title from '@components/header/Title';
 
 const propTypes = {
-    notifications: PropTypes.array.isRequired,
-    notifBadgeCount: PropTypes.number,
-    dispatchModalFlag: PropTypes.func.isRequired,
-    dispatchNotifBadgeCount: PropTypes.func.isRequired,
+  notifications: PropTypes.array.isRequired,
+  notifBadgeCount: PropTypes.number,
+  dispatchModalFlag: PropTypes.func.isRequired,
+  dispatchNotifBadgeCount: PropTypes.func.isRequired,
 };
 
 const defaultProps = {
-    notifBadgeCount: 0,
+  notifBadgeCount: 0,
 };
 
 const scrollRef = React.createRef();
 
 function mapStateToProps(state) {
-    return {
-        notifBadgeCount: state.userReducer.notifBadgeCount,
-        notifications: state.notificationReducer.notifications,
-    };
+  return {
+    notifBadgeCount: state.userReducer.notifBadgeCount,
+    notifications: state.notificationReducer.notifications,
+  };
 }
 
 function mapDispatchToProps(dispatch) {
-    return {
-        dispatchModalFlag: (modalType) => dispatch(showModal(modalType)),
-        dispatchNotifBadgeCount: () => dispatch(updateNotifBadgeCount()),
-    };
+  return {
+    dispatchModalFlag: modalType => dispatch(showModal(modalType)),
+    dispatchNotifBadgeCount: () => dispatch(updateNotifBadgeCount()),
+  };
 }
 
 class NotificationScreen extends React.Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        const { notifications, navigation, t } = this.props;
+    const { notifications, navigation, t } = this.props;
 
-        this.state = {
-            notifications,
-            loading: false,
-        };
+    this.state = {
+      notifications,
+      loading: false,
+    };
 
-        this.getAndSetNotifications = this.getAndSetNotifications.bind(this);
+    this.getAndSetNotifications = this.getAndSetNotifications.bind(this);
 
-        navigation.setOptions({
-            headerTitle: () => (
-                <Title
-                    title={t('label.nav.notifications')}
-                    scrollRef={scrollRef}
-                    scrollType='flatList'
-                />
-            ),
-            headerRight: () => <Settings onPress={this.onSettingsPress} />,
-        });
+    navigation.setOptions({
+      headerTitle: () => (
+        <Title
+          title={t('label.nav.notifications')}
+          scrollRef={scrollRef}
+          scrollType='flatList'
+        />
+      ),
+      headerRight: () => <Settings onPress={this.onSettingsPress} />,
+    });
+  }
+
+  async componentDidMount() {
+    const { dispatchNotifBadgeCount, navigation } = this.props;
+
+    this.getNotificationPermissions();
+    this.unsubscribe = navigation.addListener('focus', () => {
+      dispatchNotifBadgeCount();
+    });
+  }
+
+  async componentDidUpdate(prevProps) {
+    const { notifBadgeCount, notifications } = this.props;
+
+    if (prevProps.notifBadgeCount !== notifBadgeCount) {
+      this.getAndSetNotifications();
     }
 
-    async componentDidMount() {
-        const { dispatchNotifBadgeCount, navigation } = this.props;
-
-        this.getNotificationPermissions();
-        this.unsubscribe = navigation.addListener('focus', () => {
-            dispatchNotifBadgeCount();
-        });
+    if (prevProps.notifications !== notifications) {
+      this.getAndSetNotifications();
     }
+  }
 
-    async componentDidUpdate(prevProps) {
-        const { notifBadgeCount, notifications } = this.props;
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
 
-        if (prevProps.notifBadgeCount !== notifBadgeCount) {
-            this.getAndSetNotifications();
+  onSettingsPress = () => {
+    const { dispatchModalFlag } = this.props;
+    dispatchModalFlag('notificationPreferences');
+  };
+
+  getNotificationPermissions = async () => {
+    await registerForPushNotifications();
+  };
+
+  getAndSetNotifications = async () => {
+    const { t } = this.props;
+    const notifications = await getUserNotifications(t);
+
+    this.setState({
+      loading: false,
+      notifications,
+    });
+  };
+
+  onRefresh = async () => {
+    await this.setState({ loading: true });
+
+    this.timeout = setTimeout(() => {
+      this.getAndSetNotifications();
+    }, timings.medium);
+  };
+
+  renderEmptyState = () => <NotificationEmptyState />;
+
+  renderNotificationList = () => {
+    const { notifications, loading } = this.state;
+
+    return (
+      <NotificationList
+        refreshControl={
+          <FeedRefreshControl
+            refreshing={loading}
+            onRefresh={this.onRefresh}
+            topOffset={11}
+          />
         }
+        scrollRef={scrollRef}
+        notificationData={notifications}
+      />
+    );
+  };
 
-        if (prevProps.notifications !== notifications) {
-            this.getAndSetNotifications();
-        }
+  renderNotificationScreen = () => {
+    const { notifications } = this.state;
+
+    if (notifications.length === 0) {
+      return this.renderEmptyState();
     }
 
-    componentWillUnmount() {
-        this.unsubscribe();
-    }
+    return this.renderNotificationList();
+  };
 
-    onSettingsPress = () => {
-        const { dispatchModalFlag } = this.props;
-        dispatchModalFlag('notificationPreferences');
-    };
-
-    getNotificationPermissions = async () => {
-        await registerForPushNotifications();
-    };
-
-    getAndSetNotifications = async () => {
-        const { t } = this.props;
-        const notifications = await getUserNotifications(t);
-
-        this.setState({
-            loading: false,
-            notifications,
-        });
-    };
-
-    onRefresh = async () => {
-        await this.setState({ loading: true });
-
-        this.timeout = setTimeout(() => {
-            this.getAndSetNotifications();
-        }, timings.medium);
-    };
-
-    renderEmptyState = () => <NotificationEmptyState />;
-
-    renderNotificationList = () => {
-        const { notifications, loading } = this.state;
-
-        return (
-            <NotificationList
-                refreshControl={
-                    <FeedRefreshControl
-                        refreshing={loading}
-                        onRefresh={this.onRefresh}
-                        topOffset={11}
-                    />
-                }
-                scrollRef={scrollRef}
-                notificationData={notifications}
-            />
-        );
-    };
-
-    renderNotificationScreen = () => {
-        const { notifications } = this.state;
-
-        if (notifications.length === 0) {
-            return this.renderEmptyState();
-        }
-
-        return this.renderNotificationList();
-    };
-
-    render() {
-        return (
-            <RootView>
-                <SetBarStyle barStyle='light-content' />
-                {this.renderNotificationScreen()}
-                <NotificationPreferenceModal />
-            </RootView>
-        );
-    }
+  render() {
+    return (
+      <RootView>
+        <SetBarStyle barStyle='light-content' />
+        {this.renderNotificationScreen()}
+        <NotificationPreferenceModal />
+      </RootView>
+    );
+  }
 }
 
 NotificationScreen.propTypes = propTypes;
 NotificationScreen.defaultProps = defaultProps;
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps,
+  mapStateToProps,
+  mapDispatchToProps
 )(withTranslation()(withTheme(withNavigation(NotificationScreen))));

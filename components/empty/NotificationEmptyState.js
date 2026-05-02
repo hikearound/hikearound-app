@@ -5,19 +5,17 @@ import { BellEmptyState } from '@icons/Index';
 import { RootView, Title, Description } from '@styles/Callouts';
 
 class NotificationEmptyState extends React.PureComponent {
-    render() {
-        const { t } = this.props;
+  render() {
+    const { t } = this.props;
 
-        return (
-            <RootView>
-                <BellEmptyState />
-                <Title>{t('screen.notifications.empty.title')}</Title>
-                <Description>
-                    {t('screen.notifications.empty.description')}
-                </Description>
-            </RootView>
-        );
-    }
+    return (
+      <RootView>
+        <BellEmptyState />
+        <Title>{t('screen.notifications.empty.title')}</Title>
+        <Description>{t('screen.notifications.empty.description')}</Description>
+      </RootView>
+    );
+  }
 }
 
 export default withTranslation()(withTheme(NotificationEmptyState));

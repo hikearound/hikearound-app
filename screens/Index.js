@@ -12,22 +12,20 @@ import LocationPermissionScreen from '@screens/onboard/LocationPermissionScreen'
 import SearchScreen from '@screens/SearchScreen';
 import PasswordScreen from '@screens/settings/PasswordScreen';
 import ReviewScreen from '@screens/ReviewScreen';
-import ComponentLibraryScreen from '@screens/settings/ComponentLibraryScreen';
 
 export {
-    LandingScreen,
-    SignInScreen,
-    HomeScreen,
-    HikeScreen,
-    NotificationScreen,
-    ProfileScreen,
-    SettingsScreen,
-    CreateAccountScreen,
-    MapScreen,
-    NotificationSettingsScreen,
-    LocationPermissionScreen,
-    SearchScreen,
-    PasswordScreen,
-    ReviewScreen,
-    ComponentLibraryScreen,
+  LandingScreen,
+  SignInScreen,
+  HomeScreen,
+  HikeScreen,
+  NotificationScreen,
+  ProfileScreen,
+  SettingsScreen,
+  CreateAccountScreen,
+  MapScreen,
+  NotificationSettingsScreen,
+  LocationPermissionScreen,
+  SearchScreen,
+  PasswordScreen,
+  ReviewScreen,
 };

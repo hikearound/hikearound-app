@@ -12,24 +12,24 @@ import notificationReducer from '@reducers/Notification';
 import profileReducer from '@reducers/Profile';
 
 const appReducer = combineReducers({
-    authReducer,
-    hikeReducer,
-    userReducer,
-    mapReducer,
-    modalReducer,
-    feedReducer,
-    navigationReducer,
-    reviewReducer,
-    notificationReducer,
-    profileReducer,
+  authReducer,
+  hikeReducer,
+  userReducer,
+  mapReducer,
+  modalReducer,
+  feedReducer,
+  navigationReducer,
+  reviewReducer,
+  notificationReducer,
+  profileReducer,
 });
 
 const rootReducer = (state, action) => {
-    if (action.type === 'LOGOUT_USER') {
-        state = undefined;
-    }
+  if (action.type === 'LOGOUT_USER') {
+    state = undefined;
+  }
 
-    return appReducer(state, action);
+  return appReducer(state, action);
 };
 
 export default rootReducer;

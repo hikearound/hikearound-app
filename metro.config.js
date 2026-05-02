@@ -6,12 +6,12 @@ const config = getDefaultConfig(__dirname);
 
 // Extend the default config with custom resolver settings
 module.exports = {
-    ...config,
-    resolver: {
-        ...config.resolver,
-        sourceExts: [...config.resolver.sourceExts, 'cjs'],
-        platforms: ['ios', 'android', 'native', 'web'],
-        resolverMainFields: ['react-native', 'browser', 'main'],
-    },
-    resetCache: true,
+  ...config,
+  resolver: {
+    ...config.resolver,
+    sourceExts: [...config.resolver.sourceExts, 'cjs'],
+    platforms: ['ios', 'android', 'native', 'web'],
+    resolverMainFields: ['react-native', 'browser', 'main'],
+  },
+  resetCache: true,
 };

@@ -2,151 +2,149 @@ import { CacheManager } from 'react-native-expo-image-cache';
 import { getRange, maybeShowInFeed } from '@utils/Location';
 import { getHikeRef } from '@utils/Hike';
 import {
-    filterForDifficulty,
-    filterForRoute,
-    filterForElevation,
-    filterForDistance,
+  filterForDifficulty,
+  filterForRoute,
+  filterForElevation,
+  filterForDistance,
 } from '@utils/Filter';
 
 export async function filterHike(hikeData, filterParams) {
-    if (filterParams.difficulty.length > 0) {
-        const difficulty = filterForDifficulty(
-            filterParams.difficulty,
-            hikeData.difficulty,
-        );
+  if (filterParams.difficulty.length > 0) {
+    const difficulty = filterForDifficulty(
+      filterParams.difficulty,
+      hikeData.difficulty
+    );
 
-        if (!difficulty) {
-            return false;
-        }
+    if (!difficulty) {
+      return false;
     }
+  }
 
-    if (filterParams.route.length > 0) {
-        const route = filterForRoute(filterParams.route, hikeData.route);
+  if (filterParams.route.length > 0) {
+    const route = filterForRoute(filterParams.route, hikeData.route);
 
-        if (!route) {
-            return false;
-        }
+    if (!route) {
+      return false;
     }
+  }
 
-    if (filterParams.elevation.length > 0) {
-        const elevation = filterForElevation(
-            filterParams.elevation,
-            hikeData.elevation,
-        );
+  if (filterParams.elevation.length > 0) {
+    const elevation = filterForElevation(
+      filterParams.elevation,
+      hikeData.elevation
+    );
 
-        if (!elevation) {
-            return false;
-        }
+    if (!elevation) {
+      return false;
     }
+  }
 
-    if (filterParams.distance.length > 0) {
-        const distance = filterForDistance(
-            filterParams.distance,
-            hikeData.distance,
-        );
+  if (filterParams.distance.length > 0) {
+    const distance = filterForDistance(
+      filterParams.distance,
+      hikeData.distance
+    );
 
-        if (!distance) {
-            return false;
-        }
+    if (!distance) {
+      return false;
     }
+  }
 
-    return true;
+  return true;
 }
 
 export function sortHikes(previousData, hikeArray, sortDirection) {
-    const hikes = {};
+  const hikes = {};
 
-    for (const hike of hikeArray) {
-        hikes[hike.key] = hike;
-    }
+  for (const hike of hikeArray) {
+    hikes[hike.key] = hike;
+  }
 
-    const data = { ...previousData, ...hikes };
+  const data = { ...previousData, ...hikes };
 
-    // Don't sub-filter by dateCreated
-    // const sortedHikes = Object.values(data);
+  // Don't sub-filter by dateCreated
+  // const sortedHikes = Object.values(data);
 
-    let sortedHikes = Object.values(data).sort(
-        (a, b) => a.createdOn < b.createdOn,
-    );
+  let sortedHikes = Object.values(data).sort(
+    (a, b) => a.createdOn < b.createdOn
+  );
 
-    if (sortDirection === 'desc') {
-        sortedHikes = Object.values(data).sort(
-            (a, b) => a.createdOn > b.createdOn,
-        );
-    }
+  if (sortDirection === 'desc') {
+    sortedHikes = Object.values(data).sort((a, b) => a.createdOn > b.createdOn);
+  }
 
-    return { data, sortedHikes };
+  return { data, sortedHikes };
 }
 
 export async function queryHikes(
-    querySize,
-    queryType,
-    lastKey,
-    position,
-    sortDirection,
-    distance,
-    filterParams,
+  querySize,
+  queryType,
+  lastKey,
+  position,
+  sortDirection,
+  distance,
+  filterParams
 ) {
-    const { latitude, longitude } = position.coords;
-    const range = getRange(latitude, longitude, distance);
+  const { latitude, longitude } = position.coords;
+  const range = getRange(latitude, longitude, distance);
 
-    let isHikeInFilter = true;
-    let hikeRef = getHikeRef('geo', range, sortDirection, querySize);
+  let isHikeInFilter = true;
+  let hikeRef = getHikeRef('geo', range, sortDirection, querySize);
 
-    if (lastKey) {
-        hikeRef = hikeRef.startAfter(lastKey);
-    }
+  if (lastKey) {
+    hikeRef = hikeRef.startAfter(lastKey);
+  }
 
-    const data = [];
-    const querySnapshot = await hikeRef.get();
+  const data = [];
+  const querySnapshot = await hikeRef.get();
 
-    await querySnapshot.forEach(async (hike) => {
-        if (hike.exists) {
-            const hikeData = hike.data() || {};
+  await querySnapshot.forEach(async hike => {
+    if (hike.exists) {
+      const hikeData = hike.data() || {};
 
-            hikeData.id = hike.id;
+      hikeData.id = hike.id;
 
-            if (!hikeData.review) {
-                hikeData.review = { average: 0, count: 0 };
-            }
+      if (!hikeData.review) {
+        hikeData.review = { average: 0, count: 0 };
+      }
 
-            const reduced = {
-                key: hike.id,
-                ...hikeData,
-            };
+      const reduced = {
+        key: hike.id,
+        ...hikeData,
+      };
 
-            const { lat, lng } = hikeData.coordinates.starting;
+      const { lat, lng } = hikeData.coordinates.starting;
 
-            const addHikeToFeed = maybeShowInFeed(
-                distance,
-                latitude,
-                longitude,
-                lat,
-                lng,
-            );
+      const addHikeToFeed = maybeShowInFeed(
+        distance,
+        latitude,
+        longitude,
+        lat,
+        lng
+      );
 
-            if (filterParams) {
-                isHikeInFilter = await filterHike(hikeData, filterParams);
-            }
+      if (filterParams) {
+        isHikeInFilter = await filterHike(hikeData, filterParams);
+      }
 
-            if (queryType === 'feed') {
-                if (addHikeToFeed) {
-                    if (isHikeInFilter) {
-                        data.push(reduced);
-                    }
-                }
-            } else {
-                data.push(reduced);
-            }
+      if (queryType === 'feed') {
+        if (addHikeToFeed) {
+          if (isHikeInFilter) {
+            data.push(reduced);
+          }
         }
-    });
+      } else {
+        data.push(reduced);
+      }
+    }
+  });
 
-    const lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
-    return { data, cursor: lastVisible };
+  const lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
+  return { data, cursor: lastVisible };
 }
 
 export async function cacheFeedImages(data) {
-    for (const hike of data) {
-        await CacheManager.get(hike.coverPhoto).getPath();
-    }
+  for (const hike of data) {
+    await CacheManager.get(hike.coverPhoto).getPath();
+  }
 }

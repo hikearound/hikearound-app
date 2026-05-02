@@ -20,142 +20,142 @@ initializeLocalization();
 initializeGeolocation();
 
 function mapStateToProps() {
-    return {};
+  return {};
 }
 
 function mapDispatchToProps(dispatch) {
-    return {
-        dispatchAuthSubscription: (user) =>
-            dispatch(initializeAuthSubscription(user)),
-    };
+  return {
+    dispatchAuthSubscription: user =>
+      dispatch(initializeAuthSubscription(user)),
+  };
 }
 
 const propTypes = {
-    dispatchAuthSubscription: PropTypes.func.isRequired,
-    animationDuration: PropTypes.number,
+  dispatchAuthSubscription: PropTypes.func.isRequired,
+  animationDuration: PropTypes.number,
 };
 
 const defaultProps = {
-    animationDuration: 500,
+  animationDuration: 500,
 };
 
 class Splash extends React.Component {
-    constructor(props, context) {
-        super(props, context);
+  constructor(props, context) {
+    super(props, context);
 
-        this.state = {
-            isLoadingComplete: false,
-            splashAnimation: new Animated.Value(0),
-            splashAnimationComplete: false,
-        };
+    this.state = {
+      isLoadingComplete: false,
+      splashAnimation: new Animated.Value(0),
+      splashAnimationComplete: false,
+    };
+  }
+
+  async componentDidMount() {
+    try {
+      await SplashScreen.preventAutoHideAsync();
+    } catch (e) {
+      this.getAuthSubscription();
+    }
+    this.loadAsync();
+  }
+
+  componentWillUnmount = () => {
+    if (this.timer) {
+      clearTimeout(this.timer);
+      this.timer = 0;
     }
 
-    async componentDidMount() {
-        try {
-            await SplashScreen.preventAutoHideAsync();
-        } catch (e) {
-            this.getAuthSubscription();
-        }
-        this.loadAsync();
+    if (this.unsubscribeAuth) {
+      this.unsubscribeAuth();
     }
+  };
 
-    componentWillUnmount = () => {
-        if (this.timer) {
-            clearTimeout(this.timer);
-            this.timer = 0;
-        }
+  loadAsync = async () => {
+    await this.loadResourcesAsync();
+  };
 
-        if (this.unsubscribeAuth) {
-            this.unsubscribeAuth();
-        }
-    };
+  loadResourcesAsync = async () => {
+    await this.getAuthSubscription();
+    await cacheImages(localImages);
+  };
 
-    loadAsync = async () => {
-        await this.loadResourcesAsync();
-    };
+  getAuthSubscription = async () => {
+    const { dispatchAuthSubscription } = this.props;
 
-    loadResourcesAsync = async () => {
-        await this.getAuthSubscription();
-        await cacheImages(localImages);
-    };
+    try {
+      console.log(
+        'Setting up Firebase v9 auth listener with RN persistence...'
+      );
 
-    getAuthSubscription = async () => {
-        const { dispatchAuthSubscription } = this.props;
-
-        try {
-            console.log(
-                'Setting up Firebase v9 auth listener with RN persistence...',
-            );
-
-            // Set up auth state listener using modern v9 auth with persistence
-            this.unsubscribeAuth = onAuthStateChanged(auth, async (user) => {
-                console.log(
-                    'Auth state changed - user:',
-                    user ? `${user.email} (${user.uid})` : 'null',
-                );
-
-                // Dispatch the auth state (whether user exists or not)
-                await dispatchAuthSubscription(user);
-                this.handleFinishLoading();
-            });
-        } catch (error) {
-            console.warn('Error setting up auth subscription:', error);
-            // Fallback to no user
-            await dispatchAuthSubscription(null);
-            this.handleFinishLoading();
-        }
-    };
-
-    handleFinishLoading = () => {
-        this.timer = setTimeout(() => {
-            this.setState({ isLoadingComplete: true });
-        }, timings.regular);
-    };
-
-    maybeRenderTransition = () => {
-        const { splashAnimationComplete, splashAnimation } = this.state;
-
-        if (splashAnimationComplete) {
-            return null;
-        }
-
-        return (
-            <SplashImage
-                opacity={splashAnimation.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: [1, 0],
-                })}
-                animateOut={this.animateOut}
-            />
+      // Set up auth state listener using modern v9 auth with persistence
+      this.unsubscribeAuth = onAuthStateChanged(auth, async user => {
+        console.log(
+          'Auth state changed - user:',
+          user ? `${user.email} (${user.uid})` : 'null'
         );
-    };
 
-    animateOut = () => {
-        const { animationDuration } = this.props;
-        const { splashAnimation } = this.state;
-
-        SplashScreen.hideAsync();
-
-        Animated.timing(splashAnimation, {
-            toValue: 1,
-            duration: animationDuration,
-            useNativeDriver: true,
-        }).start(() => {
-            this.setState({ splashAnimationComplete: true });
-        });
-    };
-
-    render() {
-        const { isLoadingComplete } = this.state;
-
-        return (
-            <View>
-                <StatusBar barStyle='light-content' />
-                <AppNavigator />
-                {isLoadingComplete && this.maybeRenderTransition()}
-            </View>
-        );
+        // Dispatch the auth state (whether user exists or not)
+        await dispatchAuthSubscription(user);
+        this.handleFinishLoading();
+      });
+    } catch (error) {
+      console.warn('Error setting up auth subscription:', error);
+      // Fallback to no user
+      await dispatchAuthSubscription(null);
+      this.handleFinishLoading();
     }
+  };
+
+  handleFinishLoading = () => {
+    this.timer = setTimeout(() => {
+      this.setState({ isLoadingComplete: true });
+    }, timings.regular);
+  };
+
+  maybeRenderTransition = () => {
+    const { splashAnimationComplete, splashAnimation } = this.state;
+
+    if (splashAnimationComplete) {
+      return null;
+    }
+
+    return (
+      <SplashImage
+        opacity={splashAnimation.interpolate({
+          inputRange: [0, 1],
+          outputRange: [1, 0],
+        })}
+        animateOut={this.animateOut}
+      />
+    );
+  };
+
+  animateOut = () => {
+    const { animationDuration } = this.props;
+    const { splashAnimation } = this.state;
+
+    SplashScreen.hideAsync();
+
+    Animated.timing(splashAnimation, {
+      toValue: 1,
+      duration: animationDuration,
+      useNativeDriver: true,
+    }).start(() => {
+      this.setState({ splashAnimationComplete: true });
+    });
+  };
+
+  render() {
+    const { isLoadingComplete } = this.state;
+
+    return (
+      <View>
+        <StatusBar barStyle='light-content' />
+        <AppNavigator />
+        {isLoadingComplete && this.maybeRenderTransition()}
+      </View>
+    );
+  }
 }
 
 Splash.propTypes = propTypes;
@@ -164,6 +164,6 @@ Splash.defaultProps = defaultProps;
 export default connect(mapStateToProps, mapDispatchToProps)(withTheme(Splash));
 
 const View = styled.View`
-    flex: 1;
-    background-color: ${colors.purple};
+  flex: 1;
+  background-color: ${colors.purple};
 `;

@@ -1,369 +1,368 @@
 {
-    "label": {
-        "common": {
-            "cancel": "Cancel",
-            "delete": "Delete",
-            "logout": "Logout",
-            "terms": "Terms of Service",
-            "privacy": "Privacy Policy",
-            "read": "Read More",
-            "skip": "Skip",
-            "warning": "Hold On",
-            "continue": "Continue",
-            "ok": "OK",
-            "update": "Update"
-        },
-        "input": {
-            "name": "Name",
-            "email": "Email",
-            "password": "Password",
-            "currentPassword": "Current Password",
-            "newPassword": "New Password",
-            "location": "Location"
-        },
-        "heading": {
-            "description": "Description",
-            "images": "Images",
-            "reviews": "Reviews",
-            "recentReviews": "Recent Reviews",
-            "noRecentReviews": "There are no recent reviews available."
-        },
-        "nav": {
-            "you": "You",
-            "settings": "Settings",
-            "home": "Home",
-            "notifications": "Notifications",
-            "createAccount": "Create Account",
-            "signIn": "Sign In",
-            "locationPermission": "Share Location",
-            "map": "Map",
-            "search": "Search",
-            "password": "Update Password",
-            "review": "Review"
-        },
-        "modal": {
-            "save": "Save",
-            "close": "Close",
-            "cancel": "Cancel",
-            "send": "Send",
-            "reset": "Reset"
-        },
-        "user": {
-            "deleted": "A Deleted User"
-        }
+  "label": {
+    "common": {
+      "cancel": "Cancel",
+      "delete": "Delete",
+      "logout": "Logout",
+      "terms": "Terms of Service",
+      "privacy": "Privacy Policy",
+      "read": "Read More",
+      "skip": "Skip",
+      "warning": "Hold On",
+      "continue": "Continue",
+      "ok": "OK",
+      "update": "Update"
     },
     "input": {
-        "hint": {
-            "review": "Share a short summary of how you enjoyed this hike and provide any tips you think other hikers might benefit from."
-        }
+      "name": "Name",
+      "email": "Email",
+      "password": "Password",
+      "currentPassword": "Current Password",
+      "newPassword": "New Password",
+      "location": "Location"
     },
-    "sheet": {
-        "avatar": {
-            "title": "Profile Photo",
-            "item": {
-                "camera": "Take Photo",
-                "library": "Choose From Library"
-            }
-        },
-        "hike": {
-            "title": "Hike",
-            "item": {
-                "share": "Share",
-                "directions": "Get Directions"
-            }
-        },
-        "review": {
-            "title": "Review",
-            "item": {
-                "flag": "Flag",
-                "edit": "Edit",
-                "delete": "Delete"
-            }
-        },
-        "lightbox": {
-            "title": "Photo",
-            "item": {
-                "attribution": "Photo attribution"
-            }
-        },
-        "map": {
-            "actions": {
-                "hike": "View Hike"
-            }
-        },
-        "elevation": {
-            "unit": {
-                "miles": "mi",
-                "feet": "ft"
-            },
-            "label": {
-                "distance": "Distance",
-                "elevation": "Net Elevation"
-            },
-            "distance": "{{distance}} {{unit}}"
-        }
+    "heading": {
+      "description": "Description",
+      "images": "Images",
+      "reviews": "Reviews",
+      "recentReviews": "Recent Reviews",
+      "noRecentReviews": "There are no recent reviews available."
     },
-    "control": {
-        "sort": {
-            "title": "Sort by",
-            "value": {
-                "new": "Newest first",
-                "old": "Oldest first"
-            }
-        },
-        "route": {
-            "title": "Route type"
-        },
-        "difficulty": {
-            "title": "Difficulty"
-        },
-        "elevation": {
-            "title": "Elevation gain",
-            "value": "{{elevation}} ft"
-        },
-        "distance": {
-            "title": "Distance",
-            "value": "{{distance}} mi"
-        }
+    "nav": {
+      "you": "You",
+      "settings": "Settings",
+      "home": "Home",
+      "notifications": "Notifications",
+      "createAccount": "Create Account",
+      "signIn": "Sign In",
+      "locationPermission": "Share Location",
+      "map": "Map",
+      "search": "Search",
+      "password": "Update Password",
+      "review": "Review"
     },
     "modal": {
-        "reset": {
-            "title": "Forgot Password",
-            "help": "We will send you an email with further instructions to reset your password."
-        },
-        "filter": {
-            "title": "Filter",
-            "cta": "Apply Filters"
-        },
-        "review": {
-            "title": "Review"
-        },
-        "notification": {
-            "title": "Preferences",
-            "explainer": "You can adjust your email preferences from your profile settings."
-        },
-        "flag": {
-            "title": "Flag Review",
-            "subtitle": "Why are you flagging this review?",
-            "subtext": "Please select from one of the options below. Your submission will remain anonymous.",
-            "action": {
-                "spam": "It's spam",
-                "offensive": "It's offensive"
-            },
-            "confirmation": {
-                "subtitle": "Thanks for letting us know",
-                "subtext": "We'll review your report and will take appropriate action if needed. We appreciate your reaching out."
-            }
-        }
+      "save": "Save",
+      "close": "Close",
+      "cancel": "Cancel",
+      "send": "Send",
+      "reset": "Reset"
     },
-    "card": {
-        "metadata": "{{distance}} miles · {{elevation}} ft",
-        "review": "· {{count}} review",
-        "review_plural": "· {{count}} reviews",
-        "distance": "{{city}} · {{distance}} m"
-    },
-    "common": {
-        "appName": "Hikearound",
-        "appName_plural": "Hikearound's"
+    "user": {
+      "deleted": "A Deleted User"
+    }
+  },
+  "input": {
+    "hint": {
+      "review": "Share a short summary of how you enjoyed this hike and provide any tips you think other hikers might benefit from."
+    }
+  },
+  "sheet": {
+    "avatar": {
+      "title": "Profile Photo",
+      "item": {
+        "camera": "Take Photo",
+        "library": "Choose From Library"
+      }
     },
     "hike": {
-        "data": {
-            "distance": "Distance",
-            "elevation": "Elevation",
-            "route": "Route",
-            "miles": "Miles",
-            "feet": "Feet",
-            "loop": "Loop",
-            "out": "Out & Back"
-        },
-        "difficulty": {
-            "easy": "Easy",
-            "moderate": "Moderate",
-            "difficult": "Difficult"
-        },
-        "list": " · {{distance}} miles"
+      "title": "Hike",
+      "item": {
+        "share": "Share",
+        "directions": "Get Directions"
+      }
     },
-    "screen": {
-        "review": {
-            "label": "Review for {{name}} in {{city}}, {{state}}"
+    "review": {
+      "title": "Review",
+      "item": {
+        "flag": "Flag",
+        "edit": "Edit",
+        "delete": "Delete"
+      }
+    },
+    "lightbox": {
+      "title": "Photo",
+      "item": {
+        "attribution": "Photo attribution"
+      }
+    },
+    "map": {
+      "actions": {
+        "hike": "View Hike"
+      }
+    },
+    "elevation": {
+      "unit": {
+        "miles": "mi",
+        "feet": "ft"
+      },
+      "label": {
+        "distance": "Distance",
+        "elevation": "Net Elevation"
+      },
+      "distance": "{{distance}} {{unit}}"
+    }
+  },
+  "control": {
+    "sort": {
+      "title": "Sort by",
+      "value": {
+        "new": "Newest first",
+        "old": "Oldest first"
+      }
+    },
+    "route": {
+      "title": "Route type"
+    },
+    "difficulty": {
+      "title": "Difficulty"
+    },
+    "elevation": {
+      "title": "Elevation gain",
+      "value": "{{elevation}} ft"
+    },
+    "distance": {
+      "title": "Distance",
+      "value": "{{distance}} mi"
+    }
+  },
+  "modal": {
+    "reset": {
+      "title": "Forgot Password",
+      "help": "We will send you an email with further instructions to reset your password."
+    },
+    "filter": {
+      "title": "Filter",
+      "cta": "Apply Filters"
+    },
+    "review": {
+      "title": "Review"
+    },
+    "notification": {
+      "title": "Preferences",
+      "explainer": "You can adjust your email preferences from your profile settings."
+    },
+    "flag": {
+      "title": "Flag Review",
+      "subtitle": "Why are you flagging this review?",
+      "subtext": "Please select from one of the options below. Your submission will remain anonymous.",
+      "action": {
+        "spam": "It's spam",
+        "offensive": "It's offensive"
+      },
+      "confirmation": {
+        "subtitle": "Thanks for letting us know",
+        "subtext": "We'll review your report and will take appropriate action if needed. We appreciate your reaching out."
+      }
+    }
+  },
+  "card": {
+    "metadata": "{{distance}} miles · {{elevation}} ft",
+    "review": "· {{count}} review",
+    "review_plural": "· {{count}} reviews",
+    "distance": "{{city}} · {{distance}} m"
+  },
+  "common": {
+    "appName": "Hikearound",
+    "appName_plural": "Hikearound's"
+  },
+  "hike": {
+    "data": {
+      "distance": "Distance",
+      "elevation": "Elevation",
+      "route": "Route",
+      "miles": "Miles",
+      "feet": "Feet",
+      "loop": "Loop",
+      "out": "Out & Back"
+    },
+    "difficulty": {
+      "easy": "Easy",
+      "moderate": "Moderate",
+      "difficult": "Difficult"
+    },
+    "list": " · {{distance}} miles"
+  },
+  "screen": {
+    "review": {
+      "label": "Review for {{name}} in {{city}}, {{state}}"
+    },
+    "hike": {
+      "review": {
+        "empty": "This hike has not yet been reviewed.",
+        "prompt": "Tried this hike? Leave a review!"
+      }
+    },
+    "search": {
+      "results": {
+        "header": "{{count}} result",
+        "header_plural": "{{count}} results"
+      },
+      "empty": {
+        "header": "Recent searches",
+        "label": "No recent searches. Try searching for a hike by name or by city."
+      },
+      "noResults": {
+        "header": "No results",
+        "label": "Sorry, we couldn't find any matches for that search."
+      }
+    },
+    "map": {
+      "search": "Search for hikes by city",
+      "results": {
+        "empty": "No results found"
+      },
+      "empty": {
+        "title": "Adventure awaits",
+        "description": "Get started by selecting a hike from the map above."
+      }
+    },
+    "home": {
+      "empty": {
+        "default": {
+          "title": "We couldn't find any nearby hikes",
+          "description": "This probably means we haven't added any hikes near {{cityName}} yet. Try <3>searching for a hike</3> or <5>browse the map</5>."
         },
-        "hike": {
-            "review": {
-                "empty": "This hike has not yet been reviewed.",
-                "prompt": "Tried this hike? Leave a review!"
-            }
-        },
-        "search": {
-            "results": {
-                "header": "{{count}} result",
-                "header_plural": "{{count}} results"
-            },
-            "empty": {
-                "header": "Recent searches",
-                "label": "No recent searches. Try searching for a hike by name or by city."
-            },
-            "noResults": {
-                "header": "No results",
-                "label": "Sorry, we couldn't find any matches for that search."
-            }
-        },
-        "map": {
-            "search": "Search for hikes by city",
-            "results": {
-                "empty": "No results found"
-            },
-            "empty": {
-                "title": "Adventure awaits",
-                "description": "Get started by selecting a hike from the map above."
-            }
-        },
-        "home": {
-            "empty": {
-                "default": {
-                    "title": "We couldn't find any nearby hikes",
-                    "description": "This probably means we haven't added any hikes near {{cityName}} yet. Try <3>searching for a hike</3> or <5>browse the map</5>."
-                },
-                "permission": {
-                    "title": "Location sharing disabled",
-                    "description": "The Home tab only works if you've enabled location sharing. Try <1>searching for a hike</1> or <3>browse the map</3> instead."
-                }
-            }
-        },
-        "onboard": {
-            "permission": {
-                "title": "Share your location",
-                "description": "Sharing your location allows us to recommend great hikes that are close to you!",
-                "button": "Allow Location Sharing",
-                "warning": "{{appName}} won't work properly if you choose not to share your location."
-            }
-        },
-        "createAccount": {
-            "legal": "By clicking '{{createAccount}}' you agree to {{appName}} <5>Terms of Service</5> and <7>Privacy Policy</7>.",
-            "header": "Sign Up With Email"
-        },
-        "signIn": {
-            "reset": "Forgot password?",
-            "header": "Sign In With Email"
-        },
-        "reset": {
-            "disabled": "You cannot update your password because there is no password associated with your account."
-        },
-        "notifications": {
-            "empty": {
-                "title": "No notifications",
-                "description": "Notifications about new hikes and likes on your reviews will appear here."
-            }
-        },
-        "profile": {
-            "edit": "Edit Profile",
-            "add": "Add Location",
-            "header": "Your Hikes",
-            "empty": {
-                "title": "Save your favorites",
-                "description": "Hikes you favorite will be saved here.\n<1>Explore the map</1> to start finding great hikes near you."
-            }
-        },
-        "settings": {
-            "header": {
-                "development": "Development",
-                "map": "Driving Directions",
-                "display": "Display",
-                "notifications": "Notifications",
-                "terms": "Terms & Privacy",
-                "account": "Account",
-                "version": "Version",
-                "push": "Push Notifications"
-            },
-            "item": {
-                "componentLibrary": "Component Library",
-                "map": {
-                    "apple": "Apple Maps",
-                    "google": "Google Maps"
-                },
-                "dark": "Dark Mode",
-                "notification": {
-                    "combined": "Email & Push Notifications",
-                    "email": {
-                        "global": "Enable emails",
-                        "digest": "Digest"
-                    },
-                    "push": {
-                        "global": "Enable push notifications",
-                        "digest": "Digest",
-                        "reviewLike": "Review likes"
-                    }
-                }
-            }
+        "permission": {
+          "title": "Location sharing disabled",
+          "description": "The Home tab only works if you've enabled location sharing. Try <1>searching for a hike</1> or <3>browse the map</3> instead."
         }
+      }
     },
-    "feed": {
-        "header": "Hikes near {{cityName}}",
-        "footer": "New hikes every week"
+    "onboard": {
+      "permission": {
+        "title": "Share your location",
+        "description": "Sharing your location allows us to recommend great hikes that are close to you!",
+        "button": "Allow Location Sharing",
+        "warning": "{{appName}} won't work properly if you choose not to share your location."
+      }
     },
-    "toast": {
-        "favorite": "You favorited {{hikeName}}.",
-        "share": "Link copied to clipboard."
+    "createAccount": {
+      "legal": "By clicking '{{createAccount}}' you agree to {{appName}} <5>Terms of Service</5> and <7>Privacy Policy</7>.",
+      "header": "Sign Up With Email"
     },
-    "alert": {
-        "attribution": {
-            "title": "Attribution",
-            "body": "Photo by {{name}}"
-        },
-        "deleteReview": {
-            "title": "Delete Review",
-            "body": "Are you should you would like to delete this review?"
-        },
-        "reset": {
-            "success": {
-                "title": "Recovery Email Sent",
-                "body": "If a {{appName}} account exists for {{email}}, a email will be sent with additional instructions."
-            }
-        },
-        "password": {
-            "success": {
-                "title": "Success",
-                "body": "Your password was successfully updated."
-            }
-        }
+    "signIn": {
+      "reset": "Forgot password?",
+      "header": "Sign In With Email"
     },
-    "error": {
-        "label": "Error",
-        "auth": {
-            "account": {
-                "exists": "It looks like an account has already been created with this email address.",
-                "invalid": "The email address you provided is not correctly formatted.",
-                "notFound": "There is no account associated with this email address.",
-                "tooMany": "You have entered an incorrect password too many times."
-            },
-            "password": {
-                "weak": "The password you provided is not sufficiently strong.",
-                "wrong": "The password you provided is incorrect."
-            },
-            "generic": "Sorry, it looks like something went wrong. Please try again."
-        }
-    },
-    "promotion": {
-        "welcome": {
-            "title": "Welcome to Hikearound!",
-            "description": "We're currently focused on hikes in\nSeattle and the San Francisco Bay Area.\n\nIf you live outside either of these locations, we'll let you know when we begin\nadding hikes near you.",
-            "cta": "Got It"
-        }
-    },
-    "update": {
-        "text": "A new version of the app is available.",
-        "cta": "Update"
+    "reset": {
+      "disabled": "You cannot update your password because there is no password associated with your account."
     },
     "notifications": {
-        "reviewLike": {
-            "title": "Liked by {{name}}",
-            "subtitle": "Your review for {{name}} in {{city}}, {{state}}"
-        },
-        "digest": {
-            "title": "New hikes near you",
-            "subtitle": "We think you might like {{name}} in {{city}}, {{state}}"
-        }
+      "empty": {
+        "title": "No notifications",
+        "description": "Notifications about new hikes and likes on your reviews will appear here."
+      }
     },
-    "ad": {
-        "promoted": "Promoted by {{name}}"
+    "profile": {
+      "edit": "Edit Profile",
+      "add": "Add Location",
+      "header": "Your Hikes",
+      "empty": {
+        "title": "Save your favorites",
+        "description": "Hikes you favorite will be saved here.\n<1>Explore the map</1> to start finding great hikes near you."
+      }
+    },
+    "settings": {
+      "header": {
+        "development": "Development",
+        "map": "Driving Directions",
+        "display": "Display",
+        "notifications": "Notifications",
+        "terms": "Terms & Privacy",
+        "account": "Account",
+        "version": "Version",
+        "push": "Push Notifications"
+      },
+      "item": {
+        "map": {
+          "apple": "Apple Maps",
+          "google": "Google Maps"
+        },
+        "dark": "Dark Mode",
+        "notification": {
+          "combined": "Email & Push Notifications",
+          "email": {
+            "global": "Enable emails",
+            "digest": "Digest"
+          },
+          "push": {
+            "global": "Enable push notifications",
+            "digest": "Digest",
+            "reviewLike": "Review likes"
+          }
+        }
+      }
     }
+  },
+  "feed": {
+    "header": "Hikes near {{cityName}}",
+    "footer": "New hikes every week"
+  },
+  "toast": {
+    "favorite": "You favorited {{hikeName}}.",
+    "share": "Link copied to clipboard."
+  },
+  "alert": {
+    "attribution": {
+      "title": "Attribution",
+      "body": "Photo by {{name}}"
+    },
+    "deleteReview": {
+      "title": "Delete Review",
+      "body": "Are you should you would like to delete this review?"
+    },
+    "reset": {
+      "success": {
+        "title": "Recovery Email Sent",
+        "body": "If a {{appName}} account exists for {{email}}, a email will be sent with additional instructions."
+      }
+    },
+    "password": {
+      "success": {
+        "title": "Success",
+        "body": "Your password was successfully updated."
+      }
+    }
+  },
+  "error": {
+    "label": "Error",
+    "auth": {
+      "account": {
+        "exists": "It looks like an account has already been created with this email address.",
+        "invalid": "The email address you provided is not correctly formatted.",
+        "notFound": "There is no account associated with this email address.",
+        "tooMany": "You have entered an incorrect password too many times."
+      },
+      "password": {
+        "weak": "The password you provided is not sufficiently strong.",
+        "wrong": "The password you provided is incorrect."
+      },
+      "generic": "Sorry, it looks like something went wrong. Please try again."
+    }
+  },
+  "promotion": {
+    "welcome": {
+      "title": "Welcome to Hikearound!",
+      "description": "We're currently focused on hikes in\nSeattle and the San Francisco Bay Area.\n\nIf you live outside either of these locations, we'll let you know when we begin\nadding hikes near you.",
+      "cta": "Got It"
+    }
+  },
+  "update": {
+    "text": "A new version of the app is available.",
+    "cta": "Update"
+  },
+  "notifications": {
+    "reviewLike": {
+      "title": "Liked by {{name}}",
+      "subtitle": "Your review for {{name}} in {{city}}, {{state}}"
+    },
+    "digest": {
+      "title": "New hikes near you",
+      "subtitle": "We think you might like {{name}} in {{city}}, {{state}}"
+    }
+  },
+  "ad": {
+    "promoted": "Promoted by {{name}}"
+  }
 }
