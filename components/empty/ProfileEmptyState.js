@@ -18,7 +18,7 @@ const propTypes = {
 const defaultProps = {
   iconSize: 40,
   iconColor: colors.purple,
-  iconType: 'ios-heart',
+  iconType: 'heart',
 };
 
 class ProfileEmptyState extends React.PureComponent {

@@ -16,7 +16,7 @@ const defaultProps = {
     marginLeft: 8,
     marginTop: 5,
   },
-  name: 'ios-search',
+  name: 'search',
   size: 20,
   fill: colors.gray,
 };

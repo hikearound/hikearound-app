@@ -104,7 +104,7 @@ class GroupItem extends React.PureComponent {
         textColor={textColor}
       >
         <Ionicons
-          name='ios-checkmark-sharp'
+          name='checkmark-sharp'
           size={22}
           color={colors.purple}
           style={{

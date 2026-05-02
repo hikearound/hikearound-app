@@ -40,7 +40,7 @@ const cameraGradientOverlay = size => (
     }}
   >
     <Ionicons
-      name='ios-camera'
+      name='camera'
       color={transparentColors.white}
       size={30}
       style={{

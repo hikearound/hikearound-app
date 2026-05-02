@@ -20,7 +20,7 @@ function Settings({ onPress }) {
         marginTop: -1,
       }}
     >
-      <Ionicons name='ios-settings-sharp' size={24} color={colors.white} />
+      <Ionicons name='settings-sharp' size={24} color={colors.white} />
     </TouchableOpacity>
   );
 }

@@ -84,7 +84,7 @@ class LocationButton extends React.PureComponent {
       >
         <ButtonWrapper>
           <Ionicons
-            name='ios-navigate'
+            name='navigate'
             color={colors.purple}
             size={24}
             style={{

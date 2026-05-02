@@ -17,7 +17,7 @@ function Overflow({ onPress }) {
       }}
       onPress={onPress}
     >
-      <Ionicons name='ios-ellipsis-horizontal' size={26} color={colors.white} />
+      <Ionicons name='ellipsis-horizontal' size={26} color={colors.white} />
     </TouchableOpacity>
   );
 }

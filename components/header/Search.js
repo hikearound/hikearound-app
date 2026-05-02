@@ -24,7 +24,7 @@ class Search extends React.PureComponent {
 
     return (
       <StyledOpacity activeOpacity={opacities.regular} onPress={this.onPress}>
-        <Ionicons name='ios-search' size={24} color={color} />
+        <Ionicons name='search' size={24} color={color} />
       </StyledOpacity>
     );
   }

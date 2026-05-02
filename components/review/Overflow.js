@@ -33,7 +33,7 @@ class Overflow extends React.PureComponent {
         onPress={onPress}
       >
         <Ionicons
-          name='ios-ellipsis-horizontal'
+          name='ellipsis-horizontal'
           size={iconSize}
           color={theme.colors.overflowFill}
         />

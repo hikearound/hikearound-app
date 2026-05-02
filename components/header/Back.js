@@ -11,7 +11,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-  name: 'ios-chevron-back',
+  name: 'chevron-back',
   color: colors.white,
   size: 26,
 };

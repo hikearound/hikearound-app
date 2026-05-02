@@ -50,7 +50,7 @@ class FavoriteButton extends React.Component {
     const { favoriteHikes } = this.props;
 
     this.state = {
-      iconName: 'ios-heart-outline',
+      iconName: 'heart-outline',
       iconSize: 30,
       hikes: favoriteHikes,
     };
@@ -89,13 +89,13 @@ class FavoriteButton extends React.Component {
       this.setState({
         hikes,
         iconColor: colors.purple,
-        iconName: 'ios-heart',
+        iconName: 'heart',
       });
     } else {
       this.setState({
         hikes,
         iconColor: emptyColor,
-        iconName: 'ios-heart-outline',
+        iconName: 'heart-outline',
       });
     }
   };
@@ -118,7 +118,7 @@ class FavoriteButton extends React.Component {
     this.setState({
       hikes,
       iconColor: colors.purple,
-      iconName: 'ios-heart',
+      iconName: 'heart',
     });
 
     dispatchFavorite({ hid, distance, name, city, state });
@@ -186,7 +186,7 @@ class FavoriteButton extends React.Component {
     this.setState({
       hikes,
       iconColor: emptyColor,
-      iconName: 'ios-heart-outline',
+      iconName: 'heart-outline',
     });
 
     dispatchUnfavorite({ hid });
@@ -216,7 +216,7 @@ class FavoriteButton extends React.Component {
     if (placement === 'card') {
       return (
         <Ionicons
-          name='ios-heart-outline'
+          name='heart-outline'
           color={colors.white}
           size={iconSize}
           style={{

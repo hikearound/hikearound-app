@@ -20,7 +20,7 @@ const propTypes = {
 const defaultProps = {
   iconSize: 28,
   iconColor: colors.white,
-  iconName: 'ios-share-social-outline',
+  iconName: 'share-social-outline',
 };
 
 function mapStateToProps() {

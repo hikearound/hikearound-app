@@ -101,13 +101,13 @@ class ModalDismiss extends React.Component {
     const { top, right } = this.state;
 
     let iconStyle = (
-      <Ionicons name='ios-close' color={colors.white} size={iconSize - 2} />
+      <Ionicons name='close' color={colors.white} size={iconSize - 2} />
     );
 
     if (includeBackground) {
       iconStyle = (
         <DismissIconWrapper size={iconWrapperSize}>
-          <Ionicons name='ios-close' color={colors.purple} size={iconSize} />
+          <Ionicons name='close' color={colors.purple} size={iconSize} />
         </DismissIconWrapper>
       );
     }
