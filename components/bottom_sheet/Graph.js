@@ -27,15 +27,9 @@ const propTypes = {
   onPositionChange: PropTypes.func,
 };
 
-const defaultProps = {
-  height: 200,
-  mapRef: {},
-  onPositionChange: () => {},
-};
-
 const { width } = Dimensions.get('window');
 
-function CustomBackground({ style, mapRef, sheetRef, theme }) {
+function CustomBackground({ style = null, mapRef, sheetRef, theme }) {
   return (
     <>
       <View
@@ -67,11 +61,7 @@ CustomBackground.propTypes = {
   theme: PropTypes.object.isRequired,
 };
 
-CustomBackground.defaultProps = {
-  style: null,
-};
-
-function PointerLabel({ value }) {
+function PointerLabel({ value = 0 }) {
   return (
     <View
       style={{
@@ -104,18 +94,14 @@ PointerLabel.propTypes = {
   value: PropTypes.number,
 };
 
-PointerLabel.defaultProps = {
-  value: 0,
-};
-
 function GraphSheet({
   sheetRef,
-  mapRef,
+  mapRef = {},
   elevationArray,
   hike,
-  height,
+  height = 200,
   t,
-  onPositionChange,
+  onPositionChange = () => {},
   theme,
 }) {
   const { distance, elevation } = hike;
@@ -356,7 +342,6 @@ function GraphSheet({
 }
 
 GraphSheet.propTypes = propTypes;
-GraphSheet.defaultProps = defaultProps;
 
 export default withTranslation()(withNavigation(withTheme(GraphSheet)));
 

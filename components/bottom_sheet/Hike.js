@@ -29,7 +29,7 @@ const defaultProps = {
   onClose: null,
 };
 
-function CustomBackground({ style, mapRef, sheetRef, theme }) {
+function CustomBackground({ style = null, mapRef, sheetRef, theme }) {
   return (
     <>
       <View
@@ -59,10 +59,6 @@ CustomBackground.propTypes = {
   mapRef: PropTypes.object.isRequired,
   sheetRef: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
-};
-
-CustomBackground.defaultProps = {
-  style: null,
 };
 
 class HikeSheet extends React.Component {

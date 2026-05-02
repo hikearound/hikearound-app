@@ -17,12 +17,6 @@ const propTypes = {
   keyboardShouldPersistTaps: PropTypes.string,
 };
 
-const defaultProps = {
-  paddingBottom: 25,
-  showsVerticalScrollIndicator: false,
-  keyboardShouldPersistTaps: 'handled',
-};
-
 const renderItem = ({ item }) => (
   <HikeListItem
     id={item.objectID}
@@ -40,9 +34,9 @@ function InfiniteHits({
   hits,
   hasMore,
   refine,
-  paddingBottom,
-  showsVerticalScrollIndicator,
-  keyboardShouldPersistTaps,
+  paddingBottom = 25,
+  showsVerticalScrollIndicator = false,
+  keyboardShouldPersistTaps = 'handled',
 }) {
   if (hits.length > 0) {
     return (
@@ -66,6 +60,5 @@ function InfiniteHits({
 }
 
 InfiniteHits.propTypes = propTypes;
-InfiniteHits.defaultProps = defaultProps;
 
 export default withNavigation(withTheme(connectInfiniteHits(InfiniteHits)));

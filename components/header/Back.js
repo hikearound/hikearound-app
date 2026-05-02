@@ -10,13 +10,7 @@ const propTypes = {
   size: PropTypes.number,
 };
 
-const defaultProps = {
-  name: 'chevron-back',
-  color: colors.white,
-  size: 26,
-};
-
-function Back({ name, color, size }) {
+function Back({ name = 'chevron-back', color = colors.white, size = 26 }) {
   return (
     <View>
       <Ionicons name={name} size={size} color={color} />
@@ -25,7 +19,6 @@ function Back({ name, color, size }) {
 }
 
 Back.propTypes = propTypes;
-Back.defaultProps = defaultProps;
 
 export default Back;
 

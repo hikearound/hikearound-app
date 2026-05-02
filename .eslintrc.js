@@ -63,6 +63,7 @@ module.exports = {
     semi: ['error', 'always'],
     'prettier/prettier': 'error',
     'no-console': 'off',
+    'react/require-default-props': ['error', { functions: 'defaultArguments' }],
   },
   overrides: [
     {

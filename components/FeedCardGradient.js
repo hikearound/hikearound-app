@@ -8,12 +8,7 @@ const propTypes = {
   height: PropTypes.number,
 };
 
-const defaultProps = {
-  imageDidLoad: true,
-  height: 140,
-};
-
-function FeedCardGradient({ imageDidLoad, height }) {
+function FeedCardGradient({ imageDidLoad = true, height = 140 }) {
   return (
     <LinearGradient
       colors={[transparentColors.grayDarker, 'transparent']}
@@ -32,6 +27,5 @@ function FeedCardGradient({ imageDidLoad, height }) {
 }
 
 FeedCardGradient.propTypes = propTypes;
-FeedCardGradient.defaultProps = defaultProps;
 
 export default FeedCardGradient;

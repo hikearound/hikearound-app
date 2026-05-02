@@ -16,13 +16,7 @@ const propTypes = {
   route: PropTypes.string,
 };
 
-const defaultProps = {
-  distance: 0,
-  elevation: 0,
-  route: '',
-};
-
-function InfoBar({ distance, elevation, route, t }) {
+function InfoBar({ distance = 0, elevation = 0, route = '', t }) {
   return (
     <CardContent>
       <ContentItem>
@@ -46,7 +40,6 @@ function InfoBar({ distance, elevation, route, t }) {
 }
 
 InfoBar.propTypes = propTypes;
-InfoBar.defaultProps = defaultProps;
 
 export default withTranslation()(InfoBar);
 

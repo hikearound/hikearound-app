@@ -23,20 +23,12 @@ const propTypes = {
   swipeDirection: PropTypes.array,
 };
 
-const defaultProps = {
-  imageSize: 125,
-  animationInTiming: 500,
-  animationIn: 'slideInUp',
-  animationOut: 'slideOutDown',
-  swipeDirection: ['up', 'down'],
-};
-
 function Promotion({
-  imageSize,
-  animationIn,
-  animationInTiming,
-  animationOut,
-  swipeDirection,
+  imageSize = 125,
+  animationIn = 'slideInUp',
+  animationInTiming = 500,
+  animationOut = 'slideOutDown',
+  swipeDirection = ['up', 'down'],
   t,
 }) {
   const [isModalVisible, setModalVisible] = useState(true);
@@ -81,7 +73,6 @@ function Promotion({
 }
 
 Promotion.propTypes = propTypes;
-Promotion.defaultProps = defaultProps;
 
 export default withTranslation()(withTheme(Promotion));
 

@@ -8,11 +8,7 @@ const propTypes = {
   hideBorder: PropTypes.bool,
 };
 
-const defaultProps = {
-  hideBorder: false,
-};
-
-function Subtitle({ text, hideBorder }) {
+function Subtitle({ text, hideBorder = false }) {
   return (
     <SubtitleView hideBorder={hideBorder}>
       <SubtitleText>{text}</SubtitleText>
@@ -21,7 +17,6 @@ function Subtitle({ text, hideBorder }) {
 }
 
 Subtitle.propTypes = propTypes;
-Subtitle.defaultProps = defaultProps;
 
 export default Subtitle;
 

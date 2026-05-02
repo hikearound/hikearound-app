@@ -19,12 +19,7 @@ const propTypes = {
   margin: PropTypes.string,
 };
 
-const defaultProps = {
-  primary: false,
-  margin: '',
-};
-
-function LandingButton({ action, primary, margin, text }) {
+function LandingButton({ action, primary = false, margin = '', text }) {
   return (
     <TouchableOpacity activeOpacity={opacities.regular} onPress={action}>
       <Button primary={primary} buttonMargin={margin}>
@@ -35,7 +30,6 @@ function LandingButton({ action, primary, margin, text }) {
 }
 
 LandingButton.propTypes = propTypes;
-LandingButton.defaultProps = defaultProps;
 
 export default LandingButton;
 

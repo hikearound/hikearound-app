@@ -4,23 +4,10 @@ import { getUserProfileData } from '@utils/User';
 import { getHikeData } from '@utils/Hike';
 
 export async function registerForPushNotifications() {
-  const { status } = await Notifications.requestPermissionsAsync();
-
-  if (status !== 'granted') {
-    return;
-  }
-
-  const user = auth.currentUser;
-
-  let notificationToken = await Notifications.getExpoPushTokenAsync({
-    projectId: 'hikearound-app',
-  });
-  notificationToken = notificationToken.data;
-
-  await db
-    .collection('users')
-    .doc(user.uid)
-    .set({ notificationToken }, { merge: true });
+  // Push tokens are skipped: no EAS project is configured for this build.
+  // The token fetch requires a real EAS projectId (UUID), and we are not
+  // sending pushes from this build.
+  await Notifications.requestPermissionsAsync();
 }
 
 export async function buildNotificationArray(t, data) {

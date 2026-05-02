@@ -7,7 +7,6 @@ import { withTheme } from '@utils/Themes';
 import { reloadApp, fetchUpdate } from '@utils/Update';
 
 const propTypes = {};
-const defaultProps = {};
 
 function UpdateBanner({ t }) {
   useEffect(() => {
@@ -38,7 +37,6 @@ function UpdateBanner({ t }) {
 }
 
 UpdateBanner.propTypes = propTypes;
-UpdateBanner.defaultProps = defaultProps;
 
 export default withTranslation()(withTheme(UpdateBanner));
 
