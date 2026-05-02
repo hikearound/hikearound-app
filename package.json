@@ -7,8 +7,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "setup-hooks": "chmod +x scripts/setup-hooks.sh .githooks/pre-commit && ./scripts/setup-hooks.sh",
-    "postinstall": "patch-package",
-    "android": "expo run:android"
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "@gorhom/bottom-sheet": "^4.6.4",
@@ -100,9 +99,22 @@
     "eslint-plugin-react": "^7.34.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-native": "^4.1.0",
+    "lint-staged": "^16.4.0",
     "patch-package": "^8.0.1",
     "prettier": "^3.2.5",
     "typescript": "~5.3.3"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "lint-staged": {
+    "*.{js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,yml,yaml,css}": [
+      "prettier --write"
+    ]
   },
   "private": true,
   "name": "hikearound-app",

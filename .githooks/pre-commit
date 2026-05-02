@@ -1,7 +1,8 @@
 #!/bin/bash
 
-# Pre-commit hook for Hikearound React Native App
-# Runs code quality checks before allowing commits
+# Pre-commit hook for Hikearound.
+# Runs lint-staged (Prettier + ESLint scoped to staged files) and
+# verifies Expo dependency compatibility before allowing the commit.
 
 set -e
 
@@ -9,7 +10,6 @@ echo "[pre-commit] Running checks..."
 
 export PATH="/usr/local/bin:/opt/homebrew/bin:$PATH"
 
-# Source nvm if available
 [ -s "$HOME/.nvm/nvm.sh" ] && \. "$HOME/.nvm/nvm.sh"
 
 if command -v nvm >/dev/null 2>&1; then
@@ -26,15 +26,9 @@ if [ ! -d "node_modules" ]; then
     npm install
 fi
 
-echo "[pre-commit] Prettier check..."
-if ! npm run format:check; then
-    echo "[pre-commit] ERROR: Prettier formatting issues found. Run 'npm run format' to fix."
-    exit 1
-fi
-
-echo "[pre-commit] ESLint..."
-if ! npm run lint; then
-    echo "[pre-commit] ERROR: ESLint issues found. Fix before committing."
+echo "[pre-commit] Running lint-staged..."
+if ! npx lint-staged; then
+    echo "[pre-commit] ERROR: lint-staged failed. Fix issues and re-stage before committing."
     exit 1
 fi
 

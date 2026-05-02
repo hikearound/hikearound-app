@@ -1,0 +1,39 @@
+version: 2
+updates:
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+      day: 'monday'
+      time: '09:00'
+      timezone: 'America/Los_Angeles'
+    labels:
+      - 'dependencies'
+    assignees:
+      - 'pdugan20'
+    reviewers:
+      - 'pdugan20'
+    groups:
+      npm_and_yarn:
+        patterns:
+          - '*'
+    open-pull-requests-limit: 10
+
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+      day: 'monday'
+      time: '09:00'
+      timezone: 'America/Los_Angeles'
+    labels:
+      - 'dependencies'
+      - 'github-actions'
+    assignees:
+      - 'pdugan20'
+    reviewers:
+      - 'pdugan20'
+    groups:
+      github-actions:
+        patterns:
+          - '*'

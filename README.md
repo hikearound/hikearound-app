@@ -1,6 +1,11 @@
 # Hikearound
 
-Hikearound is a React Native iOS application that helps users discover, save, and share great local hikes. The app provides curated and personalized hiking recommendations with detailed information about trails, difficulty levels, and user reviews.
+[![CI](https://github.com/hikearound/hikearound-app/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/hikearound/hikearound-app/actions/workflows/ci.yml)
+[![React Native](https://img.shields.io/badge/React_Native-0.74-61DAFB?logo=react&logoColor=white)](https://reactnative.dev)
+[![Expo](https://img.shields.io/badge/Expo-51-000020?logo=expo&logoColor=white)](https://expo.dev)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow?logo=opensourceinitiative&logoColor=white)](LICENSE)
+
+A React Native iOS app for discovering, saving, and sharing great local hikes.
 
 ## Features
 
@@ -27,7 +32,7 @@ Hikearound is a React Native iOS application that helps users discover, save, an
 
 - macOS (this is an iOS-only project — no Android target)
 - Xcode (latest stable; the repo currently builds against Xcode 26 / iOS 26 SDK)
-- Node.js v18 or later
+- Node.js v18 or later (see `.nvmrc` for the pinned version)
 - CocoaPods (`sudo gem install cocoapods` or via Homebrew)
 - Apple ID signed into the iOS Simulator (required for Apple Sign-In)
 
@@ -40,13 +45,19 @@ Hikearound is a React Native iOS application that helps users discover, save, an
    cd hikearound-app
    ```
 
-2. Install JS dependencies (also applies `patches/` via `postinstall`):
+2. Use the pinned Node version (optional but recommended):
+
+   ```bash
+   nvm use   # respects .nvmrc
+   ```
+
+3. Install JS dependencies (also applies `patches/` via `postinstall`):
 
    ```bash
    npm install
    ```
 
-3. Create the `.env` file from the template and fill in your keys:
+4. Create the `.env` file from the template and fill in your keys:
 
    ```bash
    cp .env.tmp .env
@@ -57,13 +68,13 @@ Hikearound is a React Native iOS application that helps users discover, save, an
    - `GOOGLE_PLACES_KEY`, `GOOGLE_GEO_KEY`
    - `ALGOLIA_APP_ID`, `ALGOLIA_SEARCH_KEY`
 
-4. Wire up the pre-commit hooks (one-time):
+5. Wire up the pre-commit hooks (one-time):
 
    ```bash
    npm run setup-hooks
    ```
 
-   The hook runs Prettier, ESLint, and `expo install --check` before each commit.
+   The hook runs `lint-staged` (Prettier + ESLint on staged files only) plus `expo install --check` before each commit.
 
 ## Build and run on the iOS Simulator
 
@@ -126,7 +137,7 @@ npm run format:check
 npm run lint
 ```
 
-Pre-commit hooks (installed via `npm run setup-hooks`) enforce all three plus `expo install --check`. Hook scripts live in `.githooks/`.
+Pre-commit hooks (installed via `npm run setup-hooks`) run `lint-staged` plus `expo install --check`. `lint-staged` runs Prettier and ESLint **only on staged files**, which keeps commits fast even on a repo this size. Hook scripts live in `.githooks/`.
 
 If a commit absolutely needs to bypass hooks, `git commit --no-verify` works — but the same checks run in CI, so it usually just defers the cleanup.
 
@@ -142,6 +153,16 @@ npx patch-package <pkg-name>
 ```
 
 The new `.patch` file is written to `patches/`.
+
+## Continuous integration
+
+GitHub Actions runs on every push and PR to `main`/`master`/`develop`:
+
+- **CI** (`.github/workflows/ci.yml`): Prettier check, ESLint, `expo install --check`, and `claude-code-lint` (validates CLAUDE.md).
+- **CodeQL** (`.github/workflows/codeql.yml`): security and quality static analysis on JS/TS, also runs weekly.
+- **Dependabot auto-merge** (`.github/workflows/dependabot-auto-merge.yml`): minor and patch dependency updates from Dependabot are auto-approved and merged once CI passes.
+
+Dependabot itself is configured in `.github/dependabot.yml` to open monthly grouped npm and GitHub Actions update PRs.
 
 ## Project structure
 
