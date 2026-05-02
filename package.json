@@ -52,7 +52,7 @@
     "react-instantsearch": "^6.40.4",
     "react-instantsearch-native": "^6.40.4",
     "react-is": "^16.13.1",
-    "react-native": "0.74.5",
+    "react-native": "0.85.2",
     "react-native-expo-image-cache": "^4.1.0",
     "react-native-geocoding": "^0.5.0",
     "react-native-gesture-handler": "~2.16.1",
