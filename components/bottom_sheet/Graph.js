@@ -25,9 +25,13 @@ const propTypes = {
   height: PropTypes.number,
   mapRef: PropTypes.object,
   onPositionChange: PropTypes.func,
+  onActiveChange: PropTypes.func,
 };
 
 const { width } = Dimensions.get('window');
+
+const MAX_CHART_POINTS = 50;
+const POSITION_UPDATE_THRESHOLD = 0.008;
 
 function CustomBackground({ style = null, mapRef, sheetRef, theme }) {
   return (
@@ -102,96 +106,100 @@ function GraphSheet({
   height = 200,
   t,
   onPositionChange = () => {},
+  onActiveChange = () => {},
   theme,
 }) {
   const { distance, elevation } = hike;
   const lastPositionRef = React.useRef(-1);
-  const heartbeatIntervalRef = React.useRef(null);
   const [isChartActive, setIsChartActive] = React.useState(false);
 
-  // Cleanup heartbeat interval on unmount
-  React.useEffect(
-    () => () => {
-      if (heartbeatIntervalRef.current) {
-        clearInterval(heartbeatIntervalRef.current);
+  const { chartData, step } = React.useMemo(() => {
+    const stepValue = Math.max(
+      1,
+      Math.floor(elevationArray.length / MAX_CHART_POINTS)
+    );
+    const reducedElevations = elevationArray.filter(
+      (_, index) => index % stepValue === 0
+    );
+
+    const labelPositions = new Set();
+    const data = reducedElevations.map((elevationValue, index) => {
+      const originalIndex = index * stepValue;
+      const distanceAtPoint =
+        (originalIndex / elevationArray.length) * distance;
+
+      let labelText = '';
+      const roundedDistance = Math.round(distanceAtPoint);
+
+      if (index === 0) {
+        labelPositions.add(0);
+      } else if (
+        roundedDistance > 0 &&
+        !labelPositions.has(roundedDistance) &&
+        Math.abs(distanceAtPoint - roundedDistance) < 0.2
+      ) {
+        labelText = `${roundedDistance} mi`;
+        labelPositions.add(roundedDistance);
       }
-    },
-    []
-  );
 
-  // Reduce data points for better performance and visibility
-  const step = Math.max(1, Math.floor(elevationArray.length / 50)); // Show max 50 points
-  const reducedElevations = elevationArray.filter(
-    (_, index) => index % step === 0
-  );
+      return {
+        value: Number(elevationValue),
+        label: labelText,
+        labelTextStyle: labelText
+          ? {
+              width: 40,
+              textAlign: 'center',
+              color: '#666',
+              fontSize: 10,
+            }
+          : undefined,
+      };
+    });
 
-  // Create strategic label points to avoid duplicates
-  const labelPositions = new Set();
-  const chartData = reducedElevations.map((elevationValue, index) => {
-    const originalIndex = index * step;
-    const distanceAtPoint = (originalIndex / elevationArray.length) * distance;
+    return { chartData: data, step: stepValue };
+  }, [elevationArray, distance]);
 
-    let labelText = '';
-    const roundedDistance = Math.round(distanceAtPoint);
-
-    if (index === 0) {
-      labelText = '';
-      labelPositions.add(0);
-    } else if (
-      roundedDistance > 0 &&
-      !labelPositions.has(roundedDistance) &&
-      Math.abs(distanceAtPoint - roundedDistance) < 0.2
-    ) {
-      labelText = `${roundedDistance} mi`;
-      labelPositions.add(roundedDistance);
+  const { maxValue, minValue } = React.useMemo(() => {
+    let max = -Infinity;
+    let min = Infinity;
+    for (const value of elevationArray) {
+      const numeric = Number(value);
+      if (numeric > max) max = numeric;
+      if (numeric < min) min = numeric;
     }
-
     return {
-      value: Number(elevationValue),
-      label: labelText,
-      labelTextStyle: labelText
-        ? {
-            width: 40,
-            textAlign: 'center',
-            color: '#666',
-            fontSize: 10,
-          }
-        : undefined,
+      maxValue: max + 10,
+      minValue: Math.max(0, min - 10),
     };
-  });
-
-  // Use real data now that we know chart works
-  const dataToUse = chartData;
+  }, [elevationArray]);
 
   const renderPointerLabel = React.useCallback(
     items => {
-      // Schedule position update after render to avoid state update during render
+      // Schedule position update after render to avoid setState during render.
       setTimeout(() => {
-        if (items && items.length > 0 && onPositionChange) {
-          const currentValue = items[0].value;
-          const dataPointIndex = dataToUse.findIndex(
-            point => point.value === currentValue
-          );
+        if (!items || items.length === 0) return;
 
-          if (dataPointIndex >= 0) {
-            // Convert reduced array index back to original full array position
-            const originalArrayIndex = dataPointIndex * step;
+        const currentValue = items[0].value;
+        const dataPointIndex = chartData.findIndex(
+          point => point.value === currentValue
+        );
+        if (dataPointIndex < 0) return;
 
-            // Calculate smooth position as a percentage of the full route
-            const position = originalArrayIndex / (elevationArray.length - 1);
+        const originalArrayIndex = dataPointIndex * step;
+        const position = originalArrayIndex / (elevationArray.length - 1);
 
-            // Simple throttling - only update if position changed significantly
-            if (Math.abs(position - lastPositionRef.current) > 0.008) {
-              lastPositionRef.current = position;
-              onPositionChange(Math.max(0, Math.min(1, position)));
-            }
-          }
+        if (
+          Math.abs(position - lastPositionRef.current) >
+          POSITION_UPDATE_THRESHOLD
+        ) {
+          lastPositionRef.current = position;
+          onPositionChange(Math.max(0, Math.min(1, position)));
         }
       }, 0);
 
       return <PointerLabel value={items[0]?.value} />;
     },
-    [dataToUse, elevationArray.length, onPositionChange, step]
+    [chartData, elevationArray.length, onPositionChange, step]
   );
 
   const renderBackgroundComponent = React.useCallback(
@@ -206,112 +214,34 @@ function GraphSheet({
     [mapRef, sheetRef, theme]
   );
 
-  const renderContentHeaderItem = (label, subtext) => (
-    <React.Fragment key={label}>
-      <HeaderItem>
-        <HeaderLabel>{label}</HeaderLabel>
-        <HeaderSubtext>{subtext}</HeaderSubtext>
-      </HeaderItem>
-    </React.Fragment>
-  );
+  const handleTouchStart = React.useCallback(() => {
+    setIsChartActive(true);
+    onActiveChange(true);
+  }, [onActiveChange]);
 
-  const renderContentHeader = () => [
-    renderContentHeaderItem(
-      t('sheet.elevation.label.distance'),
-      t('sheet.elevation.distance', {
-        unit: t('sheet.elevation.unit.miles'),
-        distance,
-      })
-    ),
-    renderContentHeaderItem(
-      t('sheet.elevation.label.elevation'),
-      t('sheet.elevation.distance', {
-        unit: t('sheet.elevation.unit.feet'),
-        distance: elevation.toLocaleString(),
-      })
-    ),
-  ];
+  const handleTouchEnd = React.useCallback(() => {
+    setIsChartActive(false);
+    onActiveChange(false);
+  }, [onActiveChange]);
 
-  const renderContent = () => (
-    <Body>
-      <Header>{renderContentHeader()}</Header>
-      <ChartContainer
-        onTouchStart={() => {
-          // Disable sheet panning and start heartbeat
-          setIsChartActive(true);
-          heartbeatIntervalRef.current = setInterval(() => {
-            if (lastPositionRef.current >= 0) {
-              onPositionChange(lastPositionRef.current);
-            }
-          }, 500); // Send position every 500ms while touching
-        }}
-        onTouchEnd={() => {
-          // Re-enable sheet panning and stop heartbeat
-          setIsChartActive(false);
-          if (heartbeatIntervalRef.current) {
-            clearInterval(heartbeatIntervalRef.current);
-            heartbeatIntervalRef.current = null;
-          }
-        }}
-      >
-        <LineChart
-          data={dataToUse}
-          width={width - 20}
-          height={height - 60}
-          curved={false}
-          thickness={2.5}
-          color='#935DFF'
-          dataPointsColor='#935DFF'
-          dataPointsRadius={4}
-          hideDataPoints
-          showValuesAsDataPointsText={false}
-          showPointer
-          pointerConfig={{
-            pointer1Color: '#935DFF',
-            pointerStripUptoDataPoint: true,
-            pointerStripColor: '#E0E0E0',
-            strokeWidth: 1,
-            radius: 4,
-            activatePointersOnLongPress: false,
-            activatePointersDelay: 0,
-            pointerLabelComponent: renderPointerLabel,
-          }}
-          spacing={(width - 80) / Math.max(dataToUse.length - 1, 1)}
-          initialSpacing={0}
-          endSpacing={20}
-          scrollToEnd={false}
-          disableScroll
-          hideRules={false}
-          rulesColor='#E0E0E0'
-          rulesThickness={1}
-          hideYAxisText={false}
-          hideAxesAndRules={false}
-          yAxisTextStyle={{
-            color: '#666',
-            fontSize: 10,
-          }}
-          xAxisLabelTextStyle={{
-            color: '#666',
-            fontSize: 10,
-            textAlign: 'center',
-          }}
-          noOfSections={4}
-          maxValue={Math.max(...elevationArray.map(Number)) + 10}
-          minValue={Math.max(0, Math.min(...elevationArray.map(Number)) - 10)}
-          yAxisSuffix=' ft'
-          formatYLabel={value => `${value} ft`}
-          rotateLabel={false}
-          xAxisThickness={1}
-          yAxisThickness={1}
-          xAxisColor='#E0E0E0'
-          yAxisColor='#E0E0E0'
-          backgroundColor='transparent'
-          isAnimated={false}
-          showXAxisIndices={false}
-          showYAxisIndices={false}
-        />
-      </ChartContainer>
-    </Body>
+  const headerItems = React.useMemo(
+    () => [
+      {
+        label: t('sheet.elevation.label.distance'),
+        subtext: t('sheet.elevation.distance', {
+          unit: t('sheet.elevation.unit.miles'),
+          distance,
+        }),
+      },
+      {
+        label: t('sheet.elevation.label.elevation'),
+        subtext: t('sheet.elevation.distance', {
+          unit: t('sheet.elevation.unit.feet'),
+          distance: elevation.toLocaleString(),
+        }),
+      },
+    ],
+    [t, distance, elevation]
   );
 
   return (
@@ -334,7 +264,77 @@ function GraphSheet({
         backgroundComponent={renderBackgroundComponent}
       >
         <BottomSheetView style={{ marginTop: 0 }}>
-          {renderContent()}
+          <Body>
+            <Header>
+              {headerItems.map(({ label, subtext }) => (
+                <HeaderItem key={label}>
+                  <HeaderLabel>{label}</HeaderLabel>
+                  <HeaderSubtext>{subtext}</HeaderSubtext>
+                </HeaderItem>
+              ))}
+            </Header>
+            <ChartContainer
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
+            >
+              <LineChart
+                data={chartData}
+                width={width - 20}
+                height={height - 60}
+                curved={false}
+                thickness={2.5}
+                color='#935DFF'
+                dataPointsColor='#935DFF'
+                dataPointsRadius={4}
+                hideDataPoints
+                showValuesAsDataPointsText={false}
+                showPointer
+                pointerConfig={{
+                  pointer1Color: '#935DFF',
+                  pointerStripUptoDataPoint: true,
+                  pointerStripColor: '#E0E0E0',
+                  strokeWidth: 1,
+                  radius: 4,
+                  activatePointersOnLongPress: false,
+                  activatePointersDelay: 0,
+                  pointerLabelComponent: renderPointerLabel,
+                }}
+                spacing={(width - 80) / Math.max(chartData.length - 1, 1)}
+                initialSpacing={0}
+                endSpacing={20}
+                scrollToEnd={false}
+                disableScroll
+                hideRules={false}
+                rulesColor='#E0E0E0'
+                rulesThickness={1}
+                hideYAxisText={false}
+                hideAxesAndRules={false}
+                yAxisTextStyle={{
+                  color: '#666',
+                  fontSize: 10,
+                }}
+                xAxisLabelTextStyle={{
+                  color: '#666',
+                  fontSize: 10,
+                  textAlign: 'center',
+                }}
+                noOfSections={4}
+                maxValue={maxValue}
+                minValue={minValue}
+                yAxisSuffix=' ft'
+                formatYLabel={value => `${value} ft`}
+                rotateLabel={false}
+                xAxisThickness={1}
+                yAxisThickness={1}
+                xAxisColor='#E0E0E0'
+                yAxisColor='#E0E0E0'
+                backgroundColor='transparent'
+                isAnimated={false}
+                showXAxisIndices={false}
+                showYAxisIndices={false}
+              />
+            </ChartContainer>
+          </Body>
         </BottomSheetView>
       </BottomSheet>
     </>
