@@ -4,27 +4,18 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Hikearound is a React Native iOS application for discovering and sharing local hiking trails. It uses Expo SDK 51 (React Native 0.74), Redux for state management, and integrates with Firebase, Algolia, and Google Maps APIs.
+Hikearound is a React Native iOS application for discovering and sharing local hiking trails. It uses Expo SDK 51 (React Native 0.74), Redux for state management, and integrates with Firebase, Google Maps, and Apple Sign-In.
+
+iOS-only — no Android target. The native `ios/` project is committed (no need to run `expo prebuild` for routine work). See `README.md` for the full build/run guide.
 
 ## Essential Development Commands
 
 ```bash
-# Install dependencies
-npm install
-
-# Start the dev client metro bundler
-npm start
-
-# Build & run on iOS simulator
-npm run ios
-
-# Lint
+npm install            # also applies patches/ via postinstall
+npm run ios            # build + run dev client on simulator
+npm start              # start Metro for an already-built dev client
 npm run lint
-
-# Format
 npm run format
-
-# Format check
 npm run format:check
 ```
 
@@ -32,79 +23,67 @@ npm run format:check
 
 ### State Management
 
-The app uses Redux with the following structure:
+Redux:
 
-- **Actions** (`/actions/`): Define Redux actions for each domain (Auth, Feed, Hike, Map, etc.)
-- **Reducers** (`/reducers/`): Handle state updates for each domain
-- **Store** (`/store/Store.js`): Configures the Redux store
+- **Actions** (`/actions/`): per-domain (Auth, Feed, Hike, Map, etc.)
+- **Reducers** (`/reducers/`): per-domain
+- **Store** (`/store/Store.js`): root store
 
-### Navigation Structure
+### Navigation
 
-Uses React Navigation v6 with:
+React Navigation v6:
 
-- **Tab Navigator** (`/navigators/TabNavigator.js`): Bottom tabs for Home, Map, Notifications, Profile
-- **Stack Navigators** (`/stacks/`): Individual stacks for each tab
-- **App Navigator** (`/navigators/AppNavigator.js`): Root navigation container
+- **Tab Navigator** (`/navigators/TabNavigator.js`): Home, Map, Notifications, Profile
+- **Stack Navigators** (`/stacks/`): one per tab
+- **App Navigator** (`/navigators/AppNavigator.js`): root container
 
 ### Component Organization
 
-- **Screens** (`/screens/`): Full-page components mapped to routes
-- **Components** (`/components/`): Reusable UI components, organized by feature
-  - Modal components in `/components/modal/`
-  - Map-related components in `/components/map/`
-  - Feed components in `/components/feed/`
-- **Icons** (`/icons/`): Custom icon components
-
-### Styling Approach
-
-- Centralized style modules in `/styles/` for consistent theming
-- Component-specific styles colocated with components
-- Dark mode support via theme context and color constants
-
-### API Integration Pattern
-
-- Firebase configuration in `app.config.js` and `/lib/Fire.js`
-- Environment variables loaded from `.env` file
-- Service utilities in `/utils/` handle API calls for each domain
-
-## Code Style & Conventions
-
-Formatting is handled by Prettier (config in `.prettierrc`) and enforced in the pre-commit hook (`.githooks/pre-commit`):
-
-- 2-space indentation
-- Single quotes for strings and JSX attributes
-- Semicolons required
-- Trailing commas: `es5`
-- Arrow parens: `avoid`
-- LF line endings
-
-ESLint extends Airbnb + Airbnb hooks + Prettier (`.eslintrc.js`).
-
-### Import Aliases
-
-Path aliases are configured in `babel.config.js` and `.eslintrc.js`:
-
-- `@actions` → `./actions`
-- `@components` → `./components`
-- `@constants` → `./constants`
-- `@screens` → `./screens`
-- `@utils` → `./utils`
-  (and others)
+- **Screens** (`/screens/`): full-page route components
+- **Components** (`/components/`): reusable UI, grouped by feature (`modal/`, `map/`, `feed/`, etc.)
+- **Icons** (`/icons/`): custom icon components
 
 ### Component Patterns
 
-- Functional components with hooks
-- PropTypes for type checking
-- Memoization for performance-critical components
-- Custom hooks for shared logic
+This codebase is a **mix of class and function components**. Most screens (`/screens/`) and stacks (`/stacks/`) are class components with `connect()` HOCs and lifecycle methods; smaller leaf components are increasingly function components. New components should generally be function components with hooks, but don't refactor a class component to a function component just because — it often regresses subtle ref/lifecycle behavior.
 
-## Environment Setup Requirements
+PropTypes are used throughout (no TypeScript). Default props live inline in the destructure for function components (`function Foo({ x = 5 })`) and on `Component.defaultProps = ...` for class components.
 
-Create a `.env` file in the project root with:
+### Styling
 
-- `FIREBASE_KEY`: Firebase API key
-- `GOOGLE_PLACES_KEY`: Google Places API key
-- `GOOGLE_GEO_KEY`: Google Geocoding API key
-- `ALGOLIA_APP_ID`: Algolia application ID
-- `ALGOLIA_SEARCH_KEY`: Algolia search API key
-- `FIREBASE_MEASUREMENT_ID`: (optional) Firebase web measurement ID
+- styled-components everywhere; theme via `@utils/Themes` HOC
+- Dark mode supported via theme context
+- Shared styles in `/styles/`
+
+### API Integration
+
+- Firebase (compat API) initialized in `/lib/Fire.js` from `app.config.js`
+- Env vars read via `Constants.expoConfig.extra.*` (NOT `Constants.manifest`, which is deprecated)
+- Service utilities in `/utils/` (User, Hike, Location, Notifications, etc.)
+- Apple Sign-In is the only auth provider currently wired (`/components/auth/Apple.js`). Push notifications are stubbed — `getExpoPushTokenAsync` is not called because the build has no EAS projectId.
+
+## Code Style
+
+Prettier (`.prettierrc`) and ESLint (`.eslintrc.js`, Airbnb + Prettier). Pre-commit hook in `.githooks/pre-commit` enforces both plus `expo install --check`.
+
+- 2-space indent, single quotes, semicolons, trailing commas (`es5`), `arrowParens: 'avoid'`, LF
+- `react/require-default-props` is configured with `{ functions: 'defaultArguments' }` so the rule accepts inline default params on function components
+
+### Import Aliases
+
+Configured in `babel.config.js` and `.eslintrc.js`. `@actions`, `@components`, `@constants`, `@icons`, `@lib`, `@navigators`, `@providers`, `@reducers`, `@screens`, `@stacks`, `@store`, `@styles`, `@utils`.
+
+## Native build / patches
+
+- `ios/` is committed. Don't run `expo prebuild` unless you've changed `app.config.js`/`app.json` and need to regenerate.
+- `patch-package` reapplies patches in `patches/` after every `npm install` via the `postinstall` script. Currently used to fix Xcode 26 / Swift 6 strictness in `expo-localization`, `expo-device`, and `expo-dev-menu`. If a new Expo native module fails to build, prefer patching it via `patch-package` over forking the package.
+
+## Environment
+
+`.env` in repo root, gitignored. Required keys:
+
+- `FIREBASE_KEY`, `FIREBASE_MEASUREMENT_ID`
+- `GOOGLE_PLACES_KEY`, `GOOGLE_GEO_KEY`
+- `ALGOLIA_APP_ID`, `ALGOLIA_SEARCH_KEY`
+
+Sentry and Facebook keys may exist in `.env` but are no longer read by the app.

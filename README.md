@@ -4,174 +4,182 @@ Hikearound is a React Native iOS application that helps users discover, save, an
 
 ## Features
 
-- 🗺️ Interactive map with trail locations and details
-- 🔍 Advanced search functionality
-- 📍 Location-based hike recommendations
-- ⭐ User reviews and ratings
-- 💾 List creation of your favorite hikes
-- 🔔 Push notifications for trail updates
-- 🌙 Dark mode support
-- 🌐 Multi-language support (English and Spanish)
+- Interactive map with trail locations and details
+- Location-based hike recommendations
+- Trail elevation chart with synced position marker on the map
+- User reviews and ratings
+- Favorites list
+- Dark mode support
+- Multi-language support (English and Spanish)
+
+## Stack
+
+- React Native 0.74 + Expo SDK 51
+- Redux for state management
+- React Navigation v6
+- Firebase (Firestore, Auth, Storage, Functions) via the v9 compat API
+- Apple Sign-In (only auth provider currently wired)
+- Google Maps / Places API
+- styled-components, react-native-gifted-charts, @gorhom/bottom-sheet
+- i18next for localization
 
 ## Prerequisites
 
-- Node.js (v16 or later)
-- npm or yarn
-- Xcode (for iOS development)
-- iOS Simulator or physical iOS device
-- Expo CLI
+- macOS (this is an iOS-only project — no Android target)
+- Xcode (latest stable; the repo currently builds against Xcode 26 / iOS 26 SDK)
+- Node.js v18 or later
+- CocoaPods (`sudo gem install cocoapods` or via Homebrew)
+- Apple ID signed into the iOS Simulator (required for Apple Sign-In)
 
-## Environment Setup
+## First-time setup
 
-1. Clone the repository:
+1. Clone the repo and enter it:
+
+   ```bash
+   git clone https://github.com/hikearound/hikearound-app.git
+   cd hikearound-app
+   ```
+
+2. Install JS dependencies (also applies `patches/` via `postinstall`):
+
+   ```bash
+   npm install
+   ```
+
+3. Create the `.env` file from the template and fill in your keys:
+
+   ```bash
+   cp .env.tmp .env
+   ```
+
+   Required keys:
+   - `FIREBASE_KEY`, `FIREBASE_MEASUREMENT_ID`
+   - `GOOGLE_PLACES_KEY`, `GOOGLE_GEO_KEY`
+   - `ALGOLIA_APP_ID`, `ALGOLIA_SEARCH_KEY`
+
+4. Wire up the pre-commit hooks (one-time):
+
+   ```bash
+   npm run setup-hooks
+   ```
+
+   The hook runs Prettier, ESLint, and `expo install --check` before each commit.
+
+## Build and run on the iOS Simulator
+
+The native `ios/` project is committed, so a routine build is straightforward:
 
 ```bash
-git clone https://github.com/hikearound/hikearound-app.git
-cd hikearound-app
+npm run ios
 ```
 
-2. Install dependencies:
+This single command will:
+
+1. Install/refresh CocoaPods inside `ios/` (the first run takes several minutes; later runs are mostly cached)
+2. Build the dev client via `xcodebuild`
+3. Boot the default iOS Simulator and install the app
+4. Start the Metro bundler
+
+When the dev launcher screen appears in the simulator, tap the row that shows your local Metro URL (`http://localhost:8081`) to load the JS bundle.
+
+### Day-to-day development
+
+After the first build, you usually don't need to rebuild the native app. Start Metro and open the already-installed dev client:
 
 ```bash
-npm install
+npm start
 ```
 
-3. Create a `.env` file in the root directory:
+Reload after JS changes with **Cmd+R** in the simulator window. Open the dev menu with **Cmd+D** for debugging tools.
+
+### When to do a fresh native build
+
+Run `npm run ios` again whenever you:
+
+- Add or remove a native module (anything in `node_modules/expo-*` or `react-native-*` with native code)
+- Change `app.json` / `app.config.js` plugins or iOS config
+- Pull changes that touch `ios/` or `Podfile`
+- Bump Expo or React Native versions
+
+If `app.config.js` / `app.json` changes are not reflected, regenerate the native project:
 
 ```bash
-cp env.tmp .env
+npx expo prebuild --platform ios --clean
 ```
 
-Then fill in your environment variables in the `.env` file.
+This rewrites `ios/` from the JS-side config. Don't run it for routine JS-only work.
 
-4. Set up pre-commit hooks for code quality:
+### Apple Sign-In in the simulator
 
-```bash
-npm run setup-hooks
-```
+The Landing screen requires Apple Sign-In. The simulator must be signed into iCloud (Settings → Sign in to your iPhone) using a real Apple ID before sign-in works.
 
-This configures Git to run automatic checks before each commit, including:
-
-- Prettier formatting
-- ESLint code quality
-- Expo dependency compatibility
-
-## Development
-
-1. Start the development server:
+## Code quality
 
 ```bash
-npx expo start
-```
-
-2. Run on iOS simulator:
-
-```bash
-npx expo run:ios
-```
-
-## Code Quality
-
-This project uses automated code quality checks:
-
-### Pre-commit Hooks
-
-- **Prettier**: Ensures consistent code formatting
-- **ESLint**: Catches code quality issues and enforces coding standards
-- **Expo dependencies**: Verifies dependency compatibility
-
-### Manual Commands
-
-```bash
-# Format code with Prettier
+# Format with Prettier
 npm run format
 
-# Check formatting without fixing
+# Check formatting without writing
 npm run format:check
 
-# Run ESLint
+# Lint with ESLint (Airbnb + Prettier)
 npm run lint
 ```
 
-### Bypassing Hooks
+Pre-commit hooks (installed via `npm run setup-hooks`) enforce all three plus `expo install --check`. Hook scripts live in `.githooks/`.
 
-If you need to bypass pre-commit checks (not recommended):
+If a commit absolutely needs to bypass hooks, `git commit --no-verify` works — but the same checks run in CI, so it usually just defers the cleanup.
 
-```bash
-git commit --no-verify
-```
+## Patching node_modules
 
-## Storybook
+This project uses [`patch-package`](https://github.com/ds300/patch-package) for small, targeted patches to dependency source. Patches in `patches/` are reapplied automatically after every `npm install` via the `postinstall` script.
 
-Hikearound uses Storybook for React Native component development and documentation. This allows us to develop and test components in isolation on iOS.
-
-### Running Storybook
-
-Run Storybook on iOS:
+Current patches address Xcode 26 / Swift 6 strictness in three Expo modules (`expo-localization`, `expo-device`, `expo-dev-menu`). To add a new patch:
 
 ```bash
-npm run storybook:ios
+# Edit node_modules/<pkg>/...
+npx patch-package <pkg-name>
 ```
 
-This will launch the Storybook interface in your iOS simulator or connected device, where you can:
+The new `.patch` file is written to `patches/`.
 
-- Browse and test individual components
-- View different component states
-- Interact with component props using knobs
-- Test component callbacks using actions
+## Project structure
 
-### Creating Stories
-
-Stories are located in the `stories` directory. Each story file should:
-
-- Be named with the `.stories.js` extension
-- Export a default object with component metadata
-- Include one or more stories that demonstrate different states of the component
-
-Example story structure:
-
-```javascript
-import React from 'react';
-import { storiesOf } from '@storybook/react-native';
-import MyComponent from '../components/MyComponent';
-
-storiesOf('MyComponent', module)
-  .add('default', () => <MyComponent />)
-  .add('with props', () => <MyComponent prop1='value' />);
-```
-
-## Project Structure
-
-```
+```text
 hikearound-app/
-├── actions/        # Redux actions
-├── assets/         # Images, fonts, and other static assets
-├── components/     # Reusable React components
-├── constants/      # App constants and configuration
-├── icons/          # Custom icons
-├── lib/            # Utility libraries
-├── navigators/     # Navigation configuration
-├── providers/      # Context providers
-├── reducers/       # Redux reducers
-├── screens/        # App screens
-├── stacks/         # Navigation stacks
-├── store/          # Redux store configuration
-├── styles/         # Global styles
-└── utils/          # Utility functions
+├── actions/        Redux actions
+├── assets/         Images, fonts, static assets
+├── components/     Reusable UI components (organized by feature)
+├── constants/      App-wide constants and config
+├── icons/          Custom icon components
+├── ios/            Generated native iOS project (committed)
+├── keys/           Firebase GoogleService-Info.plist (gitignored contents)
+├── lib/            Core libraries (Firebase init, etc.)
+├── navigators/     Navigation roots and tab navigator
+├── patches/        patch-package patches applied via postinstall
+├── providers/      React context providers
+├── reducers/       Redux reducers
+├── screens/        Full-page route components
+├── stacks/         Per-tab stack navigators
+├── store/          Redux store config
+├── styles/         Shared styled-components and theme helpers
+└── utils/          Service / helper modules (auth, location, hike, etc.)
 ```
 
-## Key Technologies
+## Troubleshooting
 
-- React Native
-- Expo
-- Redux for state management
-- React Navigation
-- Algolia for search
-- Firebase for backend services
-- Google Maps/Places API
-- Sentry for error tracking
-- i18next for internationalization
+**`pod install` fails on Apple Silicon**
+Try `cd ios && arch -x86_64 pod install` once. Subsequent runs usually work without it.
+
+**`xcodebuild` fails with Swift exhaustiveness or `TARGET_OS_SIMULATOR` errors in an Expo native module**
+This is an Xcode 26 / Swift 6 strictness mismatch. Patch the offending file in `node_modules/<pkg>/ios/` and run `npx patch-package <pkg>` to persist it.
+
+**Dev client launches but stays on the launcher screen**
+Metro isn't running, or it's bound to a different host. Run `npm start` in another terminal and tap the localhost URL on the launcher.
+
+**App crashes on launch with a Firebase or Constants error**
+Verify `.env` exists in the repo root and contains the required keys. The dev build reads them at startup via `expo-constants`.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.

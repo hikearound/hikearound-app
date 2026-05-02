@@ -1,13 +1,11 @@
 #!/bin/bash
 
-# Setup script for git hooks
-# Configures git to use local .githooks directory
+# Setup script for git hooks.
+# Configures git to use the local .githooks directory.
 
-echo "🔧 Setting up git hooks..."
+echo "[setup-hooks] Configuring git to use .githooks/"
 
-# Configure git to use local .githooks directory
 git config core.hooksPath .githooks
 
-echo "✅ Git hooks configured successfully!"
-echo "📝 Pre-commit hook will now run on every commit"
-echo "💡 To bypass the hook (not recommended), use: git commit --no-verify"
+echo "[setup-hooks] Done. Pre-commit hook will now run on every commit."
+echo "[setup-hooks] To bypass the hook (not recommended), use: git commit --no-verify"
