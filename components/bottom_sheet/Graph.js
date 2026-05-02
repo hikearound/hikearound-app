@@ -35,28 +35,30 @@ const defaultProps = {
 
 const { width } = Dimensions.get('window');
 
-const CustomBackground = ({ style, mapRef, sheetRef, theme }) => (
-  <>
-    <View
-      style={[
-        style,
-        {
-          backgroundColor: theme?.colors?.sheetBackground,
-          borderTopLeftRadius: 8,
-          borderTopRightRadius: 8,
-        },
-      ]}
-    />
-    <View style={{ position: 'absolute', top: -13, right: 5 }}>
-      <LocationButton
-        mapRef={mapRef}
-        sheetRef={sheetRef}
-        animationConfig={animationConfig}
-        bottomOffset={0}
+function CustomBackground({ style, mapRef, sheetRef, theme }) {
+  return (
+    <>
+      <View
+        style={[
+          style,
+          {
+            backgroundColor: theme?.colors?.sheetBackground,
+            borderTopLeftRadius: 8,
+            borderTopRightRadius: 8,
+          },
+        ]}
       />
-    </View>
-  </>
-);
+      <View style={{ position: 'absolute', top: -13, right: 5 }}>
+        <LocationButton
+          mapRef={mapRef}
+          sheetRef={sheetRef}
+          animationConfig={animationConfig}
+          bottomOffset={0}
+        />
+      </View>
+    </>
+  );
+}
 
 CustomBackground.propTypes = {
   style: PropTypes.object,
@@ -67,6 +69,43 @@ CustomBackground.propTypes = {
 
 CustomBackground.defaultProps = {
   style: null,
+};
+
+function PointerLabel({ value }) {
+  return (
+    <View
+      style={{
+        backgroundColor: 'white',
+        paddingHorizontal: 8,
+        paddingVertical: 6,
+        borderRadius: 8,
+        alignItems: 'center',
+        justifyContent: 'center',
+        minWidth: 60,
+        borderWidth: 1,
+        borderColor: '#E0E0E0',
+        marginTop: 10,
+      }}
+    >
+      <Text
+        style={{
+          color: '#333',
+          fontSize: 14,
+          fontWeight: '500',
+        }}
+      >
+        {`${Math.round(value || 0)} ft`}
+      </Text>
+    </View>
+  );
+}
+
+PointerLabel.propTypes = {
+  value: PropTypes.number,
+};
+
+PointerLabel.defaultProps = {
+  value: 0,
 };
 
 function GraphSheet({
@@ -138,6 +177,49 @@ function GraphSheet({
   // Use real data now that we know chart works
   const dataToUse = chartData;
 
+  const renderPointerLabel = React.useCallback(
+    items => {
+      // Schedule position update after render to avoid state update during render
+      setTimeout(() => {
+        if (items && items.length > 0 && onPositionChange) {
+          const currentValue = items[0].value;
+          const dataPointIndex = dataToUse.findIndex(
+            point => point.value === currentValue
+          );
+
+          if (dataPointIndex >= 0) {
+            // Convert reduced array index back to original full array position
+            const originalArrayIndex = dataPointIndex * step;
+
+            // Calculate smooth position as a percentage of the full route
+            const position = originalArrayIndex / (elevationArray.length - 1);
+
+            // Simple throttling - only update if position changed significantly
+            if (Math.abs(position - lastPositionRef.current) > 0.008) {
+              lastPositionRef.current = position;
+              onPositionChange(Math.max(0, Math.min(1, position)));
+            }
+          }
+        }
+      }, 0);
+
+      return <PointerLabel value={items[0]?.value} />;
+    },
+    [dataToUse, elevationArray.length, onPositionChange, step]
+  );
+
+  const renderBackgroundComponent = React.useCallback(
+    backgroundProps => (
+      <CustomBackground
+        {...backgroundProps}
+        mapRef={mapRef}
+        sheetRef={sheetRef}
+        theme={theme}
+      />
+    ),
+    [mapRef, sheetRef, theme]
+  );
+
   const renderContentHeaderItem = (label, subtext) => (
     <React.Fragment key={label}>
       <HeaderItem>
@@ -206,59 +288,7 @@ function GraphSheet({
             radius: 4,
             activatePointersOnLongPress: false,
             activatePointersDelay: 0,
-            pointerLabelComponent: items => {
-              // Schedule position update after render to avoid state update during render
-              setTimeout(() => {
-                if (items && items.length > 0 && onPositionChange) {
-                  const currentValue = items[0].value;
-                  const dataPointIndex = dataToUse.findIndex(
-                    point => point.value === currentValue
-                  );
-
-                  if (dataPointIndex >= 0) {
-                    // Convert reduced array index back to original full array position
-                    const originalArrayIndex = dataPointIndex * step;
-
-                    // Calculate smooth position as a percentage of the full route
-                    const position =
-                      originalArrayIndex / (elevationArray.length - 1);
-
-                    // Simple throttling - only update if position changed significantly
-                    if (Math.abs(position - lastPositionRef.current) > 0.008) {
-                      lastPositionRef.current = position;
-                      onPositionChange(Math.max(0, Math.min(1, position)));
-                    }
-                  }
-                }
-              }, 0);
-
-              return (
-                <View
-                  style={{
-                    backgroundColor: 'white',
-                    paddingHorizontal: 8,
-                    paddingVertical: 6,
-                    borderRadius: 8,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    minWidth: 60,
-                    borderWidth: 1,
-                    borderColor: '#E0E0E0',
-                    marginTop: 10,
-                  }}
-                >
-                  <Text
-                    style={{
-                      color: '#333',
-                      fontSize: 14,
-                      fontWeight: '500',
-                    }}
-                  >
-                    {`${Math.round(items[0]?.value || 0)} ft`}
-                  </Text>
-                </View>
-              );
-            },
+            pointerLabelComponent: renderPointerLabel,
           }}
           spacing={(width - 80) / Math.max(dataToUse.length - 1, 1)}
           initialSpacing={0}
@@ -315,14 +345,7 @@ function GraphSheet({
           backgroundColor: theme?.colors?.sheetHandle || '#999',
           marginTop: 6,
         }}
-        backgroundComponent={props => (
-          <CustomBackground
-            {...props}
-            mapRef={mapRef}
-            sheetRef={sheetRef}
-            theme={theme}
-          />
-        )}
+        backgroundComponent={renderBackgroundComponent}
       >
         <BottomSheetView style={{ marginTop: 0 }}>
           {renderContent()}

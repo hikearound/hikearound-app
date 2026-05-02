@@ -56,9 +56,9 @@ class FavoriteButton extends React.Component {
     };
   }
 
-  componentDidMount = () => {
+  componentDidMount() {
     this.setInitialStyle();
-  };
+  }
 
   componentDidUpdate(prevProps) {
     const { hid } = this.props;
@@ -159,7 +159,7 @@ class FavoriteButton extends React.Component {
   updateProfileData = async () => {
     const { dispatchProfileData } = this.props;
 
-    this.timeout = setTimeout(async () => {
+    setTimeout(async () => {
       await getProfileData(dispatchProfileData);
     }, timings.medium);
   };

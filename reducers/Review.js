@@ -1,6 +1,7 @@
 import { reviewState } from '@constants/Reducers';
 
-export default function reviewReducer(state = reviewState, action) {
+export default function reviewReducer(inputState, action) {
+  const state = inputState ?? reviewState;
   switch (action.type) {
     case 'ADD_REVIEW_DATA':
       return {

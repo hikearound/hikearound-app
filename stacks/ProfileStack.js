@@ -40,6 +40,50 @@ function mapDispatchToProps(dispatch) {
 
 const Stack = createStackNavigator();
 
+const renderProfileScreen = t => (
+  <Stack.Screen
+    name='Profile'
+    component={ProfileScreen}
+    options={{
+      headerTitle: t('label.nav.you'),
+    }}
+  />
+);
+
+const renderHikeScreen = () => (
+  <Stack.Screen name='Hike' component={HikeScreen} />
+);
+
+const renderSettingsScreen = t => (
+  <Stack.Screen
+    name='Settings'
+    component={SettingsScreen}
+    options={{
+      headerTitle: t('label.nav.settings'),
+    }}
+  />
+);
+
+const renderNotificationSettingsScreen = t => (
+  <Stack.Screen
+    name='NotificationSettings'
+    component={NotificationSettingsScreen}
+    options={{
+      headerTitle: t('label.nav.notifications'),
+    }}
+  />
+);
+
+const renderPasswordScreen = t => (
+  <Stack.Screen
+    name='Password'
+    component={PasswordScreen}
+    options={{
+      headerTitle: t('label.nav.password'),
+    }}
+  />
+);
+
 class ProfileStack extends React.PureComponent {
   componentDidMount() {
     const { navigation, dispatchFocusedStack, stackName } = this.props;
@@ -52,48 +96,6 @@ class ProfileStack extends React.PureComponent {
   componentWillUnmount() {
     this.unsubscribe();
   }
-
-  renderProfileScreen = t => (
-    <Stack.Screen
-      name='Profile'
-      component={ProfileScreen}
-      options={{
-        headerTitle: t('label.nav.you'),
-      }}
-    />
-  );
-
-  renderHikeScreen = () => <Stack.Screen name='Hike' component={HikeScreen} />;
-
-  renderSettingsScreen = t => (
-    <Stack.Screen
-      name='Settings'
-      component={SettingsScreen}
-      options={{
-        headerTitle: t('label.nav.settings'),
-      }}
-    />
-  );
-
-  renderNotificationSettingsScreen = t => (
-    <Stack.Screen
-      name='NotificationSettings'
-      component={NotificationSettingsScreen}
-      options={{
-        headerTitle: t('label.nav.notifications'),
-      }}
-    />
-  );
-
-  renderPasswordScreen = t => (
-    <Stack.Screen
-      name='Password'
-      component={PasswordScreen}
-      options={{
-        headerTitle: t('label.nav.password'),
-      }}
-    />
-  );
 
   render() {
     const { stackName, focusedStack, theme, t } = this.props;
@@ -108,11 +110,11 @@ class ProfileStack extends React.PureComponent {
             theme.colors.headerStyle === 'white' ? 'black' : colors.white
           )}
         >
-          {this.renderProfileScreen(t)}
-          {this.renderHikeScreen()}
-          {this.renderSettingsScreen(t)}
-          {this.renderNotificationSettingsScreen(t)}
-          {this.renderPasswordScreen(t)}
+          {renderProfileScreen(t)}
+          {renderHikeScreen()}
+          {renderSettingsScreen(t)}
+          {renderNotificationSettingsScreen(t)}
+          {renderPasswordScreen(t)}
         </Stack.Navigator>
         {enableToast && <ToastProvider />}
       </>

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { withTranslation } from 'react-i18next';
 import { withScrollToTop } from '@utils/Navigation';
-import { spacing, timings } from '@constants/Index';
+import { spacing } from '@constants/Index';
 import Subtitle from '@components/Subtitle';
 import ReviewPrompt from '@components/ReviewPrompt';
 import ReviewList from '@components/ReviewList';
@@ -51,6 +51,21 @@ function mapDispatchToProps() {
   return {};
 }
 
+const scrollToReviewList = () =>
+  // Temporarily disabled to test scrolling freeze
+  null;
+
+const renderReviewPrompt = (setSelectedStars, hid) => (
+  <ReviewPrompt setSelectedStars={setSelectedStars} hid={hid} />
+);
+
+const renderGallerySection = (t, hid, imageCount) => (
+  <View>
+    <Subtitle text={t('label.heading.images')} />
+    <PhotoLightboxGroup hid={hid} imageCount={imageCount} />
+  </View>
+);
+
 class HikeBody extends React.Component {
   constructor(props, context) {
     super(props, context);
@@ -72,9 +87,9 @@ class HikeBody extends React.Component {
     this.reviewListRef = React.createRef();
   }
 
-  componentDidMount = async () => {
+  async componentDidMount() {
     await this.getReviewData();
-  };
+  }
 
   componentDidUpdate(prevProps) {
     const { reviewData, reviewAction, selectedReview, actions } = this.props;
@@ -94,18 +109,12 @@ class HikeBody extends React.Component {
     }
   }
 
-  onRefresh = async () => {
-    this.timeout = setTimeout(() => {
-      this.getReviewData();
-    }, timings.medium);
-  };
-
   maybeFireActions = async () => {
     const { actions } = this.props;
 
     if (actions) {
       if (actions.scrollToReviewList) {
-        await this.scrollToReviewList();
+        await scrollToReviewList();
       }
     }
   };
@@ -121,12 +130,8 @@ class HikeBody extends React.Component {
 
   updateReviewData = async () => {
     await this.getReviewData();
-    await this.scrollToReviewList();
+    await scrollToReviewList();
   };
-
-  scrollToReviewList = () =>
-    // Temporarily disabled to test scrolling freeze
-    null;
 
   getReviewData = async () => {
     const { t, hid } = this.props;
@@ -142,17 +147,6 @@ class HikeBody extends React.Component {
       this.setState({ showEmptyState: true });
     }
   };
-
-  renderReviewPrompt = (setSelectedStars, hid) => (
-    <ReviewPrompt setSelectedStars={setSelectedStars} hid={hid} />
-  );
-
-  renderGallerySection = (t, hid, imageCount) => (
-    <View>
-      <Subtitle text={t('label.heading.images')} />
-      <PhotoLightboxGroup hid={hid} imageCount={imageCount} />
-    </View>
-  );
 
   renderReviewSection = (t, reviews, showEmptyState) => (
     <View>
@@ -211,8 +205,8 @@ class HikeBody extends React.Component {
               distance={distance}
               description={description}
             />
-            {this.renderReviewPrompt(setSelectedStars, hid)}
-            {this.renderGallerySection(t, hid, imageCount)}
+            {renderReviewPrompt(setSelectedStars, hid)}
+            {renderGallerySection(t, hid, imageCount)}
             {this.renderReviewSection(t, reviews, showEmptyState)}
           </BodyContent>
         </ScrollView>

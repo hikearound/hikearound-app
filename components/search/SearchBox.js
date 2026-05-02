@@ -31,11 +31,6 @@ class SearchBox extends React.PureComponent {
     this.searchInput = ref;
   };
 
-  handleSubmitEditing = () => {
-    // const { currentRefinement } = this.props;
-    // console.log(currentRefinement)
-  };
-
   render() {
     const { refine, currentRefinement, t } = this.props;
 
@@ -45,7 +40,6 @@ class SearchBox extends React.PureComponent {
           <SearchIcon />
           <SearchInput
             autoFocus
-            onSubmitEditing={() => this.handleSubmitEditing()}
             ref={ref => this.assignRef(ref)}
             enablesReturnKeyAutomatically={false}
             returnKeyType='search'

@@ -1,6 +1,7 @@
 import { authState } from '@constants/Reducers';
 
-export default function authReducer(state = authState, action) {
+export default function authReducer(inputState, action) {
+  const state = inputState ?? authState;
   switch (action.type) {
     case 'INITIALIZE_AUTH_SUBSCRIPTION':
       return {

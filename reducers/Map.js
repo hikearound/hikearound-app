@@ -1,6 +1,7 @@
 import { mapState } from '@constants/Reducers';
 
-export default function mapReducer(state = mapState, action) {
+export default function mapReducer(inputState, action) {
+  const state = inputState ?? mapState;
   switch (action.type) {
     case 'INITIALIZE_MAP_DATA':
       return {

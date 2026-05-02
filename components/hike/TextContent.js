@@ -37,6 +37,8 @@ function mapDispatchToProps() {
   return {};
 }
 
+const renderRevealedFooter = () => null;
+
 class TextContent extends React.Component {
   constructor(props, context) {
     super(props, context);
@@ -83,8 +85,6 @@ class TextContent extends React.Component {
     this.setState({ description });
   };
 
-  renderRevealedFooter = () => null;
-
   updateDescription() {
     const { description } = this.props;
 
@@ -129,7 +129,7 @@ class TextContent extends React.Component {
         <ReadMore
           numberOfLines={numberOfLines}
           renderTruncatedFooter={this.renderTruncatedFooter}
-          renderRevealedFooter={this.renderRevealedFooter}
+          renderRevealedFooter={renderRevealedFooter}
         >
           <DescriptionText>{description}</DescriptionText>
         </ReadMore>

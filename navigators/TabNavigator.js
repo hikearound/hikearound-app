@@ -5,7 +5,6 @@ import * as Haptics from 'expo-haptics';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { withTranslation } from 'react-i18next';
 import * as Device from 'expo-device';
-import { Animated } from 'react-native';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import HomeStack from '@stacks/HomeStack';
 import MapStack from '@stacks/MapStack';
@@ -25,6 +24,39 @@ const defaultProps = {
 
 const Tab = createBottomTabNavigator();
 
+const setFill = (focused, theme) => {
+  if (focused) {
+    return theme.colors.navActive;
+  }
+  return theme.colors.navInactive;
+};
+
+const onTabPress = () => {
+  Haptics.selectionAsync();
+};
+
+const buildHomeTabBarIcon = theme =>
+  function HomeTabBarIcon({ focused }) {
+    return <HomeIcon fill={setFill(focused, theme)} focused={focused} />;
+  };
+
+const buildMapTabBarIcon = theme =>
+  function MapTabBarIcon({ focused }) {
+    return (
+      <MapIcon size={30} fill={setFill(focused, theme)} focused={focused} />
+    );
+  };
+
+const buildNotificationTabBarIcon = theme =>
+  function NotificationTabBarIcon({ focused }) {
+    return <BellIcon fill={setFill(focused, theme)} focused={focused} />;
+  };
+
+const buildProfileTabBarIcon = theme =>
+  function ProfileTabBarIcon({ focused }) {
+    return <PersonIcon fill={setFill(focused, theme)} focused={focused} />;
+  };
+
 function mapStateToProps(state) {
   return {
     notifBadgeCount: state.userReducer.notifBadgeCount,
@@ -42,30 +74,12 @@ class TabNavigator extends React.Component {
 
     this.state = {
       deviceType: Device.DeviceType.PHONE,
-      tabBarTranslateY: new Animated.Value(0),
     };
   }
 
   componentDidMount() {
     this.getDeviceType();
   }
-
-  getTabBarHeight = () => {
-    const { deviceType } = this.state;
-    return deviceType === Device.DeviceType.TABLET ? 110 : 95;
-  };
-
-  animateTabBar = show => {
-    const { tabBarTranslateY } = this.state;
-    const toValue = show ? 0 : this.getTabBarHeight();
-
-    Animated.spring(tabBarTranslateY, {
-      toValue,
-      useNativeDriver: true,
-      tension: 65,
-      friction: 10,
-    }).start();
-  };
 
   renderTabBarBadge = () => {
     const { notifBadgeCount } = this.props;
@@ -77,43 +91,41 @@ class TabNavigator extends React.Component {
     return null;
   };
 
-  renderHomeStack = t => (
-    <Tab.Screen
-      name='HomeTab'
-      component={HomeStack}
-      options={({ route }) => ({
-        tabBarLabel: t('label.nav.home'),
-        tabBarIcon: ({ focused }) => (
-          <HomeIcon fill={this.setFill(focused)} focused={focused} />
-        ),
-        tabBarStyle: this.getTabBarStyle(route),
-      })}
-      listeners={{
-        tabPress: () => {
-          this.onPress();
-        },
-      }}
-    />
-  );
+  renderHomeStack = t => {
+    const { theme } = this.props;
+    return (
+      <Tab.Screen
+        name='HomeTab'
+        component={HomeStack}
+        options={({ route }) => ({
+          tabBarLabel: t('label.nav.home'),
+          tabBarIcon: buildHomeTabBarIcon(theme),
+          tabBarStyle: this.getTabBarStyle(route),
+        })}
+        listeners={{
+          tabPress: onTabPress,
+        }}
+      />
+    );
+  };
 
-  renderMapStack = t => (
-    <Tab.Screen
-      name='MapTab'
-      component={MapStack}
-      options={({ route }) => ({
-        tabBarLabel: t('label.nav.map'),
-        tabBarIcon: ({ focused }) => (
-          <MapIcon size={30} fill={this.setFill(focused)} focused={focused} />
-        ),
-        tabBarStyle: this.getTabBarStyle(route),
-      })}
-      listeners={{
-        tabPress: () => {
-          this.onPress();
-        },
-      }}
-    />
-  );
+  renderMapStack = t => {
+    const { theme } = this.props;
+    return (
+      <Tab.Screen
+        name='MapTab'
+        component={MapStack}
+        options={({ route }) => ({
+          tabBarLabel: t('label.nav.map'),
+          tabBarIcon: buildMapTabBarIcon(theme),
+          tabBarStyle: this.getTabBarStyle(route),
+        })}
+        listeners={{
+          tabPress: onTabPress,
+        }}
+      />
+    );
+  };
 
   renderNotificationStack = t => {
     const { theme } = this.props;
@@ -124,51 +136,34 @@ class TabNavigator extends React.Component {
         component={NotificationStack}
         options={({ route }) => ({
           tabBarLabel: t('label.nav.notifications'),
-          tabBarIcon: ({ focused }) => (
-            <BellIcon fill={this.setFill(focused)} focused={focused} />
-          ),
+          tabBarIcon: buildNotificationTabBarIcon(theme),
           tabBarBadge: this.renderTabBarBadge(),
           tabBarBadgeStyle: getTabBarBadgeStyle(theme),
           tabBarStyle: this.getTabBarStyle(route),
         })}
         listeners={{
-          tabPress: () => {
-            this.onPress();
-          },
+          tabPress: onTabPress,
         }}
       />
     );
   };
 
-  renderProfileStack = t => (
-    <Tab.Screen
-      name='ProfileTab'
-      component={ProfileStack}
-      options={({ route }) => ({
-        tabBarLabel: t('label.nav.you'),
-        tabBarIcon: ({ focused }) => (
-          <PersonIcon fill={this.setFill(focused)} focused={focused} />
-        ),
-        tabBarStyle: this.getTabBarStyle(route),
-      })}
-      listeners={{
-        tabPress: () => {
-          this.onPress();
-        },
-      }}
-    />
-  );
-
-  setFill = focused => {
+  renderProfileStack = t => {
     const { theme } = this.props;
-    if (focused) {
-      return theme.colors.navActive;
-    }
-    return theme.colors.navInactive;
-  };
-
-  onPress = () => {
-    Haptics.selectionAsync();
+    return (
+      <Tab.Screen
+        name='ProfileTab'
+        component={ProfileStack}
+        options={({ route }) => ({
+          tabBarLabel: t('label.nav.you'),
+          tabBarIcon: buildProfileTabBarIcon(theme),
+          tabBarStyle: this.getTabBarStyle(route),
+        })}
+        listeners={{
+          tabPress: onTabPress,
+        }}
+      />
+    );
   };
 
   getDeviceType = async () => {
@@ -230,33 +225,31 @@ class TabNavigator extends React.Component {
     const { deviceType } = this.state;
 
     return (
-      <>
-        <Tab.Navigator
-          screenOptions={() => ({
-            headerShown: false,
-            tabBarActiveTintColor: theme.colors.navActive,
-            tabBarInactiveTintColor: theme.colors.navInactive,
-            tabBarLabelStyle: {
-              fontSize: 12,
-              marginTop: 6,
-              marginBottom: deviceType === Device.DeviceType.TABLET ? 4 : 4,
-            },
-            tabBarItemStyle: {
-              paddingTop: 12,
-              paddingBottom: 0,
-            },
-            tabBarIconStyle: {
-              marginTop: 0,
-              marginBottom: 2,
-            },
-          })}
-        >
-          {this.renderHomeStack(t)}
-          {this.renderMapStack(t)}
-          {this.renderNotificationStack(t)}
-          {this.renderProfileStack(t)}
-        </Tab.Navigator>
-      </>
+      <Tab.Navigator
+        screenOptions={() => ({
+          headerShown: false,
+          tabBarActiveTintColor: theme.colors.navActive,
+          tabBarInactiveTintColor: theme.colors.navInactive,
+          tabBarLabelStyle: {
+            fontSize: 12,
+            marginTop: 6,
+            marginBottom: deviceType === Device.DeviceType.TABLET ? 4 : 4,
+          },
+          tabBarItemStyle: {
+            paddingTop: 12,
+            paddingBottom: 0,
+          },
+          tabBarIconStyle: {
+            marginTop: 0,
+            marginBottom: 2,
+          },
+        })}
+      >
+        {this.renderHomeStack(t)}
+        {this.renderMapStack(t)}
+        {this.renderNotificationStack(t)}
+        {this.renderProfileStack(t)}
+      </Tab.Navigator>
     );
   }
 }

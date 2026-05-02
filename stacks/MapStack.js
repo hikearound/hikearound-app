@@ -33,6 +33,21 @@ function mapDispatchToProps(dispatch) {
 
 const Stack = createStackNavigator();
 
+const renderMapScreen = t => (
+  <Stack.Screen
+    name='Map'
+    component={MapScreen}
+    options={{
+      headerTitle: t('label.nav.map'),
+      headerShown: false,
+    }}
+  />
+);
+
+const renderHikeScreen = () => (
+  <Stack.Screen name='Hike' component={HikeScreen} />
+);
+
 class MapStack extends React.Component {
   componentDidMount() {
     const { navigation, dispatchFocusedStack, stackName } = this.props;
@@ -46,19 +61,6 @@ class MapStack extends React.Component {
     this.unsubscribe();
   }
 
-  renderMapScreen = t => (
-    <Stack.Screen
-      name='Map'
-      component={MapScreen}
-      options={{
-        headerTitle: t('label.nav.map'),
-        headerShown: false,
-      }}
-    />
-  );
-
-  renderHikeScreen = () => <Stack.Screen name='Hike' component={HikeScreen} />;
-
   render() {
     const { stackName, focusedStack, theme, t } = this.props;
     const enableToast = stackName === focusedStack;
@@ -69,8 +71,8 @@ class MapStack extends React.Component {
           initialRouteName={stackName}
           screenOptions={screenOptions(theme.colors.headerStyle)}
         >
-          {this.renderMapScreen(t)}
-          {this.renderHikeScreen()}
+          {renderMapScreen(t)}
+          {renderHikeScreen()}
         </Stack.Navigator>
         {enableToast && <ToastProvider />}
       </>

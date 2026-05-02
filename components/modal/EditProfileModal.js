@@ -52,6 +52,14 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
+const renderModalHeader = t => (
+  <ModalHeader
+    title={t('screen.profile.edit')}
+    continueAction='updateUserData'
+    continueText={t('label.modal.save')}
+  />
+);
+
 class EditProfileModal extends React.Component {
   constructor(props, context) {
     super(props, context);
@@ -106,14 +114,6 @@ class EditProfileModal extends React.Component {
       });
     }
   };
-
-  renderModalHeader = t => (
-    <ModalHeader
-      title={t('screen.profile.edit')}
-      continueAction='updateUserData'
-      continueText={t('label.modal.save')}
-    />
-  );
 
   handleSubmitEditing = index => {
     if (index === 0) {
@@ -237,7 +237,7 @@ class EditProfileModal extends React.Component {
         visible={modalVisible}
       >
         <RootView>
-          {this.renderModalHeader(t)}
+          {renderModalHeader(t)}
           {this.renderModalBody(inputs)}
         </RootView>
       </Modal>

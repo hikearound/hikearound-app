@@ -48,6 +48,84 @@ function mapDispatchToProps(dispatch) {
 
 const Stack = createStackNavigator();
 
+const renderLandingScreen = () => (
+  <Stack.Screen
+    name='Landing'
+    component={LandingScreen}
+    options={() => ({
+      headerTitle: () => <Logo />,
+      animationEnabled: false,
+    })}
+  />
+);
+
+const renderCreateAccountScreen = t => (
+  <Stack.Screen
+    name='CreateAccount'
+    component={CreateAccountScreen}
+    options={{
+      headerTitle: t('label.nav.createAccount'),
+    }}
+  />
+);
+
+const renderSignInScreen = t => (
+  <Stack.Screen
+    name='SignIn'
+    component={SignInScreen}
+    options={{
+      headerTitle: t('label.nav.signIn'),
+    }}
+  />
+);
+
+const renderHomeScreen = () => (
+  <Stack.Screen
+    name='HomeScreen'
+    component={HomeScreen}
+    options={() => ({
+      animationEnabled: false,
+    })}
+  />
+);
+
+const renderHikeScreen = () => (
+  <Stack.Screen name='Hike' component={HikeScreen} />
+);
+
+const renderLocationPermissionScreen = t => (
+  <Stack.Screen
+    name='LocationPermission'
+    component={LocationPermissionScreen}
+    options={{
+      headerTitle: t('label.nav.locationPermission'),
+    }}
+  />
+);
+
+const renderSearchScreen = () => (
+  <Stack.Screen
+    name='Search'
+    component={SearchScreen}
+    options={{
+      headerShown: true,
+      animationEnabled: false,
+      headerLeft: () => null,
+      headerRight: () => null,
+    }}
+  />
+);
+
+const renderReviewScreen = t => (
+  <Stack.Screen
+    name='Review'
+    component={ReviewScreen}
+    options={{
+      headerTitle: t('label.nav.review'),
+    }}
+  />
+);
+
 class HomeStack extends React.Component {
   componentDidMount() {
     const { navigation, dispatchFocusedStack, stackName } = this.props;
@@ -102,82 +180,6 @@ class HomeStack extends React.Component {
     return 'Landing';
   };
 
-  renderLandingScreen = () => (
-    <Stack.Screen
-      name='Landing'
-      component={LandingScreen}
-      options={() => ({
-        headerTitle: () => <Logo />,
-        animationEnabled: false,
-      })}
-    />
-  );
-
-  renderCreateAccountScreen = t => (
-    <Stack.Screen
-      name='CreateAccount'
-      component={CreateAccountScreen}
-      options={{
-        headerTitle: t('label.nav.createAccount'),
-      }}
-    />
-  );
-
-  renderSignInScreen = t => (
-    <Stack.Screen
-      name='SignIn'
-      component={SignInScreen}
-      options={{
-        headerTitle: t('label.nav.signIn'),
-      }}
-    />
-  );
-
-  renderHomeScreen = () => (
-    <Stack.Screen
-      name='HomeScreen'
-      component={HomeScreen}
-      options={() => ({
-        animationEnabled: false,
-      })}
-    />
-  );
-
-  renderHikeScreen = () => <Stack.Screen name='Hike' component={HikeScreen} />;
-
-  renderLocationPermissionScreen = t => (
-    <Stack.Screen
-      name='LocationPermission'
-      component={LocationPermissionScreen}
-      options={{
-        headerTitle: t('label.nav.locationPermission'),
-      }}
-    />
-  );
-
-  renderSearchScreen = () => (
-    <Stack.Screen
-      name='Search'
-      component={SearchScreen}
-      options={{
-        headerShown: true,
-        animationEnabled: false,
-        headerLeft: () => null,
-        headerRight: () => null,
-      }}
-    />
-  );
-
-  renderReviewScreen = t => (
-    <Stack.Screen
-      name='Review'
-      component={ReviewScreen}
-      options={{
-        headerTitle: t('label.nav.review'),
-      }}
-    />
-  );
-
   setScreenOptions = () => {
     const { theme } = this.props;
     return screenOptions(theme.colors.headerStyle);
@@ -203,14 +205,14 @@ class HomeStack extends React.Component {
             this.setScreenOptions(route, navigation)
           }
         >
-          {this.renderLandingScreen()}
-          {this.renderSignInScreen(t)}
-          {this.renderCreateAccountScreen(t)}
-          {this.renderHomeScreen()}
-          {this.renderHikeScreen()}
-          {this.renderLocationPermissionScreen(t)}
-          {this.renderSearchScreen()}
-          {this.renderReviewScreen(t)}
+          {renderLandingScreen()}
+          {renderSignInScreen(t)}
+          {renderCreateAccountScreen(t)}
+          {renderHomeScreen()}
+          {renderHikeScreen()}
+          {renderLocationPermissionScreen(t)}
+          {renderSearchScreen()}
+          {renderReviewScreen(t)}
         </Stack.Navigator>
         {enableToast && <ToastProvider />}
       </>

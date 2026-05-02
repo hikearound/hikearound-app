@@ -54,6 +54,13 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
+const renderModalHeader = t => (
+  <PageSheetModalHeader showBottomBorder>
+    <PageSheetModalTitleText>{t('modal.flag.title')}</PageSheetModalTitleText>
+    <ModalDismiss isPageSheet textDismiss dismissLanguage='cancel' />
+  </PageSheetModalHeader>
+);
+
 class FlagReviewModal extends React.Component {
   constructor(props, context) {
     super(props, context);
@@ -76,13 +83,6 @@ class FlagReviewModal extends React.Component {
 
     toggleModalVisibility(prevProps, currentModal, modalType, functions);
   }
-
-  renderModalHeader = t => (
-    <PageSheetModalHeader showBottomBorder>
-      <PageSheetModalTitleText>{t('modal.flag.title')}</PageSheetModalTitleText>
-      <ModalDismiss isPageSheet textDismiss dismissLanguage='cancel' />
-    </PageSheetModalHeader>
-  );
 
   hideModal = () => {
     this.setState({ modalVisible: false });
@@ -168,7 +168,7 @@ class FlagReviewModal extends React.Component {
         presentationStyle={presentationStyle}
       >
         <RootView>
-          {this.renderModalHeader(t)}
+          {renderModalHeader(t)}
           {this.renderModalBody()}
         </RootView>
       </Modal>

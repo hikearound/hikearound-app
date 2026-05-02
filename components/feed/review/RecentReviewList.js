@@ -19,9 +19,27 @@ const defaultProps = {
   hasTransparentBackground: false,
 };
 
-class RecentReviewList extends React.Component {
-  renderPadding = () => <Padding />;
+const renderPadding = () => <Padding />;
 
+const renderItem = ({ item }) => {
+  const { id, hid, rating, review, savedOn, userLikes, user, hike } = item;
+
+  return (
+    <RecentReviewListItem
+      id={id}
+      rid={id}
+      hid={hid}
+      rating={rating}
+      review={review}
+      savedOn={savedOn}
+      userLikes={userLikes}
+      user={user}
+      hike={hike}
+    />
+  );
+};
+
+class RecentReviewList extends React.Component {
   renderListHeader = () => {
     const { t } = this.props;
 
@@ -29,24 +47,6 @@ class RecentReviewList extends React.Component {
       <View>
         <Text>{t('label.heading.recentReviews')}</Text>
       </View>
-    );
-  };
-
-  renderItem = ({ item }) => {
-    const { id, hid, rating, review, savedOn, userLikes, user, hike } = item;
-
-    return (
-      <RecentReviewListItem
-        id={id}
-        rid={id}
-        hid={hid}
-        rating={rating}
-        review={review}
-        savedOn={savedOn}
-        userLikes={userLikes}
-        user={user}
-        hike={hike}
-      />
     );
   };
 
@@ -58,10 +58,10 @@ class RecentReviewList extends React.Component {
         {this.renderListHeader()}
         {reviews.length > 0 ? (
           <CarouselWrapper>
-            {this.renderPadding()}
+            {renderPadding()}
             <Carousel
               data={reviews}
-              renderItem={this.renderItem}
+              renderItem={renderItem}
               width={itemWidth + parseInt(spacing.tiny, 10)}
               height={190}
               style={{ width: getScreenWidth() }}

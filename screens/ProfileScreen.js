@@ -31,6 +31,16 @@ function mapDispatchToProps() {
 
 const scrollRef = React.createRef();
 
+const buildHeaderTitle = title =>
+  function HeaderTitle() {
+    return <Title title={title} scrollRef={scrollRef} />;
+  };
+
+const buildHeaderRight = onPress =>
+  function HeaderRight() {
+    return <Settings onPress={onPress} />;
+  };
+
 class ProfileScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -43,10 +53,8 @@ class ProfileScreen extends React.Component {
     };
 
     navigation.setOptions({
-      headerTitle: () => (
-        <Title title={t('label.nav.you')} scrollRef={scrollRef} />
-      ),
-      headerRight: () => <Settings onPress={this.onSettingsPress} />,
+      headerTitle: buildHeaderTitle(t('label.nav.you')),
+      headerRight: buildHeaderRight(this.onSettingsPress),
     });
   }
 
@@ -93,7 +101,7 @@ class ProfileScreen extends React.Component {
   onRefresh = async () => {
     await this.setState({ loading: true });
 
-    this.timeout = setTimeout(() => {
+    setTimeout(() => {
       this.getFavoriteHikes();
     }, timings.medium);
   };

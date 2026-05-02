@@ -59,7 +59,7 @@ class Splash extends React.Component {
     this.loadAsync();
   }
 
-  componentWillUnmount = () => {
+  componentWillUnmount() {
     if (this.timer) {
       clearTimeout(this.timer);
       this.timer = 0;
@@ -68,7 +68,7 @@ class Splash extends React.Component {
     if (this.unsubscribeAuth) {
       this.unsubscribeAuth();
     }
-  };
+  }
 
   loadAsync = async () => {
     await this.loadResourcesAsync();

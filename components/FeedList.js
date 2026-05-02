@@ -22,6 +22,20 @@ const propTypes = {
 
 const defaultProps = {};
 
+const renderRecentReviews = reviews => <RecentReviewList reviews={reviews} />;
+
+const renderHeader = title => <Header title={title} showFilter />;
+
+const renderFooter = () => <FeedFooter />;
+
+const getItemLayout = (data, index) => ({
+  length: 200, // Approximate height of each item
+  offset: 200 * index,
+  index,
+});
+
+const keyExtractor = item => item.key;
+
 class FeedList extends React.PureComponent {
   renderItem = ({ item, index }) => {
     const {
@@ -46,7 +60,7 @@ class FeedList extends React.PureComponent {
 
     return (
       <>
-        {showReviews && this.renderRecentReviews(reviews)}
+        {showReviews && renderRecentReviews(reviews)}
         <FeedItem
           hid={id}
           name={name}
@@ -68,20 +82,6 @@ class FeedList extends React.PureComponent {
     );
   };
 
-  renderRecentReviews = reviews => <RecentReviewList reviews={reviews} />;
-
-  renderHeader = title => <Header title={title} showFilter />;
-
-  renderFooter = () => <FeedFooter />;
-
-  getItemLayout = (data, index) => ({
-    length: 200, // Approximate height of each item
-    offset: 200 * index,
-    index,
-  });
-
-  keyExtractor = item => item.key;
-
   render() {
     const { onEndReached, refreshControl, hikes, scrollRef, city, t } =
       this.props;
@@ -90,22 +90,22 @@ class FeedList extends React.PureComponent {
 
     return (
       <>
-        {this.renderHeader(title)}
+        {renderHeader(title)}
         <FlatList
           ref={scrollRef}
           data={hikes}
           extraData={hikes}
           showsVerticalScrollIndicator={false}
-          keyExtractor={this.keyExtractor}
+          keyExtractor={keyExtractor}
           renderItem={this.renderItem}
           refreshControl={refreshControl}
           onEndReached={onEndReached}
-          ListFooterComponent={this.renderFooter}
+          ListFooterComponent={renderFooter}
           removeClippedSubviews
           maxToRenderPerBatch={5}
           windowSize={5}
           initialNumToRender={5}
-          getItemLayout={this.getItemLayout}
+          getItemLayout={getItemLayout}
           updateCellsBatchingPeriod={50}
         />
       </>

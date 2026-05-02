@@ -33,18 +33,18 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
+const getButtonStyle = () => ({
+  position: 'absolute',
+  bottom: parseInt(spacing.tiny, 10),
+  right: 47,
+  zIndex: 1,
+});
+
 class ShareButton extends React.Component {
   onPress = () => {
     const { hid, t, dispatchCopyLink } = this.props;
     shareHike(hid, dispatchCopyLink, t);
   };
-
-  getButtonStyle = () => ({
-    position: 'absolute',
-    bottom: parseInt(spacing.tiny, 10),
-    right: 47,
-    zIndex: 1,
-  });
 
   renderIcon = () => {
     const { iconSize, iconColor, iconName } = this.props;
@@ -56,7 +56,7 @@ class ShareButton extends React.Component {
       <TouchableOpacity
         activeOpacity={opacities.regular}
         onPress={this.onPress}
-        style={this.getButtonStyle()}
+        style={getButtonStyle()}
       >
         {this.renderIcon()}
       </TouchableOpacity>

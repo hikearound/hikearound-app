@@ -30,6 +30,8 @@ const propTypes = {
   pointerEvents: PropTypes.string,
 };
 
+const onMapReady = () => {};
+
 class HikeMap extends React.Component {
   constructor(props) {
     super(props);
@@ -41,8 +43,6 @@ class HikeMap extends React.Component {
       position: {},
     };
   }
-
-  onMapReady = () => {};
 
   mapPress = e => {
     const { position } = e.nativeEvent;
@@ -107,7 +107,7 @@ class HikeMap extends React.Component {
           showsPointsOfInterest={false}
           showsCompass={false}
           maxZoomLevel={maxZoom}
-          onMapReady={this.onMapReady}
+          onMapReady={onMapReady}
           loadingIndicatorColor={theme.colors.loadingSpinner}
           loadingBackgroundColor={theme.colors.mapViewBackground}
           onPress={this.mapPress}
@@ -150,7 +150,7 @@ class HikeMap extends React.Component {
         return <View pointerEvents='none'>{mapElement}</View>;
       }
 
-      return <>{mapElement}</>;
+      return mapElement;
     }
     return <EmptyMapView fullHeight={fullHeight} mapHeight={mapHeight} />;
   }

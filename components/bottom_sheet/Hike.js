@@ -29,28 +29,30 @@ const defaultProps = {
   onClose: null,
 };
 
-const CustomBackground = ({ style, mapRef, sheetRef, theme }) => (
-  <>
-    <View
-      style={[
-        style,
-        {
-          backgroundColor: theme?.colors?.sheetBackground,
-          borderTopLeftRadius: 8,
-          borderTopRightRadius: 8,
-        },
-      ]}
-    />
-    <View style={{ position: 'absolute', top: -13, right: 5 }}>
-      <LocationButton
-        mapRef={mapRef}
-        sheetRef={sheetRef}
-        animationConfig={animationConfig}
-        bottomOffset={0}
+function CustomBackground({ style, mapRef, sheetRef, theme }) {
+  return (
+    <>
+      <View
+        style={[
+          style,
+          {
+            backgroundColor: theme?.colors?.sheetBackground,
+            borderTopLeftRadius: 8,
+            borderTopRightRadius: 8,
+          },
+        ]}
       />
-    </View>
-  </>
-);
+      <View style={{ position: 'absolute', top: -13, right: 5 }}>
+        <LocationButton
+          mapRef={mapRef}
+          sheetRef={sheetRef}
+          animationConfig={animationConfig}
+          bottomOffset={0}
+        />
+      </View>
+    </>
+  );
+}
 
 CustomBackground.propTypes = {
   style: PropTypes.object,
@@ -64,6 +66,18 @@ CustomBackground.defaultProps = {
 };
 
 class HikeSheet extends React.Component {
+  renderBackground = backgroundProps => {
+    const { mapRef, sheetRef, theme } = this.props;
+    return (
+      <CustomBackground
+        {...backgroundProps}
+        mapRef={mapRef}
+        sheetRef={sheetRef}
+        theme={theme}
+      />
+    );
+  };
+
   renderContent = () => {
     const { selectedHike, sheetData } = this.props;
 
@@ -120,7 +134,7 @@ class HikeSheet extends React.Component {
   };
 
   render() {
-    const { sheetRef, theme, mapRef } = this.props;
+    const { sheetRef, theme } = this.props;
 
     return (
       <BottomSheet
@@ -140,14 +154,7 @@ class HikeSheet extends React.Component {
           backgroundColor: theme?.colors?.sheetHandle || '#999',
           marginTop: 6,
         }}
-        backgroundComponent={props => (
-          <CustomBackground
-            {...props}
-            mapRef={mapRef}
-            sheetRef={sheetRef}
-            theme={theme}
-          />
-        )}
+        backgroundComponent={this.renderBackground}
       >
         <BottomSheetView style={{ marginTop: -8 }}>
           {this.renderContent()}

@@ -27,9 +27,9 @@ class PushItem extends React.Component {
     };
   }
 
-  componentDidMount = async () => {
+  componentDidMount() {
     this.maybeDisableInputs();
-  };
+  }
 
   maybeDisableInputs = async () => {
     const user = auth.currentUser;

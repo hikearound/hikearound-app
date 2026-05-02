@@ -43,10 +43,6 @@ class AppleAuthButton extends React.Component {
     return AppleAuthentication.AppleAuthenticationButtonType[type];
   };
 
-  logEvent = () => {
-    logEvent('sign_in', {});
-  };
-
   setNextScreen = async () => {
     const { type } = this.props;
     const { status } = await Location.getForegroundPermissionsAsync();
@@ -92,7 +88,7 @@ class AppleAuthButton extends React.Component {
   };
 
   signInSuccessful = async () => {
-    await this.logEvent();
+    logEvent('sign_in', {});
     await this.navigateToNextScreen();
   };
 

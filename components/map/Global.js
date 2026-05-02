@@ -148,11 +148,6 @@ class GlobalMap extends React.Component {
     );
   };
 
-  setInitialMarkers = () => {
-    const { markers } = this.props;
-    this.setState({ visibleMarkers: markers });
-  };
-
   maybeAddMarkers = async () => {
     const { region, visibleMarkers } = this.state;
 
@@ -311,36 +306,34 @@ class GlobalMap extends React.Component {
       const filteredMarkers = filterMarkers(region, visibleMarkers);
 
       return (
-        <>
-          <MapView
-            ref={mapRef}
-            style={{ height: '100%', zIndex: -1 }}
-            initialRegion={region}
-            showsUserLocation
-            showsMyLocationButton
-            showsScale
-            showsPointsOfInterest={false}
-            showsCompass={false}
-            onRegionChange={this.onRegionChange}
-            onRegionChangeComplete={this.onRegionChangeComplete}
-            loadingBackgroundColor={theme.colors.mapViewBackground}
-            onPress={this.onPress}
-            mapPadding={mapPadding}
-          >
-            {filteredMarkers &&
-              filteredMarkers.markers.map((marker, index) =>
-                this.renderMarker(marker, filteredMarkers.cluster, index)
-              )}
-            {routeCoordinates && routeCoordinates.length > 0 && (
-              <Polyline
-                coordinates={routeCoordinates}
-                strokeColor='#8A2BE2'
-                strokeWidth={2}
-                strokePattern={[]}
-              />
+        <MapView
+          ref={mapRef}
+          style={{ height: '100%', zIndex: -1 }}
+          initialRegion={region}
+          showsUserLocation
+          showsMyLocationButton
+          showsScale
+          showsPointsOfInterest={false}
+          showsCompass={false}
+          onRegionChange={this.onRegionChange}
+          onRegionChangeComplete={this.onRegionChangeComplete}
+          loadingBackgroundColor={theme.colors.mapViewBackground}
+          onPress={this.onPress}
+          mapPadding={mapPadding}
+        >
+          {filteredMarkers &&
+            filteredMarkers.markers.map((marker, index) =>
+              this.renderMarker(marker, filteredMarkers.cluster, index)
             )}
-          </MapView>
-        </>
+          {routeCoordinates && routeCoordinates.length > 0 && (
+            <Polyline
+              coordinates={routeCoordinates}
+              strokeColor='#8A2BE2'
+              strokeWidth={2}
+              strokePattern={[]}
+            />
+          )}
+        </MapView>
       );
     }
 

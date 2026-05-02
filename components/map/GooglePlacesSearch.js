@@ -13,11 +13,20 @@ import Constants from 'expo-constants';
 import { withTheme } from '@utils/Themes';
 import { getMapSearchStyle } from '@styles/Map';
 
-const GooglePlacesSearch = ({ theme, onPress, placeholder }) => {
+const buildItemSeparator = styles =>
+  function ItemSeparator() {
+    return <View style={styles.separator} />;
+  };
+
+function GooglePlacesSearch({ theme, onPress, placeholder }) {
   const [searchText, setSearchText] = useState('');
   const [predictions, setPredictions] = useState([]);
   const styles = getMapSearchStyle(theme);
   const inputRef = useRef(null);
+  const ItemSeparator = React.useMemo(
+    () => buildItemSeparator(styles),
+    [styles]
+  );
 
   const clearSearch = () => {
     setSearchText('');
@@ -118,12 +127,12 @@ const GooglePlacesSearch = ({ theme, onPress, placeholder }) => {
               <Text style={styles.description}>{item.description}</Text>
             </TouchableOpacity>
           )}
-          ItemSeparatorComponent={() => <View style={styles.separator} />}
+          ItemSeparatorComponent={ItemSeparator}
         />
       )}
     </View>
   );
-};
+}
 
 GooglePlacesSearch.propTypes = {
   theme: PropTypes.object.isRequired,

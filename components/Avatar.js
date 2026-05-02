@@ -29,6 +29,30 @@ function mapStateToProps() {
   return {};
 }
 
+const cameraGradientOverlay = size => (
+  <View
+    style={{
+      position: 'absolute',
+      backgroundColor: transparentColors.grayDark,
+      height: size,
+      width: size,
+      borderRadius: size / 2,
+    }}
+  >
+    <Ionicons
+      name='ios-camera'
+      color={transparentColors.white}
+      size={30}
+      style={{
+        position: 'absolute',
+        zIndex: 2,
+        top: 12,
+        left: 15,
+      }}
+    />
+  </View>
+);
+
 function mapDispatchToProps(dispatch) {
   return {
     dispatchAvatar: photoData => dispatch(updateAvatar(photoData)),
@@ -110,30 +134,6 @@ class Avatar extends React.Component {
     );
   };
 
-  cameraGradientOverlay = size => (
-    <View
-      style={{
-        position: 'absolute',
-        backgroundColor: transparentColors.grayDark,
-        height: size,
-        width: size,
-        borderRadius: size / 2,
-      }}
-    >
-      <Ionicons
-        name='ios-camera'
-        color={transparentColors.white}
-        size={30}
-        style={{
-          position: 'absolute',
-          zIndex: 2,
-          top: 12,
-          left: 15,
-        }}
-      />
-    </View>
-  );
-
   renderEditableAvatar = () => {
     const { size } = this.props;
 
@@ -143,7 +143,7 @@ class Avatar extends React.Component {
         activeOpacity={opacities.regular}
       >
         {this.renderAvatar()}
-        {this.cameraGradientOverlay(size)}
+        {cameraGradientOverlay(size)}
       </TouchableOpacity>
     );
   };

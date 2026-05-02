@@ -13,21 +13,23 @@ const defaultProps = {
   height: 140,
 };
 
-const FeedCardGradient = ({ imageDidLoad, height }) => (
-  <LinearGradient
-    colors={[transparentColors.grayDarker, 'transparent']}
-    start={{ x: 1, y: 1 }}
-    end={{ x: 1, y: 0 }}
-    style={{
-      position: 'absolute',
-      left: 0,
-      right: 0,
-      bottom: 0,
-      height: imageDidLoad ? height : 0,
-      borderRadius: borderRadius.medium,
-    }}
-  />
-);
+function FeedCardGradient({ imageDidLoad, height }) {
+  return (
+    <LinearGradient
+      colors={[transparentColors.grayDarker, 'transparent']}
+      start={{ x: 1, y: 1 }}
+      end={{ x: 1, y: 0 }}
+      style={{
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        bottom: 0,
+        height: imageDidLoad ? height : 0,
+        borderRadius: borderRadius.medium,
+      }}
+    />
+  );
+}
 
 FeedCardGradient.propTypes = propTypes;
 FeedCardGradient.defaultProps = defaultProps;

@@ -5,7 +5,7 @@ import { openReviewScreen } from '@utils/Review';
 import { getUserData } from '@utils/User';
 
 export function getHikeIdFromUrl(url) {
-  const re = new RegExp('/hike/(.*)');
+  const re = /\/hike\/(.*)/;
   const hid = re.exec(url);
   if (hid) {
     return hid[1];

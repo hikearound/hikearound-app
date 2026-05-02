@@ -78,17 +78,33 @@ const scrollRef = React.createRef();
 const notificationResponseReceivedRef = React.createRef();
 const notificationReceivedRef = React.createRef();
 
+function HeaderTitle() {
+  return <Logo scrollRef={scrollRef} />;
+}
+
+function HeaderRight() {
+  return <HomeActions />;
+}
+
+function HomeOverlays() {
+  return (
+    <>
+      <SetBarStyle barStyle='light-content' />
+      <FilterModal />
+    </>
+  );
+}
+
 class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
     const { navigation } = this.props;
 
     this.state = defaultState;
-    this.mapRef = React.createRef();
 
     navigation.setOptions({
-      headerTitle: () => <Logo scrollRef={scrollRef} />,
-      headerRight: () => <HomeActions />,
+      headerTitle: HeaderTitle,
+      headerRight: HeaderRight,
     });
   }
 
@@ -236,7 +252,7 @@ class HomeScreen extends React.Component {
   onRefresh = async () => {
     await this.setState({ loading: true });
 
-    this.timeout = setTimeout(() => {
+    setTimeout(() => {
       this.getNearbyHikes();
     }, timings.medium);
   };
@@ -326,17 +342,10 @@ class HomeScreen extends React.Component {
     return !firstLoad && promotion.shouldShow && <Promotion />;
   };
 
-  renderOther = () => (
-    <>
-      <SetBarStyle barStyle='light-content' />
-      <FilterModal />
-    </>
-  );
-
   render() {
     return (
       <RootView>
-        {this.renderOther()}
+        <HomeOverlays />
         {this.maybeRenderPromotion()}
         {this.renderHome()}
       </RootView>

@@ -16,11 +16,13 @@ const defaultProps = {
   size: 26,
 };
 
-const Back = ({ name, color, size }) => (
-  <View>
-    <Ionicons name={name} size={size} color={color} />
-  </View>
-);
+function Back({ name, color, size }) {
+  return (
+    <View>
+      <Ionicons name={name} size={size} color={color} />
+    </View>
+  );
+}
 
 Back.propTypes = propTypes;
 Back.defaultProps = defaultProps;

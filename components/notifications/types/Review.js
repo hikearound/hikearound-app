@@ -24,6 +24,30 @@ const propTypes = {
   capitalizeTimestamp: PropTypes.bool.isRequired,
 };
 
+const renderIcon = sender => <Avatar avatar={sender.photoURL} size={40} />;
+
+const renderTitle = (t, sender) => (
+  <Title>
+    {t('notifications.reviewLike.title', {
+      name: sender.name,
+    })}
+  </Title>
+);
+
+const renderSubtitle = (t, hike) => (
+  <Subtitle>
+    {t('notifications.reviewLike.subtitle', {
+      name: hike.name,
+      city: hike.city,
+      state: hike.state,
+    })}
+  </Subtitle>
+);
+
+const renderTimestamp = (createdOn, capitalizeTimestamp) => (
+  <Timestamp capitalize={capitalizeTimestamp}>{createdOn}</Timestamp>
+);
+
 class ReviewLikeNotification extends React.Component {
   onPress = async () => {
     const { rid, nid, navigation, t } = this.props;
@@ -31,30 +55,6 @@ class ReviewLikeNotification extends React.Component {
     openReviewScreen(rid, navigation, t, {});
     markNotificationAsRead(nid);
   };
-
-  renderIcon = sender => <Avatar avatar={sender.photoURL} size={40} />;
-
-  renderTitle = (t, sender) => (
-    <Title>
-      {t('notifications.reviewLike.title', {
-        name: sender.name,
-      })}
-    </Title>
-  );
-
-  renderSubtitle = (t, hike) => (
-    <Subtitle>
-      {t('notifications.reviewLike.subtitle', {
-        name: hike.name,
-        city: hike.city,
-        state: hike.state,
-      })}
-    </Subtitle>
-  );
-
-  renderTimestamp = (createdOn, capitalizeTimestamp) => (
-    <Timestamp capitalize={capitalizeTimestamp}>{createdOn}</Timestamp>
-  );
 
   render() {
     const { t, sender, hike, createdOn, capitalizeTimestamp } = this.props;
@@ -65,11 +65,11 @@ class ReviewLikeNotification extends React.Component {
         onPress={this.onPress}
       >
         <NotificationWrapper>
-          {this.renderIcon(sender)}
+          {renderIcon(sender)}
           <NotificationBody>
-            {this.renderTitle(t, sender)}
-            {this.renderSubtitle(t, hike)}
-            {this.renderTimestamp(createdOn, capitalizeTimestamp)}
+            {renderTitle(t, sender)}
+            {renderSubtitle(t, hike)}
+            {renderTimestamp(createdOn, capitalizeTimestamp)}
           </NotificationBody>
         </NotificationWrapper>
       </TouchableOpacity>

@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
 import ReadMore from 'react-native-read-more-text';
 import { showModal, setReviewData, setFlaggedReview } from '@actions/Modal';
-import { deleteReviewData } from '@actions/Review';
 import Avatar from '@components/Avatar';
 import Stars from '@components/Stars';
 import LikeButton from '@components/LikeButton';
@@ -31,12 +30,10 @@ import { timestamps } from '@constants/Index';
 const propTypes = {
   dispatchModalFlag: PropTypes.func.isRequired,
   dispatchReviewData: PropTypes.func.isRequired,
-  dispatchDeleteReview: PropTypes.func.isRequired,
   dispatchFlaggedReview: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
   rating: PropTypes.number.isRequired,
   rid: PropTypes.string.isRequired,
-  hid: PropTypes.string.isRequired,
   review: PropTypes.string.isRequired,
   savedOn: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
   numberOfLines: PropTypes.number,
@@ -63,12 +60,21 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatchDeleteReview: reviewData => dispatch(deleteReviewData(reviewData)),
     dispatchFlaggedReview: reviewData => dispatch(setFlaggedReview(reviewData)),
     dispatchModalFlag: modalType => dispatch(showModal(modalType)),
     dispatchReviewData: reviewData => dispatch(setReviewData(reviewData)),
   };
 }
+
+const buildDate = date => {
+  let resolvedDate = date;
+  if (resolvedDate.toDate) {
+    resolvedDate = resolvedDate.toDate();
+  }
+  return new Date(resolvedDate);
+};
+
+const renderRevealedFooter = () => null;
 
 class ReviewListItem extends React.Component {
   constructor(props) {
@@ -119,24 +125,11 @@ class ReviewListItem extends React.Component {
     );
   };
 
-  deleteReview = () => {
-    const { dispatchDeleteReview, rid, hid } = this.props;
-    dispatchDeleteReview({ rid, hid });
-  };
-
-  buildDate = date => {
-    if (date.toDate) {
-      date = date.toDate();
-    }
-
-    return new Date(date);
-  };
-
   setTimestamp = () => {
     const { savedOn } = this.props;
 
     const moment = getLocalizedMoment();
-    const date = this.buildDate(savedOn);
+    const date = buildDate(savedOn);
 
     this.setState({
       timestamp: moment(date).format(timestamps.standard),
@@ -182,8 +175,6 @@ class ReviewListItem extends React.Component {
     return null;
   };
 
-  renderRevealedFooter = () => null;
-
   maybeTruncateReview = () => {
     const { truncationLimit } = this.props;
     const { review } = this.state;
@@ -222,7 +213,7 @@ class ReviewListItem extends React.Component {
           <ReadMore
             numberOfLines={numberOfLines}
             renderTruncatedFooter={this.renderTruncatedFooter}
-            renderRevealedFooter={this.renderRevealedFooter}
+            renderRevealedFooter={renderRevealedFooter}
           >
             <Review>{review}</Review>
           </ReadMore>

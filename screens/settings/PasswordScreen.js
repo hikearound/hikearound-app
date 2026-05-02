@@ -40,7 +40,7 @@ class PasswordScreen extends React.Component {
     this.setNavigationOptions();
   }
 
-  componentDidMount = async () => {
+  componentDidMount() {
     const { disabled } = this.state;
 
     if (!disabled) {
@@ -48,7 +48,7 @@ class PasswordScreen extends React.Component {
         this.currentPasswordInput.focus();
       }, timings.mediumShort);
     }
-  };
+  }
 
   async setValue(name, text) {
     await this.setState({ [name]: text });

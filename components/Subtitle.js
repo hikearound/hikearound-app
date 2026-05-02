@@ -12,11 +12,13 @@ const defaultProps = {
   hideBorder: false,
 };
 
-const Subtitle = ({ text, hideBorder }) => (
-  <SubtitleView hideBorder={hideBorder}>
-    <SubtitleText>{text}</SubtitleText>
-  </SubtitleView>
-);
+function Subtitle({ text, hideBorder }) {
+  return (
+    <SubtitleView hideBorder={hideBorder}>
+      <SubtitleText>{text}</SubtitleText>
+    </SubtitleView>
+  );
+}
 
 Subtitle.propTypes = propTypes;
 Subtitle.defaultProps = defaultProps;

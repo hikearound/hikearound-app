@@ -28,6 +28,10 @@ function mapStateToProps() {
   return {};
 }
 
+const renderSectionHeader = ({ section }) => (
+  <SectionHeader>{section.title}</SectionHeader>
+);
+
 class SettingsScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -71,10 +75,6 @@ class SettingsScreen extends React.Component {
     return null;
   };
 
-  renderSectionHeader = ({ section }) => (
-    <SectionHeader>{section.title}</SectionHeader>
-  );
-
   render() {
     const { settingsData } = this.state;
     const { itemsPerBatch } = this.props;
@@ -87,7 +87,7 @@ class SettingsScreen extends React.Component {
             <SectionList
               extraData={this.state}
               renderItem={this.renderItem}
-              renderSectionHeader={this.renderSectionHeader}
+              renderSectionHeader={renderSectionHeader}
               sections={settingsData}
               keyExtractor={(item, index) => item + index}
               initialNumToRender={itemsPerBatch}

@@ -1,6 +1,7 @@
 import { notificationState } from '@constants/Reducers';
 
-export default function notificationReducer(state = notificationState, action) {
+export default function notificationReducer(inputState, action) {
+  const state = inputState ?? notificationState;
   switch (action.type) {
     case 'INITIALIZE_NOTIFICATION_DATA':
       return {

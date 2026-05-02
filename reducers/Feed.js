@@ -1,6 +1,7 @@
 import { feedState } from '@constants/Reducers';
 
-export default function feedReducer(state = feedState, action) {
+export default function feedReducer(inputState, action) {
+  const state = inputState ?? feedState;
   switch (action.type) {
     case 'FILTER_FEED':
       return {

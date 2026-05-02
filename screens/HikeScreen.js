@@ -7,18 +7,14 @@ import { hikeActionSheet } from '@components/action_sheets/Hike';
 import ReviewModal from '@components/modal/ReviewModal';
 import FlagModal from '@components/modal/FlagModal';
 import { getHikeXmlUrl, parseHikeXml } from '@utils/Hike';
-import { copyLink } from '@actions/Hike';
 import { RootView } from '@styles/Screens';
 import { withTheme, SetBarStyle } from '@utils/Themes';
-import { getDrivingDirections } from '@utils/Map';
 import { latModifier } from '@constants/Common';
 import { truncateText } from '@utils/Text';
-import { shareHike } from '@utils/Share';
 import { timings } from '@constants/Index';
 import Title from '@components/header/Title';
 
 const propTypes = {
-  dispatchCopyLink: PropTypes.func.isRequired,
   selectedHike: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
@@ -35,11 +31,15 @@ function mapStateToProps(state) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatchCopyLink: () => dispatch(copyLink()),
+const buildHeaderTitle = title =>
+  function HeaderTitle() {
+    return <Title title={title} scrollRef={scrollRef} />;
   };
-}
+
+const buildHeaderRight = onPress =>
+  function HeaderRight() {
+    return <Overflow onPress={onPress} />;
+  };
 
 class HikeScreen extends React.Component {
   constructor(props, context) {
@@ -61,8 +61,8 @@ class HikeScreen extends React.Component {
     this.setSelectedStars = this.setSelectedStars.bind(this);
 
     navigation.setOptions({
-      headerTitle: () => <Title title={title} scrollRef={scrollRef} />,
-      headerRight: () => <Overflow onPress={this.showHikeSheet} />,
+      headerTitle: buildHeaderTitle(title),
+      headerRight: buildHeaderRight(this.showHikeSheet),
     });
   }
 
@@ -119,21 +119,6 @@ class HikeScreen extends React.Component {
 
     this.setHikeData(hikeData);
     this.plotCoordinates(hikeData);
-  };
-
-  getDirections = async () => {
-    const { route } = this.props;
-    const { hike } = route.params;
-    const { lat, lng } = hike.coordinates.starting;
-
-    getDrivingDirections(lat, lng, hike.name);
-  };
-
-  shareHike = async () => {
-    const { hid } = this.state;
-    const { t, dispatchCopyLink } = this.props;
-
-    shareHike(hid, dispatchCopyLink, t);
   };
 
   buildElevationArray = elevationData => {
@@ -202,9 +187,6 @@ class HikeScreen extends React.Component {
           setSelectedStars={this.setSelectedStars}
         />
         <MapModal
-          mapRef={ref => {
-            this.mapView = ref;
-          }}
           hid={hid}
           selectedHike={selectedHike}
           coordinates={polyCoordinates}
@@ -223,7 +205,6 @@ class HikeScreen extends React.Component {
 HikeScreen.propTypes = propTypes;
 HikeScreen.defaultProps = defaultProps;
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withTranslation()(withTheme(HikeScreen)));
+export default connect(mapStateToProps)(
+  withTranslation()(withTheme(HikeScreen))
+);

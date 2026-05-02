@@ -37,6 +37,16 @@ function mapDispatchToProps() {
   return {};
 }
 
+const renderModalHeader = t => (
+  <ModalHeader
+    title={t('modal.reset.title')}
+    continueAction='resetPassword'
+    continueText={t('label.modal.send')}
+  />
+);
+
+const renderHelpText = t => <SubText>{t('modal.reset.help')}</SubText>;
+
 class ResetPasswordModal extends React.Component {
   constructor(props, context) {
     super(props, context);
@@ -64,16 +74,6 @@ class ResetPasswordModal extends React.Component {
   setValue(name, text) {
     this.setState({ [name]: text });
   }
-
-  renderModalHeader = t => (
-    <ModalHeader
-      title={t('modal.reset.title')}
-      continueAction='resetPassword'
-      continueText={t('label.modal.send')}
-    />
-  );
-
-  renderHelpText = t => <SubText>{t('modal.reset.help')}</SubText>;
 
   assignRef = (ref, name) => {
     this[`${name}Input`] = ref;
@@ -142,7 +142,7 @@ class ResetPasswordModal extends React.Component {
           />
         )
       )}
-      {this.renderHelpText(t)}
+      {renderHelpText(t)}
     </ModalBody>
   );
 
@@ -157,7 +157,7 @@ class ResetPasswordModal extends React.Component {
         visible={modalVisible}
       >
         <RootView>
-          {this.renderModalHeader(t)}
+          {renderModalHeader(t)}
           {this.renderModalBody(inputs, t)}
         </RootView>
       </Modal>

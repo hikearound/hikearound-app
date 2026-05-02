@@ -1,6 +1,7 @@
 import { userState } from '@constants/Reducers';
 
-export default function userReducer(state = userState, action) {
+export default function userReducer(inputState, action) {
+  const state = inputState ?? userState;
   switch (action.type) {
     case 'INITIALIZE_USER_DATA':
       return {

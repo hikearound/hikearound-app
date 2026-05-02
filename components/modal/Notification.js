@@ -44,6 +44,22 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
+const renderModalHeader = t => (
+  <PageSheetModalHeader showBottomBorder>
+    <PageSheetModalTitleText>
+      {t('modal.notification.title')}
+    </PageSheetModalTitleText>
+    <ModalDismiss isPageSheet textDismiss />
+  </PageSheetModalHeader>
+);
+
+const renderModalBody = t => (
+  <StyledModalBody>
+    <Explainer>{t('modal.notification.explainer')}</Explainer>
+    <NotificationSettingsScreen hideHeaders onlyPush />
+  </StyledModalBody>
+);
+
 class NotificationPreferenceModal extends React.Component {
   constructor(props, context) {
     super(props, context);
@@ -64,15 +80,6 @@ class NotificationPreferenceModal extends React.Component {
     toggleModalVisibility(prevProps, currentModal, modalType, functions);
   }
 
-  renderModalHeader = t => (
-    <PageSheetModalHeader showBottomBorder>
-      <PageSheetModalTitleText>
-        {t('modal.notification.title')}
-      </PageSheetModalTitleText>
-      <ModalDismiss isPageSheet textDismiss />
-    </PageSheetModalHeader>
-  );
-
   dispatchCloseAction = () => {
     const { dispatchModalFlag } = this.props;
     dispatchModalFlag('closenotificationPreferences');
@@ -87,13 +94,6 @@ class NotificationPreferenceModal extends React.Component {
     this.setState({ modalVisible: true });
   };
 
-  renderModalBody = t => (
-    <StyledModalBody>
-      <Explainer>{t('modal.notification.explainer')}</Explainer>
-      <NotificationSettingsScreen hideHeaders onlyPush />
-    </StyledModalBody>
-  );
-
   render() {
     const { modalVisible } = this.state;
     const { animationType, presentationStyle, t } = this.props;
@@ -105,8 +105,8 @@ class NotificationPreferenceModal extends React.Component {
         presentationStyle={presentationStyle}
       >
         <RootView>
-          {this.renderModalHeader(t)}
-          {this.renderModalBody(t)}
+          {renderModalHeader(t)}
+          {renderModalBody(t)}
         </RootView>
       </Modal>
     );

@@ -41,10 +41,6 @@ class SignInScreen extends React.Component {
     this.setState({ loading });
   };
 
-  logEvent = () => {
-    logEvent('sign_in', {});
-  };
-
   navigateToNextScreen = async () => {
     const { navigation } = this.props;
 
@@ -55,7 +51,7 @@ class SignInScreen extends React.Component {
   };
 
   signInSuccessful = () => {
-    this.logEvent();
+    logEvent('sign_in', {});
     this.navigateToNextScreen();
   };
 

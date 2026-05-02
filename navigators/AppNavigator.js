@@ -35,6 +35,22 @@ function mapDispatchToProps() {
 const routeNameRef = React.createRef();
 const navigationRef = React.createRef();
 
+const onNavigationStateChange = () => {
+  const previousRoute = routeNameRef.current;
+  const currentRoute = navigationRef.current.getCurrentRoute().name;
+
+  if (previousRoute !== currentRoute) {
+    setCurrentScreen(currentRoute);
+  }
+
+  routeNameRef.current = currentRoute;
+};
+
+const setRouteNameRef = () => {
+  routeNameRef.current = navigationRef.current.getCurrentRoute().name;
+  setCurrentScreen(routeNameRef.current);
+};
+
 class AppNavigator extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -50,22 +66,6 @@ class AppNavigator extends React.PureComponent {
     this.setState({
       searchState: { ...searchState, ...nextState },
     });
-  };
-
-  onNavigationStateChange = () => {
-    const previousRoute = routeNameRef.current;
-    const currentRoute = navigationRef.current.getCurrentRoute().name;
-
-    if (previousRoute !== currentRoute) {
-      setCurrentScreen(currentRoute);
-    }
-
-    routeNameRef.current = currentRoute;
-  };
-
-  setRouteNameRef = () => {
-    routeNameRef.current = navigationRef.current.getCurrentRoute().name;
-    setCurrentScreen(routeNameRef.current);
   };
 
   render() {
@@ -88,8 +88,8 @@ class AppNavigator extends React.PureComponent {
         >
           <NavigationContainer
             ref={navigationRef}
-            onReady={() => this.setRouteNameRef()}
-            onStateChange={() => this.onNavigationStateChange()}
+            onReady={setRouteNameRef}
+            onStateChange={onNavigationStateChange}
             theme={theme}
           >
             <ThemeProvider theme={theme.colors}>

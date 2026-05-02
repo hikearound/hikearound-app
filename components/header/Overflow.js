@@ -8,17 +8,19 @@ const propTypes = {
   onPress: PropTypes.func.isRequired,
 };
 
-const Overflow = ({ onPress }) => (
-  <TouchableOpacity
-    activeOpacity={opacities.regular}
-    style={{
-      marginRight: 12,
-    }}
-    onPress={onPress}
-  >
-    <Ionicons name='ios-ellipsis-horizontal' size={26} color={colors.white} />
-  </TouchableOpacity>
-);
+function Overflow({ onPress }) {
+  return (
+    <TouchableOpacity
+      activeOpacity={opacities.regular}
+      style={{
+        marginRight: 12,
+      }}
+      onPress={onPress}
+    >
+      <Ionicons name='ios-ellipsis-horizontal' size={26} color={colors.white} />
+    </TouchableOpacity>
+  );
+}
 
 Overflow.propTypes = propTypes;
 

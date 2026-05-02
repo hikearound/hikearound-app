@@ -15,28 +15,28 @@ const defaultProps = {
   highlightProperty: '_highlightResult',
 };
 
+const renderNameHighlight = highlights => (
+  <Text>
+    {highlights.map(({ value, isHighlighted }, index) => (
+      <HighlightedText key={index} showHighlight={isHighlighted}>
+        {value}
+      </HighlightedText>
+    ))}
+  </Text>
+);
+
+const renderLocationHighlight = (highlights, attribute) => (
+  <Text>
+    {attribute === 'state' && <HighlightedSubText>, </HighlightedSubText>}
+    {highlights.map(({ value, isHighlighted }, index) => (
+      <HighlightedSubText key={index} showHighlight={isHighlighted}>
+        {value}
+      </HighlightedSubText>
+    ))}
+  </Text>
+);
+
 class Highlight extends React.PureComponent {
-  renderNameHighlight = highlights => (
-    <Text>
-      {highlights.map(({ value, isHighlighted }, index) => (
-        <HighlightedText key={index} showHighlight={isHighlighted}>
-          {value}
-        </HighlightedText>
-      ))}
-    </Text>
-  );
-
-  renderLocationHighlight = (highlights, attribute) => (
-    <Text>
-      {attribute === 'state' && <HighlightedSubText>, </HighlightedSubText>}
-      {highlights.map(({ value, isHighlighted }, index) => (
-        <HighlightedSubText key={index} showHighlight={isHighlighted}>
-          {value}
-        </HighlightedSubText>
-      ))}
-    </Text>
-  );
-
   render() {
     const { attribute, hit, highlight, highlightProperty } = this.props;
 
@@ -47,10 +47,10 @@ class Highlight extends React.PureComponent {
     });
 
     if (attribute === 'city' || attribute === 'state') {
-      return this.renderLocationHighlight(highlights, attribute);
+      return renderLocationHighlight(highlights, attribute);
     }
 
-    return this.renderNameHighlight(highlights);
+    return renderNameHighlight(highlights);
   }
 }
 

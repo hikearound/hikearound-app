@@ -16,22 +16,22 @@ const defaultProps = {
   isLast: false,
 };
 
+const buildUrl = item => {
+  let itemUrl;
+
+  if (item.type === settingsItems.termsOfService) {
+    itemUrl = `${baseUrl}/terms`;
+  } else if (item.type === settingsItems.privacyPolicy) {
+    itemUrl = `${baseUrl}/privacy`;
+  }
+
+  return `${itemUrl}?contentOnly=true`;
+};
+
 class LinkItem extends React.Component {
   onPress = async () => {
     const { item } = this.props;
-    WebBrowser.openBrowserAsync(this.buildUrl(item));
-  };
-
-  buildUrl = item => {
-    let itemUrl;
-
-    if (item.type === settingsItems.termsOfService) {
-      itemUrl = `${baseUrl}/terms`;
-    } else if (item.type === settingsItems.privacyPolicy) {
-      itemUrl = `${baseUrl}/privacy`;
-    }
-
-    return `${itemUrl}?contentOnly=true`;
+    WebBrowser.openBrowserAsync(buildUrl(item));
   };
 
   render() {

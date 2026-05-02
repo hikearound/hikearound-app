@@ -37,6 +37,16 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
+const setNextScreen = async () => {
+  const { status } = await Location.getForegroundPermissionsAsync();
+
+  if (status === 'granted') {
+    return 'Home';
+  }
+
+  return 'LocationPermission';
+};
+
 class CreateAccountScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -53,16 +63,6 @@ class CreateAccountScreen extends React.Component {
     this.setState({ [name]: text });
   }
 
-  setNextScreen = async () => {
-    const { status } = await Location.getForegroundPermissionsAsync();
-
-    if (status === 'granted') {
-      return 'Home';
-    }
-
-    return 'LocationPermission';
-  };
-
   setLoading = loading => {
     Keyboard.dismiss();
     this.setState({ loading });
@@ -70,7 +70,7 @@ class CreateAccountScreen extends React.Component {
 
   navigateToNextScreen = async () => {
     const { navigation } = this.props;
-    const screen = await this.setNextScreen();
+    const screen = await setNextScreen();
 
     navigation.reset({
       index: 0,

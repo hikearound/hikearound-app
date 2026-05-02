@@ -12,6 +12,17 @@ const propTypes = {
   scrollRef: PropTypes.object.isRequired,
 };
 
+const renderEmptyList = () => null;
+
+const renderItem = ({ item }) => (
+  <HikeListItem
+    id={item.id}
+    name={item.name}
+    location={`${item.city}, ${item.state}`}
+    distance={item.distance}
+  />
+);
+
 class HikeList extends React.Component {
   renderListHeader = () => {
     const { t } = this.props;
@@ -23,17 +34,6 @@ class HikeList extends React.Component {
     );
   };
 
-  renderEmptyList = () => null;
-
-  renderItem = ({ item }) => (
-    <HikeListItem
-      id={item.id}
-      name={item.name}
-      location={`${item.city}, ${item.state}`}
-      distance={item.distance}
-    />
-  );
-
   render() {
     const { hikeData, scrollRef } = this.props;
     const extractKey = ({ id }) => id;
@@ -43,9 +43,9 @@ class HikeList extends React.Component {
         {hikeData && (
           <FlatList
             ref={scrollRef}
-            renderItem={this.renderItem}
+            renderItem={renderItem}
             ListHeaderComponent={this.renderListHeader}
-            ListEmptyComponent={this.renderEmptyList}
+            ListEmptyComponent={renderEmptyList}
             data={hikeData}
             extraData={hikeData}
             keyExtractor={extractKey}

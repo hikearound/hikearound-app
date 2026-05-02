@@ -1,6 +1,7 @@
 import { modalState } from '@constants/Reducers';
 
-export default function modalReducer(state = modalState, action) {
+export default function modalReducer(inputState, action) {
+  const state = inputState ?? modalState;
   switch (action.type) {
     case 'SHOW_MODAL':
       return {

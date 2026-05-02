@@ -7,13 +7,23 @@ import InfiniteHits from '@components/search/InfiniteHits';
 import { RootView } from '@styles/Screens';
 import { getScreenWidth } from '@utils/Screen';
 
+function HeaderTitle() {
+  return <SearchBox />;
+}
+
+const renderSearchResults = () => (
+  <StateResults>
+    <InfiniteHits />
+  </StateResults>
+);
+
 class SearchScreen extends React.Component {
   constructor(props) {
     super(props);
     const { navigation } = this.props;
 
     navigation.setOptions({
-      headerTitle: () => <SearchBox />,
+      headerTitle: HeaderTitle,
       headerTitleContainerStyle: {
         width: getScreenWidth(),
         left: -8,
@@ -21,19 +31,11 @@ class SearchScreen extends React.Component {
     });
   }
 
-  renderSearchBox = () => <SearchBox />;
-
-  renderSearchResults = () => (
-    <StateResults>
-      <InfiniteHits />
-    </StateResults>
-  );
-
   render() {
     return (
       <RootView>
         <SetBarStyle barStyle='light-content' />
-        {this.renderSearchResults()}
+        {renderSearchResults()}
       </RootView>
     );
   }

@@ -5,18 +5,27 @@ import LocationUpsell from '@components/LocationUpsell';
 import SkipLocation from '@components/header/SkipLocation';
 import { requestLocationPermission } from '@utils/Location';
 
+const buildHeaderRight = (t, openHomeScreen, permissionAction) =>
+  function HeaderRight() {
+    return (
+      <SkipLocation
+        t={t}
+        openHomeScreen={openHomeScreen}
+        permissionAction={permissionAction}
+      />
+    );
+  };
+
 class LocationPermissionScreen extends React.Component {
   constructor(props) {
     super(props);
     const { navigation, t } = this.props;
 
     navigation.setOptions({
-      headerRight: () => (
-        <SkipLocation
-          t={t}
-          openHomeScreen={this.openHomeScreen}
-          permissionAction={this.getLocationPermissions}
-        />
+      headerRight: buildHeaderRight(
+        t,
+        this.openHomeScreen,
+        this.getLocationPermissions
       ),
     });
   }

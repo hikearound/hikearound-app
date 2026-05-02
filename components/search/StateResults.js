@@ -44,8 +44,6 @@ class StateResults extends React.PureComponent {
     );
   };
 
-  renderResults = children => children;
-
   render() {
     const { searchState, searchResults, children } = this.props;
     const showEmptyState = searchState && !searchState.query;
@@ -56,7 +54,7 @@ class StateResults extends React.PureComponent {
     }
 
     if (showResults) {
-      return this.renderResults(children);
+      return children;
     }
 
     return this.renderNoResults();

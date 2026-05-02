@@ -28,15 +28,15 @@ function mapDispatchToProps() {
   return {};
 }
 
-class ExpandButton extends React.PureComponent {
-  onPress = () => {};
+const onPress = () => {};
 
+class ExpandButton extends React.PureComponent {
   render() {
     const { iconSize } = this.props;
     return (
       <TouchableOpacity
         activeOpacity={opacities.regular}
-        onPress={this.onPress}
+        onPress={onPress}
         style={{
           position: 'absolute',
           bottom: 55,

@@ -46,6 +46,22 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
+const buildHeaderTitle = title =>
+  function HeaderTitle() {
+    return <Title title={title} scrollRef={scrollRef} scrollType='flatList' />;
+  };
+
+const buildHeaderRight = onPress =>
+  function HeaderRight() {
+    return <Settings onPress={onPress} />;
+  };
+
+const renderEmptyState = () => <NotificationEmptyState />;
+
+const getNotificationPermissions = async () => {
+  await registerForPushNotifications();
+};
+
 class NotificationScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -60,21 +76,15 @@ class NotificationScreen extends React.Component {
     this.getAndSetNotifications = this.getAndSetNotifications.bind(this);
 
     navigation.setOptions({
-      headerTitle: () => (
-        <Title
-          title={t('label.nav.notifications')}
-          scrollRef={scrollRef}
-          scrollType='flatList'
-        />
-      ),
-      headerRight: () => <Settings onPress={this.onSettingsPress} />,
+      headerTitle: buildHeaderTitle(t('label.nav.notifications')),
+      headerRight: buildHeaderRight(this.onSettingsPress),
     });
   }
 
   async componentDidMount() {
     const { dispatchNotifBadgeCount, navigation } = this.props;
 
-    this.getNotificationPermissions();
+    getNotificationPermissions();
     this.unsubscribe = navigation.addListener('focus', () => {
       dispatchNotifBadgeCount();
     });
@@ -101,10 +111,6 @@ class NotificationScreen extends React.Component {
     dispatchModalFlag('notificationPreferences');
   };
 
-  getNotificationPermissions = async () => {
-    await registerForPushNotifications();
-  };
-
   getAndSetNotifications = async () => {
     const { t } = this.props;
     const notifications = await getUserNotifications(t);
@@ -118,12 +124,10 @@ class NotificationScreen extends React.Component {
   onRefresh = async () => {
     await this.setState({ loading: true });
 
-    this.timeout = setTimeout(() => {
+    setTimeout(() => {
       this.getAndSetNotifications();
     }, timings.medium);
   };
-
-  renderEmptyState = () => <NotificationEmptyState />;
 
   renderNotificationList = () => {
     const { notifications, loading } = this.state;
@@ -147,7 +151,7 @@ class NotificationScreen extends React.Component {
     const { notifications } = this.state;
 
     if (notifications.length === 0) {
-      return this.renderEmptyState();
+      return renderEmptyState();
     }
 
     return this.renderNotificationList();

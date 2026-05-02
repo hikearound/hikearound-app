@@ -23,6 +23,19 @@ const defaultProps = {
   shouldShowHeader: true,
 };
 
+const renderItem = ({ item }) => (
+  <ReviewListItem
+    id={item.id}
+    rid={item.id}
+    hid={item.hid}
+    user={item.user}
+    rating={item.rating}
+    review={item.review}
+    savedOn={item.savedOn}
+    userLikes={item.userLikes}
+  />
+);
+
 class ReviewList extends React.Component {
   renderListHeader = () => {
     const { t, shouldShowHeader } = this.props;
@@ -54,19 +67,6 @@ class ReviewList extends React.Component {
     return null;
   };
 
-  renderItem = ({ item }) => (
-    <ReviewListItem
-      id={item.id}
-      rid={item.id}
-      hid={item.hid}
-      user={item.user}
-      rating={item.rating}
-      review={item.review}
-      savedOn={item.savedOn}
-      userLikes={item.userLikes}
-    />
-  );
-
   render() {
     const { reviewData, reviewListRef } = this.props;
     const extractKey = ({ id }) => id;
@@ -75,7 +75,7 @@ class ReviewList extends React.Component {
       <View ref={reviewListRef}>
         {reviewData && (
           <FlatList
-            renderItem={this.renderItem}
+            renderItem={renderItem}
             ListHeaderComponent={this.renderListHeader}
             ListEmptyComponent={this.renderEmptyList}
             data={reviewData}

@@ -24,13 +24,15 @@ const defaultProps = {
   margin: '',
 };
 
-const LandingButton = ({ action, primary, margin, text }) => (
-  <TouchableOpacity activeOpacity={opacities.regular} onPress={action}>
-    <Button primary={primary} buttonMargin={margin}>
-      <ButtonText primary={primary}>{text}</ButtonText>
-    </Button>
-  </TouchableOpacity>
-);
+function LandingButton({ action, primary, margin, text }) {
+  return (
+    <TouchableOpacity activeOpacity={opacities.regular} onPress={action}>
+      <Button primary={primary} buttonMargin={margin}>
+        <ButtonText primary={primary}>{text}</ButtonText>
+      </Button>
+    </TouchableOpacity>
+  );
+}
 
 LandingButton.propTypes = propTypes;
 LandingButton.defaultProps = defaultProps;

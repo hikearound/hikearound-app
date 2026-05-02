@@ -43,9 +43,9 @@ class LikeButton extends React.Component {
     };
   }
 
-  componentDidMount = () => {
+  componentDidMount() {
     this.setInitialStyle();
-  };
+  }
 
   onPress = () => {
     this.toggleLike();

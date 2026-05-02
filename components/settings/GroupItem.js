@@ -44,21 +44,21 @@ class GroupItem extends React.PureComponent {
     };
   }
 
-  componentDidMount = async () => {
+  componentDidMount() {
     const { item, map } = this.props;
 
     if (item.type === settingsItems.map && item.name === map) {
       this.selectItem();
     }
-  };
+  }
 
-  componentDidUpdate = async () => {
+  componentDidUpdate() {
     const { item, map } = this.props;
 
     if (item.type === settingsItems.map && item.name !== map) {
       this.unselectItem();
     }
-  };
+  }
 
   itemPress = () => {
     const { item, map } = this.props;

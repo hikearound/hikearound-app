@@ -47,6 +47,12 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
+const renderLoading = () => (
+  <LoadingOverlay loading transparentBackground defaultColors={false} />
+);
+
+const renderIndicator = () => null;
+
 class LightboxModal extends React.Component {
   constructor(props, context) {
     super(props, context);
@@ -102,14 +108,8 @@ class LightboxModal extends React.Component {
               <ImageViewer
                 imageUrls={images}
                 index={imageIndex}
-                loadingRender={() => (
-                  <LoadingOverlay
-                    loading
-                    transparentBackground
-                    defaultColors={false}
-                  />
-                )}
-                renderIndicator={() => null}
+                loadingRender={renderLoading}
+                renderIndicator={renderIndicator}
                 enablePreload
                 enableSwipeDown
                 useNativeDriver

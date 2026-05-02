@@ -24,6 +24,24 @@ const propTypes = {
   capitalizeTimestamp: PropTypes.bool.isRequired,
 };
 
+const renderIcon = () => <Icon source={notifStar} />;
+
+const renderTitle = t => <Title>{t('notifications.digest.title')}</Title>;
+
+const renderSubtitle = (t, hike) => (
+  <Subtitle>
+    {t('notifications.digest.subtitle', {
+      name: hike.name,
+      city: hike.city,
+      state: hike.state,
+    })}
+  </Subtitle>
+);
+
+const renderTimestamp = (createdOn, capitalizeTimestamp) => (
+  <Timestamp capitalize={capitalizeTimestamp}>{createdOn}</Timestamp>
+);
+
 class DigestNotification extends React.Component {
   onPress = async () => {
     const { hid, nid, navigation } = this.props;
@@ -31,24 +49,6 @@ class DigestNotification extends React.Component {
     openHikeScreen(hid, navigation, {});
     markNotificationAsRead(nid);
   };
-
-  renderIcon = () => <Icon source={notifStar} />;
-
-  renderTitle = t => <Title>{t('notifications.digest.title')}</Title>;
-
-  renderSubtitle = (t, hike) => (
-    <Subtitle>
-      {t('notifications.digest.subtitle', {
-        name: hike.name,
-        city: hike.city,
-        state: hike.state,
-      })}
-    </Subtitle>
-  );
-
-  renderTimestamp = (createdOn, capitalizeTimestamp) => (
-    <Timestamp capitalize={capitalizeTimestamp}>{createdOn}</Timestamp>
-  );
 
   render() {
     const { t, hike, createdOn, capitalizeTimestamp } = this.props;
@@ -59,11 +59,11 @@ class DigestNotification extends React.Component {
         onPress={this.onPress}
       >
         <NotificationWrapper>
-          {this.renderIcon()}
+          {renderIcon()}
           <NotificationBody>
-            {this.renderTitle(t)}
-            {this.renderSubtitle(t, hike)}
-            {this.renderTimestamp(createdOn, capitalizeTimestamp)}
+            {renderTitle(t)}
+            {renderSubtitle(t, hike)}
+            {renderTimestamp(createdOn, capitalizeTimestamp)}
           </NotificationBody>
         </NotificationWrapper>
       </TouchableOpacity>

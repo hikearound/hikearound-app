@@ -15,23 +15,23 @@ const defaultProps = {
   type: 'browser',
 };
 
+const handleOpenWithLinking = url => {
+  Linking.openURL(url);
+};
+
+const handleOpenWithWebBrowser = url => {
+  WebBrowser.openBrowserAsync(url);
+};
+
 class TextLink extends React.PureComponent {
   handlePress = () => {
     const { type, url } = this.props;
 
     if (type === 'browser') {
-      this.handleOpenWithWebBrowser(url);
+      handleOpenWithWebBrowser(url);
     } else {
-      this.handleOpenWithLinking(url);
+      handleOpenWithLinking(url);
     }
-  };
-
-  handleOpenWithLinking = url => {
-    Linking.openURL(url);
-  };
-
-  handleOpenWithWebBrowser = url => {
-    WebBrowser.openBrowserAsync(url);
   };
 
   render() {
