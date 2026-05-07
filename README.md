@@ -32,7 +32,7 @@ A React Native iOS app for discovering, saving, and sharing great local hikes.
 
 - macOS (this is an iOS-only project — no Android target)
 - Xcode (latest stable; the repo currently builds against Xcode 26 / iOS 26 SDK)
-- Node.js v18 or later (see `.nvmrc` for the pinned version)
+- Node.js v22 or later (see `.nvmrc` for the pinned version)
 - CocoaPods (`sudo gem install cocoapods` or via Homebrew)
 - Apple ID signed into the iOS Simulator (required for Apple Sign-In)
 
