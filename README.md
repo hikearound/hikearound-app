@@ -5,17 +5,7 @@
 [![Expo](https://img.shields.io/badge/Expo-51-000020?logo=expo&logoColor=white)](https://expo.dev)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow?logo=opensourceinitiative&logoColor=white)](LICENSE)
 
-A React Native iOS app for discovering, saving, and sharing great local hikes.
-
-## Features
-
-- Interactive map with trail locations and details
-- Location-based hike recommendations
-- Trail elevation chart with synced position marker on the map
-- User reviews and ratings
-- Favorites list
-- Dark mode support
-- Multi-language support (English and Spanish)
+A React Native iOS app for discovering, saving, and sharing great local hikes. Browse trails on an interactive map, get location-based recommendations, and read user reviews. Includes elevation charts synced to a position marker, favorites, dark mode, and English/Spanish localization.
 
 ## Stack
 
