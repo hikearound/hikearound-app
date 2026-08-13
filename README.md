@@ -1,9 +1,7 @@
-# Hikearound
+# hikearound-app
 
-[![CI](https://github.com/hikearound/hikearound-app/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/hikearound/hikearound-app/actions/workflows/ci.yml)
-[![React Native](https://img.shields.io/badge/React_Native-0.74-61DAFB?logo=react&logoColor=white)](https://reactnative.dev)
-[![Expo](https://img.shields.io/badge/Expo-51-000020?logo=expo&logoColor=white)](https://expo.dev)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow?logo=opensourceinitiative&logoColor=white)](LICENSE)
+[![CI](https://github.com/hikearound/hikearound-app/actions/workflows/ci.yml/badge.svg?branch=master&event=push)](https://github.com/hikearound/hikearound-app/actions/workflows/ci.yml)
+[![License](https://img.shields.io/github/license/hikearound/hikearound-app)](LICENSE)
 
 A React Native iOS app for discovering, saving, and sharing great local hikes. Browse trails on an interactive map, get location-based recommendations, and read user reviews. Includes elevation charts synced to a position marker, favorites, dark mode, and English/Spanish localization.
 
